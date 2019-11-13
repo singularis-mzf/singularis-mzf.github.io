@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="cs">
+<head profile="http://www.w3.org/2005/10/profile">
+<meta charset="UTF-8">
+<title>Docker − Linux: Kniha kouzel</title>
+<link rel="stylesheet" type="text/css" href="lkk.css">
+<link rel="icon" type="image/png" href="obrazky/favicon.png">
+</head>
+<body>
+<header>
+<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.0</span>
+<span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
+</header>
+<nav class="horni">
+<div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+<span class="prev">
+<a href="markdown.htm" rel="prev" title="6. Markdown">Předchozí&nbsp;kapitola</a>&nbsp;|
+</span><a href="index.htm">Přehled</a><span class="next"><!--
+-->&nbsp;| <a href="make.htm" rel="next" title="8. GNU make">Následující&nbsp;kapitola</a>
+</span>
+<div class="rozcestnikkapitol"><a href="#cast1" class="cast">Úvod</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast2" class="cast">Definice</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3" class="cast">Zaklínadla (docker)</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast4" class="cast">Zaklínadla (Dockerfile)</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast5" class="cast">Parametry příkazů</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast6" class="cast">Instalace na Ubuntu</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast7" class="cast">Ukázka</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast8" class="cast">Tipy a zkušenosti</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast9" class="cast">Jak získat nápovědu</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast10" class="cast">Odkazy</a><span class="oddelovac">&nbsp;|</span>
+</div>
+</nav>
+<article>
+<h1>7. Docker</h1>
+
+<h2 id="cast1"><span class="cislo">1.</span> Úvod</h2>
+<p class="ponadpisu">
+Docker je nástroj pro odlehčenou virtualizaci formou takzvaných kontejnerů. Kontejner obsahuje vlastní podstrom procesů, který je izolovaný od zbytku systému (má vlastní souborový systém, konfiguraci, knihovny, démony, síťové rozhraní a IP adresu), ale sdílí s ním jádro a výpočetní prostředky. To umožňuje bezpečný a snadno přenositelný běh programů určených pro jiné distribuce (můžete např. na Fedoře spouštět program ze staré verze Debianu apod.).
+</p><p>
+Použití Dockeru obecně probíhá tak, že napíšete vlastní Dockerfile, z něj sestavíte image a z této image pak spouštíte kontejnery. Kontejner může běžet buď na popředí (v příkazové řádce), nebo na pozadí.
+</p><p>
+Tato verze kapitoly pokrývá pouze základy Dockeru; nezmiňuje se o nástoji „docker-compose“ a pokrývá jen malou část dostupných „docker“-příkazů. Neuvádí specializované repozitáře jako např. „mysql“.
+</p>
+
+<h2 id="cast2"><span class="cislo">2.</span> Definice</h2>
+<ul style="text-align:justify"><li><b>Kontejner</b> je dočasné (ale perzistentní) částečně izolované prostředí pro spouštění programů.
+</li><li><b>Image</b> je neměnný, opakovaně použitelný výchozí stav kontejneru.
+</li><li><b>Repozitář</b> je soubor imagí se společným označením (např. „ubuntu“ či „mysql“). Jednotlivé image se pak identifikují pomocí <b>tagu</b> uvedeného za název repozitáře a dvojtečku (např. „ubuntu:18.04“). Není-li tag uveden, Docker automaticky doplní „latest“.
+</li><li><b>Dockerfile</b> je textový soubor s názvem „Dockerfile“, obsahující instrukce k vytvoření image.
+</li></ul>
+<h2 id="cast3"><span class="cislo">3.</span> Zaklínadla (docker)</h2>
+
+<h3 id="cast3x1"><span class="cislo">1</span> Práce s images</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>vytvořit image z Dockerfilu<sup><a href="#ppc1" id="ppcr1">(1)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">sudo docker build <span class="volznak">[</span>-t <i class="dopln">repozitář</i><span class="volznak">[</span>:<i class="dopln">tag-pro-image</i><span class="volznak">]</span><span class="volznak">]</span> <span class="volznak">[</span>--no-cache<span class="volznak">]</span> .</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>vypsat lokálně dostupné image</div><div class="radky">
+<div class="radekzaklinadla">sudo docker images</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>vyhledat vzdáleně dostupné repozitáře<sup><a href="#ppc2" id="ppcr2">(2)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">sudo docker search <span class="volznak">[</span>--limit=100<span class="volznak">]</span> <i class="dopln">text-k-vyhledání</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>vypsat všechny vzdáleně dostupné repozitáře</div><div class="radky">
+<div class="radekzaklinadla">?</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span>vypsat vzdáleně dostupné image z určitého repozitáře</div><div class="radky">
+<div class="radekzaklinadla">?</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span>smazat image (lokálně)</div><div class="radky">
+<div class="radekzaklinadla">sudo docker rmi <i class="dopln">image</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span>stáhnout vzdálenou image k použití lokálně</div><div class="radky">
+<div class="radekzaklinadla">sudo docker pull <i class="dopln">image</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span>nové označení pro image<sup><a href="#ppc3" id="ppcr3">(3)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">sudo docker tag <i class="dopln">image</i> <i class="dopln">nové-označení-repozitář</i><span class="volznak">[</span>:<i class="dopln">nové-označení-tag</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#9 </span>uložit image do souboru/načíst ze souboru<sup><a href="#ppc4" id="ppcr4">(4)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">sudo docker save -o <i class="dopln">soubor</i> <i class="dopln">image</i></div>
+<div class="radekzaklinadla">sudo docker load -i <i class="dopln">soubor</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#10 </span>uložit image na standardní výstup/načíst ze standardního vstupu</div><div class="radky">
+<div class="radekzaklinadla">sudo docker save <i class="dopln">image</i></div>
+<div class="radekzaklinadla">sudo docker load</div>
+</div></div>
+
+<h3 id="cast3x2"><span class="cislo">2</span> Práce s kontejnery</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>vytvořit a spustit kontejer</div><div class="radky">
+<div class="radekzaklinadla">sudo docker run <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> <i class="dopln">image</i> <span class="volznak">[</span><i class="dopln">náhradní příkaz a jeho parametry</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>vypsat seznam kontejnerů (jen běžících/všech na daném počítači)</div><div class="radky">
+<div class="radekzaklinadla">sudo docker ps</div>
+<div class="radekzaklinadla">sudo docker ps -a</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>zastavit kontejner (normálně/násilně)</div><div class="radky">
+<div class="radekzaklinadla">sudo docker stop <i class="dopln">kontejner</i></div>
+<div class="radekzaklinadla">sudo docker kill <i class="dopln">kontejner</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>znovu spustit zastavený kontejner</div><div class="radky">
+<div class="radekzaklinadla">sudo docker start <i class="dopln">kontejner</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span>smazat kontejner (jen zastavený/i běžící)</div><div class="radky">
+<div class="radekzaklinadla">sudo docker rm <i class="dopln">kontejner</i></div>
+<div class="radekzaklinadla">sudo docker rm -f <i class="dopln">kontejner</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span>přejmenovat kontejner</div><div class="radky">
+<div class="radekzaklinadla">sudo docker rename <i class="dopln">kontejner</i> <i class="dopln">nové-jméno</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span>spustit nový interpret příkazové řádky v již běžícím kontejneru (obecně/konkrétně)</div><div class="radky">
+<div class="radekzaklinadla">sudo exec -it <i class="dopln">kontejner</i> <i class="dopln">interpret</i></div>
+<div class="radekzaklinadla">sudo exec -it ef95f2 bash</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span>kopírování souborů z kontejneru/do kontejneru</div><div class="radky">
+<div class="radekzaklinadla">sudo docker cp <i class="dopln">kontejner</i>:<i class="dopln">/cesta/v/kontejneru</i> <i class="dopln">cíl/mimo</i></div>
+<div class="radekzaklinadla">sudo docker cp <i class="dopln">zdroj/mimo/kontejner</i> <i class="dopln">kontejner</i>:<i class="dopln">/cíl/v/kontejneru</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#9 </span>vytvořit kontejner bez spuštění</div><div class="radky">
+<div class="radekzaklinadla">sudo docker create <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> <i class="dopln">image</i></div>
+</div></div>
+
+<h3 id="cast3x3"><span class="cislo">3</span> Pročištění systému</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>pročistit systém (po čase bývá nezbytné)</div><div class="radky">
+<div class="radekzaklinadla">sudo docker system prune</div>
+</div></div>
+
+<h3 id="cast3x4"><span class="cislo">4</span> Eskalace práv</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>přečtení souboru, který nemáte právo číst</div><div class="radky">
+<div class="radekzaklinadla">sudo docker --rm -it -v &quot;$(pwd):/root&quot; ubuntu cat &quot;/root/<i class="dopln">název souboru</i>&quot;</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>přepsání souboru, do kterého nemáte právo zapisovat</div><div class="radky">
+<div class="radekzaklinadla">sudo docker --rm -it -v &quot;$(pwd):/root&quot; ubuntu bash -c &quot;cat &gt; '/root/<i class="dopln">název souboru</i>'&quot;</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>přivlastnění si cizího souboru</div><div class="radky">
+<div class="radekzaklinadla">sudo docker --rm -it -v &quot;$(pwd):/root&quot; ubuntu chown $UID &quot;/root/<i class="dopln">název souboru</i>&quot;</div>
+</div></div>
+
+<h2 id="cast4"><span class="cislo">4.</span> Zaklínadla (Dockerfile)</h2>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>komentář</div><div class="radky">
+<div class="radekzaklinadla"># <i class="dopln">komentář do konce řádku</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>načíst existující image a použít ji jako základ pro novou</div><div class="radky">
+<div class="radekzaklinadla">FROM <i class="dopln">image</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>spustit příkaz<sup><a href="#ppc5" id="ppcr5">(5)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">RUN <i class="dopln">příkaz</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>zkopírovat soubory a adresáře z kontextu sestavení do kontejneru<sup><a href="#ppc6" id="ppcr6">(6)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">COPY <i class="dopln">zdroj</i> <span class="volznak">[</span><i class="dopln">další-zdroj</i><span class="volznak">]</span><span class="tritecky">...</span> <i class="dopln">cíl</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span>vytvořit zadaný adresář a nastavit ho jako aktuální<sup><a href="#ppc7" id="ppcr7">(7)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">WORKDIR <i class="dopln">cesta</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span>nastavit výchozí proces kontejneru (obecně/konkrétně)</div><div class="radky">
+<div class="radekzaklinadla">ENTRYPOINT [&quot;<i class="dopln">příkaz</i>&quot;<span class="volznak">[</span>, &quot;<i class="dopln">parametr</i>&quot;<span class="volznak">]</span><span class="tritecky">...</span>]</div>
+<div class="radekzaklinadla">ENTRYPOINT [&quot;/bin/bash&quot;, &quot;-e&quot;]</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span>nastavit proměnné prostředí</div><div class="radky">
+<div class="radekzaklinadla">ENV <i class="dopln">proměnná</i>=&quot;<i class="dopln">hodnota</i>&quot; <span class="volznak">[</span><i class="dopln">další_proměnná</i>=&quot;<i class="dopln">její hodnota</i>&quot;<span class="volznak">]</span><span class="tritecky">...</span></div>
+</div></div>
+
+<h2 id="cast5"><span class="cislo">5.</span> Parametry příkazů</h2>
+
+<h3 id="cast5x1"><span class="cislo">1</span> docker run</h3>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">sudo docker run <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> <i class="dopln">image</i> <span class="volznak">[</span><i class="dopln">náhradní příkaz a jeho parametry</i><span class="volznak">]</span></div>
+</div></div>
+<ul style="text-align:left"><li><b>--rm</b> :: Po ukončení hlavního procesu automaticky smaže kontejner.
+</li><li><b>-it</b> :: Spustí pro kontejner interaktivní terminál. (Opakem je <b>-d</b>, které spustí kontejner na pozadí.)
+</li><li><b>-v</b> <i class="dopln">/adresář/venku</i><b>:</b><i class="dopln">/adresář/v/kontejneru</i> :: Připojí adresář vnějšího počítače do kontejneru.
+</li><li><b>-p</b> <i class="dopln">port-venku</i><b>:</b><i class="dopln">port-v-kontejneru</i> :: Připojí síťový port vnějšího počítače do kontejneru.
+</li><li><b>--name</b> <i class="dopln">jméno</i> :: Přidělí kontejneru jméno.
+</li><li><b>--security-opt seccomp:unconfined</b> :: Nevím přesně, co to dělá, ale může pomoci při problémech se zabezpečeným spojením z kontejneru.
+</li><li><b>-w</b> <i class="dopln">/adresář/v/kontejneru</i> :: Nastaví aktuální adresář v kontejneru.
+</li><li><b>--network none</b> :: Spuštěný kontejner nebude mít přístup k síti.
+</li></ul>
+<h2 id="cast6"><span class="cislo">6.</span> Instalace na Ubuntu</h2>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">sudo apt-get install docker.io</div>
+</div></div>
+
+<h2 id="cast7"><span class="cislo">7.</span> Ukázka</h2>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>Dockerfile</div><div class="radky">
+<div class="radekzaklinadla">FROM ubuntu:18.04</div>
+<div class="radekzaklinadla">RUN apt-get update &amp;&amp; apt-get upgrade -y &amp;&amp; apt-get install -y mc vim</div>
+<div class="radekzaklinadla">WORKDIR /root</div>
+<div class="radekzaklinadla">ENTRYPOINT [&quot;/usr/bin/mc&quot;]</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>sestavení a spuštění image</div><div class="radky">
+<div class="radekzaklinadla">sudo docker build -t midnight-commander .</div>
+<div class="radekzaklinadla">sudo docker run --rm -it midnight-commander</div>
+</div></div>
+
+<h2 id="cast8"><span class="cislo">8.</span> Tipy a zkušenosti</h2>
+<ul style="text-align:justify"><li>Přidání uživatele do skupiny „docker“, které některé stránky doporučují, mu umožňuje spouštět Docker bez sudo. Z bezpečnostního hlediska to ale není dobrý nápad, protože jak ukazuje sekce zaklínadel „Eskalace práv“, spouštění Dockeru je prakticky ekvivalentem přidělení práv superuživatele. Proto raději příkaz „docker“ spouštím z bashe spuštěného pomocí „sudo bash“.
+</li><li>Řádek v Dockerfilu lze rozdělit na víc řádků; v takovém případě se na konec každého kromě posledního přidá zpětné lomítko.
+</li><li>Programy spouštěné při sestavování image nesmí vyžadovat žádnou uživatelskou interakci. Pokud k tomu dojde, sestavení image selže. (Proto je třeba u příkazu „apt-get install“ používat parametr „-y“.)
+</li><li>V kontejnerech je možno zakládat nové uživatele a používat jejich účty, ale není to příliš běžné. Obvykle se všechny programy v kontejnerech spouští pod účtem uživatele root.
+</li><li>Při sestavování image příkazem „docker build“ se celý obsah lokálního adresáře včetně všech podadresářů nejprve zkopíruje do zvláštní oblasti zvané „build context“; příkaz Dockerfilu „COPY“ pak může čerpat pouze z této oblasti. Proto doporučuji mít aktuální adresář při sestavování image co nejmenší a nikdy nespouštět „docker build“ např. z kořenového adresáře. (Ani domovský adresář uživatele není moc dobrý nápad.)
+</li><li>Hash kontejneru se v kontejneru používá jako název počítače, takže se zobrazuje ve výzvě příkazového interpretu a lze ji snadno zjistit příkazem „hostname“.
+</li><li>Ačkoliv by spuštění grafických aplikací v Dockeru mělo být také možné, vyžaduje specializovaný postup a nikdy jsem se o ně nepokoušel/a.
+</li></ul>
+<h2 id="cast9"><span class="cislo">9.</span> Jak získat nápovědu</h2>
+<p class="ponadpisu">
+Pro sestavení Dockerfilu je asi nejlepším informačním zdrojem online „Referenční příručka pro Dockerfile“. Pro spouštění je pak vhodná „Oficiální referenční příručka“. Oba zdroje jsou bohužel v angličtině.
+</p><p>
+Pro základní přehled lze použít i příkazy:
+</p>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">docker --help</div>
+<div class="radekzaklinadla">docker <i class="dopln">příkaz</i> --help</div>
+</div></div>
+
+<h2 id="cast10"><span class="cislo">10.</span> Odkazy</h2>
+<ul style="text-align:left"><li><a href="http://www.cloudsvet.cz/?series=docker">Praktický úvod do Docker a kontejnerů</a>
+</li><li><a href="https://www.youtube.com/watch?v=cV0HFt0QGEA">Video: Jakub Kratina − Docker 101</a>
+</li><li><a href="https://www.zdrojak.cz/clanky/proc-pouzivat-docker/">Článek: Proč používat Docker</a>
+</li><li><a href="https://cs.wikipedia.org/wiki/Docker_(software)">Stránka na Wikipedii</a>
+</li><li><a href="https://www.youtube.com/watch?v=A1nngnx8WDg">Video: Docker pro neznalé (Václav Pavlín)</a>
+</li><li><a href="https://www.youtube.com/watch?v=x_jsNPW6ixQ">Video: Daniel Plakinger − Docker #2</a> (slovensky)
+</li><li><a href="https://docs.docker.com/engine/reference/builder/">Referenční příručka pro Dockerfile</a> (anglicky)
+</li><li><a href="https://docs.docker.com/engine/reference/commandline/docker/">Oficiální referenční příručka</a> (anglicky)
+</li><li><a href="https://www.docker.com/">Oficiální stránka programu</a> (anglicky)
+</li><li><a href="https://packages.ubuntu.com/bionic/docker.io">Balíček Bionic „docker.io“</a> (anglicky)
+</li></ul><div class="ppc"><div id="ppc1"><a href="#ppcr1" class="cislopozn">1</a>&nbsp;Pozor na tečku na konci příkazu, je povinná a bez ní příkaz skončí vypsáním nápovědy!</div>
+<div id="ppc2"><a href="#ppcr2" class="cislopozn">2</a>&nbsp;Uvedený příkaz má přednastavený limit 25 položek; parametrem lze počet zvýšit maximálně na 100.</div>
+<div id="ppc3"><a href="#ppcr3" class="cislopozn">3</a>&nbsp;Původní označení zůstane zachováno.</div>
+<div id="ppc4"><a href="#ppcr4" class="cislopozn">4</a>&nbsp;Uloženou image doporučuji komprimovat (je ve formátu tar). Uložená image obsahuje všechny vrstvy potřebné pro rekonstrukci image, takže ji lze načíst i na počítači bez připojení k internetu. Rovněž je to vhodný způsob, jak si image zálohovat.</div>
+<div id="ppc5"><a href="#ppcr5" class="cislopozn">5</a>&nbsp;Pozor, každý příkaz se spouští v nové instanci příkazovém intepretu „/bin/sh“!</div>
+<div id="ppc6"><a href="#ppcr6" class="cislopozn">6</a>&nbsp;Kontext sestavení (build context) je zvláštní oblast, kam se při spuštění příkazu „docker build“ rekurzivně zkopíruje veškerý obsah aktuálního adresáře.</div>
+<div id="ppc7"><a href="#ppcr7" class="cislopozn">7</a>&nbsp;Cesta může být i relativní.</div>
+<div class="zrusitzvyrazneni" id="zzv"><a href="#zzv">zrušit zvýraznění poznámky pod čarou</a></div></div>
+<nav class="spodni"><span class="prev">
+<a href="markdown.htm" rel="prev" title="6. Markdown">Předchozí&nbsp;kapitola</a>&nbsp;|
+</span><a href="index.htm">Přehled</a><span class="next"><!--
+-->&nbsp;| <a href="make.htm" rel="next" title="8. GNU make">Následující&nbsp;kapitola</a>
+</span>
+</nav>
+</article>
+<footer>
+<img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
+<p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
+<a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
+Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
+či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
+na stránce „<a href="index.htm">Přehled</a>“.
+Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
+licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
+Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód
+a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
+<a href="https://github.com/singularis-mzf/linux-spellbook">repozitář na GitHubu</a>.
+</footer>
+</body>
+</html>

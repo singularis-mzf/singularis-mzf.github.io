@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="cs">
+<head profile="http://www.w3.org/2005/10/profile">
+<meta charset="UTF-8">
+<title>Markdown − Linux: Kniha kouzel</title>
+<link rel="stylesheet" type="text/css" href="lkk.css">
+<link rel="icon" type="image/png" href="obrazky/favicon.png">
+</head>
+<body>
+<header>
+<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.0</span>
+<span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
+</header>
+<nav class="horni">
+<div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+<span class="prev">
+<a href="git.htm" rel="prev" title="5. Git">Předchozí&nbsp;kapitola</a>&nbsp;|
+</span><a href="index.htm">Přehled</a><span class="next"><!--
+-->&nbsp;| <a href="docker.htm" rel="next" title="7. Docker">Následující&nbsp;kapitola</a>
+</span>
+<div class="rozcestnikkapitol"><a href="#cast1" class="cast">Úvod</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast2" class="cast">Zaklínadla (Markdown)</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3" class="cast">Zaklínadla (Markdown Extra)</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast4" class="cast">Zaklínadla (nestandardní)</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast5" class="cast">Parametry příkazů</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast6" class="cast">Instalace na Ubuntu</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast7" class="cast">Ukázka</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast8" class="cast">Tipy a zkušenosti</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast9" class="cast">Jak získat nápovědu</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast10" class="cast">Odkazy</a><span class="oddelovac">&nbsp;|</span>
+</div>
+</nav>
+<article>
+<h1>6. Markdown</h1>
+
+<h2 id="cast1"><span class="cislo">1.</span> Úvod</h2>
+<p class="ponadpisu">
+Markdown je jednoduchý a praktický značkovací jazyk pro pohodlné psaní i čtení textů s jednoduchým formátováním v editorech prostého textu. Je primárně určen k převodu do HTML, kde se na výsledek aplikují kaskádové styly.
+</p><p>
+Bohužel existuje řada ne zcela kompatibilních implementací Markdownu. Proto se tato kapitola zaměřuje především na původní (standardní) Markdown, který je základem pro všechny ostatní varianty, a poměrně značně rozšířenou variantu Markdown Extra.
+</p><p>
+Tato verze kapitoly nepokrývá GFM (GitHub Flavoured Markdown), nicméně všechna uvedená zaklínadla na GitHubu fungují.
+</p>
+
+<h2 id="cast2"><span class="cislo">2.</span> Zaklínadla (Markdown)</h2>
+
+<h3 id="cast2x1"><span class="cislo">1</span> Nadpisy</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>nadpis první/druhé/třetí/čtvrté/páté/šesté úrovně</div><div class="radky">
+<div class="radekzaklinadla"># <i class="dopln">nadpis</i></div>
+<div class="radekzaklinadla">## <i class="dopln">nadpis</i></div>
+<div class="radekzaklinadla">### <i class="dopln">nadpis</i></div>
+<div class="radekzaklinadla">#### <i class="dopln">nadpis</i></div>
+<div class="radekzaklinadla">##### <i class="dopln">nadpis</i></div>
+<div class="radekzaklinadla">###### <i class="dopln">nadpis</i></div>
+</div></div>
+
+<h3 id="cast2x2"><span class="cislo">2</span> Základní formátování</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>dva odstavce</div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">první odstavec</i></div>
+<div class="radekzaklinadla"><i class="dopln">prázdný řádek</i></div>
+<div class="radekzaklinadla"><i class="dopln">druhý odstavec</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>tučný text</div><div class="radky">
+<div class="radekzaklinadla">**<i class="dopln">text</i>**</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>kurzíva</div><div class="radky">
+<div class="radekzaklinadla">*<i class="dopln">text</i>*</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>vložený kód v rámci řádku (obecně/příklad)<sup><a href="#ppc1" id="ppcr1">(1)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">`<i class="dopln">kód</i>`</div>
+<div class="radekzaklinadla">````PRIKLAD=&quot;*```*&quot;````</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span>víceřádkový kód</div><div class="radky">
+<div class="radekzaklinadla"><span class="viditelnamezera">&nbsp;</span><span class="viditelnamezera">&nbsp;</span><span class="viditelnamezera">&nbsp;</span><span class="viditelnamezera">&nbsp;</span><i class="dopln">první řádek</i></div>
+<div class="radekzaklinadla"><span class="volznak">[</span><span class="viditelnamezera">&nbsp;</span><span class="viditelnamezera">&nbsp;</span><span class="viditelnamezera">&nbsp;</span><span class="viditelnamezera">&nbsp;</span><i class="dopln">další řádek</i><span class="volznak">]</span><span class="tritecky">...</span></div>
+</div></div>
+
+<h3 id="cast2x3"><span class="cislo">3</span> Odkazy a obrázky</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>hypertextový odkaz (normální/zjednodušený)<sup><a href="#ppc2" id="ppcr2">(2)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">[<i class="dopln">text odkazu</i>](<i class="dopln">adresa-odkazu</i><span class="volznak">[</span><span class="viditelnamezera">&nbsp;</span>&quot;<i class="dopln">titulek</i>&quot;<span class="volznak">]</span>)</div>
+<div class="radekzaklinadla">&lt;<i class="dopln">adresa-odkazu</i>&gt;</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>předdefinovaný hypertextový odkaz (definice/použití)<sup><a href="#ppc3" id="ppcr3">(3)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">[<i class="dopln">identifikátor</i>]:<span class="viditelnamezera">&nbsp;</span><span class="volznak">[</span><i class="dopln">bílé znaky</i><span class="volznak">]</span><i class="dopln">adresa-odkazu</i><span class="volznak">[</span><span class="viditelnamezera">&nbsp;</span>&quot;<i class="dopln">titulek</i>&quot;<span class="volznak">]</span></div>
+<div class="radekzaklinadla">[<i class="dopln">text odkazu</i>][<i class="dopln">identifikátor</i>]</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>vložit obrázek (jako znak)</div><div class="radky">
+<div class="radekzaklinadla">![<i class="dopln">alternativní text</i>](<i class="dopln">adresa-odkazu</i><span class="volznak">[</span><span class="viditelnamezera">&nbsp;</span>&quot;<i class="dopln">titulek</i>&quot;<span class="volznak">]</span>)</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>předdefinovaný obrázek (definice/použití)</div><div class="radky">
+<div class="radekzaklinadla">[<i class="dopln">identifikátor</i>]:<span class="viditelnamezera">&nbsp;</span><span class="volznak">[</span><i class="dopln">bílé znaky</i><span class="volznak">]</span><i class="dopln">adresa-obrázku</i><span class="volznak">[</span><span class="viditelnamezera">&nbsp;</span>&quot;<i class="dopln">titulek</i>&quot;<span class="volznak">]</span></div>
+<div class="radekzaklinadla">![<i class="dopln">alternativní text</i>][<i class="dopln">identifikátor</i>]</div>
+</div></div>
+
+<h3 id="cast2x4"><span class="cislo">4</span> Seznamy a odsazení</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>odrážkovaný seznam</div><div class="radky">
+<div class="radekzaklinadla">* <i class="dopln">položka seznamu</i></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>* <i class="dopln">další položka seznamu</i><span class="volznak">]</span><span class="tritecky">...</span></div>
+<div class="radekzaklinadla"><i class="dopln">prázdný řádek</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>automaticky číslovaný seznam</div><div class="radky">
+<div class="radekzaklinadla">1. <i class="dopln">položka seznamu</i></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>1. <i class="dopln">další položka seznamu</i><span class="volznak">]</span><span class="tritecky">...</span></div>
+<div class="radekzaklinadla"><i class="dopln">prázdný řádek</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>výrazné odsazení odstavce zleva (první úroveň)</div><div class="radky">
+<div class="radekzaklinadla">&gt; <i class="dopln">začátek textu</i></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>&gt; <i class="dopln">pokračování</i><span class="volznak">]</span><span class="tritecky">...</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>výrazné odsazení odstavce zleva (druhá úroveň)</div><div class="radky">
+<div class="radekzaklinadla">&gt; &gt; <i class="dopln">začátek textu</i></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>&gt; &gt; <i class="dopln">pokračování</i><span class="volznak">]</span><span class="tritecky">...</span></div>
+</div></div>
+
+<h2 id="cast3"><span class="cislo">3.</span> Zaklínadla (Markdown Extra)</h2>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>tabulka <sup><a href="#ppc4" id="ppcr4">(4)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">| <i class="dopln">záhlaví 1</i> <span class="volznak">[</span>| <i class="dopln">další záhlaví</i><span class="volznak">]</span><span class="tritecky">...</span></div>
+<div class="radekzaklinadla">| <i class="dopln">zarovnání 1</i> <span class="volznak">[</span>| <i class="dopln">další zarovnání</i><span class="volznak">]</span><span class="tritecky">...</span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>| <i class="dopln">buňka 1</i> <span class="volznak">[</span>| <i class="dopln">další buňka</i><span class="volznak">]</span><span class="tritecky">...</span><span class="volznak">]</span><span class="tritecky">...</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>poznámka pod čarou (odkaz na poznámku/text poznámky)<sup><a href="#ppc5" id="ppcr5">(5)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">[^<i class="dopln">id</i>]</div>
+<div class="radekzaklinadla">[^<i class="dopln">id</i>]:<span class="viditelnamezera">&nbsp;</span><i class="dopln">text poznámky</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>seznam definic se dvěma definicemi (druhá má dva pojmy)</div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">první pojem</i></div>
+<div class="radekzaklinadla">:<span class="viditelnamezera">&nbsp;</span><i class="dopln">odstavec popisující první pojem</i></div>
+<div class="radekzaklinadla"><i class="dopln">prázdný řádek</i></div>
+<div class="radekzaklinadla"><i class="dopln">druhý pojem</i></div>
+<div class="radekzaklinadla"><i class="dopln">třetí pojem</i></div>
+<div class="radekzaklinadla">:<span class="viditelnamezera">&nbsp;</span><i class="dopln">odstavec popisující druhý a třetí pojem</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>víceřádkový kód<sup><a href="#ppc6" id="ppcr6">(6)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">~~~<span class="volznak">[</span><span class="viditelnamezera">&nbsp;</span>.<i class="dopln">CSS-třída</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla"><i class="dopln">řádek kódu</i><span class="tritecky">...</span></div>
+<div class="radekzaklinadla">~~~</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span>nadpis s kotvou/odkaz na takový nadpis</div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">nadpis</i> <span class="volznak">[</span><i class="dopln">bílé znaky</i><span class="volznak">]</span>{#<i class="dopln">id</i>}</div>
+<div class="radekzaklinadla">[<i class="dopln">text odkazu</i>](#<i class="dopln">id</i><span class="volznak">[</span><span class="viditelnamezera">&nbsp;</span>&quot;<i class="dopln">titulek</i>&quot;<span class="volznak">]</span>)</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span>zkratky (&lt;abbr&gt;)(definice/použití)</div><div class="radky">
+<div class="radekzaklinadla">*[<i class="dopln">zkratka</i>]: <i class="dopln">vysvětlení</i></div>
+<div class="radekzaklinadla"><i class="dopln">zkratka</i></div>
+</div></div>
+
+<h3 id="cast3x1"><span class="cislo">1</span> Ostatní</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>komentář</div><div class="radky">
+<div class="radekzaklinadla">&lt;!-- <i class="dopln">obsah komentáře, i víc řádků</i> --&gt;</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>horizontální čára</div><div class="radky">
+<div class="radekzaklinadla">***</div>
+</div></div>
+
+<h2 id="cast4"><span class="cislo">4.</span> Zaklínadla (nestandardní)</h2>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>podtržení (nestandardní!)</div><div class="radky">
+<div class="radekzaklinadla">&lt;u&gt;<i class="dopln">text</i>&lt;/u&gt;</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>přeškrtnutý text</div><div class="radky">
+<div class="radekzaklinadla">~~<i class="dopln">text</i>~~</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>kód se zvýrazněním syntaxe</div><div class="radky">
+<div class="radekzaklinadla">```<i class="dopln">syntaxe</i></div>
+<div class="radekzaklinadla"><i class="dopln">řádek kódu</i><span class="tritecky">...</span></div>
+<div class="radekzaklinadla">```</div>
+</div></div>
+
+<h2 id="cast5"><span class="cislo">5.</span> Parametry příkazů</h2>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>převod Markdownu na HTML5</div><div class="radky">
+<div class="radekzaklinadla">pandoc -f gfm -t html5 -o <i class="dopln">výstupní-soubor</i> <i class="dopln">vstupní-soubor</i></div>
+</div></div>
+
+<h2 id="cast6"><span class="cislo">6.</span> Instalace na Ubuntu</h2>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>příkaz pandoc pro konverzi na HTML a jiné formáty</div><div class="radky">
+<div class="radekzaklinadla">sudo apt-get install pandoc</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>editor (grafický)</div><div class="radky">
+<div class="radekzaklinadla">sudo apt-get install retext</div>
+</div></div>
+<p>
+Existuje i modernější a propracovanější editor <a href="https://remarkableapp.github.io/linux.html">Remarkable</a> (licence MIT) zaměřený především na Arch Linux, ale je možno ho nainstalovat i v Ubuntu.
+</p>
+
+<h2 id="cast7"><span class="cislo">7.</span> Ukázka</h2>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla"># Ukázka Markdownu</div>
+<div class="radekzaklinadla">## Nadpis druhé úrovně</div>
+<div class="radekzaklinadla">Text prvního</div>
+<div class="radekzaklinadla">odstavce obsahuje část **tučně**, část *kurzívou* a část &lt;u&gt;podtrženou&lt;/u&gt; a také ``vložený kód se zpětným apostrofem (`)``.</div>
+<div class="radekzaklinadla"></div>
+<div class="radekzaklinadla">Text druhého odstavce. [Odkaz s&amp;nbsp;textem](http://www.slovnik-synonym.cz/), [s id][Slovník synonym], [znovu s id][Slovník synonym] a &lt;http://www.slovnik-synonym.cz/&gt;.</div>
+<div class="radekzaklinadla"></div>
+<div class="radekzaklinadla">Obrázky: ![tento][ve výstavbě] a ![tento](../obrazky/ve-vystavbe.png).</div>
+<div class="radekzaklinadla"></div>
+<div class="radekzaklinadla">[Slovník synonym]: http://www.slovnik-synonym.cz/</div>
+<div class="radekzaklinadla">[ve výstavbě]: ../obrazky/ve-vystavbe.png</div>
+<div class="radekzaklinadla">[^pozn-pod-carou]: S poznámkou pod čarou.</div>
+<div class="radekzaklinadla"></div>
+<div class="radekzaklinadla">&gt; Odstavec odsazený</div>
+<div class="radekzaklinadla">na první úroveň[^pozn-pod-carou].</div>
+<div class="radekzaklinadla"></div>
+<div class="radekzaklinadla">&gt; &gt; Odstavec odsazený</div>
+<div class="radekzaklinadla">na druhou úroveň.</div>
+<div class="radekzaklinadla">### Tabulka (Markdown Extra)</div>
+<div class="radekzaklinadla">| Sloupec 1 | Sloupec 2 | Sloupec 3</div>
+<div class="radekzaklinadla">| :--- | --- | ---:</div>
+<div class="radekzaklinadla">| vlevo | na střed | vpravo</div>
+</div></div>
+
+<h2 id="cast8"><span class="cislo">8.</span> Tipy a zkušenosti</h2>
+<ul style="text-align:justify"><li>Asi nejhorším problémem v Markdownu je escapování. Speciální znaky se totiž escapují zpětným lomítkem pouze tehdy, když mají speciální význam; v ostatních případech se zpětné lomítko před takovým znakem exportuje jako normální znak. Problém však je, že inteprety Markdownu se velmi značně liší v tom, které znaky a v jakých kontextech považují za speciální. Proto nelze dosáhnout zcela jednotných výsledků. Standardní Markdown však zaručuje možnost zpětným lomíkem escapovat: !, #, *, +, -, ., \, _, ` a všechny tři druhy závorek. Markdown Extra k tomu přidává znaky : a |.
+</li><li>Identifikátory předdefinovaných odkazů a obrázků jsou prakticky obecné řetězce. Vhodný identifikátor je i např. „3.12;Dobrý den/Žlutoučký kůň*“. Jejich maximální délka je ale omezena implementací.
+</li><li>V Markdownu můžete přímo používat inline prvky HTML (např. &lt;br&gt; či &lt;strong&gt;). Při konverzi na jiný formát než HTML však tyto prvky pravděpodobně nebudou podporovány.
+</li><li>Markdown (standardní) umožňuje vložit zalomení řádku pomocí dvou či více mezer na konci řádku. Osobně to nedoporučuji, protože některé textové editory (např. vim) bílé znaky na konci řádku nezobrazují a některé nástroje je mohou považovat za překlep a automaticky odstranit. Doporučuji místo toho používat HTML značku &lt;br&gt;, případně &lt;br /&gt;.
+</li><li>Markdown neumožňuje vloženému obrázku definovat rozměry. Toto můžete učinit buď pomocí CSS, nebo místo syntaxe Markdownu přímo použít značku &lt;img&gt;.
+</li><li>Po prvním spuštění ReTextu doporučuji otevřít Úpravy / Nastavení a zaškrtnout políčka „Vždy použít živý náhled“, „Zvýrazňovat aktuální řádek“ a „Zobrazovat čísla řádků“ a restartovat ReText. S těmito nastaveními mi připadne práce pohodlnější.
+</li></ul>
+<h2 id="cast9"><span class="cislo">9.</span> Jak získat nápovědu</h2>
+<p class="ponadpisu">
+Doporučuji prohledat online zdroje v sekci „Odkazy“ této kapitoly nebo prostě experimentovat.
+Velmi obsáhlým a formálně přesným zdrojem je „Specifikace GitHub Flavored Markdown“.
+</p>
+
+<h2 id="cast10"><span class="cislo">10.</span> Odkazy</h2>
+<ul style="text-align:left"><li><a href="https://cs.wikipedia.org/wiki/Markdown">Stránka na Wikipedii</a>
+</li><li><a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown Cheatsheet</a> (anglicky)
+</li><li><a href="https://daringfireball.net/projects/markdown/syntax">Oficiální stránky: Markdown Syntax</a> (anglicky)
+</li><li><a href="https://help.github.com/en/articles/basic-writing-and-formatting-syntax">GitHub Help: Basic writing and formatting syntax</a> (anglicky)
+</li><li><a href="https://catalog.olemiss.edu/help/markdown/extra">Markdown Extra Syntax</a> (anglicky)
+</li><li><a href="https://www.youtube.com/watch?v=bpdvNwvEeSE">Video: Markdown Syntax Cheat Sheet</a> (anglicky)
+</li><li><a href="https://www.youtube.com/watch?v=6A5EpqqDOdk">Video: Markdown Tutorial</a> (anglicky)
+</li><li><a href="https://www.youtube.com/watch?v=eJojC3lSkwg">Video: How to Write MarkDown</a> (anglicky)
+</li><li><a href="https://github.github.com/gfm/">Specifikace GitHub Flavored Markdown</a> (anglicky)
+</li><li><a href="http://manpages.ubuntu.com/manpages/bionic/en/man7/markdown.7.html">Manuálová stránka o Markdownu</a> (anglicky)
+</li><li><a href="http://manpages.ubuntu.com/manpages/bionic/en/man1/markdown.1.html">Manuálová stránka příkazu markdown</a> (anglicky)
+</li><li><a href="https://packages.ubuntu.com/bionic/pandoc">Balíček pandoc</a> (anglicky)
+</li><li><a href="https://packages.ubuntu.com/bionic/retext">Balíček retext</a> (anglicky)
+</li><li><a href="https://aur.archlinux.org/packages/remarkable/">Balíček Remarkable v ALUR</a> (anglicky)
+</li></ul><div class="ppc"><div id="ppc1"><a href="#ppcr1" class="cislopozn">1</a>&nbsp;Ve vloženém kódu se neinterpretují žádné formátovací sekvence ani escapování (dokonce i zpětné lomítko si tam zachovává význam obyčejného znaku), proto je potřeba zvláštní přístup, pokud má vložený kód obsahovat zpětné apostrofy. K otevření a uzavření vloženého kódu můžete použít libovolný počet zpětných apostrofů, ale musí být stejný pro otevření i pro uzavření a vyšší než maximální počet zpětných apostrofů vyskytujících se ve formátovaném kódu vedle sebe.</div>
+<div id="ppc2"><a href="#ppcr2" class="cislopozn">2</a>&nbsp;Některé interprety markdownu automaticky převádějí úplné URL adresy na hypertextové odkazy bez zjevné možnosti escapování.</div>
+<div id="ppc3"><a href="#ppcr3" class="cislopozn">3</a>&nbsp;Definice se uvádí pro každý identifikátor pouze jednou a může být kdekoliv v dokumentu (ale na samostatném řádku). Definovaný identifikátor může být použit na více místech, a to i s různými texty odkazů. Identifikátor může začínat číslem a obsahovat mezery a není citlivý na velikost písmen!</div>
+<div id="ppc4"><a href="#ppcr4" class="cislopozn">4</a>&nbsp;Zarovnání je „:---“ vlevo, „---“ na střed nebo „---:“ vpravo. Řádek se záhlavím a řádek se zarovnáními jsou povinné, ostatní řádky tabulky jsou nepovinné. Buňky tabulky mohou obsahovat formátování.</div>
+<div id="ppc5"><a href="#ppcr5" class="cislopozn">5</a>&nbsp;Omezení: Na jednu poznámku pod čarou lze odkazovat tímto způsobem pouze jednou!</div>
+<div id="ppc6"><a href="#ppcr6" class="cislopozn">6</a>&nbsp;Pro tuto syntaxi můžete použít i více než tři znaky ~, ale jejich počet v zahajujícím a ukončujícím řádku se musí shodovat.</div>
+<div class="zrusitzvyrazneni" id="zzv"><a href="#zzv">zrušit zvýraznění poznámky pod čarou</a></div></div>
+<nav class="spodni"><span class="prev">
+<a href="git.htm" rel="prev" title="5. Git">Předchozí&nbsp;kapitola</a>&nbsp;|
+</span><a href="index.htm">Přehled</a><span class="next"><!--
+-->&nbsp;| <a href="docker.htm" rel="next" title="7. Docker">Následující&nbsp;kapitola</a>
+</span>
+</nav>
+</article>
+<footer>
+<img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
+<p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
+<a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
+Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
+či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
+na stránce „<a href="index.htm">Přehled</a>“.
+Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
+licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
+Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód
+a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
+<a href="https://github.com/singularis-mzf/linux-spellbook">repozitář na GitHubu</a>.
+</footer>
+</body>
+</html>

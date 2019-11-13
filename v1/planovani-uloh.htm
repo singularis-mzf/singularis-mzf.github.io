@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="cs">
+<head profile="http://www.w3.org/2005/10/profile">
+<meta charset="UTF-8">
+<title>Plánování úloh − Linux: Kniha kouzel</title>
+<link rel="stylesheet" type="text/css" href="lkk.css">
+<link rel="icon" type="image/png" href="obrazky/favicon.png">
+</head>
+<body>
+<header>
+<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.0</span>
+<span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
+</header>
+<nav class="horni">
+<div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+<span class="prev">
+<a href="stahovani-videi.htm" rel="prev" title="3. Stahování videí">Předchozí&nbsp;kapitola</a>&nbsp;|
+</span><a href="index.htm">Přehled</a><span class="next"><!--
+-->&nbsp;| <a href="git.htm" rel="next" title="5. Git">Následující&nbsp;kapitola</a>
+</span>
+<div class="rozcestnikkapitol"><a href="#cast1" class="cast">Úvod</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast2" class="cast">Definice</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3" class="cast">Zaklínadla (pomocné funkce a skripty)</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast4" class="cast">Zaklínadla</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast5" class="cast">Parametry příkazů</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast6" class="cast">Instalace na Ubuntu</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast7" class="cast">Ukázka</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast8" class="cast">Tipy a zkušenosti</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast9" class="cast">Jak získat nápovědu</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast10" class="cast">Odkazy</a><span class="oddelovac">&nbsp;|</span>
+</div>
+</nav>
+<article>
+<h1>4. Plánování úloh</h1>
+
+<h2 id="cast1"><span class="cislo">1.</span> Úvod</h2>
+<p class="ponadpisu">
+V této kapitole se dozvíte, jak spouštět příkazy automaticky v určený čas.
+Linux na tento účel poskytuje dva oddělené mechanismy: prastarý démon „cron“
+slouží k pravidelnému (opakovanému) spouštění příkazů, zatímco méně věhlasný
+„at“ slouží k naplánování jednorázových úkolů, které budou spuštěny
+a zapomenuty. V praxi se ale ke spouštění opakovaných úloh používá i at,
+jen je potřeba v rámci každého spuštění úlohy naplánovat její další spuštění.
+</p><p>
+Mezi cronem a atem je ještě jeden podstatný rozdíl: pokud v době,
+kdy má naplánovaná úloha proběhnout, počítač neběží, cron dané spuštění
+jednoduše vynechá, zatímco at spustí naplánovanou úlohu,
+hned jak to bude možné.
+</p><p>
+Oběma mechanismům je také společné omezení přesnosti − spuštění lze nastavit
+jen s přesností na minuty. Potřebujete-li přesnější zacílení, je třeba,
+aby si přesný čas ohlídal až spuštěný proces.
+</p><p>
+Poznámka: Každý uživatel má vlastní seznam úloh a ty se spouštějí
+pod jeho uživatelským účtem. Vedle toho existují i systémové úlohy,
+spouštěné pod účtem superuživatele, ty však nejsou touto verzí kapitoly pokryty.
+</p>
+
+<h2 id="cast2"><span class="cislo">2.</span> Definice</h2>
+<ul style="text-align:justify"><li><b>Úloha</b> je příkaz naplánovaný k jednorázovému spuštění, jde-li o <b>jednorázovou úlohu</b>, nebo k pravidelnému spouštění, jde-li o <b>pravidelnou úlohu</b>. Tímto příkazem bývá nejčastěji volání uživatelem definovaného skriptu.
+</li></ul>
+<h2 id="cast3"><span class="cislo">3.</span> Zaklínadla (pomocné funkce a skripty)</h2>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>funkce „pridat_ulohu“<sup><a href="#ppc1" id="ppcr1">(1)</a>,&nbsp;<a href="#ppc2" id="ppcr2">(2)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">function pridat_ulohu () {</div>
+<div class="radekzaklinadla">(tmp=&quot;$2 %s #$1\\n&quot;; crontab -l 2&gt;/dev/null | egrep -v &quot;#$1\$&quot;; shift 2; printf &quot;$tmp&quot; &quot;$@&quot; | sed -e 's/\\/\\\\/g' -e 's/%/\\%/g') | crontab -</div>
+<div class="radekzaklinadla">}</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>skript „~/bin/spustit-v-x“<sup><a href="#ppc3" id="ppcr3">(3)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">#!/bin/bash -e</div>
+<div class="radekzaklinadla">function f () {</div>
+<div class="radekzaklinadla">local xpid=&quot;$(pgrep -u &quot;$(whoami)&quot; '^[A-Za-z0-9]*-session$' | head -n 1)&quot;</div>
+<div class="radekzaklinadla">test -n &quot;$xpid&quot; || exit 1</div>
+<div class="radekzaklinadla">eval &quot;$(egrep -z '^(DBUS_SESSION_BUS_ADDRESS|DISPLAY|XDG_[A-Z_]+)=' /proc/$xpid/environ | tr \\0 \\n | sed -e s/=/\\n/ -e s/\'/\'\\\\\'\'/g | xargs -rd \\n printf &quot;export %s='%s'\\n&quot;)&quot;</div>
+<div class="radekzaklinadla">}</div>
+<div class="radekzaklinadla">f</div>
+<div class="radekzaklinadla">exec &quot;$@&quot;</div>
+</div></div>
+
+<h2 id="cast4"><span class="cislo">4.</span> Zaklínadla</h2>
+
+<h3 id="cast4x1"><span class="cislo">1</span> Pravidelné úlohy (obecně)</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>přidat nebo nahradit úlohu (spustit na pozadí/spustit v grafickém prostředí)</div><div class="radky">
+<div class="radekzaklinadla">pridat_ulohu <i class="dopln">id-úlohy</i> &quot;<i class="dopln">plán</i>&quot; '<i class="dopln">příkaz a parametry</i>'</div>
+<div class="radekzaklinadla">pridat_ulohu <i class="dopln">id-úlohy</i> &quot;<i class="dopln">plán</i>&quot; '~/bin/spustit-v-x <i class="dopln">příkaz a parametry</i>'</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>vypsat seznam úloh (id je na konci řádku, za znakem „#“)/vypsat konkrétní úlohu<sup><a href="#ppc4" id="ppcr4">(4)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">crontab -l</div>
+<div class="radekzaklinadla">crontab -l | egrep '#<i class="dopln">id-úlohy</i>$'</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>zrušit úlohu/všechny úlohy</div><div class="radky">
+<div class="radekzaklinadla">crontab -l | egrep -v '#<i class="dopln">id-úlohy</i>$' | crontab -</div>
+<div class="radekzaklinadla">crontab -r</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>změnit plán úlohy<sup><a href="#ppc5" id="ppcr5">(5)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">crontab -l | gawk '{ if (/#<i class="dopln">id-úlohy</i>$/ &amp;&amp; match($0, /^(([^<span class="viditelnamezera">&nbsp;</span>]+<span class="viditelnamezera">&nbsp;</span>){5}|@[a-z]+<span class="viditelnamezera">&nbsp;</span>)/)) {print &quot;<i class="dopln">nový-plán</i>&quot; substr($0, RLENGTH)} else {print}}' | crontab -</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span>uložit tabulku úloh do souboru/načíst ze souboru</div><div class="radky">
+<div class="radekzaklinadla">crontab -l &gt; <i class="dopln">soubor</i></div>
+<div class="radekzaklinadla">crontab <i class="dopln">soubor</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span>vypsat cizí seznam pravidelných úloh</div><div class="radky">
+<div class="radekzaklinadla">sudo crontab -l -u <i class="dopln">cílový-uživatel</i></div>
+</div></div>
+
+<h3 id="cast4x2"><span class="cislo">2</span> Pravidelné úlohy (systémové)</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>vypsat seznam systémových pravidelných úloh</div><div class="radky">
+<div class="radekzaklinadla">?</div>
+</div></div>
+
+<h3 id="cast4x3"><span class="cislo">3</span> Pravidelné úlohy (plány)</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>spouštět hned po startu systému/spouštět po přihlášení</div><div class="radky">
+<div class="radekzaklinadla">pridat_ulohu <i class="dopln">id-úlohy</i> @reboot '<i class="dopln">příkaz</i>'<span class="tritecky">...</span></div>
+<div class="radekzaklinadla">?</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>spouštět každou minutu</div><div class="radky">
+<div class="radekzaklinadla">pridat_ulohu <i class="dopln">id-úlohy</i> &quot;* * * * *&quot; '<i class="dopln">příkaz</i>'<span class="tritecky">...</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>spouštět každých pět minut (alternativy)</div><div class="radky">
+<div class="radekzaklinadla">pridat_ulohu <i class="dopln">id-úlohy</i> &quot;*/5 * * * *&quot; '<i class="dopln">příkaz</i>'<span class="tritecky">...</span></div>
+<div class="radekzaklinadla">pridat_ulohu <i class="dopln">id-úlohy</i> &quot;0,5,10,15,20,25,30,35,40,45,50,55 * * * *&quot; '<i class="dopln">příkaz</i>'<span class="tritecky">...</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>spouštět každou hodinu</div><div class="radky">
+<div class="radekzaklinadla">pridat_ulohu <i class="dopln">id-úlohy</i> &quot;<i class="dopln">číslo-minuty</i> * * * *&quot; '<i class="dopln">příkaz</i>'<span class="tritecky">...</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span>spouštět každou hodinu od 10.00 do 15.59</div><div class="radky">
+<div class="radekzaklinadla">pridat_ulohu <i class="dopln">id-úlohy</i> &quot;<i class="dopln">číslo-minuty</i> 10-15 * * *&quot; '<i class="dopln">příkaz</i>'<span class="tritecky">...</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span>spouštět denně/denně, ale jen od pondělí do pátku</div><div class="radky">
+<div class="radekzaklinadla">pridat_ulohu <i class="dopln">id-úlohy</i> &quot;<i class="dopln">číslo-minuty</i> <i class="dopln">číslo-hodiny</i> * * *&quot; '<i class="dopln">příkaz</i>'<span class="tritecky">...</span></div>
+<div class="radekzaklinadla">pridat_ulohu <i class="dopln">id-úlohy</i> &quot;<i class="dopln">číslo-minuty</i> <i class="dopln">číslo-hodiny</i> * * 1-5&quot; '<i class="dopln">příkaz</i>'<span class="tritecky">...</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span>spouštět týdně, každé pondělí/každou neděli</div><div class="radky">
+<div class="radekzaklinadla">pridat_ulohu <i class="dopln">id-úlohy</i> &quot;<i class="dopln">číslo-minuty</i> <i class="dopln">číslo-hodiny</i> * * 1&quot; '<i class="dopln">příkaz</i>'<span class="tritecky">...</span></div>
+<div class="radekzaklinadla">pridat_ulohu <i class="dopln">id-úlohy</i> &quot;<i class="dopln">číslo-minuty</i> <i class="dopln">číslo-hodiny</i> * * 7&quot; '<i class="dopln">příkaz</i>'<span class="tritecky">...</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span>spouštět měsíčně v N-tý den měsíce</div><div class="radky">
+<div class="radekzaklinadla">pridat_ulohu <i class="dopln">id-úlohy</i> &quot;<i class="dopln">číslo-minuty</i> <i class="dopln">číslo-hodiny</i> <i class="dopln">N</i> * *&quot; '<i class="dopln">příkaz</i>'<span class="tritecky">...</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#9 </span>spouštět v druhé a čtvrté pondělí od května do září včetně<sup><a href="#ppc6" id="ppcr6">(6)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">pridat_ulohu <i class="dopln">id-úlohy</i> &quot;<i class="dopln">číslo-minuty</i> <i class="dopln">číslo-hodiny</i> 8-14,22-28 5-9 *&quot; 'test $(date +%u) -eq 1 &amp;&amp; <i class="dopln">příkaz</i>'</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#10 </span>spouštět jednou ročně v určitý den</div><div class="radky">
+<div class="radekzaklinadla">pridat_ulohu <i class="dopln">id-úlohy</i> &quot;<i class="dopln">číslo-minuty</i> <i class="dopln">číslo-hodiny</i> <i class="dopln">číslo-dne-v-měsíci</i> <i class="dopln">číslo-měsíce</i> *&quot; '<i class="dopln">příkaz</i>'</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#11 </span>spouštět v poledne 29. února každého přestupného roku</div><div class="radky">
+<div class="radekzaklinadla">pridat_ulohu <i class="dopln">id-úlohy</i> &quot;0 12 29 2 *&quot; '<i class="dopln">příkaz</i>'</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#12 </span>spouštět v poledne každou adventní neděli<sup><a href="#ppc7" id="ppcr7">(7)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">pridat_ulohu <i class="dopln">id-úlohy</i> &quot;0 12 * 11-12 7&quot; 'test 1127 -le $(date +%m%d) -a $(date +%m%d) -le 1224 &amp;&amp; <i class="dopln">příkaz</i>'</div>
+</div></div>
+
+<h3 id="cast4x4"><span class="cislo">4</span> Jednorázové úlohy (obecně)</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>přidat úlohu</div><div class="radky">
+<div class="radekzaklinadla">printf &quot;%s\\n&quot; '<i class="dopln">příkaz</i>'<span class="tritecky">...</span> | at <i class="dopln">plán</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>vypsat úlohy (číslo úlohy je v prvním sloupci)</div><div class="radky">
+<div class="radekzaklinadla">atq</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>zrušit úlohu/všechny úlohy</div><div class="radky">
+<div class="radekzaklinadla">atrm <i class="dopln">číslo-úlohy</i></div>
+<div class="radekzaklinadla">atq | cut -f 1 | xargs -r atrm</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>změnit plán úlohy</div><div class="radky">
+<div class="radekzaklinadla">?</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span>vypsat obsah úlohy</div><div class="radky">
+<div class="radekzaklinadla">at -c <i class="dopln">číslo-úlohy</i></div>
+</div></div>
+
+<h3 id="cast4x5"><span class="cislo">5</span> Jednorázové úlohy (plány)</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>spustit v přesně zadaný čas/31. prosince 2030 ve 2 hodiny a 3 minuty<sup><a href="#ppc8" id="ppcr8">(8)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">at <i class="dopln">hodina</i>:<i class="dopln">minuta</i> <span class="volznak">[</span><i class="dopln">rok</i>-<i class="dopln">měsíc</i>-<i class="dopln">den</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla">at 02:03 2030-12-31</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>spustit při příštím startu systému/při příštím přihlášení</div><div class="radky">
+<div class="radekzaklinadla">?</div>
+<div class="radekzaklinadla">?</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>spustit dnes/zítra v 15.30</div><div class="radky">
+<div class="radekzaklinadla">at 15:30 today</div>
+<div class="radekzaklinadla">at 15:30 tomorrow</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>spustit příští úterý ve 12.00</div><div class="radky">
+<div class="radekzaklinadla">at 12:00 next tuesday</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span>spustit v poledne druhého dne příštího měsíce</div><div class="radky">
+<div class="radekzaklinadla">?</div>
+</div></div>
+
+<h2 id="cast5"><span class="cislo">5.</span> Parametry příkazů</h2>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">crontab -</div>
+<div class="radekzaklinadla">crontab <i class="dopln">soubor</i></div>
+<div class="radekzaklinadla">crontab <i class="dopln">parametry</i></div>
+</div></div>
+<ul style="text-align:left"><li><b>-l</b> :: Vypíše tabulku úloh.
+</li><li><b>-u</b> <i class="dopln">uživatel</i> :: Bude pracovat s tabulkou úloh zadaného uživatele (vyžaduje „sudo“).
+</li><li><b>-r</b> :: Smaže tabulku úloh.
+</li></ul><div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">at <i class="dopln">plán</i></div>
+<div class="radekzaklinadla">atq</div>
+<div class="radekzaklinadla">atrm <i class="dopln">číslo-úlohy</i><span class="tritecky">...</span></div>
+<div class="radekzaklinadla">at -c <i class="dopln">číslo-úlohy</i><span class="tritecky">...</span></div>
+</div></div>
+<p>
+Poznámka: Příkaz „at“ očekává na standardním vstupu skript k provedení.
+</p>
+
+<h2 id="cast6"><span class="cislo">6.</span> Instalace na Ubuntu</h2>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">sudo apt-get install at</div>
+</div></div>
+<p>
+Démon „cron“ je základní systémovou součástí Ubuntu a mnoha linuxových
+distribucí, proto zpravidla není třeba ho instalovat.
+</p>
+
+<h2 id="cast7"><span class="cislo">7.</span> Ukázka</h2>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">mkdir -pv ~/moje_ulohy</div>
+<div class="radekzaklinadla">cd ~/moje_ulohy</div>
+<div class="radekzaklinadla">printf %s\\n 'cd' 'sleep 7' \</div>
+<div class="radekzaklinadla">'mplayer /usr/share/sounds/sound-icons/piano-3.wav &amp;' \</div>
+<div class="radekzaklinadla">'sleep 0.5' 'notify-send -i dialog-information &quot;Další minuta uplynula.&quot;' &gt;uloha-minuta</div>
+<div class="radekzaklinadla">function pridat_ulohu () {</div>
+<div class="radekzaklinadla">(tmp=&quot;$2 %s #$1\\n&quot;; crontab -l 2&gt;/dev/null | egrep -v &quot;#$1\$&quot;; shift 2; printf &quot;$tmp&quot; &quot;$@&quot; | sed -e 's/\\/\\\\/g' -e 's/%/\\%/g') | crontab -</div>
+<div class="radekzaklinadla">}</div>
+<div class="radekzaklinadla">pridat_ulohu minuta &quot;* * * * *&quot; &quot;~/bin/spustit-v-x bash ~/moje_ulohy/uloha-minuta&quot;</div>
+</div></div>
+<p>
+Poznámka: ukázka vyžaduje nainstalovaný balíček „mplayer“ (a pochopitelně vytvořený pomocný skript „~/bin/spustit-v-x“).
+</p>
+
+<h2 id="cast8"><span class="cislo">8.</span> Tipy a zkušenosti</h2>
+<ul style="text-align:justify"><li>Pro jakoukoliv netriviální pravidelnou úlohu doporučuji vytvořit samostatný skript a funkci „pridat_ulohu“ předat volání tohoto skriptu místo vlastních příkazů. Má to celou řadu výhod, např. možnost obsah úlohy editovat, možnost mít víc řádků a použít bash místo /bin/sh. Další výhodou je, že definice se v případě smazání úlohy neztratí a je ji možno použít opakovaně.
+</li><li>Naplánované úlohy jsou spouštěny mimo terminál a mimo grafické prostředí, což komplikuje jejich ladění.
+</li><li>Ačkoliv mi sekundy u příkazu „at“ nefungují, skript se spouští velmi přesně v nultou sekundu požadované minuty, což vybízí k použití příkazu „sleep“ na začátku spouštěného skriptu k dosažení spuštění v určitou sekundu minuty. Cron tak přesný není.
+</li><li>Cron spustí další instanci úlohy i v případě, že předchozí instance ještě běží.
+</li><li>Pokud se pravidelná úloha nespustila, zkuste prozkoumat logy, které zobrazíte příkazem:<br>„fgrep CRON /var/log/syslog“. Mohou obsahovat odpovídající chybové hlášení.
+</li></ul>
+<h2 id="cast9"><span class="cislo">9.</span> Jak získat nápovědu</h2>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">man 5 crontab</div>
+<div class="radekzaklinadla">man 1 crontab</div>
+<div class="radekzaklinadla">man at</div>
+</div></div>
+
+<h2 id="cast10"><span class="cislo">10.</span> Odkazy</h2>
+<ul style="text-align:left"><li><a href="https://cs.wikipedia.org/wiki/Cron">Stránka na Wikipedii: Cron</a>
+</li><li><a href="https://cs.wikipedia.org/wiki/At_(Unix)">Stránka na Wikipedii: At</a>
+</li><li><a href="https://www.root.cz/clanky/cron-naplanovanie-opakujucich-sa-procesov/">Článek na Root.cz: Cron: naplánovanie opakujúcich sa procesov</a> (slovensky)
+</li><li><a href="https://www.linuxexpres.cz/praxe/cron-spravca-uloh">Článek Cron − správca úloh</a> (slovensky)
+</li><li><a href="https://www.youtube.com/watch?v=QZJ1drMQz1A">Video „Linux/Mac Tutorial: Cron Jobs“</a> (anglicky)
+</li><li><a href="https://www.youtube.com/watch?v=6dJlp133iYg">Video „Crontab Command − 15 Cronjob Scheduling Examples in Linux“</a> (anglicky)
+</li><li><a href="http://manpages.ubuntu.com/manpages/bionic/en/man1/at.1posix.html">Manuálová stránka „at“</a> (anglicky)
+</li><li><a href="https://packages.ubuntu.com/bionic/at">Bionic: balíček „at“</a> (anglicky)
+</li><li><a href="https://packages.ubuntu.com/bionic/bcron-run">Bionic: balíček „bcron-run“</a> (anglicky)
+</li></ul><div class="ppc"><div id="ppc1"><a href="#ppcr1" class="cislopozn">1</a>&nbsp;Vyžadovaná pro přidávání pravidelných úloh.</div>
+<div id="ppc2"><a href="#ppcr2" class="cislopozn">2</a>&nbsp;Poznámka: Příkazy zadávané pomocí této funkce nesmějí obsahovat znak konce řádku. Vyžaduje-li vaše úloha více příkazů nebo komplikovanější konstrukce, zapište ji do skriptu a z úlohy spouštějte daný skript.</div>
+<div id="ppc3"><a href="#ppcr3" class="cislopozn">3</a>&nbsp;Tento skript je vyžadován pro spouštění grafických aplikací z naplánovaných úloh. Pro správný běh takto spuštěných aplikací může být nutno doplnit do seznamu u příkazu „egrep“ mnoho dalších proměnných.</div>
+<div id="ppc4"><a href="#ppcr4" class="cislopozn">4</a>&nbsp;Poznámka: Znaky „\“ a „%“ jsou ve výpisu escapovány, protože mají pro crontab speciální význam.</div>
+<div id="ppc5"><a href="#ppcr5" class="cislopozn">5</a>&nbsp;Vyžaduje nainstalovat balíček „gawk“.</div>
+<div id="ppc6"><a href="#ppcr6" class="cislopozn">6</a>&nbsp;Rozsahy dnů pro N-tý den týdne v měsíci jsou: první: 1-7, druhý: 8-14, třetí: 15-21, čtvrtý: 22-28, pátý: 29-31.</div>
+<div id="ppc7"><a href="#ppcr7" class="cislopozn">7</a>&nbsp;Uvedený příkaz využívá skutečnost, že adventní neděle se vyskytují pouze v období 27. listopadu až 24. prosince včetně.</div>
+<div id="ppc8"><a href="#ppcr8" class="cislopozn">8</a>&nbsp;Hodina, minuta, měsíc a den musí být zadány dvěma číslicemi.</div>
+<div class="zrusitzvyrazneni" id="zzv"><a href="#zzv">zrušit zvýraznění poznámky pod čarou</a></div></div>
+<nav class="spodni"><span class="prev">
+<a href="stahovani-videi.htm" rel="prev" title="3. Stahování videí">Předchozí&nbsp;kapitola</a>&nbsp;|
+</span><a href="index.htm">Přehled</a><span class="next"><!--
+-->&nbsp;| <a href="git.htm" rel="next" title="5. Git">Následující&nbsp;kapitola</a>
+</span>
+</nav>
+</article>
+<footer>
+<img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
+<p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
+<a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
+Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
+či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
+na stránce „<a href="index.htm">Přehled</a>“.
+Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
+licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
+Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód
+a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
+<a href="https://github.com/singularis-mzf/linux-spellbook">repozitář na GitHubu</a>.
+</footer>
+</body>
+</html>

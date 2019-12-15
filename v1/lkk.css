@@ -38,7 +38,7 @@ z-index:auto;font:inherit;}
 
 /* Blokové prvky */
 html {
-    background:#caddc0 url("obrazky/marsh.jpg") 100% 0%/cover repeat fixed;
+    background:#d4ddd0 url("obrazky/marsh.jpg") 100% 0%/cover repeat fixed;
     color:#333333;
     font:62.5%/1.2 sans-serif;
 /*    padding:1rem 2% 5rem;*/
@@ -49,7 +49,7 @@ body {
     border:thin solid #802020;
     padding:0;
     width:90%;min-width:95rem;max-width:120rem;
-    background-color:#caddc0;
+    background-color:#d4ddd0;
     font-size:133%;
     box-shadow:1rem 1rem 5rem 0 rgba(0,0,0,0.5);
 }
@@ -65,15 +65,21 @@ header {
 }
 
 nav {
+    position:relative;
     display:block;
     line-height:2;
-    margin:2em 3rem 0;
+}
+nav.horni {
+    margin:1rem 0 0;
+    text-align:left;
+}
+nav.spodni {
+    margin:3em 3rem 2em 0;
     text-align:center;
 }
-nav.spodni {margin-top:3em;margin-bottom:2em;}
 
 article {
-    padding:2rem 3rem;
+    padding:2rem 3rem 10rem;
 }
 
 footer {
@@ -120,6 +126,7 @@ p, ul {
 }
 
 p {
+    hyphens:auto;
     line-height:1.5;
 }
 
@@ -163,14 +170,17 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
     font-family: "DejaVu Sans Mono", monospace;
     font-size:115%;
     page-break-inside:avoid;
+    color:#000000;
 }
 
 .zaklinadlo>hr {
-    /* orientační čára nad každým zaklínadlem */
+    /* orientační čára nad každým zaklínadlem * /
     display:block;
     border-top:1px solid;
     margin:0 auto 0.5pt 0;
     max-width:15em;
+    */
+    display:none;
 }
 h2+.zaklinadlo>hr, h3+.zaklinadlo>hr {display:none;visibility:hidden;}
 
@@ -180,13 +190,16 @@ h2+.zaklinadlo>hr, h3+.zaklinadlo>hr {display:none;visibility:hidden;}
 }
 
 .zaklinadlo .zahlavi {
-    font-family: "Noto Mono", "DejaVu Serif", serif;
+    font-family: "DejaVu Sans", "Helvetica", "Arial", sans-serif;
     font-size:90%;
     line-height:1.3;
     margin-left:3rem;
     position:relative;
 }
 
+.zaklinadlo .zahlavi b {
+    color:#222222;
+}
 
 .zaklinadlo .zahlavi>.cislo {
     margin-left:-3rem;
@@ -199,8 +212,10 @@ h2+.zaklinadlo>hr, h3+.zaklinadlo>hr {display:none;visibility:hidden;}
     font-size:80%;
     line-height:1.8;
     margin:3pt 5pt 3pt 7rem;
-    border:1pt dotted #999999;
+    /*border:1pt dotted #999999;*/
+    border-left:1pt dotted #999999;
     padding:2pt 5pt;
+    color:rgba(0,0,0,0.7);
 }
 
 .zaklinadlo td:nth-child(1) {white-space:nowrap;}
@@ -210,6 +225,7 @@ h2+.zaklinadlo>hr, h3+.zaklinadlo>hr {display:none;visibility:hidden;}
 .radekzaklinadla::after, .radekzaklinadlaafter::after {content:"↲";margin-left:0.5em;color:rgb(120,120,120);}
 .radekzaklinadla:last-child::after {display:none;}
 .radekzaklinadla:empty::after {margin-left:0;}
+
 
 .zaklinadlo .akce, .radekzaklinadla.akce {font-family:serif;font-style:italic;}
 .zaklinadlo .akce::before, .zaklinadloakcebefore::before {content:"\2192 ";font-weight:bold;}
@@ -229,6 +245,12 @@ h2+.zaklinadlo>hr, h3+.zaklinadlo>hr {display:none;visibility:hidden;}
     color:rgb(127,127,127);
     margin:0 -0.2em;
     transform:scaleY(1.75);
+}
+
+.zaklinadlo .reseninezname {
+    color:rgb(127,127,127);
+    font-weight:bold;
+    text-shadow:0 0 0.5em rgba(0,0,0,0.5);
 }
 
 /* Formátování poznámek pod čarou */
@@ -308,39 +330,72 @@ footer img {float:left;margin:0 1rem 1rem 0;}
     white-space:pre;
 }
 .tritecky {
-    color:rgb(127,127,127);
-    letter-spacing:-0.3em;
+    display:inline-block;
+    background-image:url("obrazky/tritecky.svg");
+    background-size:100% 100%;
+    width:1em;height:1ex;
 }
 
+/* .zahlavistranky: */
 .zahlavistranky {
-    overflow:hidden;
-    position:relative;
+    display:flex;
+    flex-flow:row nowrap;
+    text-align:center;
 }
-.zahlavistranky img[src="obrazky/logo-knihy-velke.png"] {
-    float:left;
-    width:20vw;height:auto;
-    width:25%;
+.zahlavistranky .logo {
+    width:20%;height:auto;
 }
-/* banner: */
+.zahlavistranky .logo img {
+    width:100%;height:auto;
+}
+.zahlavistranky .zbytek {
+    display:flex;
+    flex-flow:column nowrap;
+    padding-left:1.5%;
+}
 .zahlavistranky h1 img {
-    position:absolute;top:0;left:auto;right:0;bottom:auto;z-index:2;
-    width:75%;
+/*    position:absolute;top:0;left:auto;right:0;bottom:auto;z-index:2;*/
+    width:95%;
     border:0.1rem solid #802020;
     box-shadow:0.1rem 0.1rem 0.2rem 0 #000000;
 }
-
 .zahlavistranky .slogan {
-    position:absolute;top:auto;left:auto;right:0;bottom:0;
-    width:75%;
-    padding:2.5em 0;
-
+    margin:2ex auto;
     font-style:italic;
-    text-align:center;
     line-height:1.5;
 }
+/* .podzahlavim: */
+.podzahlavim {
+    display:flex;
+    flex-flow:row nowrap;
+    margin:1em 0;
+    border-radius:1rem 1rem;
+    padding:1rem 2%;
+    box-shadow:0 0.25rem 1.5rem 0 rgba(50,100,50,0.5);
+}
+.podzahlavim p.ponadpisu {
+    margin:1ex auto;
+    width:65%;
+    text-align:justify;
+}
+.podzahlavim .ikona img {
+    margin:0 0.5em 0 2em;
+    width:auto; height:6.4rem;
+}
+.podzahlavim p.informaceoverzi {
+    margin:0;
+    text-indent:0;
+    width:20em;
+}
+.podzahlavim em {
+    font-style:italic;
+    font-weight:normal;
+    margin-left:1em;
+}
+
 
 nav .slogan {
-    position:relative;top:-1.5em;
+    position:absolute;top:0.15em;right:2%;
     font-size:90%;
     font-style:italic;
     text-align:right;
@@ -351,16 +406,66 @@ nav .prev, nav .next {
     display:inline-block;
     min-width:13em;
 }
-nav .prev {text-align:right;}
+nav .prev {text-align:right;margin-right:0.25em;}
 nav .next {text-align:left;}
 
-.rozcestnikkapitol a {white-space:nowrap;}
+.rozcestnikkapitol {
+    background:#cccccc;
+    margin:1rem -1em;
+    border:0.1rem solid rgba(0,0,0,0.2);
+    border-radius:1em;
+    padding:0.5em 1em;
+    text-align:left;
+    line-height:2;
+}
+.rozcestnikkapitol a {
+    white-space:nowrap;
+}
+.rozcestnikkapitol .oddelovac {
+    padding:0 0.2em;
+    color:rgba(0,0,0,0.4);
+}
 .rozcestnikkapitol .oddelovac:last-child {
     display:none;
 }
 
-.informaceoverzi {margin:2em 0;text-align:center;}
+/* .stitky */
+.stitky {
+    margin:2em 0;
+}
+.stitky span {
+    display:inline-block;
+    background:#cccccc;
+    margin:0 0.5em;
+    border-color:rgba(0,0,0,0.25) rgba(0,0,0,0.25) rgba(0,0,0,0.25) #508080;
+    border-style:solid;
+    border-width:thin thin thin 1.5rem;
+/*    border:thin solid rgba(0,0,0,0.25);*/
+    border-radius:0.4em;
+    padding:0.25em 0.5em;
+    min-width:5em;
+    box-shadow:0.1em 0.15em 0 0 rgba(0,0,0,0.5);
+    text-align:center;
+    white-space:nowrap;
+}
 
+/* .prehledy */
+.prehledy {
+    display:flex;
+    flex-flow:row nowrap;
+    justify-content:center;
+    align-items:flex-start;
+    margin:2em 0 2em 1em;
+}
+.prehledy>div {width:33%;}
+.prehledy li {list-style:decimal outside;width:85%;margin-top:0.5em;}
+/*.prehledy li+li {margin-top:0.5em;}*/
+.prehledy a {display:block;
+    border-bottom:thin dotted rgba(0,0,0,0.2);}
+.prehledy strong {display:block;font-weight:bold;margin-top:1em;}
+
+
+/*
 ol#prehledkapitol {
     margin:5em auto;
     width:20em;
@@ -375,6 +480,7 @@ ol#prehledkapitol a {
     display:block;
     border-bottom:thin dotted rgba(0,0,0,0.2);
 }
+*/
 
 dl.copyrights {
 }
@@ -390,6 +496,13 @@ dl.copyrights dd {
 dl.copyrights pre {
     font-family:monospace;
     white-space:pre;
+}
+
+span.chybny {
+    color:red !important;
+    background:white !important;
+    font-weight:bold;
+    border:1px solid red;
 }
 
 @media print {

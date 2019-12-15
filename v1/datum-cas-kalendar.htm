@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="cs">
+<head profile="http://www.w3.org/2005/10/profile">
+<meta charset="UTF-8">
+<title>Datum, čas a kalendář − Linux: Kniha kouzel</title>
+<link rel="stylesheet" type="text/css" href="lkk.css">
+<link rel="icon" type="image/png" href="obrazky/favicon.png">
+</head>
+<body>
+<header>
+<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.1</span>
+<span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
+</header>
+<nav class="horni">
+<div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+<span class="prev">
+<a href="zpracovani-videa-a-zvuku.htm" rel="prev" title="9. Zpracování videa a zvuku" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+</span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!--
+-->&nbsp;| <a href="prace-s-archivy.htm" rel="next" title="11. Práce s archivy" accesskey="n">Následující&nbsp;kapitola</a>
+</span>
+</nav>
+<article>
+<h1>10. Datum, čas a kalendář</h1>
+<div class="stitky"><span>čas</span>
+<span>tematický okruh</span></div><div class="rozcestnikkapitol">
+<a href="#cast1">Úvod</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast2">Zaklínadla</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3">Parametry příkazů</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast4">Instalace na Ubuntu</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast5">Ukázka</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast6">Tipy a zkušenosti</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast7">Jak získat nápovědu</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast8">Pomocné funkce a skripty</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast9">Odkazy</a><span class="oddelovac">&nbsp;|</span>
+</div>
+<h2 id="cast1"><span class="cislo">1.</span> Úvod</h2>
+<p class="ponadpisu">
+Obsahem této kapitoly je veškerá práce s hodnotami času a data a kalendářem jako takovým,
+to znamená výpočty, formátování, konverze časových zón a vizualizace.
+</p><p>
+Tato verze kapitoly nepokrývá menstruační kalendář, výpočet časů astronomických jevů včetně východu a západu slunce, výpočet času muslimských modliteb ani méně obvyklé druhy
+kalendářů (čínský apod.).
+</p><p>
+Plánovní úloh na konkrétní čas do této kapitoly nespadá.
+</p>
+
+<h2 id="cast2"><span class="cislo">2.</span> Zaklínadla</h2>
+
+<h3 id="cast2x1"><span class="cislo">1</span> Výstupní formát („date +“ a „strftime“)</h3>
+<p class="ponadpisu">
+V následujících zaklínadlech následuje na každém řádku příklad s vysvětlením,
+oddělený znakem „=“.
+Číselné hodnoty se automaticky zarovnávají nulami (např. leden je měsíc 01);
+potlačit to můžete vložením „-“ za %, např. „%-m“ vrátí pro leden „1“;
+pro zarovnání mezerami tam vložte „_“, např. „%_m“ vrátí pro leden „<span class="viditelnamezera">&nbsp;</span>1“.
+</p>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>lokalizované celky</div><div class="radky">
+<div class="radekzaklinadla">%x = datum = 31.12.2019</div>
+<div class="radekzaklinadla">%X = čas (24hodinový) = 23:59:59</div>
+<div class="radekzaklinadla">%r = čas (12hodinový) = 11:59:59</div>
+<div class="radekzaklinadla">%c = datum a čas (24hodinový) = Út 31. prosince 2019, 23:59:59 CET</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>nelokalizované celky</div><div class="radky">
+<div class="radekzaklinadla">%D = %m/%d/%y = 12/31/19</div>
+<div class="radekzaklinadla">%F = %Y-%m-%d = 2019-12-31</div>
+<div class="radekzaklinadla">%R = %H:%M = 23:59</div>
+<div class="radekzaklinadla">%T = %H:%M:%S = 23:59:59</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>den v týdnu (alternativy)</div><div class="radky">
+<div class="radekzaklinadla">%A = Úterý (plný název, lokalizovaný)</div>
+<div class="radekzaklinadla">%a = Út (zkratka, lokalizovaná)</div>
+<div class="radekzaklinadla">%u = 2 (číslo 1..7, kde 1 je pondělí)</div>
+<div class="radekzaklinadla">%w = 2 (číslo 0..6, kde 0 je neděle)</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><b>rok</b> (alternativy)</div><div class="radky">
+<div class="radekzaklinadla">%Y = 2010 (4 číslice)</div>
+<div class="radekzaklinadla">%C = 20 (století)</div>
+<div class="radekzaklinadla">%y = 10 (dvojčíslí roku)</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span>čtvrtletí (ne strftime)</div><div class="radky">
+<div class="radekzaklinadla">%q = 3 (číslo 1..4)</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><b>měsíc</b> (alternativy)</div><div class="radky">
+<div class="radekzaklinadla">%m = 03 (číslo)</div>
+<div class="radekzaklinadla">%B = listopad (plný název, lokalizovaný)</div>
+<div class="radekzaklinadla">%b = lis (zkratka, lokalizovaná)</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span>den v měsíci (alternativy)</div><div class="radky">
+<div class="radekzaklinadla">%d = 03 (číslo)</div>
+<div class="radekzaklinadla">%e = <span class="viditelnamezera">&nbsp;</span>3 (číslo zarovnané mezerou)</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span><b>hodina</b> + období dne (alternativy)</div><div class="radky">
+<div class="radekzaklinadla">%H = 15 (číslo 00..23)</div>
+<div class="radekzaklinadla">%I = 03 (číslo 01..12)</div>
+<div class="radekzaklinadla">%p = AM/PM (lokalizovaně)</div>
+<div class="radekzaklinadla">%P = am/pm (lokalizovaně)</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#9 </span><b>minuta</b></div><div class="radky">
+<div class="radekzaklinadla">%M = 59 (číslo 00..59)</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#10 </span><b>sekunda</b></div><div class="radky">
+<div class="radekzaklinadla">%S = 59 (číslo 00..61)</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#11 </span>zlomky sekundy (ne strftime)<sup><a href="#kapdatumcaskalendarppc1" id="kapdatumcaskalendarppcr1">(1)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">%<span class="volznak">[</span><i class="dopln">číslic</i><span class="volznak">]</span>N = 123456789 (počítadlo nanosekund)</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#12 </span><b>časová zóna</b><sup><a href="#kapdatumcaskalendarppc2" id="kapdatumcaskalendarppcr2">(2)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">%Z = CET (zkratka časové zóny)</div>
+<div class="radekzaklinadla">%z = +0100</div>
+<div class="radekzaklinadla">%:z = +01:00</div>
+<div class="radekzaklinadla">%::z = +01:00:00</div>
+<div class="radekzaklinadla">%:::z = +01 (nejkratší přesné vyjádření)</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#13 </span>číslo týdne podle ISO normy (týden začíná pondělím)</div><div class="radky">
+<div class="radekzaklinadla">%G = 2010 (celé číslo roku)</div>
+<div class="radekzaklinadla">%g = 10 (dvojčíslí roku)</div>
+<div class="radekzaklinadla">%V = 03 (číslo týdne 01..53)</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#14 </span>číslo týdne v roce</div><div class="radky">
+<div class="radekzaklinadla">%W = 07 (00..53, týden začíná pondělím)</div>
+<div class="radekzaklinadla">%U = 07 (00..53, týden začíná nedělí)</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#15 </span>escapované znaky (alternativy)</div><div class="radky">
+<div class="radekzaklinadla">%% = %</div>
+<div class="radekzaklinadla">%n = konec řádku</div>
+<div class="radekzaklinadla">%t = tabulátor</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#16 </span>časová známka Unixu (počet sekund od 00:00:00 1. ledna 1970 UTC)(ne strftime)</div><div class="radky">
+<div class="radekzaklinadla">%s</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#17 </span>číslo dne v roce</div><div class="radky">
+<div class="radekzaklinadla">%<span class="volznak">[</span>-<span class="volznak">]</span>j</div>
+</div></div>
+
+<h3 id="cast2x2"><span class="cislo">2</span> Doporučené vstupní formáty času („date -d“)</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><b>lokální čas</b> (alternativa 1/2/příklady...)<sup><a href="#kapdatumcaskalendarppc3" id="kapdatumcaskalendarppcr3">(3)</a>,&nbsp;<a href="#kapdatumcaskalendarppc4" id="kapdatumcaskalendarppcr4">(4)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">rok</i>-<i class="dopln">měsíc</i>-<i class="dopln">den</i><span class="viditelnamezera">&nbsp;</span><i class="dopln">hodina</i>:<i class="dopln">minuta</i>:<i class="dopln">sekunda</i><span class="volznak">[</span>.<i class="dopln">f</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla"><i class="dopln">rok</i>-<i class="dopln">měsíc</i>-<i class="dopln">den</i>T<i class="dopln">hodina</i>:<i class="dopln">minuta</i>:<i class="dopln">sekunda</i><span class="volznak">[</span>.<i class="dopln">f</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla">2019-12-31 23:59:59</div>
+<div class="radekzaklinadla">2019-12-31 23:59:59.123456789</div>
+<div class="radekzaklinadla">2019-12-31T23:59:59.123456</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>čas s udaným <b>posunem proti UTC</b> (obecně/příklady)<sup><a href="#kapdatumcaskalendarppc5" id="kapdatumcaskalendarppcr5">(5)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">rok</i>-<i class="dopln">měsíc</i>-<i class="dopln">den</i><span class="viditelnamezera">&nbsp;</span><i class="dopln">hodina</i>:<i class="dopln">minuta</i>:<i class="dopln">sekunda</i><span class="volznak">[</span>.<i class="dopln">f</i><span class="volznak">]</span><span class="volznak">[</span><span class="viditelnamezera">&nbsp;</span><span class="volznak">]</span><i class="dopln">posun</i></div>
+<div class="radekzaklinadla"><i class="dopln">rok</i>-<i class="dopln">měsíc</i>-<i class="dopln">den</i>T<i class="dopln">hodina</i>:<i class="dopln">minuta</i>:<i class="dopln">sekunda</i><span class="volznak">[</span>.<i class="dopln">f</i><span class="volznak">]</span><i class="dopln">posun</i></div>
+<div class="radekzaklinadla">2019-12-31 23:59:59.123456789 -0100</div>
+<div class="radekzaklinadla">2019-12-31T23:59:59.123456+0100</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>čas v udané <b>časové zóně</b> (obecně/příklady...)</div><div class="radky">
+<div class="radekzaklinadla">TZ=&quot;<i class="dopln">časová/zóna</i>&quot;<span class="viditelnamezera">&nbsp;</span><i class="dopln">rok</i>-<i class="dopln">měsíc</i>-<i class="dopln">den</i><span class="viditelnamezera">&nbsp;</span><i class="dopln">hodina</i>:<i class="dopln">minuta</i>:<i class="dopln">sekunda</i><span class="volznak">[</span>.<i class="dopln">f</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla">TZ=&quot;Europe/Prague&quot;<span class="viditelnamezera">&nbsp;</span>2019-12-31<span class="viditelnamezera">&nbsp;</span>23:59:59.123456</div>
+<div class="radekzaklinadla">TZ=&quot;UTC&quot;<span class="viditelnamezera">&nbsp;</span>2019-12-31<span class="viditelnamezera">&nbsp;</span>23:59:59.123456789</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><b>UTC čas</b> (alternativy)</div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">rok</i>-<i class="dopln">měsíc</i>-<i class="dopln">den</i><span class="viditelnamezera">&nbsp;</span><i class="dopln">hodina</i>:<i class="dopln">minuta</i>:<i class="dopln">sekunda</i><span class="volznak">[</span>.<i class="dopln">f</i><span class="volznak">]</span>Z</div>
+<div class="radekzaklinadla"><i class="dopln">rok</i>-<i class="dopln">měsíc</i>-<i class="dopln">den</i>T<i class="dopln">hodina</i>:<i class="dopln">minuta</i>:<i class="dopln">sekunda</i><span class="volznak">[</span>.<i class="dopln">f</i><span class="volznak">]</span>Z</div>
+<div class="radekzaklinadla"><i class="dopln">rok</i>-<i class="dopln">měsíc</i>-<i class="dopln">den</i><span class="viditelnamezera">&nbsp;</span><i class="dopln">hodina</i>:<i class="dopln">minuta</i>:<i class="dopln">sekunda</i><span class="volznak">[</span>.<i class="dopln">f</i><span class="volznak">]</span><span class="volznak">[</span><span class="viditelnamezera">&nbsp;</span><span class="volznak">]</span>+0000</div>
+<div class="radekzaklinadla"><i class="dopln">rok</i>-<i class="dopln">měsíc</i>-<i class="dopln">den</i>T<i class="dopln">hodina</i>:<i class="dopln">minuta</i>:<i class="dopln">sekunda</i><span class="volznak">[</span>.<i class="dopln">f</i><span class="volznak">]</span>+0000</div>
+<div class="radekzaklinadla">TZ=&quot;UTC&quot;<span class="viditelnamezera">&nbsp;</span><i class="dopln">rok</i>-<i class="dopln">měsíc</i>-<i class="dopln">den</i><span class="viditelnamezera">&nbsp;</span><i class="dopln">hodina</i>:<i class="dopln">minuta</i>:<i class="dopln">sekunda</i><span class="volznak">[</span>.<i class="dopln">f</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><b>časová známka Unixu</b><sup><a href="#kapdatumcaskalendarppc6" id="kapdatumcaskalendarppcr6">(6)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">@<i class="dopln">číslo</i></div>
+<div class="radekzaklinadla">@1577750400</div>
+<div class="radekzaklinadla">@-12345.6789</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span>půlnoc daného dne (obecně/příklad)<sup><a href="#kapdatumcaskalendarppc7" id="kapdatumcaskalendarppcr7">(7)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">rok</i>-<i class="dopln">měsíc</i>-<i class="dopln">den</i></div>
+<div class="radekzaklinadla">2019-12-31</div>
+</div></div>
+<p class="ponadpisu">
+Příkaz „date“ podporuje i mnoho dalších vstupních formátů; úplná dokumentace v angličtině je dostupná příkazem „info date“, ale v praxi doporučuji omezit se pouze na zde uvedené.
+</p>
+
+<h3 id="cast2x3"><span class="cislo">3</span> Čekání</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>počkat určitou dobu<sup><a href="#kapdatumcaskalendarppc8" id="kapdatumcaskalendarppcr8">(8)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">sleep <i class="dopln">sekund</i><span class="tritecky"></span></div>
+</div></div>
+
+<h3 id="cast2x4"><span class="cislo">4</span> Kalendář</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>zobrazit kalendář měsíce a <b>dvou okolních</b></div><div class="radky">
+<div class="radekzaklinadla">ncal -M3<span class="volznak">[</span>b<span class="volznak">]</span><span class="volznak">[</span>w<span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">měsíc-1-až-12</i> <i class="dopln">rok</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>zobrazit kalendář měsíce</div><div class="radky">
+<div class="radekzaklinadla">ncal -M<span class="volznak">[</span>b<span class="volznak">]</span><span class="volznak">[</span>w<span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">měsíc-1-až-12</i><span class="volznak">]</span> <i class="dopln">rok</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>zobrazit kalendář všech měsíců <b>v roce</b></div><div class="radky">
+<div class="radekzaklinadla">ncal -Mb<span class="volznak">[</span>w<span class="volznak">]</span> <i class="dopln">rok</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>zobrazit kalendář měsíce a N následujících</div><div class="radky">
+<div class="radekzaklinadla">ncal -M<span class="volznak">[</span>b<span class="volznak">]</span><span class="volznak">[</span>w<span class="volznak">]</span> -A <i class="dopln">N</i> <span class="volznak">[</span><i class="dopln">měsíc-1-až-12</i><span class="volznak">]</span> <i class="dopln">rok</i></div>
+</div></div>
+
+<h3 id="cast2x5"><span class="cislo">5</span> Aktuální čas a datum</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>vypsat aktuální čas (resp. datum): lokální/UTC/v určité časové zóně</div><div class="radky">
+<div class="radekzaklinadla">date <span class="volznak">[</span>+<i class="dopln">formát</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla">date -u <span class="volznak">[</span>+<i class="dopln">formát</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla">TZ=&quot;<i class="dopln">časová/zóna</i>&quot; date <span class="volznak">[</span>+<i class="dopln">formát</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>zobrazit kalendář aktuálního měsíce a dvou okolních</div><div class="radky">
+<div class="radekzaklinadla">ncal -M3<span class="volznak">[</span>b<span class="volznak">]</span><span class="volznak">[</span>w<span class="volznak">]</span></div>
+</div></div>
+
+<h3 id="cast2x6"><span class="cislo">6</span> Časové zóny</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>konverze z UTC na lokální čas/z lokálního času na UTC</div><div class="radky">
+<div class="radekzaklinadla">date -d &quot;TZ=\&quot;UTC\&quot; <i class="dopln">čas-UTC</i>&quot; &quot;+%F %T&quot;</div>
+<div class="radekzaklinadla">date -ud &quot;TZ=\&quot;$(cat /etc/timezone)\&quot;<span class="viditelnamezera">&nbsp;</span><i class="dopln">lokální čas</i>&quot; &quot;+%F %T&quot;</div>
+<div class="radekzaklinadla">date -ud &quot;@$(date -d &quot;<i class="dopln">čas</i>&quot; +%s)&quot; &quot;+%F %T&quot;</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>konverze z jedné časové zóny do druhé (obecně/příklad)</div><div class="radky">
+<div class="radekzaklinadla">TZ=&quot;<i class="dopln">cílová/časová/zóna</i>&quot; date -d 'TZ=&quot;<i class="dopln">zdrojová/časová/zóna</i>&quot;<span class="viditelnamezera">&nbsp;</span><i class="dopln">čas</i>' &quot;+%F %T<span class="volznak">[</span><span class="viditelnamezera">&nbsp;</span>%z<span class="volznak">]</span>&quot;</div>
+<div class="radekzaklinadla">TZ=&quot;America/New_York&quot; date -d 'TZ=&quot;Asia/Vladivostok&quot; 2019-01-01 12:35:57' &quot;+%F %T %z&quot;</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><b>vypsat</b> seznam rozumných podporovaných časových zón, seřazený podle jejich aktuální odchylky od UTC</div><div class="radky">
+<div class="radekzaklinadla">vypsat-casove-zony | sed 's/.*/TZ=&quot;&amp;&quot; date +%z; echo &amp;/' | bash | xargs -rd \\n -n 2 printf &quot;%s\\t%s\\n&quot; | LC_ALL=C sort | sort -ns</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>vypsat seznam podporovaných časových zón (rozumný/naprosto úplný)</div><div class="radky">
+<div class="radekzaklinadla">vypsat-casove-zony</div>
+<div class="radekzaklinadla">vypsat-casove-zony vsechny</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span>vypsat aktuální časovou zónu nastavenou v systému</div><div class="radky">
+<div class="radekzaklinadla">cat /etc/timezone</div>
+</div></div>
+
+<h3 id="cast2x7"><span class="cislo">7</span> Aritmetika s datem</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>konverze data na „číslo dne“/zpět</div><div class="radky">
+<div class="radekzaklinadla">printf %s\\n $(($(date -ud <i class="dopln">datum</i> +%s) / 86400))</div>
+<div class="radekzaklinadla">date -ud &quot;@$((<i class="dopln">číslo-dne</i> * 86400))&quot; +%F</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><b>přičíst</b> k datu N dní/<b>odečíst</b> od data N dní</div><div class="radky">
+<div class="radekzaklinadla">date -ud @$((<i class="dopln">N</i> * 86400 + $(date -ud &quot;<i class="dopln">datum</i>&quot; +%s))) +%F</div>
+<div class="radekzaklinadla">date -ud @$((-<i class="dopln">N</i> * 86400 + $(date -ud &quot;<i class="dopln">datum</i>&quot; +%s))) +%F</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><b>rozdíl</b> dvou dat ve dnech</div><div class="radky">
+<div class="radekzaklinadla">printf %s\\n $((($(date -ud <i class="dopln">datum</i> +%s) - $(date -ud <i class="dopln">odečítané-datum</i> +%s)) / 86400))</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>je <b>rok přestupný</b>?</div><div class="radky">
+<div class="radekzaklinadla">test 61 -eq $(date -d <i class="dopln">rok</i>-03-01 +%-j)</div>
+</div></div>
+
+<h3 id="cast2x8"><span class="cislo">8</span> Artimetika s časem</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>konverze lokálního/UTC času na „časovou známku Unixu“</div><div class="radky">
+<div class="radekzaklinadla">date -d &quot;<i class="dopln">čas</i>&quot; +%s</div>
+<div class="radekzaklinadla">date -ud &quot;<i class="dopln">čas</i>&quot; +%s</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>konverze „časové známky“ na lokální čas/UTC</div><div class="radky">
+<div class="radekzaklinadla">date -d %<i class="dopln">časová-známka</i> &quot;+%F %T<span class="volznak">[</span><span class="viditelnamezera">&nbsp;</span>%z<span class="volznak">]</span>&quot;</div>
+<div class="radekzaklinadla">date -ud %<i class="dopln">časová-známka</i> &quot;+%F %T&quot;</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><b>přičíst/odečíst</b> N sekund (v UTC)</div><div class="radky">
+<div class="radekzaklinadla">date -ud @$(($(date -ud &quot;<i class="dopln">datum čas</i>&quot; +%s) + <i class="dopln">N</i> )) &quot;+%F %T&quot;</div>
+<div class="radekzaklinadla">date -ud @$(($(date -ud &quot;<i class="dopln">datum čas</i>&quot; +%s) - <i class="dopln">N</i> )) &quot;+%F %T&quot;</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><b>rozdíl</b> UTC časů v sekundách</div><div class="radky">
+<div class="radekzaklinadla">printf %s\\n $(($(date -ud <i class="dopln">čas</i> +%s) - $(date -ud <i class="dopln">odečítaný-čas</i> +%s)))</div>
+</div></div>
+
+<h3 id="cast2x9"><span class="cislo">9</span> Svátky</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>zjistit datum Velikonoční neděle</div><div class="radky">
+<div class="radekzaklinadla">date -d &quot;$(LC_ALL=C ncal -e <span class="volznak">[</span><i class="dopln">rok</i><span class="volznak">]</span>)&quot; +%F</div>
+</div></div>
+
+<h3 id="cast2x10"><span class="cislo">10</span> Nastavení systémového času</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>přepnout časovou zónu systému</div><div class="radky">
+<div class="radekzaklinadla">sudo dpkg-reconfigure tzdata</div>
+<div class="radekzaklinadla akce">V dialogu zvolit požadovanou oblast a konkrétní časovou zónu.</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>ručně synchronizovat systémový čas</div><div class="radky">
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>vypnout/zapnout automatickou synchronizaci systémového času</div><div class="radky">
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+
+<h2 id="cast3"><span class="cislo">3.</span> Parametry příkazů</h2>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>TZ=&quot;<i class="dopln">cílová časová zóna</i>&quot;<span class="volznak">]</span> date <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> <span class="volznak">[</span>+<i class="dopln">formát</i><span class="volznak">]</span></div>
+</div></div>
+<ul style="text-align:left"><li><b>-d '</b><i class="dopln">datum a čas</i><b>'</b> nebo <b>-d '&quot;</b><i class="dopln">původní časová zóna</i><b>&quot;<span class="viditelnamezera">&nbsp;</span></b><i class="dopln">datum a čas</i><b>'</b> :: Použije zadaný čas místo aktuálního.
+</li><li><b>-u</b> :: Cílová časová zóna bude UTC, bez ohledu na proměnnou prostředí TZ.
+</li><li><b>-f</b> <i class="dopln">soubor</i> :: Čte data z řádků zadaného souboru (alternativa k <b>-d</b>).
+</li></ul><div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">ncal <i class="dopln">parametry</i> <span class="volznak">[</span><span class="volznak">[</span><i class="dopln">měsíc</i><span class="volznak">]</span> <i class="dopln">rok</i><span class="volznak">]</span></div>
+</div></div>
+<ul style="text-align:left"><li><b>-M</b> :: Týden začíná pondělím. (<b>-S</b> − začíná nedělí.)
+</li><li><b>-b</b> :: Týdny tvoří řádky. (Výchozí chování: týdny tvoří sloupce.)
+</li><li><b>-3</b> :: Zobrazí také předchozí a následující měsíc. (Výchozí chování: zobrazí pouze zadaný měsíc.)
+</li><li><b>-w</b> :: Do kalendáře zahrne čísla týdnů.
+</li></ul>
+<h2 id="cast4"><span class="cislo">4.</span> Instalace na Ubuntu</h2>
+<p class="ponadpisu">
+Veškeré použité nástroje jsou základními součástmi Ubuntu dostupnými v minimální instalaci.
+</p>
+
+<h2 id="cast5"><span class="cislo">5.</span> Ukázka</h2>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">ncal -M3bw</div>
+<div class="radekzaklinadla">date &quot;+%F %T.%9N %z%t(%s.%9N)&quot;</div>
+<div class="radekzaklinadla">date -u &quot;+%F %T.%9N %z%t(%s.%9N)&quot;</div>
+<div class="radekzaklinadla">date -d &quot;TZ=\&quot;America/New_York\&quot;<span class="viditelnamezera">&nbsp;</span>2000-02-29 12:01:02.123&quot; &quot;+%FT%T.%9N%z&quot;</div>
+<div class="radekzaklinadla">date -ud &quot;TZ=\&quot;America/New_York\&quot;<span class="viditelnamezera">&nbsp;</span>2000-02-29 12:01:02.123&quot; &quot;+%FT%T.%9N%z&quot;</div>
+<div class="radekzaklinadla">TZ=&quot;America/New_York&quot; date -d &quot;TZ=\&quot;America/New_York\&quot;<span class="viditelnamezera">&nbsp;</span>2000-02-29 12:01:02.123&quot; &quot;+%FT%T.%9N%z&quot;</div>
+<div class="radekzaklinadla">printf %s\\n $((($(date -ud 2001-01-01 +%s) - $(date -ud 2000-01-01 +%s)) / 86400))</div>
+</div></div>
+
+<h2 id="cast6"><span class="cislo">6.</span> Tipy a zkušenosti</h2>
+<ul style="text-align:justify"><li>Specifikace časové zóny či posunu mají následující prioritu: 1) parametr <b>-d</b>; 2) parametr <b>-u</b>; 3) proměnná prostředí <b>TZ</b>.
+</li></ul>
+<h2 id="cast7"><span class="cislo">7.</span> Jak získat nápovědu</h2>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">man date</div>
+<div class="radekzaklinadla">man ncal</div>
+</div></div>
+
+<h2 id="cast8"><span class="cislo">8.</span> Pomocné funkce a skripty</h2>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>~/bin/vypsat-casove-zony − vypíše seznam podporovaných časových zón</div><div class="radky">
+<div class="radekzaklinadla">#!/bin/bash -e</div>
+<div class="radekzaklinadla">find -L /usr/share/zoneinfo -type f | cut -d / -f 5- | (if test &quot;$1&quot; = &quot;vsechny&quot;</div>
+<div class="radekzaklinadla">then</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">exec cat</div>
+<div class="radekzaklinadla">fi</div>
+<div class="radekzaklinadla">exec egrep &quot;^($(echo Africa America Antarctica Asia Atlantic Australia Etc Europe Indian Pacific | tr &quot;<span class="viditelnamezera">&nbsp;</span>&quot; \|))&quot;) | LC_ALL=C sort -i</div>
+</div></div>
+
+<h2 id="cast9"><span class="cislo">9.</span> Odkazy</h2>
+<ul style="text-align:left"><li><a href="https://en.cppreference.com/w/c/chrono/strftime">Reference funkce strftime</a> (anglicky)
+</li><li><a href="http://manpages.ubuntu.com/manpages/bionic/en/man1/date.1.html">Manuálová stránka „date“</a> (anglicky)
+</li><li><a href="http://manpages.ubuntu.com/manpages/bionic/en/man1/ncal.1.html">Manuálová stránka „ncal“</a> (anglicky)
+</li><li><a href="https://www.youtube.com/watch?v=FMrV5FdmBVI">Video Linux Operating System | Commands | Date And Time</a> (anglicky)
+</li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/common/date.md">TL;DR stránka „date“</a> (anglicky)
+</li></ul><div class="ppc"><div id="kapdatumcaskalendarppc1"><a href="#kapdatumcaskalendarppcr1" class="cislopozn">1</a>&nbsp;Počet „číslic“ by měl být v rozsahu 1 až 9.</div>
+<div id="kapdatumcaskalendarppc2"><a href="#kapdatumcaskalendarppcr2" class="cislopozn">2</a>&nbsp;strftime jen %z a %Z.</div>
+<div id="kapdatumcaskalendarppc3"><a href="#kapdatumcaskalendarppcr3" class="cislopozn">3</a>&nbsp;Odpovídá formátům „%F %T“, „%FT%T.%3N“, „%F %T.%9N“, „%FT%T.%6N“ apod.</div>
+<div id="kapdatumcaskalendarppc4"><a href="#kapdatumcaskalendarppcr4" class="cislopozn">4</a>&nbsp;„f“ je jedna až devět číslic.</div>
+<div id="kapdatumcaskalendarppc5"><a href="#kapdatumcaskalendarppcr5" class="cislopozn">5</a>&nbsp;„posun“ je znaménko a čtyři číslice značící posun oproti UTC v hodinách a minutách, např. „+0100“. Odpovídá formátu „%z“.</div>
+<div id="kapdatumcaskalendarppc6"><a href="#kapdatumcaskalendarppcr6" class="cislopozn">6</a>&nbsp;„číslo“ může být kladné i záporné, celé i s desetinnou tečkou. Výsledkem bude čas posunutý od začátku unixové éry (UTC půlnoc 1. ledna 1970) o zadaný počet sekund. Odpovídá formátu „%s“, resp. „%s.%N“</div>
+<div id="kapdatumcaskalendarppc7"><a href="#kapdatumcaskalendarppcr7" class="cislopozn">7</a>&nbsp;Odpovíďá formátu „+%F“.</div>
+<div id="kapdatumcaskalendarppc8"><a href="#kapdatumcaskalendarppcr8" class="cislopozn">8</a>&nbsp;Počet sekund může být i necelé číslo, např. 0.12 počká 120 milisekund. Pro hodnoty pod 100 milisekund ale neočekávejte velkou přesnost.</div>
+<div class="zrusitzvyrazneni" id="zzv"><a href="#zzv">zrušit zvýraznění poznámky pod čarou</a></div></div>
+<nav class="spodni"><span class="prev">
+<a href="zpracovani-videa-a-zvuku.htm" rel="prev" title="9. Zpracování videa a zvuku">Předchozí&nbsp;kapitola</a>&nbsp;|
+</span><a href="index.htm">Přehled</a><span class="next"><!--
+-->&nbsp;| <a href="prace-s-archivy.htm" rel="next" title="11. Práce s archivy">Následující&nbsp;kapitola</a>
+</span>
+</nav>
+</article>
+<footer>
+<img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
+<p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
+<a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
+Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
+či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
+na stránce „<a href="_autori.htm">Přehled autorů</a>“.
+Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
+licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
+Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód
+a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
+<a href="https://github.com/singularis-mzf/linux-spellbook">repozitář na GitHubu</a>.
+</footer>
+</body>
+</html>

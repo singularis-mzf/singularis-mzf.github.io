@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="cs">
+<head profile="http://www.w3.org/2005/10/profile">
+<meta charset="UTF-8">
+<title>Správa balíčků − Linux: Kniha kouzel</title>
+<link rel="stylesheet" type="text/css" href="lkk.css">
+<link rel="icon" type="image/png" href="obrazky/favicon.png">
+</head>
+<body>
+<header>
+<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.1</span>
+<span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
+</header>
+<nav class="horni">
+<div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+<span class="prev">
+<a href="regularni-vyrazy.htm" rel="prev" title="12. Regulární výrazy" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+</span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!--
+-->&nbsp;| <a href="koncepce-projektu.htm" rel="next" title="14. Koncepce projektu Linux: Kniha kouzel" accesskey="n">Následující&nbsp;kapitola</a>
+</span>
+</nav>
+<article>
+<h1>13. Správa balíčků</h1>
+<div class="stitky"><span>apt</span>
+<span>Flatpak</span>
+<span>Snap</span>
+<span>systém</span>
+<span>tematický okruh</span></div><div class="rozcestnikkapitol">
+<a href="#cast1">Úvod</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast2">Definice</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3">Zaklínadla (DPKG a APT)</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast4">Zaklínadla (Flatpak)</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast5">Zaklínadla (Snap)</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast6">Instalace na Ubuntu</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast7">Ukázka</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast8">Tipy a zkušenosti</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast9">Jak získat nápovědu</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast10">Odkazy</a><span class="oddelovac">&nbsp;|</span>
+</div>
+<h2 id="cast1"><span class="cislo">1.</span> Úvod</h2>
+<p class="ponadpisu">
+Tématem této kapitoly jsou balíčkovací systémy dpkg, apt, PPA, Flatpak a Snap, používáné
+k instalaci a aktualizaci aplikací, knihoven a systémových součástí v distribuci Ubuntu.
+</p><p>
+Systém „dpkg“ (Debian PacKaGe manager) instaluje do systému balíčky typu .deb,
+hlídá, aby byly splněny závislosti mezi nimi, a eviduje, které soubory v systému
+patří ke kterému balíčku; díky tomu je umí také odinstalovat. Nekomunikuje online.
+</p><p>
+Systém „apt“ (Advanced Packaging Tool) je nadstavbou dpkg, která komunikuje se vzdáleným
+repozitářem balíčků typu .deb, stahuje potřebné balíčky a ověřuje jejich pravost.
+K instalaci je ovšem předává systému dpkg.
+</p><p>
+PPA je rozšíření „apt“, které umožňuje pohodlně přidávat mezi vzdálené zdroje apt
+repozitáře konkrétních vývojářů hostované firmou Canonical pro použití v distribuci Ubuntu.
+Balíčky z PPA jdou přímo od vývojářů a nejsou po cestě nikým dalším prověřovány,
+takže je vhodné používat pouze PPA velmi důvěryhodných vývojářů.
+</p><p>
+Flatpak je nový, moderní balíčkovací systém založený na sandboxingu a systému práv.
+Představuje dobrý, bezpečný a pohodlný způsob, jak na staré, ověřené verzi systému
+provozovat nejnovější verze vybraných programů.
+</p><p>
+Snap je nový balíčkovací systém firmy Canonical. Není dobře přijímán linuxovou komunitou
+z mnoha důvodů, především proto, že serverová část systému (repozitář) je proprietární
+(nesvobodná) a výhradně závislá na firmě Canonical; není možné vytvářet jiné repozitáře
+Snapu ani Snap nastavit tak, aby s firmou Canonical nekomunikoval.
+</p><p>
+Tato kapitola se nezabývá vytvářením balíčků, vytvářením repozitářů ani jejich zrcadel
+(pro zrcadla zkuste např.
+<a href="https://www.howtoforge.com/local_debian_ubuntu_mirror">tuto sérii článků</a> (anglicky)
+nebo modernější <a href="https://www.aptly.info/">aptly</a>) (anglicky).
+Rovněž se (pochopitelně) nezabývá sestavováním programů ze zdrojového kódu
+nebo instalací balíčků jiného typu (.rpm, .tar.xz apod.).
+</p><p>
+Tato verze kapitoly nepokrývá offline instalaci balíčků Flatpaku a chybí zmínka
+o příkazu „dpkg-deb“. Rovněž až na výjimky nepokrývá uživatelské nastavení práv
+aplikací ve Flathubu (výchozí nastavení práv určuje dodavatel aplikace, ale uživatel může
+výchozí práva aplikace zúžit nebo rozšířit).
+</p>
+
+<h2 id="cast2"><span class="cislo">2.</span> Definice</h2>
+<ul style="text-align:justify"><li><b>Balíček</b> je soubor obsahující neměnná data tvořící aplikaci, knihovnu apod. a metadata včetně případných závislostí na ostatních balíčcích.
+</li><li><b>Repozitář</b> je ucelený sklad souvisejících balíčků. Může být dostupný buď online, nebo může být umístněný v systému souborů. Repozitář APT má svůj <b>název</b> (v Ubuntu typicky „ubuntu“) a dělí se na <b>archivy</b> („bionic“, „bionic-updates“, „bionic-security“ atd.) a ty se dělí na <b>sekce</b> („main“, „universe“, „restricted“ a „multiverse“). Sekce main obsahuje svobodný software přímo podporovaný jsou součást Ubuntu, sekce „universe“ obsahuje svobodný software udržovaný pouze komunitou, sekce „restricted“ obsahuje nesvobodný software považovaný za podporovanou součást Ubuntu (typicky proprietární ovladače) a sekce „multiverse“ obsahuje nesvobodný software neudržovaný komunitou. Sekce se dále dělí na <b>podsekce</b> podle druhu softwaru.
+</li></ul>
+<h2 id="cast3"><span class="cislo">3.</span> Zaklínadla (DPKG a APT)</h2>
+
+<h3 id="cast3x1"><span class="cislo">1</span> Instalace a odinstalace</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>aktualizovat informace o dostupných balíčcích (alternativy)</div><div class="radky">
+<div class="radekzaklinadla">sudo aptitude update</div>
+<div class="radekzaklinadla">sudo apt-get update</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><b>aktualizovat</b> všechny aktualizovatelné balíčky (normálně/drasticky/normálně/drasticky)</div><div class="radky">
+<div class="radekzaklinadla">sudo apt-get upgrade <span class="volznak">[</span>-y<span class="volznak">]</span> <span class="volznak">[</span>--autoremove <span class="volznak">[</span>--purge<span class="volznak">]</span><span class="volznak">]</span></div>
+<div class="radekzaklinadla">sudo apt-get dist-upgrade <span class="volznak">[</span>-y<span class="volznak">]</span> <span class="volznak">[</span>--autoremove <span class="volznak">[</span>--purge<span class="volznak">]</span><span class="volznak">]</span></div>
+<div class="radekzaklinadla">sudo aptitude <span class="volznak">[</span>-y<span class="volznak">]</span> <span class="volznak">[</span>--no-new-installs<span class="volznak">]</span> safe-upgrade </div>
+<div class="radekzaklinadla">sudo aptitude <span class="volznak">[</span>-y<span class="volznak">]</span> full-upgrade</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><b>nainstalovat</b> nový balíček včetně závislostí (vzdálený balíček/lokální soubor)</div><div class="radky">
+<div class="radekzaklinadla">sudo apt-get install <span class="volznak">[</span>-y<span class="volznak">]</span> <span class="volznak">[</span>--no-install-recommends<span class="volznak">]</span> <span class="volznak">[</span>--install-suggests<span class="volznak">]</span> <span class="volznak">[</span>-V<span class="volznak">]</span> <i class="dopln">balíček</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla">sudo gdebi <i class="dopln">balíček.deb</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>aktualizovat jen konkrétní balíčky a jejich závislosti</div><div class="radky">
+<div class="radekzaklinadla">sudo apt-get install --only-upgrade <i class="dopln">balíček</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span>nainstalovat či upgradovat zvolené balíčky a současně upgradovat ostatní</div><div class="radky">
+<div class="radekzaklinadla">sudo apt-get upgrade <span class="volznak">[</span>-y<span class="volznak">]</span> &amp;&amp; sudo apt-get install <span class="volznak">[</span>-y<span class="volznak">]</span> <span class="volznak">[</span>--autoremove <span class="volznak">[</span>--purge<span class="volznak">]</span><span class="volznak">]</span> <i class="dopln">balíček</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span>pokusit se napravit poškozené závislosti</div><div class="radky">
+<div class="radekzaklinadla">sudo apt-get install --fix-broken</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span>stáhnout balíčky do lokálních souborů .deb (bez závislostí)</div><div class="radky">
+<div class="radekzaklinadla">apt-get download <i class="dopln">balíček</i><span class="tritecky"></span></div>
+</div></div>
+
+<h3 id="cast3x2"><span class="cislo">2</span> Vypsat balíčky</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>vypsat všechny dostupné nebo nainstalované balíčky (pro člověka)</div><div class="radky">
+<div class="radekzaklinadla">apt list</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>vypsat známé balíčky, filtrovat na základě kritérií</div><div class="radky">
+<div class="radekzaklinadla">aptitude <span class="volznak">[</span>-F <i class="dopln">formát</i><span class="volznak">]</span> search '<i class="dopln">vyhledávací podmínka</i>' <span class="volznak">[</span>'<i class="dopln">další vyhledávací podmínka</i>'<span class="volznak">]</span><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>vypsat <b>všechny dostupné balíčky</b> (včetně dostupných verzí, pouze pro hlavní architekturu)</div><div class="radky">
+<div class="radekzaklinadla">aptitude search --disable-columns -F &quot;$(printf &quot;%s\t%s&quot; %p %V)&quot; '?true' | egrep -v &quot;$(printf &quot;[^\t]*:[^\t]|[^\t]*\t&lt;[^\t]*&gt;(\t|\$)&quot;)&quot;</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>vypsat seznam <b>nainstalovaných balíčků</b> včetně verzí (pro člověka − alternativy)</div><div class="radky">
+<div class="radekzaklinadla">apt list --installed</div>
+<div class="radekzaklinadla">dpkg-query -l <span class="volznak">[</span>| less<span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span>vypsat seznam <b>nainstalovaných balíčků</b> (pro skript − alternativy)</div><div class="radky">
+<div class="radekzaklinadla">dpkg-query -Wf '${Package}:${Architecture}/${Version}/${db:Status-Status}n' <span class="volznak">[</span>'<i class="dopln">vzorek</i>'<span class="volznak">]</span> | egrep '/installed$'</div>
+<div class="radekzaklinadla">(apt-mark showauto; apt-mark showmanual) | LC_ALL=C sort -u</div>
+<div class="radekzaklinadla">aptitude --disable-columns -F <i class="dopln">formát</i> search '?installed'</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span>vypsat všechny známé (nainstalované nebo dostupné) balíčky (pro všechny architektury)</div><div class="radky">
+<div class="radekzaklinadla">aptitude search '?true'</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span>vypsat balíčky, pro které je dostupný upgrade (pro člověka/pro skript)<sup><a href="#kapspravabalickuppc1" id="kapspravabalickuppcr1">(1)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">apt list --upgradable</div>
+<div class="radekzaklinadla">aptitude search --disable-columns -F %p &quot;?upgradable&quot;</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span>vypsat balíčky, které by se skutečně upgradovaly</div><div class="radky">
+<div class="radekzaklinadla">sudo apt-get upgrade --simulate | egrep &quot;^Inst<span class="viditelnamezera">&nbsp;</span>&quot;</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#9 </span>vypsat nainstalovaný balíček vlastnící určitý příkaz</div><div class="radky">
+<div class="radekzaklinadla">test -e &quot;$(which <i class="dopln">příkaz</i>)&quot; &amp;&amp; (dpkg-query -S &quot;$(which <i class="dopln">příkaz</i>)&quot; | cut -d : -f 1)</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#10 </span>vypsat seznam balíčků (nainstalovaných/dostupných), kterým přísluší určitý soubor</div><div class="radky">
+<div class="radekzaklinadla">dpkg-query -S <i class="dopln">vzorek</i></div>
+<div class="radekzaklinadla">apt-file search -F &quot;<i class="dopln">/celá/cesta</i>&quot;</div>
+</div></div>
+
+<h3 id="cast3x3"><span class="cislo">3</span> Podrobné informace o balíčku</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>vypsat podrobné informace o balíčku</div><div class="radky">
+<div class="radekzaklinadla">apt-cache show <i class="dopln">balík</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>vypsat seznam souborů a adresářů v systému, které kontroluje daný (nainstalovaný/dostupný) balíček<sup><a href="#kapspravabalickuppc2" id="kapspravabalickuppcr2">(2)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">dpkg-query -L <i class="dopln">balíček</i></div>
+<div class="radekzaklinadla">apt-file list <i class="dopln">balíček</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>vypsat závislosti balíčku</div><div class="radky">
+<div class="radekzaklinadla">apt-cache depends <i class="dopln">balík</i><span class="tritecky"></span></div>
+</div></div>
+
+<h3 id="cast3x4"><span class="cislo">4</span> Zákaz aktualizace a označení „automaticky“</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>vypsat zákazy instalace či aktualizace balíčku</div><div class="radky">
+<div class="radekzaklinadla">apt-mark showhold</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>vypsat balíčky předinstalované nebo instalované ručně</div><div class="radky">
+<div class="radekzaklinadla">apt-mark showmanual</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>vypsat balíčky instalované jen jako závislosti jiných balíčků</div><div class="radky">
+<div class="radekzaklinadla">apt-mark showauto</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>zakázat instalaci či aktualizaci balíčku/zrušit tento zákaz</div><div class="radky">
+<div class="radekzaklinadla">sudo apt-mark hold <i class="dopln">balíček</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla">sudo apt-mark unhold <i class="dopln">balíček</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span>označit balíček jako instalovaný ručně/automaticky</div><div class="radky">
+<div class="radekzaklinadla">sudo apt-mark manual <i class="dopln">balíček</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla">sudo apt-mark auto <i class="dopln">balíček</i><span class="tritecky"></span></div>
+</div></div>
+
+<h3 id="cast3x5"><span class="cislo">5</span> Aptitude (vyhledávací podmínky)</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>hledání podle jména balíčku (alternativy)</div><div class="radky">
+<div class="radekzaklinadla">?name(&quot;<i class="dopln">regulární-výraz</i>&quot;)</div>
+<div class="radekzaklinadla">?exact-name(<i class="dopln">přesné-jméno</i>)</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>hledání podle krátkého popisu balíčku</div><div class="radky">
+<div class="radekzaklinadla">?description(&quot;<i class="dopln">regulární výraz</i>&quot;)</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>hledání podle <b>architektury</b></div><div class="radky">
+<div class="radekzaklinadla">?architecture(<i class="dopln">architektura</i>)</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>hledání podle archivu balíčku v repozitáři</div><div class="radky">
+<div class="radekzaklinadla">?archive(&quot;<i class="dopln">regulární-výraz</i>&quot;)</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span>hledání podle sekce a podsekce v repozitáři</div><div class="radky">
+<div class="radekzaklinadla">?section(&quot;<i class="dopln">regulární-výraz</i>&quot;)</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span>jen balíčky instalované ručně/automaticky</div><div class="radky">
+<div class="radekzaklinadla">?and(?installed,?not(?automatic))</div>
+<div class="radekzaklinadla">?automatic</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span>jen nainstalované balíčky</div><div class="radky">
+<div class="radekzaklinadla">?installed</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span>logické operace mezi vzorky</div><div class="radky">
+<div class="radekzaklinadla">?and(<i class="dopln">vzorek1</i>,<i class="dopln">vzorek2</i>)</div>
+<div class="radekzaklinadla">?or(<i class="dopln">vzorek1</i>,<i class="dopln">vzorek2</i>)</div>
+<div class="radekzaklinadla">?not(<i class="dopln">vzorek</i>)</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#9 </span>balíčky, které by byly odstraněny operací „autoremove“</div><div class="radky">
+<div class="radekzaklinadla">~g</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#10 </span>balíčky, pro které je dostupná novější verze/které mohou být upgradovány<sup><a href="#kapspravabalickuppc3" id="kapspravabalickuppcr3">(3)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">?upgradable</div>
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#11 </span>jen „nové“ balíčky</div><div class="radky">
+<div class="radekzaklinadla">?new</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#12 </span>jen „virtuální“ balíčky</div><div class="radky">
+<div class="radekzaklinadla">?virtual</div>
+</div></div>
+
+<h3 id="cast3x6"><span class="cislo">6</span> Aptitude (formát -F)</h3>
+<p class="ponadpisu">
+Za znakem „=“ následuje příklad hodnoty pro balíček „gimp“.
+</p>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><b>název</b> balíčku<sup><a href="#kapspravabalickuppc4" id="kapspravabalickuppcr4">(4)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">%p = gimp</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>krátký <b>popis</b> balíčku</div><div class="radky">
+<div class="radekzaklinadla">%d = GNU Image Manipulation Program</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><b>architektura</b></div><div class="radky">
+<div class="radekzaklinadla">%E = amd64</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><b>verze</b> (instalovaná/dostupná)<sup><a href="#kapspravabalickuppc5" id="kapspravabalickuppcr5">(5)</a>,&nbsp;<a href="#kapspravabalickuppc6" id="kapspravabalickuppcr6">(6)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">%v = 2.8.22-1</div>
+<div class="radekzaklinadla">%V = 2.8.22-1</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><b>archiv</b> balíčku v repozitáři<sup><a href="#kapspravabalickuppc7" id="kapspravabalickuppcr7">(7)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">%t = bionic</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><b>sekce a podsekce</b> balíčku</div><div class="radky">
+<div class="radekzaklinadla">%s = universe/graphics</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span>velikost balíčku/velikost instalovaných souborů</div><div class="radky">
+<div class="radekzaklinadla">%D = 3 672 kB</div>
+<div class="radekzaklinadla">%I = 15,8 MB</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span>popis původu balíčku</div><div class="radky">
+<div class="radekzaklinadla">%O = Ubuntu:18.04/bionic [amd64]</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#9 </span>příznak automatické instalace<sup><a href="#kapspravabalickuppc8" id="kapspravabalickuppcr8">(8)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">%M =</div>
+</div></div>
+
+<h3 id="cast3x7"><span class="cislo">7</span> PPA</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><b>přidat</b> do zdrojů nové PPA/odebrat PPA</div><div class="radky">
+<div class="radekzaklinadla">sudo add-apt-repository <span class="volznak">[</span>-y<span class="volznak">]</span> ppa:<i class="dopln">id-vývojáře</i>/<i class="dopln">id-repozitáře</i></div>
+<div class="radekzaklinadla">sudo add-apt-repository -r <span class="volznak">[</span>-y<span class="volznak">]</span> ppa:<i class="dopln">id-vývojáře</i>/<i class="dopln">id-repozitáře</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><b>vypsat</b> seznam aktivních PPA</div><div class="radky">
+<div class="radekzaklinadla">egrep -shx '\s*deb(\[[^]]*\])?\s*http://ppa.launchpad.net/.*' /etc/apt/sources.list /etc/apt/sources.list.d/*.list | cut -d / -f 4,5 | sed -E 's/.*/ppa:&amp;/' | LC_ALL=C sort -u</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>vypsat seznam balíčků dostupných z určitého PPA</div><div class="radky">
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+
+<h3 id="cast3x8"><span class="cislo">8</span> Správá důvěryhodných klíčů</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><b>přidat</b> klíč jako důvěryhodný (ze souboru/ze standardního vstupu)</div><div class="radky">
+<div class="radekzaklinadla">sudo apt-key add <i class="dopln">soubor</i></div>
+<div class="radekzaklinadla">sudo apt-key add -</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><b>odstranit</b> klíč ze seznamu důvěryhodných</div><div class="radky">
+<div class="radekzaklinadla">sudo apt-key del <i class="dopln">id-klíče</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><b>vypsat</b> seznam důvěryhodných klíčů (pro člověka, ne pro skript)</div><div class="radky">
+<div class="radekzaklinadla">apt-key list</div>
+</div></div>
+
+<h3 id="cast3x9"><span class="cislo">9</span> Offline provoz APT</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>aktualizovat údaje o dostupných balíčcích (poprvé)<sup><a href="#kapspravabalickuppc9" id="kapspravabalickuppcr9">(9)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">sudo apt-offline set pozadavek.sig --update</div>
+<div class="radekzaklinadla">sudo apt-offline get pozadavek.sig --generate-changelog --bundle pozadavek.zip</div>
+<div class="radekzaklinadla">sudo apt-offline install pozadavek.zip</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><b>aktualizovat</b> všechny balíčky</div><div class="radky">
+<div class="radekzaklinadla">sudo apt-offline set pozadavek.sig</div>
+<div class="radekzaklinadla">sudo apt-offline get pozadavek.sig --generate-changelog --bundle pozadavek.zip</div>
+<div class="radekzaklinadla">sudo apt-offline install pozadavek.zip</div>
+<div class="radekzaklinadla">sudo apt-get upgrade <span class="volznak">[</span>-y<span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><b>nainstalovat</b> nové balíčky</div><div class="radky">
+<div class="radekzaklinadla">sudo apt-offline set pozadavek.sig --install-packages <i class="dopln">balíček</i> <span class="volznak">[</span><i class="dopln">další-balíček</i><span class="volznak">]</span><span class="tritecky"></span></div>
+<div class="radekzaklinadla">sudo apt-offline get pozadavek.sig --generate-changelog --bundle pozadavek.zip</div>
+<div class="radekzaklinadla">sudo apt-offline install pozadavek.zip</div>
+<div class="radekzaklinadla">sudo apt-get install <i class="dopln">balíček</i> <span class="volznak">[</span><i class="dopln">další-balíček</i><span class="volznak">]</span><span class="tritecky"></span></div>
+</div></div>
+
+<h3 id="cast3x10"><span class="cislo">10</span> Odklonění</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><b>odklonit</b> soubor do nového umístění</div><div class="radky">
+<div class="radekzaklinadla">sudo dpkg-divert --local <span class="volznak">[</span>--move<span class="volznak">]</span> --divert <i class="dopln">/nové/umístění</i> <i class="dopln">/původní/umístění</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><b>zrušit</b> odklon souboru</div><div class="radky">
+<div class="radekzaklinadla">sudo dpkg-divert --remove <i class="dopln">/původní/umístění</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><b>vypsat</b> seznam odklonů</div><div class="radky">
+<div class="radekzaklinadla">dpkg-divert --list \*</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>odklonit soubor pro všechny balíky kromě zadaného</div><div class="radky">
+<div class="radekzaklinadla">sudo dpkg-divert --package <i class="dopln">balík</i> <span class="volznak">[</span>--move<span class="volznak">]</span> --divert <i class="dopln">/nové/umístění</i> <i class="dopln">/původní/umístění</i></div>
+</div></div>
+
+<h3 id="cast3x11"><span class="cislo">11</span> Ostatní</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>přidat do zdrojů nový repozitář/odebrat repozitář</div><div class="radky">
+<div class="radekzaklinadla">sudo add-apt-repository '<i class="dopln">řádek sources.list</i>'</div>
+<div class="radekzaklinadla">sudo add-apt-repository -r '<i class="dopln">řádek sources.list</i>'</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>zjistit hodnotu konfigurační volby APT</div><div class="radky">
+<div class="radekzaklinadla">apt-config dump <i class="dopln">volba</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>„velikonoční vajíčko“ v APT</div><div class="radky">
+<div class="radekzaklinadla">apt-get moo</div>
+</div></div>
+
+<h2 id="cast4"><span class="cislo">4.</span> Zaklínadla (Flatpak)</h2>
+
+<h3 id="cast4x1"><span class="cislo">1</span> Časté úkony</h3>
+<p class="ponadpisu">
+Poznámka: „server“ je v uvedených příkazech zpravidla „flathub“.
+</p>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><b>spustit</b> program z balíčku</div><div class="radky">
+<div class="radekzaklinadla">flatpak run <i class="dopln">balíček</i> <i class="dopln">parametry</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><b>aktualizovat</b> všechny nainstalované balíčky/jen konkrétní</div><div class="radky">
+<div class="radekzaklinadla">flatpak update</div>
+<div class="radekzaklinadla">flatpak update <i class="dopln">balíček</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><b>instalovat</b> balíček</div><div class="radky">
+<div class="radekzaklinadla">flatpak install <span class="volznak">[</span><i class="dopln">server</i><span class="volznak">]</span> <i class="dopln">balíček</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><b>odinstalovat</b> balíček</div><div class="radky">
+<div class="radekzaklinadla">flatpak uninstall <i class="dopln">balíček</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><b>vypsat</b> nainstalované balíčky</div><div class="radky">
+<div class="radekzaklinadla">flatpak list</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><b>hledat</b> dostupné balíčky podle podřetězce</div><div class="radky">
+<div class="radekzaklinadla">flatpak search <i class="dopln">podřetězec</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span>vypsat výchozí práva aplikace</div><div class="radky">
+<div class="radekzaklinadla">flatpak info --show-permissions <i class="dopln">balíček</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span>vypsat podrobnější informace o balíčku (nainstalovaném/dostupném)<sup><a href="#kapspravabalickuppc10" id="kapspravabalickuppcr10">(10)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">flatpak info <i class="dopln">balíček</i></div>
+<div class="radekzaklinadla">flatpak remote-info <i class="dopln">server</i> <i class="dopln">balíček</i><span class="volznak">[</span>//<i class="dopln">verze</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#9 </span>vypsat všechny dostupné balíčky aplikací/úplně všechny dostupné balíčky</div><div class="radky">
+<div class="radekzaklinadla">flatpak remote-ls --app flathub</div>
+<div class="radekzaklinadla">flatpak remote-ls --all flathub</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#10 </span>spustit program z balíčku bez přístupu k síti</div><div class="radky">
+<div class="radekzaklinadla">flatpak run --unshare=network <i class="dopln">balíček</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#11 </span>spustit GIMP s přístupem jen ke čtení k většině systému souborů<sup><a href="#kapspravabalickuppc11" id="kapspravabalickuppcr11">(11)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">flatpak run --nofilesystem=host --filesystem=host:ro org.gimp.GIMP</div>
+</div></div>
+
+<h3 id="cast4x2"><span class="cislo">2</span> Správa vzdálených repozitářů</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>přidat <b>FlatHub</b></div><div class="radky">
+<div class="radekzaklinadla">flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><b>přidat</b> repozitář</div><div class="radky">
+<div class="radekzaklinadla">flatpak remote-add <span class="volznak">[</span>--if-not-exists<span class="volznak">]</span> <i class="dopln">id-pro-repozitář</i> <i class="dopln">URL</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><b>odebrat</b> repozitář</div><div class="radky">
+<div class="radekzaklinadla">flatpak remote-delete <i class="dopln">id-repozitáře</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><b>vypsat</b> seznam repozitářů</div><div class="radky">
+<div class="radekzaklinadla">flatpak remotes</div>
+</div></div>
+
+<h3 id="cast4x3"><span class="cislo">3</span> Offline instalace</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>příprava (na online počítači)</div><div class="radky">
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>instalace (na offline počítači)</div><div class="radky">
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+
+<h2 id="cast5"><span class="cislo">5.</span> Zaklínadla (Snap)</h2>
+
+<h3 id="cast5x1"><span class="cislo">1</span> Instalace, spuštění a odinstalace</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><b>spustit</b> program z balíčku</div><div class="radky">
+<div class="radekzaklinadla">snap run <i class="dopln">balíček</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><b>instalovat</b> balíček</div><div class="radky">
+<div class="radekzaklinadla">sudo snap install <span class="volznak">[</span>--<i class="dopln">kanál</i><span class="volznak">]</span> <i class="dopln">balíček</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><b>odinstalovat</b> balíček</div><div class="radky">
+<div class="radekzaklinadla">sudo snap remove <i class="dopln">balíček</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>vrátit balíček do stavu před posledním upgradem na novou verzi (neověřeno)</div><div class="radky">
+<div class="radekzaklinadla">sudo snap revert <i class="dopln">balíček</i></div>
+</div></div>
+
+<h3 id="cast5x2"><span class="cislo">2</span> Vypsat balíčky a informace o nich</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><b>vypsat</b> nainstalované balíčky</div><div class="radky">
+<div class="radekzaklinadla">snap list</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>vypsat seznam všech dostupných balíčků<sup><a href="#kapspravabalickuppc12" id="kapspravabalickuppcr12">(12)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">(for X in {a..z} {0..9}; do snap find <span class="volznak">[</span>--narrow<span class="volznak">]</span> $X | sed 1d; done) | tr -s &quot;<span class="viditelnamezera">&nbsp;</span>&quot; | sort -iu | sed &quot;$(printf &quot;%s/<span class="viditelnamezera">&nbsp;</span>/\\|/\\n&quot; s s s)&quot; | column -ts \| <span class="volznak">[</span>&gt; <i class="dopln">soubor</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>vypsat podrobnější <b>informace</b> o balíčku</div><div class="radky">
+<div class="radekzaklinadla">snap info <i class="dopln">balíček</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>vypsat spojení konektorů a slotů (všech/jen spojených)</div><div class="radky">
+<div class="radekzaklinadla">snap connections --all</div>
+<div class="radekzaklinadla">snap connections</div>
+</div></div>
+
+<h3 id="cast5x3"><span class="cislo">3</span> Ostatní</h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><b>deaktivovat</b> balíček/znovu ho <b>aktivovat</b></div><div class="radky">
+<div class="radekzaklinadla">sudo snap disable <i class="dopln">balíček</i></div>
+<div class="radekzaklinadla">sudo snap enable <i class="dopln">balíček</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>ručně připojit konektor balíčku do slotu jiného balíčku/rozpojit spojení</div><div class="radky">
+<div class="radekzaklinadla">sudo snap connect <i class="dopln">balíček</i>:<i class="dopln">jeho-konektor</i> <i class="dopln">jiný-balíček</i>:<i class="dopln">jeho-slot</i></div>
+<div class="radekzaklinadla">sudo snap disconnect <i class="dopln">balíček</i>:<i class="dopln">konektor-nebo-slot</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>stáhnout balíček k offline instalaci<sup><a href="#kapspravabalickuppc13" id="kapspravabalickuppcr13">(13)</a>,&nbsp;<a href="#kapspravabalickuppc14" id="kapspravabalickuppcr14">(14)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">snap download <span class="volznak">[</span>--<i class="dopln">kanál</i><span class="volznak">]</span> <i class="dopln">balíček</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>nainstalovat balíček offline<sup><a href="#kapspravabalickuppc15" id="kapspravabalickuppcr15">(15)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">sudo snap ack <i class="dopln">soubor_s_balíčkem.assert</i></div>
+<div class="radekzaklinadla">sudo snap install <i class="dopln">soubor_s_balíčkem.snap</i></div>
+</div></div>
+
+<h2 id="cast6"><span class="cislo">6.</span> Instalace na Ubuntu</h2>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>Příkazy „aptitude“ a „gdebi“ (doporučuji)</div><div class="radky">
+<div class="radekzaklinadla">sudo apt-get install aptitude gdebi</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>Příkaz „apt-file“</div><div class="radky">
+<div class="radekzaklinadla">sudo apt-get install apt-file &amp;&amp;sudo apt-file update</div>
+</div></div>
+<p>
+Poznámka: Neinstalujte balíček apt-file, pokud ho nevyužijete. Výrazně zvyšuje objem dat přednášených při každé aktualizaci (při každém „sudo apt-get update“)!
+</p>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>Flatpak<sup><a href="#kapspravabalickuppc16" id="kapspravabalickuppcr16">(16)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">sudo add-apt-repository ppa:alexlarsson/flatpak</div>
+<div class="radekzaklinadla">sudo aptitude update</div>
+<div class="radekzaklinadla">sudo apt-get install flatpak <span class="volznak">[</span>gnome-software-plugin-flatpak<span class="volznak">]</span></div>
+<div class="radekzaklinadla">sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo</div>
+<div class="radekzaklinadla akce">Restartujte operační systém.</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>Pro umožnění uživatelské instalace (parametr --user) spusťte z účtu příslušného uživatele navíc:</div><div class="radky">
+<div class="radekzaklinadla">flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo</div>
+</div></div>
+<p>
+Snap je základní součástí Ubuntu přítomnou v každé nové instalaci.
+Je možno ho odinstalovat tímto příkazem:
+</p>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">sudo apt-get purge --autoremove snapd</div>
+</div></div>
+<p>
+Ale začátečníkům to nedoporučuji, protože není zaručeno, že nová verze některé systémové
+součásti nebude Snap vyžadovat. Začátečníkům doporučuji Snap v systému ponechat,
+ale nepoužívat.
+</p>
+
+<h2 id="cast7"><span class="cislo">7.</span> Ukázka</h2>
+<p class="ponadpisu">
+Instalace, spuštění a odinstalování GIMPu různými způsoby:
+</p>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">sudo apt-get update</div>
+<div class="radekzaklinadla">sudo apt-get install -y gimp</div>
+<div class="radekzaklinadla">gimp</div>
+<div class="radekzaklinadla akce">Ukončete Gimp.</div>
+<div class="radekzaklinadla">sudo apt-get remove -y gimp</div>
+<div class="radekzaklinadla">apt-get download gimp</div>
+<div class="radekzaklinadla">sudo gdebi gimp*.deb</div>
+<div class="radekzaklinadla akce">Odpovězte „a“.</div>
+<div class="radekzaklinadla">gimp</div>
+<div class="radekzaklinadla akce">Ukončete Gimp.</div>
+<div class="radekzaklinadla">sudo apt-get remove -y gimp</div>
+<div class="radekzaklinadla">sudo snap install gimp</div>
+<div class="radekzaklinadla">snap run gimp</div>
+<div class="radekzaklinadla akce">Ukončete Gimp.</div>
+<div class="radekzaklinadla">sudo snap remove gimp</div>
+<div class="radekzaklinadla">flatpak install flathub org.gimp.GIMP</div>
+<div class="radekzaklinadla akce">Odpovězte kladně na všechny dotazy.</div>
+<div class="radekzaklinadla">flatpak run org.gimp.GIMP</div>
+<div class="radekzaklinadla akce">Ukončete Gimp.</div>
+<div class="radekzaklinadla">flatpak remove org.gimp.GIMP</div>
+<div class="radekzaklinadla akce">Potvrďte.</div>
+</div></div>
+
+<h2 id="cast8"><span class="cislo">8.</span> Tipy a zkušenosti</h2>
+<ul style="text-align:justify"><li>Co je špatně na Snapu: 1) Automatické updatování balíčků, které nelze vypnout. 2) Zatímco klientská část je svobodný software dostupný pro mnoho linuxových distribucí, serverová část je proprietární a může ji provozovat pouze firma Canonical, takže není možné vytvářet zrcadla repozitáře a při instalaci programů je uživatel závislý na firmě Canonical a připojení do USA. 3) Vzhledem k použítí SquashFS připojené snapy zaplevelují výpisy příkazů jako „mount“ a „df“ (Flatpak tímto netrpí).
+</li><li>Flatpak přistupuje poměrně benevolentně k přístupovým právům uživatelů. Umožňuje instalovat a odinstalovávat balíčky systémové instalace bez zadání hesla nejen superuživateli, ale také všem uživatelům, kteří jsou členy skupin admin a sudo. Ostatní uživatelům to umožní po zadání hesla administrujícího uživatele, dokonce i přesto, že sami nemají právo používat sudo.
+</li><li>Flatpak neprovádí automatickou aktualizaci balíčků.
+</li></ul>
+<h2 id="cast9"><span class="cislo">9.</span> Jak získat nápovědu</h2>
+<p class="ponadpisu">
+Pro APT: „man apt-get“ apod. (ale není příliš přehledná) Pro Flatpak: „man flatpak“ a všechny odtud odkazované manuálové stránky, např. „man flatpak-install“. Pro Snap: „snap --help“ a „snap help <i class="dopln">podpříkaz</i>“.
+</p>
+
+<h2 id="cast10"><span class="cislo">10.</span> Odkazy</h2>
+<ul style="text-align:left"><li><a href="https://cs.wikipedia.org/wiki/Advanced_Packaging_Tool">Wikipedie: APT</a>
+</li><li><a href="https://cs.wikipedia.org/wiki/Aptitude">Wikipedie: aptitude</a>
+</li><li><a href="https://cs.wikipedia.org/wiki/Dpkg">Wikipedie: dpkg</a>
+</li><li><a href="https://youtu.be/bvybMVRaND0?t=75">Video „How to Use Flatpak“ (Chris Titus Tech)</a> (anglicky)
+</li><li><a href="https://flathub.org/">Flathub (oficiální repozitář Flatpaku)</a> (anglicky)
+</li><li><a href="https://www.debian.org/doc/manuals/aptitude/ch02s05s01.en.html">Manuál aptitude: formátovací značky</a> (anglicky)
+</li><li><a href="https://www.debian.org/doc/manuals/aptitude/ch02s04s05.en.html">Manuál aptitude: vyhledávací podmínky</a> (anglicky)
+</li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/linux/flatpak.md">TL;DR „flatpak“</a> (anglicky)
+</li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/linux/snap.md">TL;DR „snap“</a> (anglicky)
+</li><li><a href="https://packages.ubuntu.com/bionic/flatpak">Balíček „flatpak“</a> (anglicky)
+</li><li><a href="https://packages.ubuntu.com/bionic/snapd">Balíček „snapd“</a> (anglicky)
+</li><li><a href="https://flatpak.org/">Oficiální stránka „Flatpak“</a> (anglicky)
+</li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/linux/aptitude.md">TL;DR „aptitude“</a> (anglicky)
+</li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/linux/apt.md">TL;DR „apt“</a> (anglicky)
+</li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/linux/apt-key.md">TL;DR „apt-key“</a> (anglicky)
+</li><li><a href="https://www.youtube.com/watch?v=K0bkapSpzzk">Video „Flatpak, a technical walkthrough“</a> (anglicky)
+</li></ul><div class="ppc"><div id="kapspravabalickuppc1"><a href="#kapspravabalickuppcr1" class="cislopozn">1</a>&nbsp;Poznámka: vypíše i balíčky, jejichž upgrade není možný např. kvůli konfliktu s jiným balíčkem.</div>
+<div id="kapspravabalickuppc2"><a href="#kapspravabalickuppcr2" class="cislopozn">2</a>&nbsp;Poznámka: Ve výpisu „dpkg-query -L“ se typicky objevují také společné adresáře jako /etc či /usr; není příliš spolehnutí na to, že jde pouze o soubory příslušné danému balíku.</div>
+<div id="kapspravabalickuppc3"><a href="#kapspravabalickuppcr3" class="cislopozn">3</a>&nbsp;Pozor! Tento filtr zahrne i balíčky, které nemohou být aktualizovány, protože tomu brání konflikt mezi balíčky nebo zákaz jejich instalace! Naopak nezahrnuje balíčky, které budou nově instalovány pouze pro splnění nově vzniklých závislostí. Proto tento filtr není tak praktický, jak by se mohl zdát.</div>
+<div id="kapspravabalickuppc4"><a href="#kapspravabalickuppcr4" class="cislopozn">4</a>&nbsp;Název balíčku jiné než výchozí architektury bude doplněn o architekturu, např. „gimp:i386“.</div>
+<div id="kapspravabalickuppc5"><a href="#kapspravabalickuppcr5" class="cislopozn">5</a>&nbsp;Je-li dostupných víc verzí balíčku, parametr %V vybere tu, která by se nejspíš instalovala.</div>
+<div id="kapspravabalickuppc6"><a href="#kapspravabalickuppcr6" class="cislopozn">6</a>&nbsp;Není-li instalovaná, resp. dostupná žádná verze, tyto parametry vypíšou „&lt;žádná&gt;“ a ignorují snahu o změnu lokalizace. Pro přenositelnost je proto doporučuji ve skriptech testovat proti regulárnímu výrazu „&lt;.*&gt;“ místo porovnání s konkrétní hodnotou.</div>
+<div id="kapspravabalickuppc7"><a href="#kapspravabalickuppcr7" class="cislopozn">7</a>&nbsp;Je-li dostupných víc verzí balíčku, tento parametr zohledňuje pouze nejnovější verzi. Je-li dostupná ve více archivech, vypíše parametr %t všechny dané archivy oddělené čárkou, typicky např. „bionic-security,bionic-updates“.</div>
+<div id="kapspravabalickuppc8"><a href="#kapspravabalickuppcr8" class="cislopozn">8</a>&nbsp;Pro balíčky instalované jen pro splnění závislosti jiného balíčku vypíše „A“, jinak vypíše prázdný řetězec.</div>
+<div id="kapspravabalickuppc9"><a href="#kapspravabalickuppcr9" class="cislopozn">9</a>&nbsp;Příkazy „get“ se provádějí na online počítači a stáhnout vše, co je potřeba, do uvedeného archivu typu zip, příkazy „set“ a „install“ se spouštějí na offline počítači.</div>
+<div id="kapspravabalickuppc10"><a href="#kapspravabalickuppcr10" class="cislopozn">10</a>&nbsp;Uvedení verze k balíčku je povinné, pokud je v repozitáři víc verzí téhož balíčku. Bez něj v takovém případě příkaz „flathub remote-info“ selže a vypíše dostupné verze.</div>
+<div id="kapspravabalickuppc11"><a href="#kapspravabalickuppcr11" class="cislopozn">11</a>&nbsp;K provedení tohoto příkazu musíte mít daný balíček nainstalovaný.</div>
+<div id="kapspravabalickuppc12"><a href="#kapspravabalickuppcr12" class="cislopozn">12</a>&nbsp;Poznámka: provedení tohoto příkazu může trvat i několik minut a vzhledem k velkému rozsahu vypsaných informací doporučuji výstup přesměrovat do souboru.</div>
+<div id="kapspravabalickuppc13"><a href="#kapspravabalickuppcr13" class="cislopozn">13</a>&nbsp;Kanál může být: edge, beta, candidate nebo stable.</div>
+<div id="kapspravabalickuppc14"><a href="#kapspravabalickuppcr14" class="cislopozn">14</a>&nbsp;Poznámka: tento příkaz stáhne pouze uvedený balíček, ne však jeho závislosti.</div>
+<div id="kapspravabalickuppc15"><a href="#kapspravabalickuppcr15" class="cislopozn">15</a>&nbsp;Pokud má balíček závislosti na dalších balíčcích, je potřeba nejprve nainstalovat je, jinak se je bude se snap-démon nainstalovat online.</div>
+<div id="kapspravabalickuppc16"><a href="#kapspravabalickuppcr16" class="cislopozn">16</a>&nbsp;PPA podle: https://flatpak.org/setup/Ubuntu/</div>
+<div class="zrusitzvyrazneni" id="zzv"><a href="#zzv">zrušit zvýraznění poznámky pod čarou</a></div></div>
+<nav class="spodni"><span class="prev">
+<a href="regularni-vyrazy.htm" rel="prev" title="12. Regulární výrazy">Předchozí&nbsp;kapitola</a>&nbsp;|
+</span><a href="index.htm">Přehled</a><span class="next"><!--
+-->&nbsp;| <a href="koncepce-projektu.htm" rel="next" title="14. Koncepce projektu Linux: Kniha kouzel">Následující&nbsp;kapitola</a>
+</span>
+</nav>
+</article>
+<footer>
+<img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
+<p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
+<a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
+Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
+či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
+na stránce „<a href="_autori.htm">Přehled autorů</a>“.
+Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
+licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
+Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód
+a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
+<a href="https://github.com/singularis-mzf/linux-spellbook">repozitář na GitHubu</a>.
+</footer>
+</body>
+</html>

@@ -2,27 +2,35 @@
 <html lang="cs">
 <head profile="http://www.w3.org/2005/10/profile">
 <meta charset="UTF-8">
+
 <title>Git − Linux: Kniha kouzel</title>
-<link rel="stylesheet" type="text/css" href="lkk.css">
+
+<link rel="stylesheet" type="text/css" href="lkk-20200112.css">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
-<body>
+<body id="nahore">
 <header>
-<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.1</span>
+<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.2 (12. ledna 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
+
+
 <nav class="horni">
 <div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
 <span class="prev">
-<a href="planovani-uloh.htm" rel="prev" title="4. Plánování úloh" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="docker.htm" rel="prev" title="5. Docker" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="markdown.htm" rel="next" title="6. Markdown" accesskey="n">Následující&nbsp;kapitola</a>
+-->&nbsp;| <a href="make.htm" rel="next" title="7. GNU make" accesskey="n">Následující&nbsp;kapitola</a>
 </span>
 </nav>
+
+
 <article>
-<h1>5. Git</h1>
-<div class="stitky"><span>program</span>
-<span>správa verzí</span></div><div class="rozcestnikkapitol">
+
+<h1>6. Git</h1>
+<div class="stitky"><a href="x-stitky.htm#sprogrm">program</a>
+<a href="x-stitky.htm#ssprvverz">správa verzí</a>
+</div><div class="rozcestnikkapitol">
 <a href="#cast1">Úvod</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast2">Definice</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast3">Zaklínadla</a><span class="oddelovac">&nbsp;|</span>
@@ -31,9 +39,10 @@
 <a href="#cast6">Instalace na Ubuntu</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast7">Ukázka</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast8">Tipy a zkušenosti</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast9">Jak získat nápovědu</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast9">Další zdroje informací</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast10">Odkazy</a><span class="oddelovac">&nbsp;|</span>
 </div>
+
 <h2 id="cast1"><span class="cislo">1.</span> Úvod</h2>
 <p class="ponadpisu">
 Git je systém správy verzí. Umožňuje vám zachytit přesný stav souborů v určitém
@@ -47,7 +56,7 @@ a příkaz „git stash“.
 </p>
 
 <h2 id="cast2"><span class="cislo">2.</span> Definice</h2>
-<ul style="text-align:justify"><li><b>Pracovní adresář</b> je množina všech verzovaných souborů v gitem spravovaném uživatelském adresáři. Nikdy nezahrnuje obsah speciálního adresáře „.git“.
+<ul><li><b>Pracovní adresář</b> je množina všech verzovaných souborů v gitem spravovaném uživatelském adresáři. Nikdy nezahrnuje obsah speciálního adresáře „.git“.
 </li><li><b>Revize</b> je konkrétní neměnný (historický) stav pracovního adresáře zapsaný do repozitáře a doplněný o další údaje. Revizi lze v příkazovém řádku určit řadou způsobů, viz níže. Revize vzniká operací <b>commit</b>.
 </li><li><b>Repozitář</b> je skupina souborů a adresářů, do kterých git vysoce optimalizovaným způsobem ukládá všechny revize. Repozitář může mít přiřazen jeden nebo více vzdálených repozitářů (nejčastěji pouze jeden, zvaný <b>origin</b>); není-li repozitář takzvaně „bare“, má také svůj primární pracovní adresář a může mít i jeden nebo více „sekundárních pracovních adresářů“.
 </li><li><b>Tag</b> je symbolický název pevně přiřazený uživatelem určité konkrétní revizi; není vhodné jej dodatečně měnit. (Je v gitu analogií konstanty v programování.)
@@ -55,11 +64,12 @@ a příkaz „git stash“.
 </li><li><b>HEAD</b> je „aktuální revize“. Nejčastěji je to prostě revize, která byla do pracovního adresáře načtena jako poslední.
 </li><li><b>Index</b> (také zvaný „staging area“) je myšlená kopie revize HEAD příslušná pracovnímu adresáři, do které lze průběžně zapisovat změny a pak z ní operací „commit“ vytvořit novou revizi. Do indexu se rovněž provádí slučování větví (merge). Doporučuji představovat si index jako skrytý adresář určený k tvorbě nových revizí.
 </li></ul>
+
 <h3 id="cast2x1"><span class="cislo">1</span> Označení revize</h3>
 <p class="ponadpisu">
 Každá revize je jednoznačně identifikována pomocí své MD5 heše. Kromě této úplné heše můžeme pojmenovat revizi těmito způsoby:
 </p>
-<ul style="text-align:justify"><li>Jednoznačný prefix heše (Nebude-li uvedený prefix jednoznačný, git vyvolá chybu a umožní vám situaci napravit, takže se nebojte používat ani velmi krátké prefixy.)
+<ul><li>Jednoznačný prefix heše (Nebude-li uvedený prefix jednoznačný, git vyvolá chybu a umožní vám situaci napravit, takže se nebojte používat ani velmi krátké prefixy.)
 </li><li>HEAD
 </li><li>Název větve
 </li><li>Název tagu
@@ -310,11 +320,11 @@ Každá revize je jednoznačně identifikována pomocí své MD5 heše. Kromě t
 <div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla">git <span class="volznak">[</span><i class="dopln">globální parametry</i><span class="volznak">]</span> <i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametry příkazu</i><span class="volznak">]</span></div>
 </div></div>
-<ul style="text-align:left"><li><b>-C</b> <i class="dopln">adresář</i> :: (globální parametr) Před vykonáním příkazu vstoupí do zadaného adresáře.
+<ul class="kompaktni"><li><b>-C</b> <i class="dopln">adresář</i> :: (globální parametr) Před vykonáním příkazu vstoupí do zadaného adresáře.
 </li></ul><div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla">git <span class="volznak">[</span><i class="dopln">globální parametry</i><span class="volznak">]</span> commit <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span></div>
 </div></div>
-<ul style="text-align:left"><li><b>-a</b> :: Před provedením commitu přenese do indexu všechny změny a smazání verzovaných souborů v pracovním adresáři.
+<ul class="kompaktni"><li><b>-a</b> :: Před provedením commitu přenese do indexu všechny změny a smazání verzovaných souborů v pracovním adresáři.
 </li><li><b>-m &quot;</b><i class="dopln">komentář</i><b>&quot;</b> :: Slouží k uvedení komentáře ke commitu na příkazovém řádku (jinak se uživateli k sepsání komentáře otevře nastavený editor).
 </li><li><b>--amend</b> :: Nově vytvořenou revizí nahradí stávající revizi, na kterou odkazuje aktuální větev. (Na rozdíl od normálního chování, při kterém commit přidá novou revizi jako potomka.) Nové revizi se přiřadí čas a autorství (a potenciálně i komentář) původní revize.
 </li><li><b>--allow-empty</b> :: Dovolí vložit novou revizi i v případě, že index neobsahuje oproti HEAD žádné změny.
@@ -323,7 +333,7 @@ Každá revize je jednoznačně identifikována pomocí své MD5 heše. Kromě t
 </li></ul><div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla">git <span class="volznak">[</span><i class="dopln">globální parametry</i><span class="volznak">]</span> add <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span></div>
 </div></div>
-<ul style="text-align:left"><li><b>-u</b> :: Přenese do indexu jen změny ve verzovaných souborech a jejich smazání, nepřidává nové soubory k verzování.
+<ul class="kompaktni"><li><b>-u</b> :: Přenese do indexu jen změny ve verzovaných souborech a jejich smazání, nepřidává nové soubory k verzování.
 </li><li><b>-v</b> :: Vypisuje provedené změny.
 </li></ul>
 <h2 id="cast6"><span class="cislo">6.</span> Instalace na Ubuntu</h2>
@@ -359,11 +369,13 @@ Celé jméno a e-mail se používají k označení autorství revizí. Musíte
 <div class="radekzaklinadla">git diff master nova-vetev</div>
 </div></div>
 
+
 <h2 id="cast8"><span class="cislo">8.</span> Tipy a zkušenosti</h2>
-<ul style="text-align:justify"><li>Normální repozitář je jednodušší než bare repozitář. Má vlastní pracovní adresář, se kterým pracuje. Normální repozitář můžete použít jako vzdálený repozitář, ale pouze ke čtení − nelze do něj zapisovat příkazem „git push“. Naopak bare repozitář slouží výhradně jako vzdálený repozitář.
+<ul><li>Normální repozitář je jednodušší než bare repozitář. Má vlastní pracovní adresář, se kterým pracuje. Normální repozitář můžete použít jako vzdálený repozitář, ale pouze ke čtení − nelze do něj zapisovat příkazem „git push“. Naopak bare repozitář slouží výhradně jako vzdálený repozitář.
 </li><li>Revize vzniklé sloučením větví (merge) mají za předky všechny revize, ze kterých byly sloučeny.
+</li><li>Soubor .gitignore může být v každém podadresáři pracovního adresáře; deklarace z každého souboru .gitignore platí v daném adresáři a rekurzivně ve všech jeho podadresářích, ne však nutně v celém pracovním adresáři.
 </li></ul>
-<h2 id="cast9"><span class="cislo">9.</span> Jak získat nápovědu</h2>
+<h2 id="cast9"><span class="cislo">9.</span> Další zdroje informací</h2>
 <div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla">git --help</div>
 <div class="radekzaklinadla">git <i class="dopln">příkaz-gitu</i> --help</div>
@@ -375,7 +387,7 @@ Přehled podporovaných konfiguračních voleb pro příkaz „git config“ naj
 </p>
 
 <h2 id="cast10"><span class="cislo">10.</span> Odkazy</h2>
-<ul style="text-align:left"><li><a href="https://www.youtube.com/playlist?list=PL9n3wo1YKCEgKQBl1DrR_EzED9ogmKHX7">Playlist: tutorial gitu od BambooMachine</a>
+<ul class="kompaktni"><li><a href="https://www.youtube.com/playlist?list=PL9n3wo1YKCEgKQBl1DrR_EzED9ogmKHX7">Playlist: tutorial gitu od BambooMachine</a>
 </li><li><a href="https://cs.wikipedia.org/wiki/Git">Stránka na Wikipedii</a>
 </li><li><a href="https://www.root.cz/knihy/pro-git/">Kniha „Pro Git“</a> (ISBN 978-80-904248-1-4, podléhá licenci <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/us/">Creative Commons Uveďte autora-Nevyužívejte dílo komerčně-Zachovejte licenci 3.0 United States</a>)
 </li><li><a href="https://www.youtube.com/watch?v=OZeqGAbtBLQ">Video: Git křížem krážem</a>
@@ -385,37 +397,60 @@ Přehled podporovaných konfiguračních voleb pro příkaz „git config“ naj
 </li><li><a href="http://manpages.ubuntu.com/manpages/bionic/en/man1/git.1.html">Manuálová stránka</a> (anglicky)
 </li><li><a href="https://packages.ubuntu.com/bionic/git">Balíček Bionic „git“</a> (anglicky)
 </li><li><a href="https://packages.ubuntu.com/bionic/gitk">Balíček Bionic „gitk“</a> (anglicky)
-</li></ul><div class="ppc"><div id="kapgitppc1"><a href="#kapgitppcr1" class="cislopozn">1</a>&nbsp;Poznámka: nový adresář musí ležet mimo stávající pracovní adresář. Můžete jej zadat jak relativní, tak i absolutní cestou.</div>
+</li></ul>
+<div class="ppc"><div id="kapgitppc1"><a href="#kapgitppcr1" class="cislopozn">1</a>&nbsp;Poznámka: nový adresář musí ležet mimo stávající pracovní adresář. Můžete jej zadat jak relativní, tak i absolutní cestou.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapgitppc2"><a href="#kapgitppcr2" class="cislopozn">2</a>&nbsp;Jsou-li v pracovním adresáři změny, tento příkaz se je pokusí zachovat.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapgitppc3"><a href="#kapgitppcr3" class="cislopozn">3</a>&nbsp;Normálně „git add“ přenese smazání souboru jen tehdy, je-li daný soubor výslovně jmenován na příkazovém řádku. S parametrem „-A“ přenese všechna smazání.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapgitppc4"><a href="#kapgitppcr4" class="cislopozn">4</a>&nbsp;Pozn.: heš commitu se v tomto případě změní, protože revize je neměnná, takže jediný způsob, jak ji upravit, je vytvořit novou revizi a nahradit s ní tu původní.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapgitppc5"><a href="#kapgitppcr5" class="cislopozn">5</a>&nbsp;Výchozí revize je HEAD. Pozor, bez ptaní přepíše změny v pracovním adresáři!</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapgitppc6"><a href="#kapgitppcr6" class="cislopozn">6</a>&nbsp;Výchozí revize je HEAD.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapgitppc7"><a href="#kapgitppcr7" class="cislopozn">7</a>&nbsp;Pokud ve vzdáleném repozitáři nastaly změny i v jiných větvích, než té, která je právě načtená do pracovního adresáře, příkaz „git pull“ tyto jiné větve neaktualizuje!</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapgitppc8"><a href="#kapgitppcr8" class="cislopozn">8</a>&nbsp;Poznámka: Příkaz „git push“ selže, pokud vzdálený repozitář není bare.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapgitppc9"><a href="#kapgitppcr9" class="cislopozn">9</a>&nbsp;Pozor, při smazání nesloučené větve můžete přijít o commitnuté revize, které přestanou být po smazání dané větve dostupné!</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapgitppc10"><a href="#kapgitppcr10" class="cislopozn">10</a>&nbsp;Mazání a znovuvytvoření zcela lokálního tagu, který nemá obdobu ve vzdáleném repozitáři, je bezpečné. Všechny ostatní případy mohou mít nepříjemné nečekané důsledky.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapgitppc11"><a href="#kapgitppcr11" class="cislopozn">11</a>&nbsp;Poznámka: v žádných dvou pracovních adresářích jednoho repozitáře nemůže být současně aktivní tatáž větev; toto opatření platí, aby se zamezilo konfliktům při commitování.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapgitppc12"><a href="#kapgitppcr12" class="cislopozn">12</a>&nbsp;Dojde-li při slučování ke konfliktu, můžeme je zrušit příkazem „git merge --abort“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapgitppc13"><a href="#kapgitppcr13" class="cislopozn">13</a>&nbsp;Příkaz „git revert“ vyžaduje, aby v indexu ani pracovním adresáři nebyly žádné změny oproti HEAD.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapgitppc14"><a href="#kapgitppcr14" class="cislopozn">14</a>&nbsp;Pozor! Protože revize jsou neměnné včetně odkazů na své předky, tento příkaz vytvoří zcela novou historii větve, a změní tak heše všech jejích revizí.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapgitppc15"><a href="#kapgitppcr15" class="cislopozn">15</a>&nbsp;Vhodný počet sekund je např. 300 (5 minut), 86400 (24 hodin), 604800 (týden). Údaje se ukládají pouze v RAM, takže se ztratí restartem systému, možná i odhlášením.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapgitppc16"><a href="#kapgitppcr16" class="cislopozn">16</a>&nbsp;Vhodné jsou editory, které otevírají každý soubor v novém procesu, např. „nano“, „vim“, „emacs“, „mousepad“; předpokladem je, že daný editor musíte mít nainstalovaný.</div>
-<div class="zrusitzvyrazneni" id="zzv"><a href="#zzv">zrušit zvýraznění poznámky pod čarou</a></div></div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+</div>
+<div class="odkazydole"><a href="regularni-vyrazy.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Regulární výrazy</a><a href="datum-cas-kalendar.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Datum, čas a kalendář</a><a href="sprava-balicku.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Správa balíčků</a></div>
+
 <nav class="spodni"><span class="prev">
-<a href="planovani-uloh.htm" rel="prev" title="4. Plánování úloh">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="docker.htm" rel="prev" title="5. Docker">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="markdown.htm" rel="next" title="6. Markdown">Následující&nbsp;kapitola</a>
+-->&nbsp;| <a href="make.htm" rel="next" title="7. GNU make">Následující&nbsp;kapitola</a>
 </span>
+<a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
+<a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
 </nav>
+
+
 </article>
-<footer>
+<footer id="dole">
 <img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
 <p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
 <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
 Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
 či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
-na stránce „<a href="_autori.htm">Přehled autorů</a>“.
+na stránce „<a href="x-autori.htm">Přehled autorů</a>“.
 Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
 licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
 Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód

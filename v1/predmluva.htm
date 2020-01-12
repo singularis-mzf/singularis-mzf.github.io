@@ -2,23 +2,30 @@
 <html lang="cs">
 <head profile="http://www.w3.org/2005/10/profile">
 <meta charset="UTF-8">
+
 <title>Předmluva − Linux: Kniha kouzel</title>
-<link rel="stylesheet" type="text/css" href="lkk.css">
+
+<link rel="stylesheet" type="text/css" href="lkk-20200112.css">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
-<body>
+<body id="nahore">
 <header>
-<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.1</span>
+<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.2 (12. ledna 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
+
+
 <nav class="horni">
 <div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
 <span class="prev">
 </span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="barvy-a-titulek.htm" rel="next" title="2. Barvy, titulek a výzva terminálu" accesskey="n">Následující&nbsp;kapitola</a>
+-->&nbsp;| <a href="awk.htm" rel="next" title="2. AWK" accesskey="n">Následující&nbsp;kapitola</a>
 </span>
 </nav>
+
+
 <article>
+
 <h1>1. Předmluva</h1>
 <div class="rozcestnikkapitol">
 <a href="#cast1">Neznalost a potřeba orientace</a><span class="oddelovac">&nbsp;|</span>
@@ -30,15 +37,12 @@
 <a href="#cast7">Pro pokročilé uživatele</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast8">Příběh</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast9">Licence</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast10">Aktuální poznámka k verzi „vanilková příchuť 1.1“</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast10">Aktuální poznámka k verzi „vanilková příchuť 1.2“</a><span class="oddelovac">&nbsp;|</span>
 </div>
 <h2 id="cast1"><span class="cislo">1.</span> Neznalost a potřeba orientace</h2>
-<p class="ponadpisu">
-<i>„Prostě příkazový řádek v Linuxu je něco úchvatného, a kdo se neumí v tomto prostředí pohybovat, přichází o hodně.“</i><br>— KAMENÍK, Pavel. <i>Příkazový řádek v Linuxu: praktická řešení.</i> Brno: Computer Press, 2011. ISBN 978-80-251-2819-0.
-</p><p>
- 
-</p>
-<p class="ponadpisu">
+<blockquote><i>„Prostě příkazový řádek v Linuxu je něco úchvatného, a kdo se neumí v tomto prostředí pohybovat, přichází</i>
+<i>o hodně.“</i><br>— KAMENÍK, Pavel. <i>Příkazový řádek v Linuxu: praktická řešení.</i> Brno: Computer Press, 2011. ISBN 978-80-251-2819-0.
+</blockquote><p class="ponadpisu">
 Pokud v letech 2018 až 2022 začínáte s Linuxem a troufnete si na
 příkazový řádek/příkazovou řádku, v Linuxu zvaný/ou „terminál“ či „konzole“,
 zadat „ls“ a chtěl/a byste toho víc, ale nemáte dobrou představu, co vám může
@@ -52,7 +56,7 @@ Zatímco grafické uživatelské rozhraní, na jaké jste nejspíš zvyklý/á, 
 menu, barevné ikony, panely nástrojů, zvuky, dialogová okna a další příjemné věci,
 terminál takový není. Vypadá, že jen očekává příkazy, a nedává vám žádné vodítko,
 jaké příkazy to mohou být, a čeho se s nimi dá dosáhnout.
-Nemáte žádnou šanci se dozvědět, že můžete zadat příkaz „tput sgr0“,
+Nemáte žádnou šanci se dozvědět, že můžete zadat příkaz „tput sgr0“,
 ani co dělá nebo k čemu vám může být dobrý.
 Cílem této knihy je to napravit a učinit úžasný „svět“ terminálu
 a konfiguračních souborů podobně přehledným a srozumitelným,
@@ -85,7 +89,7 @@ jak toho dosáhnout, je toto kniha pro vás.
 <p class="ponadpisu">
 Napadlo vás už někdy, že zadávání příkazů v terminálu se mnoha aspekty podobá
 <b>sesílání kouzel</b> ve fantasy světech? Tento příměr je o to děsivější, že zatímco
-fantasy kouzla ovlivňují jen životy smyšlených postav, vaše příkazy budou mít
+fantasy kouzla ovlivňují jen životy smyšlených postav, vaše příkazy terminálu budou mít
 reálné důsledky ve vašem vlastním počítači! Linux: Kniha kouzel je na tomto přirovnání
 založena, a proto se v ní všechny druhy příkladů nazývají „zaklínadla“.
 Můžete si to představit, třeba jako že jste začínající čaroděj ve fantasy světě a dostal/a
@@ -98,12 +102,8 @@ kdyby znal jen kouzla odpovídající svému školnímu ročníku.)
 </p>
 
 <h2 id="cast4"><span class="cislo">4.</span> Je tato kniha pro váš systém?</h2>
-<p class="ponadpisu">
-<i>„Když dojdete na místo, kde má být podle mapy studánka, a najdete tam místo ní supermarket, neznamená to, že je mapa chybná, jen je určena pro jinou verzi lesa.“</i><br>− Singularis
-</p><p>
- 
-</p>
-<p class="ponadpisu">
+<blockquote><i>„Když dojdete na místo, kde má být podle mapy studánka, a najdete tam místo ní supermarket, neznamená to, že je mapa chybná, jen je určena pro jinou verzi lesa.“</i><br>− Singularis
+</blockquote><p class="ponadpisu">
 Verze knihy „vanilková příchuť“ řady 1.x jsou určeny především pro
 <b>Ubuntu 18.04, Bionic Beaver</b>, a jeho varianty Kubuntu, Lubuntu, Ubuntu Budgie,
 Ubuntu MATE, Ubuntu Studio a Xubuntu.
@@ -119,10 +119,10 @@ v příští již může fungovat jinak.
 <h2 id="cast5"><span class="cislo">5.</span> Nejdůležitější zaklínadla</h2>
 <p class="ponadpisu">
 Velmi podstatnou vlastností této knihy je její <b>organizace</b>.
-Zaklínadla v kapitolách jsou organizována do logických skupin
+Zaklínadla v kapitolách jsou shromážděna do logických skupin
 a až na odůvodněné výjimky jsou vždy řazena od nejčastějších a nejdůležitějších
-k méně obvyklým, což znamená, že nemusíte kapitolu číst celou − už pouhým přečtením
-několika prvních zaklínadel z několika prvních skupin získáte ty nejužitečnější znalosti.
+k méně obvyklým. Díky tomu nemusíte kapitolu číst celou − ty nejužitečnější znalosti
+získáte hned z několika prvních zaklínadel z několika prvních skupin.
 </p><p>
 Ačkoliv jsou v knize i kapitoly zaměřené na konkrétní nástroje (např. GNU make),
 důraz kladu spíše na kapitoly tematické, které kombinují vždy ty nejvhodnější
@@ -190,31 +190,63 @@ Všechen software potřebný k sestavení projektu je svobodný.
 Pokud některá kapitola odkazuje na nesvobodný software, vždy na to výslovně upozorní.
 </p>
 
-<h2 id="cast10"><span class="cislo">10.</span> Aktuální poznámka k verzi „vanilková příchuť 1.1“</h2>
+<h2 id="cast10"><span class="cislo">10.</span> Aktuální poznámka k verzi „vanilková příchuť 1.2“</h2>
 <p class="ponadpisu">
-V této verzi přibyly čtyři nové kapitoly; stále však nejsem spokojen/a s designem,
-především u verze pro tisk, takže se pravděpodobně zaměřím na něj. V pokročilé fázi
-jsou již také kapitoly o Awk a Perlu a rád/a bych je ještě doplnil/a o obecnou kapitolu
-o zpracování textu, případně ještě o kapitolu o „sedu“. Vydání verze 1.2 očekávám ke konci ledna 2020.
+Ve verzi 1.2 přibyly tři nové kapitoly: AWK, Systém a Zpracování textových souborů.
+</p><p>
+U PDF variant jsem přešel/a z LaTeXu na XeLaTeX a kompletně
+přepracoval/a formátování, což si vynutilo opuštění formátu papíru A5.
+Možná ho do budoucna vrátím, ale zatím to pro mě nemá vysokou prioritu, spíš je potřeba
+vyladit detaily a velikosti okrajů. Uvažuji také o podpoře formátu B5 na A4
+s ořezovými značkami.
+</p><p>
+U varianty v HTML jsem značně vylepšil/a design. Štítky kapitol jsou nyní klikací
+a vedou na stránku s přehledem kapitol podle štítků. Kapitoly nyní mají ikony
+(ale zatím všechny stejnou). Na stránkách kapitol jsou nová „úniková“ tlačítka
+pro okamžitý přesun na horní nebo spodní konec stránky (na horním konci je navigace
+na další kapitoly). Má-li uživatel zapnutý JavaScript, může se po kliknutí
+na poznámku pod čarou snadno vrátit na původní místo kliknutím na dynamický odkaz
+„zpět do textu“. (Pokročilí uživatelé bez JavaScriptu se mohou vrátit tlačítkem Zpět.)
+</p><p>
+Řádky zaklínadel nyní mohou mít „příklady hodnot“. Ty jsem zavedl/a kvůli kapitole
+Datum, čas a kalendář, která je přímo vyžadovala, ale budou se hodit i v mnoha dalších.
+</p><p>
+Součástí odstavců a zaklínadel nyní mohou být klávesy jako např. <kbd>Ctrl</kbd>.
+Ty se vyskytují v nové kapitole Systém.
+</p><p>
+Řádky zaklínadel mohou být nově označeny jako „patřící do preambule“,
+což se bude hodit u výkladů o programovacích jazycích.
+</p><p>
+Do příští verze bude nutně potřeba udělat pořádek v pomocných funkcích a skriptech.
+Plánuji vydávat balíček „.deb“, který po instalaci zpřístupní příkaz „lkk“
+ke spouštění pomocných skriptů.
+</p><p>
+Vydání verze 1.3 očekávám ke konci února 2020.
 </p><p>
  
 </p>
 <p class="ponadpisu">
 − Singularis
 </p>
+<div class="odkazydole"><a href="markdown.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Markdown</a><a href="zpracovani-textovych-souboru.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Zpracování textových souborů</a><a href="sprava-balicku.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Správa balíčků</a></div>
+
 <nav class="spodni"><span class="prev">
 </span><a href="index.htm">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="barvy-a-titulek.htm" rel="next" title="2. Barvy, titulek a výzva terminálu">Následující&nbsp;kapitola</a>
+-->&nbsp;| <a href="awk.htm" rel="next" title="2. AWK">Následující&nbsp;kapitola</a>
 </span>
+<a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
+<a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
 </nav>
+
+
 </article>
-<footer>
+<footer id="dole">
 <img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
 <p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
 <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
 Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
 či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
-na stránce „<a href="_autori.htm">Přehled autorů</a>“.
+na stránce „<a href="x-autori.htm">Přehled autorů</a>“.
 Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
 licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
 Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód

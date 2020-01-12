@@ -2,26 +2,34 @@
 <html lang="cs">
 <head profile="http://www.w3.org/2005/10/profile">
 <meta charset="UTF-8">
+
 <title>Markdown − Linux: Kniha kouzel</title>
-<link rel="stylesheet" type="text/css" href="lkk.css">
+
+<link rel="stylesheet" type="text/css" href="lkk-20200112.css">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
-<body>
+<body id="nahore">
 <header>
-<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.1</span>
+<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.2 (12. ledna 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
+
+
 <nav class="horni">
 <div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
 <span class="prev">
-<a href="git.htm" rel="prev" title="5. Git" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="make.htm" rel="prev" title="7. GNU make" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="docker.htm" rel="next" title="7. Docker" accesskey="n">Následující&nbsp;kapitola</a>
+-->&nbsp;| <a href="planovani-uloh.htm" rel="next" title="9. Plánování úloh" accesskey="n">Následující&nbsp;kapitola</a>
 </span>
 </nav>
+
+
 <article>
-<h1>6. Markdown</h1>
-<div class="stitky"><span>syntaxe</span></div><div class="rozcestnikkapitol">
+
+<h1>8. Markdown</h1>
+<div class="stitky"><a href="x-stitky.htm#ssyntxe">syntaxe</a>
+</div><div class="rozcestnikkapitol">
 <a href="#cast1">Úvod</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast2">Zaklínadla (Markdown)</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast3">Zaklínadla (Markdown Extra)</a><span class="oddelovac">&nbsp;|</span>
@@ -30,9 +38,9 @@
 <a href="#cast6">Instalace na Ubuntu</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast7">Ukázka</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast8">Tipy a zkušenosti</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast9">Jak získat nápovědu</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast10">Odkazy</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast9">Další zdroje informací</a><span class="oddelovac">&nbsp;|</span>
 </div>
+
 <h2 id="cast1"><span class="cislo">1.</span> Úvod</h2>
 <p class="ponadpisu">
 Markdown je jednoduchý a praktický značkovací jazyk pro pohodlné psaní i čtení textů s jednoduchým formátováním v editorech prostého textu. Je primárně určen k převodu do HTML, kde se na výsledek aplikují kaskádové styly.
@@ -41,6 +49,7 @@ Bohužel existuje řada ne zcela kompatibilních implementací Markdownu. Proto 
 </p><p>
 Tato verze kapitoly nepokrývá GFM (GitHub Flavoured Markdown), nicméně všechna uvedená zaklínadla na GitHubu fungují.
 </p>
+
 
 <h2 id="cast2"><span class="cislo">2.</span> Zaklínadla (Markdown)</h2>
 
@@ -207,22 +216,21 @@ Existuje i modernější a propracovanější editor <a href="https://remarkab
 <div class="radekzaklinadla">| vlevo | na střed | vpravo</div>
 </div></div>
 
+
 <h2 id="cast8"><span class="cislo">8.</span> Tipy a zkušenosti</h2>
-<ul style="text-align:justify"><li>Asi nejhorším problémem v Markdownu je escapování. Speciální znaky se totiž escapují zpětným lomítkem pouze tehdy, když mají speciální význam; v ostatních případech se zpětné lomítko před takovým znakem exportuje jako normální znak. Problém však je, že inteprety Markdownu se velmi značně liší v tom, které znaky a v jakých kontextech považují za speciální. Proto nelze dosáhnout zcela jednotných výsledků. Standardní Markdown však zaručuje možnost zpětným lomíkem escapovat: !, #, *, +, -, ., \, _, ` a všechny tři druhy závorek. Markdown Extra k tomu přidává znaky : a |.
+<ul><li>Asi nejhorším problémem v Markdownu je escapování. Speciální znaky se totiž escapují zpětným lomítkem pouze tehdy, když mají speciální význam; v ostatních případech se zpětné lomítko před takovým znakem exportuje jako normální znak. Problém však je, že inteprety Markdownu se velmi značně liší v tom, které znaky a v jakých kontextech považují za speciální. Proto nelze dosáhnout zcela jednotných výsledků. Standardní Markdown však zaručuje možnost zpětným lomíkem escapovat: !, #, *, +, -, ., \, _, ` a všechny tři druhy závorek. Markdown Extra k tomu přidává znaky : a |.
 </li><li>Identifikátory předdefinovaných odkazů a obrázků jsou prakticky obecné řetězce. Vhodný identifikátor je i např. „3.12;Dobrý den/Žlutoučký kůň*“. Jejich maximální délka je ale omezena implementací.
 </li><li>V Markdownu můžete přímo používat inline prvky HTML (např. &lt;br&gt; či &lt;strong&gt;). Při konverzi na jiný formát než HTML však tyto prvky pravděpodobně nebudou podporovány.
 </li><li>Markdown (standardní) umožňuje vložit zalomení řádku pomocí dvou či více mezer na konci řádku. Osobně to nedoporučuji, protože některé textové editory (např. vim) bílé znaky na konci řádku nezobrazují a některé nástroje je mohou považovat za překlep a automaticky odstranit. Doporučuji místo toho používat HTML značku &lt;br&gt;, případně &lt;br /&gt;.
 </li><li>Markdown neumožňuje vloženému obrázku definovat rozměry. Toto můžete učinit buď pomocí CSS, nebo místo syntaxe Markdownu přímo použít značku &lt;img&gt;.
 </li><li>Po prvním spuštění ReTextu doporučuji otevřít Úpravy / Nastavení a zaškrtnout políčka „Vždy použít živý náhled“, „Zvýrazňovat aktuální řádek“ a „Zobrazovat čísla řádků“ a restartovat ReText. S těmito nastaveními mi připadne práce pohodlnější.
 </li></ul>
-<h2 id="cast9"><span class="cislo">9.</span> Jak získat nápovědu</h2>
+<h2 id="cast9"><span class="cislo">9.</span> Další zdroje informací</h2>
 <p class="ponadpisu">
-Doporučuji prohledat online zdroje v sekci „Odkazy“ této kapitoly nebo prostě experimentovat.
+Doporučuji prohledat online zdroje nebo prostě experimentovat.
 Velmi obsáhlým a formálně přesným zdrojem je „Specifikace GitHub Flavored Markdown“.
 </p>
-
-<h2 id="cast10"><span class="cislo">10.</span> Odkazy</h2>
-<ul style="text-align:left"><li><a href="https://cs.wikipedia.org/wiki/Markdown">Stránka na Wikipedii</a>
+<ul class="kompaktni"><li><a href="https://cs.wikipedia.org/wiki/Markdown">Stránka na Wikipedii</a>
 </li><li><a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown Cheatsheet</a> (anglicky)
 </li><li><a href="https://daringfireball.net/projects/markdown/syntax">Oficiální stránky: Markdown Syntax</a> (anglicky)
 </li><li><a href="https://help.github.com/en/articles/basic-writing-and-formatting-syntax">GitHub Help: Basic writing and formatting syntax</a> (anglicky)
@@ -236,27 +244,40 @@ Velmi obsáhlým a formálně přesným zdrojem je „Specifikace GitHub Flavor
 </li><li><a href="https://packages.ubuntu.com/bionic/pandoc">Balíček pandoc</a> (anglicky)
 </li><li><a href="https://packages.ubuntu.com/bionic/retext">Balíček retext</a> (anglicky)
 </li><li><a href="https://aur.archlinux.org/packages/remarkable/">Balíček Remarkable v ALUR</a> (anglicky)
-</li></ul><div class="ppc"><div id="kapmarkdownppc1"><a href="#kapmarkdownppcr1" class="cislopozn">1</a>&nbsp;Ve vloženém kódu se neinterpretují žádné formátovací sekvence ani escapování (dokonce i zpětné lomítko si tam zachovává význam obyčejného znaku), proto je potřeba zvláštní přístup, pokud má vložený kód obsahovat zpětné apostrofy. K otevření a uzavření vloženého kódu můžete použít libovolný počet zpětných apostrofů, ale musí být stejný pro otevření i pro uzavření a vyšší než maximální počet zpětných apostrofů vyskytujících se ve formátovaném kódu vedle sebe.</div>
+</li></ul>
+<div class="ppc"><div id="kapmarkdownppc1"><a href="#kapmarkdownppcr1" class="cislopozn">1</a>&nbsp;Ve vloženém kódu se neinterpretují žádné formátovací sekvence ani escapování (dokonce i zpětné lomítko si tam zachovává význam obyčejného znaku), proto je potřeba zvláštní přístup, pokud má vložený kód obsahovat zpětné apostrofy. K otevření a uzavření vloženého kódu můžete použít libovolný počet zpětných apostrofů, ale musí být stejný pro otevření i pro uzavření a vyšší než maximální počet zpětných apostrofů vyskytujících se ve formátovaném kódu vedle sebe.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapmarkdownppc2"><a href="#kapmarkdownppcr2" class="cislopozn">2</a>&nbsp;Některé interprety markdownu automaticky převádějí úplné URL adresy na hypertextové odkazy bez zjevné možnosti escapování.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapmarkdownppc3"><a href="#kapmarkdownppcr3" class="cislopozn">3</a>&nbsp;Definice se uvádí pro každý identifikátor pouze jednou a může být kdekoliv v dokumentu (ale na samostatném řádku). Definovaný identifikátor může být použit na více místech, a to i s různými texty odkazů. Identifikátor může začínat číslem a obsahovat mezery a není citlivý na velikost písmen!</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapmarkdownppc4"><a href="#kapmarkdownppcr4" class="cislopozn">4</a>&nbsp;Zarovnání je „:---“ vlevo, „---“ na střed nebo „---:“ vpravo. Řádek se záhlavím a řádek se zarovnáními jsou povinné, ostatní řádky tabulky jsou nepovinné. Buňky tabulky mohou obsahovat formátování.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapmarkdownppc5"><a href="#kapmarkdownppcr5" class="cislopozn">5</a>&nbsp;Omezení: Na jednu poznámku pod čarou lze odkazovat tímto způsobem pouze jednou!</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapmarkdownppc6"><a href="#kapmarkdownppcr6" class="cislopozn">6</a>&nbsp;Pro tuto syntaxi můžete použít i více než tři znaky ~, ale jejich počet v zahajujícím a ukončujícím řádku se musí shodovat.</div>
-<div class="zrusitzvyrazneni" id="zzv"><a href="#zzv">zrušit zvýraznění poznámky pod čarou</a></div></div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+</div>
+<div class="odkazydole"><a href="sprava-balicku.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Správa balíčků</a><a href="planovani-uloh.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Plánování úloh</a><a href="regularni-vyrazy.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Regulární výrazy</a></div>
+
 <nav class="spodni"><span class="prev">
-<a href="git.htm" rel="prev" title="5. Git">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="make.htm" rel="prev" title="7. GNU make">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="docker.htm" rel="next" title="7. Docker">Následující&nbsp;kapitola</a>
+-->&nbsp;| <a href="planovani-uloh.htm" rel="next" title="9. Plánování úloh">Následující&nbsp;kapitola</a>
 </span>
+<a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
+<a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
 </nav>
+
+
 </article>
-<footer>
+<footer id="dole">
 <img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
 <p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
 <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
 Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
 či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
-na stránce „<a href="_autori.htm">Přehled autorů</a>“.
+na stránce „<a href="x-autori.htm">Přehled autorů</a>“.
 Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
 licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
 Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód

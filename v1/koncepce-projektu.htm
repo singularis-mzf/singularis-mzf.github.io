@@ -2,36 +2,44 @@
 <html lang="cs">
 <head profile="http://www.w3.org/2005/10/profile">
 <meta charset="UTF-8">
+
 <title>Koncepce projektu Linux: Kniha kouzel − Linux: Kniha kouzel</title>
-<link rel="stylesheet" type="text/css" href="lkk.css">
+
+<link rel="stylesheet" type="text/css" href="lkk-20200112.css">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
-<body>
+<body id="nahore">
 <header>
-<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.1</span>
+<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.2 (12. ledna 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
+
+
 <nav class="horni">
 <div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
 <span class="prev">
-<a href="sprava-balicku.htm" rel="prev" title="13. Správa balíčků" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="zpracovani-videa-a-zvuku.htm" rel="prev" title="16. Zpracování videa a zvuku" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="plan-vyvoje.htm" rel="next" title="15. Plán budoucího vývoje" accesskey="n">Následující&nbsp;kapitola</a>
+-->&nbsp;| <a href="plan-vyvoje.htm" rel="next" title="18. Plán budoucího vývoje" accesskey="n">Následující&nbsp;kapitola</a>
 </span>
 </nav>
+
+
 <article>
-<h1>14. Koncepce projektu Linux: Kniha kouzel</h1>
+
+<h1>17. Koncepce projektu Linux: Kniha kouzel</h1>
 <div class="rozcestnikkapitol">
 <a href="#cast1">Základní cíle projektu (heslovitě)</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast2">Závazná pravidla</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast3">Doporučení</a><span class="oddelovac">&nbsp;|</span>
 </div>
+
 <h2 id="cast1"><span class="cislo">1.</span> Základní cíle projektu (heslovitě)</h2>
-<ul style="text-align:justify"><li>Ukázat začátečníkům v Ubuntu, jaké možnosti jim jejich operační systém nabízí.
+<ul><li>Ukázat začátečníkům v Ubuntu, jaké možnosti jim jejich operační systém nabízí.
 </li><li>Začátečníkům i pokročilým pomoci najít a použít funkce Linuxu, které potřebují.
 </li></ul>
 <h2 id="cast2"><span class="cislo">2.</span> Závazná pravidla</h2>
-<ul style="text-align:justify"><li>Cílem projektu je sdílení znalostí mezi pokročilými a začínajícími uživateli Linuxu tak, že projekt umožní pokročilým uživatelům sepisovat, přehledně organizovat a sdílet svoje nejčastěji používaná zaklínadla („snippets“) a začátečníkům umožní je (pokročilé) přitom sledovat a odnést si z toho v rámci jejich (začátečníků) schopností co nejvíc.
+<ul><li>Cílem projektu je sdílení znalostí mezi pokročilými a začínajícími uživateli Linuxu tak, že projekt umožní pokročilým uživatelům sepisovat, přehledně organizovat a sdílet svoje nejčastěji používaná zaklínadla („snippets“) a začátečníkům umožní je (pokročilé) přitom sledovat a odnést si z toho v rámci jejich (začátečníků) schopností co nejvíc.
 </li><li>Koncepce není neměnná. Bude se mírně přizpůsobovat zjištěným potřebám obou cílových skupin; zájmy začátečníků a pokročilých přitom musejí zůstat v rovnováze, aby byli pokročilí motivováni přispívat a většina jejich příspěvků byla užitečná i začátečníkům.
 </li><li>Zaklínadla jsou v každé úrovni řazena od užitečnějších k méně užitečným. Úzce související zaklínadla (např. na přidání a odebrání objektu) jsou však seskupena k sobě a jejich užitečnost je posuzována společně.
 </li><li>Při psaní kódu jednotlivých zaklínadel mějme na paměti, že náš kód budou používat i lidé, kteří mu nerozumí a nezvládnou opravit naše chyby. Proto pišme kód robustní, důkladně ho testujme a známá omezení dokumentujme (např. v poznámkách pod čarou).
@@ -39,25 +47,32 @@
 </li><li>V kapitole (zpravidla především v sekci „Instalace na Ubuntu“) musejí být zmíněny všechny balíčky, které může být nutné doinstalovat ke zproznění zaklínadel na některé z podporovaných verzí operačního systému.
 </li></ul>
 <h2 id="cast3"><span class="cislo">3.</span> Doporučení</h2>
-<ul style="text-align:justify"><li>Kód zaklínadel má být spíš robustní než jednoduchý.
+<ul><li>Kód zaklínadel má být spíš robustní než jednoduchý.
 </li><li>Formátování a uspořádání kapitol a zaklínadel v nich má být převážně jednotné, aby se usnadnila uživateli rychlá orientace.
 </li><li>Primárním cílem PDF výstupu je tištěná podoba, proto je formátování PDF optimalizováno výhradně pro ni, ne pro čtení na počítači. Primárním cílem HTML výstupu je zobrazení na počítači a možnost zaklínadla vykopírovat (Ctrl+C/Ctrl+V) a přímo použít. Proto musí být kód zaklínadla vykopírovaný z HTML výstupu po doplnění položek „doplň“ okamžitě a bez dalších úprav použitelný a funkční.
 </li><li>Snažme se psát zaklínadla co nejkratší a nejefektivnější při zachování robustnosti, i za cenu toho, že nebudou srozumitelná. (Za deset zpětných lomítek po sobě není třeba se stydět...)
 </li><li>U příkazů, které vyžadují oprávnění superuživatele, používáme sudo, kdekoliv je to možné, dokonce i u příkazů určených ke spuštění v jednouživatelském režimu, kde to není nezbytné. Účelem je přehledná dokumentace faktu, že příkaz spuštění superuživatelem vyžaduje. Výjimkou jsou příkazy určené výhradně ke spouštění v kontejneru Dockeru, kde se sudo obvykle nepoužívá a mohlo by být matoucí.
-</li></ul><nav class="spodni"><span class="prev">
-<a href="sprava-balicku.htm" rel="prev" title="13. Správa balíčků">Předchozí&nbsp;kapitola</a>&nbsp;|
+</li></ul>
+<div class="odkazydole"><a href="planovani-uloh.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Plánování úloh</a><a href="zpracovani-videa-a-zvuku.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Zpracování videa a zvuku</a><a href="markdown.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Markdown</a></div>
+
+<nav class="spodni"><span class="prev">
+<a href="zpracovani-videa-a-zvuku.htm" rel="prev" title="16. Zpracování videa a zvuku">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="plan-vyvoje.htm" rel="next" title="15. Plán budoucího vývoje">Následující&nbsp;kapitola</a>
+-->&nbsp;| <a href="plan-vyvoje.htm" rel="next" title="18. Plán budoucího vývoje">Následující&nbsp;kapitola</a>
 </span>
+<a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
+<a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
 </nav>
+
+
 </article>
-<footer>
+<footer id="dole">
 <img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
 <p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
 <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
 Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
 či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
-na stránce „<a href="_autori.htm">Přehled autorů</a>“.
+na stránce „<a href="x-autori.htm">Přehled autorů</a>“.
 Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
 licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
 Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód

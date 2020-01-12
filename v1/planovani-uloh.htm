@@ -2,27 +2,35 @@
 <html lang="cs">
 <head profile="http://www.w3.org/2005/10/profile">
 <meta charset="UTF-8">
+
 <title>Plánování úloh − Linux: Kniha kouzel</title>
-<link rel="stylesheet" type="text/css" href="lkk.css">
+
+<link rel="stylesheet" type="text/css" href="lkk-20200112.css">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
-<body>
+<body id="nahore">
 <header>
-<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.1</span>
+<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.2 (12. ledna 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
+
+
 <nav class="horni">
 <div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
 <span class="prev">
-<a href="stahovani-videi.htm" rel="prev" title="3. Stahování videí" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="markdown.htm" rel="prev" title="8. Markdown" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="git.htm" rel="next" title="5. Git" accesskey="n">Následující&nbsp;kapitola</a>
+-->&nbsp;| <a href="prace-s-archivy.htm" rel="next" title="10. Práce s archivy" accesskey="n">Následující&nbsp;kapitola</a>
 </span>
 </nav>
+
+
 <article>
-<h1>4. Plánování úloh</h1>
-<div class="stitky"><span>čas</span>
-<span>tematický okruh</span></div><div class="rozcestnikkapitol">
+
+<h1>9. Plánování úloh</h1>
+<div class="stitky"><a href="x-stitky.htm#scs">čas</a>
+<a href="x-stitky.htm#stemtickokruh">tematický okruh</a>
+</div><div class="rozcestnikkapitol">
 <a href="#cast1">Úvod</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast2">Definice</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast3">Zaklínadla</a><span class="oddelovac">&nbsp;|</span>
@@ -30,10 +38,10 @@
 <a href="#cast5">Instalace na Ubuntu</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast6">Ukázka</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast7">Tipy a zkušenosti</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast8">Jak získat nápovědu</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast8">Další zdroje informací</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast9">Pomocné funkce a skripty</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast10">Odkazy</a><span class="oddelovac">&nbsp;|</span>
 </div>
+
 <h2 id="cast1"><span class="cislo">1.</span> Úvod</h2>
 <p class="ponadpisu">
 V této kapitole se dozvíte, jak spouštět příkazy automaticky v určený čas.
@@ -58,8 +66,9 @@ spouštěné pod účtem superuživatele, ty však nejsou touto verzí kapitoly 
 </p>
 
 <h2 id="cast2"><span class="cislo">2.</span> Definice</h2>
-<ul style="text-align:justify"><li><b>Úloha</b> je příkaz naplánovaný k jednorázovému spuštění, jde-li o <b>jednorázovou úlohu</b>, nebo k pravidelnému spouštění, jde-li o <b>pravidelnou úlohu</b>. Tímto příkazem bývá nejčastěji volání uživatelem definovaného skriptu.
+<ul><li><b>Úloha</b> je příkaz naplánovaný k jednorázovému spuštění, jde-li o <b>jednorázovou úlohu</b>, nebo k pravidelnému spouštění, jde-li o <b>pravidelnou úlohu</b>. Tímto příkazem bývá nejčastěji volání uživatelem definovaného skriptu.
 </li></ul>
+
 <h2 id="cast3"><span class="cislo">3.</span> Zaklínadla</h2>
 
 <h3 id="cast3x1"><span class="cislo">1</span> Pravidelné úlohy (obecně)</h3>
@@ -181,7 +190,7 @@ Plán − viz sekci „Jednorázové úlohy (plány)“. Plán se zde neuzavír�
 <div class="radekzaklinadla">crontab <i class="dopln">soubor</i></div>
 <div class="radekzaklinadla">crontab <i class="dopln">parametry</i></div>
 </div></div>
-<ul style="text-align:left"><li><b>-l</b> :: Vypíše tabulku úloh.
+<ul class="kompaktni"><li><b>-l</b> :: Vypíše tabulku úloh.
 </li><li><b>-u</b> <i class="dopln">uživatel</i> :: Bude pracovat s tabulkou úloh zadaného uživatele (vyžaduje „sudo“).
 </li><li><b>-r</b> :: Smaže tabulku úloh.
 </li></ul><div class="zaklinadlo"><div class="radky">
@@ -222,19 +231,31 @@ distribucí, proto zpravidla není třeba ho instalovat.
 Poznámka: ukázka vyžaduje nainstalovaný balíček „mplayer“ (a pochopitelně nainstalovaný pomocný skript „~/bin/spustit-v-x“).
 </p>
 
+
 <h2 id="cast7"><span class="cislo">7.</span> Tipy a zkušenosti</h2>
-<ul style="text-align:justify"><li>Pro jakoukoliv netriviální pravidelnou úlohu doporučuji vytvořit samostatný skript a funkci „pridat_ulohu“ předat volání tohoto skriptu místo vlastních příkazů. Má to celou řadu výhod, např. možnost obsah úlohy editovat, možnost mít víc řádků a použít bash místo /bin/sh. Další výhodou je, že definice se v případě smazání úlohy neztratí a je ji možno použít opakovaně.
+<ul><li>Pro jakoukoliv netriviální pravidelnou úlohu doporučuji vytvořit samostatný skript a funkci „pridat_ulohu“ předat volání tohoto skriptu místo vlastních příkazů. Má to celou řadu výhod, např. možnost obsah úlohy editovat, možnost mít víc řádků a použít bash místo /bin/sh. Další výhodou je, že definice se v případě smazání úlohy neztratí a je ji možno použít opakovaně.
 </li><li>Naplánované úlohy jsou spouštěny mimo terminál a mimo grafické prostředí, což komplikuje jejich ladění.
 </li><li>Ačkoliv mi sekundy u příkazu „at“ nefungují, skript se spouští velmi přesně v nultou sekundu požadované minuty, což vybízí k použití příkazu „sleep“ na začátku spouštěného skriptu k dosažení spuštění v určitou sekundu minuty. Cron tak přesný není.
 </li><li>Cron spustí další instanci úlohy i v případě, že předchozí instance ještě běží.
 </li><li>Pokud se pravidelná úloha nespustila, zkuste prozkoumat logy, které zobrazíte příkazem:<br>„fgrep CRON /var/log/syslog“. Mohou obsahovat odpovídající chybové hlášení.
 </li></ul>
-<h2 id="cast8"><span class="cislo">8.</span> Jak získat nápovědu</h2>
+<h2 id="cast8"><span class="cislo">8.</span> Další zdroje informací</h2>
 <div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla">man 5 crontab</div>
 <div class="radekzaklinadla">man 1 crontab</div>
 <div class="radekzaklinadla">man at</div>
 </div></div>
+<ul class="kompaktni"><li><a href="https://cs.wikipedia.org/wiki/Cron">Stránka na Wikipedii: Cron</a>
+</li><li><a href="https://cs.wikipedia.org/wiki/At_(Unix)">Stránka na Wikipedii: At</a>
+</li><li><a href="https://www.root.cz/clanky/cron-naplanovanie-opakujucich-sa-procesov/">Článek na Root.cz: Cron: naplánovanie opakujúcich sa procesov</a> (slovensky)
+</li><li><a href="https://www.linuxexpres.cz/praxe/cron-spravca-uloh">Článek Cron − správca úloh</a> (slovensky)
+</li><li><a href="https://www.youtube.com/watch?v=QZJ1drMQz1A">Video „Linux/Mac Tutorial: Cron Jobs“</a> (anglicky)
+</li><li><a href="https://www.youtube.com/watch?v=6dJlp133iYg">Video „Crontab Command − 15 Cronjob Scheduling Examples in Linux“</a> (anglicky)
+</li><li><a href="http://manpages.ubuntu.com/manpages/bionic/en/man1/at.1posix.html">Manuálová stránka „at“</a> (anglicky)
+</li><li><a href="https://packages.ubuntu.com/bionic/at">Bionic: balíček „at“</a> (anglicky)
+</li><li><a href="https://packages.ubuntu.com/bionic/bcron-run">Bionic: balíček „bcron-run“</a> (anglicky)
+</li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/common/crontab.md">TL;DR stránka „crontab“</a> (anglicky)
+</li></ul>
 
 <h2 id="cast9"><span class="cislo">9.</span> Pomocné funkce a skripty</h2>
 <div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>pridat_ulohu() − přidá nebo nahradí pravidelnou úlohu<sup><a href="#kapplanovaniulohppc6" id="kapplanovaniulohppcr6">(6)</a>,&nbsp;<a href="#kapplanovaniulohppc7" id="kapplanovaniulohppcr7">(7)</a></sup></div><div class="radky">
@@ -252,41 +273,43 @@ Poznámka: ukázka vyžaduje nainstalovaný balíček „mplayer“ (a pochopit
 <div class="radekzaklinadla">f</div>
 <div class="radekzaklinadla">exec &quot;$@&quot;</div>
 </div></div>
-
-<h2 id="cast10"><span class="cislo">10.</span> Odkazy</h2>
-<ul style="text-align:left"><li><a href="https://cs.wikipedia.org/wiki/Cron">Stránka na Wikipedii: Cron</a>
-</li><li><a href="https://cs.wikipedia.org/wiki/At_(Unix)">Stránka na Wikipedii: At</a>
-</li><li><a href="https://www.root.cz/clanky/cron-naplanovanie-opakujucich-sa-procesov/">Článek na Root.cz: Cron: naplánovanie opakujúcich sa procesov</a> (slovensky)
-</li><li><a href="https://www.linuxexpres.cz/praxe/cron-spravca-uloh">Článek Cron − správca úloh</a> (slovensky)
-</li><li><a href="https://www.youtube.com/watch?v=QZJ1drMQz1A">Video „Linux/Mac Tutorial: Cron Jobs“</a> (anglicky)
-</li><li><a href="https://www.youtube.com/watch?v=6dJlp133iYg">Video „Crontab Command − 15 Cronjob Scheduling Examples in Linux“</a> (anglicky)
-</li><li><a href="http://manpages.ubuntu.com/manpages/bionic/en/man1/at.1posix.html">Manuálová stránka „at“</a> (anglicky)
-</li><li><a href="https://packages.ubuntu.com/bionic/at">Bionic: balíček „at“</a> (anglicky)
-</li><li><a href="https://packages.ubuntu.com/bionic/bcron-run">Bionic: balíček „bcron-run“</a> (anglicky)
-</li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/common/crontab.md">TL;DR stránka „crontab“</a> (anglicky)
-</li></ul><div class="ppc"><div id="kapplanovaniulohppc1"><a href="#kapplanovaniulohppcr1" class="cislopozn">1</a>&nbsp;Poznámka: Znaky „\“ a „%“ jsou ve výpisu escapovány, protože mají pro crontab speciální význam.</div>
+<div class="ppc"><div id="kapplanovaniulohppc1"><a href="#kapplanovaniulohppcr1" class="cislopozn">1</a>&nbsp;Poznámka: Znaky „\“ a „%“ jsou ve výpisu escapovány, protože mají pro crontab speciální význam.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapplanovaniulohppc2"><a href="#kapplanovaniulohppcr2" class="cislopozn">2</a>&nbsp;Vyžaduje nainstalovat balíček „gawk“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapplanovaniulohppc3"><a href="#kapplanovaniulohppcr3" class="cislopozn">3</a>&nbsp;Rozsahy dnů pro N-tý den týdne v měsíci jsou: první: 1-7, druhý: 8-14, třetí: 15-21, čtvrtý: 22-28, pátý: 29-31.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapplanovaniulohppc4"><a href="#kapplanovaniulohppcr4" class="cislopozn">4</a>&nbsp;Uvedený příkaz využívá skutečnost, že adventní neděle se vyskytují pouze v období 27. listopadu až 24. prosince včetně.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapplanovaniulohppc5"><a href="#kapplanovaniulohppcr5" class="cislopozn">5</a>&nbsp;Hodina, minuta, měsíc a den musí být zadány dvěma číslicemi.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapplanovaniulohppc6"><a href="#kapplanovaniulohppcr6" class="cislopozn">6</a>&nbsp;Vyžadovaná pro přidávání pravidelných úloh.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapplanovaniulohppc7"><a href="#kapplanovaniulohppcr7" class="cislopozn">7</a>&nbsp;Poznámka: Příkazy zadávané pomocí této funkce nesmějí obsahovat znak konce řádku. Vyžaduje-li vaše úloha více příkazů nebo komplikovanější konstrukce, zapište ji do skriptu a z úlohy spouštějte daný skript.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapplanovaniulohppc8"><a href="#kapplanovaniulohppcr8" class="cislopozn">8</a>&nbsp;Tento skript je vyžadován pro spouštění grafických aplikací z naplánovaných úloh. Pro správný běh takto spuštěných aplikací může být nutno doplnit do seznamu u příkazu „egrep“ mnoho dalších proměnných.</div>
-<div class="zrusitzvyrazneni" id="zzv"><a href="#zzv">zrušit zvýraznění poznámky pod čarou</a></div></div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+</div>
+<div class="odkazydole"><a href="git.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Git</a><a href="sprava-balicku.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Správa balíčků</a><a href="docker.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Docker</a></div>
+
 <nav class="spodni"><span class="prev">
-<a href="stahovani-videi.htm" rel="prev" title="3. Stahování videí">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="markdown.htm" rel="prev" title="8. Markdown">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="git.htm" rel="next" title="5. Git">Následující&nbsp;kapitola</a>
+-->&nbsp;| <a href="prace-s-archivy.htm" rel="next" title="10. Práce s archivy">Následující&nbsp;kapitola</a>
 </span>
+<a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
+<a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
 </nav>
+
+
 </article>
-<footer>
+<footer id="dole">
 <img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
 <p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
 <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
 Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
 či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
-na stránce „<a href="_autori.htm">Přehled autorů</a>“.
+na stránce „<a href="x-autori.htm">Přehled autorů</a>“.
 Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
 licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
 Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód

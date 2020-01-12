@@ -2,32 +2,41 @@
 <html lang="cs">
 <head profile="http://www.w3.org/2005/10/profile">
 <meta charset="UTF-8">
+
 <title>Plán budoucího vývoje − Linux: Kniha kouzel</title>
-<link rel="stylesheet" type="text/css" href="lkk.css">
+
+<link rel="stylesheet" type="text/css" href="lkk-20200112.css">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
-<body>
+<body id="nahore">
 <header>
-<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.1</span>
+<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.2 (12. ledna 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
+
+
 <nav class="horni">
 <div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
 <span class="prev">
-<a href="koncepce-projektu.htm" rel="prev" title="14. Koncepce projektu Linux: Kniha kouzel" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="koncepce-projektu.htm" rel="prev" title="17. Koncepce projektu Linux: Kniha kouzel" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="licence.htm" rel="next" title="16. Licence" accesskey="n">Následující&nbsp;kapitola</a>
+-->&nbsp;| <a href="licence.htm" rel="next" title="19. Licence" accesskey="n">Následující&nbsp;kapitola</a>
 </span>
 </nav>
+
+
 <article>
-<h1>15. Plán budoucího vývoje</h1>
-<p class="ponadpisu">
-Podle mých představ v době vydání této verze knihy by do její příští verze měly přibýt některé z následujících kapitol:
-</p>
-<ul style="text-align:left"><li>„Unicode a emodži“ („mapa znaků“, vzorníky a různé symboly)
-</li><li>„GNU awk“ (vzorky, příkazy, funkce, syntaxe, použití)
+
+<h1>18. Plán budoucího vývoje</h1>
+<div class="rozcestnikkapitol">
+<a href="#cast1">Chystané kapitoly</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast2">Chystaný vývoj formátování a mechanismu překladu</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3">Možný přechod na jazyk Perl</a><span class="oddelovac">&nbsp;|</span>
+</div>
+<h2 id="cast1"><span class="cislo">1.</span> Chystané kapitoly</h2>
+<ul class="kompaktni"><li>„Unicode a emotikony“ („mapa znaků“, vzorníky a různé symboly)
 </li><li>„Základy Perlu“ (jednoduše, konzistentně)
-</li><li>„Zpracování textových souborů“ (prohledávání, filtrování, řazení, CSV, TSV, JSON, XML apod.)
+</li><li>„Komplexní textové formáty“ (JSON, XML apod.)
 </li><li>„Přehrávání videa, zvuku a obrázků“ (mplayer, feh, gpicview, ristretto)
 </li><li>„Šifrování a kryptografie“ (gpg, šifrování archivů, elektronické podpisy, HTTPS certifikáty)
 </li><li>„X (správce oken)“ (práce s okny, se schránkou, oznámení a další)
@@ -36,42 +45,64 @@ Podle mých představ v době vydání této verze knihy by do její příští
 </li><li>„Diskové oddíly“ (fstab, mount, fsck, mkfs, LVM, vypalování DVD)
 </li><li>„Firewall“ (asi hlavně iptables)
 </li><li>„GRUB“ (konfigurace, dualboot, nastavení grafického pozadí)
-</li><li>„Správa balíčků“ (dpkg, dpkg-query, apt-get, apt-cache, apt-file, apt-src, apt-mirror, aptly, Snap a Flatpak)
-</li><li>„Systém“ (ovládání démonů, swapovacích oddílů, automatické přihlašování, synchronizace času, Num Lock a další)
 </li><li>„Vim“ (základní a mírně pokročilé ovládání)
 </li><li>„Záznam obrazovky“ (maim, ffmpeg a další)
 </li><li>„Hledání souborů“ (find, locate, whereis a další)
+</li><li>„Soubory a adresáře“ (vytváření, mazání, fallocate, truncate, kopírování, práva a atributy)
 </li><li>„Pevné a symbolické odkazy“
 </li><li>„Bash“ (syntaxe, rozvoj proměnných, exec, přesměrování, roury a další)
 </li><li>„LaTeX“ (základní struktura dokumentu, standardní značky, překlad do PDF, důležité balíčky)
 </li><li>„SQL“ (SQLite, MySQL, MariaDB; všechno možné)
 </li><li>„ASCII art“ (banner, toilet a další)
-</li></ul><p>
-Pokud máte nějaké osobní preference, které z nich byste tam chtěl/a vidět, nebo byste rád/a dostal/a zpracované jiné téma, napište mi váš názor e-mailem nebo komentářem na GitHubu. Váš zájem mě určitě potěší a povzbudí.
+</li><li>„Wine“ (parametry, konfigurace, zkušenosti, wine-prefixy apod.)
+</li><li>„Správa balíčků 2“ (apt-src, apt-mirror, aptly)
+</li><li>„Správa procesů“ (ps, pgrep, pstree, kill, nice, nohup apod.)
+</li><li>„Proměnné prostředí“ (printenv a další možnosti)
+</li><li>„Matematické výpočty“ (bc, dc, expr apod.)
+</li></ul><p class="ponadpisu">
+Aktuální vývoj chystaných kapitol můžete sledovat na GitHubu.
 </p><p>
-Kromě toho mám v plánu rozvíjet i formátování a mechanismus překladu. V plánu mám následující vlastnosti:
+Pokud máte nějaké osobní preference, které z kapitol byste chtěl/a dostat co nejdřív,
+nebo návrh na zpracování jiného tématu, napište mi váš názor e-mailem
+nebo komentářem na GitHubu. Váš zájem mě určitě potěší a povzbudí.
 </p>
-<ul style="text-align:left"><li>Zlepšit a sjednotit prezentaci pomocných funkcí a skriptů. Měly by být k dispozici v ucelené podobě ke stažení, možná dokonce jako deb-balíček.
+
+<h2 id="cast2"><span class="cislo">2.</span> Chystaný vývoj formátování a mechanismu překladu</h2>
+<ul class="kompaktni"><li>Balíček „.deb“, který nainstaluje příkaz „lkk“ pro spouštění pomocných skriptů.
+</li><li>Ikony pro kapitoly i v PDF variantách a na zbytku míst v HTML variantě.
 </li><li>Podpora poznámek pod čarou i mimo zaklínadla.
-</li><li>Šetření inkoustem (obrázky se do PDF varianty budou konvertovat tak, aby snímky terminálu byly tištěny dobře čitelným černým písmem na bílém podkladu).
-</li><li>Ikony pro kapitoly.
-</li><li>Ikony pro jednotlivá zaklínadla (zatím nemám přesnou představu, jak by měly vypadat; cílem je usnadnit orientaci lidem s grafickou pamětí).
+</li><li>Rozdílné ikony pro jednotlivá zaklínadla.
 </li><li>Vylepšovat design a přehlednost HTML varianty.
 </li><li>Vylepšovat design a přehlednost PDF variant.
-</li></ul><nav class="spodni"><span class="prev">
-<a href="koncepce-projektu.htm" rel="prev" title="14. Koncepce projektu Linux: Kniha kouzel">Předchozí&nbsp;kapitola</a>&nbsp;|
+</li></ul>
+<h2 id="cast3"><span class="cislo">3.</span> Možný přechod na jazyk Perl</h2>
+<p class="ponadpisu">
+Přechod projektu z AWK na Perl v nejbližší budoucnosti <i>nenastane</i>.
+Mechanismus překladu je značně založený na příkazech „switch“,
+které Perl sám o sobě dobře neumí a náhražky v něm vypadají ošklivě
+nebo dobře nefungují. Proto bude další vývoj mechanismu překladu probíhat
+i nadále v AWK.
+</p>
+<div class="odkazydole"><a href="barvy-a-titulek.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Barvy, titulek a výzva terminálu</a><a href="sprava-balicku.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Správa balíčků</a><a href="regularni-vyrazy.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Regulární výrazy</a></div>
+
+<nav class="spodni"><span class="prev">
+<a href="koncepce-projektu.htm" rel="prev" title="17. Koncepce projektu Linux: Kniha kouzel">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="licence.htm" rel="next" title="16. Licence">Následující&nbsp;kapitola</a>
+-->&nbsp;| <a href="licence.htm" rel="next" title="19. Licence">Následující&nbsp;kapitola</a>
 </span>
+<a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
+<a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
 </nav>
+
+
 </article>
-<footer>
+<footer id="dole">
 <img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
 <p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
 <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
 Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
 či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
-na stránce „<a href="_autori.htm">Přehled autorů</a>“.
+na stránce „<a href="x-autori.htm">Přehled autorů</a>“.
 Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
 licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
 Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód

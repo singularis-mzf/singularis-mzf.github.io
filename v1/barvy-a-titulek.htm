@@ -2,28 +2,36 @@
 <html lang="cs">
 <head profile="http://www.w3.org/2005/10/profile">
 <meta charset="UTF-8">
+
 <title>Barvy, titulek a výzva terminálu − Linux: Kniha kouzel</title>
-<link rel="stylesheet" type="text/css" href="lkk.css">
+
+<link rel="stylesheet" type="text/css" href="lkk-20200112.css">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
-<body>
+<body id="nahore">
 <header>
-<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.1</span>
+<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.2 (12. ledna 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
+
+
 <nav class="horni">
 <div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
 <span class="prev">
-<a href="predmluva.htm" rel="prev" title="1. Předmluva" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="awk.htm" rel="prev" title="2. AWK" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="stahovani-videi.htm" rel="next" title="3. Stahování videí" accesskey="n">Následující&nbsp;kapitola</a>
+-->&nbsp;| <a href="datum-cas-kalendar.htm" rel="next" title="4. Datum, čas a kalendář" accesskey="n">Následující&nbsp;kapitola</a>
 </span>
 </nav>
+
+
 <article>
-<h1>2. Barvy, titulek a výzva terminálu</h1>
-<div class="stitky"><span>barvy</span>
-<span>bash</span>
-<span>tematický okruh</span></div><div class="rozcestnikkapitol">
+
+<h1>3. Barvy, titulek a výzva terminálu</h1>
+<div class="stitky"><a href="x-stitky.htm#sbrvy">barvy</a>
+<a href="x-stitky.htm#sbsh">bash</a>
+<a href="x-stitky.htm#stemtickokruh">tematický okruh</a>
+</div><div class="rozcestnikkapitol">
 <a href="#cast1">Úvod</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast2">Definice</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast3">Zaklínadla</a><span class="oddelovac">&nbsp;|</span>
@@ -33,11 +41,11 @@
 <a href="#cast7">Instalace na Ubuntu</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast8">Ukázka</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast9">Tipy a zkušenosti</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast10">Jak získat nápovědu</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast10">Další zdroje informací</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast11">Pomocné funkce</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast12">Odkazy</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast13">Snímek obrazovky</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast12">Snímek obrazovky</a><span class="oddelovac">&nbsp;|</span>
 </div>
+
 <h2 id="cast1"><span class="cislo">1.</span> Úvod</h2>
 <p class="ponadpisu">
 Tato kapitola pokrývá ovládání barvy písma, barvy pozadí, použitého fontu, titulku terminálového okna a pozice a vlastností kurzoru. Rovněž pokrývá nastavování výzev interpretu bash (PS1 a dalších). Logicky by patřila do kapitoly o příkazovém interpretu bash, ale ta bude velmi rozsáhlá a náročná na zpracování, proto jsem toto téma vydělil/a do samostatné kapitoly.
@@ -50,10 +58,11 @@ Jedna z prvních věcí, která mě po otevření linuxového terminálu naštv
 </p>
 
 <h2 id="cast2"><span class="cislo">2.</span> Definice</h2>
-<ul style="text-align:justify"><li><b>Výzva terminálu</b> (zkráceně „výzva“) je řetězec, který interpret příkazového řádku vypisuje před, během nebo po přijetí příkazu od uživatele (tzn. v interaktivním režimu). V interpretu „bash“ se rozeznávají tři druhy výzvy a jejich šablony jsou uloženy v proměnných PS0, PS1 a PS2: <b>hlavní výzva</b> (PS1) značí, že bash očekává příkaz, <b>vedlejší výzva</b> (PS2) značí, že bash očekává pokračování příkazu na dalším řádku, <b>potvrzující výzva</b> (PS0) se vypisuje po přijetí příkazu a před zahájením jeho vykonávání.
-</li><li><b>Escape sekvence</b> je posloupnost bajtů, na kterou terminál zareaguje změnou nastavení (např. barvy písma) či nějakou akci. Escape sekvence začínají netisknutelným znakem „escape“ (ASCII kód 0x1b). V minulosti se zapisovaly ručně a děsily nezkušené uživatele; dnes je však můžeme pohodlně generovat moderním příkazem „tput“, který současně redukuje problémy s kompatibilitou jednotlivých typů terminálů.
+<ul><li><b>Výzva terminálu</b> (zkráceně „výzva“) je řetězec, který interpret příkazového řádku vypisuje před, během nebo po přijetí příkazu od uživatele (tzn. v interaktivním režimu). V interpretu „bash“ se rozeznávají tři druhy výzvy a jejich šablony jsou uloženy v proměnných PS0, PS1 a PS2: <b>hlavní výzva</b> (PS1) značí, že bash očekává příkaz, <b>vedlejší výzva</b> (PS2) značí, že bash očekává pokračování příkazu na dalším řádku, <b>potvrzující výzva</b> (PS0) se vypisuje po přijetí příkazu a před zahájením jeho vykonávání.
+</li><li><b>Escape sekvence</b> je posloupnost bajtů, na kterou terminál zareaguje změnou nastavení (např. barvy písma) či nějakou akcí. Escape sekvence začínají netisknutelným znakem „escape“ (ASCII kód 0x1b). V minulosti se zapisovaly ručně a děsily nezkušené uživatele; dnes je však můžeme pohodlně generovat moderním příkazem „tput“, který současně redukuje problémy s kompatibilitou jednotlivých typů terminálů.
 </li><li><b>Paleta</b> je v této kapitole pole barev, které daný terminál podporuje, <i>indexované od nuly</i>. Typicky se vyskytují pouze dvě palety: s 8 barvami a s 256 barvami, ačkoliv realizace konkrétních barev v těchto paletách se mohou v jednotlivých terminálech mírně lišit.
 </li></ul>
+
 <h2 id="cast3"><span class="cislo">3.</span> Zaklínadla</h2>
 
 <h3 id="cast3x1"><span class="cislo">1</span> Titulek</h3>
@@ -277,16 +286,33 @@ Všechny použité součásti jsou základními nástroji přítomnými v každ
 <div class="radekzaklinadla">PS2=&quot;\\[$(bezp_set setaf 10 2; tput bold)\\]|<span class="viditelnamezera">&nbsp;</span>$(pstput sgr0)&quot;</div>
 </div></div>
 
+
 <h2 id="cast9"><span class="cislo">9.</span> Tipy a zkušenosti</h2>
-<ul style="text-align:justify"><li>Výchozí nastavení výzev se nachází v souboru „~/.bashrc“. Umístěním svých definic na konec tohoto souboru můžete výchozí nastavení přepsat. Změna se projeví při dalším spuštění bashe.
+<ul><li>Výchozí nastavení výzev se nachází v souboru „~/.bashrc“. Umístěním svých definic na konec tohoto souboru můžete výchozí nastavení přepsat. Změna se projeví při dalším spuštění bashe.
 </li><li>Konstrukci proměnné PS1 je vhodné pro přehlednost rozdělit do více řádků, kdy první řádek bude přiřazení a na dalších použijete operátor += k připojení hodnoty ke stávající hodnotě.
 </li><li>Tip: Před zkoušením nastavování barev a titulku terminálu si vypněte výzvu příkazem „PS1=&quot;&quot;“. Výchozí výzva obsahuje escape sekvence, které by kolidovaly s těmi, které se snažíte zadat a rušily by jejich účinek.
 </li><li>Bash podporuje proměnnou „PROMPT_COMMAND“. Je-li nastavena, je vykonána jako příkaz těsně před vypsáním hlavní výzvy. Toho lze využít k nastavení proměnných, které pak ve výzvě použijeme. Proměnná PROMPT_COMMAND může obsahovat i více příkazů oddělených středníky. Podle manuálové stránky by příkazy uvedené v této proměnné neměly generovat žádný výstup na terminál! (Ale výstup do souboru je pravděpodobně v pořádku.)
 </li></ul>
-<h2 id="cast10"><span class="cislo">10.</span> Jak získat nápovědu</h2>
-<ul style="text-align:left"><li>Přehled syntaxe pro proměnné PS0, PS1 a PS2 najdete v sekci „PROMPTING“ v manuálové stránce „bash“ (anglicky).
-</li><li>Různé další tipy se dají najít v článku Bash/Prompt customization (anglicky, viz Odkazy).
+<h2 id="cast10"><span class="cislo">10.</span> Další zdroje informací</h2>
+<p class="ponadpisu">
+Přehled syntaxe pro proměnné PS0, PS1 a PS2 najdete v sekci „PROMPTING“ v manuálové stránce „bash“ (anglicky).
+</p><p>
+Různé další tipy se dají najít v článku Bash/Prompt customization (anglicky).
+</p>
+<ul class="kompaktni"><li><a href="https://cs.wikipedia.org/wiki/ANSI_escape_k%C3%B3d">Wikipedie: ANSI escape kód</a>
+</li><li><a href="https://wiki.archlinux.org/index.php/Bash/Prompt_customization">Bash/Prompt customization</a> (anglicky)
+</li><li><a href="http://www.linuxcommand.org/lc3_adv_tput.php">Command tput</a> (anglicky)
+</li><li><a href="https://en.wikipedia.org/wiki/ANSI_escape_code">Wikipedie: ANSI escape code</a> (anglicky)
+</li><li><a href="http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html">xterm-256 Color Chart</a> (anglicky)
+</li><li><a href="http://manpages.ubuntu.com/manpages/bionic/en/man1/bash.1.html">Manuálová stránka: bash</a> (anglicky)
+</li><li><a href="https://www.youtube.com/watch?v=iaXQdyHRL8M">Video: Customizing Your Terminal | Linux Terminal Beautification</a>
+</li><li><a href="https://www.gnu.org/software/termutils/manual/termutils-2.0/html_chapter/tput_1.html">Oficiální příručka příkazu tput</a> (anglicky)
+</li><li><a href="https://packages.ubuntu.com/bionic/ncurses-bin">Balíček Bionic: ncurses-bin</a> (anglicky)
+</li><li><a href="https://www.youtube.com/watch?v=wOUYzKrGZaA">Video: Customize the Bash Prompt</a> (anglicky)
+</li><li><a href="https://www.youtube.com/watch?v=C92eaq_bZR8">Video: Customize &amp; Colorize Your Bash Prompt/Terminal</a> (anglicky)
+</li><li><a href="https://www.youtube.com/watch?v=N8pdAvIwj28">Video: Color Variables BASH Shell Script Linux Tutorial</a> (anglicky)
 </li></ul>
+
 <h2 id="cast11"><span class="cislo">11.</span> Pomocné funkce</h2>
 <div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>bezp_set() − nastaví písmo či pozadí na první podporovanou barvu</div><div class="radky">
 <div class="radekzaklinadla">function bezp_set () {</div>
@@ -309,44 +335,44 @@ Všechny použité součásti jsou základními nástroji přítomnými v každ
 <div class="radekzaklinadla">}</div>
 </div></div>
 
-<h2 id="cast12"><span class="cislo">12.</span> Odkazy</h2>
-<ul style="text-align:left"><li><a href="https://cs.wikipedia.org/wiki/ANSI_escape_k%C3%B3d">Wikipedie: ANSI escape kód</a>
-</li><li><a href="https://wiki.archlinux.org/index.php/Bash/Prompt_customization">Bash/Prompt customization</a> (anglicky)
-</li><li><a href="http://www.linuxcommand.org/lc3_adv_tput.php">Command tput</a> (anglicky)
-</li><li><a href="https://en.wikipedia.org/wiki/ANSI_escape_code">Wikipedie: ANSI escape code</a> (anglicky)
-</li><li><a href="http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html">xterm-256 Color Chart</a> (anglicky)
-</li><li><a href="http://manpages.ubuntu.com/manpages/bionic/en/man1/bash.1.html">Manuálová stránka: bash</a> (anglicky)
-</li><li><a href="https://www.youtube.com/watch?v=iaXQdyHRL8M">Video: Customizing Your Terminal | Linux Terminal Beautification</a>
-</li><li><a href="https://www.gnu.org/software/termutils/manual/termutils-2.0/html_chapter/tput_1.html">Oficiální příručka příkazu tput</a> (anglicky)
-</li><li><a href="https://packages.ubuntu.com/bionic/ncurses-bin">Balíček Bionic: ncurses-bin</a> (anglicky)
-</li><li><a href="https://www.youtube.com/watch?v=wOUYzKrGZaA">Video: Customize the Bash Prompt</a> (anglicky)
-</li><li><a href="https://www.youtube.com/watch?v=C92eaq_bZR8">Video: Customize &amp; Colorize Your Bash Prompt/Terminal</a> (anglicky)
-</li><li><a href="https://www.youtube.com/watch?v=N8pdAvIwj28">Video: Color Variables BASH Shell Script Linux Tutorial</a> (anglicky)
-</li></ul>
-<h2 id="cast13"><span class="cislo">13.</span> Snímek obrazovky</h2>
+<h2 id="cast12"><span class="cislo">12.</span> Snímek obrazovky</h2>
 <figure><img src="obrazky/barvy.png" alt="snímek obrazovky"></figure><div class="ppc"><div id="kapbarvyatitulekppc1"><a href="#kapbarvyatitulekppcr1" class="cislopozn">1</a>&nbsp;Ve výchozím nastavení nastavuje titulek terminálu jeho hlavní výzva PS1. Proto ji musíte před experimentováním vypnout, např. příkazem „PS=&quot;&quot;“, jinak vám vaše nové nastavení hned přepíše a ani si toho nevšimnete.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapbarvyatitulekppc2"><a href="#kapbarvyatitulekppcr2" class="cislopozn">2</a>&nbsp;Funkce „bezp_set“ použije ze svých argumentů první podporované číslo barvy. Není-li žádné z uvedených čísel podporováno, žádná barva se nanastaví. Při volání doporučuji jako první uvést číslo pro paletu s 256 barvami a jako druhé číslo náhradní barvy z osmibarevné palety.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapbarvyatitulekppc3"><a href="#kapbarvyatitulekppcr3" class="cislopozn">3</a>&nbsp;Na některých terminálech je realizován jako inverzní text, na jiných jako tučné písmo.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapbarvyatitulekppc4"><a href="#kapbarvyatitulekppcr4" class="cislopozn">4</a>&nbsp;Používání blikajícího textu se výrazně nedoporučuje, protože je v různých terminálech málo a nejednotně podporován, má mnoho odpůrců a může uživateli způsobovat zdravotní potíže.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapbarvyatitulekppc5"><a href="#kapbarvyatitulekppcr5" class="cislopozn">5</a>&nbsp;Řádky a sloupce jsou číslovány od nuly od levého horního rohu terminálu.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapbarvyatitulekppc6"><a href="#kapbarvyatitulekppcr6" class="cislopozn">6</a>&nbsp;U druhé varianty (vyhodnotit při každém vypsání výzvy) musíte v příkazu escapovat znaky &quot;, \, $ a !, aby se do příslušné proměnné uložil přesně tak, jak má být vykonán.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapbarvyatitulekppc7"><a href="#kapbarvyatitulekppcr7" class="cislopozn">7</a>&nbsp;Poznámka: Aby tento výraz fungoval, musíte do proměnné PROMPT_COMMAND (ideálně na začátek) přidat příkaz „navr_hodn=$?“, např. příkazem „PROMPT_COMMAND=&quot;navr_hodn=\$?;$PROMPT_COMMAND&quot;“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapbarvyatitulekppc8"><a href="#kapbarvyatitulekppcr8" class="cislopozn">8</a>&nbsp;Pro popis formátu viz „man strftime“.</div>
-<div class="zrusitzvyrazneni" id="zzv"><a href="#zzv">zrušit zvýraznění poznámky pod čarou</a></div></div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+</div>
+<div class="odkazydole"><a href="sprava-balicku.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Správa balíčků</a><a href="datum-cas-kalendar.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Datum, čas a kalendář</a><a href="make.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">GNU make</a></div>
+
 <nav class="spodni"><span class="prev">
-<a href="predmluva.htm" rel="prev" title="1. Předmluva">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="awk.htm" rel="prev" title="2. AWK">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="stahovani-videi.htm" rel="next" title="3. Stahování videí">Následující&nbsp;kapitola</a>
+-->&nbsp;| <a href="datum-cas-kalendar.htm" rel="next" title="4. Datum, čas a kalendář">Následující&nbsp;kapitola</a>
 </span>
+<a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
+<a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
 </nav>
+
+
 </article>
-<footer>
+<footer id="dole">
 <img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
 <p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
 <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
 Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
 či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
-na stránce „<a href="_autori.htm">Přehled autorů</a>“.
+na stránce „<a href="x-autori.htm">Přehled autorů</a>“.
 Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
 licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
 Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód

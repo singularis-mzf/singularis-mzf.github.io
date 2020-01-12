@@ -2,28 +2,36 @@
 <html lang="cs">
 <head profile="http://www.w3.org/2005/10/profile">
 <meta charset="UTF-8">
+
 <title>Docker − Linux: Kniha kouzel</title>
-<link rel="stylesheet" type="text/css" href="lkk.css">
+
+<link rel="stylesheet" type="text/css" href="lkk-20200112.css">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
-<body>
+<body id="nahore">
 <header>
-<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.1</span>
+<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.2 (12. ledna 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
+
+
 <nav class="horni">
 <div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
 <span class="prev">
-<a href="markdown.htm" rel="prev" title="6. Markdown" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="datum-cas-kalendar.htm" rel="prev" title="4. Datum, čas a kalendář" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="make.htm" rel="next" title="8. GNU make" accesskey="n">Následující&nbsp;kapitola</a>
+-->&nbsp;| <a href="git.htm" rel="next" title="6. Git" accesskey="n">Následující&nbsp;kapitola</a>
 </span>
 </nav>
+
+
 <article>
-<h1>7. Docker</h1>
-<div class="stitky"><span>kontejnery</span>
-<span>program</span>
-<span>virtualizace</span></div><div class="rozcestnikkapitol">
+
+<h1>5. Docker</h1>
+<div class="stitky"><a href="x-stitky.htm#skontejnery">kontejnery</a>
+<a href="x-stitky.htm#sprogrm">program</a>
+<a href="x-stitky.htm#svirtulizce">virtualizace</a>
+</div><div class="rozcestnikkapitol">
 <a href="#cast1">Úvod</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast2">Definice</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast3">Zaklínadla (docker)</a><span class="oddelovac">&nbsp;|</span>
@@ -32,9 +40,9 @@
 <a href="#cast6">Instalace na Ubuntu</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast7">Ukázka</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast8">Tipy a zkušenosti</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast9">Jak získat nápovědu</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast10">Odkazy</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast9">Další zdroje informací</a><span class="oddelovac">&nbsp;|</span>
 </div>
+
 <h2 id="cast1"><span class="cislo">1.</span> Úvod</h2>
 <p class="ponadpisu">
 Docker je nástroj pro odlehčenou virtualizaci formou takzvaných kontejnerů. Kontejner obsahuje vlastní podstrom procesů, který je izolovaný od zbytku systému (má vlastní souborový systém, konfiguraci, knihovny, démony, síťové rozhraní a IP adresu), ale sdílí s ním jádro a výpočetní prostředky. To umožňuje bezpečný a snadno přenositelný běh programů určených pro jiné distribuce (můžete např. na nejnovější Fedoře spouštět program ze staré verze Debianu apod.). Nevýhodou Dockeru je, že jeho používání vyžaduje oprávnění superuživatele a nepodporuje přímo spouštění grafických aplikací nebo přímý přístup k hardwaru (i barvy v terminálu je tam podtřeba zprovoznit). Nejčastěji se používá na provozování databází.
@@ -45,11 +53,12 @@ Tato verze kapitoly pokrývá pouze základy Dockeru; nezmiňuje se o nástoji 
 </p>
 
 <h2 id="cast2"><span class="cislo">2.</span> Definice</h2>
-<ul style="text-align:justify"><li><b>Kontejner</b> je dočasné (ale perzistentní) částečně izolované prostředí pro spouštění programů.
+<ul><li><b>Kontejner</b> je dočasné (ale perzistentní) částečně izolované prostředí pro spouštění programů.
 </li><li><b>Obraz</b> je neměnný, opakovaně použitelný výchozí stav kontejneru.
 </li><li><b>Repozitář</b> je soubor obrazů se společným označením (např. „ubuntu“ či „mysql“). Jednotlivé obrazy se pak identifikují pomocí <b>tagu</b> uvedeného za název repozitáře a dvojtečku (např. „ubuntu:18.04“). Není-li tag uveden, Docker automaticky doplní „latest“.
 </li><li><b>Dockerfile</b> je textový soubor s názvem „Dockerfile“, obsahující instrukce k vytvoření obrazu.
 </li></ul>
+
 <h2 id="cast3"><span class="cislo">3.</span> Zaklínadla (docker)</h2>
 
 <h3 id="cast3x1"><span class="cislo">1</span> Práce s obrazy</h3>
@@ -167,7 +176,7 @@ Tato verze kapitoly pokrývá pouze základy Dockeru; nezmiňuje se o nástoji 
 <div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla">sudo docker run <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> <i class="dopln">obraz</i> <span class="volznak">[</span><i class="dopln">náhradní příkaz a jeho parametry</i><span class="volznak">]</span></div>
 </div></div>
-<ul style="text-align:left"><li><b>--rm</b> :: Po ukončení hlavního procesu automaticky smaže kontejner.
+<ul class="kompaktni"><li><b>--rm</b> :: Po ukončení hlavního procesu automaticky smaže kontejner.
 </li><li><b>-it</b> :: Spustí pro kontejner interaktivní terminál. (Opakem je <b>-d</b>, které spustí kontejner na pozadí.)
 </li><li><b>-v</b> <i class="dopln">/adresář/venku</i><b>:</b><i class="dopln">/adresář/v/kontejneru</i> :: Připojí adresář vnějšího počítače do kontejneru.
 </li><li><b>-p</b> <i class="dopln">port-venku</i><b>:</b><i class="dopln">port-v-kontejneru</i> :: Připojí síťový port vnějšího počítače do kontejneru.
@@ -193,8 +202,9 @@ Tato verze kapitoly pokrývá pouze základy Dockeru; nezmiňuje se o nástoji 
 <div class="radekzaklinadla">sudo docker run --rm -it midnight-commander</div>
 </div></div>
 
+
 <h2 id="cast8"><span class="cislo">8.</span> Tipy a zkušenosti</h2>
-<ul style="text-align:justify"><li>Přidání uživatele do skupiny „docker“, které některé stránky doporučují, mu umožňuje spouštět Docker bez sudo. Z bezpečnostního hlediska to ale není dobrý nápad, protože jak ukazuje podsekce zaklínadel „Eskalace práv“, spouštění Dockeru je prakticky ekvivalentem přidělení práv superuživatele. Proto raději příkaz „docker“ spouštím z bashe spuštěného pomocí „sudo bash“.
+<ul><li>Přidání uživatele do skupiny „docker“, které některé stránky doporučují, mu umožňuje spouštět Docker bez sudo. Z bezpečnostního hlediska to ale není dobrý nápad, protože jak ukazuje podsekce zaklínadel „Eskalace práv“, spouštění Dockeru je prakticky ekvivalentem přidělení práv superuživatele. Proto raději příkaz „docker“ spouštím z bashe spuštěného pomocí „sudo bash“.
 </li><li>Řádek v Dockerfilu lze rozdělit na víc řádků; v takovém případě se na konec každého kromě posledního přidá zpětné lomítko.
 </li><li>Programy spouštěné při sestavování obrazu nesmí vyžadovat žádnou uživatelskou interakci. Pokud k tomu dojde, sestavení obrazu selže. (Proto je třeba u příkazu „apt-get install“ používat parametr „-y“.)
 </li><li>V kontejnerech je možno zakládat nové uživatele a používat jejich účty, ale není to příliš běžné. Obvykle se všechny programy v kontejnerech spouští pod účtem uživatele root.
@@ -202,7 +212,7 @@ Tato verze kapitoly pokrývá pouze základy Dockeru; nezmiňuje se o nástoji 
 </li><li>Hash kontejneru se v kontejneru používá jako název počítače, takže se zobrazuje ve výzvě příkazového interpretu a lze ji snadno zjistit příkazem „hostname“.
 </li><li>Ačkoliv by spuštění grafických aplikací v Dockeru mělo být také možné, vyžaduje specializovaný postup a nikdy jsem se o ně nepokoušel/a.
 </li></ul>
-<h2 id="cast9"><span class="cislo">9.</span> Jak získat nápovědu</h2>
+<h2 id="cast9"><span class="cislo">9.</span> Další zdroje informací</h2>
 <p class="ponadpisu">
 Pro sestavení Dockerfilu je asi nejlepším informačním zdrojem online „Referenční příručka pro Dockerfile“. Pro spouštění je pak vhodná „Oficiální referenční příručka“. Oba zdroje jsou bohužel v angličtině.
 </p><p>
@@ -212,9 +222,7 @@ Pro základní přehled lze použít i příkazy:
 <div class="radekzaklinadla">docker --help</div>
 <div class="radekzaklinadla">docker <i class="dopln">příkaz</i> --help</div>
 </div></div>
-
-<h2 id="cast10"><span class="cislo">10.</span> Odkazy</h2>
-<ul style="text-align:left"><li><a href="http://www.cloudsvet.cz/?series=docker">Praktický úvod do Docker a kontejnerů</a>
+<ul class="kompaktni"><li><a href="http://www.cloudsvet.cz/?series=docker">Praktický úvod do Docker a kontejnerů</a>
 </li><li><a href="https://www.youtube.com/watch?v=cV0HFt0QGEA">Video: Jakub Kratina − Docker 101</a>
 </li><li><a href="https://www.zdrojak.cz/clanky/proc-pouzivat-docker/">Článek: Proč používat Docker</a>
 </li><li><a href="https://cs.wikipedia.org/wiki/Docker_(software)">Stránka na Wikipedii</a>
@@ -228,29 +236,44 @@ Pro základní přehled lze použít i příkazy:
 </li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/common/docker-compose.md">TL;DR stránka „docker-compose“</a> (anglicky)
 </li><li><a href="https://www.docker.com/">Oficiální stránka programu</a> (anglicky)
 </li><li><a href="https://packages.ubuntu.com/bionic/docker.io">Balíček Bionic „docker.io“</a> (anglicky)
-</li></ul><div class="ppc"><div id="kapdockerppc1"><a href="#kapdockerppcr1" class="cislopozn">1</a>&nbsp;Pozor na tečku na konci příkazu, je povinná a bez ní příkaz skončí vypsáním nápovědy!</div>
+</li></ul>
+<div class="ppc"><div id="kapdockerppc1"><a href="#kapdockerppcr1" class="cislopozn">1</a>&nbsp;Pozor na tečku na konci příkazu, je povinná a bez ní příkaz skončí vypsáním nápovědy!</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapdockerppc2"><a href="#kapdockerppcr2" class="cislopozn">2</a>&nbsp;Uvedený příkaz má přednastavený limit 25 položek; parametrem lze počet zvýšit maximálně na 100.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapdockerppc3"><a href="#kapdockerppcr3" class="cislopozn">3</a>&nbsp;Původní označení zůstane zachováno.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapdockerppc4"><a href="#kapdockerppcr4" class="cislopozn">4</a>&nbsp;Uložený obraz doporučuji komprimovat (je ve formátu tar); obsahuje všechny vrstvy potřebné pro rekonstrukci obrazu, takže ho lze načíst i na počítači bez připojení k internetu. Rovněž je to vhodný způsob, jak si obraz zálohovat.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapdockerppc5"><a href="#kapdockerppcr5" class="cislopozn">5</a>&nbsp;Tento příkaz obvykle není třeba používat, protože Docker chybějící obrazy stahuje automaticky, jakmile jsou potřeba.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapdockerppc6"><a href="#kapdockerppcr6" class="cislopozn">6</a>&nbsp;Pozor, každý příkaz se spouští v nové instanci příkazovém intepretu „/bin/sh“!</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapdockerppc7"><a href="#kapdockerppcr7" class="cislopozn">7</a>&nbsp;Kontext sestavení (build context) je zvláštní oblast, kam se při spuštění příkazu „docker build“ rekurzivně zkopíruje veškerý obsah aktuálního adresáře.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapdockerppc8"><a href="#kapdockerppcr8" class="cislopozn">8</a>&nbsp;Cesta může být i relativní.</div>
-<div class="zrusitzvyrazneni" id="zzv"><a href="#zzv">zrušit zvýraznění poznámky pod čarou</a></div></div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+</div>
+<div class="odkazydole"><a href="prace-s-archivy.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Práce s archivy</a><a href="git.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Git</a><a href="stahovani-videi.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Stahování videí</a></div>
+
 <nav class="spodni"><span class="prev">
-<a href="markdown.htm" rel="prev" title="6. Markdown">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="datum-cas-kalendar.htm" rel="prev" title="4. Datum, čas a kalendář">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="make.htm" rel="next" title="8. GNU make">Následující&nbsp;kapitola</a>
+-->&nbsp;| <a href="git.htm" rel="next" title="6. Git">Následující&nbsp;kapitola</a>
 </span>
+<a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
+<a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
 </nav>
+
+
 </article>
-<footer>
+<footer id="dole">
 <img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
 <p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
 <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
 Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
 či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
-na stránce „<a href="_autori.htm">Přehled autorů</a>“.
+na stránce „<a href="x-autori.htm">Přehled autorů</a>“.
 Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
 licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
 Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód

@@ -2,30 +2,38 @@
 <html lang="cs">
 <head profile="http://www.w3.org/2005/10/profile">
 <meta charset="UTF-8">
+
 <title>Správa balíčků − Linux: Kniha kouzel</title>
-<link rel="stylesheet" type="text/css" href="lkk.css">
+
+<link rel="stylesheet" type="text/css" href="lkk-20200112.css">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
-<body>
+<body id="nahore">
 <header>
-<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.1</span>
+<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.2 (12. ledna 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
+
+
 <nav class="horni">
 <div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
 <span class="prev">
-<a href="regularni-vyrazy.htm" rel="prev" title="12. Regulární výrazy" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="regularni-vyrazy.htm" rel="prev" title="11. Regulární výrazy" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="koncepce-projektu.htm" rel="next" title="14. Koncepce projektu Linux: Kniha kouzel" accesskey="n">Následující&nbsp;kapitola</a>
+-->&nbsp;| <a href="stahovani-videi.htm" rel="next" title="13. Stahování videí" accesskey="n">Následující&nbsp;kapitola</a>
 </span>
 </nav>
+
+
 <article>
-<h1>13. Správa balíčků</h1>
-<div class="stitky"><span>apt</span>
-<span>Flatpak</span>
-<span>Snap</span>
-<span>systém</span>
-<span>tematický okruh</span></div><div class="rozcestnikkapitol">
+
+<h1>12. Správa balíčků</h1>
+<div class="stitky"><a href="x-stitky.htm#spt">apt</a>
+<a href="x-stitky.htm#sfltpk">Flatpak</a>
+<a href="x-stitky.htm#ssnp">Snap</a>
+<a href="x-stitky.htm#ssystm">systém</a>
+<a href="x-stitky.htm#stemtickokruh">tematický okruh</a>
+</div><div class="rozcestnikkapitol">
 <a href="#cast1">Úvod</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast2">Definice</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast3">Zaklínadla (DPKG a APT)</a><span class="oddelovac">&nbsp;|</span>
@@ -34,9 +42,9 @@
 <a href="#cast6">Instalace na Ubuntu</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast7">Ukázka</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast8">Tipy a zkušenosti</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast9">Jak získat nápovědu</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast10">Odkazy</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast9">Další zdroje informací</a><span class="oddelovac">&nbsp;|</span>
 </div>
+
 <h2 id="cast1"><span class="cislo">1.</span> Úvod</h2>
 <p class="ponadpisu">
 Tématem této kapitoly jsou balíčkovací systémy dpkg, apt, PPA, Flatpak a Snap, používáné
@@ -78,9 +86,10 @@ výchozí práva aplikace zúžit nebo rozšířit).
 </p>
 
 <h2 id="cast2"><span class="cislo">2.</span> Definice</h2>
-<ul style="text-align:justify"><li><b>Balíček</b> je soubor obsahující neměnná data tvořící aplikaci, knihovnu apod. a metadata včetně případných závislostí na ostatních balíčcích.
-</li><li><b>Repozitář</b> je ucelený sklad souvisejících balíčků. Může být dostupný buď online, nebo může být umístněný v systému souborů. Repozitář APT má svůj <b>název</b> (v Ubuntu typicky „ubuntu“) a dělí se na <b>archivy</b> („bionic“, „bionic-updates“, „bionic-security“ atd.) a ty se dělí na <b>sekce</b> („main“, „universe“, „restricted“ a „multiverse“). Sekce main obsahuje svobodný software přímo podporovaný jsou součást Ubuntu, sekce „universe“ obsahuje svobodný software udržovaný pouze komunitou, sekce „restricted“ obsahuje nesvobodný software považovaný za podporovanou součást Ubuntu (typicky proprietární ovladače) a sekce „multiverse“ obsahuje nesvobodný software neudržovaný komunitou. Sekce se dále dělí na <b>podsekce</b> podle druhu softwaru.
+<ul><li><b>Balíček</b> je soubor obsahující neměnná data tvořící aplikaci, knihovnu apod. a metadata včetně případných závislostí na ostatních balíčcích.
+</li><li><b>Repozitář</b> je ucelený sklad souvisejících balíčků. Může být dostupný buď online, nebo může být umístěný v systému souborů. Repozitář APT má svůj <b>název</b> (v Ubuntu typicky „ubuntu“) a dělí se na <b>archivy</b> („bionic“, „bionic-updates“, „bionic-security“ atd.) a ty se dělí na <b>sekce</b> („main“, „universe“, „restricted“ a „multiverse“). Sekce main obsahuje svobodný software přímo podporovaný jsou součást Ubuntu, sekce „universe“ obsahuje svobodný software udržovaný pouze komunitou, sekce „restricted“ obsahuje nesvobodný software považovaný za podporovanou součást Ubuntu (typicky proprietární ovladače) a sekce „multiverse“ obsahuje nesvobodný software neudržovaný komunitou. Sekce se dále dělí na <b>podsekce</b> podle druhu softwaru.
 </li></ul>
+
 <h2 id="cast3"><span class="cislo">3.</span> Zaklínadla (DPKG a APT)</h2>
 
 <h3 id="cast3x1"><span class="cislo">1</span> Instalace a odinstalace</h3>
@@ -150,14 +159,14 @@ výchozí práva aplikace zúžit nebo rozšířit).
 
 <h3 id="cast3x3"><span class="cislo">3</span> Podrobné informace o balíčku</h3>
 <div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>vypsat podrobné informace o balíčku</div><div class="radky">
-<div class="radekzaklinadla">apt-cache show <i class="dopln">balík</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla">apt-cache show <i class="dopln">balíček</i><span class="tritecky"></span></div>
 </div></div>
 <div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>vypsat seznam souborů a adresářů v systému, které kontroluje daný (nainstalovaný/dostupný) balíček<sup><a href="#kapspravabalickuppc2" id="kapspravabalickuppcr2">(2)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">dpkg-query -L <i class="dopln">balíček</i></div>
 <div class="radekzaklinadla">apt-file list <i class="dopln">balíček</i><span class="tritecky"></span></div>
 </div></div>
 <div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>vypsat závislosti balíčku</div><div class="radky">
-<div class="radekzaklinadla">apt-cache depends <i class="dopln">balík</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla">apt-cache depends <i class="dopln">balíček</i><span class="tritecky"></span></div>
 </div></div>
 
 <h3 id="cast3x4"><span class="cislo">4</span> Zákaz aktualizace a označení „automaticky“</h3>
@@ -309,8 +318,8 @@ Za znakem „=“ následuje příklad hodnoty pro balíček „gimp“.
 <div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><b>vypsat</b> seznam odklonů</div><div class="radky">
 <div class="radekzaklinadla">dpkg-divert --list \*</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>odklonit soubor pro všechny balíky kromě zadaného</div><div class="radky">
-<div class="radekzaklinadla">sudo dpkg-divert --package <i class="dopln">balík</i> <span class="volznak">[</span>--move<span class="volznak">]</span> --divert <i class="dopln">/nové/umístění</i> <i class="dopln">/původní/umístění</i></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>odklonit soubor pro všechny balíčky kromě zadaného</div><div class="radky">
+<div class="radekzaklinadla">sudo dpkg-divert --package <i class="dopln">balíček</i> <span class="volznak">[</span>--move<span class="volznak">]</span> --divert <i class="dopln">/nové/umístění</i> <i class="dopln">/původní/umístění</i></div>
 </div></div>
 
 <h3 id="cast3x11"><span class="cislo">11</span> Ostatní</h3>
@@ -499,18 +508,17 @@ Instalace, spuštění a odinstalování GIMPu různými způsoby:
 <div class="radekzaklinadla akce">Potvrďte.</div>
 </div></div>
 
+
 <h2 id="cast8"><span class="cislo">8.</span> Tipy a zkušenosti</h2>
-<ul style="text-align:justify"><li>Co je špatně na Snapu: 1) Automatické updatování balíčků, které nelze vypnout. 2) Zatímco klientská část je svobodný software dostupný pro mnoho linuxových distribucí, serverová část je proprietární a může ji provozovat pouze firma Canonical, takže není možné vytvářet zrcadla repozitáře a při instalaci programů je uživatel závislý na firmě Canonical a připojení do USA. 3) Vzhledem k použítí SquashFS připojené snapy zaplevelují výpisy příkazů jako „mount“ a „df“ (Flatpak tímto netrpí).
+<ul><li>Co je špatně na Snapu: 1) Automatické updatování balíčků, které nelze vypnout. 2) Zatímco klientská část je svobodný software dostupný pro mnoho linuxových distribucí, serverová část je proprietární a může ji provozovat pouze firma Canonical, takže není možné vytvářet zrcadla repozitáře a při instalaci programů je uživatel závislý na firmě Canonical a připojení do USA. 3) Vzhledem k použítí SquashFS připojené snapy zaplevelují výpisy příkazů jako „mount“ a „df“ (Flatpak tímto netrpí).
 </li><li>Flatpak přistupuje poměrně benevolentně k přístupovým právům uživatelů. Umožňuje instalovat a odinstalovávat balíčky systémové instalace bez zadání hesla nejen superuživateli, ale také všem uživatelům, kteří jsou členy skupin admin a sudo. Ostatní uživatelům to umožní po zadání hesla administrujícího uživatele, dokonce i přesto, že sami nemají právo používat sudo.
 </li><li>Flatpak neprovádí automatickou aktualizaci balíčků.
 </li></ul>
-<h2 id="cast9"><span class="cislo">9.</span> Jak získat nápovědu</h2>
+<h2 id="cast9"><span class="cislo">9.</span> Další zdroje informací</h2>
 <p class="ponadpisu">
 Pro APT: „man apt-get“ apod. (ale není příliš přehledná) Pro Flatpak: „man flatpak“ a všechny odtud odkazované manuálové stránky, např. „man flatpak-install“. Pro Snap: „snap --help“ a „snap help <i class="dopln">podpříkaz</i>“.
 </p>
-
-<h2 id="cast10"><span class="cislo">10.</span> Odkazy</h2>
-<ul style="text-align:left"><li><a href="https://cs.wikipedia.org/wiki/Advanced_Packaging_Tool">Wikipedie: APT</a>
+<ul class="kompaktni"><li><a href="https://cs.wikipedia.org/wiki/Advanced_Packaging_Tool">Wikipedie: APT</a>
 </li><li><a href="https://cs.wikipedia.org/wiki/Aptitude">Wikipedie: aptitude</a>
 </li><li><a href="https://cs.wikipedia.org/wiki/Dpkg">Wikipedie: dpkg</a>
 </li><li><a href="https://youtu.be/bvybMVRaND0?t=75">Video „How to Use Flatpak“ (Chris Titus Tech)</a> (anglicky)
@@ -526,37 +534,60 @@ Pro APT: „man apt-get“ apod. (ale není příliš přehledná) Pro Flatpak: 
 </li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/linux/apt.md">TL;DR „apt“</a> (anglicky)
 </li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/linux/apt-key.md">TL;DR „apt-key“</a> (anglicky)
 </li><li><a href="https://www.youtube.com/watch?v=K0bkapSpzzk">Video „Flatpak, a technical walkthrough“</a> (anglicky)
-</li></ul><div class="ppc"><div id="kapspravabalickuppc1"><a href="#kapspravabalickuppcr1" class="cislopozn">1</a>&nbsp;Poznámka: vypíše i balíčky, jejichž upgrade není možný např. kvůli konfliktu s jiným balíčkem.</div>
-<div id="kapspravabalickuppc2"><a href="#kapspravabalickuppcr2" class="cislopozn">2</a>&nbsp;Poznámka: Ve výpisu „dpkg-query -L“ se typicky objevují také společné adresáře jako /etc či /usr; není příliš spolehnutí na to, že jde pouze o soubory příslušné danému balíku.</div>
+</li></ul>
+<div class="ppc"><div id="kapspravabalickuppc1"><a href="#kapspravabalickuppcr1" class="cislopozn">1</a>&nbsp;Poznámka: vypíše i balíčky, jejichž upgrade není možný např. kvůli konfliktu s jiným balíčkem.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapspravabalickuppc2"><a href="#kapspravabalickuppcr2" class="cislopozn">2</a>&nbsp;Poznámka: Ve výpisu „dpkg-query -L“ se typicky objevují také společné adresáře jako /etc či /usr; není příliš spolehnutí na to, že jde pouze o soubory příslušné danému balíčku.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapspravabalickuppc3"><a href="#kapspravabalickuppcr3" class="cislopozn">3</a>&nbsp;Pozor! Tento filtr zahrne i balíčky, které nemohou být aktualizovány, protože tomu brání konflikt mezi balíčky nebo zákaz jejich instalace! Naopak nezahrnuje balíčky, které budou nově instalovány pouze pro splnění nově vzniklých závislostí. Proto tento filtr není tak praktický, jak by se mohl zdát.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapspravabalickuppc4"><a href="#kapspravabalickuppcr4" class="cislopozn">4</a>&nbsp;Název balíčku jiné než výchozí architektury bude doplněn o architekturu, např. „gimp:i386“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapspravabalickuppc5"><a href="#kapspravabalickuppcr5" class="cislopozn">5</a>&nbsp;Je-li dostupných víc verzí balíčku, parametr %V vybere tu, která by se nejspíš instalovala.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapspravabalickuppc6"><a href="#kapspravabalickuppcr6" class="cislopozn">6</a>&nbsp;Není-li instalovaná, resp. dostupná žádná verze, tyto parametry vypíšou „&lt;žádná&gt;“ a ignorují snahu o změnu lokalizace. Pro přenositelnost je proto doporučuji ve skriptech testovat proti regulárnímu výrazu „&lt;.*&gt;“ místo porovnání s konkrétní hodnotou.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapspravabalickuppc7"><a href="#kapspravabalickuppcr7" class="cislopozn">7</a>&nbsp;Je-li dostupných víc verzí balíčku, tento parametr zohledňuje pouze nejnovější verzi. Je-li dostupná ve více archivech, vypíše parametr %t všechny dané archivy oddělené čárkou, typicky např. „bionic-security,bionic-updates“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapspravabalickuppc8"><a href="#kapspravabalickuppcr8" class="cislopozn">8</a>&nbsp;Pro balíčky instalované jen pro splnění závislosti jiného balíčku vypíše „A“, jinak vypíše prázdný řetězec.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapspravabalickuppc9"><a href="#kapspravabalickuppcr9" class="cislopozn">9</a>&nbsp;Příkazy „get“ se provádějí na online počítači a stáhnout vše, co je potřeba, do uvedeného archivu typu zip, příkazy „set“ a „install“ se spouštějí na offline počítači.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapspravabalickuppc10"><a href="#kapspravabalickuppcr10" class="cislopozn">10</a>&nbsp;Uvedení verze k balíčku je povinné, pokud je v repozitáři víc verzí téhož balíčku. Bez něj v takovém případě příkaz „flathub remote-info“ selže a vypíše dostupné verze.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapspravabalickuppc11"><a href="#kapspravabalickuppcr11" class="cislopozn">11</a>&nbsp;K provedení tohoto příkazu musíte mít daný balíček nainstalovaný.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapspravabalickuppc12"><a href="#kapspravabalickuppcr12" class="cislopozn">12</a>&nbsp;Poznámka: provedení tohoto příkazu může trvat i několik minut a vzhledem k velkému rozsahu vypsaných informací doporučuji výstup přesměrovat do souboru.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapspravabalickuppc13"><a href="#kapspravabalickuppcr13" class="cislopozn">13</a>&nbsp;Kanál může být: edge, beta, candidate nebo stable.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapspravabalickuppc14"><a href="#kapspravabalickuppcr14" class="cislopozn">14</a>&nbsp;Poznámka: tento příkaz stáhne pouze uvedený balíček, ne však jeho závislosti.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapspravabalickuppc15"><a href="#kapspravabalickuppcr15" class="cislopozn">15</a>&nbsp;Pokud má balíček závislosti na dalších balíčcích, je potřeba nejprve nainstalovat je, jinak se je bude se snap-démon nainstalovat online.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapspravabalickuppc16"><a href="#kapspravabalickuppcr16" class="cislopozn">16</a>&nbsp;PPA podle: https://flatpak.org/setup/Ubuntu/</div>
-<div class="zrusitzvyrazneni" id="zzv"><a href="#zzv">zrušit zvýraznění poznámky pod čarou</a></div></div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+</div>
+<div class="odkazydole"><a href="stahovani-videi.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Stahování videí</a><a href="system.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Systém</a><a href="zpracovani-textovych-souboru.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Zpracování textových souborů</a></div>
+
 <nav class="spodni"><span class="prev">
-<a href="regularni-vyrazy.htm" rel="prev" title="12. Regulární výrazy">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="regularni-vyrazy.htm" rel="prev" title="11. Regulární výrazy">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="koncepce-projektu.htm" rel="next" title="14. Koncepce projektu Linux: Kniha kouzel">Následující&nbsp;kapitola</a>
+-->&nbsp;| <a href="stahovani-videi.htm" rel="next" title="13. Stahování videí">Následující&nbsp;kapitola</a>
 </span>
+<a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
+<a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
 </nav>
+
+
 </article>
-<footer>
+<footer id="dole">
 <img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
 <p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
 <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
 Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
 či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
-na stránce „<a href="_autori.htm">Přehled autorů</a>“.
+na stránce „<a href="x-autori.htm">Přehled autorů</a>“.
 Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
 licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
 Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód

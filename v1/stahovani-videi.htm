@@ -2,37 +2,45 @@
 <html lang="cs">
 <head profile="http://www.w3.org/2005/10/profile">
 <meta charset="UTF-8">
+
 <title>Stahování videí − Linux: Kniha kouzel</title>
-<link rel="stylesheet" type="text/css" href="lkk.css">
+
+<link rel="stylesheet" type="text/css" href="lkk-20200112.css">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
-<body>
+<body id="nahore">
 <header>
-<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.1</span>
+<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.2 (12. ledna 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
+
+
 <nav class="horni">
 <div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
 <span class="prev">
-<a href="barvy-a-titulek.htm" rel="prev" title="2. Barvy, titulek a výzva terminálu" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="sprava-balicku.htm" rel="prev" title="12. Správa balíčků" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="planovani-uloh.htm" rel="next" title="4. Plánování úloh" accesskey="n">Následující&nbsp;kapitola</a>
+-->&nbsp;| <a href="system.htm" rel="next" title="14. Systém" accesskey="n">Následující&nbsp;kapitola</a>
 </span>
 </nav>
+
+
 <article>
-<h1>3. Stahování videí</h1>
-<div class="stitky"><span>internet</span>
-<span>tematický okruh</span>
-<span>video</span></div><div class="rozcestnikkapitol">
+
+<h1>13. Stahování videí</h1>
+<div class="stitky"><a href="x-stitky.htm#sinternet">internet</a>
+<a href="x-stitky.htm#stemtickokruh">tematický okruh</a>
+<a href="x-stitky.htm#svideo">video</a>
+</div><div class="rozcestnikkapitol">
 <a href="#cast1">Úvod</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast2">Zaklínadla (youtube-dl)</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast3">Parametry příkazů</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast4">Instalace na Ubuntu</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast5">Ukázka</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast6">Tipy a zkušenosti</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast7">Jak získat nápovědu</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast8">Odkazy</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast7">Další zdroje informací</a><span class="oddelovac">&nbsp;|</span>
 </div>
+
 <h2 id="cast1"><span class="cislo">1.</span> Úvod</h2>
 <p class="ponadpisu">
 Tato kapitola se zabývá stahováním videí a zvuku ze služeb jako YouTube,
@@ -47,47 +55,48 @@ Tato kapitola nepokrývá stahování videí a zvuku přístupných přímo jak
 ke stažení (např. z Ulož.to nebo z různých FTP serverů).
 </p>
 
+
 <h2 id="cast2"><span class="cislo">2.</span> Zaklínadla (youtube-dl)</h2>
 
 <h3 id="cast2x1"><span class="cislo">1</span> Parametry ve formátovacím řetězci (-o)</h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><b>identifikátor</b> videa (např. „CvhJWKtBLn4“)</div><div class="radky">
-<div class="radekzaklinadla">%(id)s</div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><b>identifikátor</b> videa</div><div class="radky">
+<div class="radekzaklinadla">%(id)s<span class="prikladhodnoty">⊨ CvhJWKtBLn4</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><b>název</b> videa (např. „Oficiální ASMR booktrailer seriálu Ester Krejčí 1.0“)</div><div class="radky">
-<div class="radekzaklinadla">%(title)s</div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><b>název</b> videa</div><div class="radky">
+<div class="radekzaklinadla">%(title)s<span class="prikladhodnoty">⊨ Oficiální ASMR booktrailer seriálu Ester Krejčí 1.0</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>správná <b>přípona</b> výstupního souboru (např. „mkv“)</div><div class="radky">
-<div class="radekzaklinadla">%(ext)s</div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>správná <b>přípona</b> výstupního souboru</div><div class="radky">
+<div class="radekzaklinadla">%(ext)s<span class="prikladhodnoty">⊨ mkv</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><b>šířka/výška</b> videa (např. „1920“ a „1080“)</div><div class="radky">
-<div class="radekzaklinadla">%(width)d</div>
-<div class="radekzaklinadla">%(height)d</div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><b>šířka/výška</b> videa</div><div class="radky">
+<div class="radekzaklinadla">%(width)d<span class="prikladhodnoty">⊨ 1920</span></div>
+<div class="radekzaklinadla">%(height)d<span class="prikladhodnoty">⊨ 1080</span></div>
 </div></div>
 <div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><b>formát</b> videa (ve formátu pro parametr -f/podrobný popis)</div><div class="radky">
 <div class="radekzaklinadla">%(format_id)s</div>
 <div class="radekzaklinadla">%(format)s</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><b>datum uploadu</b> videa (např. 20190618)</div><div class="radky">
-<div class="radekzaklinadla">%(upload_date)s</div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><b>datum uploadu</b> videa</div><div class="radky">
+<div class="radekzaklinadla">%(upload_date)s<span class="prikladhodnoty">⊨ 20190618</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span><b>počítadlo</b> (pět míst, např. „00001“/jen číslo, např. „1“)<sup><a href="#kapstahovanivideippc1" id="kapstahovanivideippcr1">(1)</a></sup></div><div class="radky">
-<div class="radekzaklinadla">%(autonumber)s</div>
-<div class="radekzaklinadla">%(autonumber)d</div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span><b>počítadlo</b> (pět míst/jen číslo)<sup><a href="#kapstahovanivideippc1" id="kapstahovanivideippcr1">(1)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">%(autonumber)s<span class="prikladhodnoty">⊨ 00001</span></div>
+<div class="radekzaklinadla">%(autonumber)d<span class="prikladhodnoty">⊨ 1</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span>index v playlistu (doplněný nulami, např. „001“/jen číslo, např. „1“)</div><div class="radky">
-<div class="radekzaklinadla">%(playlist_index)s</div>
-<div class="radekzaklinadla">%(playlist_index)d</div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span>index v playlistu (doplněný nulami/jen číslo)</div><div class="radky">
+<div class="radekzaklinadla">%(playlist_index)s<span class="prikladhodnoty">⊨ 001</span></div>
+<div class="radekzaklinadla">%(playlist_index)d<span class="prikladhodnoty">⊨ 1</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#9 </span>název kanálu (např. „Mikoláš Štrajt“)</div><div class="radky">
-<div class="radekzaklinadla">%(uploader)s</div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#9 </span>název kanálu</div><div class="radky">
+<div class="radekzaklinadla">%(uploader)s<span class="prikladhodnoty">⊨ Mikoláš Štrajt</span></div>
 </div></div>
 <div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#10 </span>délka videa v sekundách</div><div class="radky">
 <div class="radekzaklinadla">%(duration)d</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#11 </span>počet zhlédnutí (např. 12)/liků (např. 1)/disliků (např. 0)</div><div class="radky">
-<div class="radekzaklinadla">%(view_count)d</div>
-<div class="radekzaklinadla">%(like_count)d</div>
-<div class="radekzaklinadla">%(dislike_count)d</div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#11 </span>počet zhlédnutí/liků/disliků</div><div class="radky">
+<div class="radekzaklinadla">%(view_count)d<span class="prikladhodnoty">⊨ 12</span></div>
+<div class="radekzaklinadla">%(like_count)d<span class="prikladhodnoty">⊨ 1</span></div>
+<div class="radekzaklinadla">%(dislike_count)d<span class="prikladhodnoty">⊨ 0</span></div>
 </div></div>
 
 <h3 id="cast2x2"><span class="cislo">2</span> Výběr formátu (-f)</h3>
@@ -184,17 +193,26 @@ ke stažení (např. z Ulož.to nebo z různých FTP serverů).
 <p class="ponadpisu">
 Začíná-li zaklínadlo v této kapitole příkazem „youtube-dl“, uvádí úplný příkaz; jinak uvádí jen parametry příkazu „youtube-dl“, které je třeba skombinovat s dalšími parametry.
 </p>
+
+<h3 id="cast3x1"><span class="cislo">1</span> youtube-dl</h3>
 <div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla">youtube-dl <i class="dopln">parametry</i> <i class="dopln">URL-videa</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">youtube-dl <i class="dopln">parametry</i> -a <i class="dopln">soubor-se-seznamem-URL</i></div>
 </div></div>
-<ul style="text-align:left"><li><b>-o &quot;</b><i class="dopln">formátovací řetězec</i><b>&quot;</b> :: Specifikuje cestu a název cílového souboru; viz zaklínadla v podsekci „Parametry ve formátovacím řetězci (-o)“.
-</li><li><b>-f</b> <i class="dopln">volba-formátu</i> :: Definuje, který z dostupných formátů videa či zvuku bude zvolen ke stažení.
-</li><li><b>--no-mtime</b> :: Ponechá čas modifikace staženého souboru aktuální. (Jinak se po stažení nastaví na čas uploadu videa.)
-</li><li><b>-i</b> :: Při stahování ignoruje chyby.
-</li><li><b>--ignore-config</b> :: Nečte konfigurační soubor. Vhodné, pokud všechna potřebná nastavení uvádíte jako parametry.
-</li><li><b>--no-continue</b> :: Začne stahování od začátku, i když už byla část videa stažena.
-</li></ul>
+<table class="parametryprikazu"><tbody><tr><td>-o &quot;<i class="dopln">formátovací řetězec</i>&quot;</td><td>Specifikuje cestu a název cílového souboru; viz zaklínadla v podsekci „Parametry ve formátovacím řetězci (-o)“.</td></tr>
+
+<tr><td>-f &quot;<i class="dopln">volba-formátu</i>&quot;</td><td>Definuje, který z dostupných formátů videa či zvuku bude zvolen ke stažení.</td></tr>
+
+<tr><td>--no-mtime</td><td>Ponechá čas modifikace staženého souboru aktuální. (Jinak se po stažení nastaví na čas uploadu videa.)</td></tr>
+
+<tr><td>-i</td><td>Při stahování ignoruje chyby.</td></tr>
+
+<tr><td>--ignore-config</td><td>Nečte konfigurační soubor. Vhodné, pokud všechna potřebná nastavení uvádíte jako parametry.</td></tr>
+
+<tr><td>--no-continue</td><td>Začne stahování od začátku, i když už byla část videa stažena.</td></tr>
+
+</tbody></table>
+
 <h2 id="cast4"><span class="cislo">4.</span> Instalace na Ubuntu</h2>
 <p class="ponadpisu">
 Aktuální instalační postup „youtube-dl“ hledejte na <a href="https://ytdl-org.github.io/youtube-dl/download.html">oficiálních stránkách youtube-dl</a>.
@@ -221,6 +239,10 @@ Zde uvádím trochu složitější postup, který sestává z následujících 
 <div class="radekzaklinadla">chmod 700 youtube-dl</div>
 <div class="radekzaklinadla">mv youtube-dl ~/bin/</div>
 </div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span>vytvoření konfiguračního souboru (volitelné)</div><div class="radky">
+<div class="radekzaklinadla">mkdir -pv ~/.config/youtube-dl</div>
+<div class="radekzaklinadla">touch ~/.config/youtube-dl/config</div>
+</div></div>
 <p>
 V repozitáři Ubuntu sice je balíček „youtube-dl“, ale zpravidla zastaralý a již nefunkční, protože rozhraní streamovacích služeb se často mění.
 </p>
@@ -230,21 +252,20 @@ V repozitáři Ubuntu sice je balíček „youtube-dl“, ale zpravidla zastara
 <div class="radekzaklinadla">youtube-dl &quot;https://www.youtube.com/watch?v=CvhJWKtBLn4&quot;</div>
 </div></div>
 
+
 <h2 id="cast6"><span class="cislo">6.</span> Tipy a zkušenosti</h2>
-<ul style="text-align:justify"><li>Pokud stahování z některé služby přestane fungovat, první, co je třeba vyzkoušet, je aktualizovat program.
-</li><li>Některé parametry (zejména -f a -o) budete pravděpodobně používat velmi často. Proto se vyplatí je buď umístit do konfiguračního souboru („~/.config/youtube-dl/config“) nebo si na ně zřídit skripty či funkce.
+<ul><li>Pokud stahování z některé služby přestane fungovat, první, co je třeba vyzkoušet, je aktualizovat program.
+</li><li>Budete-li příkaz „youtube-dl“ používat často, doporučuji si na jeho volání vytvořit skripty, funkce či aliasy, které předvyplní nejčastěji používané parametry (zejména -f a -o, popř. --no-mtime). Parametry sice můžete vložit také do konfiguračního souboru, ale budete-li používat youtube-dl více různými způsoby, skripty či aliasy jsou praktičtější.
 </li><li>Je-li video v playlistu nedostupné, youtube-dl na něm skončí s chybou. Přimějete-li ho pokračovat parametrem <b>-i</b>, přeskočí nedostupné video, jako by v playlistu nebylo.
 </li></ul>
-<h2 id="cast7"><span class="cislo">7.</span> Jak získat nápovědu</h2>
+<h2 id="cast7"><span class="cislo">7.</span> Další zdroje informací</h2>
 <div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla">youtube-dl --help</div>
 </div></div>
 <p>
 Pro podrobný popis formátovacího řetězce a mechanismu automatického výběru formátu ke stažení navštivte oficiální dokumentaci. Bohužel, veškerá oficiální nápověda je jen v angličtině.
 </p>
-
-<h2 id="cast8"><span class="cislo">8.</span> Odkazy</h2>
-<ul style="text-align:left"><li><a href="https://www.root.cz/clanky/pet-tipu-pro-prehravani-weboveho-videa/">Článek: Pět tipů pro přehrávání webového videa</a>
+<ul class="kompaktni"><li><a href="https://www.root.cz/clanky/pet-tipu-pro-prehravani-weboveho-videa/">Článek: Pět tipů pro přehrávání webového videa</a>
 </li><li><a href="https://github.com/ytdl-org/youtube-dl/blob/master/README.md">Oficiální dokumentace</a> (anglicky)
 </li><li><a href="https://www.youtube.com/watch?v=9A-HLSvtBWc">Video: Downloading Videos, Music and More with Youtube DL</a> (anglicky)
 </li><li><a href="https://www.youtube.com/watch?v=fOjP-7-gI4Y">Video: Command Line App For Downloading YouTube Videos</a> (anglicky)
@@ -253,26 +274,38 @@ Pro podrobný popis formátovacího řetězce a mechanismu automatického výb�
 </li><li><a href="http://manpages.ubuntu.com/manpages/bionic/en/man1/youtube-dl.1.html">Manuálová stránka</a> (anglicky)
 </li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/common/youtube-dl.md">TL;DR stránka „youtube-dl“</a> (anglicky)
 </li><li><a href="https://archive.zhimingwang.org/blog/2014-11-05-list-youtube-playlist-with-youtube-dl.html">Návod na vypsání playlistu</a> (anglicky)
-</li></ul><div class="ppc"><div id="kapstahovanivideippc1"><a href="#kapstahovanivideippcr1" class="cislopozn">1</a>&nbsp;Počáteční hodnota počítadla je 1, ale lze ji změnit parametrem „--autonumber-start“.</div>
+</li></ul>
+<div class="ppc"><div id="kapstahovanivideippc1"><a href="#kapstahovanivideippcr1" class="cislopozn">1</a>&nbsp;Počáteční hodnota počítadla je 1, ale lze ji změnit parametrem „--autonumber-start“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapstahovanivideippc2"><a href="#kapstahovanivideippcr2" class="cislopozn">2</a>&nbsp;Vhodné hodnoty výšky: 144, 240, 360, 480, 720, 1080, 1440, 2160.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapstahovanivideippc3"><a href="#kapstahovanivideippcr3" class="cislopozn">3</a>&nbsp;Audio-formát může být: best, aac, flac, mp3, m4a, opus, vorbis nebo wav.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapstahovanivideippc4"><a href="#kapstahovanivideippcr4" class="cislopozn">4</a>&nbsp;Při použití parametru --flat-playlist budou ve formátovacím řetězci fungovat pouze parametry %(id)s a %(title)s! Žádné jiné pravděpodobně fungovat nebudou!</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapstahovanivideippc5"><a href="#kapstahovanivideippcr5" class="cislopozn">5</a>&nbsp;Formát titulků může být ass, srt, vtt nebo lrc.</div>
-<div class="zrusitzvyrazneni" id="zzv"><a href="#zzv">zrušit zvýraznění poznámky pod čarou</a></div></div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+</div>
+<div class="odkazydole"><a href="sprava-balicku.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Správa balíčků</a><a href="zpracovani-textovych-souboru.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Zpracování textových souborů</a><a href="docker.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Docker</a></div>
+
 <nav class="spodni"><span class="prev">
-<a href="barvy-a-titulek.htm" rel="prev" title="2. Barvy, titulek a výzva terminálu">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="sprava-balicku.htm" rel="prev" title="12. Správa balíčků">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="planovani-uloh.htm" rel="next" title="4. Plánování úloh">Následující&nbsp;kapitola</a>
+-->&nbsp;| <a href="system.htm" rel="next" title="14. Systém">Následující&nbsp;kapitola</a>
 </span>
+<a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
+<a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
 </nav>
+
+
 </article>
-<footer>
+<footer id="dole">
 <img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
 <p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
 <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
 Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
 či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
-na stránce „<a href="_autori.htm">Přehled autorů</a>“.
+na stránce „<a href="x-autori.htm">Přehled autorů</a>“.
 Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
 licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
 Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód

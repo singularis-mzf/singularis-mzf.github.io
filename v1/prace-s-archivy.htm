@@ -2,37 +2,45 @@
 <html lang="cs">
 <head profile="http://www.w3.org/2005/10/profile">
 <meta charset="UTF-8">
+
 <title>Práce s archivy − Linux: Kniha kouzel</title>
-<link rel="stylesheet" type="text/css" href="lkk.css">
+
+<link rel="stylesheet" type="text/css" href="lkk-20200112.css">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
-<body>
+<body id="nahore">
 <header>
-<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.1</span>
+<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.2 (12. ledna 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
+
+
 <nav class="horni">
 <div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
 <span class="prev">
-<a href="datum-cas-kalendar.htm" rel="prev" title="10. Datum, čas a kalendář" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="planovani-uloh.htm" rel="prev" title="9. Plánování úloh" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="regularni-vyrazy.htm" rel="next" title="12. Regulární výrazy" accesskey="n">Následující&nbsp;kapitola</a>
+-->&nbsp;| <a href="regularni-vyrazy.htm" rel="next" title="11. Regulární výrazy" accesskey="n">Následující&nbsp;kapitola</a>
 </span>
 </nav>
+
+
 <article>
-<h1>11. Práce s archivy</h1>
-<div class="stitky"><span>komprese</span>
-<span>tematický okruh</span>
-<span>zip</span></div><div class="rozcestnikkapitol">
+
+<h1>10. Práce s archivy</h1>
+<div class="stitky"><a href="x-stitky.htm#skomprese">komprese</a>
+<a href="x-stitky.htm#stemtickokruh">tematický okruh</a>
+<a href="x-stitky.htm#szip">zip</a>
+</div><div class="rozcestnikkapitol">
 <a href="#cast1">Úvod</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast2">Definice</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast3">Zaklínadla</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast4">Instalace na Ubuntu</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast5">Ukázka</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast6">Tipy a zkušenosti</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast7">Jak získat nápovědu</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast8">Odkazy</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast7">Další zdroje informací</a><span class="oddelovac">&nbsp;|</span>
 </div>
+
 <h2 id="cast1"><span class="cislo">1.</span> Úvod</h2>
 <p class="ponadpisu">
 Tato kapitola uvádí univerzální nástroje pro balení a rozbalování archivů
@@ -55,10 +63,11 @@ Poznámka: Použití „souborů se seznamem“ při psaní této kapitoly nebyl
 </p>
 
 <h2 id="cast2"><span class="cislo">2.</span> Definice</h2>
-<ul style="text-align:justify"><li><b>Archiv</b> je soubor ve formátu primárně určeném k ukládání a pozdějšímu získání jednoho nebo více souborů libovolného typu spolu s metadaty, popř. i adresářovou strukturou. Většina typů archivů nabízí kompresi, některé také ochranu šifrováním a heslem, případně i další funkce. Za archivy se nepovažují soubory, které sice plní funkci archivu, ale není to jejich hlavní účel, jako např. databázové tabulky, repozitáře gitu či obrazy souborových systémů.
+<ul><li><b>Archiv</b> je soubor ve formátu primárně určeném k ukládání a pozdějšímu získání jednoho nebo více souborů libovolného typu spolu s metadaty, popř. i adresářovou strukturou. Většina typů archivů nabízí kompresi, některé také ochranu šifrováním a heslem, případně i další funkce. Za archivy se nepovažují soubory, které sice plní funkci archivu, ale není to jejich hlavní účel, jako např. databázové tabulky, repozitáře gitu či obrazy souborových systémů.
 </li><li><b>Vybalení souboru</b> je získání obsahu souboru s metadaty či bez nich z archivu.
 </li><li><b>Rozbalení archivu</b> je vybalení všech souborů a adresářů z archivu do adresáře.
 </li></ul>
+
 <h2 id="cast3"><span class="cislo">3.</span> Zaklínadla</h2>
 
 <h3 id="cast3x1"><span class="cislo">1</span> Univerzální nástroje</h3>
@@ -272,50 +281,63 @@ Nástroje tar, gzip a zip jsou již součástí minimální instalace Ubuntu. N
 <div class="radekzaklinadla">ls -l &quot;Žluťoučký kůň&quot;</div>
 </div></div>
 
+
 <h2 id="cast6"><span class="cislo">6.</span> Tipy a zkušenosti</h2>
-<ul style="text-align:justify"><li>U formátů, které dobře neznáte, doporučuji omezit se jen na vytvoření archivu z adresářové struktury, jeho vypsání a kompletní rozbalení. Ostatní operace mají v různých formátech svoje specifika, která musíte znát, abyste daný archivní formát použili efektivně.
+<ul><li>U formátů, které dobře neznáte, doporučuji omezit se jen na vytvoření archivu z adresářové struktury, jeho vypsání a kompletní rozbalení. Ostatní operace mají v různých formátech svoje specifika, která musíte znát, abyste daný archivní formát použili efektivně.
 </li><li>Heslo v archivu typu ZIP chrání jednotlivé soubory, nikoliv celý archiv. V jednom archivu mohou být jednotlivé soubory chráněny různými hesly, případně některé dostupné bez hesla.
 </li><li>TAR je asi jediný formát, který do archivu k souborům uloží opravdu všechna metadata včetně přístupových práv, rozšířených atributů, a dokonce i strukturu symbolických a pevných odkazů.
 </li><li>Při práci s velkými archivy typu TAR je třeba mít na paměti, že většina operací si vynutí sekvenční průchod celým archivem.
 </li><li>U svobodné implementace vybalování formátu RAR (unrar-free) jsem měl/a problémy s rozbalením některých archivů; pokud selže, doporučuji zkusit nesvobodný balíček.
 </li></ul>
-<h2 id="cast7"><span class="cislo">7.</span> Jak získat nápovědu</h2>
+<h2 id="cast7"><span class="cislo">7.</span> Další zdroje informací</h2>
 <div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla">man 7z</div>
 <div class="radekzaklinadla">man atool</div>
 <div class="radekzaklinadla">man zip</div>
 <div class="radekzaklinadla">man unzip</div>
 </div></div>
-
-<h2 id="cast8"><span class="cislo">8.</span> Odkazy</h2>
-<ul style="text-align:left"><li><a href="http://manpages.ubuntu.com/manpages/bionic/en/man1/atool.1.html">Manuálová stránka „atool“</a> (anglicky)
+<ul class="kompaktni"><li><a href="http://manpages.ubuntu.com/manpages/bionic/en/man1/atool.1.html">Manuálová stránka „atool“</a> (anglicky)
 </li><li><a href="http://manpages.ubuntu.com/manpages/bionic/en/man1/7z.1.html">Manuálová stránka „7z“</a> (anglicky)
 </li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/common/7z.md">TL;DR stránka „7z“</a> (anglicky)
 </li><li><a href="https://www.7-zip.org/">Oficiální stránka 7-Zip</a> (anglicky)
 </li><li><a href="https://packages.ubuntu.com/bionic/atool">Balíček „atool“</a> (anglicky)
 </li><li><a href="https://packages.ubuntu.com/bionic/p7zip-full">Balíček „p7zip-full“</a> (anglicky)
-</li></ul><div class="ppc"><div id="kappracesarchivyppc1"><a href="#kappracesarchivyppcr1" class="cislopozn">1</a>&nbsp;Neuvedete-li parametr „-X“, extrahované soubory se umístí do nového podadresáře se jménem odvozeným od jména archivu, s výjimkou případu, že archiv obsahuje ve svém kořeni pouze jeden soubor či adresář. V tomto případě se daný soubor či adresář vybalí přímo do aktuálního adresáře.</div>
+</li></ul>
+<div class="ppc"><div id="kappracesarchivyppc1"><a href="#kappracesarchivyppcr1" class="cislopozn">1</a>&nbsp;Neuvedete-li parametr „-X“, extrahované soubory se umístí do nového podadresáře se jménem odvozeným od jména archivu, s výjimkou případu, že archiv obsahuje ve svém kořeni pouze jeden soubor či adresář. V tomto případě se daný soubor či adresář vybalí přímo do aktuálního adresáře.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kappracesarchivyppc2"><a href="#kappracesarchivyppcr2" class="cislopozn">2</a>&nbsp;Formát výstupu je závislý na typu archivu; proto není úplně vhodný pro zpracování skriptem.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kappracesarchivyppc3"><a href="#kappracesarchivyppcr3" class="cislopozn">3</a>&nbsp;Volba -spd vypne intepretaci vzorků v cestách. Při zadávání cest mimo archiv je to žádoucí, protože zde vzorky obecně intepretuje už příkazový interpret a není žádoucí, aby je 7z interpretoval znovu, ale u cest v archivu je nutné je interpretovat na straně 7z, takže pokud nehodláte vybalovat soubory, které ve svých názvech obsahují otazníky, hvězdičky či hranaté závorky, je vhodnější tento parametr vynechat.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kappracesarchivyppc4"><a href="#kappracesarchivyppcr4" class="cislopozn">4</a>&nbsp;Ověřeno na Ubuntu 18.04, že tato ochrana heslem je kompatibilní s programem 7-Zip na Windows 7.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kappracesarchivyppc5"><a href="#kappracesarchivyppcr5" class="cislopozn">5</a>&nbsp;Zadáte-li k rozbalení víc souborů, tar je vypíše v pořadí, v jakém jsou uloženy v archivu; ne v pořadí, v jakém jste je zadal/a.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kappracesarchivyppc6"><a href="#kappracesarchivyppcr6" class="cislopozn">6</a>&nbsp;Pozor, pokud soubory v archivu již existují, přidají se znovu, takže skončíte s archivem, ve kterém je několik souborů identifikovaných stejnou cestou. S takovým archivem se pak obtížně pracuje.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kappracesarchivyppc7"><a href="#kappracesarchivyppcr7" class="cislopozn">7</a>&nbsp;Oveřeno na Ubuntu 18.04, že tato ochrana heslem je kompatibilní s Windows 7.</div>
-<div class="zrusitzvyrazneni" id="zzv"><a href="#zzv">zrušit zvýraznění poznámky pod čarou</a></div></div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+</div>
+<div class="odkazydole"><a href="system.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Systém</a><a href="awk.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">AWK</a><a href="docker.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Docker</a></div>
+
 <nav class="spodni"><span class="prev">
-<a href="datum-cas-kalendar.htm" rel="prev" title="10. Datum, čas a kalendář">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="planovani-uloh.htm" rel="prev" title="9. Plánování úloh">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="regularni-vyrazy.htm" rel="next" title="12. Regulární výrazy">Následující&nbsp;kapitola</a>
+-->&nbsp;| <a href="regularni-vyrazy.htm" rel="next" title="11. Regulární výrazy">Následující&nbsp;kapitola</a>
 </span>
+<a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
+<a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
 </nav>
+
+
 </article>
-<footer>
+<footer id="dole">
 <img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
 <p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
 <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
 Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
 či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
-na stránce „<a href="_autori.htm">Přehled autorů</a>“.
+na stránce „<a href="x-autori.htm">Přehled autorů</a>“.
 Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
 licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
 Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód

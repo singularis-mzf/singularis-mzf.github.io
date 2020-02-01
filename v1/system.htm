@@ -5,12 +5,12 @@
 
 <title>Systém − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20200112.css">
+<link rel="stylesheet" type="text/css" href="lkk-20200201.css">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body id="nahore">
 <header>
-<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.2 (12. ledna 2020)</span>
+<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.3 (1. února 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 
@@ -34,17 +34,25 @@
 <a href="x-stitky.htm#ssystm">systém</a>
 <a href="x-stitky.htm#stemtickokruh">tematický okruh</a>
 </div><div class="rozcestnikkapitol">
-<a href="#cast1">Úvod</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast2">Definice</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast3">Zaklínadla</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast4">Zaklínadla (klávesnice)</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast5">Parametry příkazů</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast6">Instalace na Ubuntu</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast7">Tipy a zkušenosti</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast8">Další zdroje informací</a><span class="oddelovac">&nbsp;|</span>
-</div>
+<a href="#cast1" class="sekce">Úvod</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast2" class="sekce">Definice</a><br>
+<a href="#cast3" class="sekce">Zaklínadla</a>: <a href="#cast3x1">Informace o systému (zjistit)</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3x2">Restart a vypnutí počítače</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3x3">Ovládání systémových jednotek</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3x4">Informace o systémových jednotkách</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3x5">Logy</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3x6">Odkládací oddíly a soubory</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3x7">Sezení</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3x8">Ostatní</a><br>
+<a href="#cast4" class="sekce">Zaklínadla (klávesnice)</a>: <a href="#cast4x1">Ovládání počítače klávesnicí</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast4x2">Ovládání klávesnice počítačem</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast4x3">Rozložení klávesnice</a><br>
+<a href="#cast5" class="sekce">Parametry příkazů</a>: <a href="#cast5x1">journalctl</a><br>
+<a href="#cast6" class="sekce">Instalace na Ubuntu</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast7" class="sekce">Tipy a zkušenosti</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast8" class="sekce">Další zdroje informací</a></div>
 
-<h2 id="cast1"><span class="cislo">1.</span> Úvod</h2>
+<h2><a href="#cast1" id="cast1"><span class="cislo">1.</span> Úvod</a></h2>
 <p class="ponadpisu">
 Tato kapitola se zabývá vybranými aspekty běhu operačního systému a jeho ovládání,
 zejména ovládáním démonů, systémovými logy, odkládacími oddíly a restartem či vypnutím počítače.
@@ -66,277 +74,281 @@ ani vytváření vlastních služeb a démonů.
 Rovněž nepokrývá ovládání kontejnerů příkazem „machinectl“.
 </p>
 
-<h2 id="cast2"><span class="cislo">2.</span> Definice</h2>
+<h2><a href="#cast2" id="cast2"><span class="cislo">2.</span> Definice</a></h2>
 <ul><li><b>Systemd</b> čili <b>král démonů</b> (také známý jako první proces či proces číslo 1) je ústřední démon systému, který řídí jeho start, restart či vypnutí a spouští a zastavuje ostatní démony (kromě tzv. jaderných). V některých linuxových komunitách má špatnou pověst, protože jeho předchůdce Upstart kdysi nevybíravě převzal „vládu“ od tehdy oblíbeného procesu „init“ (zvaného také „sysvinit“) a systemd pak pod svoji kontrolu sjednotil mnoho do té doby nezávisle řešených funkcí systému. Jako uživatele vás však od něj nečeká žádné nebezpečí, pokud mu nebudete překážet.
-</li><li><b>Démon</b> je systémový proces, který čeká (popř. běží) na pozadí bez přímého uživatelského rozhraní a má hodnotu PPID rovnu 0, 1 nebo 2.
-</li><li><b>Systémová jednotka</b> (unit) je datová struktura krále démonů. Systemd rozeznává jedenáct druhů systémových jednotek, z nichž nejznámější a nejdůležitější jsou <b>služby</b> („service“), reprezentující démony. Další významné jsou <b>sokety</b> („socket“, souvisí se službami a umožňují démonům nabízet svoje služby ostatním démonům), <b>cíle</b> („target“, seskupení jednotek pro určité situace) a <b>časovače</b> („timer“, pravidelně probouzejí a ruší démony). Také se pravděpodobně setkáte se <b>sokety</b>, které slouží k vzájemné komunikaci různých démonů.
+</li><li><b>Démon</b> je systémový proces, který čeká (popř. běží) na pozadí bez přímého uživatelského rozhraní a má hodnotu PPID rovnu 0, 1 nebo 2. (Pozor − nespleťte si PPID s PID!)
+</li><li><b>Systémová jednotka</b> (unit) je datová struktura krále démonů. Systemd rozeznává jedenáct druhů systémových jednotek, z nichž nejznámější a nejdůležitější jsou <b>služby</b> („service“), reprezentující démony. Další významné jsou <b>sokety</b> („socket“, souvisí se službami a umožňují démonům nabízet svoje služby ostatním démonům), <b>cíle</b> („target“, seskupení jednotek pro určité situace) a <b>časovače</b> („timer“, pravidelně probouzejí a ruší démony).
 </li><li><b>Sezení</b> je instance přihlášení uživatele k systému ve víceuživatelském režimu; vzniká přihlášením uživatele a zaniká jeho odhlášením, resp. ukončením všech procesů daného sezení. Sezení může být grafické či textové a může být místní nebo vzdálené.
 </li></ul>
 
-<h2 id="cast3"><span class="cislo">3.</span> Zaklínadla</h2>
+<h2><a href="#cast3" id="cast3"><span class="cislo">3.</span> Zaklínadla</a></h2>
 
-<h3 id="cast3x1"><span class="cislo">1</span> Informace o systému (zjistit)</h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>obecné informace (pro člověka)</div><div class="radky">
+<h3><a href="#cast3x1" id="cast3x1"><span class="cislo">1</span> Informace o systému (zjistit)</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="L">♣</span>obecné informace (pro člověka)</div><div class="radky">
 <div class="radekzaklinadla">neofetch</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>verze a varianta <b>jádra</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="L">♣</span>verze a varianta <b>jádra</b></div><div class="radky">
 <div class="radekzaklinadla">uname -r<span class="prikladhodnoty">⊨ 5.0.0-37-generic</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>jméno procesoru</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="L">♣</span>jméno procesoru</div><div class="radky">
 <div class="radekzaklinadla">LC_ALL=C lscpu | egrep '^Model name:' | sed -E 's/^[^:]*:\s*//'</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>informace o <b>frekvenci procesoru</b> (pro člověka)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="L">♣</span>informace o <b>frekvenci procesoru</b> (pro člověka)</div><div class="radky">
 <div class="radekzaklinadla">LC_ALL=C lscpu | egrep '^CPU[^:]+MHz:'</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span>informace o velikosti a využití <b>paměti</b> a odkládacího prostoru</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><span class="L">♣</span>informace o velikosti a využití <b>paměti</b> a odkládacího prostoru</div><div class="radky">
 <div class="radekzaklinadla">free -h</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span>čas od spuštění systému (<b>uptime</b>)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><span class="L">♣</span>čas od spuštění systému (<b>uptime</b>)</div><div class="radky">
 <div class="radekzaklinadla">uptime --pretty</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span>kódové jméno verze <b>distribuce</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span><span class="L">♣</span>kódové jméno verze <b>distribuce</b></div><div class="radky">
 <div class="radekzaklinadla">lsb_release -sc<span class="prikladhodnoty">⊨ bionic</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span>jméno/verze <b>distribuce</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span><span class="L">♣</span>jméno/verze <b>distribuce</b></div><div class="radky">
 <div class="radekzaklinadla">lsb_release -si<span class="prikladhodnoty">⊨ Ubuntu</span></div>
 <div class="radekzaklinadla">lsb_release -sr<span class="prikladhodnoty">⊨ 18.04</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#9 </span><b>jméno počítače</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#9 </span><span class="L">♣</span><b>jméno počítače</b></div><div class="radky">
 <div class="radekzaklinadla">hostname<span class="prikladhodnoty">⊨ mojepc</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#10 </span>jméno jádra/druh operačního systému</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#10 </span><span class="L">♣</span>jméno jádra/druh operačního systému</div><div class="radky">
 <div class="radekzaklinadla">uname -n<span class="prikladhodnoty">⊨ Linux</span></div>
 <div class="radekzaklinadla">uname -o<span class="prikladhodnoty">⊨ GNU/Linux</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#11 </span>architektura systému</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#11 </span><span class="L">♣</span>architektura systému</div><div class="radky">
 <div class="radekzaklinadla">arch<span class="prikladhodnoty">⊨ x86_64</span></div>
 </div></div>
 
-<h3 id="cast3x2"><span class="cislo">2</span> Restart a vypnutí počítače</h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><b>restartovat</b> počítač (normálně/drasticky/velmi drasticky)</div><div class="radky">
+<h3><a href="#cast3x2" id="cast3x2"><span class="cislo">2</span> Restart a vypnutí počítače</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="L">♣</span><b>restartovat</b> počítač (normálně/drasticky/velmi drasticky)</div><div class="radky">
 <div class="radekzaklinadla">reboot</div>
 <div class="radekzaklinadla">sudo systemctl reboot --force</div>
 <div class="radekzaklinadla">sudo systemctl reboot --force --force</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><b>vypnout</b> počítač (normálně/drasticky/velmi drasticky)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="L">♣</span><b>vypnout</b> počítač (normálně/drasticky/velmi drasticky)</div><div class="radky">
 <div class="radekzaklinadla">poweroff</div>
 <div class="radekzaklinadla">sudo systemctl poweroff --force</div>
 <div class="radekzaklinadla">sudo systemctl poweroff --force --force</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>přepnout do jednouživatelského režimu (záchranného/nouzového)<sup><a href="#kapsystemppc1" id="kapsystemppcr1">(1)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="L">♣</span>přepnout do jednouživatelského režimu (záchranného/nouzového)<sup><a href="#kapsystemppc1" id="kapsystemppcr1">(1)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo systemctl rescue</div>
 <div class="radekzaklinadla">sudo systemctl emergency</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><b>uspat</b> systém</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="L">♣</span><b>uspat</b> systém</div><div class="radky">
 <div class="radekzaklinadla">systemctl suspend</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><b>hibernovat</b> systém</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><span class="L">♣</span><b>hibernovat</b> systém</div><div class="radky">
 <div class="radekzaklinadla">sudo systemctl hibernate</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><b>zastavit</b> systém bez vypnutí počítače (normálně/drasticky/velmi drasticky)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><span class="L">♣</span><b>zastavit</b> systém bez vypnutí počítače (normálně/drasticky/velmi drasticky)</div><div class="radky">
 <div class="radekzaklinadla">sudo systemctl halt</div>
 <div class="radekzaklinadla">sudo systemctl halt --force</div>
 <div class="radekzaklinadla">sudo systemctl halt --force --force</div>
 </div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span><span class="L">♣</span><b>vypnout</b> počítač za N minut/zrušit naplánované vypnutí</div><div class="radky">
+<div class="radekzaklinadla">sudo shutdown -P <span class="volznak">[</span>--no-wall<span class="volznak">]</span> <i class="dopln">N</i></div>
+<div class="radekzaklinadla">sudo shutdown -c</div>
+</div></div>
 
-<h3 id="cast3x3"><span class="cislo">3</span> Ovládání systémových jednotek</h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><b>spustit</b> neběžící</div><div class="radky">
+<h3><a href="#cast3x3" id="cast3x3"><span class="cislo">3</span> Ovládání systémových jednotek</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="L">♣</span><b>spustit</b> neběžící</div><div class="radky">
 <div class="radekzaklinadla">sudo systemctl start <i class="dopln">jednotka.typ</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><b>zastavit</b> běžící</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="L">♣</span><b>zastavit</b> běžící</div><div class="radky">
 <div class="radekzaklinadla">sudo systemctl stop <i class="dopln">jednotka.typ</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><b>restartovat</b> běžící</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="L">♣</span><b>restartovat</b> běžící</div><div class="radky">
 <div class="radekzaklinadla">sudo systemctl restart <i class="dopln">jednotka.typ</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>nastavit automatické spouštění jednotky/zrušit toto nastavení<sup><a href="#kapsystemppc2" id="kapsystemppcr2">(2)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="L">♣</span>nastavit automatické spouštění jednotky/zrušit toto nastavení<sup><a href="#kapsystemppc2" id="kapsystemppcr2">(2)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo systemctl enable <span class="volznak">[</span>--now<span class="volznak">]</span> <i class="dopln">jednotka.typ</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sudo systemctl disable <span class="volznak">[</span>--now<span class="volznak">]</span> <i class="dopln">jednotka.typ</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span>zcela <b>zakázat</b> spouštění systémové jednotky/zrušit tento zákaz<sup><a href="#kapsystemppc3" id="kapsystemppcr3">(3)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><span class="L">♣</span>zcela <b>zakázat</b> spouštění systémové jednotky/zrušit tento zákaz<sup><a href="#kapsystemppc3" id="kapsystemppcr3">(3)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo systemctl mask <i class="dopln">jednotka.typ</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sudo systemctl unmask <i class="dopln">jednotka.typ</i><span class="tritecky"></span></div>
 </div></div>
 
-<h3 id="cast3x4"><span class="cislo">4</span> Informace o systémových jednotkách</h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><b>zjistit stav</b> (pro člověka/pro skript)</div><div class="radky">
+<h3><a href="#cast3x4" id="cast3x4"><span class="cislo">4</span> Informace o systémových jednotkách</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="L">♣</span><b>zjistit stav</b> (pro člověka/pro skript)</div><div class="radky">
 <div class="radekzaklinadla">systemctl status <i class="dopln">jednotka.typ</i></div>
 <div class="radekzaklinadla">systemctl show <i class="dopln">jednotka.typ</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>zjistit, zda jednotka běží<sup><a href="#kapsystemppc4" id="kapsystemppcr4">(4)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="L">♣</span>zjistit, zda jednotka běží<sup><a href="#kapsystemppc4" id="kapsystemppcr4">(4)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">systemctl is-active <span class="volznak">[</span>--quiet<span class="volznak">]</span> <i class="dopln">jednotka.typ-nebo-vzorek</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><b>vypsat</b> jednotky všech typů</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="L">♣</span><b>vypsat</b> jednotky všech typů</div><div class="radky">
 <div class="radekzaklinadla">systemctl list-units <span class="volznak">[</span>--all<span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">filtrovací-vzorek</i><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>vypsat časovače</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="L">♣</span>vypsat časovače</div><div class="radky">
 <div class="radekzaklinadla">systemctl list-timers <span class="volznak">[</span>--all<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span>vypsat služby</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><span class="L">♣</span>vypsat služby</div><div class="radky">
 <div class="radekzaklinadla">systemctl list-units --all -t service</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span>vypsat cíle</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><span class="L">♣</span>vypsat cíle</div><div class="radky">
 <div class="radekzaklinadla">systemctl list-units --all -t target</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span>zjistit <b>PID</b> příslušné dané jednotce (je-li definováno)<sup><a href="#kapsystemppc5" id="kapsystemppcr5">(5)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span><span class="L">♣</span>zjistit <b>PID</b> příslušné dané jednotce (je-li definováno)<sup><a href="#kapsystemppc5" id="kapsystemppcr5">(5)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">systemctl show --property=MainPID <i class="dopln">jednotka.typ</i> | sed -E 's/.*=//'</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span>vypsat <b>manuálovou stránku</b> příslušnou jednotce, je-li známa</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span><span class="L">♣</span>vypsat <b>manuálovou stránku</b> příslušnou jednotce, je-li známa</div><div class="radky">
 <div class="radekzaklinadla">systemctl help <i class="dopln">jednotka.typ</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#9 </span>vypsat dynamické závislosti jednotky (na kterých jednotka závisí/které závisí na jednotce)<sup><a href="#kapsystemppc6" id="kapsystemppcr6">(6)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#9 </span><span class="L">♣</span>vypsat dynamické závislosti jednotky (na kterých jednotka závisí/které závisí na jednotce)<sup><a href="#kapsystemppc6" id="kapsystemppcr6">(6)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">systemctl list-dependencies</div>
 <div class="radekzaklinadla">systemctl list-dependencies --reverse</div>
 </div></div>
 
-<h3 id="cast3x5"><span class="cislo">5</span> Logy</h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><b>vypsat log</b> krále démonů</div><div class="radky">
+<h3><a href="#cast3x5" id="cast3x5"><span class="cislo">5</span> Logy</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="L">♣</span><b>vypsat log</b> krále démonů</div><div class="radky">
 <div class="radekzaklinadla">journalctl <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><b>vypsat log</b> jádra (pro skript/pro člověka)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="L">♣</span><b>vypsat log</b> jádra (pro skript/pro člověka)</div><div class="radky">
 <div class="radekzaklinadla">dmesg <span class="volznak">[</span>--time-format iso<span class="volznak">]</span></div>
 <div class="radekzaklinadla">dmesg -H<span class="volznak">[</span>x<span class="volznak">]</span> <span class="volznak">[</span>--time-format iso<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><b>sledovat</b> log krále démonů/log jádra</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="L">♣</span><b>sledovat</b> log krále démonů/log jádra</div><div class="radky">
 <div class="radekzaklinadla">journalctl -fqn 0 <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span></div>
 <div class="radekzaklinadla">dmesg -w<span class="volznak">[</span>H<span class="volznak">]</span><span class="volznak">[</span>x<span class="volznak">]</span><span class="volznak">[</span>--time-format iso<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>vypsat seznam <b>časů posledních nabootování</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="L">♣</span>vypsat seznam <b>časů posledních nabootování</b></div><div class="radky">
 <div class="radekzaklinadla">journalctl --list-boots | sed -E $'s/.*([A-Z][a-z]{2}.*)\u2014.*/\\1/' | date -f - &quot;+%F %T %z&quot;</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span>zjistit, kolik místa na disku zabírají logy krále démonů</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><span class="L">♣</span>zjistit, kolik místa na disku zabírají logy krále démonů</div><div class="radky">
 <div class="radekzaklinadla">journalctl --disk-usage</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span>vyprázdnit log krále démonů/log jádra</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><span class="L">♣</span>vyprázdnit log krále démonů/log jádra</div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 <div class="radekzaklinadla">sudo dmesg --clear</div>
 </div></div>
 
-<h3 id="cast3x6"><span class="cislo">6</span> Odkládací oddíly a soubory</h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><b>připojit</b> odkládací oddíl/soubor (platí jen do restartu)</div><div class="radky">
+<h3><a href="#cast3x6" id="cast3x6"><span class="cislo">6</span> Odkládací oddíly a soubory</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="L">♣</span><b>připojit</b> odkládací oddíl/soubor (platí jen do restartu)</div><div class="radky">
 <div class="radekzaklinadla">sudo swapon <i class="dopln">/dev/oddíl</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sudo swapon <i class="dopln">/cesta/název-souboru</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>připojit odkládací oddíl identifikovaný jmenovkou/UUID</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="L">♣</span>připojit odkládací oddíl identifikovaný jmenovkou/UUID</div><div class="radky">
 <div class="radekzaklinadla">sudo swapon LABEL=<i class="dopln">jmenovka</i></div>
 <div class="radekzaklinadla">sudo swapon UUID=<i class="dopln">UUID</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><b>odpojit</b> odkládací oddíl/soubor/všechny odkládací oddíly a soubory</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="L">♣</span><b>odpojit</b> odkládací oddíl/soubor/všechny odkládací oddíly a soubory</div><div class="radky">
 <div class="radekzaklinadla">sudo swapoff <i class="dopln">/dev/oddíl</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sudo swapoff <i class="dopln">/cesta/soubor</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sudo swapoff -a<span class="volznak">[</span>v<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><b>vypsat</b> aktivní odkládací oddíly a soubory<sup><a href="#kapsystemppc7" id="kapsystemppcr7">(7)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="L">♣</span><b>vypsat</b> aktivní odkládací oddíly a soubory<sup><a href="#kapsystemppc7" id="kapsystemppcr7">(7)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> swapon --show<span class="volznak">[</span>=NAME,USED,SIZE,PRIO,LABEL,UUID<span class="volznak">]</span> <span class="volznak">[</span>--noheadings<span class="volznak">]</span> <span class="volznak">[</span>--bytes<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><b>vytvořit</b> odkládací soubor<sup><a href="#kapsystemppc8" id="kapsystemppcr8">(8)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><span class="L">♣</span><b>vytvořit</b> odkládací soubor<sup><a href="#kapsystemppc8" id="kapsystemppcr8">(8)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> fallocate -l <i class="dopln">velikost-v-bajtech</i> <i class="dopln">název-souboru</i></div>
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> chmod 600 <i class="dopln">název-souboru</i></div>
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> mkswap <i class="dopln">název-souboru</i></div>
 <div class="radekzaklinadla">sudo chown root:root <i class="dopln">název-souboru</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><b>smazat</b> odpojený odkládací soubor</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><span class="L">♣</span><b>smazat</b> odpojený odkládací soubor</div><div class="radky">
 <div class="radekzaklinadla">sudo rm <i class="dopln">název-souboru</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span><b>naformátovat</b> odkládací oddíl</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span><span class="L">♣</span><b>naformátovat</b> odkládací oddíl</div><div class="radky">
 <div class="radekzaklinadla">sudo mkswap <span class="volznak">[</span>-L <i class="dopln">jmenovka</i><span class="volznak">]</span> <span class="volznak">[</span>-U <i class="dopln">požadované-UUID</i><span class="volznak">]</span> <i class="dopln">/dev/oddíl</i></div>
 </div></div>
 
-<h3 id="cast3x7"><span class="cislo">7</span> Sezení</h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>vypsat <b>seznam sezení</b>/přihlášených uživatelů</div><div class="radky">
+<h3><a href="#cast3x7" id="cast3x7"><span class="cislo">7</span> Sezení</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="L">♣</span>vypsat <b>seznam sezení</b>/přihlášených uživatelů</div><div class="radky">
 <div class="radekzaklinadla">loginctl <span class="volznak">[</span>list-sessions<span class="volznak">]</span></div>
 <div class="radekzaklinadla">loginctl list-users</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>vypsat informace o sezení/přihlášeném uživateli</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="L">♣</span>vypsat informace o sezení/přihlášeném uživateli</div><div class="radky">
 <div class="radekzaklinadla">loginctl show-session <i class="dopln">ID-sezení</i></div>
 <div class="radekzaklinadla">loginctl show-user <i class="dopln">uživatel</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><b>přepnout</b> na uvedené sezení<sup><a href="#kapsystemppc9" id="kapsystemppcr9">(9)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="L">♣</span><b>přepnout</b> na uvedené sezení<sup><a href="#kapsystemppc9" id="kapsystemppcr9">(9)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">loginctl activate <i class="dopln">ID-sezení</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><b>násilně ukončit</b> sezení/všechna sezení uživatele</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="L">♣</span><b>násilně ukončit</b> sezení/všechna sezení uživatele</div><div class="radky">
 <div class="radekzaklinadla">loginctl terminate-session <i class="dopln">ID-sezení</i></div>
 <div class="radekzaklinadla">loginctl terminate-user <i class="dopln">uživatel</i></div>
 </div></div>
 
-<h3 id="cast3x8"><span class="cislo">8</span> Ostatní</h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>nastavit jméno počítače</div><div class="radky">
+<h3><a href="#cast3x8" id="cast3x8"><span class="cislo">8</span> Ostatní</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="L">♣</span>nastavit jméno počítače</div><div class="radky">
 <div class="radekzaklinadla">sudo sed -i -E &quot;s/(\\s)$(hostname)\$/\\1<i class="dopln">novéjméno</i>/&quot; /etc/hosts &amp;&amp; sudo hostname <i class="dopln">novéjméno</i></div>
 <div class="radekzaklinadla akce">Restartujte počítač.</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>nastavit proměnnou prostředí krále démonů/smazat ji</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="L">♣</span>nastavit proměnnou prostředí krále démonů/smazat ji</div><div class="radky">
 <div class="radekzaklinadla">sudo systemctl set-environment <i class="dopln">PROMĚNNÁ</i>=&quot;<i class="dopln">hodnota</i>&quot; <span class="volznak">[</span><i class="dopln">DALŠÍ_PROMĚNNÁ</i>=&quot;<i class="dopln">její hodnota</i>&quot;<span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sudo systemctl unset-environment <i class="dopln">PROMĚNNÁ</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>který cíl je pro start systému výchozí?</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="L">♣</span>který cíl je pro start systému výchozí?</div><div class="radky">
 <div class="radekzaklinadla">systemctl get-default</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>nastavit výchozí cíl</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="L">♣</span>nastavit výchozí cíl</div><div class="radky">
 <div class="radekzaklinadla">sudo systemctl set-default <i class="dopln">cíl.target</i></div>
 </div></div>
 
-<h2 id="cast4"><span class="cislo">4.</span> Zaklínadla (klávesnice)</h2>
+<h2><a href="#cast4" id="cast4"><span class="cislo">4.</span> Zaklínadla (klávesnice)</a></h2>
 
-<h3 id="cast4x1"><span class="cislo">1</span> Ovládání počítače klávesnicí</h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><b>nouzový restart</b> počítače<sup><a href="#kapsystemppc10" id="kapsystemppcr10">(10)</a>,&nbsp;<a href="#kapsystemppc11" id="kapsystemppcr11">(11)</a></sup></div><div class="radky">
+<h3><a href="#cast4x1" id="cast4x1"><span class="cislo">1</span> Ovládání počítače klávesnicí</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="L">♣</span><b>nouzový restart</b> počítače<sup><a href="#kapsystemppc10" id="kapsystemppcr10">(10)</a>,&nbsp;<a href="#kapsystemppc11" id="kapsystemppcr11">(11)</a></sup></div><div class="radky">
 <div class="radekzaklinadla akce">Stiskněte a držte stisknuté klávesy <kbd>Alt</kbd> + <kbd>PrtScr</kbd>.</div>
 <div class="radekzaklinadla akce">Na klávesnici s krátkými přestávkami vyťukejte: <kbd>R</kbd>, <kbd>E</kbd>, <kbd>I</kbd>, <kbd>S</kbd>, <kbd>U</kbd>, <kbd>B</kbd>.</div>
 <div class="radekzaklinadla akce">Uvolněte <kbd>PrtScr</kbd> a <kbd>Alt</kbd>.</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>drastické <b>nouzové vypnutí</b> počítače</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="L">♣</span>drastické <b>nouzové vypnutí</b> počítače</div><div class="radky">
 <div class="radekzaklinadla akce"><kbd>Alt</kbd> + <kbd>PrtScr</kbd> + <kbd>O</kbd>.</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>vypsat nápovědu k nouzovým klávesovým zkratkám jádra<sup><a href="#kapsystemppc12" id="kapsystemppcr12">(12)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="L">♣</span>vypsat nápovědu k nouzovým klávesovým zkratkám jádra<sup><a href="#kapsystemppc12" id="kapsystemppcr12">(12)</a></sup></div><div class="radky">
 <div class="radekzaklinadla akce">Jste-li v grafickém režimu, přepněte se na textovou virutální konzoli zkratkou <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>F2</kbd>.</div>
 <div class="radekzaklinadla akce">Stiskněte <kbd>Alt</kbd> + <kbd>PrtScr</kbd> + <kbd>H</kbd>. Měla by se vypsat nápověda.</div>
 <div class="radekzaklinadla akce">Zpět do grafického režimu se vrátíte <kbd>Alt</kbd> + <kbd>F7</kbd> (pouze ve variantách Ubuntu a Kubuntu je to místo toho <kbd>Alt</kbd> + <kbd>F1</kbd>).</div>
 </div></div>
 
-<h3 id="cast4x2"><span class="cislo">2</span> Ovládání klávesnice počítačem</h3>
+<h3><a href="#cast4x2" id="cast4x2"><span class="cislo">2</span> Ovládání klávesnice počítačem</a></h3>
 <p class="ponadpisu">
 Poznámka: příkazy v této sekci jsou určeny výhradně pro X; téméř jistě nebudou fungovat v textových virtuálních konzolích ani na Waylandu.
 </p>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>zapnout/vypnout/přepnout <b>Num Lock</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="L">♣</span>zapnout/vypnout/přepnout <b>Num Lock</b></div><div class="radky">
 <div class="radekzaklinadla">numlockx on</div>
 <div class="radekzaklinadla">numlockx off</div>
 <div class="radekzaklinadla">numlockx toggle</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>zapnout/vypnout/přepnout <b>Caps Lock</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="L">♣</span>zapnout/vypnout/přepnout <b>Caps Lock</b></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 <div class="radekzaklinadla">xdotool key Caps_Lock</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>zapnout/vypnout/přepnout <b>Scroll Lock</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="L">♣</span>zapnout/vypnout/přepnout <b>Scroll Lock</b></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 <div class="radekzaklinadla">xdotool key Scroll_Lock</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>vypnout/znovu zapnout klávesnici</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="L">♣</span>vypnout/znovu zapnout klávesnici</div><div class="radky">
 <div class="radekzaklinadla">xinput --disable $(xinput --list --short | egrep '\[.*keyboard.*\]' | egrep -iv 'virtual|(power|sleep)<span class="viditelnamezera">&nbsp;</span>button' | tail -n 1 | sed -E 's/.*id=([0-9]+)[^0-9].*/\1/')</div>
 <div class="radekzaklinadla">xinput --enable $(xinput --list --short | egrep '\[.*keyboard.*\]' | egrep -iv 'virtual|(power|sleep)<span class="viditelnamezera">&nbsp;</span>button' | tail -n 1 | sed -E 's/.*id=([0-9]+)[^0-9].*/\1/')</div>
 </div></div>
 
-<h3 id="cast4x3"><span class="cislo">3</span> Rozložení klávesnice</h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>trvale změnit systémové rozložení</div><div class="radky">
+<h3><a href="#cast4x3" id="cast4x3"><span class="cislo">3</span> Rozložení klávesnice</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="L">♣</span>trvale změnit systémové rozložení</div><div class="radky">
 <div class="radekzaklinadla">sudo dpkg-reconfigure keyboard-configuration</div>
 <div class="radekzaklinadla">sudoedit /etc/default/keyboard</div>
 <div class="radekzaklinadla akce">Zkontrolujte hodnoty XKBLAYOUT a XKBVARIANT, zda jsou nastaveny podle vaších představ; pokud ne, opravte je a uložte soubor.</div>
 <div class="radekzaklinadla akce">Ukončete editor.</div>
 <div class="radekzaklinadla akce">Restartujte operační systém.</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>dočasně nastavit okamžité rozložení klávesnice (jen v X)(obecně/příklady...)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="L">♣</span>dočasně nastavit okamžité rozložení klávesnice (jen v X)(obecně/příklady...)</div><div class="radky">
 <div class="radekzaklinadla">setxkbmap <i class="dopln">rozložení</i> <span class="volznak">[</span><i class="dopln">varianta</i><span class="volznak">]</span></div>
 <div class="radekzaklinadla">setxkbmap cz</div>
 <div class="radekzaklinadla">setxkbmap cz qwerty</div>
 <div class="radekzaklinadla">setxkbmap ru</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>vypsat seznam dostupných rozložení klávesnice a jejich variant</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="L">♣</span>vypsat seznam dostupných rozložení klávesnice a jejich variant</div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
-<h2 id="cast5"><span class="cislo">5.</span> Parametry příkazů</h2>
+<h2><a href="#cast5" id="cast5"><span class="cislo">5.</span> Parametry příkazů</a></h2>
 
-<h3 id="cast5x1"><span class="cislo">1</span> journalctl</h3>
+<h3><a href="#cast5x1" id="cast5x1"><span class="cislo">1</span> journalctl</a></h3>
 <div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla">journalctl <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span></div>
 </div></div>
@@ -358,22 +370,23 @@ Poznámka: příkazy v této sekci jsou určeny výhradně pro X; téméř jist
 
 </tbody></table>
 
-<h2 id="cast6"><span class="cislo">6.</span> Instalace na Ubuntu</h2>
+<h2><a href="#cast6" id="cast6"><span class="cislo">6.</span> Instalace na Ubuntu</a></h2>
 <p class="ponadpisu">
-Většina použitých příkazů je základní součástí Ubuntu, pouze příkazy numlockx a xdotool si musíte doinstalovat, chcete-li je použít:
+Většina použitých příkazů je základní součástí Ubuntu, pouze příkazy numlockx, xdotool a neofetch si musíte doinstalovat, chcete-li je použít:
 </p>
 <div class="zaklinadlo"><div class="radky">
-<div class="radekzaklinadla">sudo apt-get install numlockx xdotool</div>
+<div class="radekzaklinadla">sudo apt-get install numlockx xdotool neofetch</div>
 </div></div>
 
 
-<h2 id="cast7"><span class="cislo">7.</span> Tipy a zkušenosti</h2>
+<h2><a href="#cast7" id="cast7"><span class="cislo">7.</span> Tipy a zkušenosti</a></h2>
 <ul><li>Systemd se ve výpisech procesů představuje jako „/sbin/init“, což je ve skutečnosti symbolický odkaz na „/lib/systemd/systemd“.
 </li><li>Volba „enable“/„disable“ je nezávislá na tom, zda démon právě běží. Nastavení na „enable“ ho okamžitě nespustí a nastavení na „disable“ neukončí (ledaže uvedete parametr „--now“).
 </li></ul>
-<h2 id="cast8"><span class="cislo">8.</span> Další zdroje informací</h2>
+<h2><a href="#cast8" id="cast8"><span class="cislo">8.</span> Další zdroje informací</a></h2>
 <ul class="kompaktni"><li><a href="https://cs.wikipedia.org/wiki/Systemd">Článek na Wikipedii</a>
 </li><li><a href="http://www.abclinuxu.cz/serialy/systemd">Seriál článků na ABC Linuxu</a>
+</li><li><a href="https://www.youtube.com/watch?v=ZiX327d8Ys0">Video: The Magic SysRQ Key on the Keyboard</a>
 </li><li><a href="https://www.thegeekdiary.com/centos-rhel-7-systemd-command-line-reference-cheat-sheet/">Systemd cheat sheet</a> (anglicky)
 </li><li><a href="https://www.freedesktop.org/wiki/Software/systemd/">Oficiální stránka systemd pro uživatele</a> (anglicky)
 </li><li><a href="https://systemd.io/">Oficiální stránka systemd pro vývojáře</a> (anglicky)
@@ -410,7 +423,7 @@ Většina použitých příkazů je základní součástí Ubuntu, pouze příka
 <div id="kapsystemppc12"><a href="#kapsystemppcr12" class="cislopozn">12</a>&nbsp;Poznámka: Většina vypsaných operací je v jádru Ubuntu zakázána. Po stisknutí příslušné kombinace kláves se v takovém případě vypíše na konzoli zpráva, že operace je zakázána.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 </div>
-<div class="odkazydole"><a href="zpracovani-videa-a-zvuku.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Zpracování videa a zvuku</a><a href="git.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Git</a><a href="make.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">GNU make</a></div>
+<div class="odkazydole"><a href="sprava-balicku.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Správa balíčků</a><a href="barvy-a-titulek.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Barvy, titulek a výzva terminálu</a><a href="zpracovani-textovych-souboru.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Zpracování textových souborů</a></div>
 
 <nav class="spodni"><span class="prev">
 <a href="stahovani-videi.htm" rel="prev" title="13. Stahování videí">Předchozí&nbsp;kapitola</a>&nbsp;|

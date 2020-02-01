@@ -5,12 +5,12 @@
 
 <title>Předmluva − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20200112.css">
+<link rel="stylesheet" type="text/css" href="lkk-20200201.css">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body id="nahore">
 <header>
-<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.2 (12. ledna 2020)</span>
+<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.3 (1. února 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 
@@ -28,35 +28,35 @@
 
 <h1>1. Předmluva</h1>
 <div class="rozcestnikkapitol">
-<a href="#cast1">Neznalost a potřeba orientace</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast2">Tajuplná moc terminálu (shrnutí)</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast3">Sesílání kouzel</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast4">Je tato kniha pro váš systém?</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast5">Nejdůležitější zaklínadla</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast6">Potřeba pomocných skriptů</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast7">Pro pokročilé uživatele</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast8">Příběh</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast9">Licence</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast10">Aktuální poznámka k verzi „vanilková příchuť 1.2“</a><span class="oddelovac">&nbsp;|</span>
-</div>
-<h2 id="cast1"><span class="cislo">1.</span> Neznalost a potřeba orientace</h2>
+<a href="#cast1" class="sekce">Neznalost a potřeba orientace</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast2" class="sekce">Tajuplná moc terminálu (shrnutí)</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3" class="sekce">Sesílání kouzel</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast4" class="sekce">Je tato kniha pro váš systém?</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast5" class="sekce">Nejdůležitější zaklínadla</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast6" class="sekce">Pomocné skripty a funkce</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast7" class="sekce">Pro pokročilé uživatele</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast8" class="sekce">Příběh</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast9" class="sekce">Licence</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast10" class="sekce">Aktuální poznámka k verzi „vanilková příchuť 1.3“</a></div>
+<h2><a href="#cast1" id="cast1"><span class="cislo">1.</span> Neznalost a potřeba orientace</a></h2>
 <blockquote><i>„Prostě příkazový řádek v Linuxu je něco úchvatného, a kdo se neumí v tomto prostředí pohybovat, přichází</i>
 <i>o hodně.“</i><br>— KAMENÍK, Pavel. <i>Příkazový řádek v Linuxu: praktická řešení.</i> Brno: Computer Press, 2011. ISBN 978-80-251-2819-0.
 </blockquote><p class="ponadpisu">
 Pokud v letech 2018 až 2022 začínáte s Linuxem a troufnete si na
-příkazový řádek/příkazovou řádku, v Linuxu zvaný/ou „terminál“ či „konzole“,
+příkazový řádek/příkazovou řádku, v Linuxu zvaný/ou „terminál“,
 zadat „ls“ a chtěl/a byste toho víc, ale nemáte dobrou představu, co vám může
-to černé okno nabídnout, a frustruje vás to, ale zase nechcete hned pronikat
-do jeho nejhlubších ezoterických tajemství ani trávit dny čtením nudné
-programátorské dokumentace v angličtině a experimentováním a všechno
-vám to připadá nezvladatelně složité a nepochopitelné a přehnaně zdlouhavé
-jako toto souvětí, pak vám tato kniha může být velice užitečná.
+to černé (popř. bílé či jinak jednobarevné) okno nabídnout, a frustruje vás to,
+ale zase nechcete hned pronikat do jeho nejhlubších ezoterických tajemství
+ani trávit dny čtením nudné programátorské dokumentace v angličtině
+a experimentováním a všechno vám to připadá nezvladatelně složité
+a nepochopitelné a přehnaně zdlouhavé jako toto souvětí,
+pak vám tato kniha může být velice užitečná.
 </p><p>
 Zatímco grafické uživatelské rozhraní, na jaké jste nejspíš zvyklý/á, vám nabízí
-menu, barevné ikony, panely nástrojů, zvuky, dialogová okna a další příjemné věci,
+barevné ikony, panely nástrojů, menu, zvuky, dialogová okna a další příjemné věci,
 terminál takový není. Vypadá, že jen očekává příkazy, a nedává vám žádné vodítko,
 jaké příkazy to mohou být, a čeho se s nimi dá dosáhnout.
-Nemáte žádnou šanci se dozvědět, že můžete zadat příkaz „tput sgr0“,
+Nemáte žádnou šanci se dozvědět, že můžete zadat příkaz „tput sgr0“ nebo „test -t 1“,
 ani co dělá nebo k čemu vám může být dobrý.
 Cílem této knihy je to napravit a učinit úžasný „svět“ terminálu
 a konfiguračních souborů podobně přehledným a srozumitelným,
@@ -73,10 +73,10 @@ jen s nimi strávíte opravdu podstatně méně času; minuty místo dní.
 </p><p>
 Nejste-li náhodou programátor (což rozhodně nemusíte být), určitě si předem zjistěte,
 co znamenají pojmy ze základů programování jako např. „funkce“, „příkaz“ či „skript“.
-K pochopení funkce terminálu to budete potřebovat vědět.
+K pochopení, jak terminál používat, to budete potřebovat vědět.
 </p>
 
-<h2 id="cast2"><span class="cislo">2.</span> Tajuplná moc terminálu (shrnutí)</h2>
+<h2><a href="#cast2" id="cast2"><span class="cislo">2.</span> Tajuplná moc terminálu (shrnutí)</a></h2>
 <p class="ponadpisu">
 Máte-li na počítači nainstalovaný Linux, máte na disku gigabajty nesmírně mocných
 nástrojů jako bash, Perl či TeX, které v sobě skrývají desítky let práce špičkových
@@ -85,7 +85,7 @@ velké věci. Pokud vás zajímá, co s nimi můžete udělat, a konkrétní p
 jak toho dosáhnout, je toto kniha pro vás.
 </p>
 
-<h2 id="cast3"><span class="cislo">3.</span> Sesílání kouzel</h2>
+<h2><a href="#cast3" id="cast3"><span class="cislo">3.</span> Sesílání kouzel</a></h2>
 <p class="ponadpisu">
 Napadlo vás už někdy, že zadávání příkazů v terminálu se mnoha aspekty podobá
 <b>sesílání kouzel</b> ve fantasy světech? Tento příměr je o to děsivější, že zatímco
@@ -98,10 +98,10 @@ váš zkušený předchůdce. Při sesílání kouzel přesahujících vaši kva
 se sice můžete snadno „spálit“ (a to platí i u této sbírky),
 přesto vám to však prospěje mnohem víc, než kdybyste se omezil/a jen na to,
 co už bezpečně umíte. (Zamyslete se, jak by dopadl takový Harry Potter,
-kdyby znal jen kouzla odpovídající svému školnímu ročníku.)
+kdyby znal jen kouzla odpovídající jeho školnímu ročníku.)
 </p>
 
-<h2 id="cast4"><span class="cislo">4.</span> Je tato kniha pro váš systém?</h2>
+<h2><a href="#cast4" id="cast4"><span class="cislo">4.</span> Je tato kniha pro váš systém?</a></h2>
 <blockquote><i>„Když dojdete na místo, kde má být podle mapy studánka, a najdete tam místo ní supermarket, neznamená to, že je mapa chybná, jen je určena pro jinou verzi lesa.“</i><br>− Singularis
 </blockquote><p class="ponadpisu">
 Verze knihy „vanilková příchuť“ řady 1.x jsou určeny především pro
@@ -116,7 +116,7 @@ protože linuxové programy se prudce vyvíjejí, a co v jedné jejich verzi f
 v příští již může fungovat jinak.
 </p>
 
-<h2 id="cast5"><span class="cislo">5.</span> Nejdůležitější zaklínadla</h2>
+<h2><a href="#cast5" id="cast5"><span class="cislo">5.</span> Nejdůležitější zaklínadla</a></h2>
 <p class="ponadpisu">
 Velmi podstatnou vlastností této knihy je její <b>organizace</b>.
 Zaklínadla v kapitolách jsou shromážděna do logických skupin
@@ -129,17 +129,23 @@ důraz kladu spíše na kapitoly tematické, které kombinují vždy ty nejvhodn
 nástroje k dosažení daných cílů.
 </p>
 
-<h2 id="cast6"><span class="cislo">6.</span> Potřeba pomocných skriptů</h2>
+<h2><a href="#cast6" id="cast6"><span class="cislo">6.</span> Pomocné skripty a funkce</a></h2>
 <p class="ponadpisu">
-Některé úkoly, přestože zní jednoduše, jsou pro terminál ve skutečnosti dost složité
-(např. vypsat seznam podporovaných časových zón). Možná se jim budete chtít vyhnout
-a nebudu vám to zazlívat. Tato kniha se jim však nevyhýbá, ale jejich složitost ukrývá
-do pomocných funkcí a skriptů, vypsaných ke konci kapitoly. Budete-li chtít využít
-zaklínadla, která na tyto funkce a skripty spoléhají, budete si skripty muset nahrát
-na příslušné místo (nebo si naprogramovat jejich alternativu).
+Některé úkoly, přestože zní jednoduše, jsou pro terminál ve skutečnosti dost složité,
+takže je ve výchozí instalaci není možné vykonat krátkým příkazem. Tradičním a stále
+efektivním linuxovým řešením takových situací je použití skriptů, které lze zavolat
+jednoduchým příkazem a vykonají za vás automaticky mnoho, často i velmi složitých příkazů,
+které danou úlohu vyřeší.
+</p><p>
+Každá kapitola, která tyto pomocné skripty vyžaduje, obsahuje jejich úplný zdrojový kód,
+což vám umóžňuje si je vytvořit sám/a pouhým zkopírováním či ručním přepsáním
+(což nedoporučuji kvůli riziku překlepů); pro vaše pohodlí je ovšem
+ke každé vydané verzi knihy online distribuován balíček ve formátu „.deb“,
+který si můžete nainstalovat na svůj systém a umožní vám spouštění skriptů z knihy
+příkazem „lkk“, takže je nebudete muset ručně kopírovat.
 </p>
 
-<h2 id="cast7"><span class="cislo">7.</span> Pro pokročilé uživatele</h2>
+<h2><a href="#cast7" id="cast7"><span class="cislo">7.</span> Pro pokročilé uživatele</a></h2>
 <p class="ponadpisu">
 Tato kniha může být užitečná také <b>pokročilým uživatelům</b>, kteří již
 systém GNU/Linux řadu let používají. Jste-li takovým uživatelem, kniha vám nabízí
@@ -148,7 +154,7 @@ které už jste pozapomněl/a, moderní a pohodlné alternativy k zastaralým
 a těžkopádným postupům, na které jste možná zvykl/á ze starších verzí GNU/Linuxu, a programátorskou inspiraci (jako i spousta jiných projektů na GitHubu).
 </p>
 
-<h2 id="cast8"><span class="cislo">8.</span> Příběh</h2>
+<h2><a href="#cast8" id="cast8"><span class="cislo">8.</span> Příběh</a></h2>
 <p class="ponadpisu">
 Když jsem s Linuxem kdysi dávno začínal/a, nesmírně mi pomáhaly některé vynikající příručky;
 ve vědeckých knihovnách na ně sice lze stále narazit, ale vzhledem k prudkému vývoji Linuxu,
@@ -161,7 +167,7 @@ v angličtině a je mi skoro až líto osob, které jsou na ně odkázány.
 Proto jsem se rozhodl/a založit tento projekt.
 </p>
 
-<h2 id="cast9"><span class="cislo">9.</span> Licence</h2>
+<h2><a href="#cast9" id="cast9"><span class="cislo">9.</span> Licence</a></h2>
 <p class="ponadpisu">
 „Linux: Kniha kouzel“ je dílem svobodné kultury; můžete ho/ji šířit a modifikovat
 pod podmínkami licence Creative Commons Attribution-ShareAlike 4.0 International
@@ -190,45 +196,24 @@ Všechen software potřebný k sestavení projektu je svobodný.
 Pokud některá kapitola odkazuje na nesvobodný software, vždy na to výslovně upozorní.
 </p>
 
-<h2 id="cast10"><span class="cislo">10.</span> Aktuální poznámka k verzi „vanilková příchuť 1.2“</h2>
+<h2><a href="#cast10" id="cast10"><span class="cislo">10.</span> Aktuální poznámka k verzi „vanilková příchuť 1.3“</a></h2>
 <p class="ponadpisu">
-Ve verzi 1.2 přibyly tři nové kapitoly: AWK, Systém a Zpracování textových souborů.
+Ve verzi 1.3 nepřibyly žádné nové kapitoly.
 </p><p>
-U PDF variant jsem přešel/a z LaTeXu na XeLaTeX a kompletně
-přepracoval/a formátování, což si vynutilo opuštění formátu papíru A5.
-Možná ho do budoucna vrátím, ale zatím to pro mě nemá vysokou prioritu, spíš je potřeba
-vyladit detaily a velikosti okrajů. Uvažuji také o podpoře formátu B5 na A4
-s ořezovými značkami.
+Hlavní novinkou je spouštěč pomocných skriptů „lkk“ distribuovaný spolu se skripty ve formě balíčku „deb“.
 </p><p>
-U varianty v HTML jsem značně vylepšil/a design. Štítky kapitol jsou nyní klikací
-a vedou na stránku s přehledem kapitol podle štítků. Kapitoly nyní mají ikony
-(ale zatím všechny stejnou). Na stránkách kapitol jsou nová „úniková“ tlačítka
-pro okamžitý přesun na horní nebo spodní konec stránky (na horním konci je navigace
-na další kapitoly). Má-li uživatel zapnutý JavaScript, může se po kliknutí
-na poznámku pod čarou snadno vrátit na původní místo kliknutím na dynamický odkaz
-„zpět do textu“. (Pokročilí uživatelé bez JavaScriptu se mohou vrátit tlačítkem Zpět.)
+V PDF variantě se mi podařilo další podstatné zlepšení designu. Nadpisy jsou nyní přehlednější, stránky mají název kapitoly v záhlaví a titulky zaklínadel jsou střídavě podbarvené, což jim umožňuje být přehlednější.
 </p><p>
-Řádky zaklínadel nyní mohou mít „příklady hodnot“. Ty jsem zavedl/a kvůli kapitole
-Datum, čas a kalendář, která je přímo vyžadovala, ale budou se hodit i v mnoha dalších.
+V HTML variantě je nejvýraznější novinkou nová organizace rozcestníku v záhlaví kapitoly. Další výraznou změnou je opatrný začátek podpory ikon zaklínadel (ty se ještě budou vyvíjet) a rovněž podpora dvou nových barevných motivů pro vysoký kontrast. Do budoucna počítám přidat ještě plnohodnotný tmavý motiv a obě verze motivu Solarized.
 </p><p>
-Součástí odstavců a zaklínadel nyní mohou být klávesy jako např. <kbd>Ctrl</kbd>.
-Ty se vyskytují v nové kapitole Systém.
-</p><p>
-Řádky zaklínadel mohou být nově označeny jako „patřící do preambule“,
-což se bude hodit u výkladů o programovacích jazycích.
-</p><p>
-Do příští verze bude nutně potřeba udělat pořádek v pomocných funkcích a skriptech.
-Plánuji vydávat balíček „.deb“, který po instalaci zpřístupní příkaz „lkk“
-ke spouštění pomocných skriptů.
-</p><p>
-Vydání verze 1.3 očekávám ke konci února 2020.
+Vydání verze 1.4 očekávám již ke konci února 2020, případně na začátku března.
 </p><p>
  
 </p>
 <p class="ponadpisu">
 − Singularis
 </p>
-<div class="odkazydole"><a href="markdown.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Markdown</a><a href="zpracovani-textovych-souboru.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Zpracování textových souborů</a><a href="sprava-balicku.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Správa balíčků</a></div>
+<div class="odkazydole"><a href="zpracovani-videa-a-zvuku.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Zpracování videa a zvuku</a><a href="prace-s-archivy.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Práce s archivy</a><a href="git.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Git</a></div>
 
 <nav class="spodni"><span class="prev">
 </span><a href="index.htm">Přehled</a><span class="next"><!--

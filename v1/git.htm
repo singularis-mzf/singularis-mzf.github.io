@@ -5,12 +5,12 @@
 
 <title>Git − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20200112.css">
+<link rel="stylesheet" type="text/css" href="lkk-20200201.css">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body id="nahore">
 <header>
-<span class="left"><img src="obrazky/favicon.png" width="16" height="16" alt=""> Linux: Kniha kouzel, vanilková příchuť 1.2 (12. ledna 2020)</span>
+<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.3 (1. února 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 
@@ -31,19 +31,31 @@
 <div class="stitky"><a href="x-stitky.htm#sprogrm">program</a>
 <a href="x-stitky.htm#ssprvverz">správa verzí</a>
 </div><div class="rozcestnikkapitol">
-<a href="#cast1">Úvod</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast2">Definice</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast3">Zaklínadla</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast4">Zaklínadla (.gitignore)</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast5">Parametry příkazů</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast6">Instalace na Ubuntu</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast7">Ukázka</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast8">Tipy a zkušenosti</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast9">Další zdroje informací</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast10">Odkazy</a><span class="oddelovac">&nbsp;|</span>
-</div>
+<a href="#cast1" class="sekce">Úvod</a><br>
+<a href="#cast2" class="sekce">Definice</a>: <a href="#cast2x1">Označení revize</a><br>
+<a href="#cast3" class="sekce">Zaklínadla</a>: <a href="#cast3x1">Práce s repozitáři</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3x2">Mezi pracovním adresářem, indexem a lokálním repozitářem</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3x3">Práce se vzdáleným repozitářem (origin)</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3x4">Jednoduchá práce s větvemi</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3x5">Jednoduchá práce s tagy</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3x6">Analýza stavu</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3x7">Sekundární pracovní adresáře</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3x8">Slučování větví a řešení konfliktů</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3x9">Práce se změnami z revizí (pokročilá)</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3x10">Konfigurace repozitáře (obecně)</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3x11">Konfigurace gitu či repozitáře (konkrétně)</a><br>
+<a href="#cast4" class="sekce">Zaklínadla (.gitignore)</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast5" class="sekce">Parametry příkazů</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast6" class="sekce">Instalace na Ubuntu</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast7" class="sekce">Ukázka</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast8" class="sekce">Tipy a zkušenosti</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast9" class="sekce">Další zdroje informací</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast10" class="sekce">Odkazy</a></div>
+<p>
 
-<h2 id="cast1"><span class="cislo">1.</span> Úvod</h2>
+</p>
+
+<h2><a href="#cast1" id="cast1"><span class="cislo">1.</span> Úvod</a></h2>
 <p class="ponadpisu">
 Git je systém správy verzí. Umožňuje vám zachytit přesný stav souborů v určitém
 adresáři a jeho podadresářích. Každý takto zachycený stav se opatří datem, časem
@@ -55,7 +67,7 @@ Tato verze kapitoly nepokrývá dostatečně řešení konfliktů při slučová
 a příkaz „git stash“.
 </p>
 
-<h2 id="cast2"><span class="cislo">2.</span> Definice</h2>
+<h2><a href="#cast2" id="cast2"><span class="cislo">2.</span> Definice</a></h2>
 <ul><li><b>Pracovní adresář</b> je množina všech verzovaných souborů v gitem spravovaném uživatelském adresáři. Nikdy nezahrnuje obsah speciálního adresáře „.git“.
 </li><li><b>Revize</b> je konkrétní neměnný (historický) stav pracovního adresáře zapsaný do repozitáře a doplněný o další údaje. Revizi lze v příkazovém řádku určit řadou způsobů, viz níže. Revize vzniká operací <b>commit</b>.
 </li><li><b>Repozitář</b> je skupina souborů a adresářů, do kterých git vysoce optimalizovaným způsobem ukládá všechny revize. Repozitář může mít přiřazen jeden nebo více vzdálených repozitářů (nejčastěji pouze jeden, zvaný <b>origin</b>); není-li repozitář takzvaně „bare“, má také svůj primární pracovní adresář a může mít i jeden nebo více „sekundárních pracovních adresářů“.
@@ -65,7 +77,7 @@ a příkaz „git stash“.
 </li><li><b>Index</b> (také zvaný „staging area“) je myšlená kopie revize HEAD příslušná pracovnímu adresáři, do které lze průběžně zapisovat změny a pak z ní operací „commit“ vytvořit novou revizi. Do indexu se rovněž provádí slučování větví (merge). Doporučuji představovat si index jako skrytý adresář určený k tvorbě nových revizí.
 </li></ul>
 
-<h3 id="cast2x1"><span class="cislo">1</span> Označení revize</h3>
+<h3><a href="#cast2x1" id="cast2x1"><span class="cislo">1</span> Označení revize</a></h3>
 <p class="ponadpisu">
 Každá revize je jednoznačně identifikována pomocí své MD5 heše. Kromě této úplné heše můžeme pojmenovat revizi těmito způsoby:
 </p>
@@ -75,248 +87,248 @@ Každá revize je jednoznačně identifikována pomocí své MD5 heše. Kromě t
 </li><li>Název tagu
 </li><li>Jiné označení revize, tilda a číslo; takto získáte N-tého předka dané revize, např. <b>HEAD~1</b> je bezprostřední předek aktuální revize, <b>vetev~3</b> je čtvrtá nejčerstvější revize ve větvi „vetev“ apod.
 </li></ul>
-<h2 id="cast3"><span class="cislo">3.</span> Zaklínadla</h2>
+<h2><a href="#cast3" id="cast3"><span class="cislo">3.</span> Zaklínadla</a></h2>
 
-<h3 id="cast3x1"><span class="cislo">1</span> Práce s repozitáři</h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><b>vytvořit</b> nový repozitář v aktuálním adresáři</div><div class="radky">
+<h3><a href="#cast3x1" id="cast3x1"><span class="cislo">1</span> Práce s repozitáři</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="L">♣</span><b>vytvořit</b> nový repozitář v aktuálním adresáři</div><div class="radky">
 <div class="radekzaklinadla">git init <span class="volznak">[</span>--bare<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>vytořit lokální repozitář <b>ze vzdáleného</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="L">♣</span>vytořit lokální repozitář <b>ze vzdáleného</b></div><div class="radky">
 <div class="radekzaklinadla">git clone <i class="dopln">vzdálená-adresa</i> <span class="volznak">[</span><i class="dopln">místní-adresář</i><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>získat do samostatného nového adresáře konkrétní revizi<sup><a href="#kapgitppc1" id="kapgitppcr1">(1)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="L">♣</span>získat do samostatného nového adresáře konkrétní revizi<sup><a href="#kapgitppc1" id="kapgitppcr1">(1)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">git worktree add --detach <i class="dopln">nový/adresář</i> <i class="dopln">revize</i> &amp;&amp;rm <i class="dopln">nový/adresář</i>/.git &amp;&amp; git worktree prune</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>konverze bare repozitáře na normální</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="L">♣</span>konverze bare repozitáře na normální</div><div class="radky">
 <div class="radekzaklinadla">git -C <i class="dopln">repozitář</i> config core.bare false</div>
 <div class="radekzaklinadla">mv <i class="dopln">repozitář</i> <i class="dopln">repozitář</i>-git</div>
 <div class="radekzaklinadla">mkdir <i class="dopln">repozitář</i></div>
 <div class="radekzaklinadla">mv <i class="dopln">repozitář</i>-git <i class="dopln">repozitář</i>/.git</div>
 <div class="radekzaklinadla">git -C <i class="dopln">repozitář</i> reset --hard</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span>konverze normálního repozitáře na bare repoziťář</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><span class="L">♣</span>konverze normálního repozitáře na bare repoziťář</div><div class="radky">
 <div class="radekzaklinadla">mv <i class="dopln">repozitář</i>/.git <i class="dopln">repozitář</i>-git</div>
 <div class="radekzaklinadla">rm -R <i class="dopln">repozitář</i></div>
 <div class="radekzaklinadla">mv <i class="dopln">repozitář</i>-git <i class="dopln">repozitář</i></div>
 <div class="radekzaklinadla">git -C <i class="dopln">repozitář</i> config core.bare true</div>
 </div></div>
 
-<h3 id="cast3x2"><span class="cislo">2</span> Mezi pracovním adresářem, indexem a lokálním repozitářem</h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><b>načíst</b> zadanou revizi do pracovního adresáře i indexu (jen načíst/načíst a vytvořit z ní ní novou větev)<sup><a href="#kapgitppc2" id="kapgitppcr2">(2)</a></sup></div><div class="radky">
+<h3><a href="#cast3x2" id="cast3x2"><span class="cislo">2</span> Mezi pracovním adresářem, indexem a lokálním repozitářem</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="L">♣</span><b>načíst</b> zadanou revizi do pracovního adresáře i indexu (jen načíst/načíst a vytvořit z ní ní novou větev)<sup><a href="#kapgitppc2" id="kapgitppcr2">(2)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">git checkout <i class="dopln">revize</i></div>
 <div class="radekzaklinadla">git checkout -b <i class="dopln">nová-větev</i> <span class="volznak">[</span><i class="dopln">revize</i><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>přenést do indexu změny v pracovním repozitáři (všech souborů/jen již verzovaných)<sup><a href="#kapgitppc3" id="kapgitppcr3">(3)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="L">♣</span>přenést do indexu změny v pracovním repozitáři (všech souborů/jen již verzovaných)<sup><a href="#kapgitppc3" id="kapgitppcr3">(3)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">git add <span class="volznak">[</span>-A<span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">soubor-nebo-adresář</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">git add -u <span class="volznak">[</span>-A<span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">soubor-nebo-adresář</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>operace <b>commit</b> (vytvořit z indexu novou revizi a nastavit na ni aktuální větev)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="L">♣</span>operace <b>commit</b> (vytvořit z indexu novou revizi a nastavit na ni aktuální větev)</div><div class="radky">
 <div class="radekzaklinadla">git commit <span class="volznak">[</span>-m <i class="dopln">komentář</i><span class="volznak">]</span> <span class="volznak">[</span>-a<span class="volznak">]</span> <span class="volznak">[</span>--allow-empty<span class="volznak">]</span> <span class="volznak">[</span>--amend<span class="volznak">]</span> <span class="volznak">[</span>-S<span class="volznak">]</span> <span class="volznak">[</span>--reset-author<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>nahradit poslední commitnutou revizi novým commitem se zachováním původního autora, předků, komentáře a časové známky<sup><a href="#kapgitppc4" id="kapgitppcr4">(4)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="L">♣</span>nahradit poslední commitnutou revizi novým commitem se zachováním původního autora, předků, komentáře a časové známky<sup><a href="#kapgitppc4" id="kapgitppcr4">(4)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">git commit --amend --no-edit</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span>načíst konkrétní soubory z revize v repozitáři do pracovního adresáře a indexu<sup><a href="#kapgitppc5" id="kapgitppcr5">(5)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><span class="L">♣</span>načíst konkrétní soubory z revize v repozitáři do pracovního adresáře a indexu<sup><a href="#kapgitppc5" id="kapgitppcr5">(5)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">git checkout <span class="volznak">[</span><i class="dopln">revize</i><span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">soubor-nebo-adresář</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span>načíst HEAD do indexu/do indexu a pracovního adresáře (<b>zrušit všechny změny</b>)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><span class="L">♣</span>načíst HEAD do indexu/do indexu a pracovního adresáře (<b>zrušit všechny změny</b>)</div><div class="radky">
 <div class="radekzaklinadla">git reset</div>
 <div class="radekzaklinadla">git reset --hard</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span>načíst konkrétní soubory z revize v repozitáři do indexu<sup><a href="#kapgitppc6" id="kapgitppcr6">(6)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span><span class="L">♣</span>načíst konkrétní soubory z revize v repozitáři do indexu<sup><a href="#kapgitppc6" id="kapgitppcr6">(6)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">git reset <span class="volznak">[</span><i class="dopln">revize</i><span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">soubor-nebo-adresář</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span>načíst do pracovního adresáře i indexu revizi, která byla nejnovější k určitému datu/před 14 dny</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span><span class="L">♣</span>načíst do pracovního adresáře i indexu revizi, která byla nejnovější k určitému datu/před 14 dny</div><div class="radky">
 <div class="radekzaklinadla">git checkout $(git rev-list -n 1 --first-parent &quot;--until=<i class="dopln">datum-YYYY-MM-DD HH:mm:ss</i>&quot; HEAD)</div>
 <div class="radekzaklinadla">git checkout $(git rev-list -n 1 --first-parent &quot;--until=$(date -d &quot;14 days ago&quot; &quot;+%F %T&quot;)&quot; HEAD)</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#9 </span>smazat soubor z pracovního adresáře i indexu/jen z indexu</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#9 </span><span class="L">♣</span>smazat soubor z pracovního adresáře i indexu/jen z indexu</div><div class="radky">
 <div class="radekzaklinadla">git rm <span class="volznak">[</span>-f<span class="volznak">]</span> <span class="volznak">[</span>-r<span class="volznak">]</span> <span class="volznak">[</span><span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">soubor-či-adresář</i><span class="tritecky"></span><span class="volznak">]</span></div>
 <div class="radekzaklinadla">git rm --cached <span class="volznak">[</span>-f<span class="volznak">]</span> <span class="volznak">[</span>-r<span class="volznak">]</span> <span class="volznak">[</span><span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">soubor-či-adresář</i><span class="tritecky"></span><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#10 </span>přesunout či přejmenovat soubor/přesunout soubory v pracovním adresáři i indexu</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#10 </span><span class="L">♣</span>přesunout či přejmenovat soubor/přesunout soubory v pracovním adresáři i indexu</div><div class="radky">
 <div class="radekzaklinadla">git mv <i class="dopln">původní-cesta</i> <i class="dopln">nová-cesta</i></div>
 <div class="radekzaklinadla">git mv <i class="dopln">zdroj</i><span class="tritecky"></span> <i class="dopln">cílový-adresář</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#11 </span>vypsat na standardní výstup konkrétní soubor z konkrétní revize</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#11 </span><span class="L">♣</span>vypsat na standardní výstup konkrétní soubor z konkrétní revize</div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
-<h3 id="cast3x3"><span class="cislo">3</span> Práce se vzdáleným repozitářem (origin)</h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>stáhnout všechny novinky a <b>aktualizovat</b> právě načtenou větev<sup><a href="#kapgitppc7" id="kapgitppcr7">(7)</a></sup></div><div class="radky">
+<h3><a href="#cast3x3" id="cast3x3"><span class="cislo">3</span> Práce se vzdáleným repozitářem (origin)</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="L">♣</span>stáhnout všechny novinky a <b>aktualizovat</b> právě načtenou větev<sup><a href="#kapgitppc7" id="kapgitppcr7">(7)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">git pull</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><b>odeslat změny</b> v aktuální větvi z lokálního repozitáře do vzdáleného (jednorázově/nastavit/větev už je nastavená)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="L">♣</span><b>odeslat změny</b> v aktuální větvi z lokálního repozitáře do vzdáleného (jednorázově/nastavit/větev už je nastavená)</div><div class="radky">
 <div class="radekzaklinadla">git push origin <i class="dopln">větev</i></div>
 <div class="radekzaklinadla">git push -u origin <i class="dopln">větev</i></div>
 <div class="radekzaklinadla">git push</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>vytvořit novou větev z HEAD a <b>odeslat</b> ji do vzdáleného repozitáře</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="L">♣</span>vytvořit novou větev z HEAD a <b>odeslat</b> ji do vzdáleného repozitáře</div><div class="radky">
 <div class="radekzaklinadla">git checkout -b <i class="dopln">nová-větev</i></div>
 <div class="radekzaklinadla">git push -u origin <i class="dopln">nová-větev</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>odeslat zadané větve (existující větve ve vzdáleném repozitáři budou přepsány)<sup><a href="#kapgitppc8" id="kapgitppcr8">(8)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="L">♣</span>odeslat zadané větve (existující větve ve vzdáleném repozitáři budou přepsány)<sup><a href="#kapgitppc8" id="kapgitppcr8">(8)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">git push <span class="volznak">[</span>-u<span class="volznak">]</span> origin <i class="dopln">větev</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span>odeslat zadané tagy</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><span class="L">♣</span>odeslat zadané tagy</div><div class="radky">
 <div class="radekzaklinadla">git push origin <i class="dopln">tag</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span>smazat zadanou větev nebo tag ze vzdáleného repozitáře</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><span class="L">♣</span>smazat zadanou větev nebo tag ze vzdáleného repozitáře</div><div class="radky">
 <div class="radekzaklinadla">git push :<i class="dopln">větev-nebo-tag</i> <span class="volznak">[</span>:<i class="dopln">další-větev-nebo-tag</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span>stáhnout všechny novinky ze vzdáleného repozitáře</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span><span class="L">♣</span>stáhnout všechny novinky ze vzdáleného repozitáře</div><div class="radky">
 <div class="radekzaklinadla">git fetch</div>
 </div></div>
 
-<h3 id="cast3x4"><span class="cislo">4</span> Jednoduchá práce s větvemi</h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><b>vytvořit</b> novou větev z HEAD a přepnout se na ni (nezmění pracovní adresář ani index)</div><div class="radky">
+<h3><a href="#cast3x4" id="cast3x4"><span class="cislo">4</span> Jednoduchá práce s větvemi</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="L">♣</span><b>vytvořit</b> novou větev z HEAD a přepnout se na ni (nezmění pracovní adresář ani index)</div><div class="radky">
 <div class="radekzaklinadla">git checkout -b <i class="dopln">nová-větev</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>vytvořit novou větev a přiřadit jí HEAD/určitou revizi (lze použít k duplikaci větve)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="L">♣</span>vytvořit novou větev a přiřadit jí HEAD/určitou revizi (lze použít k duplikaci větve)</div><div class="radky">
 <div class="radekzaklinadla">git branch <i class="dopln">nová-větev</i></div>
 <div class="radekzaklinadla">git branch <i class="dopln">nová-větev</i> <i class="dopln">revize</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><b>smazat</b> větev (jen sloučenou/kteroukoliv)<sup><a href="#kapgitppc9" id="kapgitppcr9">(9)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="L">♣</span><b>smazat</b> větev (jen sloučenou/kteroukoliv)<sup><a href="#kapgitppc9" id="kapgitppcr9">(9)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">git branch -d <i class="dopln">větev</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">git branch -D <i class="dopln">větev</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><b>přejmenovat</b> větev</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="L">♣</span><b>přejmenovat</b> větev</div><div class="radky">
 <div class="radekzaklinadla">git branch -m <i class="dopln">starý-název</i> <i class="dopln">nový-název</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span>ručně přiřadit aktuální větvi <b>určitou revizi</b> (i nesouvisející)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><span class="L">♣</span>ručně přiřadit aktuální větvi <b>určitou revizi</b> (i nesouvisející)</div><div class="radky">
 <div class="radekzaklinadla">git reset --soft <i class="dopln">revize</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span>vytvořit novou <b>odpojenou větev</b> (orphan branch)(z určité revize/zcela prázdnou)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><span class="L">♣</span>vytvořit novou <b>odpojenou větev</b> (orphan branch)(z určité revize/zcela prázdnou)</div><div class="radky">
 <div class="radekzaklinadla">git checkout --orphan <span class="volznak">[</span><i class="dopln">revize</i><span class="volznak">]</span></div>
 <div class="radekzaklinadla">git checkout --orphan &amp;&amp; git rm -rf .</div>
 </div></div>
 
-<h3 id="cast3x5"><span class="cislo">5</span> Jednoduchá práce s tagy</h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><b>vytvořit</b> nový tag (normální/anotovaný)</div><div class="radky">
+<h3><a href="#cast3x5" id="cast3x5"><span class="cislo">5</span> Jednoduchá práce s tagy</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="L">♣</span><b>vytvořit</b> nový tag (normální/anotovaný)</div><div class="radky">
 <div class="radekzaklinadla">git tag <i class="dopln">název-tagu</i> <span class="volznak">[</span><i class="dopln">revize</i><span class="volznak">]</span></div>
 <div class="radekzaklinadla">git tag -a -m <i class="dopln">komentář</i> <span class="volznak">[</span><i class="dopln">revize</i><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><b>vypsat</b> seznam tagů (všech/odpovídajících vzorku)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="L">♣</span><b>vypsat</b> seznam tagů (všech/odpovídajících vzorku)</div><div class="radky">
 <div class="radekzaklinadla">git tag</div>
 <div class="radekzaklinadla">git tag -l &quot;<i class="dopln">vzorek</i>&quot;</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><b>smazat</b> tag<sup><a href="#kapgitppc10" id="kapgitppcr10">(10)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="L">♣</span><b>smazat</b> tag<sup><a href="#kapgitppc10" id="kapgitppcr10">(10)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">git tag -d <i class="dopln">název-tagu</i></div>
 </div></div>
 
-<h3 id="cast3x6"><span class="cislo">6</span> Analýza stavu</h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>vypsat „pro člověka“ <b>běžné informace</b> (aktuální větev a změněné soubory v indexu a pracovním adresáři)</div><div class="radky">
+<h3><a href="#cast3x6" id="cast3x6"><span class="cislo">6</span> Analýza stavu</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="L">♣</span>vypsat „pro člověka“ <b>běžné informace</b> (aktuální větev a změněné soubory v indexu a pracovním adresáři)</div><div class="radky">
 <div class="radekzaklinadla">git status <span class="volznak">[</span><i class="dopln">soubor-či-adresář</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>vypsat <b>změny</b> v pracovním adresáři oproti HEAD/v pracovním adresáři oproti indexu/v indexu oproti HEAD</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="L">♣</span>vypsat <b>změny</b> v pracovním adresáři oproti HEAD/v pracovním adresáři oproti indexu/v indexu oproti HEAD</div><div class="radky">
 <div class="radekzaklinadla">git diff HEAD <span class="volznak">[</span>-- <i class="dopln">soubor-nebo-adresář</i><span class="tritecky"></span><span class="volznak">]</span></div>
 <div class="radekzaklinadla">git diff <span class="volznak">[</span>-- <i class="dopln">soubor-nebo-adresář</i><span class="tritecky"></span><span class="volznak">]</span></div>
 <div class="radekzaklinadla">git diff --cached <span class="volznak">[</span>-- <i class="dopln">soubor-nebo-adresář</i><span class="tritecky"></span><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>vypsat <b>rozdíly</b> mezi dvěma revizemi</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="L">♣</span>vypsat <b>rozdíly</b> mezi dvěma revizemi</div><div class="radky">
 <div class="radekzaklinadla">git diff <i class="dopln">revize1</i> <i class="dopln">revize2</i> <span class="volznak">[</span>-- <i class="dopln">soubor-nebo-adresář</i><span class="tritecky"></span><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>vypsat „pro člověka“ zpětnou historii předků aktuální revize (až po kořen/jen po první revizi dosažitelnou z „omezující-revize“)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="L">♣</span>vypsat „pro člověka“ zpětnou historii předků aktuální revize (až po kořen/jen po první revizi dosažitelnou z „omezující-revize“)</div><div class="radky">
 <div class="radekzaklinadla">git log <span class="volznak">[</span>--pretty=<i class="dopln">formát</i><span class="volznak">]</span> <span class="volznak">[</span>-n <i class="dopln">maximální-počet-revizí</i><span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">revize</i><span class="volznak">]</span></div>
 <div class="radekzaklinadla">git log <span class="volznak">[</span>--pretty=<i class="dopln">formát</i><span class="volznak">]</span> <span class="volznak">[</span>-n <i class="dopln">maximální-počet-revizí</i><span class="volznak">]</span> <i class="dopln">omezující-revize</i>..<i class="dopln">revize</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span>vypsat „pro člověka“ zpětnou historii revizí, u kterých došlo ke změně v některém z uvedených souborů</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><span class="L">♣</span>vypsat „pro člověka“ zpětnou historii revizí, u kterých došlo ke změně v některém z uvedených souborů</div><div class="radky">
 <div class="radekzaklinadla">git log <span class="volznak">[</span>--pretty=<i class="dopln">formát</i><span class="volznak">]</span> <span class="volznak">[</span>-n <i class="dopln">maximální-počet-revizí</i><span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">revize</i><span class="volznak">]</span> -- <i class="dopln">soubor-nebo-adresář</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span>vypsat podrobné informace o revizi</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><span class="L">♣</span>vypsat podrobné informace o revizi</div><div class="radky">
 <div class="radekzaklinadla">git show <i class="dopln">revize</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span>vypsat (pro skript) seznam tvořený revizí a všemi jejími předky</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span><span class="L">♣</span>vypsat (pro skript) seznam tvořený revizí a všemi jejími předky</div><div class="radky">
 <div class="radekzaklinadla">git rev-list <i class="dopln">revize</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span>vypsat úplnou heš dané revize</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span><span class="L">♣</span>vypsat úplnou heš dané revize</div><div class="radky">
 <div class="radekzaklinadla">git rev-list -n 1 <i class="dopln">revize</i></div>
 </div></div>
 
-<h3 id="cast3x7"><span class="cislo">7</span> Sekundární pracovní adresáře</h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><b>vytvořit</b><sup><a href="#kapgitppc11" id="kapgitppcr11">(11)</a></sup></div><div class="radky">
+<h3><a href="#cast3x7" id="cast3x7"><span class="cislo">7</span> Sekundární pracovní adresáře</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="L">♣</span><b>vytvořit</b><sup><a href="#kapgitppc11" id="kapgitppcr11">(11)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">git worktree add <span class="volznak">[</span>--detach<span class="volznak">]</span> <span class="volznak">[</span>-b <i class="dopln">nová-větev</i><span class="volznak">]</span> <i class="dopln">/nový/adresář</i> <i class="dopln">revize</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><b>vypsat</b> seznam</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="L">♣</span><b>vypsat</b> seznam</div><div class="radky">
 <div class="radekzaklinadla">git worktree list <span class="volznak">[</span>--porcelain<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><b>smazat</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="L">♣</span><b>smazat</b></div><div class="radky">
 <div class="radekzaklinadla">git worktree remove <i class="dopln">/sekundární/pracovní/adresář</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>smazat všechny nedostupné sekundární pracovní adresáře</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="L">♣</span>smazat všechny nedostupné sekundární pracovní adresáře</div><div class="radky">
 <div class="radekzaklinadla">git worktree prune</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><b>přesunout</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><span class="L">♣</span><b>přesunout</b></div><div class="radky">
 <div class="radekzaklinadla">git worktree move <i class="dopln">/sekundární/pracovní/adresář</i> <i class="dopln">/nové/umístění</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span>zamknout/odemknout (zamknutý adresář se nesmaže příkazem „prune“)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><span class="L">♣</span>zamknout/odemknout (zamknutý adresář se nesmaže příkazem „prune“)</div><div class="radky">
 <div class="radekzaklinadla">git worktree lock <span class="volznak">[</span>--reason <i class="dopln">důvod</i><span class="volznak">]</span> <i class="dopln">/sekundární/pracovní/adresář</i></div>
 <div class="radekzaklinadla">git worktree unlock <i class="dopln">/sekundární/pracovní/adresář</i></div>
 </div></div>
 
-<h3 id="cast3x8"><span class="cislo">8</span> Slučování větví a řešení konfliktů</h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>sloučit rozdíly mezi HEAD a uvedenou revizí do aktuální větve provedením commitu<sup><a href="#kapgitppc12" id="kapgitppcr12">(12)</a></sup></div><div class="radky">
+<h3><a href="#cast3x8" id="cast3x8"><span class="cislo">8</span> Slučování větví a řešení konfliktů</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="L">♣</span>sloučit rozdíly mezi HEAD a uvedenou revizí do aktuální větve provedením commitu<sup><a href="#kapgitppc12" id="kapgitppcr12">(12)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">git merge <i class="dopln">revize</i><span class="tritecky"></span></div>
 </div></div>
 
-<h3 id="cast3x9"><span class="cislo">9</span> Práce se změnami z revizí (pokročilá)</h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><b>odvolat</b> změny z určitých revizí/z určitého rozsahu revizí a odvolání commitnout<sup><a href="#kapgitppc13" id="kapgitppcr13">(13)</a></sup></div><div class="radky">
+<h3><a href="#cast3x9" id="cast3x9"><span class="cislo">9</span> Práce se změnami z revizí (pokročilá)</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="L">♣</span><b>odvolat</b> změny z určitých revizí/z určitého rozsahu revizí a odvolání commitnout<sup><a href="#kapgitppc13" id="kapgitppcr13">(13)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">git revert <span class="volznak">[</span>--no-edit<span class="volznak">]</span> <span class="volznak">[</span>-n<span class="volznak">]</span> <i class="dopln">revize</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">git revert <span class="volznak">[</span>--no-edit<span class="volznak">]</span> <span class="volznak">[</span>-n<span class="volznak">]</span> <i class="dopln">starší-revize</i>..<i class="dopln">novější-revize</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><b>přenést</b> změny z uvedených revizí do aktuální větve (seznam revizí uvést v příkazu/načíst)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="L">♣</span><b>přenést</b> změny z uvedených revizí do aktuální větve (seznam revizí uvést v příkazu/načíst)</div><div class="radky">
 <div class="radekzaklinadla">git cherry-pick <span class="volznak">[</span>-x<span class="volznak">]</span> <span class="volznak">[</span>-n<span class="volznak">]</span> <i class="dopln">revize</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla"><i class="dopln">příkaz generující seznam revizí</i> | git cherry-pick --stdin <span class="volznak">[</span>-x<span class="volznak">]</span> <span class="volznak">[</span>-n<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>zařadit změny provedené v jiné větvi před změny provedené v této větvi<sup><a href="#kapgitppc14" id="kapgitppcr14">(14)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="L">♣</span>zařadit změny provedené v jiné větvi před změny provedené v této větvi<sup><a href="#kapgitppc14" id="kapgitppcr14">(14)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">git rebase <i class="dopln">revize-jiná-větev</i></div>
 </div></div>
 
-<h3 id="cast3x10"><span class="cislo">10</span> Konfigurace repozitáře (obecně)</h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><b>vypsat</b> současnou hodnotu určitého klíče</div><div class="radky">
+<h3><a href="#cast3x10" id="cast3x10"><span class="cislo">10</span> Konfigurace repozitáře (obecně)</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="L">♣</span><b>vypsat</b> současnou hodnotu určitého klíče</div><div class="radky">
 <div class="radekzaklinadla">git config <span class="volznak">[</span>--global<span class="volznak">]</span> --get <i class="dopln">klíč</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><b>nastavit</b> hodnotu určitého klíče</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="L">♣</span><b>nastavit</b> hodnotu určitého klíče</div><div class="radky">
 <div class="radekzaklinadla">git config <span class="volznak">[</span>--global<span class="volznak">]</span> <i class="dopln">klíč</i> &quot;<i class="dopln">nová hodnota</i>&quot;</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>vypsat celou konfiguraci (lokální/globální/globální a pod ní lokální)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="L">♣</span>vypsat celou konfiguraci (lokální/globální/globální a pod ní lokální)</div><div class="radky">
 <div class="radekzaklinadla">git config --local -l</div>
 <div class="radekzaklinadla">git config --global -l</div>
 <div class="radekzaklinadla">git config -l</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>vypsat platné konfigurační dvojice klíč=hodnota</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="L">♣</span>vypsat platné konfigurační dvojice klíč=hodnota</div><div class="radky">
 <div class="radekzaklinadla">git config -l | tac | awk -F = '/=/ &amp;&amp; !($1 in A) {A[$1] = 1; print $0;}' | LC_ALL=C sort</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span>najít seznam podporovaných konfiguračních klíčů</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><span class="L">♣</span>najít seznam podporovaných konfiguračních klíčů</div><div class="radky">
 <div class="radekzaklinadla">git config --help</div>
 </div></div>
 
-<h3 id="cast3x11"><span class="cislo">11</span> Konfigurace gitu či repozitáře (konkrétně)</h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>v logu zobrazovat datum ve formátu YYYY-MM-DD HH:MM:SS +ZZZZ (např. „1970-12-31 23:59:59 +0700“)</div><div class="radky">
+<h3><a href="#cast3x11" id="cast3x11"><span class="cislo">11</span> Konfigurace gitu či repozitáře (konkrétně)</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="L">♣</span>v logu zobrazovat datum ve formátu YYYY-MM-DD HH:MM:SS +ZZZZ (např. „1970-12-31 23:59:59 +0700“)</div><div class="radky">
 <div class="radekzaklinadla">git config <span class="volznak">[</span>--global<span class="volznak">]</span> log.date iso</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>vypisovat ne-ASCII znaky v názvech souborů tak, jak jsou</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="L">♣</span>vypisovat ne-ASCII znaky v názvech souborů tak, jak jsou</div><div class="radky">
 <div class="radekzaklinadla">git config <span class="volznak">[</span>--global<span class="volznak">]</span> core.quotePath false</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>po přihlášení (např. na GitHub) si nějakou dobu pamatovat přihlašovací údaje<sup><a href="#kapgitppc15" id="kapgitppcr15">(15)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="L">♣</span>po přihlášení (např. na GitHub) si nějakou dobu pamatovat přihlašovací údaje<sup><a href="#kapgitppc15" id="kapgitppcr15">(15)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">git config <span class="volznak">[</span>--global<span class="volznak">]</span> credential.helper &quot;cache --timeout=<i class="dopln">počet-sekund</i>&quot;</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span>nastavit <b>editor</b>, který má být vyvolán pro editaci komentářů k revizím<sup><a href="#kapgitppc16" id="kapgitppcr16">(16)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="L">♣</span>nastavit <b>editor</b>, který má být vyvolán pro editaci komentářů k revizím<sup><a href="#kapgitppc16" id="kapgitppcr16">(16)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">git config <span class="volznak">[</span>--global<span class="volznak">]</span> core.editor <i class="dopln">příkaz</i></div>
 </div></div>
 
-<h2 id="cast4"><span class="cislo">4.</span> Zaklínadla (.gitignore)</h2>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>komentář</div><div class="radky">
+<h2><a href="#cast4" id="cast4"><span class="cislo">4.</span> Zaklínadla (.gitignore)</a></h2>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="L">♣</span>komentář</div><div class="radky">
 <div class="radekzaklinadla"># <span class="volznak">[</span><i class="dopln">text do konce řádku</i><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>ignorovat soubory a adresáře vyhovující vzorku (může obsahovat znaky ? a * ve stejném významu jako v bashi)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="L">♣</span>ignorovat soubory a adresáře vyhovující vzorku (může obsahovat znaky ? a * ve stejném významu jako v bashi)</div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">vzorek</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>ignorovat pouze adresáře vyhovující vzorku</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="L">♣</span>ignorovat pouze adresáře vyhovující vzorku</div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">vzorek</i>/</div>
 </div></div>
 
-<h2 id="cast5"><span class="cislo">5.</span> Parametry příkazů</h2>
+<h2><a href="#cast5" id="cast5"><span class="cislo">5.</span> Parametry příkazů</a></h2>
 <div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla">git <span class="volznak">[</span><i class="dopln">globální parametry</i><span class="volznak">]</span> <i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametry příkazu</i><span class="volznak">]</span></div>
 </div></div>
@@ -336,7 +348,7 @@ Každá revize je jednoznačně identifikována pomocí své MD5 heše. Kromě t
 <ul class="kompaktni"><li><b>-u</b> :: Přenese do indexu jen změny ve verzovaných souborech a jejich smazání, nepřidává nové soubory k verzování.
 </li><li><b>-v</b> :: Vypisuje provedené změny.
 </li></ul>
-<h2 id="cast6"><span class="cislo">6.</span> Instalace na Ubuntu</h2>
+<h2><a href="#cast6" id="cast6"><span class="cislo">6.</span> Instalace na Ubuntu</a></h2>
 <div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla">sudo apt-get install git</div>
 <div class="radekzaklinadla">git config --global user.name &quot;<i class="dopln">vaše celé jméno</i>&quot;</div>
@@ -346,14 +358,14 @@ Každá revize je jednoznačně identifikována pomocí své MD5 heše. Kromě t
 Celé jméno a e-mail se používají k označení autorství revizí. Musíte je zadat, jinak git nebude fungovat, ale nemusí být pochopitelně pravdivé. Pro konkrétní repozitář můžete nastavit jiné hodnoty použitím stejných konfiguračních příkazů bez parametru <b>--global</b>.
 </p>
 
-<h2 id="cast7"><span class="cislo">7.</span> Ukázka</h2>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span>Příprava ukázkového adresáře a souborů</div><div class="radky">
+<h2><a href="#cast7" id="cast7"><span class="cislo">7.</span> Ukázka</a></h2>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="L">♣</span>Příprava ukázkového adresáře a souborů</div><div class="radky">
 <div class="radekzaklinadla">mkdir Projekt &amp;&amp; cd Projekt</div>
 <div class="radekzaklinadla">printf %s\\n &quot;#!&quot;&quot;/bin/bash&quot; &quot;cat text&quot; &gt; skript</div>
 <div class="radekzaklinadla">chmod 755 skript</div>
 <div class="radekzaklinadla">printf %s\\n &quot;Toto je textový soubor&quot; &gt; text</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span>Tělo příkladu</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="L">♣</span>Tělo příkladu</div><div class="radky">
 <div class="radekzaklinadla">git init</div>
 <div class="radekzaklinadla">git add skript text</div>
 <div class="radekzaklinadla">git commit -m &quot;První verze&quot;</div>
@@ -362,7 +374,7 @@ Celé jméno a e-mail se používají k označení autorství revizí. Musíte
 <div class="radekzaklinadla">git commit -a -m &quot;Přidán druhý řádek&quot;</div>
 <div class="radekzaklinadla">git log</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span>Druhá část příkladu</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="L">♣</span>Druhá část příkladu</div><div class="radky">
 <div class="radekzaklinadla">git checkout -b nova-vetev HEAD~1</div>
 <div class="radekzaklinadla">printf %s\\n &quot;Jiný druhý řádek&quot; &gt;&gt; text</div>
 <div class="radekzaklinadla">git commit -a -m &quot;Alternativní verze&quot;</div>
@@ -370,12 +382,14 @@ Celé jméno a e-mail se používají k označení autorství revizí. Musíte
 </div></div>
 
 
-<h2 id="cast8"><span class="cislo">8.</span> Tipy a zkušenosti</h2>
+<h2><a href="#cast8" id="cast8"><span class="cislo">8.</span> Tipy a zkušenosti</a></h2>
 <ul><li>Normální repozitář je jednodušší než bare repozitář. Má vlastní pracovní adresář, se kterým pracuje. Normální repozitář můžete použít jako vzdálený repozitář, ale pouze ke čtení − nelze do něj zapisovat příkazem „git push“. Naopak bare repozitář slouží výhradně jako vzdálený repozitář.
 </li><li>Revize vzniklé sloučením větví (merge) mají za předky všechny revize, ze kterých byly sloučeny.
 </li><li>Soubor .gitignore může být v každém podadresáři pracovního adresáře; deklarace z každého souboru .gitignore platí v daném adresáři a rekurzivně ve všech jeho podadresářích, ne však nutně v celém pracovním adresáři.
+</li><li>Vytvoříte-li v podadresáři pracovního adresáře soubor „.gitignore“ obsahující jediný řádek „*“, git bude tento adresář a veškerý jeho další obsah zcela ignorovat. To je praktické, když chcete mít v pracovním adresáři podadresář, který nikdy nebudete chtít verzovat, ale současně také nechcete tento adresář zapisovat do hlavního souboru „.gitignore“.
+</li><li>Soubor „.gitignore“ se obvykle verzuje spolu s normálními soubory.
 </li></ul>
-<h2 id="cast9"><span class="cislo">9.</span> Další zdroje informací</h2>
+<h2><a href="#cast9" id="cast9"><span class="cislo">9.</span> Další zdroje informací</a></h2>
 <div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla">git --help</div>
 <div class="radekzaklinadla">git <i class="dopln">příkaz-gitu</i> --help</div>
@@ -386,7 +400,7 @@ Přehled podporovaných konfiguračních voleb pro příkaz „git config“ naj
 (v angličtině) v online referenční příručce u příkazu „git config“.
 </p>
 
-<h2 id="cast10"><span class="cislo">10.</span> Odkazy</h2>
+<h2><a href="#cast10" id="cast10"><span class="cislo">10.</span> Odkazy</a></h2>
 <ul class="kompaktni"><li><a href="https://www.youtube.com/playlist?list=PL9n3wo1YKCEgKQBl1DrR_EzED9ogmKHX7">Playlist: tutorial gitu od BambooMachine</a>
 </li><li><a href="https://cs.wikipedia.org/wiki/Git">Stránka na Wikipedii</a>
 </li><li><a href="https://www.root.cz/knihy/pro-git/">Kniha „Pro Git“</a> (ISBN 978-80-904248-1-4, podléhá licenci <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/us/">Creative Commons Uveďte autora-Nevyužívejte dílo komerčně-Zachovejte licenci 3.0 United States</a>)
@@ -431,7 +445,7 @@ Přehled podporovaných konfiguračních voleb pro příkaz „git config“ naj
 <div id="kapgitppc16"><a href="#kapgitppcr16" class="cislopozn">16</a>&nbsp;Vhodné jsou editory, které otevírají každý soubor v novém procesu, např. „nano“, „vim“, „emacs“, „mousepad“; předpokladem je, že daný editor musíte mít nainstalovaný.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 </div>
-<div class="odkazydole"><a href="regularni-vyrazy.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Regulární výrazy</a><a href="datum-cas-kalendar.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Datum, čas a kalendář</a><a href="sprava-balicku.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Správa balíčků</a></div>
+<div class="odkazydole"><a href="make.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">GNU make</a><a href="regularni-vyrazy.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Regulární výrazy</a><a href="prace-s-archivy.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Práce s archivy</a></div>
 
 <nav class="spodni"><span class="prev">
 <a href="docker.htm" rel="prev" title="5. Docker">Předchozí&nbsp;kapitola</a>&nbsp;|

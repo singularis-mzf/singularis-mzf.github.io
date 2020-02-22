@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="cs">
+<head profile="http://www.w3.org/2005/10/profile">
+<meta charset="UTF-8">
+
+<title>Správa procesů − Linux: Kniha kouzel</title>
+
+<link rel="stylesheet" type="text/css" href="lkk-20200222.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200222-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200222-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200222-tmavy.css" title="Tmavý motiv">
+<link rel="icon" type="image/png" href="obrazky/favicon.png">
+</head>
+<body id="nahore">
+<header>
+<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.4 (22. února 2020)</span>
+<span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
+</header>
+
+
+<nav class="horni">
+<div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+<span class="prev">
+<a href="sprava-balicku.htm" rel="prev" title="12. Správa balíčků" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+</span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!--
+-->&nbsp;| <a href="stahovani-videi.htm" rel="next" title="14. Stahování videí" accesskey="n">Následující&nbsp;kapitola</a>
+</span>
+</nav>
+
+
+<article>
+
+<h1 class="kapitola">13. <img src="obrazky/ik/sprava-procesu.png" alt="" width="64" height="64"> Správa procesů</h1>
+<div class="stitky"><a href="x-stitky.htm#sbsh">bash</a>
+<a href="x-stitky.htm#sprocesy">procesy</a>
+<a href="x-stitky.htm#ssystm">systém</a>
+<a href="x-stitky.htm#stemtickokruh">tematický okruh</a>
+</div><div class="rozcestnikkapitol">
+<a href="#cast1" class="sekce">Úvod</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast2" class="sekce">Definice</a><br>
+<a href="#cast3" class="sekce">Zaklínadla</a>: <a href="#cast3x1">Hledání procesů (najít PID)</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3x2">Zjistit obecné informace o procesu</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3x3">Zjistit okamžité využití zdrojů</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3x4">Zjistit historii využití zdrojů</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3x5">Zjistit ostatní údaje</a><br>
+<a href="#cast4" class="sekce">Zaklínadla (TUI a stromové zobrazení)</a>: <a href="#cast4x1">Stromové zobrazení</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast4x2">TUI</a><br>
+<a href="#cast5" class="sekce">Zaklínadla (spouštění a ovládání procesů)</a>: <a href="#cast5x1">Spouštění procesů</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast5x2">Ukončování procesů</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast5x3">Čekání, signály, priorita</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast5x4">Úlohy bashe</a><br>
+<a href="#cast6" class="sekce">Parametry příkazů</a>: <a href="#cast6x1">ps</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast6x2">pgrep</a><br>
+<a href="#cast7" class="sekce">Instalace na Ubuntu</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast8" class="sekce">Tipy a zkušenosti</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast9" class="sekce">Další zdroje informací</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast10" class="sekce">Pomocné skripty</a></div>
+<h2><a href="#cast1" id="cast1"><span class="cislo">1.</span> Úvod</a></h2>
+<p class="ponadpisu">
+Tato kapitola pokrývá vyhledávání, zkoumání, sledování a ukončování procesů
+a omezeně také jejich spouštění. Rovněž se zabývá sledováním, jak jednotlivé procesy
+využívají systémové zdroje jako výkon procesoru, paměť RAM či pevný disk.
+Ne všechny uvedené postupy však fungují pro zacházení s démony;
+hodláte-li zacházet s démony, navštivte kapitolu Systém.
+</p><p>
+Když v Linuxu spustíte program, vznikne tzv. proces − jakási „schránka“ pro program,
+která mu umožňuje běžet na procesoru a využívat systémové zdroje.
+Většina příkazů, které v terminálu zadáte, vytvoří nový proces.
+Pouze malá část spuštěných procesů si otevře také grafické uživatelské rozhraní.
+</p><p>
+Procesy jsou v Linuxu identifikovány čísly PID (což neznamená „Pražská integrovaná doprava“)
+a jsou uspořádány do „rodinné“ struktury, kde každý proces s výjimkou
+dvou prvotních démonů má právě jednoho rodiče. PID rodiče je u vlastního procesu uvedeno
+jako vlastnost „PPID“. (Pozor − nepleťte si PID a PPID!)
+</p><p>
+Tato verze kapitoly nepokrývá sledování systémových volání procesů (ptrace, strace)
+ani zjišťování, které systémové knihovny jsou procesy využívány.
+</p><p>
+Tato kapitola se nezabývá správou systémových zdrojů z celkového hlediska
+ani používáním kvót, kontejnerů či izolačních a virtualizačních technik
+jako chroot či cgroups.
+</p>
+
+<h2><a href="#cast2" id="cast2"><span class="cislo">2.</span> Definice</a></h2>
+<ul><li><b>Proces</b> je instance počítačového programu v paměti, v dané chvíli jednoznačně identifikovaná kladným celým číslem <b>PID</b> (obvykle v rozsahu 1 až 32768). PID procesu se za jeho běhu nemůže změnit; může se však změnit <b>PPID</b> (pokud je rodič pohřben dřív než zrozenec) nebo to, který program v rámci daného procesu ve skutečnosti běží.
+</li><li><b>Démon</b> je systémový proces bez uživatelského rozhraní, konkrétně jsou to dva <b>prvotní démoni</b> („systemd“ − PID 1 a „kthreadd“ − PID 2) a ti jejich přímí potomci, kteří nemají textové ani grafické uživatelské rozhraní. Prvotní démoni jako procesy nemají rodiče, jsou zřízeni přímo jádrem a jejich PPID je 0.
+</li><li><b>Zombie</b> je proces, který skončil, ale jeho rodič dosud nepřevzal jeho návratovou hodnotu. Převzetím návratové hodnoty rodičem je zombie <b>pohřbena</b> a její PID se uvolní pro přidělení dalšímu procesu.
+</li><li><b>Název procesu</b> je textový identifikátor přiřazený procesu jádrem. Není jednoznačný a vzniká (asi) tak, že se z ARGV[0] vezme jen název souboru (bez cesty) a zkrátí se na prvních 15 bajtů (obsahuje-li vícebajtové znaky, může dojít ke vzniku neplatné sekvence).
+</li><li><b>Úloha bashe</b> je proces spuštěný z bashe, který byl spuštěn na pozadí nebo alespoň jednou na pozadí odsunut. Takový proces dostane od dané instance bashe vedle PID ještě druhý identifikátor − „číslo úlohy“. Číslo úlohy je pak pro daný proces jedinečné, ale pouze v rámci dané instance bashe.
+</li></ul>
+<h2><a href="#cast3" id="cast3"><span class="cislo">3.</span> Zaklínadla</a></h2>
+
+<h3><a href="#cast3x1" id="cast3x1"><span class="cislo">1</span> Hledání procesů (najít PID)</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">ǂ</span>procesy <b>podle názvu</b> procesu (obecně/příklad)</div><div class="radky">
+<div class="radekzaklinadla">pgrep <span class="volznak">[</span>-x<span class="volznak">]</span> '<i class="dopln">regulární výraz</i>'</div>
+<div class="radekzaklinadla">pgrep '^gimp'</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">⡸</span><b>všechny</b> procesy</div><div class="radky">
+<div class="radekzaklinadla">pgrep .</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">◴</span>přímí/všichni <b>potomci</b> určitého procesu</div><div class="radky">
+<div class="radekzaklinadla">pgrep -P <i class="dopln">PID</i></div>
+<div class="radekzaklinadla">lkk procesy | sed -E 's/^([0-9]+)(:[0-9]+)*:(<i class="dopln">PID</i>):.*/\1/;t;d'</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="D">↑</span>proces a všichni jeho předci v pořadí, až po prvotního démona</div><div class="radky">
+<div class="radekzaklinadla">lkk procesy | sed -nE '/^(<i class="dopln">PID</i>):/{s/:/\n/g;p}'</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><span class="D">⌧</span>procesy, které mají otevřený konkrétní soubor</div><div class="radky">
+<div class="radekzaklinadla">sudo fuser <i class="dopln">cesta</i><span class="tritecky"></span> 2&gt;/dev/null | sed -E 's/^\s+//;s/\s+|\s?$/\n/g'</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><span class="D">≒</span>všechny procesy určitého <b>uživatele</b>/určité skupiny</div><div class="radky">
+<div class="radekzaklinadla">pgrep -U <i class="dopln">uid-nebo-uživatel</i><span class="volznak">[</span>,<i class="dopln">další</i><span class="volznak">]</span><span class="tritecky"></span></div>
+<div class="radekzaklinadla">pgrep -G <i class="dopln">gid-nebo-skupina</i><span class="volznak">[</span>,<i class="dopln">další</i><span class="volznak">]</span><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span><span class="D">⚠</span>sourozenci určitého procesu (včetně procesu samotného)</div><div class="radky">
+<div class="radekzaklinadla">pgrep -P $(ps h -o ppid <i class="dopln">PID-procesu</i>)</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span><span class="D">⩪</span>procesy spuštěné později či společně se zadaným procesem</div><div class="radky">
+<div class="radekzaklinadla">ps h -eo etimes,pid --sort -etimes | gawk '$1 &lt;= '&quot;$(ps h -o etimes:1 <i class="dopln">PID</i>)&quot;' {print $2}'</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#9 </span><span class="D">⡚</span>procesy spuštěné dříve či společně se zadaným procesem</div><div class="radky">
+<div class="radekzaklinadla">ps h -eo etimes,pid --sort -etimes | gawk '$1 &gt;= '&quot;$(ps h -o etimes:1 <i class="dopln">PID</i>)&quot;' {print $2}'</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#10 </span><span class="D">⊩</span>procesy, které mají otevřený konkrétní adresář</div><div class="radky">
+<div class="radekzaklinadla">sudo fuser <i class="dopln">cesta</i><span class="tritecky"></span> 2&gt;/dev/null | sed -E 's/^\s+//;s/\s+|\s?$/\n/g'</div>
+</div></div>
+
+<h3><a href="#cast3x2" id="cast3x2"><span class="cislo">2</span> Zjistit obecné informace o procesu</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">ᚎ</span><b>příkazový řádek</b> (pro člověka/txtz pro skript)</div><div class="radky">
+<div class="radekzaklinadla">tr \\0 \\40 &lt;/proc/<i class="dopln">PID</i>/cmdline | sed -E '$s/ ?$/\n/' | cat -v</div>
+<div class="radekzaklinadla">cat /proc/<i class="dopln">PID</i>/cmdline <span class="volznak">[</span>| <i class="dopln">zpracování</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">◓</span>ARGV[0]</div><div class="radky">
+<div class="radekzaklinadla">head -zn1 /proc/<i class="dopln">PID</i>/cmdline | tr \\0 \\n<span class="prikladhodnoty">⊨ /bin/bash</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">❒</span><b>PPID</b><sup><a href="#kapspravaprocesuppc1" id="kapspravaprocesuppcr1" title="Pro procesy zřízené jádrem (systemd a kthreadd) vrací „0“.">(1)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">ps h -o ppid:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 3077</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="D">◵</span>název procesu</div><div class="radky">
+<div class="radekzaklinadla">ps h -o comm:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ bash</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><span class="D">♬</span>spuštěný soubor (na disku)</div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> readlink /proc/<i class="dopln">PID</i>/exe<span class="prikladhodnoty">⊨ /bin/bash</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><span class="D">⪑</span>příslušný <b>terminál</b><sup><a href="#kapspravaprocesuppc2" id="kapspravaprocesuppcr2" title="Nepříluší-li proces žádnému terminálu ani konzoli, vypíše „?“.">(2)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">ps h -o tty:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ pts/1</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span><span class="D">♎</span>aktuální <b>adresář</b></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> readlink /proc/<i class="dopln">PID</i>/cwd<span class="prikladhodnoty">⊨ /home/nana</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span><span class="D">≳</span><b>uživatel</b> vlastnící proces (jméno/UID)</div><div class="radky">
+<div class="radekzaklinadla">ps h -o ruser:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ root</span></div>
+<div class="radekzaklinadla">ps h -o ruid:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 0</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#9 </span><span class="D">■</span><b>skupina</b> vlastnící proces (jméno/GID)</div><div class="radky">
+<div class="radekzaklinadla">ps h -o rgroup:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ root</span></div>
+<div class="radekzaklinadla">ps h -o rgid:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 0</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#10 </span><span class="D">⋬</span><b>priorita</b> procesu</div><div class="radky">
+<div class="radekzaklinadla">ps h -o ni:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 0</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#11 </span><span class="D">⇎</span>označení sezení podle systemd</div><div class="radky">
+<div class="radekzaklinadla">ps h -o lsession:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ c2</span></div>
+</div></div>
+
+<h3><a href="#cast3x3" id="cast3x3"><span class="cislo">3</span> Zjistit okamžité využití zdrojů</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">≴</span>% zatížení procesoru</div><div class="radky">
+<div class="radekzaklinadla">ps h -o pcpu:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 10.1</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">◼</span>počet kiB <b>RAM</b> zabrané procesem</div><div class="radky">
+<div class="radekzaklinadla">ps h -o rss:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 6028</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">▾</span>% RAM zabrané procesem</div><div class="radky">
+<div class="radekzaklinadla">ps h -o pmem:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 0.1</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="D">⣼</span>velikost virtuální paměti procesu v kiB</div><div class="radky">
+<div class="radekzaklinadla">ps h -o vsz:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 32024</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><span class="D">⊋</span>počet kiB virtuální paměti zabrané kódem/daty</div><div class="radky">
+<div class="radekzaklinadla">ps h -o trs:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 1037</span></div>
+<div class="radekzaklinadla">ps h -o drs:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 30986</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><span class="D">⛁</span>procesy, které nejvíc zatěžují procesor/RAM</div><div class="radky">
+<div class="radekzaklinadla">ps h -e -o pcpu,pid,comm | sort -rn | head</div>
+<div class="radekzaklinadla">ps h -e -o rss,pid,comm | sort -rn | head</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span><span class="D">꜖</span>číslo přiděleného logického procesoru (od nuly)</div><div class="radky">
+<div class="radekzaklinadla">ps h -o psr:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 0</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span><span class="D">∺</span>počet vláken </div><div class="radky">
+<div class="radekzaklinadla">sed -E 's/^Threads:\s+//;t;d' /proc/<i class="dopln">PID</i>/status<span class="prikladhodnoty">⊨ 1</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#9 </span><span class="D">ⴽ</span>procesy, které nejvíc pracují s diskem</div><div class="radky">
+<div class="radekzaklinadla">sudo egrep -H '^(read|write)_bytes:' /proc/[1-9]*/io &gt;<i class="dopln">dočasný/soubor/1</i></div>
+<div class="radekzaklinadla">sleep 1;sudo egrep -H '^(read|write)_bytes:' /proc/[1-9]*/io &gt;<i class="dopln">dočasný/soubor/2</i></div>
+<div class="radekzaklinadla">gawk 'BEGIN {FS=&quot;/|: ?&quot;; OFS = &quot;\t&quot;;} ARGIND == 1 {A[$3] += $6} ARGIND == 2 {B[$3] += $6} END {for (pid in A) {if (pid in B) {print B[pid] - A[pid], pid}}}' <i class="dopln">dočasný/soubor/1</i> <i class="dopln">dočasný/soubor/2</i> | sort -rn | head</div>
+</div></div>
+
+<h3><a href="#cast3x4" id="cast3x4"><span class="cislo">4</span> Zjistit historii využití zdrojů</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">❁</span>čas od spuštění procesu (v sekundách/ve formátu [[DD-]hh:]mm:ss)</div><div class="radky">
+<div class="radekzaklinadla">ps h -o etimes:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 271</span></div>
+<div class="radekzaklinadla">ps h -o etime:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 04:31</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">⢠</span>čas, od kdy proces existuje</div><div class="radky">
+<div class="radekzaklinadla">ps h -o lstart -p <i class="dopln">PID</i> | date -f - &quot;+%F %T %z&quot;<span class="prikladhodnoty">⊨ 2020-02-07 13:42:13 +0100</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">⡜</span>spotřebovaný čas procesoru</div><div class="radky">
+<div class="radekzaklinadla">ps h -o cputime:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 00:01:13</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="D">☚</span>počet bajtů přečtených z disku/<b>zapsaných na disk</b></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> sed -E 's/^read_bytes:\s+//;t;d' /proc/<i class="dopln">PID</i>/io<span class="prikladhodnoty">⊨ 1503232</span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> sed -E 's/^write_bytes:\s+//;t;d' /proc/<i class="dopln">PID</i>/io<span class="prikladhodnoty">⊨ 1724416</span></div>
+</div></div>
+
+<h3><a href="#cast3x5" id="cast3x5"><span class="cislo">5</span> Zjistit ostatní údaje</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">↪</span>seznam otevřených deskriptorů (jen čísla/s cestami k souborům)</div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> ls -U1 /proc/<i class="dopln">PID</i>/fd</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> find /proc/<i class="dopln">PID</i>/fd -type l -printf '%f\t%l\n'</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">⊁</span>vypsat prostředí procesu ve formátu txtz<sup><a href="#kapspravaprocesuppc3" id="kapspravaprocesuppcr3" title="Každý záznam začíná názvem proměnné prostředí a znakem „=“, za ním následuje obsah proměnné.">(3)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> cat /proc/<i class="dopln">PID</i>/environ <span class="volznak">[</span>| <i class="dopln">zpracování</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">≴</span>efektivní uživatel (jméno/EUID)</div><div class="radky">
+<div class="radekzaklinadla">ps h -o euser:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ root</span></div>
+<div class="radekzaklinadla">ps h -o euid:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 0</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="D">⣩</span>efektivní skupina (jméno/EGID)</div><div class="radky">
+<div class="radekzaklinadla">ps h -o egroup:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ root</span></div>
+<div class="radekzaklinadla">ps h -o egid:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 0</span></div>
+</div></div>
+
+<h2><a href="#cast4" id="cast4"><span class="cislo">4.</span> Zaklínadla (TUI a stromové zobrazení)</a></h2>
+
+<h3><a href="#cast4x1" id="cast4x1"><span class="cislo">1</span> Stromové zobrazení</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">▪</span>proces a jeho potomci</div><div class="radky">
+<div class="radekzaklinadla">pstree -pT<span class="volznak">[</span>h<span class="volznak">]</span><span class="volznak">[</span>l<span class="volznak">]</span> <i class="dopln">PID</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">⊵</span>proces a jeho předkové</div><div class="radky">
+<div class="radekzaklinadla">pstree -ps<span class="volznak">[</span>h<span class="volznak">]</span><span class="volznak">[</span>l<span class="volznak">]</span> <i class="dopln">PID</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">⟼</span>všechny procesy bez parametrů/s parametry</div><div class="radky">
+<div class="radekzaklinadla">pstree -pT<span class="volznak">[</span>h<span class="volznak">]</span><span class="volznak">[</span>l<span class="volznak">]</span></div>
+<div class="radekzaklinadla">pstree -paT<span class="volznak">[</span>h<span class="volznak">]</span><span class="volznak">[</span>l<span class="volznak">]</span></div>
+</div></div>
+
+<h3><a href="#cast4x2" id="cast4x2"><span class="cislo">2</span> TUI</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">⨍</span>procesy nejvíc zatěžující CPU</div><div class="radky">
+<div class="radekzaklinadla">top</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">⋛</span>procesy zabírající nejvíc paměti RAM</div><div class="radky">
+<div class="radekzaklinadla">top</div>
+<div class="radekzaklinadla"><kbd>Shift</kbd> + <kbd>M</kbd></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">◜</span>procesy nejvíc vytěžující pevný disk</div><div class="radky">
+<div class="radekzaklinadla">sudo iotop</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="D">⬎</span>procesy spotřebovávající nejvíc elektřiny<sup><a href="#kapspravaprocesuppc4" id="kapspravaprocesuppcr4" title="Funguje především na notebooku, nemám příliš vyzkoušené.">(4)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">sudo powertop</div>
+</div></div>
+
+<h2><a href="#cast5" id="cast5"><span class="cislo">5.</span> Zaklínadla (spouštění a ovládání procesů)</a></h2>
+
+<h3><a href="#cast5x1" id="cast5x1"><span class="cislo">1</span> Spouštění procesů</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">▃</span>spustit příkaz s právy <b>superuživatele</b>/jiného uživatele</div><div class="radky">
+<div class="radekzaklinadla">sudo <i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametr-příkazu</i><span class="volznak">]</span><span class="tritecky"></span></div>
+<div class="radekzaklinadla">sudo -u <i class="dopln">uživatel</i> <i class="dopln">příkaz</i> <i class="dopln">parametr-příkazu</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">⊾</span>spustit příkaz s právy jiné <b>skupiny</b></div><div class="radky">
+<div class="radekzaklinadla">sg &quot;<i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametr-příkazu</i><span class="volznak">]</span><span class="tritecky"></span>&quot;</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">ˑ</span>spustit příkaz a po skončení vypsat spotřebovaný <b>čas</b><sup><a href="#kapspravaprocesuppc5" id="kapspravaprocesuppcr5" title="Jde o vestavěnou konstrukci bashe, která dovoluje na místo jednoduchého příkazu zadat také více příkazů spojených rourou, např. „time seq 10000 | wc -l“. Účinek příkazu „time“ se pak vztahuje na všechny procesy spojené rourou.">(5)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">time <i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametr-příkazu</i><span class="volznak">]</span><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="D">➤</span>spustit příkaz a jeho programem <b>nahradit</b> volající bash či sh</div><div class="radky">
+<div class="radekzaklinadla">exec <i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametr-příkazu</i><span class="volznak">]</span><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><span class="D">⊯</span>spustit proces s nastavenou prioritou (ne vyšší/libovolnou)</div><div class="radky">
+<div class="radekzaklinadla">nice -n $((<i class="dopln">priorita</i> - $(nice))) <i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametry příkazu</i><span class="volznak">]</span><span class="tritecky"></span></div>
+<div class="radekzaklinadla">sudo nice -n $((<i class="dopln">priorita</i> - $(nice))) sudo -u &quot;$(id -nu)&quot; -g &quot;$(id -ng)&quot; <i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametry příkazu</i><span class="volznak">]</span><span class="tritecky"></span></div>
+</div></div>
+
+<h3><a href="#cast5x2" id="cast5x2"><span class="cislo">2</span> Ukončování procesů</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">⨓</span>požádat o ukončení více procesů podle názvu (obecně/příklad)</div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> pkill '<i class="dopln">regulární-výraz</i>'</div>
+<div class="radekzaklinadla">pkill '^gimp'</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">䷢</span>požádat o ukončení/násilně <b>ukončit</b></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> kill <i class="dopln">PID</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> kill -9 <i class="dopln">PID</i><span class="tritecky"></span></div>
+</div></div>
+
+<h3><a href="#cast5x3" id="cast5x3"><span class="cislo">3</span> Čekání, signály, priorita</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">∾</span><b>počkat</b> na ukončení</div><div class="radky">
+<div class="radekzaklinadla">while test -e /proc/<i class="dopln">PID</i>; do IFS=&quot;&quot; read -t 0.1 || :; done &lt;&gt; &lt;(:)</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">䷒</span>zaslat procesu <b>signál</b></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> kill -<span class="volznak">[</span><i class="dopln">signál</i><span class="volznak">]</span> <i class="dopln">PID</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">▊</span><b>pozastavit</b> proces/nechat ho pokračovat</div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> kill -SIGSTOP <i class="dopln">PID</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> kill -SIGCONT <i class="dopln">PID</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="D">⢞</span><b>změnit prioritu</b> běžícího procesu<sup><a href="#kapspravaprocesuppc6" id="kapspravaprocesuppcr6" title="Priorita je číslo v rozsahu -20 (nejvyšší) až 19 (nejnižší); normální priorita je 0. Obyčejný uživatel (tzn. bez sudo) může pouze snižovat prioritu vlastních procesů.">(6)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> renice <i class="dopln">priorita</i> <i class="dopln">PID</i><span class="tritecky"></span></div>
+</div></div>
+
+<h3><a href="#cast5x4" id="cast5x4"><span class="cislo">4</span> Úlohy bashe</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">⊕</span>spustit příkaz na pozadí</div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametr-příkazu</i><span class="volznak">]</span><span class="tritecky"></span> &amp;</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">⇆</span>požádat proces v popředí o ukončení</div><div class="radky">
+<div class="radekzaklinadla"><kbd>Ctrl</kbd> + <kbd>C</kbd></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">⇓</span>pozastavit proces v popředí a odsunout ho jako úlohu bashe</div><div class="radky">
+<div class="radekzaklinadla"><kbd>Ctrl</kbd> + <kbd>Z</kbd></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="D">▸</span>přenést úlohu na popředí<sup><a href="#kapspravaprocesuppc7" id="kapspravaprocesuppcr7" title="Byla-li úloha pozastavená, tento příkaz ji nechá pokračovat.">(7)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">fg <span class="volznak">[</span>%<i class="dopln">číslo-úlohy</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><span class="D">⢞</span>vypsat seznam úloh</div><div class="radky">
+<div class="radekzaklinadla">jobs</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><span class="D">⣵</span>nechat pozastavenou úlohu pokračovat v pozadí</div><div class="radky">
+<div class="radekzaklinadla">bg <span class="volznak">[</span>%<i class="dopln">číslo-úlohy</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span><span class="D">⠣</span>požádat úlohu o ukončení/násilně ji ukončit</div><div class="radky">
+<div class="radekzaklinadla">kill %<i class="dopln">číslo-úlohy</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span><span class="D">ⴼ</span>počkat na dokončení úlohy běžící v pozadí</div><div class="radky">
+<div class="radekzaklinadla">wait %<i class="dopln">číslo-úlohy</i> <span class="volznak">[</span>%<i class="dopln">číslo-další-úlohy</i><span class="volznak">]</span><span class="tritecky"></span></div>
+</div></div>
+
+<h2><a href="#cast6" id="cast6"><span class="cislo">6.</span> Parametry příkazů</a></h2>
+
+<h3><a href="#cast6x1" id="cast6x1"><span class="cislo">1</span> ps</a></h3>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">ps <i class="dopln">parametry</i> <span class="volznak">[</span>-e<span class="volznak">]</span></div>
+<div class="radekzaklinadla">ps <i class="dopln">parametry</i> <i class="dopln">PID</i><span class="tritecky"></span></div>
+</div></div>
+<table class="parametryprikazu"><tbody><tr><td>☐ --no-headers</td><td>Potlačí zobrazení hlavičky na začátku výpisu.</td></tr>
+
+<tr><td>☐ -o <i class="dopln">sloupce</i></td><td>Určí, které sloupce se vypíšou. Seznam platných hodnot najdete v manuálové stránce příkazu ps.</td></tr>
+
+<tr><td>○ -e</td><td>Zobrazit všechny procesy v systému. (Výchozí chování: zobrazí jen procesy příslušné témuž terminálu.)</td></tr>
+
+<tr><td>☐ -H</td><td>Odsadí názvy příkazů pro zdůraznění struktury stromu procesů.</td></tr>
+
+<tr><td>☐ --sort <i class="dopln">klíče</i></td><td>Nastaví řazení výpisu.</td></tr>
+
+</tbody></table>
+
+<h3><a href="#cast6x2" id="cast6x2"><span class="cislo">2</span> pgrep</a></h3>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">pgrep <span class="volznak">[</span><i class="dopln">volby</i><span class="volznak">]</span> '<i class="dopln">regulární výraz</i>'</div>
+<div class="radekzaklinadla">pgrep <span class="volznak">[</span><i class="dopln">volby a kritéria</i><span class="volznak">]</span> <span class="volznak">[</span>'<i class="dopln">regulární výraz</i>'<span class="volznak">]</span></div>
+</div></div>
+<p>
+<b>Volby:</b>
+</p>
+<table class="parametryprikazu"><tbody><tr><td>☐ -x</td><td>U regulárního výrazu požadovat přesnou shodu.</td></tr>
+
+<tr><td>○ -o ○ -n ○ -v</td><td>Z nalezených procesů vybrat: jen nejstarší proces/jen nejnovější proces/všechny procesy, které <i>nevyhovují</i> kritériím. (Výchozí: všechny procesy vyhovující kritériím.) Poznámka: staří procesu se zde posuzuje podle času spuštění.</td></tr>
+
+<tr><td>☐ -f</td><td>Regulární výraz testovat proti celé příkazové řádce procesu. (Normálně jen proti názvu procesu.)</td></tr>
+
+<tr><td>☐ -d <i class="dopln">řetězec</i></td><td>Nastavit oddělovač výpisu nalezených PID.</td></tr>
+
+<tr><td>○ -c ○ -l ○ -a</td><td>Vypsat: jen počet nalezených PID; PID a název procesu; PID a příkazový řádek procesu.</td></tr>
+
+<tr><td>☐ -i</td><td>Při testu regulárního výrazu nerozlišovat velká a malá písmena.</td></tr>
+
+</tbody></table>
+<p>
+<b>Kritéria:</b>
+</p>
+<table class="parametryprikazu"><tbody><tr><td>☐ -G <i class="dopln">gid-nebo-skupina</i>...</td><td>Vybrat podle skupiny (RGID).</td></tr>
+
+<tr><td>☐ -P <i class="dopln">PPID</i>...</td><td>Vybrat podle PPID.</td></tr>
+
+<tr><td>☐ -t <i class="dopln">terminál</i>...</td><td>Vybrat podle příslušného terminálu (např. „pts/1“).</td></tr>
+
+<tr><td>☐ -u <i class="dopln">uid-nebo-uživatel</i>...</td><td>Vybrat podle EUID.</td></tr>
+
+<tr><td>☐ -U <i class="dopln">uid-nebo-uživatel</i>...</td><td>Vybrat podle RUID.</td></tr>
+
+</tbody></table>
+
+<h2><a href="#cast7" id="cast7"><span class="cislo">7.</span> Instalace na Ubuntu</a></h2>
+<p class="ponadpisu">
+Většina uvedených příkazů je základními součástmi Ubuntu.
+Pouze některé konkrétní příkazy ve stejnojmenných balíčcích je potřeba doinstalovat,
+pokud je chcete použít:
+</p><p>
+<b>sudo apt-get install iotop powertop</b>
+</p><p>
+V kapitole je použit také příkaz gawk:
+</p>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">sudo apt-get install gawk</div>
+</div></div>
+
+<h2><a href="#cast8" id="cast8"><span class="cislo">8.</span> Tipy a zkušenosti</a></h2>
+<ul><li>Existuje také příkaz „pkill“, který kombinuje většinu schopností příkazu „pgrep“ s příkazem „kill“ − tzn. vyhledaným procesům rovnou zašle signál.
+</li><li>Pokud rodič zanikne dřív než samotný proces, „adoptuje“ proces systemd.
+</li></ul>
+<h2><a href="#cast9" id="cast9"><span class="cislo">9.</span> Další zdroje informací</a></h2>
+<ul class="kompaktni"><li><a href="https://cs.wikipedia.org/wiki/Proces_(informatika)">Wikipedie: Proces</a>
+</li><li><a href="https://cs.wikipedia.org/wiki/Vl%C3%A1kno_(informatika)">Wikipedie: Vlákno</a>
+</li><li><a href="https://www.youtube.com/watch?v=6KIO4mkSz4w">Video: Linux in the Shell: pgrep and pkill</a> (anglicky)
+</li><li><a href="https://www.youtube.com/watch?v=P8GrPOpD8Sk">Video: Process Management Commands</a> (anglicky)
+</li><li><a href="https://www.youtube.com/watch?v=AEp9YfKBV1c">Video: Killing process in Linux</a> (anglicky)
+</li><li><a href="https://www.youtube.com/watch?v=fsfquzq5Efo">Video: How to use lsof command</a> (anglicky)
+</li><li><a href="https://www.tutorialspoint.com/unix_commands/pgrep.htm">Tutorialspoint: pgrep, pkill</a> (anglicky)
+</li><li><a href="https://www.booleanworld.com/guide-linux-top-command/">A guide to the Linux „top“ command</a> (anglicky)
+</li><li><a href="http://manpages.ubuntu.com/manpages/bionic/en/man1/pgrep.1.html">Manual Page: pgrep, pkill</a> (anglicky)
+</li><li><a href="http://manpages.ubuntu.com/manpages/bionic/en/man1/ps.1.html">Manual Page: ps</a> (anglicky)
+</li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/common/ps.md">TL;DR: ps</a> (anglicky)
+</li><li><a href="https://www.tutorialspoint.com/unix/unix-processes.htm">Tutorialspoint: Process Management</a> (anglicky)
+</li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/common/pgrep.md">TL;DR: pgrep</a> (anglicky)
+</li></ul>
+<h2><a href="#cast10" id="cast10"><span class="cislo">10.</span> Pomocné skripty</a></h2>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">♽</span>lkk procesy − vypíše přehled procesů ve snadno zpracovatelném tvaru</div><div class="radky">
+<div class="radekzaklinadla">#!/usr/bin/gawk -bf</div>
+<div class="radekzaklinadla">BEGIN {</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">while (&quot;ps h -e -o pid,ppid&quot; | getline) {ppids[pids[++n] = $1] = $2}</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">OFS = ORS = &quot;&quot;;</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">for (i = 1; i &lt;= n; ++i) {</div>
+<div class="radekzaklinadla" style="padding-left:4ch;">print pid = pids[i];</div>
+<div class="radekzaklinadla" style="padding-left:4ch;">while ((pid = ppids[pid]) in ppids) {print &quot;:&quot;, pid}</div>
+<div class="radekzaklinadla" style="padding-left:4ch;">print &quot;\n&quot;;</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">}</div>
+<div class="radekzaklinadla">}</div>
+</div></div>
+<div class="ppc"><div id="kapspravaprocesuppc1"><a href="#kapspravaprocesuppcr1" class="cislopozn">1</a>&nbsp;Pro procesy zřízené jádrem (systemd a kthreadd) vrací „0“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapspravaprocesuppc2"><a href="#kapspravaprocesuppcr2" class="cislopozn">2</a>&nbsp;Nepříluší-li proces žádnému terminálu ani konzoli, vypíše „?“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapspravaprocesuppc3"><a href="#kapspravaprocesuppcr3" class="cislopozn">3</a>&nbsp;Každý záznam začíná názvem proměnné prostředí a znakem „=“, za ním následuje obsah proměnné.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapspravaprocesuppc4"><a href="#kapspravaprocesuppcr4" class="cislopozn">4</a>&nbsp;Funguje především na notebooku, nemám příliš vyzkoušené.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapspravaprocesuppc5"><a href="#kapspravaprocesuppcr5" class="cislopozn">5</a>&nbsp;Jde o vestavěnou konstrukci bashe, která dovoluje na místo jednoduchého příkazu zadat také více příkazů spojených rourou, např. „time seq 10000 | wc -l“. Účinek příkazu „time“ se pak vztahuje na všechny procesy spojené rourou.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapspravaprocesuppc6"><a href="#kapspravaprocesuppcr6" class="cislopozn">6</a>&nbsp;Priorita je číslo v rozsahu -20 (nejvyšší) až 19 (nejnižší); normální priorita je 0. Obyčejný uživatel (tzn. bez sudo) může pouze snižovat prioritu vlastních procesů.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapspravaprocesuppc7"><a href="#kapspravaprocesuppcr7" class="cislopozn">7</a>&nbsp;Byla-li úloha pozastavená, tento příkaz ji nechá pokračovat.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+</div>
+<div class="odkazydole"><a href="barvy-a-titulek.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Barvy, titulek a výzva terminálu</a><a href="git.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Git</a><a href="datum-cas-kalendar.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Datum, čas a kalendář</a></div>
+
+<nav class="spodni"><span class="prev">
+<a href="sprava-balicku.htm" rel="prev" title="12. Správa balíčků">Předchozí&nbsp;kapitola</a>&nbsp;|
+</span><a href="index.htm">Přehled</a><span class="next"><!--
+-->&nbsp;| <a href="stahovani-videi.htm" rel="next" title="14. Stahování videí">Následující&nbsp;kapitola</a>
+</span>
+<a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
+<a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
+</nav>
+
+
+</article>
+<footer id="dole">
+<img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
+<p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
+<a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
+Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
+či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
+na stránce „<a href="x-autori.htm">Přehled autorů</a>“.
+Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
+licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
+Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód
+a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
+<a href="https://github.com/singularis-mzf/linux-spellbook">repozitář na GitHubu</a>.
+</footer>
+</body>
+</html>

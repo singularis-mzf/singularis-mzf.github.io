@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*
- * Linux Kniha kouzel, CSS, motiv vk-svetly
+ * Linux Kniha kouzel, CSS, motiv tmavy
  * Copyright (c) 2019,2020 Singularis <singularis@volny.cz>
  *
  * Toto dílo je dílem svobodné kultury; můžete ho šířit a modifikovat pod
@@ -25,6 +25,23 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+#{{MAKRO kryti-obrazku-ikona-kapitoly    = 0.75}}
+
+#{{MAKRO titulni-lista-text-kryti        = 1}}
+#{{MAKRO titulni-lista-stin-textu-kryti  = 0}}
+
+#{{MAKRO zb-titul-krizek                 = 0,0,0}}
+
+#{{MAKRO zb-titul-aktivni                = 255,255,0}}
+
+#{{MAKRO titulni-lista-obrazek-pozadi    = none}}
+
+#{{MAKRO sede-casti-kryti=0.7}}
+
+#{{MAKRO symboly-tab-barva-pozadi    = transparent}}
+
+#{{MAKRO index-podzahlavim-box-shadow=none}}
+
 *{background:none;border:none;border-collapse:inherit;bottom:auto;
 caption-side:inherit;clear:none;clip:auto;color:inherit;
 empty-cells:inherit;left:auto;letter-spacing:inherit;
@@ -36,28 +53,28 @@ top:auto;visibility:inherit;white-space:inherit;word-spacing:inherit;
 z-index:auto;font:inherit;}
 
 html {
-    background:#ffffff none 100% 0%/cover repeat fixed;
-    color:#000000;
+    background:rgb(18,26,39) url("obrazky/udoli.jpg") 100% 0%/cover repeat fixed;
+    color:rgb(164,164,164);
     font:62.5%/1.2 sans-serif;
 }
 
 body {
     margin:15rem auto 25rem;
-    border:thin solid #802020;
+    border:thin solid rgb(60,60,60);
     padding:0;
     width:90%;min-width:95rem;max-width:120rem;
-    background-color:#ffffff;
+    background-color:rgb(40,40,40);
     font-size:133%;
     box-shadow:1rem 1rem 5rem 0 rgba(0,0,0,0.5);
 }
 
 header {
-    border-bottom:thin solid black;
+    border-bottom:thin solid rgb(60,60,60);
     padding:0.4em 0.5em;
-    background:#ffffff none 0% 0%/1px 100% repeat-x;
-    color:#000000;
+    background:rgb(40,40,40) none 0% 0%/1px 100% repeat-x;
+    color:rgba(164,164,164,1);
     font-weight:bold;
-    text-shadow:none;
+    text-shadow:0 0 0.25em rgba(0,0,0,0);
 }
 
 nav {
@@ -79,15 +96,21 @@ article {
 }
 
 footer {
-    border-top:thin solid purple;
+    border-top:thin solid rgb(60,60,60);
     padding:1rem 3rem;
     font-size:85%;
-    background:#ffffff;
+    background:rgb(60,60,60);
 }
 
 h1 {
     font:bold 175%/1.2 "DejaVu Sans", sans-serif;
     margin:0;
+}
+h1.kapitola img {
+    vertical-align:middle;
+    border:none;
+    width:6.4rem;height:6.4rem;
+    opacity:0.75;
 }
 
 h2 {
@@ -98,8 +121,8 @@ h2 {
 h3 {
     font:bold 125%/1.2 "DejaVu Sans", sans-serif;
     margin:1.5em 0 0.75em;
-    background-color:rgba(53,34,63,0.05);
-    box-shadow:0.1rem 0.1rem 0.2rem 0 rgba(0,0,0,0.25);
+    background-color:rgba(120,120,120,0.2);
+    box-shadow:0.1rem 0.1rem 0.2rem 0 rgba(120,120,120,0.8);
     padding:0.5rem 0.5rem;
     page-break-after:avoid; /* možná není podporována v současných prohlížečích */
 }
@@ -114,18 +137,13 @@ h3 .cislo {
 }
 
 p, ul, blockquote {
-    font-family: "DejaVu Serif", serif;
-    margin:0.75em 0;
+    font-family: "DejaVu Sans", sans-serif;
+    margin:0.75em 0 0 7rem;
     max-width:70em;
-}
-
-p, blockquote, ul {
     hyphens:auto;
     line-height:1.5;
 }
-
-ul {
-    margin-left:7rem;
+p, ul {
     text-align:justify;
 }
 
@@ -138,25 +156,35 @@ ul.kompaktni {
     text-align:left;
 }
 
+img {
+    opacity:0.75;
+}
 figure {
     margin:2rem 0;
+    border-radius:3rem;
+    padding:1rem;
+    background:rgba(255,255,255,0.2);
     text-align:center;
 }
-
 blockquote {
-    margin:2ex 2em;
+    border-left:0.5em solid rgb(120,120,120);
+    padding-left:1em;
 }
 blockquote blockquote {
+    margin:-0.75em 0 0;
+    padding-top:0.75em;
+}
+blockquote+blockquote {
     margin-top:0;
-    margin-bottom:0;
+    padding-top:0.75em;
 }
 
 /* Inline prvky */
-a:link {color:#1644d9;}
-a:visited {color:#542e99;}
+a:link {color:rgb(86,155,200)}
+a:visited {color:rgb(183,136,183);}
 /* a:visited {color:;} */
-a[href^="http://"]::before, a[href^="https://"]::before {content:"[";color:#111111;}
-a[href^="http://"]::after, a[href^="https://"]::after {content:"]( " attr(href) " )";color:#111111;}
+a[href^="http://"]::before, a[href^="https://"]::before {content:"[";color:rgba(120,120,120,1);}
+a[href^="http://"]::after, a[href^="https://"]::after {content:"]( " attr(href) " )";color:rgba(120,120,120,1);}
 a:hover {text-decoration:underline;}
 b {font-weight:bold;}
 i {font-style:italic;}
@@ -167,8 +195,8 @@ kbd {
     border-radius:0.5em;
     padding:0 0.5em;
     white-space:nowrap;
-    background:#dddddd;
-    color:#000000;
+    background:rgb(60,60,60);
+    color:rgb(164,164,164);
     font-family:"DejaVu Sans", sans-serif;
 }
 
@@ -190,7 +218,7 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
     font-family: "DejaVu Sans Mono", monospace;
     font-size:115%;
     page-break-inside:avoid;
-    color:#000000;
+    color:rgb(164,164,164);
 }
 
 .zaklinadlo>hr {
@@ -211,7 +239,7 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
 }
 
 .zaklinadlo .zahlavi b {
-    color:zaklinadlo-barva-tucneho-textu;
+    color:rgba(164,164,164,0.95);
 }
 
 .zaklinadlo .zahlavi>.cislo {
@@ -228,8 +256,8 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
     text-align:center;
     white-space:pre;
 }
-.zaklinadlo .zahlavi .D {font-family:"DejaVu Sans", sans-serif;}
-.zaklinadlo .zahlavi .L {font-family:"Latin Modern Math", sans-serif;}
+.zaklinadlo .zahlavi .D, .vzornikikon .D {font-family:"DejaVu Sans", sans-serif;}
+.zaklinadlo .zahlavi .L, .vzornikikon .L {font-family:"Latin Modern Math", sans-serif;}
 
 .zaklinadlo .radky {
 
@@ -238,7 +266,7 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
     margin:3pt 5pt 3pt 7rem;
     border-left:1pt dotted #999999;
     padding:2pt 5pt;
-    color:rgba(0,0,0,0.7);
+    color:rgba(164,164,164,0.7));
 }
 
 .zaklinadlo td:nth-child(1) {white-space:nowrap;}
@@ -248,19 +276,24 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
     display:inline-block;
     width:0pt;
     position:relative;left:-2.5ch;top:0.5ex;
-    color:#666666;
+    color:rgb(120,120,120);
     font-weight:bold;
 }
 
 /* zobrazení znaku ↲ na konci každého řádku zaklínadla kromě posledního */
-.radekzaklinadla::after, .radekzaklinadlaafter::after {content:"↲";margin-left:0.5em;color:rgb(120,120,120);}
+.radekzaklinadla::after, .radekzaklinadlaafter::after {
+    content:"↲";
+    margin-left:0.5em;
+    color:rgba(120,120,120,0.7);
+}
 .radekzaklinadla:last-child::after {display:none;}
 .radekzaklinadla:empty::after {margin-left:0;}
 
 .radekzaklinadla .prikladhodnoty {
     margin-left:2rem;
-    border-left:0.2rem solid #bf4a4a;
-    background:#ffffff;
+    border-left:0.2rem solid rgb(80,128,128);
+    padding-left:0.3rem;
+    background:rgb(60,60,60);
     color:inherit;
     font-family:Arimo,Helvetica,Arial,sans-serif;
 }
@@ -280,13 +313,13 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
 
 .zaklinadlo .volznak {
     display:inline-block;
-    color:rgb(127,127,127);
+    color:rgba(120,120,120,0.7);
     margin:0 -0.2em;
     transform:scaleY(1.75);
 }
 
 .zaklinadlo .reseninezname {
-    color:rgb(127,127,127);
+    color:rgb(120,120,120);
     font-weight:bold;
     text-shadow:0 0 0.5em rgba(0,0,0,0.5);
 }
@@ -312,7 +345,7 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
 .ppc .zrusitzvyrazneni::before {content:"(";}
 .ppc .zrusitzvyrazneni::after {content:")";}
 .ppc :target {
-    background:#f2a7e2;
+    background:rgb(60,60,60);
     padding-top:1.5rem;
     padding-bottom:1.5rem;
 }
@@ -321,8 +354,8 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
 .ppc :target + script + .zpetdotextu {
     display:block;
     padding:1rem 0 1rem 4rem;
-    background:#cccccc;
-    color:#1644d9;
+    /*background:;*/
+    color:rgb(183,136,183);
     cursor:pointer;
     font-family:sans-serif;
     font-weight:bold;
@@ -353,7 +386,7 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
 
 .parametryprikazu td:first-child {
     font-family:"DejaVu Sans Mono", monospace;
-    color:#000000;
+    color:rgba(164,164,164,1);
     padding-right:1em;
 }
 
@@ -365,7 +398,7 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
 header .right span {
     display:inline-block;
     margin:0 0.25em;
-    color:#000000;
+    color:rgb(164,164,164);
 }
 
 header .right .ico1 {
@@ -395,20 +428,19 @@ footer p {margin:0;padding:0;max-width:none;}
 footer p+p {margin-top:0.75em;}
 footer img {float:left;margin:0 1rem 1rem 0;}
 .tab {
-    background:transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAUCAYAAACJfM0wAAAACXBIWXMAAAsTAAALEwEAmpwYAAABtklEQVQ4y7XUzUtVURQF8N9+vsxCoSYNGkQfNEmjoKTMiCLDSQQNkqA/sGmfgygnZjgpopAaRF+zDILQICt9u8m5cHt29T2oNbrn7rMXh7XW3pGZICLambmmARHRysyOHtGqfU9ExGREtBruHo2IqYgY7Jd4G85juqG5jdO4HBE7+yGGwAlcjYjhhp4juB4Ru/shrnAYMxGxp6G+FzciYl8vxM/wsat5JiL2l/NrvKrVd+FaRIz91ewqFcX5IVzE8SILfMeDzFyMiDbOYBIDpf4L81iop+YP4ipWOIVzxVBYx1xmPil3xjCNHaWeeIrZKrIbNM7MTmYu4BaWy+8BHKrSkJmLuIkvNdMPYmQr82CrYeigcaDaDVM2XjK9vSbFe6yW+iguYbgmxTusNJk3iAs4WTPvBx5l5vOi/wTOduvfbV67RjqCKzhQe/wy7mfm25KYKRzrSszDzHy5mRTjXaRLuJuZn8p5tMSwwlfcy8wPPWtc9LyTmSsN9SXczszPvZqXeFE0XW3oeVPk+bZZZOrE63iM+Ya9m2XsZzPz51bbLWqLfmiTV1aJWet12W8Y6X+Flv+E39XGp4/1pQSiAAAAAElFTkSuQmCC") 0% 100%/1ch auto no-repeat;
+    background:transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAUCAYAAACJfM0wAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH5AINERcKMRncRgAAAZ5JREFUOMvV1L1rVEEUBfDfNev6QQLaWFiIH9iYiIIGjRGJGEkjgoVB8A+09bMQtdFIGoMoQQtRY2cEQRLBqMlem1l4PPZtdktPN+/MPfM458xQkJktfZCZOwyB6uapzJzuI3AyM2czsz2s8E7MYK5huIXzuJaZe4cRhsAZ3MjM0YaZE7iVmfuHEe7iOOYz80ADfxC3M/PQIMJL+FIbns/Mw2X9Hu8q/D7czMyJXsJRS343ruB0hfuFxxGxXJpzAdMYKfxfLGAxIjo9hSu1OodLJVDYwvOIeFn2TGAOe7pjeIVnEbHZ0+OI6ETEIu5irXwewbFuGyJiGXfwvfKDRzG2XXjQ2aZRHWw2ka2GWzZZOr2rYsVnbBR+HFcxWrHiE9abwmvjMs5WuN94GhGvi/9TuFj3vzG8zBzDdRypnLWGRxHxsTRmFqdqjXkSEW/7WTFZE13Fg4j4WtbjpYZd/MDDiFgZ2OPi5/2IWG/gV3EvIr4NGl7iTfF0o2HmQ7HnZ7/KVIW38AIL1RBqhy6VS/Bn4Ie5hNOPbw/72P9f+AeGb5+ISgoslAAAAABJRU5ErkJggg==") 0% 100%/1ch auto no-repeat;
     display:inline-block;
     overflow:hidden;
     width:1ch;height:1.8ch;
     white-space:pre;
 }
 .viditelnamezera {
-    background:transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAMCAYAAABm+U3GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAJ0lEQVQ4y2NkQID/DKiAkYE4gFUfEwONwKjBowZjAhYS0udoGJMHAIgjAxkEpU0OAAAAAElFTkSuQmCC") 50% 100%/100% auto no-repeat;
+    background:transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAMAQMAAABcN9+FAAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfkAg0RHwOAHO7qAAAAEklEQVQI12OwYfjAgA/b/0fBAGmbEhlfr2/IAAAAAElFTkSuQmCC") 50% 100%/100% auto no-repeat;
     white-space:pre;
 }
 .tritecky {
+    background:transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEUAAADw8PC5otm+AAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfkAgMEBxhyUKn3AAAAE0lEQVQI12NgoBeoZ/9QTzQBBwA5FBGeWyCouwAAAABJRU5ErkJggg==") 0% 0%/100% 100% auto no-repeat;
     display:inline-block;
-    background-image:url("obrazky/tritecky.svg");
-    background-size:100% 100%;
     width:1em;height:1ex;
 }
 
@@ -447,7 +479,7 @@ footer img {float:left;margin:0 1rem 1rem 0;}
     margin:1em 0;
     border-radius:1rem 1rem;
     padding:1rem 2%;
-    box-shadow:0 0.25rem 1.5rem 0 rgba(50,50,50,0.5);
+    box-shadow:none;
 }
 .podzahlavim p.ponadpisu {
     margin:1ex auto;
@@ -460,6 +492,7 @@ footer img {float:left;margin:0 1rem 1rem 0;}
 }
 .podzahlavim p.informaceoverzi {
     margin:0;
+    text-align:left;
     text-indent:0;
     width:20em;
 }
@@ -471,15 +504,18 @@ footer img {float:left;margin:0 1rem 1rem 0;}
 .podzahlavim p.informaceoverzi a {
     display:block;
     margin:0.3rem 0 0;
-    border-top:thin dotted #666666;
+    border-top:thin dotted rgb(120,120,120);
     padding:0.2rem 0 0 1em;;
 }
 .podzahlavim p.informaceoverzi a::before {
-    content: "📚 ";
+    content:"📚 ";
     font-size:150%;
 }
 .podzahlavim p.informaceoverzi a::after {
-    content: normal;
+    content:normal;
+}
+.podzahlavim p.informaceoverzi em {
+    white-space:nowrap;
 }
 
 nav .slogan {
@@ -498,8 +534,8 @@ nav .prev {text-align:right;margin-right:0.25em;}
 nav .next {text-align:left;}
 
 .rozcestnikkapitol {
-    background:#ffffff;
-    color:rgba(0,0,0,0.4);
+    background:rgb(60,60,60);
+    color:rgb(120,120,120);
     margin:1rem -1em;
     border:0.1rem solid rgba(0,0,0,0.2);
     border-radius:1em;
@@ -509,7 +545,7 @@ nav .next {text-align:left;}
 }
 .rozcestnikkapitol a {
     white-space:nowrap;
-    color:#0b3322;
+    color:rgb(63,162,94);
 }
 .rozcestnikkapitol a.sekce {
     font-weight:bold;
@@ -524,10 +560,10 @@ nav .next {text-align:left;}
 }
 .stitky span, .stitky a {
     display:inline-block;
-    background:#ffffff;
-    color:inherit;
+    background:rgb(60,60,60);
+    color:rgb(164,164,164);
     margin:0 0.5em;
-    border-color:rgba(0,0,0,0.25) rgba(0,0,0,0.25) rgba(0,0,0,0.25) rgba(80, 128, 128, 1.0);
+    border-color:rgba(164,164,164,0.25) rgba(164,164,164,0.25) rgba(164,164,164,0.25) rgba(80,128,128,1);
     border-style:solid;
     border-width:thin thin thin 1.5rem;
     border-radius:0.4em;
@@ -544,8 +580,8 @@ nav .next {text-align:left;}
     margin-left:10em;
     border-radius:3rem;
 }
-.prehledstitku div:nth-child(even) {background:#ffffff}
-.prehledstitku div:nth-child(odd) {background:#ffffff}
+.prehledstitku div:nth-child(even) {background:rgba(180,180,180,1)}
+.prehledstitku div:nth-child(odd) {background:rgba(200,200,200,1)}
 .prehledstitku div>a {
     display:inline-block;
     width:50%;
@@ -593,6 +629,7 @@ nav .next {text-align:left;}
 .odkazydole img {
     margin:0.5rem;
     vertical-align:middle;
+    opacity:0.75;
 }
 
 /* .prehledy */
@@ -604,28 +641,28 @@ nav .next {text-align:left;}
     margin:2em 0 2em 1em;
 }
 .prehledy>div {width:33%;}
+.prehledy ol {padding-bottom:2rem;}
 .prehledy li {list-style:decimal outside;width:85%;margin-top:0.5em;}
 /*.prehledy li+li {margin-top:0.5em;}*/
 .prehledy a {display:block;
     border-bottom:thin dotted rgba(0,0,0,0.2);}
 .prehledy strong {display:block;font-weight:bold;margin-top:1em;}
-
-/*
-ol#prehledkapitol {
-    margin:5em auto;
-    width:20em;
+.prehledy span.ikona {
+    position:relative;z-index:1;
+    display:inline-block;
+    margin-right:0.5em;
+    width:3em;height:1em;
+    /*border:1px dotted blue; /*DEBUG*/
+    opacity:0.7;
 }
-ol#prehledkapitol li {
-    list-style:decimal outside;
+.prehledy span.ikona img {
+    position:absolute;left:0;top:0;bottom:auto;right:auto;
+    width:100%;height:auto;
 }
-ol#prehledkapitol li+li {
-    margin-top:0.5em;
+.prehledy a:hover span.ikona, .prehledy a:active span.ikona {
+    opacity:1;
+    z-index:5;
 }
-ol#prehledkapitol a {
-    display:block;
-    border-bottom:thin dotted rgba(0,0,0,0.2);
-}
-*/
 
 dl.copyrights {
 }
@@ -636,7 +673,8 @@ dl.copyrights dt {
 dl.copyrights dd {
     margin:0 0 0.5rem auto;
     max-width:95%;
-    overflow:auto;
+    /* overflow:auto + oprava posunování ve Firefoxu */
+    overflow:auto;padding-top:1px;padding-bottom:1px;
 }
 dl.copyrights pre {
     font-family:monospace;
@@ -644,10 +682,10 @@ dl.copyrights pre {
 }
 
 span.chybny {
-    color:red !important;
-    background:white !important;
+    color:rgb(255,0,0) !important;
+    background:rgb(255,255,255) !important;
     font-weight:bold;
-    border:1px solid red;
+    border:1px solid;
 }
 
 /* odkazy nahoru a dolů */
@@ -655,34 +693,39 @@ span.chybny {
     position:fixed;
     right:2%;
     z-index:256;
-    background:rgba(0,0,0,0.75);
-    color:#ffffff;
+    background:rgba(40,40,40,0.75);
+    color:rgba(164,164,164,0.75);
     font:20pt/1 sans-serif;
-    border:5pt outset rgb(100,204,100);
+    border:5pt outset rgba(164,164,164,0.75);
     border-radius:50%;
 }
-#odkaznahoru:hover, #odkazdolu:hover {
-    background-color:rgb(0,0,0);
-    border-color:yellow;
-    color:#ffffff;
+#odkaznahoru:hover, #odkazdolu:hover, #odkaznahoru:active, #odkazdolu:active {
+    background:rgba(40,40,40,1);
+    border-color:rgba(255,255,0,1);
+    color:rgba(164,164,164,1);
     text-decoration:none;
     opacity:1;
 }
 #odkaznahoru:active, #odkazdolu:active {
-    background-color:rgb(0,0,0);
-    border-color:yellow;
-    color:#ffffff;
-    opacity:1;
+    color:rgba(255,255,0,1);
 }
 #odkaznahoru {
     top:10pt;
-    box-shadow:0 0 0 2pt rgb(33,33,33);
+    box-shadow:0 0 0 2pt rgba(0,0,0,0.8);
     padding:0 6pt 3pt;
 }
 #odkazdolu {
     bottom:10pt;
     opacity:0.75;
     padding:0 4pt;
+}
+
+/* vzorník ikon */
+.vzornikikon>span {
+    display:inline-block;
+    width:4em;height:4ex;
+    text-align:right;
+    white-space:nowrap;
 }
 
 @media print {

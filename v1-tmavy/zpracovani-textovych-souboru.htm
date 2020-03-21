@@ -5,15 +5,15 @@
 
 <title>Zpracování textových souborů − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20200222.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200222-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200222-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200222-tmavy.css" title="Tmavý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20200321.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200321-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200321-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200321-tmavy.css" title="Tmavý motiv">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body id="nahore">
 <header>
-<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.4 (22. února 2020)</span>
+<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.5 (21. března 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 
@@ -21,16 +21,16 @@
 <nav class="horni">
 <div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
 <span class="prev">
-<a href="system.htm" rel="prev" title="15. Systém" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="system.htm" rel="prev" title="17. Systém" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="zpracovani-videa-a-zvuku.htm" rel="next" title="17. Zpracování videa a zvuku" accesskey="n">Následující&nbsp;kapitola</a>
+-->&nbsp;| <a href="zpracovani-videa-a-zvuku.htm" rel="next" title="19. Zpracování videa a zvuku" accesskey="n">Následující&nbsp;kapitola</a>
 </span>
 </nav>
 
 
 <article>
 
-<h1 class="kapitola">16. <img src="obrazky/ik-vychozi.png" alt="" width="64" height="64"> Zpracování textových souborů</h1>
+<h1 class="kapitola">18. <img src="obrazky/ik-vychozi.png" alt="" width="64" height="64"> Zpracování textových souborů</h1>
 <div class="stitky"><a href="x-stitky.htm#stemtickokruh">tematický okruh</a>
 <a href="x-stitky.htm#szprcovntextu">zpracování textu</a>
 </div><div class="rozcestnikkapitol">
@@ -42,7 +42,8 @@
 <a href="#cast3x4">Filtrace záznamů podle počtu výskytů</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast3x5">Řazení a přeskládání záznamů</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast3x6">Množinové operace (nad seřazenými záznamy)</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast3x7">Ostatní</a><br>
+<a href="#cast3x7">Konverze kódování znaků a ukončení řádky</a><span class="oddelovac">&nbsp;|</span>
+<a href="#cast3x8">Ostatní</a><br>
 <a href="#cast4" class="sekce">Zaklínadla (tsv, tsvz)</a>: <a href="#cast4x1">Vybrat/spojit sloupce</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast4x2">Filtrace podle obsahu sloupců</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast4x3">Řazení záznamů podle obsahu sloupců</a><span class="oddelovac">&nbsp;|</span>
@@ -75,7 +76,8 @@ Tato kapitola se nezabývá zpracováním textových formátů se složitější
 </p>
 
 <h2><a href="#cast2" id="cast2"><span class="cislo">2.</span> Definice</a></h2>
-<ul><li><b>Znak</b> (character) je posloupnost jedho nebo více bajtů v textovém souboru, která má význam definovaný kódováním znaků (typicky UTF-8).
+<ul><li><b>Kódování znaků</b> je určitá reprezentace znakové sady textu pomocí bajtů a jejich sekvencí v souboru či paměti. U textových souborů uvažujeme výhradně kódování UTF-8, případně ASCII (které je podmnožinou UTF-8). Soubory v jiných kódováních sice také můžeme zpracovávat, ale obvykle je výhodnější je nejprve převést na UTF-8.
+</li><li><b>Znak</b> (character) je základní jednotka textu, které je kódováním znaků přiřazen nějaký význam a reprezentace. Např. „A“ je v UTF-8 znak, který znamená písmeno A a je reprezentován bajtem o hodnotě 65. „\n“ je v UTF-8 znak, který znamená konec řádku a je reprezentován bajtem o hodnotě 10.
 </li><li><b>Řetězec</b> (string) je libovolná posloupnost znaků, i prázdná či tvořená jedním znakem.
 </li><li><b>Záznam</b> je zobecnění pojmu „řádek“ v textovém souboru. Textový soubor se dělí na jednotlivé záznamy podle jejich zakončení <b>ukončovačem záznamu</b> (record separator), což je typicky znak konce řádku „\n“ nebo nulový bajt „\0“. Záznamy se číslují od 1.
 </li><li>Záznam může být brán jako celek, nebo může být dál rozdělen na <b>sloupce</b> (fields). Existuje několik metod dělení záznamu na sloupce, nejčastější je použití určitého znaku ASCII jako „oddělovače sloupců“ (field separator). Sloupce se v každém záznamu číslují od 1.
@@ -97,161 +99,188 @@ V této kapitole rozlišuji následující formáty textových souborů:
 </p>
 
 <h3><a href="#cast3x1" id="cast3x1"><span class="cislo">1</span> Vytvoření a smazání</a></h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">▼</span>vytvořit <b>prázdný soubor</b> (existuje-li, vyprázdnit)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z2078437367" href="#z2078437367">↬</a>vytvořit <b>prázdný soubor</b> (existuje-li, vyprázdnit)</div><div class="radky">
 <div class="radekzaklinadla">&gt; <i class="dopln">soubor</i> <span class="volznak">[</span>&gt; <i class="dopln">další-soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">➔</span>vytvořit prázdný soubor (existuje-li, jen aktualizovat čas „změněno“)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z152025265" href="#z152025265">♐</a>vytvořit prázdný soubor (existuje-li, jen aktualizovat čas „změněno“)</div><div class="radky">
 <div class="radekzaklinadla">touch <i class="dopln">soubor</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">☋</span>N-krát zopakovat určitý záznam (txt/txtz)<sup><a href="#kapzpracovanitextovychsouboruppc1" id="kapzpracovanitextovychsouboruppcr1" title="Výchozí hodnota textu záznamu je „y“.">(1)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona L" id="z2114439169" href="#z2114439169">⏐</a>N-krát zopakovat určitý záznam (txt/txtz)<sup><a href="#kapzpracovanitextovychsouboruppc1" id="kapzpracovanitextovychsouboruppcr1" title="Výchozí hodnota textu záznamu je „y“.">(1)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">yes <span class="volznak">[</span><span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">text-záznamu</i><span class="volznak">]</span> | head -n <i class="dopln">N</i></div>
 <div class="radekzaklinadla">printf %s\0 $'<i class="dopln">text-záznamu</i>' | sed -z ':x;p;b<span class="viditelnamezera">&nbsp;</span>x' | head -zn <i class="dopln">N</i></div>
 </div></div>
 
 <h3><a href="#cast3x2" id="cast3x2"><span class="cislo">2</span> Filtrace záznamů podle pořadí</a></h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">⇳</span>vzít/vynechat N <b>prvních</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z1962033989" href="#z1962033989">▎</a>vzít/vynechat N <b>prvních</b></div><div class="radky">
 <div class="radekzaklinadla">head -<span class="volznak">[</span>z<span class="volznak">]</span>n <i class="dopln">N</i> <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">tail -<span class="volznak">[</span>z<span class="volznak">]</span>n +<i class="dopln">N+1</i> <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">⡍</span>vzít/vynechat N <b>posledních</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z353783600" href="#z353783600">⇼</a>vzít/vynechat N <b>posledních</b></div><div class="radky">
 <div class="radekzaklinadla">tail -<span class="volznak">[</span>z<span class="volznak">]</span>n <i class="dopln">N</i> <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">head -<span class="volznak">[</span>z<span class="volznak">]</span>n -<i class="dopln">N</i> <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">◜</span>vzít/vynechat <b>konkrétní</b> záznam</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona D" id="z211503512" href="#z211503512">≎</a>vzít/vynechat <b>konkrétní</b> záznam</div><div class="radky">
 <div class="radekzaklinadla">sed -<span class="volznak">[</span>z<span class="volznak">]</span>n <i class="dopln">číslo-záznamu</i>p <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sed <span class="volznak">[</span>-z<span class="volznak">]</span> <i class="dopln">číslo-záznamu</i>d <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="D">⛃</span>vzít/vynechat <b>rozsah</b> záznamů</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><a class="ikona D" id="z317906824" href="#z317906824">໔</a>vzít/vynechat <b>rozsah</b> záznamů</div><div class="radky">
 <div class="radekzaklinadla">sed -<span class="volznak">[</span>z<span class="volznak">]</span>n <i class="dopln">první-ponechaný</i>,<i class="dopln">poslední-ponechaný</i>p <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sed <span class="volznak">[</span>-z<span class="volznak">]</span> <i class="dopln">první-vynechaný</i>,<i class="dopln">poslední-vynechaný</i>d <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><span class="D">¶</span>vzít pouze <b>liché/sudé</b> záznamy</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><a class="ikona D" id="z1421405309" href="#z1421405309">⋭</a>vzít pouze <b>liché/sudé</b> záznamy</div><div class="radky">
 <div class="radekzaklinadla">sed -<span class="volznak">[</span>z<span class="volznak">]</span>n $'p\nn' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sed -<span class="volznak">[</span>z<span class="volznak">]</span>n $'n\np' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
 
 <h3><a href="#cast3x3" id="cast3x3"><span class="cislo">3</span> Filtrace záznamů podle obsahu</a></h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">⊖</span>vzít/vynechat záznamy odpovídající <b>regulárnímu výrazu</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z814967002" href="#z814967002">≄</a>vzít/vynechat záznamy odpovídající <b>regulárnímu výrazu</b></div><div class="radky">
 <div class="radekzaklinadla">egrep <span class="volznak">[</span>-z<span class="volznak">]</span> <span class="volznak">[</span>-x<span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> <i class="dopln">regulární-výraz</i> <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">egrep <span class="volznak">[</span>-z<span class="volznak">]</span> -v <span class="volznak">[</span>-x<span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> <i class="dopln">regulární-výraz</i> <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">⇌</span>vzít/vynechat záznamy obsahující <b>podřetězec</b><sup><a href="#kapzpracovanitextovychsouboruppc2" id="kapzpracovanitextovychsouboruppcr2" title="Poznámka: V hledaném podřetězci se nesmí vyskytovat znak \n, a to ani u formátu txtz, protože fgrep tento znak používá k oddělení více různých hledaných podřetězců. Pokud váš podřetězec tento znak obsahuje, existuje několik řešení, nejjednodušším je pomocí příkazu „tr“ na vstupu i výstupu příkazu fgrep prohodit znak \n s jiným ASCII znakem, který se v hledaném podřetězci nevyskytuje.">(2)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z1622083661" href="#z1622083661">⋿</a>vzít/vynechat záznamy obsahující <b>podřetězec</b><sup><a href="#kapzpracovanitextovychsouboruppc2" id="kapzpracovanitextovychsouboruppcr2" title="Poznámka: V hledaném podřetězci se nesmí vyskytovat znak \n, a to ani u formátu txtz, protože fgrep tento znak používá k oddělení více různých hledaných podřetězců. Pokud váš podřetězec tento znak obsahuje, existuje několik řešení, nejjednodušším je pomocí příkazu „tr“ na vstupu i výstupu příkazu fgrep prohodit znak \n s jiným ASCII znakem, který se v hledaném podřetězci nevyskytuje.">(2)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">fgrep <span class="volznak">[</span>-z<span class="volznak">]</span> '<i class="dopln">podřetězec</i>' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">fgrep <span class="volznak">[</span>-z<span class="volznak">]</span> -v '<i class="dopln">podřetězec</i>' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">✱</span>vzít/vynechat záznamy shodné s <b>řetězcem</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona L" id="z1431661616" href="#z1431661616">⬱</a>vzít/vynechat záznamy shodné s <b>řetězcem</b></div><div class="radky">
 <div class="radekzaklinadla">fgrep -<span class="volznak">[</span>z<span class="volznak">]</span>x '<i class="dopln">řetězec</i>' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">fgrep -<span class="volznak">[</span>z<span class="volznak">]</span>xv '<i class="dopln">řetězec</i>' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="D">⣵</span>vzít/vynechat záznamy od prvního vyhovění regulárnímu výrazu</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><a class="ikona D" id="z1363371322" href="#z1363371322">⋕</a>vzít/vynechat záznamy od prvního vyhovění regulárnímu výrazu</div><div class="radky">
 <div class="radekzaklinadla">sed -<span class="volznak">[</span>z<span class="volznak">]</span>En '/<i class="dopln">regulární výraz</i>/,$p' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sed -<span class="volznak">[</span>z<span class="volznak">]</span>E '/<i class="dopln">regulární výraz</i>/,$d' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
 
 <h3><a href="#cast3x4" id="cast3x4"><span class="cislo">4</span> Filtrace záznamů podle počtu výskytů</a></h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">⊻</span>vybrat ty, které se vysktují <b>pouze jednou</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z1029427650" href="#z1029427650">┰</a>vybrat ty, které se vysktují <b>pouze jednou</b></div><div class="radky">
 <div class="radekzaklinadla">LC_ALL=C sort <span class="volznak">[</span>-z<span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span> | uniq -<span class="volznak">[</span>z<span class="volznak">]</span>u</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">⇌</span>vybrat ty, které se vyskytují více než jednou (<b>duplicity</b>); vypsat jeden na skupinu/všechny</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z1922194985" href="#z1922194985">⇿</a>vybrat ty, které se vyskytují více než jednou (<b>duplicity</b>); vypsat jeden na skupinu/všechny</div><div class="radky">
 <div class="radekzaklinadla">LC_ALL=C sort <span class="volznak">[</span>-z<span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span> | uniq -<span class="volznak">[</span>z<span class="volznak">]</span>d</div>
 <div class="radekzaklinadla">LC_ALL=C sort <span class="volznak">[</span>-z<span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span> | uniq -<span class="volznak">[</span>z<span class="volznak">]</span>D</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">⋒</span>vybrat ty, které se vyskytují N-krát</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona D" id="z1209002604" href="#z1209002604">⣊</a>vybrat ty, které se vyskytují N-krát</div><div class="radky">
 <div class="radekzaklinadla">LC_ALL=C sort <span class="volznak">[</span>-z<span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span> | uniq -<span class="volznak">[</span>z<span class="volznak">]</span>c | sed -<span class="volznak">[</span>z<span class="volznak">]</span>E 's/^\s*<i class="dopln">N</i>\s//;t;d'</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="D">⋠</span>seřadit a <b>vypsat počet výskytů</b> (především pro člověka)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><a class="ikona D" id="z2127865025" href="#z2127865025">⨑</a>seřadit a <b>vypsat počet výskytů</b> (především pro člověka)</div><div class="radky">
 <div class="radekzaklinadla">LC_ALL=C sort <span class="volznak">[</span>-z<span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span> | uniq -<span class="volznak">[</span>z<span class="volznak">]</span>c | sort -<span class="volznak">[</span>z<span class="volznak">]</span>n<span class="volznak">[</span>r<span class="volznak">]</span></div>
 </div></div>
 
 <h3><a href="#cast3x5" id="cast3x5"><span class="cislo">5</span> Řazení a přeskládání záznamů</a></h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">♟</span><b>obrátit</b> pořadí (txt/txtz)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z2082987602" href="#z2082987602">╴</a><b>obrátit</b> pořadí (txt/txtz)</div><div class="radky">
 <div class="radekzaklinadla">tac <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">tac -s \\0 <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">✉</span><b>náhodně</b> přeskládat</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z1135999074" href="#z1135999074">┘</a><b>náhodně</b> přeskládat</div><div class="radky">
 <div class="radekzaklinadla">shuf <span class="volznak">[</span>-z<span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">⢋</span><b>seřadit</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona D" id="z329284873" href="#z329284873">⎩</a><b>seřadit</b></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>LC_ALL=C<span class="volznak">]</span> sort <span class="volznak">[</span>-z<span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="D">⊍</span>seřadit a <b>vyloučit duplicity</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><a class="ikona D" id="z907913698" href="#z907913698">┒</a>seřadit a <b>vyloučit duplicity</b></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>LC_ALL=C<span class="volznak">]</span> sort -<span class="volznak">[</span>z<span class="volznak">]</span>u <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><span class="D">—</span>seskupit k sobě shodné záznamy a tyto skupiny náhodně přeskládat</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><a class="ikona D" id="z1183654102" href="#z1183654102">☩</a>seskupit k sobě shodné záznamy a tyto skupiny náhodně přeskládat</div><div class="radky">
 <div class="radekzaklinadla">sort -<span class="volznak">[</span>z<span class="volznak">]</span>R <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><span class="D">❯</span>seřadit, s výjimkou prvních N záznamů</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><a class="ikona D" id="z800475861" href="#z800475861">⟹</a>seřadit, s výjimkou prvních N záznamů</div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>cat <i class="dopln">soubor</i><span class="tritecky"></span> |<span class="volznak">]</span> (sed -<span class="volznak">[</span>z<span class="volznak">]</span>u <i class="dopln">N</i>q; <span class="volznak">[</span>LC_ALL=C<span class="volznak">]</span> sort <span class="volznak">[</span>-z<span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span>)</div>
 </div></div>
 
 <h3><a href="#cast3x6" id="cast3x6"><span class="cislo">6</span> Množinové operace (nad seřazenými záznamy)</a></h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">⤊</span><b>předzpracování</b> textového souboru pro množinové operace (vyžadované!)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z286824783" href="#z286824783">☹</a><b>předzpracování</b> textového souboru pro množinové operace (vyžadované!)</div><div class="radky">
 <div class="radekzaklinadla">LC_ALL=C sort -<span class="volznak">[</span>z<span class="volznak">]</span>u <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">≣</span>množinové sjednocení (<b>or</b>)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z1633437354" href="#z1633437354">⌞</a>množinové sjednocení (<b>or</b>)</div><div class="radky">
 <div class="radekzaklinadla">LC_ALL=C sort -<span class="volznak">[</span>z<span class="volznak">]</span>mu <i class="dopln">první-soubor</i> <i class="dopln">další-soubor</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">◙</span>množinový průnik dvou souborů (<b>and</b>)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona D" id="z1106146852" href="#z1106146852">⊪</a>množinový průnik dvou souborů (<b>and</b>)</div><div class="radky">
 <div class="radekzaklinadla">LC_ALL=C join <span class="volznak">[</span>-z<span class="volznak">]</span> -t &quot;&quot; -j 1 <i class="dopln">první-soubor</i> <i class="dopln">druhý-soubor</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="D">⬄</span>množinový rozdíl dvou souborů (<b>and not</b>)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><a class="ikona D" id="z1219022117" href="#z1219022117">‖</a>množinový rozdíl dvou souborů (<b>and not</b>)</div><div class="radky">
 <div class="radekzaklinadla">LC_ALL=C join <span class="volznak">[</span>-z<span class="volznak">]</span> -t &quot;&quot; -j 1 -v 1 <i class="dopln">hlavní-soubor</i> <i class="dopln">odečítaný-soubor</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><span class="D">⌉</span>exkluzivní sjednocení dvou souborů (<b>xor</b>)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><a class="ikona D" id="z110113424" href="#z110113424">❢</a>exkluzivní sjednocení dvou souborů (<b>xor</b>)</div><div class="radky">
 <div class="radekzaklinadla">LC_ALL=C join <span class="volznak">[</span>-z<span class="volznak">]</span> -t &quot;&quot; -j 1 -v 1 -v 2 <i class="dopln">soubor1</i> <i class="dopln">soubor2</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><span class="D">⁀</span>množinový průnik více souborů (and)<sup><a href="#kapzpracovanitextovychsouboruppc3" id="kapzpracovanitextovychsouboruppcr3" title="Tip: nejlepšího výkonu této varianty dosáhnete tak, že začnete od nejmenšího vstupního souboru.">(3)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><a class="ikona D" id="z700610214" href="#z700610214">╬</a>množinový průnik více souborů (and)<sup><a href="#kapzpracovanitextovychsouboruppc3" id="kapzpracovanitextovychsouboruppcr3" title="Tip: nejlepšího výkonu této varianty dosáhnete tak, že začnete od nejmenšího vstupního souboru.">(3)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">cat <i class="dopln">první-soubor</i> <span class="volznak">[</span>| LC_ALL=C join <span class="volznak">[</span>-z<span class="volznak">]</span> -t &quot;&quot; -j 1 - <i class="dopln">další-soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
 
-<h3><a href="#cast3x7" id="cast3x7"><span class="cislo">7</span> Ostatní</a></h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">⨖</span><b>počet záznamů</b> (txt/txtz)</div><div class="radky">
+<h3><a href="#cast3x7" id="cast3x7"><span class="cislo">7</span> Konverze kódování znaků a ukončení řádky</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z174107672" href="#z174107672">ꜜ</a>konvertovat soubor <b>do/z</b> UTF-8<sup><a href="#kapzpracovanitextovychsouboruppc4" id="kapzpracovanitextovychsouboruppcr4" title="Užitečná kódování: ISO8859-2, WINDOWS-1250, UTF-16, UTF-16BE, UTF-16LE, UTF-8, CP852 (MS-DOS), MAC-CENTRALEUROPE.">(4)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">iconv -f &quot;<i class="dopln">vstupní kódování</i>&quot; -t UTF-8 <span class="volznak">[</span>-o &quot;<i class="dopln">výstupní-soubor</i>&quot;<span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">vstupní-soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
+<div class="radekzaklinadla">iconv -f UTF-8 -t &quot;<i class="dopln">cílové kódování</i><span class="volznak">[</span>//IGNORE<span class="volznak">]</span>&quot; <span class="volznak">[</span>-o &quot;<i class="dopln">výstupní-soubor</i>&quot;<span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">vstupní-soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z1592001515" href="#z1592001515">ᔳ</a>konvertovat soubor do ASCII s transliterací<sup><a href="#kapzpracovanitextovychsouboruppc5" id="kapzpracovanitextovychsouboruppcr5" title="Poznámka: tato konverze je ztrátová, a tudíž prakticky jednosměrná.">(5)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">iconv -f &quot;<i class="dopln">vstupní kodování</i>&quot; -t &quot;ASCII//TRANSLIT&quot; <span class="volznak">[</span>-o &quot;<i class="dopln">výstupní-soubor</i>&quot;<span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">vstupní-soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona D" id="z171637849" href="#z171637849">ᚐ</a>vypsat úplný seznam podporovaných kódování</div><div class="radky">
+<div class="radekzaklinadla">iconv -l | sed -E 's!/*$!!'</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><a class="ikona D" id="z2127218476" href="#z2127218476">⪚</a>konverze ukončení řádku: Windows na Linux (\r\n na \n)</div><div class="radky">
+<div class="radekzaklinadla">tr -d \\r &lt;<i class="dopln">vstupní-soubor</i> &gt;<i class="dopln">výstupní-soubor</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><a class="ikona D" id="z1882241092" href="#z1882241092">⪌</a>konverze ukončení řádky: Linux na Windows (\n na \r\n)</div><div class="radky">
+<div class="radekzaklinadla">sed -E 's/\r*$/\r/'</div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><a class="ikona D" id="z1058909202" href="#z1058909202">◚</a>konverze ukončení řádku: Mac OS na Linux (\r na \n)</div><div class="radky">
+<div class="radekzaklinadla">tr \\r \\n &lt;<i class="dopln">vstupní-soubor</i> &gt;<i class="dopln">výstupní-soubor</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span><a class="ikona D" id="z1614486838" href="#z1614486838">⎔</a>konverze ukončení řádky: Linux na Mac OS (\n na \r)</div><div class="radky">
+<div class="radekzaklinadla">tr \\n \\r &lt;<i class="dopln">vstupní-soubor</i> &gt;<i class="dopln">výstupní-soubor</i></div>
+</div></div>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span><a class="ikona D" id="z1710628524" href="#z1710628524">☽</a>pokusit se zjistit kódování textu</div><div class="radky">
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+
+<h3><a href="#cast3x8" id="cast3x8"><span class="cislo">8</span> Ostatní</a></h3>
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z722198822" href="#z722198822">⠰</a><b>počet záznamů</b> (txt/txtz)</div><div class="radky">
 <div class="radekzaklinadla">wc -l &lt; <i class="dopln">soubor</i></div>
 <div class="radekzaklinadla">tr -cd \\0 &lt; <i class="dopln">soubor</i> | wc -c</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">◫</span>maximální <b>délka záznamu</b> (txt/txtz)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z589654860" href="#z589654860">⡪</a>maximální <b>délka záznamu</b> (txt/txtz)</div><div class="radky">
 <div class="radekzaklinadla">tr '\t' x &lt; <i class="dopln">soubor</i> | wc -L</div>
 <div class="radekzaklinadla">tr '\0\n\t' '\nxx' &lt; <i class="dopln">soubor</i> | wc -L</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">⊭</span><b>spojit</b> soubory za sebe<sup><a href="#kapzpracovanitextovychsouboruppc4" id="kapzpracovanitextovychsouboruppcr4" title="Standardní vstup můžete mezi soubory vřadit parametrem „-“ místo názvu souboru. Neprázdné soubory musejí být řádně ukončeny ukončovačem záznamu, jinak se poslední záznam spojí s prvním záznamem následujícího souboru.">(4)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona D" id="z1352507519" href="#z1352507519">⠭</a><b>spojit</b> soubory za sebe<sup><a href="#kapzpracovanitextovychsouboruppc6" id="kapzpracovanitextovychsouboruppcr6" title="Standardní vstup můžete mezi soubory vřadit parametrem „-“ místo názvu souboru. Neprázdné soubory musejí být řádně ukončeny ukončovačem záznamu, jinak se poslední záznam spojí s prvním záznamem následujícího souboru.">(6)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">cat <i class="dopln">soubor</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="D">⌙</span><b>rozdělit</b> soubor na díly s uvedeným maximálním počtem záznamů (txt/txtz/příklad)<sup><a href="#kapzpracovanitextovychsouboruppc5" id="kapzpracovanitextovychsouboruppcr5" title="Přípona výstupních souborů nesmí obsahovat oddělovač adresářů „/“. Číslování výstupních souborů začíná od nuly; jinou hodnotu lze nastavit, když místo parametru -d použijete parametr --numeric-suffixes=číslo. Uvedený příklad rozdělí soubor „vse.txt“ po sto řádcích na soubory „rozdelene-zaznamy/s00000dil.txt“, „rozdelene-zaznamy/s00001dil.txt“ atd.">(5)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><a class="ikona D" id="z1830538438" href="#z1830538438">⢑</a><b>rozdělit</b> soubor na díly s uvedeným maximálním počtem záznamů (txt/txtz/příklad)<sup><a href="#kapzpracovanitextovychsouboruppc7" id="kapzpracovanitextovychsouboruppcr7" title="Přípona výstupních souborů nesmí obsahovat oddělovač adresářů „/“. Číslování výstupních souborů začíná od nuly; jinou hodnotu lze nastavit, když místo parametru -d použijete parametr --numeric-suffixes=číslo. Uvedený příklad rozdělí soubor „vse.txt“ po sto řádcích na soubory „rozdelene-zaznamy/s00000dil.txt“, „rozdelene-zaznamy/s00001dil.txt“ atd.">(7)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">split -d -a <i class="dopln">počet-číslic</i> -l <i class="dopln">maximální-počet-záznamů</i> <span class="volznak">[</span>--additional-suffix='<i class="dopln">přípona výstupních souborů</i>'<span class="volznak">]</span> <i class="dopln">vstupní-soubor</i> &quot;<i class="dopln">předpona výstupních souborů</i>&quot;</div>
 <div class="radekzaklinadla">split -d -a <i class="dopln">počet-číslic</i> -l <i class="dopln">maximální-počet-záznamů</i> -t \\0 <span class="volznak">[</span>--additional-suffix='<i class="dopln">přípona výstupních souborů</i>'<span class="volznak">]</span> <i class="dopln">vstupní-soubor</i> &quot;<i class="dopln">předpona výstupních souborů</i>&quot;</div>
 <div class="radekzaklinadla">split -d -a 5 -l 100 --additional-suffix='dil.txt' vse.txt &quot;rozdelene-zaznamy/s&quot;</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><span class="D">⡘</span>zapisovat na standardní výstup a současně do souborů</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><a class="ikona D" id="z761698151" href="#z761698151">⢒</a>zapisovat na standardní výstup a současně do souborů</div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">zdroj vstupu</i> |<span class="volznak">]</span> tee <span class="volznak">[</span>-a<span class="volznak">]</span> <i class="dopln">výstupní-soubor</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><span class="D">⣌</span><b>konvertovat</b> malá písmena na velká (obecně/příklad)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><a class="ikona D" id="z825965998" href="#z825965998">⇝</a><b>konvertovat</b> malá písmena na velká (obecně/příklad)</div><div class="radky">
 <div class="radekzaklinadla">sed -E 's/(.*)/\U\1/' <span class="volznak">[</span><i class="dopln">vstupní-soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">printf &quot;Žluťoučký kůň\n&quot; | sed -E's/(.*)/\U\1/'<span class="prikladhodnoty">⊨ ŽLUŤOUČKÝ KŮŇ</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span><span class="D">∤</span>konvertovat velká písmena na malá (obecně/příklad)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span><a class="ikona D" id="z1092456939" href="#z1092456939">◲</a>konvertovat velká písmena na malá (obecně/příklad)</div><div class="radky">
 <div class="radekzaklinadla">sed -E 's/(.*)/\L\1/' <span class="volznak">[</span><i class="dopln">vstupní-soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">printf &quot;Žluťoučký kůň\n&quot; | sed -E's/(.*)/\L\1/'<span class="prikladhodnoty">⊨ žluťoučký kůň</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span><span class="D">꜓</span>konvertovat malá písmena na velká a naopak</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span><a class="ikona D" id="z362447942" href="#z362447942">≄</a>konvertovat malá písmena na velká a naopak</div><div class="radky">
 <div class="radekzaklinadla">sed -E 's/(.)/0\1/g;s/0([[:lower:]])/1\U\1/g;s/0([[:upper:]])/1\L\1/g;s/[01](.)/\1/g <span class="volznak">[</span><i class="dopln">vstupní-soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#9 </span><span class="D">∡</span>obrátit <b>pořadí znaků</b> v každém záznamu (txt/txtz)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#9 </span><a class="ikona D" id="z254515225" href="#z254515225">∪</a>obrátit <b>pořadí znaků</b> v každém záznamu (txt/txtz)</div><div class="radky">
 <div class="radekzaklinadla">rev <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#10 </span><span class="D">ⴱ</span>ke každému záznamu přidat <b>předponu/příponu</b><sup><a href="#kapzpracovanitextovychsouboruppc6" id="kapzpracovanitextovychsouboruppcr6" title="Příkaz „sed“ vyžaduje v příponě i předponě další úroveň escapování znaků „\“ a „\n“. Proto v uvedeném případě zadávejte zpětné lomítko jako „\\\\“ a konec řádku jako „\\\n“. Konec řádku se navíc může vyskytnout pouze při použití formátu txtz, u formátu txt pravděpodobně nebude fungovat správně.">(6)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#10 </span><a class="ikona D" id="z1151956290" href="#z1151956290">⟰</a>ke každému záznamu přidat <b>předponu/příponu</b><sup><a href="#kapzpracovanitextovychsouboruppc8" id="kapzpracovanitextovychsouboruppcr8" title="Příkaz „sed“ vyžaduje v příponě i předponě další úroveň odzvláštnění znaků „\“ a „\n“. Proto v uvedeném případě zadávejte zpětné lomítko jako „\\\\“ a konec řádku jako „\\\n“. Konec řádku se navíc může vyskytnout pouze při použití formátu txtz, u formátu txt pravděpodobně nebude fungovat správně.">(8)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sed <span class="volznak">[</span>-z<span class="volznak">]</span> $'i\\\n<i class="dopln">předpona</i>' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span> | paste <span class="volznak">[</span>-z<span class="volznak">]</span> -d &quot;&quot; - -</div>
 <div class="radekzaklinadla">sed <span class="volznak">[</span>-z<span class="volznak">]</span> $'a\\\n<i class="dopln">přípona</i>' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span> | paste <span class="volznak">[</span>-z<span class="volznak">]</span> -d &quot;&quot; - -</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#11 </span><span class="D">✱</span>ke každému záznamu přidat předponu i příponu (alternativy)<sup><a href="#kapzpracovanitextovychsouboruppc7" id="kapzpracovanitextovychsouboruppcr7" title="Uvedené varianty se liší požadavky na escapování v příponě: v první variantě sed požaduje dodatečné escapování znaků „\“ a (případně) konce řádku; v druhé variantě požaduje sed escapování znaků „\“, „/“ a „&amp;“.">(7)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#11 </span><a class="ikona D" id="z366734657" href="#z366734657">⬇</a>ke každému záznamu přidat předponu i příponu (alternativy)<sup><a href="#kapzpracovanitextovychsouboruppc9" id="kapzpracovanitextovychsouboruppcr9" title="Uvedené varianty se liší požadavky na odzvláštnění v příponě: v první variantě sed požaduje dodatečné odzvláštění znaků „\“ a (případně) konce řádku; v druhé variantě požaduje sed odzvláštnění znaků „\“, „/“ a „&amp;“.">(9)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sed <span class="volznak">[</span>-z<span class="volznak">]</span> $'i\\\n<i class="dopln">předpona</i>\np\nc\\\n<i class="dopln">přípona</i>' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span> | paste <span class="volznak">[</span>-z<span class="volznak">]</span> -d &quot;&quot; - - -</div>
 <div class="radekzaklinadla">sed <span class="volznak">[</span>-z<span class="volznak">]</span> 's/.*/<i class="dopln">předpona</i>&amp;<i class="dopln">přípona</i>/'</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#12 </span><span class="D">♿</span>přidat <b>číslo záznamu</b> pro člověka (txt/txtz)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#12 </span><a class="ikona D" id="z308677611" href="#z308677611">␣</a>přidat <b>číslo záznamu</b> pro člověka (txt/txtz)</div><div class="radky">
 <div class="radekzaklinadla">nl <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> <i class="dopln">soubor</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#13 </span><span class="D">❃</span>přeformátovat text do řádků určité šířky<sup><a href="#kapzpracovanitextovychsouboruppc8" id="kapzpracovanitextovychsouboruppcr8" title="Běžně se k tomu používá příkaz „fmt“, ale ten nerespektuje vícebajtové znaky, takže pro texty v UTF-8 funguje nekorektně.">(8)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#13 </span><a class="ikona D" id="z183543828" href="#z183543828">┽</a>přeformátovat text do řádků určité šířky<sup><a href="#kapzpracovanitextovychsouboruppc10" id="kapzpracovanitextovychsouboruppcr10" title="Běžně se k tomu používá příkaz „fmt“, ale ten nerespektuje vícebajtové znaky, takže pro texty v UTF-8 funguje nekorektně.">(10)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
@@ -261,17 +290,17 @@ V této kapitole rozlišuji následující formáty textových souborů:
 </p>
 
 <h3><a href="#cast4x1" id="cast4x1"><span class="cislo">1</span> Vybrat/spojit sloupce</a></h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">☐</span>vzít/vynechat určité sloupce<sup><a href="#kapzpracovanitextovychsouboruppc9" id="kapzpracovanitextovychsouboruppcr9" title="Specifikace sloupců specifikuje množinu (tzn. ne výčet) sloupců. Má tvar jednotlivých čísel oddělených čárkami, např. „7,3,2,5,2“ vypíše sloupce 2, 3, 5 a 7. Místo jednotlivého čísla lze zadat rozsah ve tvaru „číslo-číslo“, „číslo-“ nebo „-číslo“, který se rozvine na všechny odpovídající sloupce, takže např. specifikace „7,3-5,-4“ odpovídá sloupcům 1, 2, 3, 4, 5 a 7.">(9)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z1347266477" href="#z1347266477">≖</a>vzít/vynechat určité sloupce<sup><a href="#kapzpracovanitextovychsouboruppc11" id="kapzpracovanitextovychsouboruppcr11" title="Specifikace sloupců specifikuje množinu (tzn. ne výčet) sloupců. Má tvar jednotlivých čísel oddělených čárkami, např. „7,3,2,5,2“ vypíše sloupce 2, 3, 5 a 7. Místo jednotlivého čísla lze zadat rozsah ve tvaru „číslo-číslo“, „číslo-“ nebo „-číslo“, který se rozvine na všechny odpovídající sloupce, takže např. specifikace „7,3-5,-4“ odpovídá sloupcům 1, 2, 3, 4, 5 a 7.">(11)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">cut <span class="volznak">[</span>-z<span class="volznak">]</span> <span class="volznak">[</span>-d <i class="dopln">oddělovač</i><span class="volznak">]</span> -f <i class="dopln">specifikace,sloupců</i> <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">cut --complement <span class="volznak">[</span>-z<span class="volznak">]</span> <span class="volznak">[</span>-d <i class="dopln">oddělovač</i><span class="volznak">]</span> -f <i class="dopln">specifikace,sloupců</i> <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">ᔰ</span>vzít určité sloupce (bez omezení)<sup><a href="#kapzpracovanitextovychsouboruppc10" id="kapzpracovanitextovychsouboruppcr10" title="Pro čtení ze standarního vstupu zadejte místo souboru „-“.">(10)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z1355918971" href="#z1355918971">▉</a>vzít určité sloupce (bez omezení)<sup><a href="#kapzpracovanitextovychsouboruppc12" id="kapzpracovanitextovychsouboruppcr12" title="Pro čtení ze standarního vstupu zadejte místo souboru „-“.">(12)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">join <span class="volznak">[</span>-z<span class="volznak">]</span> --nocheck-order -j 1 -a 2 -t $'\t' -o 2.<i class="dopln">číslo-prvního-sloupce</i><span class="volznak">[</span>,2.<i class="dopln">číslo-dalšího-sloupce</i><span class="volznak">]</span><span class="tritecky"></span> /dev/null <i class="dopln">soubor</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">⢁</span>spojit sloupce ze dvou či více souborů podle čísla záznamu</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona L" id="z164806031" href="#z164806031">⨆</a>spojit sloupce ze dvou či více souborů podle čísla záznamu</div><div class="radky">
 <div class="radekzaklinadla">paste <span class="volznak">[</span>-z<span class="volznak">]</span> <span class="volznak">[</span>-d <i class="dopln">oddělovač</i><span class="volznak">]</span> <i class="dopln">soubor1</i> <i class="dopln">soubor2</i> <span class="volznak">[</span><i class="dopln">další-soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="D">♬</span>spojit sloupce ze dvou souborů podle společného sloupce (komplikované)<sup><a href="#kapzpracovanitextovychsouboruppc11" id="kapzpracovanitextovychsouboruppcr11" title="Chování příkazu „join“ je smysluplné, ale poměrně komplikované. Před použitím tohoto zaklínadla prosím nastudujte manuálovou stránku příkazu join!">(11)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><a class="ikona D" id="z759723189" href="#z759723189">⊦</a>spojit sloupce ze dvou souborů podle společného sloupce (komplikované)<sup><a href="#kapzpracovanitextovychsouboruppc13" id="kapzpracovanitextovychsouboruppcr13" title="Chování příkazu „join“ je smysluplné, ale poměrně komplikované. Před použitím tohoto zaklínadla prosím nastudujte manuálovou stránku příkazu join!">(13)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>LC_ALL=C<span class="volznak">]</span> join <span class="volznak">[</span>-z<span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">další parametry</i><span class="volznak">]</span> -t $'\t' -1 <i class="dopln">číslo-sloupce-v-prvním-souboru</i> -2 <i class="dopln">číslo-sloupce-v-druhém-souboru</i> <span class="volznak">[</span>-a 1<span class="volznak">]</span> <span class="volznak">[</span>-a 2<span class="volznak">]</span> <span class="volznak">[</span>-o <i class="dopln">definice-výstupu</i><span class="volznak">]</span> <i class="dopln">soubor1</i> <i class="dopln">soubor2</i></div>
 </div></div>
 
@@ -279,30 +308,30 @@ V této kapitole rozlišuji následující formáty textových souborů:
 <p class="ponadpisu">
 Pro tsvz uveďte část „;RS=ORS=&quot;\0&quot;;“.
 </p>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">⚸</span>vzít/vynechat záznamy, kde N-tý sloupec odpovídá <b>regulárnímu výrazu</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z2002407013" href="#z2002407013">⟶</a>vzít/vynechat záznamy, kde N-tý sloupec odpovídá <b>regulárnímu výrazu</b></div><div class="radky">
 <div class="radekzaklinadla">gawk 'BEGIN {FS=OFS=&quot;\t&quot;<span class="volznak">[</span>;RS=ORS=&quot;\0&quot;;<span class="volznak">]</span>} $<i class="dopln">N</i> ~ /<i class="dopln">regulární výraz</i>/' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">gawk 'BEGIN {FS=OFS=&quot;\t&quot;<span class="volznak">[</span>;RS=ORS=&quot;\0&quot;;<span class="volznak">]</span>} $<i class="dopln">N</i> !~ /<i class="dopln">regulární výraz</i>/' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">♘</span>vzít/vynechat záznamy, kde N-tý sloupec obsahuje <b>podřetězec</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z518369260" href="#z518369260">ᚐ</a>vzít/vynechat záznamy, kde N-tý sloupec obsahuje <b>podřetězec</b></div><div class="radky">
 <div class="radekzaklinadla">gawk 'BEGIN {FS=OFS=&quot;\t&quot;<span class="volznak">[</span>;RS=ORS=&quot;\0&quot;;<span class="volznak">]</span>} index($<i class="dopln">N</i>, &quot;<i class="dopln">podřetězec</i>&quot;)' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">gawk 'BEGIN {FS=OFS=&quot;\t&quot;<span class="volznak">[</span>;RS=ORS=&quot;\0&quot;;<span class="volznak">]</span>} !index($<i class="dopln">N</i>, &quot;<i class="dopln">podřetězec</i>&quot;)' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">✝</span>vzít/vynechat záznamy, kde N-tý sloupec je <b>řetězec</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona D" id="z107470081" href="#z107470081">▫</a>vzít/vynechat záznamy, kde N-tý sloupec je <b>řetězec</b></div><div class="radky">
 <div class="radekzaklinadla">gawk 'BEGIN {FS=OFS=&quot;\t&quot;<span class="volznak">[</span>;RS=ORS=&quot;\0&quot;;<span class="volznak">]</span>} $<i class="dopln">N</i> == &quot;<i class="dopln">podřetězec</i>&quot;' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">gawk 'BEGIN {FS=OFS=&quot;\t&quot;<span class="volznak">[</span>;RS=ORS=&quot;\0&quot;;<span class="volznak">]</span>} $<i class="dopln">N</i> != &quot;<i class="dopln">podřetězec</i>&quot;' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
 
 <h3><a href="#cast4x3" id="cast4x3"><span class="cislo">3</span> Řazení záznamů podle obsahu sloupců</a></h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">❢</span>seřadit podle N-tého sloupce</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z2063867722" href="#z2063867722">≗</a>seřadit podle N-tého sloupce</div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>LC_ALL=C<span class="volznak">]</span> sort <span class="volznak">[</span>-z<span class="volznak">]</span> -t $'\t' -k <i class="dopln">N</i>,<i class="dopln">N</i><span class="volznak">[</span><i class="dopln">druh-a-příznaky-řazení</i><span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">┲</span>seřadit podle sloupců M až N</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z1018410" href="#z1018410">→</a>seřadit podle sloupců M až N</div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>LC_ALL=C<span class="volznak">]</span> sort <span class="volznak">[</span>-z<span class="volznak">]</span> -t $'\t' -k <i class="dopln">M</i>,<i class="dopln">N</i><span class="volznak">[</span><i class="dopln">druh-a-příznaky-řazení</i><span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">⋁</span>seřadit podle více kritérií</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona D" id="z950037646" href="#z950037646">⠑</a>seřadit podle více kritérií</div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>LC_ALL=C<span class="volznak">]</span> sort <span class="volznak">[</span>-z<span class="volznak">]</span> <span class="volznak">[</span>-s<span class="volznak">]</span> -t $'\t' -k <i class="dopln">jedno-kritérium</i> <span class="volznak">[</span>-k <i class="dopln">další-kritérium</i><span class="volznak">]</span><span class="tritecky"></span> <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="D">⚌</span>příklad: seřadit vzestupně podle číselné hodnoty 7. sloupce a pak sestupně podle 3. sloupce, bez ohledu na velikost písmen</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><a class="ikona D" id="z445322097" href="#z445322097">⢰</a>příklad: seřadit vzestupně podle číselné hodnoty 7. sloupce a pak sestupně podle 3. sloupce, bez ohledu na velikost písmen</div><div class="radky">
 <div class="radekzaklinadla">sort <span class="volznak">[</span>-z<span class="volznak">]</span> -t $'\t' -k 7,7n -k 3,3ri <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
 
@@ -310,37 +339,37 @@ Pro tsvz uveďte část „;RS=ORS=&quot;\0&quot;;“.
 <p class="ponadpisu">
 Pro formát tsvz použijte „RS=&quot;\0&quot;;“, pro tsv jej vynechejte.
 </p>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">❰</span><b>počet sloupců</b> prvního záznamu</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z174591149" href="#z174591149">⡡</a><b>počet sloupců</b> prvního záznamu</div><div class="radky">
 <div class="radekzaklinadla">head <span class="volznak">[</span>-z<span class="volznak">]</span> <i class="dopln">soubor</i> | tr -cd \\t | wc -c</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">▹</span>maximální počet sloupců (tsv/tsvz)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z2082282438" href="#z2082282438">◿</a>maximální počet sloupců (tsv/tsvz)</div><div class="radky">
 <div class="radekzaklinadla">gawk 'BEGIN {FS=&quot;\t&quot;; <span class="volznak">[</span>RS=&quot;\0&quot;;<span class="volznak">]</span> r=0;} NR == 1 || NF &gt; r {r = NF} END {print r}' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">⠴</span>minimální počet sloupců<sup><a href="#kapzpracovanitextovychsouboruppc12" id="kapzpracovanitextovychsouboruppcr12" title="Poznámka: prázdný řádek se počítá jako 0 sloupců, proto pokud ho vstup obsahuje, výsledek bude 0.">(12)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona D" id="z1130706088" href="#z1130706088">━</a>minimální počet sloupců<sup><a href="#kapzpracovanitextovychsouboruppc14" id="kapzpracovanitextovychsouboruppcr14" title="Poznámka: prázdný řádek se počítá jako 0 sloupců, proto pokud ho vstup obsahuje, výsledek bude 0.">(14)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">gawk 'BEGIN {FS=&quot;\t&quot;; <span class="volznak">[</span>RS=&quot;\0&quot;;<span class="volznak">]</span> r=0;} NR == 1 || NF &lt; r {r = NF} END {print r}' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="D">⣰</span>naformátovat záznamy jako tabulku s pevnou šířkou sloupců (tsv/tsvz)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><a class="ikona D" id="z1885100242" href="#z1885100242">ꙕ</a>naformátovat záznamy jako tabulku s pevnou šířkou sloupců (tsv/tsvz)</div><div class="radky">
 <div class="radekzaklinadla">column -nt<span class="volznak">[</span>e<span class="volznak">]</span>s <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla"><span class="volznak">[</span>cat <i class="dopln">soubor</i><span class="tritecky"></span> |<span class="volznak">]</span> tr '\0\n' '\n<span class="viditelnamezera">&nbsp;</span>' | column -n<span class="volznak">[</span>e<span class="volznak">]</span>ts | tr \\n \\0</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><span class="D">↦</span>vložit sloupec s <b>číslem záznamu</b> před první sloupec<sup><a href="#kapzpracovanitextovychsouboruppc13" id="kapzpracovanitextovychsouboruppcr13" title="Poznámka: zadáte-li víc souborů, počítadlo záznamů se nebude restartovat na začátku každého z nich.">(13)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><a class="ikona D" id="z322640364" href="#z322640364">─</a>vložit sloupec s <b>číslem záznamu</b> před první sloupec<sup><a href="#kapzpracovanitextovychsouboruppc15" id="kapzpracovanitextovychsouboruppcr15" title="Poznámka: zadáte-li víc souborů, počítadlo záznamů se nebude restartovat na začátku každého z nich.">(15)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">gawk 'BEGIN { <span class="volznak">[</span>RS = ORS = &quot;\0&quot;;<span class="volznak">]</span> OFS = &quot;\t&quot;;} {print NR, $0}' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><span class="D">໓</span>vložit sloupec s <b>číslem záznamu</b> před N-tý sloupec, kde N není 1</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><a class="ikona D" id="z437415690" href="#z437415690">↘</a>vložit sloupec s <b>číslem záznamu</b> před N-tý sloupec, kde N není 1</div><div class="radky">
 <div class="radekzaklinadla">gawk <span class="volznak">[</span>-v 'RS=\0'<span class="volznak">]</span> '{print gensub(/\t/, &quot;\t&quot; NR &quot;\t&quot;, <i class="dopln">N</i> - 1);}' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
 
 <h2><a href="#cast5" id="cast5"><span class="cislo">5.</span> Zaklínadla (pevná šířka sloupců)</a></h2>
 
 <h3><a href="#cast5x1" id="cast5x1"><span class="cislo">1</span> Vybrat/spojit sloupce</a></h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">⣾</span>vzít určité sloupce (obecně/příklad)</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z762039432" href="#z762039432">⇮</a>vzít určité sloupce (obecně/příklad)</div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">⇹</span>vynechat určité sloupce</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z451357671" href="#z451357671">⡬</a>vynechat určité sloupce</div><div class="radky">
 <div class="radekzaklinadla">colrm <i class="dopln">první-vynechaný</i> <span class="volznak">[</span><i class="dopln">poslední-vynechaný</i><span class="volznak">]</span> <span class="volznak">[</span>&lt; <i class="dopln">soubor</i><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">⪲</span>vynechat prvních/posledních deset znaků každého řádku</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona D" id="z394907571" href="#z394907571">⢗</a>vynechat prvních/posledních deset znaků každého řádku</div><div class="radky">
 <div class="radekzaklinadla">colrm 1 10</div>
 <div class="radekzaklinadla">sed -E 's/.{,10}$//'</div>
 </div></div>
@@ -349,57 +378,57 @@ Pro formát tsvz použijte „RS=&quot;\0&quot;;“, pro tsv jej vynechejte.
 <p class="ponadpisu">
 Pro tsvz uveďte část „BEGIN {RS=ORS=&quot;\0&quot;}“.
 </p>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">⪍</span>vzít/vynechat záznamy, jejichž podřetězec na indexech M až N odpovídá <b>regulárnímu výrazu</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z1896076360" href="#z1896076360">⪶</a>vzít/vynechat záznamy, jejichž podřetězec na indexech M až N odpovídá <b>regulárnímu výrazu</b></div><div class="radky">
 <div class="radekzaklinadla">gawk '<span class="volznak">[</span>BEGIN {RS=ORS=&quot;\0&quot;}<span class="volznak">]</span> substr($0, <i class="dopln">M</i>, <i class="dopln">N</i> - <i class="dopln">M</i> + 1) ~ /<i class="dopln">regulární výraz</i>/' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">gawk '<span class="volznak">[</span>BEGIN {RS=ORS=&quot;\0&quot;}<span class="volznak">]</span> substr($0, <i class="dopln">M</i>, <i class="dopln">N</i> - <i class="dopln">M</i> + 1) !~ /<i class="dopln">regulární výraz</i>/' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">⠵</span>vzít/vynechat záznamy, jejichž podřetězec na indexech M až N obsahuje <b>podřetězec</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z1213232833" href="#z1213232833">╂</a>vzít/vynechat záznamy, jejichž podřetězec na indexech M až N obsahuje <b>podřetězec</b></div><div class="radky">
 <div class="radekzaklinadla">gawk '<span class="volznak">[</span>BEGIN {RS=ORS=&quot;\0&quot;}<span class="volznak">]</span> index(substr($0, <i class="dopln">M</i>, <i class="dopln">N</i> - <i class="dopln">M</i> + 1), &quot;<i class="dopln">podřetězec</i>&quot;)' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">gawk '<span class="volznak">[</span>BEGIN {RS=ORS=&quot;\0&quot;}<span class="volznak">]</span> !index(substr($0, <i class="dopln">M</i>, <i class="dopln">N</i> - <i class="dopln">M</i> + 1), &quot;<i class="dopln">podřetězec</i>&quot;)' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">䷆</span>vzít/vynechat záznamy, jejichž podřetězec na indexech M až N je daný <b>řetězec</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona D" id="z1361243510" href="#z1361243510">⊞</a>vzít/vynechat záznamy, jejichž podřetězec na indexech M až N je daný <b>řetězec</b></div><div class="radky">
 <div class="radekzaklinadla">gawk '<span class="volznak">[</span>BEGIN {RS=ORS=&quot;\0&quot;}<span class="volznak">]</span> substr($0, <i class="dopln">M</i>, <i class="dopln">N</i> - <i class="dopln">M</i> + 1) == &quot;<i class="dopln">řetězec</i>&quot;' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">gawk '<span class="volznak">[</span>BEGIN {RS=ORS=&quot;\0&quot;}<span class="volznak">]</span> substr($0, <i class="dopln">M</i>, <i class="dopln">N</i> - <i class="dopln">M</i> + 1) != &quot;<i class="dopln">řetězec</i>&quot;' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
 
 <h3><a href="#cast5x3" id="cast5x3"><span class="cislo">3</span> Řazení</a></h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">⣱</span>řadit podle znaků na indexech M až N</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z947678911" href="#z947678911">✚</a>řadit podle znaků na indexech M až N</div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>LC_ALL=C<span class="volznak">]</span> sort <span class="volznak">[</span><i class="dopln">další parametry</i><span class="volznak">]</span> -k 1.<i class="dopln">M</i>,1.<i class="dopln">N</i><i class="dopln">parametry-řazení</i> <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
 
 <h2><a href="#cast6" id="cast6"><span class="cislo">6.</span> Zaklínadla (psv)</a></h2>
 
 <h3><a href="#cast6x1" id="cast6x1"><span class="cislo">1</span> Filtrace záznamů podle pořadí</a></h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">⇳</span>vzít/vynechat N <b>prvních</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z1962033989x" href="#z1962033989x">▎</a>vzít/vynechat N <b>prvních</b></div><div class="radky">
 <div class="radekzaklinadla">gawk 'BEGIN {RS = &quot;&quot;; ORS = &quot;\n\n&quot;; FS = &quot;\n&quot;;} NR &gt; <i class="dopln">N</i> {exit} {print}' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">gawk 'BEGIN {RS = &quot;&quot;; ORS = &quot;\n\n&quot;; FS = &quot;\n&quot;;} NR &gt; <i class="dopln">N</i> {print}' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">⡍</span>vzít/vynechat N <b>posledních</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z353783600x" href="#z353783600x">⇼</a>vzít/vynechat N <b>posledních</b></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">◜</span>vzít/vynechat <b>konkrétní</b> záznam</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona D" id="z211503512x" href="#z211503512x">≎</a>vzít/vynechat <b>konkrétní</b> záznam</div><div class="radky">
 <div class="radekzaklinadla">gawk 'BEGIN {RS = &quot;&quot;; ORS = &quot;\n\n&quot;; FS = &quot;\n&quot;;} NR == <i class="dopln">N</i> {print; exit;}' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">gawk 'BEGIN {RS = &quot;&quot;; ORS = &quot;\n\n&quot;; FS = &quot;\n&quot;;} NR != <i class="dopln">N</i> {print}' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="D">⛃</span>vzít/vynechat <b>rozsah</b> záznamů</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><a class="ikona D" id="z317906824x" href="#z317906824x">໔</a>vzít/vynechat <b>rozsah</b> záznamů</div><div class="radky">
 <div class="radekzaklinadla">gawk 'BEGIN {RS = &quot;&quot;; ORS = &quot;\n\n&quot;; FS = &quot;\n&quot;;} NR &gt;= <i class="dopln">první-ponechaný</i> {print} NR == <i class="dopln">poslední-ponechaný</i> {exit}' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">gawk 'BEGIN {RS = &quot;&quot;; ORS = &quot;\n\n&quot;; FS = &quot;\n&quot;;} NR &lt; <i class="dopln">první-vynechaný</i> || NR &gt; <i class="dopln">poslední-vynechaný</i> {print}' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><span class="D">¶</span>vzít pouze <b>liché/sudé</b> záznamy</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><a class="ikona D" id="z1421405309x" href="#z1421405309x">⋭</a>vzít pouze <b>liché/sudé</b> záznamy</div><div class="radky">
 <div class="radekzaklinadla">gawk 'BEGIN {RS = &quot;&quot;; ORS = &quot;\n\n&quot;; FS = &quot;\n&quot;;} NR % 2 {print}' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">gawk 'BEGIN {RS = &quot;&quot;; ORS = &quot;\n\n&quot;; FS = &quot;\n&quot;;} !(NR % 2) {print}' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
 
 <h3><a href="#cast6x2" id="cast6x2"><span class="cislo">2</span> Vybrat/sloučit sloupce</a></h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">⋠</span>vzít jen/vynechat určité sloupce</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z1852609262" href="#z1852609262">✖</a>vzít jen/vynechat určité sloupce</div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">☹</span>sloučit záznamy ze dvou souborů podle čísla záznamu</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z2028170100" href="#z2028170100">⋰</a>sloučit záznamy ze dvou souborů podle čísla záznamu</div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">┷</span>sloučit záznamy ze dvou souborů podle společného sloupce</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona D" id="z1538915396" href="#z1538915396">⇐</a>sloučit záznamy ze dvou souborů podle společného sloupce</div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
@@ -407,59 +436,59 @@ Pro tsvz uveďte část „BEGIN {RS=ORS=&quot;\0&quot;}“.
 <p class="ponadpisu">
 Vzít/vynechat záznamy,...
 </p>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">⠮</span>které <b>obsahují určitý sloupec</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z1601392126" href="#z1601392126">◚</a>které <b>obsahují určitý sloupec</b></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">⬀</span>kde určitý sloupec odpovídá <b>regulárnímu výrazu</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z784666080" href="#z784666080">⋁</a>kde určitý sloupec odpovídá <b>regulárnímu výrazu</b></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">≹</span>kde určitý sloupec obsahuje <b>podřetězec</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona D" id="z2122453817" href="#z2122453817">∶</a>kde určitý sloupec obsahuje <b>podřetězec</b></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="D">⛢</span>kde určitý sloupec je <b>řetězec</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><a class="ikona D" id="z225531298" href="#z225531298">ᔩ</a>kde určitý sloupec je <b>řetězec</b></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
 <h3><a href="#cast6x4" id="cast6x4"><span class="cislo">4</span> Řazení a přeskládání záznamů</a></h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">▴</span><b>obrátit</b> pořadí</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z2039944372" href="#z2039944372">ᔱ</a><b>obrátit</b> pořadí</div><div class="radky">
 <div class="radekzaklinadla">tac -rs $'\n\n\n*'</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">✉</span><b>náhodně</b> přeskládat</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z1135999074x" href="#z1135999074x">┘</a><b>náhodně</b> přeskládat</div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">ʡ</span>seřadit podle určitého sloupce</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona D" id="z70470868" href="#z70470868">⨒</a>seřadit podle určitého sloupce</div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="D">⋁</span>seřadit podle více kritérií</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><a class="ikona D" id="z950037646x" href="#z950037646x">⠑</a>seřadit podle více kritérií</div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
 <h3><a href="#cast6x5" id="cast6x5"><span class="cislo">5</span> Ostatní</a></h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">ⵔ</span><b>počet záznamů</b></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z1246032048" href="#z1246032048">Ꙩ</a><b>počet záznamů</b></div><div class="radky">
 <div class="radekzaklinadla">tr '\na' ab <span class="volznak">[</span>&lt; <i class="dopln">soubor</i><span class="volznak">]</span> | fgrep -o aa | wc -l</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">⠩</span><b>rozdělit</b> soubory na díly s uvedeným maximálním počtem záznamů</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z360462173" href="#z360462173">⧻</a><b>rozdělit</b> soubory na díly s uvedeným maximálním počtem záznamů</div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">⪄</span>ke každému záznamu přidat sloupec</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona D" id="z1191865775" href="#z1191865775">⬔</a>ke každému záznamu přidat sloupec</div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
 <h2><a href="#cast7" id="cast7"><span class="cislo">7.</span> Zaklínadla (záplatování)</a></h2>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><span class="D">ະ</span>vytvořit záplatu adresáře<sup><a href="#kapzpracovanitextovychsouboruppc14" id="kapzpracovanitextovychsouboruppcr14" title="Aby záplata fungovala, označení starého a nového adresáře nesmějí obsahovat žádná lomítka, musejí to být jen holá jména podadresářů aktuálního adresáře.">(14)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z86380455" href="#z86380455">❅</a>vytvořit záplatu adresáře<sup><a href="#kapzpracovanitextovychsouboruppc16" id="kapzpracovanitextovychsouboruppcr16" title="Aby záplata fungovala, označení starého a nového adresáře nesmějí obsahovat žádná lomítka, musejí to být jen holá jména podadresářů aktuálního adresáře.">(16)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">diff -Nar -U 3 <i class="dopln">starý-adresář</i> <i class="dopln">nový-adresář</i> &gt; <i class="dopln">soubor.pdiff</i> || test $? -eq 1</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><span class="D">⠵</span>aplikovat záplatu adresáře</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z1014272663" href="#z1014272663">▨</a>aplikovat záplatu adresáře</div><div class="radky">
 <div class="radekzaklinadla">patch -N -p 1 -d <i class="dopln">adresář</i> &lt; <i class="dopln">soubor.pdiff</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><span class="D">♗</span>vytvořit záplatu souboru</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona D" id="z268681272" href="#z268681272">♙</a>vytvořit záplatu souboru</div><div class="radky">
 <div class="radekzaklinadla">LC_ALL=C TZ=UTC diff -Na -U 3 <i class="dopln">starý-soubor</i> <i class="dopln">nový-soubor</i> &gt; <i class="dopln">soubor.pdiff</i> || test $? -eq 1</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><span class="D">⊄</span>aplikovat záplatu souboru</div><div class="radky">
+<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><a class="ikona D" id="z1502393354" href="#z1502393354">⢡</a>aplikovat záplatu souboru</div><div class="radky">
 <div class="radekzaklinadla">patch -NZ<span class="volznak">[</span>t<span class="volznak">]</span> <i class="dopln">cílový-soubor</i> <i class="dopln">soubor.pdiff</i></div>
 </div></div>
 
@@ -603,35 +632,39 @@ Nejlepším zdrojem podrobnějších informací o jednotlivých použitých př
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapzpracovanitextovychsouboruppc3"><a href="#kapzpracovanitextovychsouboruppcr3" class="cislopozn">3</a>&nbsp;Tip: nejlepšího výkonu této varianty dosáhnete tak, že začnete od nejmenšího vstupního souboru.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanitextovychsouboruppc4"><a href="#kapzpracovanitextovychsouboruppcr4" class="cislopozn">4</a>&nbsp;Standardní vstup můžete mezi soubory vřadit parametrem „-“ místo názvu souboru. Neprázdné soubory musejí být řádně ukončeny ukončovačem záznamu, jinak se poslední záznam spojí s prvním záznamem následujícího souboru.</div>
+<div id="kapzpracovanitextovychsouboruppc4"><a href="#kapzpracovanitextovychsouboruppcr4" class="cislopozn">4</a>&nbsp;Užitečná kódování: ISO8859-2, WINDOWS-1250, UTF-16, UTF-16BE, UTF-16LE, UTF-8, CP852 (MS-DOS), MAC-CENTRALEUROPE.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanitextovychsouboruppc5"><a href="#kapzpracovanitextovychsouboruppcr5" class="cislopozn">5</a>&nbsp;Přípona výstupních souborů nesmí obsahovat oddělovač adresářů „/“. Číslování výstupních souborů začíná od nuly; jinou hodnotu lze nastavit, když místo parametru -d použijete parametr --numeric-suffixes=číslo. Uvedený příklad rozdělí soubor „vse.txt“ po sto řádcích na soubory „rozdelene-zaznamy/s00000dil.txt“, „rozdelene-zaznamy/s00001dil.txt“ atd.</div>
+<div id="kapzpracovanitextovychsouboruppc5"><a href="#kapzpracovanitextovychsouboruppcr5" class="cislopozn">5</a>&nbsp;Poznámka: tato konverze je ztrátová, a tudíž prakticky jednosměrná.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanitextovychsouboruppc6"><a href="#kapzpracovanitextovychsouboruppcr6" class="cislopozn">6</a>&nbsp;Příkaz „sed“ vyžaduje v příponě i předponě další úroveň escapování znaků „\“ a „\n“. Proto v uvedeném případě zadávejte zpětné lomítko jako „\\\\“ a konec řádku jako „\\\n“. Konec řádku se navíc může vyskytnout pouze při použití formátu txtz, u formátu txt pravděpodobně nebude fungovat správně.</div>
+<div id="kapzpracovanitextovychsouboruppc6"><a href="#kapzpracovanitextovychsouboruppcr6" class="cislopozn">6</a>&nbsp;Standardní vstup můžete mezi soubory vřadit parametrem „-“ místo názvu souboru. Neprázdné soubory musejí být řádně ukončeny ukončovačem záznamu, jinak se poslední záznam spojí s prvním záznamem následujícího souboru.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanitextovychsouboruppc7"><a href="#kapzpracovanitextovychsouboruppcr7" class="cislopozn">7</a>&nbsp;Uvedené varianty se liší požadavky na escapování v příponě: v první variantě sed požaduje dodatečné escapování znaků „\“ a (případně) konce řádku; v druhé variantě požaduje sed escapování znaků „\“, „/“ a „&amp;“.</div>
+<div id="kapzpracovanitextovychsouboruppc7"><a href="#kapzpracovanitextovychsouboruppcr7" class="cislopozn">7</a>&nbsp;Přípona výstupních souborů nesmí obsahovat oddělovač adresářů „/“. Číslování výstupních souborů začíná od nuly; jinou hodnotu lze nastavit, když místo parametru -d použijete parametr --numeric-suffixes=číslo. Uvedený příklad rozdělí soubor „vse.txt“ po sto řádcích na soubory „rozdelene-zaznamy/s00000dil.txt“, „rozdelene-zaznamy/s00001dil.txt“ atd.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanitextovychsouboruppc8"><a href="#kapzpracovanitextovychsouboruppcr8" class="cislopozn">8</a>&nbsp;Běžně se k tomu používá příkaz „fmt“, ale ten nerespektuje vícebajtové znaky, takže pro texty v UTF-8 funguje nekorektně.</div>
+<div id="kapzpracovanitextovychsouboruppc8"><a href="#kapzpracovanitextovychsouboruppcr8" class="cislopozn">8</a>&nbsp;Příkaz „sed“ vyžaduje v příponě i předponě další úroveň odzvláštnění znaků „\“ a „\n“. Proto v uvedeném případě zadávejte zpětné lomítko jako „\\\\“ a konec řádku jako „\\\n“. Konec řádku se navíc může vyskytnout pouze při použití formátu txtz, u formátu txt pravděpodobně nebude fungovat správně.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanitextovychsouboruppc9"><a href="#kapzpracovanitextovychsouboruppcr9" class="cislopozn">9</a>&nbsp;Specifikace sloupců specifikuje množinu (tzn. ne výčet) sloupců. Má tvar jednotlivých čísel oddělených čárkami, např. „7,3,2,5,2“ vypíše sloupce 2, 3, 5 a 7. Místo jednotlivého čísla lze zadat rozsah ve tvaru „číslo-číslo“, „číslo-“ nebo „-číslo“, který se rozvine na všechny odpovídající sloupce, takže např. specifikace „7,3-5,-4“ odpovídá sloupcům 1, 2, 3, 4, 5 a 7.</div>
+<div id="kapzpracovanitextovychsouboruppc9"><a href="#kapzpracovanitextovychsouboruppcr9" class="cislopozn">9</a>&nbsp;Uvedené varianty se liší požadavky na odzvláštnění v příponě: v první variantě sed požaduje dodatečné odzvláštění znaků „\“ a (případně) konce řádku; v druhé variantě požaduje sed odzvláštnění znaků „\“, „/“ a „&amp;“.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanitextovychsouboruppc10"><a href="#kapzpracovanitextovychsouboruppcr10" class="cislopozn">10</a>&nbsp;Pro čtení ze standarního vstupu zadejte místo souboru „-“.</div>
+<div id="kapzpracovanitextovychsouboruppc10"><a href="#kapzpracovanitextovychsouboruppcr10" class="cislopozn">10</a>&nbsp;Běžně se k tomu používá příkaz „fmt“, ale ten nerespektuje vícebajtové znaky, takže pro texty v UTF-8 funguje nekorektně.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanitextovychsouboruppc11"><a href="#kapzpracovanitextovychsouboruppcr11" class="cislopozn">11</a>&nbsp;Chování příkazu „join“ je smysluplné, ale poměrně komplikované. Před použitím tohoto zaklínadla prosím nastudujte manuálovou stránku příkazu join!</div>
+<div id="kapzpracovanitextovychsouboruppc11"><a href="#kapzpracovanitextovychsouboruppcr11" class="cislopozn">11</a>&nbsp;Specifikace sloupců specifikuje množinu (tzn. ne výčet) sloupců. Má tvar jednotlivých čísel oddělených čárkami, např. „7,3,2,5,2“ vypíše sloupce 2, 3, 5 a 7. Místo jednotlivého čísla lze zadat rozsah ve tvaru „číslo-číslo“, „číslo-“ nebo „-číslo“, který se rozvine na všechny odpovídající sloupce, takže např. specifikace „7,3-5,-4“ odpovídá sloupcům 1, 2, 3, 4, 5 a 7.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanitextovychsouboruppc12"><a href="#kapzpracovanitextovychsouboruppcr12" class="cislopozn">12</a>&nbsp;Poznámka: prázdný řádek se počítá jako 0 sloupců, proto pokud ho vstup obsahuje, výsledek bude 0.</div>
+<div id="kapzpracovanitextovychsouboruppc12"><a href="#kapzpracovanitextovychsouboruppcr12" class="cislopozn">12</a>&nbsp;Pro čtení ze standarního vstupu zadejte místo souboru „-“.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanitextovychsouboruppc13"><a href="#kapzpracovanitextovychsouboruppcr13" class="cislopozn">13</a>&nbsp;Poznámka: zadáte-li víc souborů, počítadlo záznamů se nebude restartovat na začátku každého z nich.</div>
+<div id="kapzpracovanitextovychsouboruppc13"><a href="#kapzpracovanitextovychsouboruppcr13" class="cislopozn">13</a>&nbsp;Chování příkazu „join“ je smysluplné, ale poměrně komplikované. Před použitím tohoto zaklínadla prosím nastudujte manuálovou stránku příkazu join!</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanitextovychsouboruppc14"><a href="#kapzpracovanitextovychsouboruppcr14" class="cislopozn">14</a>&nbsp;Aby záplata fungovala, označení starého a nového adresáře nesmějí obsahovat žádná lomítka, musejí to být jen holá jména podadresářů aktuálního adresáře.</div>
+<div id="kapzpracovanitextovychsouboruppc14"><a href="#kapzpracovanitextovychsouboruppcr14" class="cislopozn">14</a>&nbsp;Poznámka: prázdný řádek se počítá jako 0 sloupců, proto pokud ho vstup obsahuje, výsledek bude 0.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapzpracovanitextovychsouboruppc15"><a href="#kapzpracovanitextovychsouboruppcr15" class="cislopozn">15</a>&nbsp;Poznámka: zadáte-li víc souborů, počítadlo záznamů se nebude restartovat na začátku každého z nich.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapzpracovanitextovychsouboruppc16"><a href="#kapzpracovanitextovychsouboruppcr16" class="cislopozn">16</a>&nbsp;Aby záplata fungovala, označení starého a nového adresáře nesmějí obsahovat žádná lomítka, musejí to být jen holá jména podadresářů aktuálního adresáře.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 </div>
-<div class="odkazydole"><a href="sprava-procesu.htm"><img src="obrazky/ik/sprava-procesu.png" alt="" width="32" height="32">Správa procesů</a><a href="make.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">GNU make</a><a href="zpracovani-videa-a-zvuku.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Zpracování videa a zvuku</a></div>
+<div class="odkazydole"><a href="regularni-vyrazy.htm"><img src="obrazky/ik/regularni-vyrazy.png" alt="" width="32" height="32">Regulární výrazy</a><a href="prace-s-archivy.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Práce s archivy</a><a href="markdown.htm"><img src="obrazky/ik/markdown.png" alt="" width="32" height="32">Markdown</a></div>
 
 <nav class="spodni"><span class="prev">
-<a href="system.htm" rel="prev" title="15. Systém">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="system.htm" rel="prev" title="17. Systém">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="zpracovani-videa-a-zvuku.htm" rel="next" title="17. Zpracování videa a zvuku">Následující&nbsp;kapitola</a>
+-->&nbsp;| <a href="zpracovani-videa-a-zvuku.htm" rel="next" title="19. Zpracování videa a zvuku">Následující&nbsp;kapitola</a>
 </span>
 <a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
 <a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>

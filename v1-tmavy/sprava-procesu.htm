@@ -5,15 +5,15 @@
 
 <title>Správa procesů − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20200321.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200321-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200321-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200321-tmavy.css" title="Tmavý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20200417.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200417-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200417-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200417-tmavy.css" title="Tmavý motiv">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body id="nahore">
 <header>
-<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.5 (21. března 2020)</span>
+<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.6 (17. dubna 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 
@@ -21,16 +21,16 @@
 <nav class="horni">
 <div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
 <span class="prev">
-<a href="sprava-balicku.htm" rel="prev" title="14. Správa balíčků" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="sprava-balicku.htm" rel="prev" title="15. Správa balíčků" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="stahovani-videi.htm" rel="next" title="16. Stahování videí" accesskey="n">Následující&nbsp;kapitola</a>
+-->&nbsp;| <a href="stahovani-videi.htm" rel="next" title="17. Stahování videí" accesskey="n">Následující&nbsp;kapitola</a>
 </span>
 </nav>
 
 
 <article>
 
-<h1 class="kapitola">15. <img src="obrazky/ik/sprava-procesu.png" alt="" width="64" height="64"> Správa procesů</h1>
+<h1 class="kapitola">16. <img src="obrazky/ik/sprava-procesu.png" alt="" width="64" height="64"> Správa procesů</h1>
 <div class="stitky"><a href="x-stitky.htm#sbsh">bash</a>
 <a href="x-stitky.htm#sprocesy">procesy</a>
 <a href="x-stitky.htm#ssystm">systém</a>
@@ -63,7 +63,7 @@ využívají systémové zdroje jako výkon procesoru, paměť RAM či pevný di
 Ne všechny uvedené postupy však fungují pro zacházení s démony;
 hodláte-li zacházet s démony, navštivte kapitolu Systém.
 </p><p>
-Když v Linuxu spustíte program, vznikne tzv. proces − jakási „schránka“ pro program,
+Když v Linuxu spustíte program, vznikne tzv. proces – jakási „schránka“ pro program,
 která mu umožňuje běžet na procesoru a využívat systémové zdroje.
 Většina příkazů, které v terminálu zadáte, vytvoří nový proces.
 Pouze malá část spuštěných procesů si otevře také grafické uživatelské rozhraní.
@@ -71,7 +71,7 @@ Pouze malá část spuštěných procesů si otevře také grafické uživatelsk
 Procesy jsou v Linuxu identifikovány čísly PID (což neznamená „Pražská integrovaná doprava“)
 a jsou uspořádány do „rodinné“ struktury, kde každý proces s výjimkou
 dvou prvotních démonů má právě jednoho rodiče. PID rodiče je u vlastního procesu uvedeno
-jako vlastnost „PPID“. (Pozor − nepleťte si PID a PPID!)
+jako vlastnost „PPID“. (Pozor – nepleťte si PID a PPID!)
 </p><p>
 Tato verze kapitoly nepokrývá sledování systémových volání procesů (ptrace, strace)
 ani zjišťování, které systémové knihovny jsou procesy využívány.
@@ -83,256 +83,257 @@ jako chroot či cgroups.
 
 <h2><a href="#cast2" id="cast2"><span class="cislo">2.</span> Definice</a></h2>
 <ul><li><b>Proces</b> je instance počítačového programu v paměti, v dané chvíli jednoznačně identifikovaná kladným celým číslem <b>PID</b> (obvykle v rozsahu 1 až 32768). PID procesu se za jeho běhu nemůže změnit; může se však změnit <b>PPID</b> (pokud je rodič pohřben dřív než zrozenec) nebo to, který program v rámci daného procesu ve skutečnosti běží.
-</li><li><b>Démon</b> je systémový proces bez uživatelského rozhraní, konkrétně jsou to dva <b>prvotní démoni</b> („systemd“ − PID 1 a „kthreadd“ − PID 2) a ti jejich přímí potomci, kteří nemají textové ani grafické uživatelské rozhraní. Prvotní démoni jako procesy nemají rodiče, jsou zřízeni přímo jádrem a jejich PPID je 0.
+</li><li><b>Démon</b> je systémový proces bez uživatelského rozhraní, konkrétně jsou to dva <b>prvotní démoni</b> („systemd“ – PID 1 a „kthreadd“ – PID 2) a ti jejich přímí potomci, kteří nemají textové ani grafické uživatelské rozhraní. Prvotní démoni jako procesy nemají rodiče, jsou zřízeni přímo jádrem a jejich PPID je 0.
 </li><li><b>Zombie</b> je proces, který skončil, ale jeho rodič dosud nepřevzal jeho návratovou hodnotu. Převzetím návratové hodnoty rodičem je zombie <b>pohřbena</b> a její PID se uvolní pro přidělení dalšímu procesu.
 </li><li><b>Název procesu</b> je textový identifikátor přiřazený procesu jádrem. Není jednoznačný a vzniká (asi) tak, že se z ARGV[0] vezme jen název souboru (bez cesty) a zkrátí se na prvních 15 bajtů (obsahuje-li vícebajtové znaky, může dojít ke vzniku neplatné sekvence).
-</li><li><b>Úloha bashe</b> je proces spuštěný z bashe, který byl spuštěn na pozadí nebo alespoň jednou na pozadí odsunut. Takový proces dostane od dané instance bashe vedle PID ještě druhý identifikátor − „číslo úlohy“. Číslo úlohy je pak pro daný proces jedinečné, ale pouze v rámci dané instance bashe.
+</li><li><b>Úloha bashe</b> je proces spuštěný z bashe, který byl spuštěn na pozadí nebo alespoň jednou na pozadí odsunut. Takový proces dostane od dané instance bashe vedle PID ještě druhý identifikátor – „číslo úlohy“. Číslo úlohy je pak pro daný proces jedinečné, ale pouze v rámci dané instance bashe.
 </li></ul>
 <h2><a href="#cast3" id="cast3"><span class="cislo">3.</span> Zaklínadla</a></h2>
 
-<h3><a href="#cast3x1" id="cast3x1"><span class="cislo">1</span> Hledání procesů (najít PID)</a></h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z265598740" href="#z265598740">⢢</a>procesy <b>podle názvu</b> procesu (obecně/příklad)</div><div class="radky">
+<h3><a href="#cast3x1" id="cast3x1" title="kapitola 16 (Správa procesů), sekce 3 (Zaklínadla), podsekce 1 (Hledání procesů (najít PID))">/s03/p01 Hledání procesů (najít PID)</a></h3>
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z265598740" href="#z265598740">⢢</a>procesy <b>podle názvu</b> procesu (obecně/příklad)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">pgrep <span class="volznak">[</span>-x<span class="volznak">]</span> '<i class="dopln">regulární výraz</i>'</div>
 <div class="radekzaklinadla">pgrep '^gimp'</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z1288570986" href="#z1288570986">ອ</a><b>všechny</b> procesy</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1288570986" href="#z1288570986">ອ</a><b>všechny</b> procesy<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">pgrep .</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona D" id="z943968966" href="#z943968966">≪</a>přímí/všichni <b>potomci</b> určitého procesu</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z943968966" href="#z943968966">≪</a>přímí/všichni <b>potomci</b> určitého procesu<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">pgrep -P <i class="dopln">PID</i></div>
 <div class="radekzaklinadla">lkk procesy | sed -E 's/^([0-9]+)(:[0-9]+)*:(<i class="dopln">PID</i>):.*/\1/;t;d'</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><a class="ikona D" id="z1343166774" href="#z1343166774">⊮</a>proces a všichni jeho předci v pořadí, až po prvotního démona</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1343166774" href="#z1343166774">⊮</a>proces a všichni jeho předci v pořadí, až po prvotního démona<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">lkk procesy | sed -nE '/^(<i class="dopln">PID</i>):/{s/:/\n/g;p}'</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><a class="ikona D" id="z579917850" href="#z579917850">∎</a>procesy, které mají otevřený konkrétní soubor</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z579917850" href="#z579917850">∎</a>procesy, které mají otevřený konkrétní soubor<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo fuser <i class="dopln">cesta</i><span class="tritecky"></span> 2&gt;/dev/null | sed -E 's/^\s+//;s/\s+|\s?$/\n/g'</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><a class="ikona D" id="z507508792" href="#z507508792">ⵤ</a>všechny procesy určitého <b>uživatele</b>/určité skupiny</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z507508792" href="#z507508792">ⵤ</a>všechny procesy určitého <b>uživatele</b>/určité skupiny<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">pgrep -U <i class="dopln">uid-nebo-uživatel</i><span class="volznak">[</span>,<i class="dopln">další</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">pgrep -G <i class="dopln">gid-nebo-skupina</i><span class="volznak">[</span>,<i class="dopln">další</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span><a class="ikona D" id="z923409905" href="#z923409905">➣</a>sourozenci určitého procesu (včetně procesu samotného)</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z923409905" href="#z923409905">➣</a>sourozenci určitého procesu (včetně procesu samotného)<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">pgrep -P $(ps h -o ppid <i class="dopln">PID-procesu</i>)</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span><a class="ikona D" id="z1881965397" href="#z1881965397">⋽</a>procesy spuštěné později či společně se zadaným procesem</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1881965397" href="#z1881965397">⋽</a>procesy spuštěné později či společně se zadaným procesem<span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla">ps h -eo etimes,pid --sort -etimes | gawk '$1 &lt;= '&quot;$(ps h -o etimes:1 <i class="dopln">PID</i>)&quot;' {print $2}'</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#9 </span><a class="ikona D" id="z515022773" href="#z515022773">☂</a>procesy spuštěné dříve či společně se zadaným procesem</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z515022773" href="#z515022773">☂</a>procesy spuštěné dříve či společně se zadaným procesem<span class="cislo">#9 </span></div><div class="radky">
 <div class="radekzaklinadla">ps h -eo etimes,pid --sort -etimes | gawk '$1 &gt;= '&quot;$(ps h -o etimes:1 <i class="dopln">PID</i>)&quot;' {print $2}'</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#10 </span><a class="ikona D" id="z98838559" href="#z98838559">≏</a>procesy, které mají otevřený konkrétní adresář</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z98838559" href="#z98838559">≏</a>procesy, které mají otevřený konkrétní adresář<span class="cislo">#10 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo fuser <i class="dopln">cesta</i><span class="tritecky"></span> 2&gt;/dev/null | sed -E 's/^\s+//;s/\s+|\s?$/\n/g'</div>
 </div></div>
 
-<h3><a href="#cast3x2" id="cast3x2"><span class="cislo">2</span> Zjistit obecné informace o procesu</a></h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z341594611" href="#z341594611">‧</a><b>příkazový řádek</b> (pro člověka/txtz pro skript)</div><div class="radky">
+<h3><a href="#cast3x2" id="cast3x2" title="kapitola 16 (Správa procesů), sekce 3 (Zaklínadla), podsekce 2 (Zjistit obecné informace o procesu)">/s03/p02 Zjistit obecné informace o procesu</a></h3>
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z341594611" href="#z341594611">‧</a><b>příkazový řádek</b> (pro člověka/txtz pro skript)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">tr \\0 \\40 &lt;/proc/<i class="dopln">PID</i>/cmdline | sed -E '$s/ ?$/\n/' | cat -v</div>
 <div class="radekzaklinadla">cat /proc/<i class="dopln">PID</i>/cmdline <span class="volznak">[</span>| <i class="dopln">zpracování</i><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z1616984772" href="#z1616984772">⡉</a>ARGV[0]</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1616984772" href="#z1616984772">⡉</a>ARGV[0]<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">head -zn1 /proc/<i class="dopln">PID</i>/cmdline | tr \\0 \\n<span class="prikladhodnoty">⊨ /bin/bash</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona D" id="z414504620" href="#z414504620">♒</a><b>PPID</b><sup><a href="#kapspravaprocesuppc1" id="kapspravaprocesuppcr1" title="Pro procesy zřízené jádrem (systemd a kthreadd) vrací „0“.">(1)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z414504620" href="#z414504620">♒</a><b>PPID</b><span class="cislo">#3 </span><sup><a href="#kapspravaprocesuppc1" id="kapspravaprocesuppcr1" title="Pro procesy zřízené jádrem (systemd a kthreadd) vrací „0“.">(1)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">ps h -o ppid:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 3077</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><a class="ikona D" id="z2109703248" href="#z2109703248">⌈</a>název procesu</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z2109703248" href="#z2109703248">⌈</a>název procesu<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">ps h -o comm:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ bash</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><a class="ikona D" id="z370538654" href="#z370538654">▮</a>spuštěný soubor (na disku)</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z370538654" href="#z370538654">▮</a>spuštěný soubor (na disku)<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> readlink /proc/<i class="dopln">PID</i>/exe<span class="prikladhodnoty">⊨ /bin/bash</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><a class="ikona D" id="z1163653773" href="#z1163653773">‥</a>příslušný <b>terminál</b><sup><a href="#kapspravaprocesuppc2" id="kapspravaprocesuppcr2" title="Nepříluší-li proces žádnému terminálu ani konzoli, vypíše „?“.">(2)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1163653773" href="#z1163653773">‥</a>příslušný <b>terminál</b><span class="cislo">#6 </span><sup><a href="#kapspravaprocesuppc2" id="kapspravaprocesuppcr2" title="Nepříluší-li proces žádnému terminálu ani konzoli, vypíše „?“.">(2)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">ps h -o tty:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ pts/1</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span><a class="ikona D" id="z1596805914" href="#z1596805914">⇋</a>aktuální <b>adresář</b></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1970784875" href="#z1970784875">╇</a>aktuální <b>adresář</b> (pro člověka/pro skript)<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> pwdx <i class="dopln">PID</i><span class="tritecky"></span><span class="prikladhodnoty">⊨ 2343: /home/nana</span></div>
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> readlink /proc/<i class="dopln">PID</i>/cwd<span class="prikladhodnoty">⊨ /home/nana</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span><a class="ikona D" id="z1458049269" href="#z1458049269">ꙫ</a><b>uživatel</b> vlastnící proces (jméno/UID)</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1458049269" href="#z1458049269">ꙫ</a><b>uživatel</b> vlastnící proces (jméno/UID)<span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla">ps h -o ruser:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ root</span></div>
 <div class="radekzaklinadla">ps h -o ruid:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 0</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#9 </span><a class="ikona D" id="z1971035810" href="#z1971035810">⡠</a><b>skupina</b> vlastnící proces (jméno/GID)</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1971035810" href="#z1971035810">⡠</a><b>skupina</b> vlastnící proces (jméno/GID)<span class="cislo">#9 </span></div><div class="radky">
 <div class="radekzaklinadla">ps h -o rgroup:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ root</span></div>
 <div class="radekzaklinadla">ps h -o rgid:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 0</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#10 </span><a class="ikona D" id="z69542734" href="#z69542734">➪</a><b>priorita</b> procesu</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z69542734" href="#z69542734">➪</a><b>priorita</b> procesu<span class="cislo">#10 </span></div><div class="radky">
 <div class="radekzaklinadla">ps h -o ni:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 0</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#11 </span><a class="ikona D" id="z517221140" href="#z517221140">⚂</a>označení sezení podle systemd</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z517221140" href="#z517221140">⚂</a>označení sezení podle systemd<span class="cislo">#11 </span></div><div class="radky">
 <div class="radekzaklinadla">ps h -o lsession:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ c2</span></div>
 </div></div>
 
-<h3><a href="#cast3x3" id="cast3x3"><span class="cislo">3</span> Zjistit okamžité využití zdrojů</a></h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z1221539989" href="#z1221539989">ꙕ</a>% zatížení procesoru</div><div class="radky">
+<h3><a href="#cast3x3" id="cast3x3" title="kapitola 16 (Správa procesů), sekce 3 (Zaklínadla), podsekce 3 (Zjistit okamžité využití zdrojů)">/s03/p03 Zjistit okamžité využití zdrojů</a></h3>
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1221539989" href="#z1221539989">ꙕ</a>% zatížení procesoru<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">ps h -o pcpu:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 10.1</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z1776084463" href="#z1776084463">⪓</a>počet kiB <b>RAM</b> zabrané procesem</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1776084463" href="#z1776084463">⪓</a>počet kiB <b>RAM</b> zabrané procesem<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">ps h -o rss:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 6028</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona D" id="z749910996" href="#z749910996">ⴴ</a>% RAM zabrané procesem</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z749910996" href="#z749910996">ⴴ</a>% RAM zabrané procesem<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">ps h -o pmem:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 0.1</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><a class="ikona D" id="z319193490" href="#z319193490">★</a>velikost virtuální paměti procesu v kiB</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z319193490" href="#z319193490">★</a>velikost virtuální paměti procesu v kiB<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">ps h -o vsz:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 32024</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><a class="ikona D" id="z1666591787" href="#z1666591787">⌂</a>počet kiB virtuální paměti zabrané kódem/daty</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1666591787" href="#z1666591787">⌂</a>počet kiB virtuální paměti zabrané kódem/daty<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">ps h -o trs:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 1037</span></div>
 <div class="radekzaklinadla">ps h -o drs:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 30986</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><a class="ikona D" id="z1054497014" href="#z1054497014">♞</a>procesy, které nejvíc zatěžují procesor/RAM</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1054497014" href="#z1054497014">♞</a>procesy, které nejvíc zatěžují procesor/RAM<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">ps h -e -o pcpu,pid,comm | sort -rn | head</div>
 <div class="radekzaklinadla">ps h -e -o rss,pid,comm | sort -rn | head</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span><a class="ikona D" id="z1965261889" href="#z1965261889">䷝</a>číslo přiděleného logického procesoru (od nuly)</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1965261889" href="#z1965261889">䷝</a>číslo přiděleného logického procesoru (od nuly)<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">ps h -o psr:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 0</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span><a class="ikona D" id="z2057859887" href="#z2057859887">⠾</a>počet vláken </div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z2057859887" href="#z2057859887">⠾</a>počet vláken <span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla">sed -E 's/^Threads:\s+//;t;d' /proc/<i class="dopln">PID</i>/status<span class="prikladhodnoty">⊨ 1</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#9 </span><a class="ikona D" id="z1587894835" href="#z1587894835">⢆</a>procesy, které nejvíc pracují s diskem</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1587894835" href="#z1587894835">⢆</a>procesy, které nejvíc pracují s diskem<span class="cislo">#9 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo egrep -H '^(read|write)_bytes:' /proc/[1-9]*/io &gt;<i class="dopln">dočasný/soubor/1</i></div>
 <div class="radekzaklinadla">sleep 1;sudo egrep -H '^(read|write)_bytes:' /proc/[1-9]*/io &gt;<i class="dopln">dočasný/soubor/2</i></div>
 <div class="radekzaklinadla">gawk 'BEGIN {FS=&quot;/|: ?&quot;; OFS = &quot;\t&quot;;} ARGIND == 1 {A[$3] += $6} ARGIND == 2 {B[$3] += $6} END {for (pid in A) {if (pid in B) {print B[pid] - A[pid], pid}}}' <i class="dopln">dočasný/soubor/1</i> <i class="dopln">dočasný/soubor/2</i> | sort -rn | head</div>
 </div></div>
 
-<h3><a href="#cast3x4" id="cast3x4"><span class="cislo">4</span> Zjistit historii využití zdrojů</a></h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z461106961" href="#z461106961">♇</a>čas od spuštění procesu (v sekundách/ve formátu [[DD-]hh:]mm:ss)</div><div class="radky">
+<h3><a href="#cast3x4" id="cast3x4" title="kapitola 16 (Správa procesů), sekce 3 (Zaklínadla), podsekce 4 (Zjistit historii využití zdrojů)">/s03/p04 Zjistit historii využití zdrojů</a></h3>
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z461106961" href="#z461106961">♇</a>čas od spuštění procesu (v sekundách/ve formátu [[DD-]hh:]mm:ss)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">ps h -o etimes:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 271</span></div>
 <div class="radekzaklinadla">ps h -o etime:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 04:31</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z58733323" href="#z58733323">ɵ</a>čas, od kdy proces existuje</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z58733323" href="#z58733323">ɵ</a>čas, od kdy proces existuje<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">ps h -o lstart -p <i class="dopln">PID</i> | date -f - &quot;+%F %T %z&quot;<span class="prikladhodnoty">⊨ 2020-02-07 13:42:13 +0100</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona D" id="z881338893" href="#z881338893">⚸</a>spotřebovaný čas procesoru</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z881338893" href="#z881338893">⚸</a>spotřebovaný čas procesoru<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">ps h -o cputime:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 00:01:13</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><a class="ikona D" id="z812445606" href="#z812445606">♩</a>počet bajtů přečtených z disku/<b>zapsaných na disk</b></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z812445606" href="#z812445606">♩</a>počet bajtů přečtených z disku/<b>zapsaných na disk</b><span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> sed -E 's/^read_bytes:\s+//;t;d' /proc/<i class="dopln">PID</i>/io<span class="prikladhodnoty">⊨ 1503232</span></div>
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> sed -E 's/^write_bytes:\s+//;t;d' /proc/<i class="dopln">PID</i>/io<span class="prikladhodnoty">⊨ 1724416</span></div>
 </div></div>
 
-<h3><a href="#cast3x5" id="cast3x5"><span class="cislo">5</span> Zjistit ostatní údaje</a></h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z265709100" href="#z265709100">⡿</a>seznam otevřených deskriptorů (jen čísla/s cestami k souborům)</div><div class="radky">
+<h3><a href="#cast3x5" id="cast3x5" title="kapitola 16 (Správa procesů), sekce 3 (Zaklínadla), podsekce 5 (Zjistit ostatní údaje)">/s03/p05 Zjistit ostatní údaje</a></h3>
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z265709100" href="#z265709100">⡿</a>seznam otevřených deskriptorů (jen čísla/s cestami k souborům)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> ls -U1 /proc/<i class="dopln">PID</i>/fd</div>
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> find /proc/<i class="dopln">PID</i>/fd -type l -printf '%f\t%l\n'</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z78204456" href="#z78204456">◷</a>vypsat prostředí procesu ve formátu txtz<sup><a href="#kapspravaprocesuppc3" id="kapspravaprocesuppcr3" title="Každý záznam začíná názvem proměnné prostředí a znakem „=“, za ním následuje obsah proměnné.">(3)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z78204456" href="#z78204456">◷</a>vypsat prostředí procesu ve formátu txtz<span class="cislo">#2 </span><sup><a href="#kapspravaprocesuppc3" id="kapspravaprocesuppcr3" title="Každý záznam začíná názvem proměnné prostředí a znakem „=“, za ním následuje obsah proměnné.">(3)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> cat /proc/<i class="dopln">PID</i>/environ <span class="volznak">[</span>| <i class="dopln">zpracování</i><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona D" id="z1592745177" href="#z1592745177">⡠</a>efektivní uživatel (jméno/EUID)</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1592745177" href="#z1592745177">⡠</a>efektivní uživatel (jméno/EUID)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">ps h -o euser:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ root</span></div>
 <div class="radekzaklinadla">ps h -o euid:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 0</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><a class="ikona D" id="z1634804360" href="#z1634804360">⇶</a>efektivní skupina (jméno/EGID)</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1634804360" href="#z1634804360">⇶</a>efektivní skupina (jméno/EGID)<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">ps h -o egroup:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ root</span></div>
 <div class="radekzaklinadla">ps h -o egid:1 -p <i class="dopln">PID</i><span class="prikladhodnoty">⊨ 0</span></div>
 </div></div>
 
 <h2><a href="#cast4" id="cast4"><span class="cislo">4.</span> Zaklínadla (TUI a stromové zobrazení)</a></h2>
 
-<h3><a href="#cast4x1" id="cast4x1"><span class="cislo">1</span> Stromové zobrazení</a></h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z729272934" href="#z729272934">↲</a>proces a jeho potomci</div><div class="radky">
+<h3><a href="#cast4x1" id="cast4x1" title="kapitola 16 (Správa procesů), sekce 4 (Zaklínadla (TUI a stromové zobrazení)), podsekce 1 (Stromové zobrazení)">/s04/p01 Stromové zobrazení</a></h3>
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z729272934" href="#z729272934">↲</a>proces a jeho potomci<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">pstree -pT<span class="volznak">[</span>h<span class="volznak">]</span><span class="volznak">[</span>l<span class="volznak">]</span> <i class="dopln">PID</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z710817255" href="#z710817255">└</a>proces a jeho předkové</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z710817255" href="#z710817255">└</a>proces a jeho předkové<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">pstree -ps<span class="volznak">[</span>h<span class="volznak">]</span><span class="volznak">[</span>l<span class="volznak">]</span> <i class="dopln">PID</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona D" id="z688750725" href="#z688750725">⠉</a>všechny procesy bez parametrů/s parametry</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z688750725" href="#z688750725">⠉</a>všechny procesy bez parametrů/s parametry<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">pstree -pT<span class="volznak">[</span>h<span class="volznak">]</span><span class="volznak">[</span>l<span class="volznak">]</span></div>
 <div class="radekzaklinadla">pstree -paT<span class="volznak">[</span>h<span class="volznak">]</span><span class="volznak">[</span>l<span class="volznak">]</span></div>
 </div></div>
 
-<h3><a href="#cast4x2" id="cast4x2"><span class="cislo">2</span> TUI</a></h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z206614931" href="#z206614931">ᚔ</a>procesy nejvíc zatěžující CPU</div><div class="radky">
+<h3><a href="#cast4x2" id="cast4x2" title="kapitola 16 (Správa procesů), sekce 4 (Zaklínadla (TUI a stromové zobrazení)), podsekce 2 (TUI)">/s04/p02 TUI</a></h3>
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z206614931" href="#z206614931">ᚔ</a>procesy nejvíc zatěžující CPU<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">top</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z1722676443" href="#z1722676443">∫</a>procesy zabírající nejvíc paměti RAM</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1722676443" href="#z1722676443">∫</a>procesy zabírající nejvíc paměti RAM<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">top</div>
 <div class="radekzaklinadla"><kbd>Shift</kbd> + <kbd>M</kbd></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona D" id="z171814914" href="#z171814914">ຄ</a>procesy nejvíc vytěžující pevný disk</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z171814914" href="#z171814914">ຄ</a>procesy nejvíc vytěžující pevný disk<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo iotop</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><a class="ikona D" id="z2096469195" href="#z2096469195">ຯ</a>procesy spotřebovávající nejvíc elektřiny<sup><a href="#kapspravaprocesuppc4" id="kapspravaprocesuppcr4" title="Funguje především na notebooku, nemám příliš vyzkoušené.">(4)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z2096469195" href="#z2096469195">ຯ</a>procesy spotřebovávající nejvíc elektřiny<span class="cislo">#4 </span><sup><a href="#kapspravaprocesuppc4" id="kapspravaprocesuppcr4" title="Funguje především na notebooku, nemám příliš vyzkoušené.">(4)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo powertop</div>
 </div></div>
 
 <h2><a href="#cast5" id="cast5"><span class="cislo">5.</span> Zaklínadla (spouštění a ovládání procesů)</a></h2>
 
-<h3><a href="#cast5x1" id="cast5x1"><span class="cislo">1</span> Spouštění procesů</a></h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z708786987" href="#z708786987">✤</a>spustit příkaz s právy <b>superuživatele</b>/jiného uživatele</div><div class="radky">
+<h3><a href="#cast5x1" id="cast5x1" title="kapitola 16 (Správa procesů), sekce 5 (Zaklínadla (spouštění a ovládání procesů)), podsekce 1 (Spouštění procesů)">/s05/p01 Spouštění procesů</a></h3>
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z708786987" href="#z708786987">✤</a>spustit příkaz s právy <b>superuživatele</b>/jiného uživatele<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo <i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametr-příkazu</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sudo -u <i class="dopln">uživatel</i> <i class="dopln">příkaz</i> <i class="dopln">parametr-příkazu</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z398952537" href="#z398952537">┋</a>spustit příkaz s právy jiné <b>skupiny</b></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z398952537" href="#z398952537">┋</a>spustit příkaz s právy jiné <b>skupiny</b><span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sg &quot;<i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametr-příkazu</i><span class="volznak">]</span><span class="tritecky"></span>&quot;</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona D" id="z2034064692" href="#z2034064692">☬</a>spustit příkaz a po skončení vypsat spotřebovaný <b>čas</b><sup><a href="#kapspravaprocesuppc5" id="kapspravaprocesuppcr5" title="Jde o vestavěnou konstrukci bashe, která dovoluje na místo jednoduchého příkazu zadat také více příkazů spojených rourou, např. „time seq 10000 | wc -l“. Účinek příkazu „time“ se pak vztahuje na všechny procesy spojené rourou.">(5)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z2034064692" href="#z2034064692">☬</a>spustit příkaz a po skončení vypsat spotřebovaný <b>čas</b><span class="cislo">#3 </span><sup><a href="#kapspravaprocesuppc5" id="kapspravaprocesuppcr5" title="Jde o vestavěnou konstrukci bashe, která dovoluje na místo jednoduchého příkazu zadat také více příkazů spojených rourou, např. „time seq 10000 | wc -l“. Účinek příkazu „time“ se pak vztahuje na všechny procesy spojené rourou.">(5)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">time <i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametr-příkazu</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><a class="ikona D" id="z294453718" href="#z294453718">Ⴤ</a>spustit příkaz a jeho programem <b>nahradit</b> volající bash či sh</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z294453718" href="#z294453718">Ⴤ</a>spustit příkaz a jeho programem <b>nahradit</b> volající bash či sh<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">exec <i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametr-příkazu</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><a class="ikona D" id="z955532042" href="#z955532042">໖</a>spustit proces s nastavenou prioritou (ne vyšší/libovolnou)</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z955532042" href="#z955532042">໖</a>spustit proces s nastavenou prioritou (ne vyšší/libovolnou)<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">nice -n $((<i class="dopln">priorita</i> - $(nice))) <i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametry příkazu</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sudo nice -n $((<i class="dopln">priorita</i> - $(nice))) sudo -u &quot;$(id -nu)&quot; -g &quot;$(id -ng)&quot; <i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametry příkazu</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
 
-<h3><a href="#cast5x2" id="cast5x2"><span class="cislo">2</span> Ukončování procesů</a></h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z1447829505" href="#z1447829505">⊛</a>požádat o ukončení více procesů podle názvu (obecně/příklad)</div><div class="radky">
+<h3><a href="#cast5x2" id="cast5x2" title="kapitola 16 (Správa procesů), sekce 5 (Zaklínadla (spouštění a ovládání procesů)), podsekce 2 (Ukončování procesů)">/s05/p02 Ukončování procesů</a></h3>
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1447829505" href="#z1447829505">⊛</a>požádat o ukončení více procesů podle názvu (obecně/příklad)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> pkill '<i class="dopln">regulární-výraz</i>'</div>
 <div class="radekzaklinadla">pkill '^gimp'</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z607453412" href="#z607453412">⊜</a>požádat o ukončení/násilně <b>ukončit</b></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z607453412" href="#z607453412">⊜</a>požádat o ukončení/násilně <b>ukončit</b><span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> kill <i class="dopln">PID</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> kill -9 <i class="dopln">PID</i><span class="tritecky"></span></div>
 </div></div>
 
-<h3><a href="#cast5x3" id="cast5x3"><span class="cislo">3</span> Čekání, signály, priorita</a></h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z1090405100" href="#z1090405100">▴</a><b>počkat</b> na ukončení</div><div class="radky">
+<h3><a href="#cast5x3" id="cast5x3" title="kapitola 16 (Správa procesů), sekce 5 (Zaklínadla (spouštění a ovládání procesů)), podsekce 3 (Čekání, signály, priorita)">/s05/p03 Čekání, signály, priorita</a></h3>
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1090405100" href="#z1090405100">▴</a><b>počkat</b> na ukončení<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">while test -e /proc/<i class="dopln">PID</i>; do IFS=&quot;&quot; read -t 0.1 || :; done &lt;&gt; &lt;(:)</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z1511310684" href="#z1511310684">▰</a>zaslat procesu <b>signál</b></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1511310684" href="#z1511310684">▰</a>zaslat procesu <b>signál</b><span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> kill -<span class="volznak">[</span><i class="dopln">signál</i><span class="volznak">]</span> <i class="dopln">PID</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona D" id="z1118004755" href="#z1118004755">➬</a><b>pozastavit</b> proces/nechat ho pokračovat</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1118004755" href="#z1118004755">➬</a><b>pozastavit</b> proces/nechat ho pokračovat<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> kill -SIGSTOP <i class="dopln">PID</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> kill -SIGCONT <i class="dopln">PID</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><a class="ikona D" id="z1786148752" href="#z1786148752">⢔</a><b>změnit prioritu</b> běžícího procesu<sup><a href="#kapspravaprocesuppc6" id="kapspravaprocesuppcr6" title="Priorita je číslo v rozsahu -20 (nejvyšší) až 19 (nejnižší); normální priorita je 0. Obyčejný uživatel (tzn. bez sudo) může pouze snižovat prioritu vlastních procesů.">(6)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1786148752" href="#z1786148752">⢔</a><b>změnit prioritu</b> běžícího procesu<span class="cislo">#4 </span><sup><a href="#kapspravaprocesuppc6" id="kapspravaprocesuppcr6" title="Priorita je číslo v rozsahu -20 (nejvyšší) až 19 (nejnižší); normální priorita je 0. Obyčejný uživatel (tzn. bez sudo) může pouze snižovat prioritu vlastních procesů.">(6)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> renice <i class="dopln">priorita</i> <i class="dopln">PID</i><span class="tritecky"></span></div>
 </div></div>
 
-<h3><a href="#cast5x4" id="cast5x4"><span class="cislo">4</span> Úlohy bashe</a></h3>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z453160509" href="#z453160509">ⵥ</a>spustit příkaz na pozadí</div><div class="radky">
+<h3><a href="#cast5x4" id="cast5x4" title="kapitola 16 (Správa procesů), sekce 5 (Zaklínadla (spouštění a ovládání procesů)), podsekce 4 (Úlohy bashe)">/s05/p04 Úlohy bashe</a></h3>
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z453160509" href="#z453160509">ⵥ</a>spustit příkaz na pozadí<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametr-příkazu</i><span class="volznak">]</span><span class="tritecky"></span> &amp;</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#2 </span><a class="ikona D" id="z95288354" href="#z95288354">⊸</a>požádat proces v popředí o ukončení</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z95288354" href="#z95288354">⊸</a>požádat proces v popředí o ukončení<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla"><kbd>Ctrl</kbd> + <kbd>C</kbd></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#3 </span><a class="ikona D" id="z1903953468" href="#z1903953468">⣩</a>pozastavit proces v popředí a odsunout ho jako úlohu bashe</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1903953468" href="#z1903953468">⣩</a>pozastavit proces v popředí a odsunout ho jako úlohu bashe<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla"><kbd>Ctrl</kbd> + <kbd>Z</kbd></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#4 </span><a class="ikona D" id="z1597062692" href="#z1597062692">♫</a>přenést úlohu na popředí<sup><a href="#kapspravaprocesuppc7" id="kapspravaprocesuppcr7" title="Byla-li úloha pozastavená, tento příkaz ji nechá pokračovat.">(7)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1597062692" href="#z1597062692">♫</a>přenést úlohu na popředí<span class="cislo">#4 </span><sup><a href="#kapspravaprocesuppc7" id="kapspravaprocesuppcr7" title="Byla-li úloha pozastavená, tento příkaz ji nechá pokračovat.">(7)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">fg <span class="volznak">[</span>%<i class="dopln">číslo-úlohy</i><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#5 </span><a class="ikona D" id="z455087679" href="#z455087679">⋥</a>vypsat seznam úloh</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z455087679" href="#z455087679">⋥</a>vypsat seznam úloh<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">jobs</div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#6 </span><a class="ikona D" id="z867658282" href="#z867658282">∾</a>nechat pozastavenou úlohu pokračovat v pozadí</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z867658282" href="#z867658282">∾</a>nechat pozastavenou úlohu pokračovat v pozadí<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">bg <span class="volznak">[</span>%<i class="dopln">číslo-úlohy</i><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#7 </span><a class="ikona D" id="z1230907745" href="#z1230907745">⬋</a>požádat úlohu o ukončení/násilně ji ukončit</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1230907745" href="#z1230907745">⬋</a>požádat úlohu o ukončení/násilně ji ukončit<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">kill %<i class="dopln">číslo-úlohy</i></div>
 </div></div>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#8 </span><a class="ikona D" id="z728651280" href="#z728651280">ⵌ</a>počkat na dokončení úlohy běžící v pozadí</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z728651280" href="#z728651280">ⵌ</a>počkat na dokončení úlohy běžící v pozadí<span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla">wait %<i class="dopln">číslo-úlohy</i> <span class="volznak">[</span>%<i class="dopln">číslo-další-úlohy</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
 
 <h2><a href="#cast6" id="cast6"><span class="cislo">6.</span> Parametry příkazů</a></h2>
 
-<h3><a href="#cast6x1" id="cast6x1"><span class="cislo">1</span> ps</a></h3>
+<h3><a href="#cast6x1" id="cast6x1" title="kapitola 16 (Správa procesů), sekce 6 (Parametry příkazů), podsekce 1 (ps)">/s06/p01 ps</a></h3>
 <div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla">ps <i class="dopln">parametry</i> <span class="volznak">[</span>-e<span class="volznak">]</span></div>
 <div class="radekzaklinadla">ps <i class="dopln">parametry</i> <i class="dopln">PID</i><span class="tritecky"></span></div>
@@ -349,7 +350,7 @@ jako chroot či cgroups.
 
 </tbody></table>
 
-<h3><a href="#cast6x2" id="cast6x2"><span class="cislo">2</span> pgrep</a></h3>
+<h3><a href="#cast6x2" id="cast6x2" title="kapitola 16 (Správa procesů), sekce 6 (Parametry příkazů), podsekce 2 (pgrep)">/s06/p02 pgrep</a></h3>
 <div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla">pgrep <span class="volznak">[</span><i class="dopln">volby</i><span class="volznak">]</span> '<i class="dopln">regulární výraz</i>'</div>
 <div class="radekzaklinadla">pgrep <span class="volznak">[</span><i class="dopln">volby a kritéria</i><span class="volznak">]</span> <span class="volznak">[</span>'<i class="dopln">regulární výraz</i>'<span class="volznak">]</span></div>
@@ -400,7 +401,7 @@ V kapitole je použit také příkaz gawk:
 </div></div>
 
 <h2><a href="#cast8" id="cast8"><span class="cislo">8.</span> Tipy a zkušenosti</a></h2>
-<ul><li>Existuje také příkaz „pkill“, který kombinuje většinu schopností příkazu „pgrep“ s příkazem „kill“ − tzn. vyhledaným procesům rovnou zašle signál.
+<ul><li>Existuje také příkaz „pkill“, který kombinuje většinu schopností příkazu „pgrep“ s příkazem „kill“ – tzn. vyhledaným procesům rovnou zašle signál.
 </li><li>Pokud rodič zanikne dřív než samotný proces, „adoptuje“ proces systemd.
 </li></ul>
 <h2><a href="#cast9" id="cast9"><span class="cislo">9.</span> Další zdroje informací</a></h2>
@@ -419,7 +420,7 @@ V kapitole je použit také příkaz gawk:
 </li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/common/pgrep.md">TL;DR: pgrep</a> (anglicky)
 </li></ul>
 <h2><a href="#cast10" id="cast10"><span class="cislo">10.</span> Pomocné skripty</a></h2>
-<div class="zaklinadlo"><hr><div class="zahlavi"><span class="cislo">#1 </span><a class="ikona D" id="z7094273" href="#z7094273">‣</a>lkk procesy − vypíše přehled procesů ve snadno zpracovatelném tvaru</div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z7094273" href="#z7094273">‣</a>lkk procesy – vypíše přehled procesů ve snadno zpracovatelném tvaru<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">#!/usr/bin/gawk -bf</div>
 <div class="radekzaklinadla">BEGIN {</div>
 <div class="radekzaklinadla" style="padding-left:2ch;">while (&quot;ps h -e -o pid,ppid&quot; | getline) {ppids[pids[++n] = $1] = $2}</div>
@@ -446,12 +447,12 @@ V kapitole je použit také příkaz gawk:
 <div id="kapspravaprocesuppc7"><a href="#kapspravaprocesuppcr7" class="cislopozn">7</a>&nbsp;Byla-li úloha pozastavená, tento příkaz ji nechá pokračovat.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 </div>
-<div class="odkazydole"><a href="planovani-uloh.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Plánování úloh</a><a href="prace-s-archivy.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Práce s archivy</a><a href="git.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Git</a></div>
+<div class="odkazydole"><a href="datum-cas-kalendar.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Datum, čas a kalendář</a><a href="prace-s-archivy.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Práce s archivy</a><a href="docker.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Docker</a></div>
 
 <nav class="spodni"><span class="prev">
-<a href="sprava-balicku.htm" rel="prev" title="14. Správa balíčků">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="sprava-balicku.htm" rel="prev" title="15. Správa balíčků">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="stahovani-videi.htm" rel="next" title="16. Stahování videí">Následující&nbsp;kapitola</a>
+-->&nbsp;| <a href="stahovani-videi.htm" rel="next" title="17. Stahování videí">Následující&nbsp;kapitola</a>
 </span>
 <a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
 <a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
@@ -459,6 +460,90 @@ V kapitole je použit také příkaz gawk:
 
 
 </article>
+<!-- MENU -->
+<a href="#menu" id="menu">MENU</a>
+<aside>
+<div>
+<div>Toto je experimentální bezjavascriptové menu ve vývoji.
+Zatím prosím použijte k navigaci <a href="index.htm">přehled kapitol</a>.</div>
+<a href="awk.htm">AWK</a>
+<a href="docker.htm">Docker</a>
+<a href="#cast3x2">3x2</a>
+<a href="#cast3x1">3x1</a>
+<div>Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum</div></div>
+<a href="#zavritmenu" id="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- *** -->
 <footer id="dole">
 <img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
 <p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence

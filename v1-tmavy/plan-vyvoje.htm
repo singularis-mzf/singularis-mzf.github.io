@@ -5,15 +5,15 @@
 
 <title>Plán budoucího vývoje − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20200321.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200321-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200321-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200321-tmavy.css" title="Tmavý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20200417.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200417-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200417-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200417-tmavy.css" title="Tmavý motiv">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body id="nahore">
 <header>
-<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.5 (21. března 2020)</span>
+<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.6 (17. dubna 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 
@@ -21,23 +21,21 @@
 <nav class="horni">
 <div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
 <span class="prev">
-<a href="koncepce-projektu.htm" rel="prev" title="20. Koncepce projektu Linux: Kniha kouzel" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="koncepce-projektu.htm" rel="prev" title="21. Koncepce projektu Linux: Kniha kouzel" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="licence.htm" rel="next" title="22. Licence" accesskey="n">Následující&nbsp;kapitola</a>
+-->&nbsp;| <a href="licence.htm" rel="next" title="23. Licence" accesskey="n">Následující&nbsp;kapitola</a>
 </span>
 </nav>
 
 
 <article>
 
-<h1 class="kapitola">21. <img src="obrazky/ik-vychozi.png" alt="" width="64" height="64"> Plán budoucího vývoje</h1>
+<h1 class="kapitola">22. <img src="obrazky/ik-vychozi.png" alt="" width="64" height="64"> Plán budoucího vývoje</h1>
 <div class="rozcestnikkapitol">
 <a href="#cast1" class="sekce">Chystané kapitoly</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast2" class="sekce">Chystaný vývoj formátování a mechanismu překladu</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast3" class="sekce">Možný přechod na jazyk Perl</a></div>
+<a href="#cast2" class="sekce">Možný přechod na jazyk Perl</a></div>
 <h2><a href="#cast1" id="cast1"><span class="cislo">1.</span> Chystané kapitoly</a></h2>
 <ul class="kompaktni"><li>„Proměnné prostředí“ (printenv a další možnosti)
-</li><li>„Hledání souborů“ (find, locate, whereis a další)
 </li><li>„Unicode a emotikony“ („mapa znaků“, vzorníky a různé symboly)
 </li><li>„Základy Perlu“ (jednoduše, konzistentně)
 </li><li>„Komplexní textové formáty“ (JSON, XML apod.)
@@ -46,17 +44,16 @@
 </li><li>„X (správce oken)“ (práce s okny, se schránkou, oznámení a další)
 </li><li>„Zpracování obrázků“ (ImageMagick, konverze RAW z fotoaparátů, zatím asi bez animovaných gifů)
 </li><li>„Zpracování binárních souborů“ (md5sum, uuencode, base64, analýzy, konverze a další)
-</li><li>„Diskové oddíly“ (fstab, mount, fsck, mkfs, LVM, vypalování DVD)
 </li><li>„Firewall“ (asi hlavně iptables)
 </li><li>„GRUB“ (konfigurace, dualboot, nastavení grafického pozadí)
 </li><li>„Vim“ (základní a mírně pokročilé ovládání)
 </li><li>„Záznam obrazovky“ (maim, ffmpeg a další)
-</li><li>„Soubory a adresáře“ (vytváření, mazání, fallocate, truncate, kopírování, práva a atributy)
 </li><li>„Pevné a symbolické odkazy“
 </li><li>„Bash“ (syntaxe, rozvoj proměnných, exec, přesměrování, roury a další)
 </li><li>„LaTeX“ (základní struktura dokumentu, standardní značky, překlad do PDF, důležité balíčky)
 </li><li>„SQL“ (SQLite, MySQL, MariaDB; všechno možné)
 </li><li>„ASCII art“ (banner, toilet a další)
+</li><li>„DOSBox“ (ovládání, konfigurace, spouštění)
 </li><li>„Wine“ (parametry, konfigurace, zkušenosti, wine-prefixy apod.)
 </li><li>„Správa balíčků 2“ (apt-src, apt-mirror, aptly)
 </li><li>„Matematické výpočty“ (bc, dc, expr apod.)
@@ -68,24 +65,23 @@ nebo návrh na zpracování jiného tématu, napište mi váš názor e-mailem
 nebo komentářem na GitHubu. Váš zájem mě určitě potěší a povzbudí.
 </p>
 
-<h2><a href="#cast2" id="cast2"><span class="cislo">2.</span> Chystaný vývoj formátování a mechanismu překladu</a></h2>
-<ul class="kompaktni"><li>Vylepšovat design a přehlednost HTML varianty.
-</li><li>Vylepšovat design a přehlednost PDF variant.
-</li></ul>
-<h2><a href="#cast3" id="cast3"><span class="cislo">3.</span> Možný přechod na jazyk Perl</a></h2>
+<h2><a href="#cast2" id="cast2"><span class="cislo">2.</span> Možný přechod na jazyk Perl</a></h2>
 <p class="ponadpisu">
 Přechod projektu z AWK na Perl v nejbližší budoucnosti <i>nenastane</i>.
 Mechanismus překladu je značně založený na příkazech „switch“,
 které Perl sám o sobě dobře neumí a náhražky v něm vypadají ošklivě
 nebo dobře nefungují. Proto bude další vývoj mechanismu překladu probíhat
 i nadále v AWK.
+</p><p>
+Plánuji však převod spouštěče „lkk“ do Perlu, tak aby GNU awk nebylo
+vyžadováno jako závislost balíčku „lkk“.
 </p>
-<div class="odkazydole"><a href="docker.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Docker</a><a href="markdown.htm"><img src="obrazky/ik/markdown.png" alt="" width="32" height="32">Markdown</a><a href="sprava-procesu.htm"><img src="obrazky/ik/sprava-procesu.png" alt="" width="32" height="32">Správa procesů</a></div>
+<div class="odkazydole"><a href="zpracovani-textovych-souboru.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Zpracování textových souborů</a><a href="diskove-oddily.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Diskové oddíly</a><a href="make.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">GNU make</a></div>
 
 <nav class="spodni"><span class="prev">
-<a href="koncepce-projektu.htm" rel="prev" title="20. Koncepce projektu Linux: Kniha kouzel">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="koncepce-projektu.htm" rel="prev" title="21. Koncepce projektu Linux: Kniha kouzel">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="licence.htm" rel="next" title="22. Licence">Následující&nbsp;kapitola</a>
+-->&nbsp;| <a href="licence.htm" rel="next" title="23. Licence">Následující&nbsp;kapitola</a>
 </span>
 <a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
 <a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
@@ -93,6 +89,90 @@ i nadále v AWK.
 
 
 </article>
+<!-- MENU -->
+<a href="#menu" id="menu">MENU</a>
+<aside>
+<div>
+<div>Toto je experimentální bezjavascriptové menu ve vývoji.
+Zatím prosím použijte k navigaci <a href="index.htm">přehled kapitol</a>.</div>
+<a href="awk.htm">AWK</a>
+<a href="docker.htm">Docker</a>
+<a href="#cast3x2">3x2</a>
+<a href="#cast3x1">3x1</a>
+<div>Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum<br>
+Lorem Ipsum</div></div>
+<a href="#zavritmenu" id="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- *** -->
 <footer id="dole">
 <img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
 <p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence

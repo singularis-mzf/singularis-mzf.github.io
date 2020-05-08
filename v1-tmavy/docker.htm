@@ -5,15 +5,16 @@
 
 <title>Docker − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20200417.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200417-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200417-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200417-tmavy.css" title="Tmavý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20200508.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200508-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200508-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200508-tmavy.css" title="Tmavý motiv">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
-<body id="nahore">
+<body>
+<div id="nahore"></div>
 <header>
-<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.6 (17. dubna 2020)</span>
+<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.7 (8. května 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 
@@ -30,7 +31,7 @@
 
 <article>
 
-<h1 class="kapitola">6. <img src="obrazky/ik-vychozi.png" alt="" width="64" height="64"> Docker</h1>
+<h1 class="kapitola">6. <img src="obrazky/ik/docker.png" alt="" width="64" height="64"> Docker</h1>
 <div class="stitky"><a href="x-stitky.htm#skontejnery">kontejnery</a>
 <a href="x-stitky.htm#sprogrm">program</a>
 <a href="x-stitky.htm#svirtulizce">virtualizace</a>
@@ -47,7 +48,7 @@
 <a href="#cast7" class="sekce">Ukázka</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast8" class="sekce">Tipy a zkušenosti</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast9" class="sekce">Další zdroje informací</a></div>
-<h2><a href="#cast1" id="cast1"><span class="cislo">1.</span> Úvod</a></h2>
+<h2 id="cast1"><a href="#cast1"><span class="cislo">1.</span> Úvod</a></h2>
 <p class="ponadpisu">
 Docker je nástroj pro odlehčenou virtualizaci formou takzvaných kontejnerů. Kontejner obsahuje vlastní podstrom procesů, který je izolovaný od zbytku systému (má vlastní souborový systém, konfiguraci, knihovny, démony, síťové rozhraní a IP adresu), ale sdílí s ním jádro a výpočetní prostředky. To umožňuje bezpečný a snadno přenositelný běh programů určených pro jiné distribuce (můžete např. na nejnovější Fedoře spouštět program ze staré verze Debianu apod.). Nevýhodou Dockeru je, že jeho používání vyžaduje oprávnění superuživatele a nepodporuje přímo spouštění grafických aplikací nebo přímý přístup k hardwaru (i barvy v terminálu je tam podtřeba zprovoznit). Nejčastěji se používá na provozování databází.
 </p><p>
@@ -56,126 +57,126 @@ Použití Dockeru obecně probíhá tak, že napíšete vlastní Dockerfile, z 
 Tato verze kapitoly pokrývá pouze základy Dockeru; nezmiňuje se o nástoji „docker-compose“ a pokrývá jen malou část dostupných „docker“-příkazů. Neuvádí specializované repozitáře jako např. „mysql“.
 </p>
 
-<h2><a href="#cast2" id="cast2"><span class="cislo">2.</span> Definice</a></h2>
+<h2 id="cast2"><a href="#cast2"><span class="cislo">2.</span> Definice</a></h2>
 <ul><li><b>Kontejner</b> je dočasné (ale perzistentní) částečně izolované prostředí pro spouštění programů.
 </li><li><b>Obraz</b> je neměnný, opakovaně použitelný výchozí stav kontejneru.
 </li><li><b>Repozitář</b> je soubor obrazů se společným označením (např. „ubuntu“ či „mysql“). Jednotlivé obrazy se pak identifikují pomocí <b>tagu</b> uvedeného za název repozitáře a dvojtečku (např. „ubuntu:18.04“). Není-li tag uveden, Docker automaticky doplní „latest“.
 </li><li><b>Dockerfile</b> je textový soubor s názvem „Dockerfile“, obsahující instrukce k vytvoření obrazu.
 </li></ul>
-<h2><a href="#cast3" id="cast3"><span class="cislo">3.</span> Zaklínadla (docker)</a></h2>
+<h2 id="cast3"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla (docker)</a></h2>
 
-<h3><a href="#cast3x1" id="cast3x1" title="kapitola 6 (Docker), sekce 3 (Zaklínadla (docker)), podsekce 1 (Práce s obrazy)">/s03/p01 Práce s obrazy</a></h3>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1437494772" href="#z1437494772">⨑</a><b>vytvořit</b> obraz z Dockerfilu<span class="cislo">#1 </span><sup><a href="#kapdockerppc1" id="kapdockerppcr1" title="Pozor na tečku na konci příkazu, je povinná a bez ní příkaz skončí vypsáním nápovědy!">(1)</a></sup></div><div class="radky">
+<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 6 (Docker), sekce 3 (Zaklínadla (docker)), podsekce 1 (Práce s obrazy)"><sup>3/</sup>1 Práce s obrazy</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1437494772"><span><a href="#z1437494772">⨑</a></span></span><b>vytvořit</b> obraz z Dockerfilu<span class="cislo">#1 </span><sup><a href="#kapdockerppc1" id="kapdockerppcr1" title="Pozor na tečku na konci příkazu, je povinná a bez ní příkaz skončí vypsáním nápovědy!">(1)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo docker build <span class="volznak">[</span>-t <i class="dopln">repozitář</i><span class="volznak">[</span>:<i class="dopln">tag-pro-obraz</i><span class="volznak">]</span><span class="volznak">]</span> <span class="volznak">[</span>--no-cache<span class="volznak">]</span> .</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1747072695" href="#z1747072695">✸</a><b>vypsat</b> lokálně dostupné obrazy<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1747072695"><span><a href="#z1747072695">✸</a></span></span><b>vypsat</b> lokálně dostupné obrazy<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo docker images</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z247793710" href="#z247793710">❨</a><b>smazat</b> obraz (lokálně)<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z247793710"><span><a href="#z247793710">❨</a></span></span><b>smazat</b> obraz (lokálně)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo docker rmi <i class="dopln">obraz</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z998196910" href="#z998196910">░</a>vyhledat vzdáleně dostupné repozitáře<span class="cislo">#4 </span><sup><a href="#kapdockerppc2" id="kapdockerppcr2" title="Uvedený příkaz má přednastavený limit 25 položek; parametrem lze počet zvýšit maximálně na 100.">(2)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z998196910"><span><a href="#z998196910">░</a></span></span>vyhledat vzdáleně dostupné repozitáře<span class="cislo">#4 </span><sup><a href="#kapdockerppc2" id="kapdockerppcr2" title="Uvedený příkaz má přednastavený limit 25 položek; parametrem lze počet zvýšit maximálně na 100.">(2)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo docker search <span class="volznak">[</span>--limit=100<span class="volznak">]</span> <i class="dopln">text-k-vyhledání</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z849208254" href="#z849208254">▵</a>vypsat všechny vzdáleně dostupné repozitáře<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z849208254"><span><a href="#z849208254">▵</a></span></span>vypsat všechny vzdáleně dostupné repozitáře<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1376141344" href="#z1376141344">˥</a>vypsat vzdáleně dostupné obrazy z určitého repozitáře<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1376141344"><span><a href="#z1376141344">˥</a></span></span>vypsat vzdáleně dostupné obrazy z určitého repozitáře<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1505268622" href="#z1505268622">⠾</a><b>přejmenovat</b> obraz <span class="cislo">#7 </span><sup><a href="#kapdockerppc3" id="kapdockerppcr3" title="Původní označení zůstane zachováno.">(3)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1505268622"><span><a href="#z1505268622">⠾</a></span></span><b>přejmenovat</b> obraz <span class="cislo">#7 </span><sup><a href="#kapdockerppc3" id="kapdockerppcr3" title="Původní označení zůstane zachováno.">(3)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo docker tag <i class="dopln">starý-repozitář</i><span class="volznak">[</span>:<i class="dopln">starý-tag</i><span class="volznak">]</span> <i class="dopln">nový-repozitář</i><span class="volznak">[</span>:<i class="dopln">nový-označení-tag</i><span class="volznak">]</span></div>
 <div class="radekzaklinadla">sudo docker rmi <i class="dopln">starý-repozitář</i><span class="volznak">[</span>:<i class="dopln">starý-tag</i><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z195664718" href="#z195664718">♨</a><b>uložit</b> obraz do souboru/<b>načíst</b> ze souboru<span class="cislo">#8 </span><sup><a href="#kapdockerppc4" id="kapdockerppcr4" title="Uložený obraz doporučuji komprimovat (je ve formátu tar); obsahuje všechny vrstvy potřebné pro rekonstrukci obrazu, takže ho lze načíst i na počítači bez připojení k internetu. Rovněž je to vhodný způsob, jak si obraz zálohovat.">(4)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z195664718"><span><a href="#z195664718">♨</a></span></span><b>uložit</b> obraz do souboru/<b>načíst</b> ze souboru<span class="cislo">#8 </span><sup><a href="#kapdockerppc4" id="kapdockerppcr4" title="Uložený obraz doporučuji komprimovat (je ve formátu tar); obsahuje všechny vrstvy potřebné pro rekonstrukci obrazu, takže ho lze načíst i na počítači bez připojení k internetu. Rovněž je to vhodný způsob, jak si obraz zálohovat.">(4)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo docker save -o <i class="dopln">soubor</i> <i class="dopln">obraz</i></div>
 <div class="radekzaklinadla">sudo docker load -i <i class="dopln">soubor</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1048178393" href="#z1048178393">▉</a>uložit obraz na standardní výstup/načíst ze standardního vstupu<span class="cislo">#9 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1048178393"><span><a href="#z1048178393">▉</a></span></span>uložit obraz na standardní výstup/načíst ze standardního vstupu<span class="cislo">#9 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo docker save <i class="dopln">obraz</i></div>
 <div class="radekzaklinadla">sudo docker load</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z2007086358" href="#z2007086358">⤆</a>stáhnout vzdálený obraz k použití lokálně<span class="cislo">#10 </span><sup><a href="#kapdockerppc5" id="kapdockerppcr5" title="Tento příkaz obvykle není třeba používat, protože Docker chybějící obrazy stahuje automaticky, jakmile jsou potřeba.">(5)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2007086358"><span><a href="#z2007086358">⤆</a></span></span>stáhnout vzdálený obraz k použití lokálně<span class="cislo">#10 </span><sup><a href="#kapdockerppc5" id="kapdockerppcr5" title="Tento příkaz obvykle není třeba používat, protože Docker chybějící obrazy stahuje automaticky, jakmile jsou potřeba.">(5)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo docker pull <i class="dopln">obraz</i></div>
 </div></div>
 
-<h3><a href="#cast3x2" id="cast3x2" title="kapitola 6 (Docker), sekce 3 (Zaklínadla (docker)), podsekce 2 (Práce s kontejnery)">/s03/p02 Práce s kontejnery</a></h3>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z842135555" href="#z842135555">⡻</a>vytvořit a <b>spustit</b> kontejer<span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 6 (Docker), sekce 3 (Zaklínadla (docker)), podsekce 2 (Práce s kontejnery)"><sup>3/</sup>2 Práce s kontejnery</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z842135555"><span><a href="#z842135555">⡻</a></span></span>vytvořit a <b>spustit</b> kontejer<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo docker run <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> <i class="dopln">obraz</i> <span class="volznak">[</span><i class="dopln">náhradní příkaz a jeho parametry</i><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1758306314" href="#z1758306314">│</a><b>vypsat</b> seznam kontejnerů (jen běžících/všech na daném počítači)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1758306314"><span><a href="#z1758306314">│</a></span></span><b>vypsat</b> seznam kontejnerů (jen běžících/všech na daném počítači)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo docker ps</div>
 <div class="radekzaklinadla">sudo docker ps -a</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1814952507" href="#z1814952507">┹</a><b>zastavit</b> kontejner (normálně/násilně)<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1814952507"><span><a href="#z1814952507">┹</a></span></span><b>zastavit</b> kontejner (normálně/násilně)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo docker stop <i class="dopln">kontejner</i></div>
 <div class="radekzaklinadla">sudo docker kill <i class="dopln">kontejner</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1350536610" href="#z1350536610">⬖</a><b>znovu spustit</b> zastavený kontejner<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1350536610"><span><a href="#z1350536610">⬖</a></span></span><b>znovu spustit</b> zastavený kontejner<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo docker start <i class="dopln">kontejner</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z415299787" href="#z415299787">䷗</a><b>smazat</b> kontejner (jen zastavený/i běžící)<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z415299787"><span><a href="#z415299787">䷗</a></span></span><b>smazat</b> kontejner (jen zastavený/i běžící)<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo docker rm <i class="dopln">kontejner</i></div>
 <div class="radekzaklinadla">sudo docker rm -f <i class="dopln">kontejner</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z667547772" href="#z667547772">┤</a><b>přejmenovat</b> kontejner<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z667547772"><span><a href="#z667547772">┤</a></span></span><b>přejmenovat</b> kontejner<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo docker rename <i class="dopln">kontejner</i> <i class="dopln">nové-jméno</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1285744511" href="#z1285744511">◺</a>spustit nový interpret příkazové řádky v již běžícím kontejneru (obecně/konkrétně)<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1285744511"><span><a href="#z1285744511">◺</a></span></span>spustit nový interpret příkazové řádky v již běžícím kontejneru (obecně/konkrétně)<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo exec -it <i class="dopln">kontejner</i> <i class="dopln">interpret</i></div>
 <div class="radekzaklinadla">sudo exec -it ef95f2 bash</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z2085088139" href="#z2085088139">䷁</a>kopírování souborů z kontejneru/do kontejneru<span class="cislo">#8 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2085088139"><span><a href="#z2085088139">䷁</a></span></span>kopírování souborů z kontejneru/do kontejneru<span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo docker cp <i class="dopln">kontejner</i>:<i class="dopln">/cesta/v/kontejneru</i> <i class="dopln">cíl/mimo</i></div>
 <div class="radekzaklinadla">sudo docker cp <i class="dopln">zdroj/mimo/kontejner</i> <i class="dopln">kontejner</i>:<i class="dopln">/cíl/v/kontejneru</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z662780038" href="#z662780038">⊞</a>vytvořit kontejner bez spuštění<span class="cislo">#9 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z662780038"><span><a href="#z662780038">⊞</a></span></span>vytvořit kontejner bez spuštění<span class="cislo">#9 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo docker create <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> <i class="dopln">obraz</i></div>
 </div></div>
 
-<h3><a href="#cast3x3" id="cast3x3" title="kapitola 6 (Docker), sekce 3 (Zaklínadla (docker)), podsekce 3 (Pročištění systému)">/s03/p03 Pročištění systému</a></h3>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1209823339" href="#z1209823339">▢</a><b>pročistit systém</b> (po čase bývá nezbytné)<span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 6 (Docker), sekce 3 (Zaklínadla (docker)), podsekce 3 (Pročištění systému)"><sup>3/</sup>3 Pročištění systému</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1209823339"><span><a href="#z1209823339">▢</a></span></span><b>pročistit systém</b> (po čase bývá nezbytné)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo docker system prune</div>
 </div></div>
 
-<h3><a href="#cast3x4" id="cast3x4" title="kapitola 6 (Docker), sekce 3 (Zaklínadla (docker)), podsekce 4 (Eskalace práv)">/s03/p04 Eskalace práv</a></h3>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z136059967" href="#z136059967">⇉</a>přečtení souboru, který nemáte právo číst<span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 6 (Docker), sekce 3 (Zaklínadla (docker)), podsekce 4 (Eskalace práv)"><sup>3/</sup>4 Eskalace práv</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z136059967"><span><a href="#z136059967">⇉</a></span></span>přečtení souboru, který nemáte právo číst<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo docker --rm -it -v &quot;$(pwd):/root&quot; ubuntu cat &quot;/root/<i class="dopln">název souboru</i>&quot;</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1373662262" href="#z1373662262">❨</a>přepsání souboru, do kterého nemáte právo zapisovat<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1373662262"><span><a href="#z1373662262">❨</a></span></span>přepsání souboru, do kterého nemáte právo zapisovat<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo docker --rm -it -v &quot;$(pwd):/root&quot; ubuntu bash -c &quot;cat &gt; '/root/<i class="dopln">název souboru</i>'&quot;</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z627199741" href="#z627199741">⪒</a>přivlastnění si cizího souboru<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z627199741"><span><a href="#z627199741">⪒</a></span></span>přivlastnění si cizího souboru<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo docker --rm -it -v &quot;$(pwd):/root&quot; ubuntu chown $UID &quot;/root/<i class="dopln">název souboru</i>&quot;</div>
 </div></div>
 
-<h2><a href="#cast4" id="cast4"><span class="cislo">4.</span> Zaklínadla (Dockerfile)</a></h2>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1693466542" href="#z1693466542">⎥</a>komentář<span class="cislo">#1 </span></div><div class="radky">
+<h2 id="cast4"><a href="#cast4"><span class="cislo">4.</span> Zaklínadla (Dockerfile)</a></h2>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1693466542"><span><a href="#z1693466542">⎥</a></span></span>komentář<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"># <i class="dopln">komentář do konce řádku</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z620026162" href="#z620026162">ƿ</a>načíst existující obraz a použít ji jako základ pro nový<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z620026162"><span><a href="#z620026162">ƿ</a></span></span>načíst existující obraz a použít ji jako základ pro nový<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">FROM <i class="dopln">obraz</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1847465631" href="#z1847465631">➠</a>spustit příkaz<span class="cislo">#3 </span><sup><a href="#kapdockerppc6" id="kapdockerppcr6" title="Pozor, každý příkaz se spouští v nové instanci příkazovém intepretu „/bin/sh“!">(6)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1847465631"><span><a href="#z1847465631">➠</a></span></span>spustit příkaz<span class="cislo">#3 </span><sup><a href="#kapdockerppc6" id="kapdockerppcr6" title="Pozor, každý příkaz se spouští v nové instanci příkazovém intepretu „/bin/sh“!">(6)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">RUN <i class="dopln">příkaz</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1166472059" href="#z1166472059">․</a>zkopírovat soubory a adresáře z kontextu sestavení do kontejneru<span class="cislo">#4 </span><sup><a href="#kapdockerppc7" id="kapdockerppcr7" title="Kontext sestavení (build context) je zvláštní oblast, kam se při spuštění příkazu „docker build“ rekurzivně zkopíruje veškerý obsah aktuálního adresáře.">(7)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1166472059"><span><a href="#z1166472059">․</a></span></span>zkopírovat soubory a adresáře z kontextu sestavení do kontejneru<span class="cislo">#4 </span><sup><a href="#kapdockerppc7" id="kapdockerppcr7" title="Kontext sestavení (build context) je zvláštní oblast, kam se při spuštění příkazu „docker build“ rekurzivně zkopíruje veškerý obsah aktuálního adresáře.">(7)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">COPY <i class="dopln">zdroj</i> <span class="volznak">[</span><i class="dopln">další-zdroj</i><span class="volznak">]</span><span class="tritecky"></span> <i class="dopln">cíl</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z460057538" href="#z460057538">⌠</a>vytvořit zadaný adresář a nastavit ho jako aktuální<span class="cislo">#5 </span><sup><a href="#kapdockerppc8" id="kapdockerppcr8" title="Cesta může být i relativní.">(8)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z460057538"><span><a href="#z460057538">⌠</a></span></span>vytvořit zadaný adresář a nastavit ho jako aktuální<span class="cislo">#5 </span><sup><a href="#kapdockerppc8" id="kapdockerppcr8" title="Cesta může být i relativní.">(8)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">WORKDIR <i class="dopln">cesta</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z393910044" href="#z393910044">⌀</a>nastavit výchozí proces kontejneru (obecně/konkrétně)<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z393910044"><span><a href="#z393910044">⌀</a></span></span>nastavit výchozí proces kontejneru (obecně/konkrétně)<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">ENTRYPOINT [&quot;<i class="dopln">příkaz</i>&quot;<span class="volznak">[</span>, &quot;<i class="dopln">parametr</i>&quot;<span class="volznak">]</span><span class="tritecky"></span>]</div>
 <div class="radekzaklinadla">ENTRYPOINT [&quot;/bin/bash&quot;, &quot;-e&quot;]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1852485199" href="#z1852485199">☬</a>nastavit proměnné prostředí<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1852485199"><span><a href="#z1852485199">☬</a></span></span>nastavit proměnné prostředí<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">ENV <i class="dopln">proměnná</i>=&quot;<i class="dopln">hodnota</i>&quot; <span class="volznak">[</span><i class="dopln">další_proměnná</i>=&quot;<i class="dopln">její hodnota</i>&quot;<span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
 
-<h2><a href="#cast5" id="cast5"><span class="cislo">5.</span> Parametry příkazů</a></h2>
+<h2 id="cast5"><a href="#cast5"><span class="cislo">5.</span> Parametry příkazů</a></h2>
 
-<h3><a href="#cast5x1" id="cast5x1" title="kapitola 6 (Docker), sekce 5 (Parametry příkazů), podsekce 1 (docker run)">/s05/p01 docker run</a></h3>
+<h3 id="cast5x1"><span><a href="#cast5x1" title="kapitola 6 (Docker), sekce 5 (Parametry příkazů), podsekce 1 (docker run)"><sup>5/</sup>1 docker run</a></span></h3>
 <div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla">sudo docker run <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> <i class="dopln">obraz</i> <span class="volznak">[</span><i class="dopln">náhradní příkaz a jeho parametry</i><span class="volznak">]</span></div>
 </div></div>
@@ -188,24 +189,24 @@ Tato verze kapitoly pokrývá pouze základy Dockeru; nezmiňuje se o nástoji 
 </li><li><b>-w</b> <i class="dopln">/adresář/v/kontejneru</i> :: Nastaví aktuální adresář v kontejneru.
 </li><li><b>--network none</b> :: Spuštěný kontejner nebude mít přístup k síti.
 </li></ul>
-<h2><a href="#cast6" id="cast6"><span class="cislo">6.</span> Instalace na Ubuntu</a></h2>
+<h2 id="cast6"><a href="#cast6"><span class="cislo">6.</span> Instalace na Ubuntu</a></h2>
 <div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla">sudo apt-get install docker.io</div>
 </div></div>
 
-<h2><a href="#cast7" id="cast7"><span class="cislo">7.</span> Ukázka</a></h2>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1850451020" href="#z1850451020">⇸</a>Dockerfile<span class="cislo">#1 </span></div><div class="radky">
+<h2 id="cast7"><a href="#cast7"><span class="cislo">7.</span> Ukázka</a></h2>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1850451020"><span><a href="#z1850451020">⇸</a></span></span>Dockerfile<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">FROM ubuntu:18.04</div>
 <div class="radekzaklinadla">RUN apt-get update &amp;&amp; apt-get upgrade -y &amp;&amp; apt-get install -y mc vim</div>
 <div class="radekzaklinadla">WORKDIR /root</div>
 <div class="radekzaklinadla">ENTRYPOINT [&quot;/usr/bin/mc&quot;]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1576517294" href="#z1576517294">☡</a>sestavení a spuštění obrazu<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1576517294"><span><a href="#z1576517294">☡</a></span></span>sestavení a spuštění obrazu<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo docker build -t midnight-commander .</div>
 <div class="radekzaklinadla">sudo docker run --rm -it midnight-commander</div>
 </div></div>
 
-<h2><a href="#cast8" id="cast8"><span class="cislo">8.</span> Tipy a zkušenosti</a></h2>
+<h2 id="cast8"><a href="#cast8"><span class="cislo">8.</span> Tipy a zkušenosti</a></h2>
 <ul><li>Přidání uživatele do skupiny „docker“, které některé stránky doporučují, mu umožňuje spouštět Docker bez sudo. Z bezpečnostního hlediska to ale není dobrý nápad, protože jak ukazuje podsekce zaklínadel „Eskalace práv“, spouštění Dockeru je prakticky ekvivalentem přidělení práv superuživatele. Proto raději příkaz „docker“ spouštím z bashe spuštěného pomocí „sudo bash“.
 </li><li>Řádek v Dockerfilu lze rozdělit na víc řádků; v takovém případě se na konec každého kromě posledního přidá zpětné lomítko.
 </li><li>Programy spouštěné při sestavování obrazu nesmí vyžadovat žádnou uživatelskou interakci. Pokud k tomu dojde, sestavení obrazu selže. (Proto je třeba u příkazu „apt-get install“ používat parametr „-y“.)
@@ -214,7 +215,7 @@ Tato verze kapitoly pokrývá pouze základy Dockeru; nezmiňuje se o nástoji 
 </li><li>Hash kontejneru se v kontejneru používá jako název počítače, takže se zobrazuje ve výzvě příkazového interpretu a lze ji snadno zjistit příkazem „hostname“.
 </li><li>Ačkoliv by spuštění grafických aplikací v Dockeru mělo být také možné, vyžaduje specializovaný postup a nikdy jsem se o ně nepokoušel/a.
 </li></ul>
-<h2><a href="#cast9" id="cast9"><span class="cislo">9.</span> Další zdroje informací</a></h2>
+<h2 id="cast9"><a href="#cast9"><span class="cislo">9.</span> Další zdroje informací</a></h2>
 <p class="ponadpisu">
 Pro sestavení Dockerfilu je asi nejlepším informačním zdrojem online „Referenční příručka pro Dockerfile“. Pro spouštění je pak vhodná „Oficiální referenční příručka“. Oba zdroje jsou bohužel v angličtině.
 </p><p>
@@ -255,7 +256,7 @@ Pro základní přehled lze použít i příkazy:
 <div id="kapdockerppc8"><a href="#kapdockerppcr8" class="cislopozn">8</a>&nbsp;Cesta může být i relativní.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 </div>
-<div class="odkazydole"><a href="hledani-souboru.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Hledání souborů</a><a href="markdown.htm"><img src="obrazky/ik/markdown.png" alt="" width="32" height="32">Markdown</a><a href="diskove-oddily.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Diskové oddíly</a></div>
+<div class="odkazydole"><a href="barvy-a-titulek.htm"><img src="obrazky/ik/barvy-a-titulek.png" alt="" width="32" height="32">Barvy, titulek a výzva terminálu</a><a href="diskove-oddily.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly</a><a href="sprava-balicku.htm"><img src="obrazky/ik/sprava-balicku.png" alt="" width="32" height="32">Správa balíčků</a></div>
 
 <nav class="spodni"><span class="prev">
 <a href="diskove-oddily.htm" rel="prev" title="5. Diskové oddíly">Předchozí&nbsp;kapitola</a>&nbsp;|
@@ -268,89 +269,108 @@ Pro základní přehled lze použít i příkazy:
 
 
 </article>
-<!-- MENU -->
-<a href="#menu" id="menu">MENU</a>
-<aside>
-<div>
-<div>Toto je experimentální bezjavascriptové menu ve vývoji.
-Zatím prosím použijte k navigaci <a href="index.htm">přehled kapitol</a>.</div>
-<a href="awk.htm">AWK</a>
-<a href="docker.htm">Docker</a>
-<a href="#cast3x2">3x2</a>
-<a href="#cast3x1">3x1</a>
-<div>Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum</div></div>
-<a href="#zavritmenu" id="zavritmenu">Zavřít&nbsp;menu</a>
+<nav class="menu">
+<!-- MENU KAPITOLY -->
+<a href="#menukapitoly" id="menukapitoly"><span class="prvnipismeno">K</span>apitoly</a>
+<aside class="menukapitoly">
+<div><div class="nadpis">Kapitoly</div><div class="polozky">
+<a href="predmluva.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/predmluva.png" alt="[]"></span><span class="cislo">1</span><span class="nazev">Předmluva</span></a>
+<a href="awk.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/awk.png" alt="[]"></span><span class="cislo">2</span><span class="nazev">AWK</span></a>
+<a href="barvy-a-titulek.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/barvy-a-titulek.png" alt="[]"></span><span class="cislo">3</span><span class="nazev">Barvy, titulek a výzva terminálu</span></a>
+<a href="datum-cas-kalendar.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/datum-cas-kalendar.png" alt="[]"></span><span class="cislo">4</span><span class="nazev">Datum, čas a kalendář</span></a>
+<a href="diskove-oddily.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/diskove-oddily.png" alt="[]"></span><span class="cislo">5</span><span class="nazev">Diskové oddíly</span></a>
+<a href="docker.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/docker.png" alt="[]"></span><span class="cislo">6</span><span class="nazev">Docker</span></a>
+<a href="git.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/git.png" alt="[]"></span><span class="cislo">7</span><span class="nazev">Git</span></a>
+<a href="hledani-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/hledani-souboru.png" alt="[]"></span><span class="cislo">8</span><span class="nazev">Hledání souborů</span></a>
+<a href="make.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/make.png" alt="[]"></span><span class="cislo">9</span><span class="nazev">GNU make</span></a>
+<a href="markdown.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/markdown.png" alt="[]"></span><span class="cislo">10</span><span class="nazev">Markdown</span></a>
+<a href="planovani-uloh.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/planovani-uloh.png" alt="[]"></span><span class="cislo">11</span><span class="nazev">Plánování úloh</span></a>
+<a href="prace-s-archivy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="cislo">12</span><span class="nazev">Práce s archivy</span></a>
+<a href="regularni-vyrazy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="cislo">13</span><span class="nazev">Regulární výrazy</span></a>
+<a href="soubory-a-adresare.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/soubory-a-adresare.png" alt="[]"></span><span class="cislo">14</span><span class="nazev">Soubory a adresáře</span></a>
+<a href="sprava-balicku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="cislo">15</span><span class="nazev">Správa balíčků</span></a>
+<a href="sprava-procesu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-procesu.png" alt="[]"></span><span class="cislo">16</span><span class="nazev">Správa procesů</span></a>
+<a href="stahovani-videi.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/stahovani-videi.png" alt="[]"></span><span class="cislo">17</span><span class="nazev">Stahování videí</span></a>
+<a href="system.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="cislo">18</span><span class="nazev">Systém</span></a>
+<a href="zpracovani-textovych-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="cislo">19</span><span class="nazev">Zpracování textových souborů</span></a>
+<a href="zpracovani-videa-a-zvuku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="cislo">20</span><span class="nazev">Zpracování videa a zvuku</span></a>
+<a href="koncepce-projektu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="cislo">21</span><span class="nazev">Koncepce projektu Linux: Kniha kouzel</span></a>
+<a href="plan-vyvoje.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">22</span><span class="nazev">Plán budoucího vývoje</span></a>
+<a href="licence.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">23</span><span class="nazev">Licence</span></a>
+</div></div>
+<a href="#zavritmenu" id="zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
 </aside>
+<!-- MENU OSNOVA -->
+<a href="#menuosnova" id="menuosnova"><span class="prvnipismeno">O</span>snova</a>
+<aside class="menuosnova">
+<div><div class="nadpis">Osnova</div><div class="polozky">
+<a href="#cast1" class="sekce">1 Úvod</a>
+<a href="#cast2" class="sekce">2 Definice</a>
+<a href="#cast3" class="sekce">3 Zaklínadla (docker)</a>
+<a href="#cast3x1" class="podsekce">/1 Práce s obrazy</a>
+<a href="#cast3x2" class="podsekce">/2 Práce s kontejnery</a>
+<a href="#cast3x3" class="podsekce">/3 Pročištění systému</a>
+<a href="#cast3x4" class="podsekce">/4 Eskalace práv</a>
+<a href="#cast4" class="sekce">4 Zaklínadla (Dockerfile)</a>
+<a href="#cast5" class="sekce">5 Parametry příkazů</a>
+<a href="#cast5x1" class="podsekce">/1 docker run</a>
+<a href="#cast6" class="sekce">6 Instalace na Ubuntu</a>
+<a href="#cast7" class="sekce">7 Ukázka</a>
+<a href="#cast8" class="sekce">8 Tipy a zkušenosti</a>
+<a href="#cast9" class="sekce">9 Další zdroje informací</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU ŠTÍTKY -->
+<a href="#menustitky" id="menustitky"><span class="prvnipismeno">Š</span>títky</a>
+<aside class="menustitky">
+<div><div class="nadpis">Štítky</div><div class="polozky">
+<a href="x-stitky.htm#sdrese">adresáře&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#spt">apt&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sbrvy">barvy&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sbsh">bash&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#scs">čas&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#sdmoni">démoni&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sfltpk">Flatpak&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#shledn">hledání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sinternet">internet&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sklvesnice">klávesnice&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#skomprese">komprese&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#skontejnery">kontejnery&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#slvm">LVM&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sodkldcprostor">odkládací prostor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sprocesy">procesy&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sprogrm">program&nbsp;&nbsp;(4)</a>
+<a href="x-stitky.htm#sprogrmovn">programování&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#spstupovprv">přístupová práva&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#srmdisk">ramdisk&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#ssnp">Snap&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#ssoubory">soubory&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#ssprvverz">správa verzí&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#ssyntxe">syntaxe&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#ssystm">systém&nbsp;&nbsp;(4)</a>
+<a href="x-stitky.htm#stemtickokruh">tematický okruh&nbsp;&nbsp;(13)</a>
+<a href="x-stitky.htm#svideo">video&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#svirtulizce">virtualizace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#szip">zip&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#szprcovntextu">zpracování textu&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#szvuk">zvuk&nbsp;&nbsp;(1)</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU NÁPOVĚDA -->
+<a href="#menunapoveda" id="menunapoveda"><span class="prvnipismeno">N</span>ápověda</a>
+<aside class="menunapoveda">
+<div><div class="nadpis">Nápověda</div><div class="polozky">
+<a href="predmluva.htm">Předmluva</a>
+<a href="koncepce-projektu.htm">Koncepce projektu</a>
+<a href="https://singularis-mzf.github.io/">Ostatní verze knihy</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook">Repozitář na GitHubu</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+
+</nav>
 <!-- *** -->
 <footer id="dole">
 <img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">

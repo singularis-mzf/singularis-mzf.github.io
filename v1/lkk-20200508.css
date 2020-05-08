@@ -32,7 +32,7 @@ line-height:inherit;list-style:inherit;margin:0;
 max-height:none;max-width:none;min-height:0;overflow:visible;
 padding:0;position:static;right:auto;table-layout:auto;
 text-decoration:none;text-indent:0;text-transform:inherit;
-top:auto;visibility:inherit;white-space:inherit;word-spacing:inherit;
+top:auto;vertical-align:baseline;visibility:inherit;white-space:inherit;word-spacing:inherit;
 z-index:auto;font:inherit;}
 
 html {
@@ -73,6 +73,9 @@ nav.spodni {
     margin:3em 3rem 2em 0;
     text-align:center;
 }
+nav.menu {
+    display:block;
+}
 
 article {
     padding:2rem 3rem 10rem;
@@ -104,9 +107,6 @@ h2 {
 h3 {
     font:bold 125%/1.2 "DejaVu Sans", sans-serif;
     margin:1.5em 0 0.75em;
-    background-color:rgba(120,120,120,0.2);
-    box-shadow:0.1rem 0.1rem 0.2rem 0 rgba(120,120,120,0.8);
-    padding:0.5rem 0.5rem;
     page-break-after:avoid; /* možná není podporována v současných prohlížečích */
 }
 h3 .cislo {
@@ -117,6 +117,20 @@ h3 .cislo {
     padding-top:0.2em;
     text-align:center;
     width:1.5em;height:1.5em;
+}
+h3>span {
+    display:block;
+    background-color:rgba(120,120,120,0.2);
+    box-shadow:0.1rem 0.1rem 0.2rem 0 rgba(120,120,120,0.8);
+    padding:0.5rem 0.5rem;
+}
+
+h2, h3 {position:relative;top:-4rem;}
+h2>a, h2>span, h3>span {position:relative;top:4rem;}
+h3 sup {
+    vertical-align:super;
+    font-size:85%;
+    font-weight:normal;
 }
 
 p, ul, blockquote {
@@ -184,7 +198,7 @@ kbd {
 }
 
 /* Sebeodkazy nadpisů */
-h1>a:link, h1>a:visited, h2>a:link, h2>a:visited, h3>a:link, h3>a:visited, h4>a:link, h4>a:visited, h5>a:link, h5>a:visited, h6>a:link, h6>a:visited {
+h1>a:link, h1>a:visited, h2>a:link, h2>a:visited, h3>span>a:link, h3>span>a:visited, h4>a:link, h4>a:visited, h5>a:link, h5>a:visited, h6>a:link, h6>a:visited {
     display:block;
     color:inherit;
 }
@@ -228,17 +242,21 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
     float:right;
 }
 
-.zaklinadlo .zahlavi .D,
-.zaklinadlo .zahlavi .L {
+.zaklinadlo .zahlavi .ikona {
+    position:relative;top:-4rem;
     float:left;
-    min-width:1.2em;height:1.2em;overflow:visible;
-    text-align:center;white-space:pre;
+}
+.zaklinadlo .zahlavi .ikona * {display:block;position:relative;}
+.zaklinadlo .zahlavi .ikona>span {top:4rem}
+.zaklinadlo .zahlavi .ikona a {
+    background:rgba(0,0,0,0.1);
     margin:-1px 1.5rem -1px -1px;
     border:1px solid transparent;
-    padding:0;
-    font-size:200%;
-    background:rgba(0,0,0,0.1);
     border-radius:1em;
+    padding:0;
+    min-width:1.2em;height:1.2em;overflow:visible;
+    text-align:center;white-space:pre;
+    font-size:200%;
 }
 .zaklinadlo .zahlavi .D, .vzornikikon .D {font-family:"DejaVu Sans", sans-serif;}
 .zaklinadlo .zahlavi .L, .vzornikikon .L {font-family:"Latin Modern Math", sans-serif;}
@@ -406,6 +424,14 @@ header .right .ico3 {
 header .right .ico3::before {content:"\d7";}
 
 /* zbytek */
+#nahore {
+    display:block;
+    height:0.2rem;
+    margin:0 0 -0.2rem;
+    position:relative;
+    top:-4rem;
+}
+
 header .left img {vertical-align:bottom;margin-right:0.25em;}
 header .right {float:right;}
 footer p {margin:0;padding:0;max-width:none;}
@@ -542,7 +568,7 @@ nav .next {text-align:left;}
 .stitky {
     margin:2em 0;
 }
-.stitky span, .stitky a {
+.stitky a {
     display:inline-block;
     background:rgb(204,204,204);
     color:rgb(51,51,51);
@@ -557,6 +583,8 @@ nav .next {text-align:left;}
     text-align:center;
     white-space:nowrap;
 }
+.prehledstitku dt {position:relative;top:-3em;}
+.prehledstitku dt>span {position:relative;top:3em;display:block;}
 .prehledstitku .stitky {
     margin:1em 0 0.5em;
 }
@@ -731,28 +759,42 @@ span.chybny {
 
 /* Menu */
 
-a#menu {
-    position:fixed;left:5px;top:5px;bottom:auto;right:auto;
+nav.menu {
+    position:fixed;left:5pt;top:5pt;bottom:auto;right:auto; z-index:5;
     display:block;
+    margin:0;border:none;padding:0;
+    white-space:nowrap;
+    line-height:1.2;
+}
+nav.menu>a {
+    position:relative;z-index:5;
+    display:inline-block;
     margin:0;
     border-width:0.25rem 0.5rem 0.5rem 0.25rem;
     border-style:outset;
     border-color:rgb(153,153,153);
-    padding:0.25em 0.5em;
-    white-space:nowrap;
+    padding:0.25em;
+    min-width:6em;
+    /*white-space:nowrap;*/
     background:rgb(0,102,0);
     color:rgb(255,255,255);
-    font-weight:bold;
+    /*font-weight:bold;*/
     text-shadow:0 0 0.1em rgba(0,0,0, 1);
-
-    opacity:0.5; /* toto odstranit po odebrání experimentálního statutu */
-}
-a#menu::before {
-    content:"≡ ";
     text-decoration:none;
 }
-a#menu+aside {
-    position:fixed;left:10px;top:5px;bottom:5px;right:auto;z-index:-2;
+nav.menu>a:hover {
+    z-index:6;
+    box-shadow:0 0 0.1em 0.1em rgb(0,102,0);
+}
+nav.menu>a::before {
+    content:"≡ ";
+    font-weight:bold;
+    text-decoration:none;
+}
+nav.menu>a .prvnipismeno {text-decoration:underline}
+
+nav.menu>a+aside {
+    position:fixed;left:-50%;top:5pt;bottom:5pt;right:auto;z-index:-2;
     width:40%;min-width:20em;max-width:40em;
     margin:0;
     border:medium solid rgb(0,0,0);
@@ -763,23 +805,63 @@ a#menu+aside {
     opacity:0;
     transition-duration:0.5s;
     transition-property:all;
+    white-space:normal;
 }
-a#menu:target+aside {
+nav.menu>a:target+aside {
     opacity:1;
     z-index:5000;
+    left:5%;
 }
 
-a#menu+aside>div {
+nav.menu>a+aside>div {
     position:absolute;top:0;right:0;bottom:0;left:0;z-index:5;
-    padding:3em 2em 2em;
+    /*padding:3em 2em 2em;*/
     overflow:auto;
 }
+nav.menu div.polozky {
+    display:block;
+}
+nav.menu div.polozky>a {
+    display:block;
+    background-color:rgb(212,221,208);
+    color:rgb(51,51,51);
+    margin:0;border:none;padding:0.25em 1rem;
+    text-decoration:none;
+}
+nav.menu div.polozky>a:hover {
+    background-color:rgb(120,120,120);
+    color:rgb(212,221,208);
+}
+nav.menu .nadpis {
+    margin:0;
+    border-bottom:thin solid;
+    padding:0.5rem 1rem;
+    font-size:150%;
+    text-transform:uppercase;
+}
 
-a#zavritmenu {
+nav.menu div.polozky .cislo {
+    display:inline-block;
+    margin:0 0.5em;
+    min-width:1.5em;
+    text-align:right;
+}
+
+nav.menu div.polozky .sekce {font-weight:bold}
+nav.menu div.polozky .podsekce {padding-left:3rem}
+
+nav.menu div.polozky .ikona {
+    display:inline-block;
+    width:3em;
+    vertical-align:middle;
+}
+nav.menu div.polozky .ikona img {width:100%; height:auto;}
+
+a.zavritmenu {
     position:absolute;top:0.3rem;right:2rem;bottom:auto;left:auto;z-index:10;
     white-space:nowrap;
 }
-a#zavritmenu::after {
+a.zavritmenu::after {
     content: " ×";
     font-weight:bold;
     font-size:150%;

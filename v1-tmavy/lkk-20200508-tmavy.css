@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*
- * Linux Kniha kouzel, CSS, motiv vk-tmavy
+ * Linux Kniha kouzel, CSS, motiv tmavy
  * Copyright (c) 2019,2020 Singularis <singularis@volny.cz>
  *
  * Toto dílo je dílem svobodné kultury; můžete ho šířit a modifikovat pod
@@ -25,7 +25,22 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+#{{MAKRO kryti-obrazku-ikona-kapitoly    = 0.75}}
+
+#{{MAKRO titulni-lista-text-kryti        = 1}}
+#{{MAKRO titulni-lista-stin-textu-kryti  = 0}}
+
+#{{MAKRO zb-titul-krizek                 = 0,0,0}}
+
+#{{MAKRO zb-titul-aktivni                = 255,255,0}}
+
+#{{MAKRO titulni-lista-obrazek-pozadi    = none}}
+
 #{{MAKRO sede-casti-kryti=0.7}}
+
+#{{MAKRO symboly-tab-barva-pozadi    = transparent}}
+
+#{{MAKRO index-podzahlavim-box-shadow=none}}
 
 *{background:none;border:none;border-collapse:inherit;bottom:auto;
 caption-side:inherit;clear:none;clip:auto;color:inherit;
@@ -34,30 +49,30 @@ line-height:inherit;list-style:inherit;margin:0;
 max-height:none;max-width:none;min-height:0;overflow:visible;
 padding:0;position:static;right:auto;table-layout:auto;
 text-decoration:none;text-indent:0;text-transform:inherit;
-top:auto;visibility:inherit;white-space:inherit;word-spacing:inherit;
+top:auto;vertical-align:baseline;visibility:inherit;white-space:inherit;word-spacing:inherit;
 z-index:auto;font:inherit;}
 
 html {
-    background:rgb(0,0,0) none 100% 0%/cover repeat fixed;
-    color:rgb(255,255,255);
+    background:rgb(18,26,39) url("obrazky/udoli.jpg") 100% 0%/cover repeat fixed;
+    color:rgb(164,164,164);
     font:62.5%/1.2 sans-serif;
 }
 
 body {
     margin:15rem auto 25rem;
-    border:thin solid rgb(255,255,255);
+    border:thin solid rgb(60,60,60);
     padding:0;
     width:90%;min-width:95rem;max-width:120rem;
-    background-color:rgb(0,0,0);
+    background-color:rgb(40,40,40);
     font-size:133%;
     box-shadow:1rem 1rem 5rem 0 rgba(0,0,0,0.5);
 }
 
 header {
-    border-bottom:thin solid rgb(255,255,255);
+    border-bottom:thin solid rgb(60,60,60);
     padding:0.4em 0.5em;
-    background:rgb(0,0,0) none 0% 0%/1px 100% repeat-x;
-    color:rgba(255,255,255,1);
+    background:rgb(40,40,40) none 0% 0%/1px 100% repeat-x;
+    color:rgba(164,164,164,1);
     font-weight:bold;
     text-shadow:0 0 0.25em rgba(0,0,0,0);
 }
@@ -75,16 +90,19 @@ nav.spodni {
     margin:3em 3rem 2em 0;
     text-align:center;
 }
+nav.menu {
+    display:block;
+}
 
 article {
     padding:2rem 3rem 10rem;
 }
 
 footer {
-    border-top:thin solid rgb(255,255,255);
+    border-top:thin solid rgb(60,60,60);
     padding:1rem 3rem;
     font-size:85%;
-    background:rgb(50,50,50);
+    background:rgb(60,60,60);
 }
 
 h1 {
@@ -95,7 +113,7 @@ h1.kapitola img {
     vertical-align:middle;
     border:none;
     width:6.4rem;height:6.4rem;
-    opacity:1;
+    opacity:0.75;
 }
 
 h2 {
@@ -106,9 +124,6 @@ h2 {
 h3 {
     font:bold 125%/1.2 "DejaVu Sans", sans-serif;
     margin:1.5em 0 0.75em;
-    background-color:rgba(204,204,204,0.2);
-    box-shadow:0.1rem 0.1rem 0.2rem 0 rgba(204,204,204,0.8);
-    padding:0.5rem 0.5rem;
     page-break-after:avoid; /* možná není podporována v současných prohlížečích */
 }
 h3 .cislo {
@@ -119,6 +134,20 @@ h3 .cislo {
     padding-top:0.2em;
     text-align:center;
     width:1.5em;height:1.5em;
+}
+h3>span {
+    display:block;
+    background-color:rgba(120,120,120,0.2);
+    box-shadow:0.1rem 0.1rem 0.2rem 0 rgba(120,120,120,0.8);
+    padding:0.5rem 0.5rem;
+}
+
+h2, h3 {position:relative;top:-4rem;}
+h2>a, h2>span, h3>span {position:relative;top:4rem;}
+h3 sup {
+    vertical-align:super;
+    font-size:85%;
+    font-weight:normal;
 }
 
 p, ul, blockquote {
@@ -142,17 +171,17 @@ ul.kompaktni {
 }
 
 img {
-    opacity:1;
+    opacity:0.75;
 }
 figure {
     margin:2rem 0;
     border-radius:3rem;
     padding:1rem;
-    background:rgba(255,255,255,1);
+    background:rgba(255,255,255,0.2);
     text-align:center;
 }
 blockquote {
-    border-left:0.5em solid rgb(204,204,204);
+    border-left:0.5em solid rgb(120,120,120);
     padding-left:1em;
 }
 blockquote blockquote {
@@ -165,11 +194,11 @@ blockquote+blockquote {
 }
 
 /* Inline prvky */
-a:link {color:rgb(128,158,255)}
-a:visited {color:rgb(189,153,255);}
+a:link {color:rgb(86,155,200)}
+a:visited {color:rgb(183,136,183);}
 /* a:visited {color:;} */
-a[href^="http://"]::before, a[href^="https://"]::before {content:"[";color:rgba(204,204,204,1);}
-a[href^="http://"]::after, a[href^="https://"]::after {content:"]( " attr(href) " )";color:rgba(204,204,204,1);}
+a[href^="http://"]::before, a[href^="https://"]::before {content:"[";color:rgba(120,120,120,1);}
+a[href^="http://"]::after, a[href^="https://"]::after {content:"]( " attr(href) " )";color:rgba(120,120,120,1);}
 a:hover {text-decoration:underline;}
 b {font-weight:bold;}
 i {font-style:italic;}
@@ -180,13 +209,13 @@ kbd {
     border-radius:0.5em;
     padding:0 0.5em;
     white-space:nowrap;
-    background:rgb(50,50,50);
-    color:rgb(255,255,255);
+    background:rgb(60,60,60);
+    color:rgb(164,164,164);
     font-family:"DejaVu Sans", sans-serif;
 }
 
 /* Sebeodkazy nadpisů */
-h1>a:link, h1>a:visited, h2>a:link, h2>a:visited, h3>a:link, h3>a:visited, h4>a:link, h4>a:visited, h5>a:link, h5>a:visited, h6>a:link, h6>a:visited {
+h1>a:link, h1>a:visited, h2>a:link, h2>a:visited, h3>span>a:link, h3>span>a:visited, h4>a:link, h4>a:visited, h5>a:link, h5>a:visited, h6>a:link, h6>a:visited {
     display:block;
     color:inherit;
 }
@@ -203,7 +232,7 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
     font-family: "DejaVu Sans Mono", monospace;
     font-size:115%;
     page-break-inside:avoid;
-    color:rgb(255,255,255);
+    color:rgb(164,164,164);
 }
 
 .zaklinadlo>hr {
@@ -223,24 +252,28 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
 }
 
 .zaklinadlo .zahlavi b {
-    color:rgba(255,255,255,0.95);
+    color:rgba(164,164,164,0.95);
 }
 
 .zaklinadlo .zahlavi>.cislo {
     float:right;
 }
 
-.zaklinadlo .zahlavi .D,
-.zaklinadlo .zahlavi .L {
+.zaklinadlo .zahlavi .ikona {
+    position:relative;top:-4rem;
     float:left;
-    min-width:1.2em;height:1.2em;overflow:visible;
-    text-align:center;white-space:pre;
+}
+.zaklinadlo .zahlavi .ikona * {display:block;position:relative;}
+.zaklinadlo .zahlavi .ikona>span {top:4rem}
+.zaklinadlo .zahlavi .ikona a {
+    background:rgba(0,0,0,0.1);
     margin:-1px 1.5rem -1px -1px;
     border:1px solid transparent;
-    padding:0;
-    font-size:200%;
-    background:rgba(0,0,0,0.1);
     border-radius:1em;
+    padding:0;
+    min-width:1.2em;height:1.2em;overflow:visible;
+    text-align:center;white-space:pre;
+    font-size:200%;
 }
 .zaklinadlo .zahlavi .D, .vzornikikon .D {font-family:"DejaVu Sans", sans-serif;}
 .zaklinadlo .zahlavi .L, .vzornikikon .L {font-family:"Latin Modern Math", sans-serif;}
@@ -252,7 +285,7 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
     margin:3pt 5pt 3pt 7rem;
     border-left:1pt dotted #999999;
     padding:2pt 5pt;
-    color:rgba(255,255,255,0.7));
+    color:rgba(164,164,164,0.7));
 }
 
 .zaklinadlo td:nth-child(1) {white-space:nowrap;}
@@ -262,7 +295,7 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
     display:inline-block;
     width:0pt;
     position:relative;left:-2.5ch;top:0.5ex;
-    color:rgb(204,204,204);
+    color:rgb(120,120,120);
     font-weight:bold;
 }
 
@@ -270,7 +303,7 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
 .radekzaklinadla::after, .radekzaklinadlaafter::after {
     content:"↲";
     margin-left:0.5em;
-    color:rgba(204,204,204,0.7);
+    color:rgba(120,120,120,0.7);
 }
 .radekzaklinadla:last-child::after {display:none;}
 .radekzaklinadla:empty::after {margin-left:0;}
@@ -279,7 +312,7 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
     margin-left:2rem;
     border-left:0.2rem solid rgb(80,128,128);
     padding-left:0.3rem;
-    background:rgb(50,50,50);
+    background:rgb(60,60,60);
     color:inherit;
     font-family:Arimo,Helvetica,Arial,sans-serif;
 }
@@ -299,13 +332,13 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
 
 .zaklinadlo .volznak {
     display:inline-block;
-    color:rgba(204,204,204,0.7);
+    color:rgba(120,120,120,0.7);
     margin:0 -0.2em;
     transform:scaleY(1.75);
 }
 
 .zaklinadlo .reseninezname {
-    color:rgb(204,204,204);
+    color:rgb(120,120,120);
     font-weight:bold;
     text-shadow:0 0 0.5em rgba(0,0,0,0.5);
 }
@@ -331,7 +364,7 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
 .ppc .zrusitzvyrazneni::before {content:"(";}
 .ppc .zrusitzvyrazneni::after {content:")";}
 .ppc :target {
-    background:rgb(50,50,50);
+    background:rgb(60,60,60);
     padding-top:1.5rem;
     padding-bottom:1.5rem;
 }
@@ -341,7 +374,7 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
     display:block;
     padding:1rem 0 1rem 4rem;
     /*background:;*/
-    color:rgb(189,153,255);
+    color:rgb(183,136,183);
     cursor:pointer;
     font-family:sans-serif;
     font-weight:bold;
@@ -372,7 +405,7 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
 
 .parametryprikazu td:first-child {
     font-family:"DejaVu Sans Mono", monospace;
-    color:rgba(255,255,255,1);
+    color:rgba(164,164,164,1);
     padding-right:1em;
 }
 
@@ -384,7 +417,7 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
 header .right span {
     display:inline-block;
     margin:0 0.25em;
-    color:rgb(255,255,255);
+    color:rgb(164,164,164);
 }
 
 header .right .ico1 {
@@ -408,6 +441,14 @@ header .right .ico3 {
 header .right .ico3::before {content:"\d7";}
 
 /* zbytek */
+#nahore {
+    display:block;
+    height:0.2rem;
+    margin:0 0 -0.2rem;
+    position:relative;
+    top:-4rem;
+}
+
 header .left img {vertical-align:bottom;margin-right:0.25em;}
 header .right {float:right;}
 footer p {margin:0;padding:0;max-width:none;}
@@ -465,7 +506,7 @@ footer img {float:left;margin:0 1rem 1rem 0;}
     margin:1em 0;
     border-radius:1rem 1rem;
     padding:1rem 2%;
-    box-shadow:0 0.25rem 1.5rem 0 rgba(250,250,250,0.5);
+    box-shadow:none;
 }
 .podzahlavim p.ponadpisu {
     margin:1ex auto;
@@ -490,7 +531,7 @@ footer img {float:left;margin:0 1rem 1rem 0;}
 .podzahlavim p.informaceoverzi a {
     display:block;
     margin:0.3rem 0 0;
-    border-top:thin dotted rgb(204,204,204);
+    border-top:thin dotted rgb(120,120,120);
     padding:0.2rem 0 0 1em;;
 }
 .podzahlavim p.informaceoverzi a::before {
@@ -520,8 +561,8 @@ nav .prev {text-align:right;margin-right:0.25em;}
 nav .next {text-align:left;}
 
 .rozcestnikkapitol {
-    background:rgb(50,50,50);
-    color:rgb(204,204,204);
+    background:rgb(60,60,60);
+    color:rgb(120,120,120);
     margin:1rem -1em;
     border:0.1rem solid rgba(0,0,0,0.2);
     border-radius:1em;
@@ -531,7 +572,7 @@ nav .next {text-align:left;}
 }
 .rozcestnikkapitol a {
     white-space:nowrap;
-    color:rgb(130,249,121);
+    color:rgb(63,162,94);
 }
 .rozcestnikkapitol a.sekce {
     font-weight:bold;
@@ -544,12 +585,12 @@ nav .next {text-align:left;}
 .stitky {
     margin:2em 0;
 }
-.stitky span, .stitky a {
+.stitky a {
     display:inline-block;
-    background:rgb(50,50,50);
-    color:rgb(255,255,255);
+    background:rgb(60,60,60);
+    color:rgb(164,164,164);
     margin:0 0.5em;
-    border-color:rgba(255,255,255,0.25) rgba(255,255,255,0.25) rgba(255,255,255,0.25) rgba(80,128,128,1);
+    border-color:rgba(164,164,164,0.25) rgba(164,164,164,0.25) rgba(164,164,164,0.25) rgba(80,128,128,1);
     border-style:solid;
     border-width:thin thin thin 1.5rem;
     border-radius:0.4em;
@@ -559,6 +600,8 @@ nav .next {text-align:left;}
     text-align:center;
     white-space:nowrap;
 }
+.prehledstitku dt {position:relative;top:-3em;}
+.prehledstitku dt>span {position:relative;top:3em;display:block;}
 .prehledstitku .stitky {
     margin:1em 0 0.5em;
 }
@@ -566,8 +609,8 @@ nav .next {text-align:left;}
     margin-left:10em;
     border-radius:3rem;
 }
-.prehledstitku div:nth-child(even) {background:rgb(0,0,0)}
-.prehledstitku div:nth-child(odd) {background:rgb(0,0,0)}
+.prehledstitku div:nth-child(even) {background:rgba(180,180,180,1)}
+.prehledstitku div:nth-child(odd) {background:rgba(200,200,200,1)}
 .prehledstitku div>a {
     display:inline-block;
     width:50%;
@@ -615,7 +658,7 @@ nav .next {text-align:left;}
 .odkazydole img {
     margin:0.5rem;
     vertical-align:middle;
-    opacity:1;
+    opacity:0.75;
 }
 
 /* .prehledy */
@@ -696,16 +739,16 @@ span.chybny {
     position:fixed;
     right:2%;
     z-index:256;
-    background:rgba(0,0,0,0.75);
-    color:rgba(255,255,255,0.75);
+    background:rgba(40,40,40,0.75);
+    color:rgba(164,164,164,0.75);
     font:20pt/1 sans-serif;
-    border:5pt outset rgba(255,255,255,0.75);
+    border:5pt outset rgba(164,164,164,0.75);
     border-radius:50%;
 }
 #odkaznahoru:hover, #odkazdolu:hover, #odkaznahoru:active, #odkazdolu:active {
-    background:rgba(0,0,0,1);
+    background:rgba(40,40,40,1);
     border-color:rgba(255,255,0,1);
-    color:rgba(255,255,255,1);
+    color:rgba(164,164,164,1);
     text-decoration:none;
     opacity:1;
 }
@@ -733,55 +776,109 @@ span.chybny {
 
 /* Menu */
 
-a#menu {
-    position:fixed;left:5px;top:5px;bottom:auto;right:auto;
+nav.menu {
+    position:fixed;left:5pt;top:5pt;bottom:auto;right:auto; z-index:5;
     display:block;
+    margin:0;border:none;padding:0;
+    white-space:nowrap;
+    line-height:1.2;
+}
+nav.menu>a {
+    position:relative;z-index:5;
+    display:inline-block;
     margin:0;
     border-width:0.25rem 0.5rem 0.5rem 0.25rem;
     border-style:outset;
     border-color:rgb(153,153,153);
-    padding:0.25em 0.5em;
-    white-space:nowrap;
-    background:rgb(0,0,0);
-    color:rgb(255,255,255);
-    font-weight:bold;
+    padding:0.25em;
+    min-width:6em;
+    /*white-space:nowrap;*/
+    background:rgb(40,40,40);
+    color:rgb(164,164,164);
+    /*font-weight:bold;*/
     text-shadow:0 0 0.1em rgba(0,0,0, 0);
-
-    opacity:0.5; /* toto odstranit po odebrání experimentálního statutu */
-}
-a#menu::before {
-    content:"≡ ";
     text-decoration:none;
 }
-a#menu+aside {
-    position:fixed;left:10px;top:5px;bottom:5px;right:auto;z-index:-2;
+nav.menu>a:hover {
+    z-index:6;
+    box-shadow:0 0 0.1em 0.1em rgb(40,40,40);
+}
+nav.menu>a::before {
+    content:"≡ ";
+    font-weight:bold;
+    text-decoration:none;
+}
+nav.menu>a .prvnipismeno {text-decoration:underline}
+
+nav.menu>a+aside {
+    position:fixed;left:-50%;top:5pt;bottom:5pt;right:auto;z-index:-2;
     width:40%;min-width:20em;max-width:40em;
     margin:0;
-    border:medium solid rgb(255,255,255);
+    border:medium solid rgb(60,60,60);
     padding:0;
     box-shadow:1rem 1rem 5rem 0 rgba(0,0,0,0.5);
-    background-color:rgb(0,0,0);
+    background-color:rgb(40,40,40);
     color:inherit;
     opacity:0;
     transition-duration:0.5s;
     transition-property:all;
+    white-space:normal;
 }
-a#menu:target+aside {
+nav.menu>a:target+aside {
     opacity:1;
     z-index:5000;
+    left:5%;
 }
 
-a#menu+aside>div {
+nav.menu>a+aside>div {
     position:absolute;top:0;right:0;bottom:0;left:0;z-index:5;
-    padding:3em 2em 2em;
+    /*padding:3em 2em 2em;*/
     overflow:auto;
 }
+nav.menu div.polozky {
+    display:block;
+}
+nav.menu div.polozky>a {
+    display:block;
+    background-color:rgb(40,40,40);
+    color:rgb(164,164,164);
+    margin:0;border:none;padding:0.25em 1rem;
+    text-decoration:none;
+}
+nav.menu div.polozky>a:hover {
+    background-color:rgb(120,120,120);
+    color:rgb(40,40,40);
+}
+nav.menu .nadpis {
+    margin:0;
+    border-bottom:thin solid;
+    padding:0.5rem 1rem;
+    font-size:150%;
+    text-transform:uppercase;
+}
 
-a#zavritmenu {
+nav.menu div.polozky .cislo {
+    display:inline-block;
+    margin:0 0.5em;
+    min-width:1.5em;
+    text-align:right;
+}
+
+nav.menu div.polozky .sekce {font-weight:bold}
+nav.menu div.polozky .podsekce {padding-left:3rem}
+
+nav.menu div.polozky .ikona {
+    display:inline-block;
+    width:3em;
+    vertical-align:middle;
+}
+nav.menu div.polozky .ikona img {width:100%; height:auto;}
+
+a.zavritmenu {
     position:absolute;top:0.3rem;right:2rem;bottom:auto;left:auto;z-index:10;
     white-space:nowrap;
 }
-a#zavritmenu::after {
+a.zavritmenu::after {
     content: " ×";
     font-weight:bold;
     font-size:150%;

@@ -5,15 +5,16 @@
 
 <title>Diskové oddíly − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20200417.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200417-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200417-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200417-tmavy.css" title="Tmavý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20200508.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200508-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200508-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200508-tmavy.css" title="Tmavý motiv">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
-<body id="nahore">
+<body>
+<div id="nahore"></div>
 <header>
-<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.6 (17. dubna 2020)</span>
+<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.7 (8. května 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 
@@ -30,7 +31,7 @@
 
 <article>
 
-<h1 class="kapitola">5. <img src="obrazky/ik-vychozi.png" alt="" width="64" height="64"> Diskové oddíly</h1>
+<h1 class="kapitola">5. <img src="obrazky/ik/diskove-oddily.png" alt="" width="64" height="64"> Diskové oddíly</h1>
 <div class="stitky"><a href="x-stitky.htm#slvm">LVM</a>
 <a href="x-stitky.htm#sodkldcprostor">odkládací prostor</a>
 <a href="x-stitky.htm#srmdisk">ramdisk</a>
@@ -59,7 +60,7 @@
 <a href="#cast6" class="sekce">Instalace na Ubuntu</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast7" class="sekce">Tipy a zkušenosti</a><span class="oddelovac">&nbsp;|</span>
 <a href="#cast8" class="sekce">Další zdroje informací</a></div>
-<h2><a href="#cast1" id="cast1"><span class="cislo">1.</span> Úvod</a></h2>
+<h2 id="cast1"><a href="#cast1"><span class="cislo">1.</span> Úvod</a></h2>
 <p class="ponadpisu">
 Tato kapitola se zabývá dělením pevného disku na oddíly, jejich formátováním (zejména souborové systémy ext4, FAT32 a NTFS), údržbou a připojováním (ručním i automatickým). Zabývá se také prací s ramdisky, odkládacím prostorem a LVM.
 
@@ -70,16 +71,16 @@ Rovněž nepokrývá síťové souborové systémy, vypalování DVD ani práci 
 Rovněž nepokrývá práci se systémem souborů SquashFS. U LVM nepokrývá „layouty“ a „snapshoty“.
 </p>
 
-<h2><a href="#cast2" id="cast2"><span class="cislo">2.</span> Definice</a></h2>
+<h2 id="cast2"><a href="#cast2"><span class="cislo">2.</span> Definice</a></h2>
 
-<h3><a href="#cast2x1" id="cast2x1" title="kapitola 5 (Diskové oddíly), sekce 2 (Definice), podsekce 1 (Obecné definice)">/s02/p01 Obecné definice</a></h3>
+<h3 id="cast2x1"><span><a href="#cast2x1" title="kapitola 5 (Diskové oddíly), sekce 2 (Definice), podsekce 1 (Obecné definice)"><sup>2/</sup>1 Obecné definice</a></span></h3>
 <ul><li><b>Systém souborů</b> je něco, co nabízí adresářovou strukturu kompatibilní se způsobem, jakým Linux nahlíží na adresáře a soubory. Některé systémy souborů jsou „fyzické“ (uložené na skutečném zařízení), jiné jsou čistě virtuální (generované za běhu ovladačem v jádře).
 </li><li><b>Virtuální souborový systém</b> (VFS) je způsob, jakým Linux nahlíží na strukturu souborů v počítači; není to skutečný systém souborů. Existuje pouze jeden, je pouze pro čtení a neobsahuje nic jiného než prázdný počáteční kořenový adresář. Při startu systému je na tento adresář připojen kořenový adresář kořenového systému souborů.
 </li><li><b>Připojení</b> systému souborů znamená, že systém vezme existující adresář ve VFS (takzvaný <b>přípojný bod</b>, anglicky „mount point“) a „překryje“ ho kořenovým adresářem připojovaného systému souborů včetně jeho vlastnictví, příznaků a přístupových práv. Celá adresářová struktura připojeného systému souborů se pak stane součástí VFS, dostupnou přes daný přípojný bod. Naopak původní překrytý adresář (včetně svého obsahu) tímto z VFS odpadne. Opačným úkonem je <b>odpojení</b> systému souborů; při něm dojde k opětovnému zpřístupnění původního adresáře. Zvláštním (ale komplikovaným a méně častým) případem je připojení jiného než kořenového adresáře systému souborů.
 </li><li><b>Typ systému souborů</b> je buď způsob uložení souborů a adresářů na diskovém oddílu (např. „ext4“) nebo druh ovladače, který poskytuje nějakým způsobem získanou adresářovou strukturu (např. „tmpfs“). Zvláštním typem systému souborů je „swap“, tedy odkládací oddíl, protože ten adresářovou strukturu neposkytuje.
 </li><li>K identifikaci konkrétního systémů souborů se používají: <b>UUID</b>, což je identifikátor souborového systému přidělovaný při formátování (tzn. dalším formátováním se změní); ne všechny souborové systémy mají nějakou formu UUID, ale ext4, FAT32 a NTFS ano; <b>PARTUUID</b>, což je identifikátor oddílu na disku, je-li dělen metodou GPT (na discích dělených starší metodou MBR se emuluje, u logických oddílů LVM není dostupný vůbec); <b>jmenovka</b>, což je textový identifikátor souborového systému přidělovaný uživatelem, zpravidla při formátování. Poslední možností je cesta k idenfikátoru zařízení v /dev, např. „/dev/sda1“.
 </li></ul>
-<h3><a href="#cast2x2" id="cast2x2" title="kapitola 5 (Diskové oddíly), sekce 2 (Definice), podsekce 2 (LVM)">/s02/p02 LVM</a></h3>
+<h3 id="cast2x2"><span><a href="#cast2x2" title="kapitola 5 (Diskové oddíly), sekce 2 (Definice), podsekce 2 (LVM)"><sup>2/</sup>2 LVM</a></span></h3>
 <p class="ponadpisu">
 LVM (logical volume management) je metoda rozložení oddílů na pevném disku, který má
 odstínit uživatele od fyzického rozložení dat a poskytnout nové možnosti, např. rozložení
@@ -89,7 +90,7 @@ jednoho oddílu přes několik fyzických disků nebo snadné přesouvání odd�
 </li><li><b>Skupina svazků</b> je v LVM neprázdná pojmenovaná skupina fyzických svazků k vytváření logických oddílů. Data každého logického oddílu se fyzicky nacházejí pouze na fyzických svazcích příslušných do stejné skupiny.
 </li><li><b>Fyzický svazek</b> je v LVM blokové zařízení (celý disk nebo jeho oddíl), které je nastavené a naformátované k ukládání dat logických oddílů. Nemůže to být logický oddíl.
 </li></ul>
-<h3><a href="#cast2x3" id="cast2x3" title="kapitola 5 (Diskové oddíly), sekce 2 (Definice), podsekce 3 (Co a kam připojit)">/s02/p03 Co a kam připojit</a></h3>
+<h3 id="cast2x3"><span><a href="#cast2x3" title="kapitola 5 (Diskové oddíly), sekce 2 (Definice), podsekce 3 (Co a kam připojit)"><sup>2/</sup>3 Co a kam připojit</a></span></h3>
 <p class="ponadpisu">
 V následujících zaklínadlech platí:
 </p><p>
@@ -112,299 +113,299 @@ V následujících zaklínadlech platí:
 <i class="dopln">volby-připojení</i> je seznam čárkami oddělených voleb nebo klíčové slovo „defaults“, které má význam „rw,suid,dev,exec,auto,nouser,async“.
 </p>
 
-<h2><a href="#cast3" id="cast3"><span class="cislo">3.</span> Zaklínadla</a></h2>
+<h2 id="cast3"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla</a></h2>
 
-<h3><a href="#cast3x1" id="cast3x1" title="kapitola 5 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 1 (Položky v /etc/fstab)">/s03/p01 Položky v /etc/fstab</a></h3>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1856555621" href="#z1856555621">♌</a>připojit kořenový systém souborů (obecně/příklad)<span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilyppc1" id="kapdiskoveoddilyppcr1" title="Poznámka: Připojení kořenového systému souborů by mělo být v /etc/fstab první řádkou kromě komentářů a prázdných řádek.">(1)</a></sup></div><div class="radky">
+<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 5 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 1 (Položky v /etc/fstab)"><sup>3/</sup>1 Položky v /etc/fstab</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1856555621"><span><a href="#z1856555621">♌</a></span></span>připojit kořenový systém souborů (obecně/příklad)<span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilyppc1" id="kapdiskoveoddilyppcr1" title="Poznámka: Připojení kořenového systému souborů by mělo být v /etc/fstab první řádkou kromě komentářů a prázdných řádek.">(1)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">co-připojit</i> / <i class="dopln">typ-soub-sys</i> <i class="dopln">volby-připojení</i> 0 1</div>
 <div class="radekzaklinadla">UUID=&quot;61bbd562-0694-4561-a8e2-4ccfd004a660&quot;<span class="tab" style="width:7ch">&#9;</span>/<span class="tab" style="width:7ch">&#9;</span>ext4<span class="tab" style="width:7ch">&#9;</span>errors=remount-ro,discard,nouser_xattr<span class="tab" style="width:3ch">&#9;</span>0<span class="tab" style="width:7ch">&#9;</span>1</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z478650030" href="#z478650030">⡛</a>připojit jiný než kořenový systém souborů (obecně/příklad)<span class="cislo">#2 </span><sup><a href="#kapdiskoveoddilyppc2" id="kapdiskoveoddilyppcr2" title="2 v posledním poli zapne automatickou kontrolu souboru systémů při startu; tato volba je vhodná pro místní souborové systémy. 0 v posledním poli automatickou kontrolu vypne, ta je vhodná především pro výměnná média a síťové systémy souborů. Rovněž je vhodná pro místní systémy souborů připojované výhradně pro čtení.">(2)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z478650030"><span><a href="#z478650030">⡛</a></span></span>připojit jiný než kořenový systém souborů (obecně/příklad)<span class="cislo">#2 </span><sup><a href="#kapdiskoveoddilyppc2" id="kapdiskoveoddilyppcr2" title="2 v posledním poli zapne automatickou kontrolu souboru systémů při startu; tato volba je vhodná pro místní souborové systémy. 0 v posledním poli automatickou kontrolu vypne, ta je vhodná především pro výměnná média a síťové systémy souborů. Rovněž je vhodná pro místní systémy souborů připojované výhradně pro čtení.">(2)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">co-připojit</i> <i class="dopln">kam-připojit</i> <i class="dopln">typ-soub-sys</i> <i class="dopln">volby-připojení</i> 0 <i class="dopln">2-nebo-0</i></div>
 <div class="radekzaklinadla">/dev/skupina/muj-oddil ext4 defaults 0 2</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1038246214" href="#z1038246214">⌆</a>připojit ramdisk<span class="cislo">#3 </span><sup><a href="#kapdiskoveoddilyppc3" id="kapdiskoveoddilyppcr3" title="Velikost se udává nejčastěji v mebibajtech (s příponou M – např. „256M“) nebo gibibajtech (s příponou G – např. „10G“).">(3)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1038246214"><span><a href="#z1038246214">⌆</a></span></span>připojit ramdisk<span class="cislo">#3 </span><sup><a href="#kapdiskoveoddilyppc3" id="kapdiskoveoddilyppcr3" title="Velikost se udává nejčastěji v mebibajtech (s příponou M – např. „256M“) nebo gibibajtech (s příponou G – např. „10G“).">(3)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">tmpfs <i class="dopln">kam-připojit</i> tmpfs size=<i class="dopln">velikost</i><span class="volznak">[</span>,nosuid<span class="volznak">]</span><span class="volznak">[</span>,nodev<span class="volznak">]</span><span class="volznak">[</span>,noexec<span class="volznak">]</span><span class="volznak">[</span>,mode=<i class="dopln">práva-číselně</i><span class="volznak">]</span><span class="volznak">[</span>,uid=<i class="dopln">UID-vlastníka</i><span class="volznak">]</span><span class="volznak">[</span>,gid=<i class="dopln">GID-skupiny</i><span class="volznak">]</span><span class="volznak">[</span>,<i class="dopln">další,volby</i><span class="volznak">]</span> 0 0</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z318817910" href="#z318817910">☶</a>připojit odkládací oddíl/odkládací soubor<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z318817910"><span><a href="#z318817910">☶</a></span></span>připojit odkládací oddíl/odkládací soubor<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">co-připojit</i> none swap sw 0 0</div>
 <div class="radekzaklinadla"><i class="dopln">/cesta/k/souboru</i> none swap sw 0 0</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1009875491" href="#z1009875491">≋</a>připojit adresář z již připojeného systému souborů na nové místo<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1009875491"><span><a href="#z1009875491">≋</a></span></span>připojit adresář z již připojeného systému souborů na nové místo<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">/původní/adresář /nový/adresář none bind 0 0</div>
 </div></div>
 
-<h3><a href="#cast3x2" id="cast3x2" title="kapitola 5 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 2 (Připojení a odpojení systému souborů)">/s03/p02 Připojení a odpojení systému souborů</a></h3>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z284746620" href="#z284746620">⣈</a>připojit systém souborů uvedený v /etc/fstab (alternativy)<span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 5 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 2 (Připojení a odpojení systému souborů)"><sup>3/</sup>2 Připojení a odpojení systému souborů</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z284746620"><span><a href="#z284746620">⣈</a></span></span>připojit systém souborů uvedený v /etc/fstab (alternativy)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> mount <i class="dopln">kam-připojit</i></div>
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> mount <i class="dopln">co-připojit</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1798735265" href="#z1798735265">⊛</a>připojit systém souborů libovolně (obecně/příklad)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1798735265"><span><a href="#z1798735265">⊛</a></span></span>připojit systém souborů libovolně (obecně/příklad)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo mount -t <i class="dopln">typ-soub-sys</i> -o <i class="dopln">volby,připojení</i> <i class="dopln">/co/připojit</i> <i class="dopln">/kam/připojit</i></div>
 <div class="radekzaklinadla">sudo mount -t ext4 -o defaults,nosuid,nodev,lazytime,discard UUID=61bbd562-0694-4561-a8e2-4ccfd004a660 /mnt/abc</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1117228510" href="#z1117228510">⪓</a>odpojit systém souborů<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1117228510"><span><a href="#z1117228510">⪓</a></span></span>odpojit systém souborů<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> umount <i class="dopln">kam-připojit</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z921446621" href="#z921446621">⸟</a>připojit adresář z již připojeného systému souborů na nový přípojný bod<span class="cislo">#4 </span><sup><a href="#kapdiskoveoddilyppc4" id="kapdiskoveoddilyppcr4" title="Poznámka: Tímto příkazem se vytvoří nové, nezávislé připojení existujícího systému souborů.">(4)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z921446621"><span><a href="#z921446621">⸟</a></span></span>připojit adresář z již připojeného systému souborů na nový přípojný bod<span class="cislo">#4 </span><sup><a href="#kapdiskoveoddilyppc4" id="kapdiskoveoddilyppcr4" title="Poznámka: Tímto příkazem se vytvoří nové, nezávislé připojení existujícího systému souborů.">(4)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo mount --bind <i class="dopln">/cesta/k/adresáři</i> <i class="dopln">/nový/přípojný/bod</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z2003198128" href="#z2003198128">┢</a>přesunout systém souborů na jiný přípojný bod (alternativa 1)<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2003198128"><span><a href="#z2003198128">┢</a></span></span>přesunout systém souborů na jiný přípojný bod (alternativa 1)<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo mount --bind <i class="dopln">/původní/přípojný/bod</i> <i class="dopln">/nový/přípojný/bod</i></div>
 <div class="radekzaklinadla">sudo umount <i class="dopln">/původní/přípojný/bod</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z2003712383" href="#z2003712383">┡</a>přesunout systém souborů na jiný přípojný bod (alternativa 2)<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2003712383"><span><a href="#z2003712383">┡</a></span></span>přesunout systém souborů na jiný přípojný bod (alternativa 2)<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo mount --make-private <i class="dopln">/nadřazený/přípojný/bod</i> &amp;&amp;</div>
 <div class="radekzaklinadla">sudo mount --move <i class="dopln">/původní/přípojný/bod</i> <i class="dopln">/nový/přípojný/bod</i></div>
 </div></div>
 
-<h3><a href="#cast3x3" id="cast3x3" title="kapitola 5 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 3 (Již připojené systémy souborů (vypsat/zjistit údaje))">/s03/p03 Již připojené systémy souborů (vypsat/zjistit údaje)</a></h3>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z303772227" href="#z303772227">⎛</a><b>vypsat</b> (pro člověka/pro skript)<span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 5 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 3 (Již připojené systémy souborů (vypsat/zjistit údaje))"><sup>3/</sup>3 Již připojené systémy souborů (vypsat/zjistit údaje)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z303772227"><span><a href="#z303772227">⎛</a></span></span><b>vypsat</b> (pro člověka/pro skript)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">findmnt -D -t nofuse.gvfsd-fuse,nodevtmpfs,nosquashfs</div>
 <div class="radekzaklinadla">findmnt -nu -o SOURCE | egrep '^/' | LC_ALL=C sort -u</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z559338566" href="#z559338566">╩</a>vypsat seznam přípojných bodů<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z559338566"><span><a href="#z559338566">╩</a></span></span>vypsat seznam přípojných bodů<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">findmnt -ln -o TARGET</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1129970280" href="#z1129970280">⨚</a>velikost dostupného (<b>volného</b>) místa (pro člověka/pro skript)<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1129970280"><span><a href="#z1129970280">⨚</a></span></span>velikost dostupného (<b>volného</b>) místa (pro člověka/pro skript)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">df -h <i class="dopln">/přípojný/bod</i></div>
 <div class="radekzaklinadla">findmnt -bnu -o AVAIL <i class="dopln">/přípojný/bod</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z822269857" href="#z822269857">ຮ</a><b>typ</b> souborového systému<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z822269857"><span><a href="#z822269857">ຮ</a></span></span><b>typ</b> souborového systému<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">findmnt -nu -o FSTYPE <i class="dopln">/přípojný/bod</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z31270373" href="#z31270373">⢡</a><b>UUID</b>/<b>PARTUUID</b>/<b>jmenovka</b><span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z31270373"><span><a href="#z31270373">⢡</a></span></span><b>UUID</b>/<b>PARTUUID</b>/<b>jmenovka</b><span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">findmnt -nu -o UUID <i class="dopln">/přípojný/bod</i></div>
 <div class="radekzaklinadla">findmnt -nu -o PARTUUID <i class="dopln">/přípojný/bod</i></div>
 <div class="radekzaklinadla">findmnt -nu -o LABEL <i class="dopln">/přípojný/bod</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1461922741" href="#z1461922741">✲</a>je připojený jen pro čtení?<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1461922741"><span><a href="#z1461922741">✲</a></span></span>je připojený jen pro čtení?<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">findmnt -nu -o OPTIONS <i class="dopln">/přípojný/bod</i> | tr ,\\n \\n, | fgrep -x ro</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1543042477" href="#z1543042477">≸</a>zjistit <b>kapacitu</b> systému souborů (pro člověka/pro skript)<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1543042477"><span><a href="#z1543042477">≸</a></span></span>zjistit <b>kapacitu</b> systému souborů (pro člověka/pro skript)<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">df -h <i class="dopln">/přípojný/bod</i></div>
 <div class="radekzaklinadla">findmnt -bnu -o SIZE <i class="dopln">/přípojný/bod</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z254491126" href="#z254491126">䷇</a>zjistit <b>zdrojové</b> zařízení z přípojného bodu/naopak<span class="cislo">#8 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z254491126"><span><a href="#z254491126">䷇</a></span></span>zjistit <b>zdrojové</b> zařízení z přípojného bodu/naopak<span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla">findmnt -nu -o SOURCE <i class="dopln">/přípojný/bod</i></div>
 <div class="radekzaklinadla">findmnt -nu -o TARGET <i class="dopln">/dev/disknebooddíl</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z603566318" href="#z603566318">⣒</a>zjistit <b>volby připojení</b><span class="cislo">#9 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z603566318"><span><a href="#z603566318">⣒</a></span></span>zjistit <b>volby připojení</b><span class="cislo">#9 </span></div><div class="radky">
 <div class="radekzaklinadla">findmnt -nu -o OPTIONS <i class="dopln">/přípojný/bod</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1599399905" href="#z1599399905">⇑</a>zjistit velikost použité části souborového systému (pro člověka/pro skript)<span class="cislo">#10 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1599399905"><span><a href="#z1599399905">⇑</a></span></span>zjistit velikost použité části souborového systému (pro člověka/pro skript)<span class="cislo">#10 </span></div><div class="radky">
 <div class="radekzaklinadla">df -h <i class="dopln">/přípojný/bod</i></div>
 <div class="radekzaklinadla">findmnt -bnu -o USED <i class="dopln">/přípojný/bod</i></div>
 </div></div>
 
-<h3><a href="#cast3x4" id="cast3x4" title="kapitola 5 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 4 (Oddíly a zařízení (vypsat/zjistit údaje))">/s03/p04 Oddíly a zařízení (vypsat/zjistit údaje)</a></h3>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z988852288" href="#z988852288">❱</a><b>UUID</b>/<b>PARTUUID</b>/<b>jmenovka</b> oddílu<span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 5 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 4 (Oddíly a zařízení (vypsat/zjistit údaje))"><sup>3/</sup>4 Oddíly a zařízení (vypsat/zjistit údaje)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z988852288"><span><a href="#z988852288">❱</a></span></span><b>UUID</b>/<b>PARTUUID</b>/<b>jmenovka</b> oddílu<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> lsblk -ln -o UUID <i class="dopln">/dev/oddíl</i></div>
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> lsblk -ln -o PARTUUID <i class="dopln">/dev/oddíl</i></div>
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> lsblk -ln -o LABEL <i class="dopln">/dev/oddíl</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z822269857x" href="#z822269857x">ຮ</a><b>typ</b> souborového systému<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z822269857x"><span><a href="#z822269857x">ຮ</a></span></span><b>typ</b> souborového systému<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> lsblk -ln -o FSTYPE <i class="dopln">/dev/oddíl</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1770574508" href="#z1770574508">ᕹ</a>vypsat místní zařízení a oddíly (pro člověka/pro skript)<span class="cislo">#3 </span><sup><a href="#kapdiskoveoddilyppc5" id="kapdiskoveoddilyppcr5" title="Poznámka: vypsaný seznam může obsahovat i zařízení nedostupná či k ukládání dat nevhodná. Buďte při jejich zkoumání opatrní.">(5)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1770574508"><span><a href="#z1770574508">ᕹ</a></span></span>vypsat místní zařízení a oddíly (pro člověka/pro skript)<span class="cislo">#3 </span><sup><a href="#kapdiskoveoddilyppc5" id="kapdiskoveoddilyppcr5" title="Poznámka: vypsaný seznam může obsahovat i zařízení nedostupná či k ukládání dat nevhodná. Buďte při jejich zkoumání opatrní.">(5)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span><i>sudo</i><span class="volznak">]</span> lsblk <span class="volznak">[</span>--all<span class="volznak">]</span></div>
 <div class="radekzaklinadla"><span class="volznak">[</span><i>sudo</i><span class="volznak">]</span> lsblk -ln -o NAME | sed -E 's!--!\x00!g;s!-!/!g;s!\x00!-!g;s!^!/dev/!' | LC_ALL=C sort</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1004382607" href="#z1004382607">╴</a>přesná <b>velikost</b> oddílu/disku v bajtech<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1004382607"><span><a href="#z1004382607">╴</a></span></span>přesná <b>velikost</b> oddílu/disku v bajtech<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo blockdev --getsize64 <i class="dopln">/dev/oddíl</i></div>
 <div class="radekzaklinadla">sudo blockdev --getsize64 <i class="dopln">/dev/disk</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1200466299" href="#z1200466299">᚛</a>je oddíl či zařízení jen pro čtení?<span class="cislo">#5 </span><sup><a href="#kapdiskoveoddilyppc6" id="kapdiskoveoddilyppcr6" title="Odpověď 0 znamená, že zařízení je i pro zápis; odpověď 1 znamená, že je jen pro čtení.">(6)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1200466299"><span><a href="#z1200466299">᚛</a></span></span>je oddíl či zařízení jen pro čtení?<span class="cislo">#5 </span><sup><a href="#kapdiskoveoddilyppc6" id="kapdiskoveoddilyppcr6" title="Odpověď 0 znamená, že zařízení je i pro zápis; odpověď 1 znamená, že je jen pro čtení.">(6)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo blockdev --getro <i class="dopln">/dev/oddíl-nebo-zařízení</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z913147416" href="#z913147416">△</a>zjistit velikost fyzického bloku/logického sektoru (v bajtech)<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z913147416"><span><a href="#z913147416">△</a></span></span>zjistit velikost fyzického bloku/logického sektoru (v bajtech)<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo blockdev --getbsz <i class="dopln">/dev/zařízení</i></div>
 <div class="radekzaklinadla">sudo blockdev --getss <i class="dopln">/dev/zařízení</i></div>
 </div></div>
 
-<h3><a href="#cast3x5" id="cast3x5" title="kapitola 5 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 5 (Formátování)">/s03/p05 Formátování</a></h3>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z878563309" href="#z878563309">⢧</a>formátovat na <b>ext4</b> (obecně/příklad)<span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilyppc7" id="kapdiskoveoddilyppcr7" title="Maximální velikost jmenovky je 16 bajtů.">(7)</a>,&nbsp;<a href="#kapdiskoveoddilyppc8" id="kapdiskoveoddilyppcr8" title="Parametr -U přijímá také speciální hodnoty „random“ (vygenerovat náhodné UUID), „time“ (vygenerovat UUID závislé na čase), „clear“ (zrušit UUID).">(8)</a></sup></div><div class="radky">
+<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 5 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 5 (Formátování)"><sup>3/</sup>5 Formátování</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z878563309"><span><a href="#z878563309">⢧</a></span></span>formátovat na <b>ext4</b> (obecně/příklad)<span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilyppc7" id="kapdiskoveoddilyppcr7" title="Maximální velikost jmenovky je 16 bajtů.">(7)</a>,&nbsp;<a href="#kapdiskoveoddilyppc8" id="kapdiskoveoddilyppcr8" title="Parametr -U přijímá také speciální hodnoty „random“ (vygenerovat náhodné UUID), „time“ (vygenerovat UUID závislé na čase), „clear“ (zrušit UUID).">(8)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo mke2fs -t ext4 <span class="volznak">[</span>-c<span class="volznak">[</span>c<span class="volznak">]</span><span class="volznak">]</span> -v <span class="volznak">[</span>-E root_owner=<i class="dopln">UID</i>:<i class="dopln">GID</i><span class="volznak">]</span> <span class="volznak">[</span>-L <i class="dopln">jmenovka</i><span class="volznak">]</span> <span class="volznak">[</span>-U <i class="dopln">UUID</i><span class="volznak">]</span> <span class="volznak">[</span>-d <i class="dopln">cesta</i><span class="volznak">]</span> <span class="volznak">[</span>-F<span class="volznak">]</span> <i class="dopln">/dev/zařízení-nebo-oddíl</i></div>
 <div class="radekzaklinadla">sudo mke2fs -t ext4 -c -v -U 977bda6f-ce11-4549-9325-c48c360069ef /dev/sda3</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z116551276" href="#z116551276">⨑</a>formátovat na <b>FAT32</b> (obecně/příklad)<span class="cislo">#2 </span><sup><a href="#kapdiskoveoddilyppc9" id="kapdiskoveoddilyppcr9" title="Poznámka: jmenovka systémů FAT může být maximálně 11 znaků dlouhá!">(9)</a>,&nbsp;<a href="#kapdiskoveoddilyppc10" id="kapdiskoveoddilyppcr10" title="Pro formátování na FAT16 či FAT12 nahraďte hodnotu 32 u parametru -F. Tyto staré souborové systémy se dnes už ale v praxi nepoužívají.">(10)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z116551276"><span><a href="#z116551276">⨑</a></span></span>formátovat na <b>FAT32</b> (obecně/příklad)<span class="cislo">#2 </span><sup><a href="#kapdiskoveoddilyppc9" id="kapdiskoveoddilyppcr9" title="Poznámka: jmenovka systémů FAT může být maximálně 11 znaků dlouhá!">(9)</a>,&nbsp;<a href="#kapdiskoveoddilyppc10" id="kapdiskoveoddilyppcr10" title="Pro formátování na FAT16 či FAT12 nahraďte hodnotu 32 u parametru -F. Tyto staré souborové systémy se dnes už ale v praxi nepoužívají.">(10)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo mkfs.fat -F 32 <span class="volznak">[</span>-c<span class="volznak">]</span> <span class="volznak">[</span>-h <i class="dopln">počet-skrytých-sektorů</i><span class="volznak">]</span> <span class="volznak">[</span>-n &quot;<i class="dopln">JMENOVKA</i>&quot;<span class="volznak">]</span> <span class="volznak">[</span>-v<span class="volznak">]</span> <i class="dopln">/dev/oddíl</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1883378611" href="#z1883378611">☩</a>formátovat na <b>NTFS</b> (obecně/příklad)<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1883378611"><span><a href="#z1883378611">☩</a></span></span>formátovat na <b>NTFS</b> (obecně/příklad)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo mkntfs <span class="volznak">[</span>-f<span class="volznak">]</span> <span class="volznak">[</span>-v<span class="volznak">]</span> <span class="volznak">[</span>-L <i class="dopln">jmenovka</i><span class="volznak">]</span> <span class="volznak">[</span>-C<span class="volznak">]</span> <span class="volznak">[</span>-U<span class="volznak">]</span> <i class="dopln">/dev/zařízení-nebo-oddíl</i></div>
 <div class="radekzaklinadla">sudo mkntfs -f -v -L MůjDisk /dev/sda3</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1485527849" href="#z1485527849">ຊ</a>změnit velikost souborového systému ext4<span class="cislo">#4 </span><sup><a href="#kapdiskoveoddilyppc11" id="kapdiskoveoddilyppcr11" title="Velikost se zadává s příponou (např. „2048M“ nebo „4G“). Pokud ji nezadáte, souborový systém se zvětší tak, aby pokud možno zaplnil celý oddíl. Tip: velikost souborového systému lze obvykle změnit i tehdy, když je souborový systém připojený.">(11)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1485527849"><span><a href="#z1485527849">ຊ</a></span></span>změnit velikost souborového systému ext4<span class="cislo">#4 </span><sup><a href="#kapdiskoveoddilyppc11" id="kapdiskoveoddilyppcr11" title="Velikost se zadává s příponou (např. „2048M“ nebo „4G“). Pokud ji nezadáte, souborový systém se zvětší tak, aby pokud možno zaplnil celý oddíl. Tip: velikost souborového systému lze obvykle změnit i tehdy, když je souborový systém připojený.">(11)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo e2fsck -f <i class="dopln">/dev/oddíl</i></div>
 <div class="radekzaklinadla">sudo resize2fs <i class="dopln">/dev/oddíl</i> <span class="volznak">[</span><i class="dopln">velikost</i><span class="volznak">]</span></div>
 </div></div>
 
-<h3><a href="#cast3x6" id="cast3x6" title="kapitola 5 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 6 (Odkládací oddíly a soubory)">/s03/p06 Odkládací oddíly a soubory</a></h3>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1025588810" href="#z1025588810">⇓</a><b>připojit</b> odkládací oddíl či soubor (obecně/příklady)<span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilyppc12" id="kapdiskoveoddilyppcr12" title="Pro odkládací oddíl či soubor platí totéž, co pro běžné diskové oddíly — aby se připojil automaticky při startu systému, musí být odpovídající záznam zapsaný v /etc/fstab!">(12)</a></sup></div><div class="radky">
+<h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 5 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 6 (Odkládací oddíly a soubory)"><sup>3/</sup>6 Odkládací oddíly a soubory</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1025588810"><span><a href="#z1025588810">⇓</a></span></span><b>připojit</b> odkládací oddíl či soubor (obecně/příklady)<span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilyppc12" id="kapdiskoveoddilyppcr12" title="Pro odkládací oddíl či soubor platí totéž, co pro běžné diskové oddíly — aby se připojil automaticky při startu systému, musí být odpovídající záznam zapsaný v /etc/fstab!">(12)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo swapon <i class="dopln">co-připojit</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sudo swapon /mujswap</div>
 <div class="radekzaklinadla">sudo swapon UUID=&quot;977bda6f-ce11-4549-9325-c48c360069ef&quot;</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1192105587" href="#z1192105587">⊇</a><b>odpojit</b> odkládací oddíl či soubor/všechny odkládací prostory<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1192105587"><span><a href="#z1192105587">⊇</a></span></span><b>odpojit</b> odkládací oddíl či soubor/všechny odkládací prostory<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo swapoff <i class="dopln">co-připojit</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sudo swapoff -a<span class="volznak">[</span>v<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z148845296" href="#z148845296">‖</a><b>vypsat</b> aktivní odkládací oddíly a soubory<span class="cislo">#3 </span><sup><a href="#kapdiskoveoddilyppc13" id="kapdiskoveoddilyppcr13" title="Bez sudo vynechá jmenovky a UUID.">(13)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z148845296"><span><a href="#z148845296">‖</a></span></span><b>vypsat</b> aktivní odkládací oddíly a soubory<span class="cislo">#3 </span><sup><a href="#kapdiskoveoddilyppc13" id="kapdiskoveoddilyppcr13" title="Bez sudo vynechá jmenovky a UUID.">(13)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> swapon --show<span class="volznak">[</span>=NAME,USED,SIZE,PRIO,LABEL,UUID<span class="volznak">]</span> <span class="volznak">[</span>--noheadings<span class="volznak">]</span> <span class="volznak">[</span>--bytes<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1476940009" href="#z1476940009">䷳</a><b>vytvořit</b> odkládací soubor<span class="cislo">#4 </span><sup><a href="#kapdiskoveoddilyppc14" id="kapdiskoveoddilyppcr14" title="Velikost můžete zadat také v megabajtech (s příponou „M“) či gigabajtech (s příponou „G“).">(14)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1476940009"><span><a href="#z1476940009">䷳</a></span></span><b>vytvořit</b> odkládací soubor<span class="cislo">#4 </span><sup><a href="#kapdiskoveoddilyppc14" id="kapdiskoveoddilyppcr14" title="Velikost můžete zadat také v megabajtech (s příponou „M“) či gigabajtech (s příponou „G“).">(14)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> fallocate -l <i class="dopln">velikost-v-bajtech</i> <i class="dopln">název-souboru</i></div>
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> chmod 600 <i class="dopln">název-souboru</i></div>
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> mkswap <i class="dopln">název-souboru</i></div>
 <div class="radekzaklinadla">sudo chown root:root <i class="dopln">název-souboru</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1724912524" href="#z1724912524">⊓</a><b>smazat</b> odpojený odkládací soubor<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1724912524"><span><a href="#z1724912524">⊓</a></span></span><b>smazat</b> odpojený odkládací soubor<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo rm <i class="dopln">název-souboru</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z803239525" href="#z803239525">⋌</a><b>naformátovat</b> odkládací oddíl<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z803239525"><span><a href="#z803239525">⋌</a></span></span><b>naformátovat</b> odkládací oddíl<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo mkswap <span class="volznak">[</span>-L <i class="dopln">jmenovka</i><span class="volznak">]</span> <span class="volznak">[</span>-U <i class="dopln">požadované-UUID</i><span class="volznak">]</span> <i class="dopln">/dev/oddíl</i></div>
 </div></div>
 
-<h3><a href="#cast3x7" id="cast3x7" title="kapitola 5 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 7 (Dělení disku)">/s03/p07 Dělení disku</a></h3>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1333992918" href="#z1333992918">—</a>GUI (grafické uživatelské rozhraní)<span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 5 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 7 (Dělení disku)"><sup>3/</sup>7 Dělení disku</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1333992918"><span><a href="#z1333992918">—</a></span></span>GUI (grafické uživatelské rozhraní)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo gparted</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona L" id="z1557705266" href="#z1557705266">⏜</a>TUI (textové uživatelské rozhraní)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona L" id="z1557705266"><span><a href="#z1557705266">⏜</a></span></span>TUI (textové uživatelské rozhraní)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo cfdisk <i class="dopln">/dev/zařízení</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1911108519" href="#z1911108519">䷧</a>CLI (ovládání z terminálu)<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1911108519"><span><a href="#z1911108519">䷧</a></span></span>CLI (ovládání z terminálu)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo fdisk <i class="dopln">/dev/zařízení</i></div>
 </div></div>
 
-<h3><a href="#cast3x8" id="cast3x8" title="kapitola 5 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 8 (Jmenovka (nastavit))">/s03/p08 Jmenovka (nastavit)</a></h3>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z982477889" href="#z982477889">✶</a>nastavit/smazat jmenovku odkládacího oddílu<span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast3x8"><span><a href="#cast3x8" title="kapitola 5 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 8 (Jmenovka (nastavit))"><sup>3/</sup>8 Jmenovka (nastavit)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z982477889"><span><a href="#z982477889">✶</a></span></span>nastavit/smazat jmenovku odkládacího oddílu<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo swaplabel -L &quot;<i class="dopln">novájmenovka</i>&quot; <i class="dopln">/dev/oddíl</i></div>
 <div class="radekzaklinadla">sudo swaplabel -L &quot;&quot; <i class="dopln">/dev/oddíl</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1569326723" href="#z1569326723">䷽</a>nastavit/smazat jmenovku ext4<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1569326723"><span><a href="#z1569326723">䷽</a></span></span>nastavit/smazat jmenovku ext4<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo e2label <i class="dopln">/dev/oddíl</i> &quot;<i class="dopln">novájmenovka</i>&quot;</div>
 <div class="radekzaklinadla">sudo e2label <i class="dopln">/dev/oddíl</i> &quot;&quot;</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z926947396" href="#z926947396">䷾</a>nastavit/smazat jmenovku FAT32<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z926947396"><span><a href="#z926947396">䷾</a></span></span>nastavit/smazat jmenovku FAT32<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1848561941" href="#z1848561941">⠳</a>nastavit/smazat jmenovku NTFS<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1848561941"><span><a href="#z1848561941">⠳</a></span></span>nastavit/smazat jmenovku NTFS<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
-<h3><a href="#cast3x9" id="cast3x9" title="kapitola 5 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 9 (Degrafmentace, kontrola, TRIM apod.)">/s03/p09 Degrafmentace, kontrola, TRIM apod.</a></h3>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z462553670" href="#z462553670">⬃</a>zkontrolovat a opravit souborový systém<span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilyppc15" id="kapdiskoveoddilyppcr15" title="Příkaz „fsck“ pravděpodobně lze použít i se souborovým systémem v souboru, ale nezkoušel/a jsem to.">(15)</a></sup></div><div class="radky">
+<h3 id="cast3x9"><span><a href="#cast3x9" title="kapitola 5 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 9 (Degrafmentace, kontrola, TRIM apod.)"><sup>3/</sup>9 Degrafmentace, kontrola, TRIM apod.</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z462553670"><span><a href="#z462553670">⬃</a></span></span>zkontrolovat a opravit souborový systém<span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilyppc15" id="kapdiskoveoddilyppcr15" title="Příkaz „fsck“ pravděpodobně lze použít i se souborovým systémem v souboru, ale nezkoušel/a jsem to.">(15)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo fsck <span class="volznak">[</span>-V<span class="volznak">]</span> <i class="dopln">/dev/oddíl</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1479816234" href="#z1479816234">➶</a>najít chybné bloky (obecně/příklad)<span class="cislo">#2 </span><sup><a href="#kapdiskoveoddilyppc16" id="kapdiskoveoddilyppcr16" title="Poznámka: Tento příkaz chybné bloky najde, ale neudělá nic proto, aby se je systém souborů nesnažil používat.">(16)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1479816234"><span><a href="#z1479816234">➶</a></span></span>najít chybné bloky (obecně/příklad)<span class="cislo">#2 </span><sup><a href="#kapdiskoveoddilyppc16" id="kapdiskoveoddilyppcr16" title="Poznámka: Tento příkaz chybné bloky najde, ale neudělá nic proto, aby se je systém souborů nesnažil používat.">(16)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo badblocks <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span> <span class="volznak">[</span>-w<span class="volznak">]</span> <i class="dopln">/dev/zařízení-nebo-oddíl</i></div>
 <div class="radekzaklinadla">sudo badblocks -vv /dev/sda1</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z974279839" href="#z974279839">⢡</a>oznámit zařízení nevyužité bloky souborového systému (operace TRIM)(konkrétní soub.systém/všechny dostupné)<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z974279839"><span><a href="#z974279839">⢡</a></span></span>oznámit zařízení nevyužité bloky souborového systému (operace TRIM)(konkrétní soub.systém/všechny dostupné)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo fstrim <span class="volznak">[</span>-v<span class="volznak">]</span> <i class="dopln">/přípojný/bod</i></div>
 <div class="radekzaklinadla">sudo fstrim -a <span class="volznak">[</span>-v<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z710304926" href="#z710304926">☭</a>zkontrolovat fragmentaci oddílu typu ext4<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z710304926"><span><a href="#z710304926">☭</a></span></span>zkontrolovat fragmentaci oddílu typu ext4<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo e4defrag -c <i class="dopln">/dev/oddíl</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z112863918" href="#z112863918">∼</a>defragmentovat oddíl typu ext4 (pozor!)<span class="cislo">#5 </span><sup><a href="#kapdiskoveoddilyppc17" id="kapdiskoveoddilyppcr17" title="Pokud jste začátečník, nedefragmentujte oddíly typu ext4! Obvykle to není potřeba.">(17)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z112863918"><span><a href="#z112863918">∼</a></span></span>defragmentovat oddíl typu ext4 (pozor!)<span class="cislo">#5 </span><sup><a href="#kapdiskoveoddilyppc17" id="kapdiskoveoddilyppcr17" title="Pokud jste začátečník, nedefragmentujte oddíly typu ext4! Obvykle to není potřeba.">(17)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo e4defrag <i class="dopln">/dev/oddíl</i></div>
 </div></div>
 
-<h3><a href="#cast3x10" id="cast3x10" title="kapitola 5 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 10 (Ostatní)">/s03/p10 Ostatní</a></h3>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z320716373" href="#z320716373">⡸</a>zálohovat diskový oddíl do souboru (přímo/komprimovaný)<span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast3x10"><span><a href="#cast3x10" title="kapitola 5 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 10 (Ostatní)"><sup>3/</sup>10 Ostatní</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z320716373"><span><a href="#z320716373">⡸</a></span></span>zálohovat diskový oddíl do souboru (přímo/komprimovaný)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo dd if=<i class="dopln">/dev/oddíl</i> of=<i class="dopln">cesta</i> <span class="volznak">[</span>status=progress<span class="volznak">]</span></div>
 <div class="radekzaklinadla">sudo dd if=<i class="dopln">/dev/oddíl</i> <span class="volznak">[</span>status=progress<span class="volznak">]</span> | gzip -n<span class="volznak">[</span>9<span class="volznak">]</span> &gt;<i class="dopln">cesta.gz</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona L" id="z372470127" href="#z372470127">⬳</a>obnovit diskový oddíl (přímo/komprimovaný)<span class="cislo">#2 </span><sup><a href="#kapdiskoveoddilyppc18" id="kapdiskoveoddilyppcr18" title="Pozor! Tato operace je nebezpečná! Pokud zadáte chybný cílový oddíl, daný oddíl se nevratně přepíše daty určenými pro ten správný. Pokud velikost zálohy neodpovídá přesně velikosti cílového oddílu, nemusí být oddíl po obnově dobře použitelný. Tento příkaz používejte s velkou opatrností!">(18)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona L" id="z372470127"><span><a href="#z372470127">⬳</a></span></span>obnovit diskový oddíl (přímo/komprimovaný)<span class="cislo">#2 </span><sup><a href="#kapdiskoveoddilyppc18" id="kapdiskoveoddilyppcr18" title="Pozor! Tato operace je nebezpečná! Pokud zadáte chybný cílový oddíl, daný oddíl se nevratně přepíše daty určenými pro ten správný. Pokud velikost zálohy neodpovídá přesně velikosti cílového oddílu, nemusí být oddíl po obnově dobře použitelný. Tento příkaz používejte s velkou opatrností!">(18)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo dd if=<i class="dopln">cesta</i> of=/dev/<i class="dopln">oddíl</i> <span class="volznak">[</span>status=progress<span class="volznak">]</span></div>
 <div class="radekzaklinadla">gunzip -cd <i class="dopln">cesta.gz</i> | sudo dd of=<i class="dopln">/dev/oddíl</i> <span class="volznak">[</span>status=progress<span class="volznak">]</span></div>
 </div></div>
 
-<h2><a href="#cast4" id="cast4"><span class="cislo">4.</span> Zaklínadla (LVM)</a></h2>
+<h2 id="cast4"><a href="#cast4"><span class="cislo">4.</span> Zaklínadla (LVM)</a></h2>
 
-<h3><a href="#cast4x1" id="cast4x1" title="kapitola 5 (Diskové oddíly), sekce 4 (Zaklínadla (LVM)), podsekce 1 (Fyzické svazky)">/s04/p01 Fyzické svazky</a></h3>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z403615852" href="#z403615852">☝</a><b>vytvořit</b> z celého zařízení/jeho oddílu<span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 5 (Diskové oddíly), sekce 4 (Zaklínadla (LVM)), podsekce 1 (Fyzické svazky)"><sup>4/</sup>1 Fyzické svazky</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z403615852"><span><a href="#z403615852">☝</a></span></span><b>vytvořit</b> z celého zařízení/jeho oddílu<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo pvcreate <i class="dopln">/dev/zařízení</i> <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 <div class="radekzaklinadla">sudo pvcreate <i class="dopln">/dev/oddíl</i> <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1140116989" href="#z1140116989">⇔</a><b>smazat</b><span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1140116989"><span><a href="#z1140116989">⇔</a></span></span><b>smazat</b><span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo pvremove <i class="dopln">/dev/zařízení-nebo-oddíl</i> <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z2140386045" href="#z2140386045">☠</a>zkontrolovat<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2140386045"><span><a href="#z2140386045">☠</a></span></span>zkontrolovat<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo pvck <i class="dopln">/dev/zařízení-nebo-oddíl</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1755999988" href="#z1755999988">⠭</a>vypsat (pro člověka/pro skript)<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1755999988"><span><a href="#z1755999988">⠭</a></span></span>vypsat (pro člověka/pro skript)<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo pvs</div>
 <div class="radekzaklinadla">sudo pvs --noheadings | sed -E 's/^\s*(\S+)\s.*$/\1/'</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1986402032" href="#z1986402032">≊</a>uvolnit všechno místo na fyzickém svazku<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1986402032"><span><a href="#z1986402032">≊</a></span></span>uvolnit všechno místo na fyzickém svazku<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo pvmove <i class="dopln">/dev/zařízení-nebo-oddíl</i></div>
 </div></div>
 
-<h3><a href="#cast4x2" id="cast4x2" title="kapitola 5 (Diskové oddíly), sekce 4 (Zaklínadla (LVM)), podsekce 2 (Skupiny svazků)">/s04/p02 Skupiny svazků</a></h3>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z826910072" href="#z826910072">≅</a><b>vytvořit</b><span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast4x2"><span><a href="#cast4x2" title="kapitola 5 (Diskové oddíly), sekce 4 (Zaklínadla (LVM)), podsekce 2 (Skupiny svazků)"><sup>4/</sup>2 Skupiny svazků</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z826910072"><span><a href="#z826910072">≅</a></span></span><b>vytvořit</b><span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo vgcreate <i class="dopln">id-skupiny</i> <i class="dopln">/dev/fyzický-svazek</i><span class="tritecky"></span> <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1545174120" href="#z1545174120">⢦</a><b>přidat</b> fyzický svazek do skupiny<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1545174120"><span><a href="#z1545174120">⢦</a></span></span><b>přidat</b> fyzický svazek do skupiny<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo vgextend <i class="dopln">id-skupiny</i> <i class="dopln">/dev/fyzický-svazek</i><span class="tritecky"></span> <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1679290219" href="#z1679290219">⇎</a><b>odebrat</b> fyzický svazek ze skupiny<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1679290219"><span><a href="#z1679290219">⇎</a></span></span><b>odebrat</b> fyzický svazek ze skupiny<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo pvmove <i class="dopln">/dev/fyzický-svazek</i></div>
 <div class="radekzaklinadla">sudo vgreduce <i class="dopln">id-skupiny</i> <i class="dopln">/dev/fyzický-svazek</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1432048416" href="#z1432048416">⠂</a><b>přejmenovat</b><span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1432048416"><span><a href="#z1432048416">⠂</a></span></span><b>přejmenovat</b><span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo vgrename <i class="dopln">id-skupiny</i> <i class="dopln">nove-id-skupiny</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1755999988x" href="#z1755999988x">⠭</a>vypsat (pro člověka/pro skript)<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1755999988x"><span><a href="#z1755999988x">⠭</a></span></span>vypsat (pro člověka/pro skript)<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo vgs</div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1140116989x" href="#z1140116989x">⇔</a><b>smazat</b><span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1140116989x"><span><a href="#z1140116989x">⇔</a></span></span><b>smazat</b><span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo lvremove <i class="dopln">id-skupiny</i></div>
 <div class="radekzaklinadla">sudo vgremove <i class="dopln">id-skupiny</i></div>
 </div></div>
 
-<h3><a href="#cast4x3" id="cast4x3" title="kapitola 5 (Diskové oddíly), sekce 4 (Zaklínadla (LVM)), podsekce 3 (Logické oddíly)">/s04/p03 Logické oddíly</a></h3>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z429491941" href="#z429491941">⨒</a><b>vytvořit</b> (velikost zadat: absolutně/v procentech velikosti skupiny/v procentech velikosti volného místa/všechno volné místo)<span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilyppc19" id="kapdiskoveoddilyppcr19" title="Pro přesnější určení rozměru můžete zadat velikost oddílu v mebibajtech místo gibibajtů (místo přípony „G“ uveďte příponu „M“), ale v takovém případě počítejte s možností, že systém zadanou hodnotu mírně zaokrouhlí nahoru.">(19)</a></sup></div><div class="radky">
+<h3 id="cast4x3"><span><a href="#cast4x3" title="kapitola 5 (Diskové oddíly), sekce 4 (Zaklínadla (LVM)), podsekce 3 (Logické oddíly)"><sup>4/</sup>3 Logické oddíly</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z429491941"><span><a href="#z429491941">⨒</a></span></span><b>vytvořit</b> (velikost zadat: absolutně/v procentech velikosti skupiny/v procentech velikosti volného místa/všechno volné místo)<span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilyppc19" id="kapdiskoveoddilyppcr19" title="Pro přesnější určení rozměru můžete zadat velikost oddílu v mebibajtech místo gibibajtů (místo přípony „G“ uveďte příponu „M“), ale v takovém případě počítejte s možností, že systém zadanou hodnotu mírně zaokrouhlí nahoru.">(19)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo lvcreate <i class="dopln">id-skupiny</i> --name <i class="dopln">id-oddílu</i> --size <i class="dopln">gibibajtů</i>G <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">/dev/fyzický-svazek</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sudo lvcreate <i class="dopln">id-skupiny</i> --name <i class="dopln">id-oddílu</i> --extents <i class="dopln">procenta</i>%VG <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 <div class="radekzaklinadla">sudo lvcreate <i class="dopln">id-skupiny</i> --name <i class="dopln">id-oddílu</i> --extents <i class="dopln">procenta</i>%FREE <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 <div class="radekzaklinadla">sudo lvcreate <i class="dopln">id-skupiny</i> --name <i class="dopln">id-oddílu</i> --extents 100%FREE <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z303772227x" href="#z303772227x">⎛</a><b>vypsat</b> (pro člověka/pro skript)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z303772227x"><span><a href="#z303772227x">⎛</a></span></span><b>vypsat</b> (pro člověka/pro skript)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo lvs</div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z827537278" href="#z827537278">ⱶ</a><b>zvětšit</b> (na velikost/relativně)<span class="cislo">#3 </span><sup><a href="#kapdiskoveoddilyppc20" id="kapdiskoveoddilyppcr20" title="Volba --resizefs je podporována pouze pro některé typy systému souborů, zejména pro ext4.">(20)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z827537278"><span><a href="#z827537278">ⱶ</a></span></span><b>zvětšit</b> (na velikost/relativně)<span class="cislo">#3 </span><sup><a href="#kapdiskoveoddilyppc20" id="kapdiskoveoddilyppcr20" title="Volba --resizefs je podporována pouze pro některé typy systému souborů, zejména pro ext4.">(20)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo lvextend <i class="dopln">id-skupiny</i>/<i class="dopln">id-oddílu</i> --size <i class="dopln">gibibajtů</i>G <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 <div class="radekzaklinadla">sudo lvextend <i class="dopln">id-skupiny</i>/<i class="dopln">id-oddílu</i> --size +<i class="dopln">gibibajtů</i>G <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span> <span class="volznak">[</span>--resizefs<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z119416888" href="#z119416888">❉</a><b>zmenšit</b> (na velikost/relativně)<span class="cislo">#4 </span><sup><a href="#kapdiskoveoddilyppc21" id="kapdiskoveoddilyppcr21" title="Pozor! Pokud je na zmenšovaném oddíle souborový systém, musíte ho před zmenšením oddílu zmenšit na odpovídající velikost, jinak dojde ke ztrátě dat! To neplatí, použijete-li zde parametr --resizefs.">(21)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z119416888"><span><a href="#z119416888">❉</a></span></span><b>zmenšit</b> (na velikost/relativně)<span class="cislo">#4 </span><sup><a href="#kapdiskoveoddilyppc21" id="kapdiskoveoddilyppcr21" title="Pozor! Pokud je na zmenšovaném oddíle souborový systém, musíte ho před zmenšením oddílu zmenšit na odpovídající velikost, jinak dojde ke ztrátě dat! To neplatí, použijete-li zde parametr --resizefs.">(21)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo lvreduce <i class="dopln">id-skupiny</i>/<i class="dopln">id-oddílu</i> --size <i class="dopln">gibibajtů</i>G <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 <div class="radekzaklinadla">sudo lvreduce <i class="dopln">id-skupiny</i>/<i class="dopln">id-oddílu</i> --size +<i class="dopln">gibibajtů</i>G <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span> <span class="volznak">[</span>--resizefs<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z182782088" href="#z182782088">⡺</a><b>přejmenovat</b> oddíl<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z182782088"><span><a href="#z182782088">⡺</a></span></span><b>přejmenovat</b> oddíl<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo lvrename <i class="dopln">id-skupiny</i>/<i class="dopln">id-oddílu</i> <i class="dopln">nové-id-oddílu</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z686943150" href="#z686943150">≾</a><b>smazat</b> oddíl/všechny oddíly ve skupině<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z686943150"><span><a href="#z686943150">≾</a></span></span><b>smazat</b> oddíl/všechny oddíly ve skupině<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo lvremove <i class="dopln">id-skupiny</i>/<i class="dopln">id-oddílu</i> <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 <div class="radekzaklinadla">sudo lvremove <i class="dopln">id-skupiny</i> <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z588421104" href="#z588421104">☁</a>přesunout do jiné skupiny svazků<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z588421104"><span><a href="#z588421104">☁</a></span></span>přesunout do jiné skupiny svazků<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
-<h3><a href="#cast4x4" id="cast4x4" title="kapitola 5 (Diskové oddíly), sekce 4 (Zaklínadla (LVM)), podsekce 4 (Ostatní)">/s04/p04 Ostatní</a></h3>
-<div class="zaklinadlo"><div class="zahlavi"><a class="ikona D" id="z1217005040" href="#z1217005040">⋈</a>aktualizovat systémový přehled LVM podle připojených zařízení<span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast4x4"><span><a href="#cast4x4" title="kapitola 5 (Diskové oddíly), sekce 4 (Zaklínadla (LVM)), podsekce 4 (Ostatní)"><sup>4/</sup>4 Ostatní</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1217005040"><span><a href="#z1217005040">⋈</a></span></span>aktualizovat systémový přehled LVM podle připojených zařízení<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo lvscan --mknodes</div>
 </div></div>
 
-<h2><a href="#cast5" id="cast5"><span class="cislo">5.</span> Parametry příkazů</a></h2>
+<h2 id="cast5"><a href="#cast5"><span class="cislo">5.</span> Parametry příkazů</a></h2>
 
-<h3><a href="#cast5x1" id="cast5x1" title="kapitola 5 (Diskové oddíly), sekce 5 (Parametry příkazů), podsekce 1 (Volby připojení)">/s05/p01 Volby připojení</a></h3>
+<h3 id="cast5x1"><span><a href="#cast5x1" title="kapitola 5 (Diskové oddíly), sekce 5 (Parametry příkazů), podsekce 1 (Volby připojení)"><sup>5/</sup>1 Volby připojení</a></span></h3>
 <p class="ponadpisu">
 Nejdůležitější volby připojení pro všechny typy systému souborů:
 </p>
@@ -480,7 +481,7 @@ Nejdůležitější volby připojení pro <b>tmpfs</b> (ramdisk):
 
 </tbody></table>
 
-<h2><a href="#cast6" id="cast6"><span class="cislo">6.</span> Instalace na Ubuntu</a></h2>
+<h2 id="cast6"><a href="#cast6"><span class="cislo">6.</span> Instalace na Ubuntu</a></h2>
 <p class="ponadpisu">
 Všechny použité nástroje jsou základními součástmi Ubuntu, kromě nástrojů pro práci s LVM a nástroje GParted.
 Pokud chcete používat LVM, musíte doinstalovat:
@@ -495,12 +496,12 @@ Nástroj GParted najdete v balíčku „gparted“:
 <div class="radekzaklinadla">sudo apt-get install gparted</div>
 </div></div>
 
-<h2><a href="#cast7" id="cast7"><span class="cislo">7.</span> Tipy a zkušenosti</a></h2>
+<h2 id="cast7"><a href="#cast7"><span class="cislo">7.</span> Tipy a zkušenosti</a></h2>
 <ul><li>Pomocí příkazu „mount --bind“ můžete jeden ramdisk připojit na několik různých míst VFS!
 </li><li>V případě změny velikosti oddílu v LVM je třeba samostatně změnit velikost souborového systému a samostatně velikost logického oddílu. Výjimkou je souborový systém „ext4“, u kterého je možné tyto operace sloučit použitím parametru „--resizefs“.
 </li><li>LVM poskytuje svůj vlastní interpret příkazové řádky, který nabízí pouze příkazy související s LVM (bez zadávání „sudo“). Spustíte ho příkazem „sudo lvm“.
 </li></ul>
-<h2><a href="#cast8" id="cast8"><span class="cislo">8.</span> Další zdroje informací</a></h2>
+<h2 id="cast8"><a href="#cast8"><span class="cislo">8.</span> Další zdroje informací</a></h2>
 <ul class="kompaktni"><li><a href="https://www.abclinuxu.cz/serialy/lvm">Seriál Logical Volume Manager</a>
 </li><li><a href="https://cs.wikipedia.org/wiki/Logical_Volume_Management">Wikipedie: Logical Volume Management</a>
 </li><li><a href="https://linuxhint.com/lvm-ubuntu-tutorial/">LVM Ubuntu Tutorial</a> (anglicky)
@@ -553,7 +554,7 @@ Nástroj GParted najdete v balíčku „gparted“:
 <div id="kapdiskoveoddilyppc21"><a href="#kapdiskoveoddilyppcr21" class="cislopozn">21</a>&nbsp;Pozor! Pokud je na zmenšovaném oddíle souborový systém, musíte ho před zmenšením oddílu zmenšit na odpovídající velikost, jinak dojde ke ztrátě dat! To neplatí, použijete-li zde parametr --resizefs.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 </div>
-<div class="odkazydole"><a href="zpracovani-textovych-souboru.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Zpracování textových souborů</a><a href="barvy-a-titulek.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Barvy, titulek a výzva terminálu</a><a href="make.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">GNU make</a></div>
+<div class="odkazydole"><a href="soubory-a-adresare.htm"><img src="obrazky/ik/soubory-a-adresare.png" alt="" width="32" height="32">Soubory a adresáře</a><a href="docker.htm"><img src="obrazky/ik/docker.png" alt="" width="32" height="32">Docker</a><a href="planovani-uloh.htm"><img src="obrazky/ik/planovani-uloh.png" alt="" width="32" height="32">Plánování úloh</a></div>
 
 <nav class="spodni"><span class="prev">
 <a href="datum-cas-kalendar.htm" rel="prev" title="4. Datum, čas a kalendář">Předchozí&nbsp;kapitola</a>&nbsp;|
@@ -566,89 +567,120 @@ Nástroj GParted najdete v balíčku „gparted“:
 
 
 </article>
-<!-- MENU -->
-<a href="#menu" id="menu">MENU</a>
-<aside>
-<div>
-<div>Toto je experimentální bezjavascriptové menu ve vývoji.
-Zatím prosím použijte k navigaci <a href="index.htm">přehled kapitol</a>.</div>
-<a href="awk.htm">AWK</a>
-<a href="docker.htm">Docker</a>
-<a href="#cast3x2">3x2</a>
-<a href="#cast3x1">3x1</a>
-<div>Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum<br>
-Lorem Ipsum</div></div>
-<a href="#zavritmenu" id="zavritmenu">Zavřít&nbsp;menu</a>
+<nav class="menu">
+<!-- MENU KAPITOLY -->
+<a href="#menukapitoly" id="menukapitoly"><span class="prvnipismeno">K</span>apitoly</a>
+<aside class="menukapitoly">
+<div><div class="nadpis">Kapitoly</div><div class="polozky">
+<a href="predmluva.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/predmluva.png" alt="[]"></span><span class="cislo">1</span><span class="nazev">Předmluva</span></a>
+<a href="awk.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/awk.png" alt="[]"></span><span class="cislo">2</span><span class="nazev">AWK</span></a>
+<a href="barvy-a-titulek.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/barvy-a-titulek.png" alt="[]"></span><span class="cislo">3</span><span class="nazev">Barvy, titulek a výzva terminálu</span></a>
+<a href="datum-cas-kalendar.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/datum-cas-kalendar.png" alt="[]"></span><span class="cislo">4</span><span class="nazev">Datum, čas a kalendář</span></a>
+<a href="diskove-oddily.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/diskove-oddily.png" alt="[]"></span><span class="cislo">5</span><span class="nazev">Diskové oddíly</span></a>
+<a href="docker.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/docker.png" alt="[]"></span><span class="cislo">6</span><span class="nazev">Docker</span></a>
+<a href="git.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/git.png" alt="[]"></span><span class="cislo">7</span><span class="nazev">Git</span></a>
+<a href="hledani-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/hledani-souboru.png" alt="[]"></span><span class="cislo">8</span><span class="nazev">Hledání souborů</span></a>
+<a href="make.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/make.png" alt="[]"></span><span class="cislo">9</span><span class="nazev">GNU make</span></a>
+<a href="markdown.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/markdown.png" alt="[]"></span><span class="cislo">10</span><span class="nazev">Markdown</span></a>
+<a href="planovani-uloh.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/planovani-uloh.png" alt="[]"></span><span class="cislo">11</span><span class="nazev">Plánování úloh</span></a>
+<a href="prace-s-archivy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="cislo">12</span><span class="nazev">Práce s archivy</span></a>
+<a href="regularni-vyrazy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="cislo">13</span><span class="nazev">Regulární výrazy</span></a>
+<a href="soubory-a-adresare.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/soubory-a-adresare.png" alt="[]"></span><span class="cislo">14</span><span class="nazev">Soubory a adresáře</span></a>
+<a href="sprava-balicku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="cislo">15</span><span class="nazev">Správa balíčků</span></a>
+<a href="sprava-procesu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-procesu.png" alt="[]"></span><span class="cislo">16</span><span class="nazev">Správa procesů</span></a>
+<a href="stahovani-videi.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/stahovani-videi.png" alt="[]"></span><span class="cislo">17</span><span class="nazev">Stahování videí</span></a>
+<a href="system.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="cislo">18</span><span class="nazev">Systém</span></a>
+<a href="zpracovani-textovych-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="cislo">19</span><span class="nazev">Zpracování textových souborů</span></a>
+<a href="zpracovani-videa-a-zvuku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="cislo">20</span><span class="nazev">Zpracování videa a zvuku</span></a>
+<a href="koncepce-projektu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="cislo">21</span><span class="nazev">Koncepce projektu Linux: Kniha kouzel</span></a>
+<a href="plan-vyvoje.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">22</span><span class="nazev">Plán budoucího vývoje</span></a>
+<a href="licence.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">23</span><span class="nazev">Licence</span></a>
+</div></div>
+<a href="#zavritmenu" id="zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
 </aside>
+<!-- MENU OSNOVA -->
+<a href="#menuosnova" id="menuosnova"><span class="prvnipismeno">O</span>snova</a>
+<aside class="menuosnova">
+<div><div class="nadpis">Osnova</div><div class="polozky">
+<a href="#cast1" class="sekce">1 Úvod</a>
+<a href="#cast2" class="sekce">2 Definice</a>
+<a href="#cast2x1" class="podsekce">/1 Obecné definice</a>
+<a href="#cast2x2" class="podsekce">/2 LVM</a>
+<a href="#cast2x3" class="podsekce">/3 Co a kam připojit</a>
+<a href="#cast3" class="sekce">3 Zaklínadla</a>
+<a href="#cast3x1" class="podsekce">/1 Položky v /etc/fstab</a>
+<a href="#cast3x2" class="podsekce">/2 Připojení a odpojení systému souborů</a>
+<a href="#cast3x3" class="podsekce">/3 Již připojené systémy souborů (vypsat/zjistit údaje)</a>
+<a href="#cast3x4" class="podsekce">/4 Oddíly a zařízení (vypsat/zjistit údaje)</a>
+<a href="#cast3x5" class="podsekce">/5 Formátování</a>
+<a href="#cast3x6" class="podsekce">/6 Odkládací oddíly a soubory</a>
+<a href="#cast3x7" class="podsekce">/7 Dělení disku</a>
+<a href="#cast3x8" class="podsekce">/8 Jmenovka (nastavit)</a>
+<a href="#cast3x9" class="podsekce">/9 Degrafmentace, kontrola, TRIM apod.</a>
+<a href="#cast3x10" class="podsekce">/10 Ostatní</a>
+<a href="#cast4" class="sekce">4 Zaklínadla (LVM)</a>
+<a href="#cast4x1" class="podsekce">/1 Fyzické svazky</a>
+<a href="#cast4x2" class="podsekce">/2 Skupiny svazků</a>
+<a href="#cast4x3" class="podsekce">/3 Logické oddíly</a>
+<a href="#cast4x4" class="podsekce">/4 Ostatní</a>
+<a href="#cast5" class="sekce">5 Parametry příkazů</a>
+<a href="#cast5x1" class="podsekce">/1 Volby připojení</a>
+<a href="#cast6" class="sekce">6 Instalace na Ubuntu</a>
+<a href="#cast7" class="sekce">7 Tipy a zkušenosti</a>
+<a href="#cast8" class="sekce">8 Další zdroje informací</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU ŠTÍTKY -->
+<a href="#menustitky" id="menustitky"><span class="prvnipismeno">Š</span>títky</a>
+<aside class="menustitky">
+<div><div class="nadpis">Štítky</div><div class="polozky">
+<a href="x-stitky.htm#sdrese">adresáře&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#spt">apt&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sbrvy">barvy&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sbsh">bash&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#scs">čas&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#sdmoni">démoni&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sfltpk">Flatpak&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#shledn">hledání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sinternet">internet&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sklvesnice">klávesnice&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#skomprese">komprese&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#skontejnery">kontejnery&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#slvm">LVM&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sodkldcprostor">odkládací prostor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sprocesy">procesy&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sprogrm">program&nbsp;&nbsp;(4)</a>
+<a href="x-stitky.htm#sprogrmovn">programování&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#spstupovprv">přístupová práva&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#srmdisk">ramdisk&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#ssnp">Snap&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#ssoubory">soubory&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#ssprvverz">správa verzí&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#ssyntxe">syntaxe&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#ssystm">systém&nbsp;&nbsp;(4)</a>
+<a href="x-stitky.htm#stemtickokruh">tematický okruh&nbsp;&nbsp;(13)</a>
+<a href="x-stitky.htm#svideo">video&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#svirtulizce">virtualizace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#szip">zip&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#szprcovntextu">zpracování textu&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#szvuk">zvuk&nbsp;&nbsp;(1)</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU NÁPOVĚDA -->
+<a href="#menunapoveda" id="menunapoveda"><span class="prvnipismeno">N</span>ápověda</a>
+<aside class="menunapoveda">
+<div><div class="nadpis">Nápověda</div><div class="polozky">
+<a href="predmluva.htm">Předmluva</a>
+<a href="koncepce-projektu.htm">Koncepce projektu</a>
+<a href="https://singularis-mzf.github.io/">Ostatní verze knihy</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook">Repozitář na GitHubu</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+
+</nav>
 <!-- *** -->
 <footer id="dole">
 <img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">

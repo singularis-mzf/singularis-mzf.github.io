@@ -3,56 +3,50 @@
 <head profile="http://www.w3.org/2005/10/profile">
 <meta charset="UTF-8">
 
-<title>GNU make − Linux: Kniha kouzel</title>
+<title>Make − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20200508.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200508-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200508-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200508-tmavy.css" title="Tmavý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20200526.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200526-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200526-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200526-tmavy.css" title="Tmavý motiv">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body>
 <div id="nahore"></div>
 <header>
-<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.7 (8. května 2020)</span>
+<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.8, D. D. (26. května 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
+<nav class="menuokna">
+<a href="#menukapitoly" class="menu"><span class="prvnipismeno">K</span>apitoly</a>
+<a href="#menuosnova" class="menu"><span class="prvnipismeno">O</span>snova</a>
+<a href="#menustitky" class="menu"><span class="prvnipismeno">Š</span>títky</a>
+<a href="#menunapoveda" class="menu"><span class="prvnipismeno">N</span>ápověda</a>
+<a href="hledani-souboru.htm" rel="prev" title="8. Hledání souborů" accesskey="p" class="predchozi">Předchozí&nbsp;kapitola</a>
+<a href="index.htm" class="prehled"><span class="prvnipismeno">P</span>řehled kapitol</a>
+<a href="markdown.htm" rel="next" title="10. Markdown" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
+</nav>
 
+<div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
 
+<!--
 <nav class="horni">
 <div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
 <span class="prev">
 <a href="hledani-souboru.htm" rel="prev" title="8. Hledání souborů" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
-</span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="markdown.htm" rel="next" title="10. Markdown" accesskey="n">Následující&nbsp;kapitola</a>
+</span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!- -
+- ->&nbsp;| <a href="markdown.htm" rel="next" title="10. Markdown" accesskey="n">Následující&nbsp;kapitola</a>
 </span>
 </nav>
+-->
 
 
 <article>
 
-<h1 class="kapitola">9. <img src="obrazky/ik/make.png" alt="" width="64" height="64"> GNU make</h1>
+<h1 class="kapitola">9. <img src="obrazky/ik/make.png" alt="" width="64" height="64"> Make</h1>
 <div class="stitky"><a href="x-stitky.htm#sprogrm">program</a>
 <a href="x-stitky.htm#sprogrmovn">programování</a>
-</div><div class="rozcestnikkapitol">
-<a href="#cast1" class="sekce">Úvod</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast2" class="sekce">Definice</a><br>
-<a href="#cast3" class="sekce">Zaklínadla (v souboru Makefile)</a>: <a href="#cast3x1">Nastavení proměnných</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast3x2">Rozvoj proměnných</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast3x3">Automatické a předdefinované proměnné</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast3x4">Obecný tvar pravidel</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast3x5">Textové funkce</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast3x6">Analýza adresářových cest (pro každé slovo zvlášť)</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast3x7">Příkazy v pravidlech</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast3x8">Logické funkce</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast3x9">Podmíněný překlad a include</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast3x10">Ostatní funkce</a><br>
-<a href="#cast4" class="sekce">Parametry příkazů</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast5" class="sekce">Instalace na Ubuntu</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast6" class="sekce">Ukázka</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast7" class="sekce">Tipy a zkušenosti</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast8" class="sekce">Další zdroje informací</a><span class="oddelovac">&nbsp;|</span>
-<a href="#cast9" class="sekce">Snímek obrazovky</a></div>
+</div>
 <h2 id="cast1"><a href="#cast1"><span class="cislo">1.</span> Úvod</a></h2>
 <p class="ponadpisu">
 GNU make je nástroj k automatizaci procesu sestavování určitých cílových souborů ze souborů zdrojových. Vykonává podobnou úlohu jako např. skript napsaný v bashi, ale na rozdíl od něj umí:
@@ -74,7 +68,7 @@ jemuž se bude věnovat většina této kapitoly.
 </li></ul>
 <h2 id="cast3"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla (v souboru Makefile)</a></h2>
 
-<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 9 (GNU make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 1 (Nastavení proměnných)"><sup>3/</sup>1 Nastavení proměnných</a></span></h3>
+<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 9 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 1 (Nastavení proměnných)"><sup>3/</sup>1 Nastavení proměnných</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2089379896"><span><a href="#z2089379896">䷻</a></span></span><b>nastavit</b> proměnnou (expandovat v místě definice)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">NÁZEV_PROMĚNNÉ</i> := <i class="dopln">hodnota včetně mezer</i></div>
 </div></div>
@@ -97,7 +91,7 @@ jemuž se bude věnovat většina této kapitoly.
 <div class="radekzaklinadla">export <i class="dopln">NÁZEV_PROMĚNNÉ</i> := <i class="dopln">hodnota včetně mezer</i></div>
 </div></div>
 
-<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 9 (GNU make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 2 (Rozvoj proměnných)"><sup>3/</sup>2 Rozvoj proměnných</a></span></h3>
+<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 9 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 2 (Rozvoj proměnných)"><sup>3/</sup>2 Rozvoj proměnných</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z9228506"><span><a href="#z9228506">❘</a></span></span>rozvinout proměnnou<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">$(<i class="dopln">NÁZEV_PROMĚNNÉ</i>)</div>
 </div></div>
@@ -119,7 +113,7 @@ jemuž se bude věnovat většina této kapitoly.
 <div class="radekzaklinadla"><span class="tab" style="width:8ch">&#9;</span>@echo $(TEST:a%.cc=b%.cpp)</div>
 </div></div>
 
-<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 9 (GNU make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 3 (Automatické a předdefinované proměnné)"><sup>3/</sup>3 Automatické a předdefinované proměnné</a></span></h3>
+<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 9 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 3 (Automatické a předdefinované proměnné)"><sup>3/</sup>3 Automatické a předdefinované proměnné</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1927732170"><span><a href="#z1927732170">⁚</a></span></span><b>cíl</b> pravidla (alternativy)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">$@</div>
 <div class="radekzaklinadla">$(@)</div>
@@ -142,7 +136,7 @@ jemuž se bude věnovat většina této kapitoly.
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
-<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 9 (GNU make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 4 (Obecný tvar pravidel)"><sup>3/</sup>4 Obecný tvar pravidel</a></span></h3>
+<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 9 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 4 (Obecný tvar pravidel)"><sup>3/</sup>4 Obecný tvar pravidel</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1579012536"><span><a href="#z1579012536">╉</a></span></span>normální (<b>pevné</b>) pravidlo<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">cíle oddělené mezerami</i>: <span class="volznak">[</span><i class="dopln">zdroje oddělené mezerami</i><span class="volznak">]</span> <span class="volznak">[</span>;<i class="dopln">příkaz</i><span class="volznak">]</span></div>
 <div class="radekzaklinadla"><span class="volznak">[</span><span class="tab" style="width:8ch">&#9;</span><span class="volznak">[</span><i class="dopln">prefix-příkazu</i><span class="volznak">]</span><i class="dopln">příkaz</i><span class="volznak">]</span><span class="tritecky"></span></div>
@@ -173,7 +167,7 @@ jemuž se bude věnovat většina této kapitoly.
 <div class="radekzaklinadla">.IGNORE: <i class="dopln">cíl</i> <span class="volznak">[</span><i class="dopln">další-cíl</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
 
-<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 9 (GNU make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 5 (Textové funkce)"><sup>3/</sup>5 Textové funkce</a></span></h3>
+<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 9 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 5 (Textové funkce)"><sup>3/</sup>5 Textové funkce</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1747366748"><span><a href="#z1747366748">█</a></span></span><b>připojit</b> text před/za každé slovo v řetězci/v rozvoji proměnné<span class="cislo">#1 </span><sup><a href="#kapmakeppc6" id="kapmakeppcr6" title="Při použití poslední uvedené varianty nesmějí text-před a text-za obsahovat znak %.">(6)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">$(addprefix <i class="dopln">text-před</i>,<i class="dopln">řetězec slov</i>)</div>
 <div class="radekzaklinadla">$(addsuffix <i class="dopln">text-za</i>,<i class="dopln">řetězec slov</i>)</div>
@@ -211,7 +205,7 @@ jemuž se bude věnovat většina této kapitoly.
 <div class="radekzaklinadla">$(shell printf %s\\n '$(strip <i class="dopln">řetězec slov</i>)' | tr '<span class="viditelnamezera">&nbsp;</span>' \\n | tac)</div>
 </div></div>
 
-<h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 9 (GNU make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 6 (Analýza adresářových cest (pro každé slovo zvlášť))"><sup>3/</sup>6 Analýza adresářových cest (pro každé slovo zvlášť)</a></span></h3>
+<h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 9 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 6 (Analýza adresářových cest (pro každé slovo zvlášť))"><sup>3/</sup>6 Analýza adresářových cest (pro každé slovo zvlášť)</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z758089228"><span><a href="#z758089228">⣭</a></span></span>získat <b>adresářovou cestu</b> (např. „../a/“)<span class="cislo">#1 </span><sup><a href="#kapmakeppc7" id="kapmakeppcr7" title="Neobsahuje-li slovo žádné „/“, vrací pro něj $(dir) „./“.">(7)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">$(dir <i class="dopln">řetězec slov</i>)</div>
 </div></div>
@@ -232,7 +226,7 @@ jemuž se bude věnovat většina této kapitoly.
 <div class="radekzaklinadla">$(wildcard <i class="dopln">vzorek</i><span class="tritecky"></span>)</div>
 </div></div>
 
-<h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 9 (GNU make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 7 (Příkazy v pravidlech)"><sup>3/</sup>7 Příkazy v pravidlech</a></span></h3>
+<h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 9 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 7 (Příkazy v pravidlech)"><sup>3/</sup>7 Příkazy v pravidlech</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z333908240"><span><a href="#z333908240">᚜</a></span></span>vykonat příkaz <b>bez vypsání</b><span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><span class="tab" style="width:8ch">&#9;</span>@<i class="dopln">příkaz</i></div>
 </div></div>
@@ -243,7 +237,7 @@ jemuž se bude věnovat většina této kapitoly.
 <div class="radekzaklinadla">.SILENT: <i class="dopln">cíl</i> <span class="volznak">[</span><i class="dopln">další-cíl</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
 
-<h3 id="cast3x8"><span><a href="#cast3x8" title="kapitola 9 (GNU make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 8 (Logické funkce)"><sup>3/</sup>8 Logické funkce</a></span></h3>
+<h3 id="cast3x8"><span><a href="#cast3x8" title="kapitola 9 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 8 (Logické funkce)"><sup>3/</sup>8 Logické funkce</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1612347538"><span><a href="#z1612347538">⬉</a></span></span>podmíněný výraz<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">$(if <i class="dopln">podmínkový řetězec</i>,<i class="dopln">je-li neprázdný</i><span class="volznak">[</span>,<i class="dopln">jinak</i><span class="volznak">]</span>)</div>
 </div></div>
@@ -263,7 +257,7 @@ jemuž se bude věnovat většina této kapitoly.
 <div class="radekzaklinadla">$(foreach PROM,a b c c b a,$(PROM)$(PROM))</div>
 </div></div>
 
-<h3 id="cast3x9"><span><a href="#cast3x9" title="kapitola 9 (GNU make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 9 (Podmíněný překlad a include)"><sup>3/</sup>9 Podmíněný překlad a include</a></span></h3>
+<h3 id="cast3x9"><span><a href="#cast3x9" title="kapitola 9 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 9 (Podmíněný překlad a include)"><sup>3/</sup>9 Podmíněný překlad a include</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1656871053"><span><a href="#z1656871053">⣂</a></span></span>podmíněný překlad<span class="cislo">#1 </span><sup><a href="#kapmakeppc10" id="kapmakeppcr10" title="Vybere první z alternativ, kde jsou si uvedené výrazy po rozvinutí rovny. Doporučuji alternativy v Makefilu odsadit, ale není to vyžadováno.">(10)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">ifeq &quot;<i class="dopln">výraz 1</i>&quot; &quot;<i class="dopln">výraz 2</i>&quot;</div>
 <div class="radekzaklinadla" style="padding-left:2ch;"><i class="dopln">první alternativa</i></div>
@@ -277,7 +271,7 @@ jemuž se bude věnovat většina této kapitoly.
 <div class="radekzaklinadla">include <i class="dopln">soubory</i><span class="tritecky"></span></div>
 </div></div>
 
-<h3 id="cast3x10"><span><a href="#cast3x10" title="kapitola 9 (GNU make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 10 (Ostatní funkce)"><sup>3/</sup>10 Ostatní funkce</a></span></h3>
+<h3 id="cast3x10"><span><a href="#cast3x10" title="kapitola 9 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 10 (Ostatní funkce)"><sup>3/</sup>10 Ostatní funkce</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z54634474"><span><a href="#z54634474">⎣</a></span></span><b>vykonat příkaz</b> a rozvinout se na jeho výstup; konce řádků se nahradí mezerami<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">$(shell <i class="dopln">příkaz shellu</i>)</div>
 </div></div>
@@ -387,7 +381,7 @@ jemuž se bude věnovat většina této kapitoly.
 <div id="kapmakeppc12"><a href="#kapmakeppcr12" class="cislopozn">12</a>&nbsp;Výsledkem expanze funkcí $(warning) a $(info) je prázdný řetězec.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 </div>
-<div class="odkazydole"><a href="prace-s-archivy.htm"><img src="obrazky/ik/prace-s-archivy.png" alt="" width="32" height="32">Práce s archivy</a><a href="docker.htm"><img src="obrazky/ik/docker.png" alt="" width="32" height="32">Docker</a><a href="git.htm"><img src="obrazky/ik/git.png" alt="" width="32" height="32">Git</a></div>
+<div class="odkazydole"><a href="sed.htm"><img src="obrazky/ik/sed.png" alt="" width="32" height="32">Sed</a><a href="zpracovani-textovych-souboru.htm"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="" width="32" height="32">Zpracování textových souborů</a><a href="stahovani-videi.htm"><img src="obrazky/ik/stahovani-videi.png" alt="" width="32" height="32">Stahování videí</a></div>
 
 <nav class="spodni"><span class="prev">
 <a href="hledani-souboru.htm" rel="prev" title="8. Hledání souborů">Předchozí&nbsp;kapitola</a>&nbsp;|
@@ -413,21 +407,23 @@ jemuž se bude věnovat většina této kapitoly.
 <a href="docker.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/docker.png" alt="[]"></span><span class="cislo">6</span><span class="nazev">Docker</span></a>
 <a href="git.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/git.png" alt="[]"></span><span class="cislo">7</span><span class="nazev">Git</span></a>
 <a href="hledani-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/hledani-souboru.png" alt="[]"></span><span class="cislo">8</span><span class="nazev">Hledání souborů</span></a>
-<a href="make.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/make.png" alt="[]"></span><span class="cislo">9</span><span class="nazev">GNU make</span></a>
+<a href="make.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/make.png" alt="[]"></span><span class="cislo">9</span><span class="nazev">Make</span></a>
 <a href="markdown.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/markdown.png" alt="[]"></span><span class="cislo">10</span><span class="nazev">Markdown</span></a>
 <a href="planovani-uloh.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/planovani-uloh.png" alt="[]"></span><span class="cislo">11</span><span class="nazev">Plánování úloh</span></a>
 <a href="prace-s-archivy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="cislo">12</span><span class="nazev">Práce s archivy</span></a>
 <a href="regularni-vyrazy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="cislo">13</span><span class="nazev">Regulární výrazy</span></a>
-<a href="soubory-a-adresare.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/soubory-a-adresare.png" alt="[]"></span><span class="cislo">14</span><span class="nazev">Soubory a adresáře</span></a>
-<a href="sprava-balicku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="cislo">15</span><span class="nazev">Správa balíčků</span></a>
-<a href="sprava-procesu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-procesu.png" alt="[]"></span><span class="cislo">16</span><span class="nazev">Správa procesů</span></a>
-<a href="stahovani-videi.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/stahovani-videi.png" alt="[]"></span><span class="cislo">17</span><span class="nazev">Stahování videí</span></a>
-<a href="system.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="cislo">18</span><span class="nazev">Systém</span></a>
-<a href="zpracovani-textovych-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="cislo">19</span><span class="nazev">Zpracování textových souborů</span></a>
-<a href="zpracovani-videa-a-zvuku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="cislo">20</span><span class="nazev">Zpracování videa a zvuku</span></a>
-<a href="koncepce-projektu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="cislo">21</span><span class="nazev">Koncepce projektu Linux: Kniha kouzel</span></a>
-<a href="plan-vyvoje.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">22</span><span class="nazev">Plán budoucího vývoje</span></a>
-<a href="licence.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">23</span><span class="nazev">Licence</span></a>
+<a href="sed.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sed.png" alt="[]"></span><span class="cislo">14</span><span class="nazev">Sed</span></a>
+<a href="soubory-a-adresare.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/soubory-a-adresare.png" alt="[]"></span><span class="cislo">15</span><span class="nazev">Soubory a adresáře</span></a>
+<a href="sprava-balicku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="cislo">16</span><span class="nazev">Správa balíčků</span></a>
+<a href="sprava-procesu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-procesu.png" alt="[]"></span><span class="cislo">17</span><span class="nazev">Správa procesů</span></a>
+<a href="stahovani-videi.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/stahovani-videi.png" alt="[]"></span><span class="cislo">18</span><span class="nazev">Stahování videí</span></a>
+<a href="system.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="cislo">19</span><span class="nazev">Systém</span></a>
+<a href="vim.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/vim.png" alt="[]"></span><span class="cislo">20</span><span class="nazev">Vim</span></a>
+<a href="zpracovani-textovych-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="cislo">21</span><span class="nazev">Zpracování textových souborů</span></a>
+<a href="zpracovani-videa-a-zvuku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="cislo">22</span><span class="nazev">Zpracování videa a zvuku</span></a>
+<a href="koncepce-projektu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="cislo">23</span><span class="nazev">Koncepce projektu Linux: Kniha kouzel</span></a>
+<a href="plan-vyvoje.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">24</span><span class="nazev">Plán budoucího vývoje</span></a>
+<a href="licence.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">25</span><span class="nazev">Licence</span></a>
 </div></div>
 <a href="#zavritmenu" id="zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
 </aside>
@@ -467,6 +463,7 @@ jemuž se bude věnovat většina této kapitoly.
 <a href="x-stitky.htm#sbsh">bash&nbsp;&nbsp;(2)</a>
 <a href="x-stitky.htm#scs">čas&nbsp;&nbsp;(2)</a>
 <a href="x-stitky.htm#sdmoni">démoni&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#seditor">editor&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#sfltpk">Flatpak&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#shledn">hledání&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#sinternet">internet&nbsp;&nbsp;(1)</a>
@@ -475,20 +472,22 @@ jemuž se bude věnovat většina této kapitoly.
 <a href="x-stitky.htm#skontejnery">kontejnery&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#slvm">LVM&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#sodkldcprostor">odkládací prostor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sovldn">ovládání&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#sprocesy">procesy&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sprogrm">program&nbsp;&nbsp;(4)</a>
+<a href="x-stitky.htm#sprogrm">program&nbsp;&nbsp;(6)</a>
 <a href="x-stitky.htm#sprogrmovn">programování&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#spstupovprv">přístupová práva&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#srmdisk">ramdisk&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#ssnp">Snap&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#ssoubory">soubory&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#ssprvverz">správa verzí&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#ssyntxe">syntaxe&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#ssyntxe">syntaxe&nbsp;&nbsp;(4)</a>
 <a href="x-stitky.htm#ssystm">systém&nbsp;&nbsp;(4)</a>
 <a href="x-stitky.htm#stemtickokruh">tematický okruh&nbsp;&nbsp;(13)</a>
 <a href="x-stitky.htm#svideo">video&nbsp;&nbsp;(2)</a>
 <a href="x-stitky.htm#svirtulizce">virtualizace&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#szip">zip&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#szprcovntextovchs">zpracování textových souborů&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#szprcovntextu">zpracování textu&nbsp;&nbsp;(3)</a>
 <a href="x-stitky.htm#szvuk">zvuk&nbsp;&nbsp;(1)</a>
 </div></div>

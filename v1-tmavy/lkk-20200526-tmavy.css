@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*
- * Linux Kniha kouzel, CSS, motiv hlavni
+ * Linux Kniha kouzel, CSS, motiv tmavy
  * Copyright (c) 2019,2020 Singularis <singularis@volny.cz>
  *
  * Toto dílo je dílem svobodné kultury; můžete ho šířit a modifikovat pod
@@ -25,6 +25,23 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+#{{MAKRO kryti-obrazku-ikona-kapitoly    = 0.75}}
+
+#{{MAKRO titulni-lista-text-kryti        = 1}}
+#{{MAKRO titulni-lista-stin-textu-kryti  = 0}}
+
+#{{MAKRO zb-titul-krizek                 = 0,0,0}}
+
+#{{MAKRO zb-titul-aktivni                = 255,255,0}}
+
+#{{MAKRO titulni-lista-obrazek-pozadi    = none}}
+
+#{{MAKRO sede-casti-kryti=0.7}}
+
+#{{MAKRO symboly-tab-barva-pozadi    = transparent}}
+
+#{{MAKRO index-podzahlavim-box-shadow=none}}
+
 *{background:none;border:none;border-collapse:inherit;bottom:auto;
 caption-side:inherit;clear:none;clip:auto;color:inherit;
 empty-cells:inherit;left:auto;letter-spacing:inherit;
@@ -36,28 +53,28 @@ top:auto;vertical-align:baseline;visibility:inherit;white-space:inherit;word-spa
 z-index:auto;font:inherit;}
 
 html {
-    background:rgb(210,224,235) url("obrazky/marsh.jpg") 100% 0%/cover repeat fixed;
-    color:rgb(51,51,51);
+    background:rgb(18,26,39) url("obrazky/udoli.jpg") 100% 0%/cover repeat fixed;
+    color:rgb(164,164,164);
     font:62.5%/1.2 sans-serif;
 }
 
 body {
     margin:15rem auto 25rem;
-    border:thin solid rgb(0,0,0);
+    border:thin solid rgb(60,60,60);
     padding:0;
     width:90%;min-width:95rem;max-width:120rem;
-    background-color:rgb(212,221,208);
+    background-color:rgb(40,40,40);
     font-size:133%;
     box-shadow:1rem 1rem 5rem 0 rgba(0,0,0,0.5);
 }
 
 header {
-    border-bottom:thin solid rgb(0,0,0);
+    border-bottom:thin solid rgb(60,60,60);
     padding:0.4em 0.5em;
-    background:rgb(0,102,0) url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAABACAYAAADbER1AAAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4wsCESUxJRQjjAAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAAL0lEQVQY093HMQoAIAzAwGv1Kf7/hRYcBCfB3QwhgZGoxDyqW0GH8CWRaIn+rr0LV34IVonVnXgAAAAASUVORK5CYII=") 0% 0%/1px 100% repeat-x;
-    color:rgba(255,255,255,1);
+    background:rgb(40,40,40) none 0% 0%/1px 100% repeat-x;
+    color:rgba(164,164,164,1);
     font-weight:bold;
-    text-shadow:0 0 0.25em rgba(0,0,0,0.5);
+    text-shadow:0 0 0.25em rgba(0,0,0,0);
 }
 
 nav {
@@ -66,6 +83,7 @@ nav {
     line-height:2;
 }
 nav.horni {
+    display:none; /* potlačit zobrazení, dokud se nerozhodnu ji odstranit */
     margin:1rem 0 0;
     text-align:left;
 }
@@ -82,10 +100,10 @@ article {
 }
 
 footer {
-    border-top:thin solid rgb(0,0,0);
+    border-top:thin solid rgb(60,60,60);
     padding:1rem 3rem;
     font-size:85%;
-    background:rgb(204,204,204);
+    background:rgb(60,60,60);
 }
 
 h1 {
@@ -96,7 +114,7 @@ h1.kapitola img {
     vertical-align:middle;
     border:none;
     width:6.4rem;height:6.4rem;
-    opacity:1;
+    opacity:0.75;
 }
 
 h2 {
@@ -154,13 +172,13 @@ ul.kompaktni {
 }
 
 img {
-    opacity:1;
+    opacity:0.75;
 }
 figure {
     margin:2rem 0;
     border-radius:3rem;
     padding:1rem;
-    background:rgba(0,0,0,0);
+    background:rgba(255,255,255,0.2);
     text-align:center;
 }
 blockquote {
@@ -177,8 +195,8 @@ blockquote+blockquote {
 }
 
 /* Inline prvky */
-a:link {color:rgb(22,68,217)}
-a:visited {color:rgb(84,46,153);}
+a:link {color:rgb(86,155,200)}
+a:visited {color:rgb(183,136,183);}
 /* a:visited {color:;} */
 a[href^="http://"]::before, a[href^="https://"]::before {content:"[";color:rgba(120,120,120,1);}
 a[href^="http://"]::after, a[href^="https://"]::after {content:"]( " attr(href) " )";color:rgba(120,120,120,1);}
@@ -192,8 +210,8 @@ kbd {
     border-radius:0.5em;
     padding:0 0.5em;
     white-space:nowrap;
-    background:rgb(204,204,204);
-    color:rgb(51,51,51);
+    background:rgb(60,60,60);
+    color:rgb(164,164,164);
     font-family:"DejaVu Sans", sans-serif;
 }
 
@@ -215,7 +233,7 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
     font-family: "DejaVu Sans Mono", monospace;
     font-size:115%;
     page-break-inside:avoid;
-    color:rgb(51,51,51);
+    color:rgb(164,164,164);
 }
 
 .zaklinadlo>hr {
@@ -235,7 +253,10 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
 }
 
 .zaklinadlo .zahlavi b {
-    color:rgba(51,51,51,0.95);
+    color:rgba(164,164,164,0.95);
+}
+.zaklinadlo .zahlavi sup {
+    vertical-align:super;
 }
 
 .zaklinadlo .zahlavi>.cislo {
@@ -268,7 +289,7 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
     margin:3pt 5pt 3pt 7rem;
     border-left:1pt dotted #999999;
     padding:2pt 5pt;
-    color:rgba(51,51,51,0.7));
+    color:rgba(164,164,164,0.7));
 }
 
 .zaklinadlo td:nth-child(1) {white-space:nowrap;}
@@ -295,7 +316,7 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
     margin-left:2rem;
     border-left:0.2rem solid rgb(80,128,128);
     padding-left:0.3rem;
-    background:rgb(204,204,204);
+    background:rgb(60,60,60);
     color:inherit;
     font-family:Arimo,Helvetica,Arial,sans-serif;
 }
@@ -347,7 +368,7 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
 .ppc .zrusitzvyrazneni::before {content:"(";}
 .ppc .zrusitzvyrazneni::after {content:")";}
 .ppc :target {
-    background:rgb(204,204,204);
+    background:rgb(60,60,60);
     padding-top:1.5rem;
     padding-bottom:1.5rem;
 }
@@ -357,7 +378,7 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
     display:block;
     padding:1rem 0 1rem 4rem;
     /*background:;*/
-    color:rgb(84,46,153);
+    color:rgb(183,136,183);
     cursor:pointer;
     font-family:sans-serif;
     font-weight:bold;
@@ -388,7 +409,7 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
 
 .parametryprikazu td:first-child {
     font-family:"DejaVu Sans Mono", monospace;
-    color:rgba(51,51,51,0.7);
+    color:rgba(164,164,164,1);
     padding-right:1em;
 }
 
@@ -400,7 +421,7 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
 header .right span {
     display:inline-block;
     margin:0 0.25em;
-    color:rgb(0,204,0);
+    color:rgb(164,164,164);
 }
 
 header .right .ico1 {
@@ -438,18 +459,18 @@ footer p {margin:0;padding:0;max-width:none;}
 footer p+p {margin-top:0.75em;}
 footer img {float:left;margin:0 1rem 1rem 0;}
 .tab {
-    background:transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAUCAYAAACJfM0wAAAACXBIWXMAAAsTAAALEwEAmpwYAAABtklEQVQ4y7XUzUtVURQF8N9+vsxCoSYNGkQfNEmjoKTMiCLDSQQNkqA/sGmfgygnZjgpopAaRF+zDILQICt9u8m5cHt29T2oNbrn7rMXh7XW3pGZICLambmmARHRysyOHtGqfU9ExGREtBruHo2IqYgY7Jd4G85juqG5jdO4HBE7+yGGwAlcjYjhhp4juB4Ru/shrnAYMxGxp6G+FzciYl8vxM/wsat5JiL2l/NrvKrVd+FaRIz91ewqFcX5IVzE8SILfMeDzFyMiDbOYBIDpf4L81iop+YP4ipWOIVzxVBYx1xmPil3xjCNHaWeeIrZKrIbNM7MTmYu4BaWy+8BHKrSkJmLuIkvNdMPYmQr82CrYeigcaDaDVM2XjK9vSbFe6yW+iguYbgmxTusNJk3iAs4WTPvBx5l5vOi/wTOduvfbV67RjqCKzhQe/wy7mfm25KYKRzrSszDzHy5mRTjXaRLuJuZn8p5tMSwwlfcy8wPPWtc9LyTmSsN9SXczszPvZqXeFE0XW3oeVPk+bZZZOrE63iM+Ya9m2XsZzPz51bbLWqLfmiTV1aJWet12W8Y6X+Flv+E39XGp4/1pQSiAAAAAElFTkSuQmCC") 0% 100%/1ch no-repeat;
+    background:transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAUCAYAAACJfM0wAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH5AINERcKMRncRgAAAZ5JREFUOMvV1L1rVEEUBfDfNev6QQLaWFiIH9iYiIIGjRGJGEkjgoVB8A+09bMQtdFIGoMoQQtRY2cEQRLBqMlem1l4PPZtdktPN+/MPfM458xQkJktfZCZOwyB6uapzJzuI3AyM2czsz2s8E7MYK5huIXzuJaZe4cRhsAZ3MjM0YaZE7iVmfuHEe7iOOYz80ADfxC3M/PQIMJL+FIbns/Mw2X9Hu8q/D7czMyJXsJRS343ruB0hfuFxxGxXJpzAdMYKfxfLGAxIjo9hSu1OodLJVDYwvOIeFn2TGAOe7pjeIVnEbHZ0+OI6ETEIu5irXwewbFuGyJiGXfwvfKDRzG2XXjQ2aZRHWw2ka2GWzZZOr2rYsVnbBR+HFcxWrHiE9abwmvjMs5WuN94GhGvi/9TuFj3vzG8zBzDdRypnLWGRxHxsTRmFqdqjXkSEW/7WTFZE13Fg4j4WtbjpYZd/MDDiFgZ2OPi5/2IWG/gV3EvIr4NGl7iTfF0o2HmQ7HnZ7/KVIW38AIL1RBqhy6VS/Bn4Ie5hNOPbw/72P9f+AeGb5+ISgoslAAAAABJRU5ErkJggg==") 0% 100%/1ch no-repeat;
     display:inline-block;
     overflow:hidden;
     width:1ch;height:1.8ch;
     white-space:pre;
 }
 .viditelnamezera {
-    background:transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAMCAYAAABm+U3GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAJ0lEQVQ4y2NkQID/DKiAkYE4gFUfEwONwKjBowZjAhYS0udoGJMHAIgjAxkEpU0OAAAAAElFTkSuQmCC") 50% 100%/100% no-repeat;
+    background:transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAMAQMAAABcN9+FAAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfkAg0RHwOAHO7qAAAAEklEQVQI12OwYfjAgA/b/0fBAGmbEhlfr2/IAAAAAElFTkSuQmCC") 50% 100%/100% no-repeat;
     white-space:pre;
 }
 .tritecky {
-    background:transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEUAAACHh4dGA6zFAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfkAgMEAAlXoR/CAAAAE0lEQVQI12NgoBeoZ/9QTzQBBwA5FBGeWyCouwAAAABJRU5ErkJggg==") 0% 0%/100% 100% no-repeat;
+    background:transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEUAAADw8PC5otm+AAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfkAgMEBxhyUKn3AAAAE0lEQVQI12NgoBeoZ/9QTzQBBwA5FBGeWyCouwAAAABJRU5ErkJggg==") 0% 0%/100% 100% no-repeat;
     display:inline-block;
     width:0.75em;height:1ex;
 }
@@ -482,6 +503,16 @@ footer img {float:left;margin:0 1rem 1rem 0;}
     font-style:italic;
     line-height:1.5;
 }
+body>.slogan {
+    position:relative;
+    top:0.5em;
+    height:0;
+    padding-right:0.5em;
+    overflow:visible;
+    text-align:right;
+    font-size:90%;
+    font-style:italic;
+}
 
 .podzahlavim {
     display:flex;
@@ -489,7 +520,7 @@ footer img {float:left;margin:0 1rem 1rem 0;}
     margin:1em 0;
     border-radius:1rem 1rem;
     padding:1rem 2%;
-    box-shadow:0 0.25rem 1.5rem 0 rgba(50,100,50,0.5);
+    box-shadow:none;
 }
 .podzahlavim p.ponadpisu {
     margin:1ex auto;
@@ -544,7 +575,7 @@ nav .prev {text-align:right;margin-right:0.25em;}
 nav .next {text-align:left;}
 
 .rozcestnikkapitol {
-    background:rgb(204,204,204);
+    background:rgb(60,60,60);
     color:rgb(120,120,120);
     margin:1rem -1em;
     border:0.1rem solid rgba(0,0,0,0.2);
@@ -555,7 +586,7 @@ nav .next {text-align:left;}
 }
 .rozcestnikkapitol a {
     white-space:nowrap;
-    color:rgb(22,102,68);
+    color:rgb(63,162,94);
 }
 .rozcestnikkapitol a.sekce {
     font-weight:bold;
@@ -570,10 +601,10 @@ nav .next {text-align:left;}
 }
 .stitky a {
     display:inline-block;
-    background:rgb(204,204,204);
-    color:rgb(51,51,51);
+    background:rgb(60,60,60);
+    color:rgb(164,164,164);
     margin:0 0.5em;
-    border-color:rgba(51,51,51,0.25) rgba(51,51,51,0.25) rgba(51,51,51,0.25) rgba(80,128,128,1);
+    border-color:rgba(164,164,164,0.25) rgba(164,164,164,0.25) rgba(164,164,164,0.25) rgba(80,128,128,1);
     border-style:solid;
     border-width:thin thin thin 1.5rem;
     border-radius:0.4em;
@@ -641,7 +672,7 @@ nav .next {text-align:left;}
 .odkazydole img {
     margin:0.5rem;
     vertical-align:middle;
-    opacity:1;
+    opacity:0.75;
 }
 
 /* .prehledy */
@@ -653,7 +684,7 @@ nav .next {text-align:left;}
     margin:2em 0 2em 1em;
 }
 .prehledy>div {width:33%;}
-.prehledy>div>div {padding-bottom:2rem;}
+.prehledy>div>div {margin-bottom:5rem;}
 .prehledy>div>div>div {width:85%;margin-top:0.5em;}
 /*.prehledy li+li {margin-top:0.5em;}*/
 .prehledy a {
@@ -663,7 +694,8 @@ nav .next {text-align:left;}
     text-decoration:none;
 }
 .prehledy a>* {display:block;}
-.prehledy strong {display:block;font-weight:bold;margin-top:1em;}
+.prehledy strong {display:block;font-weight:bold;}
+.prehledy .cislo, .prehledy .nazev {margin-top:1em;}
 .prehledy .cislo {
     flex-shrink:0;
     width:3em;
@@ -672,17 +704,15 @@ nav .next {text-align:left;}
 }
 .prehledy .cislo::after {content:"."}
 .prehledy .ikona {
-    position:relative;z-index:1;
     flex-shrink:0;
     display:inline-block;
     margin-right:0.5em;
-    width:3em;height:1em;
+    width:3em;height:3em;
     /*border:1px dotted blue; /*DEBUG*/
     opacity:0.7;
 }
 .prehledy .ikona img {
-    position:absolute;left:0;top:0;bottom:auto;right:auto;
-    width:100%;height:auto;
+    width:100%;height:auto;vertical-align:middle;
 }
 .prehledy .nazev {
     flex-shrink:1;
@@ -722,16 +752,16 @@ span.chybny {
     position:fixed;
     right:2%;
     z-index:256;
-    background:rgba(0,102,0,0.75);
-    color:rgba(0,204,0,0.75);
+    background:rgba(40,40,40,0.75);
+    color:rgba(164,164,164,0.75);
     font:20pt/1 sans-serif;
-    border:5pt outset rgba(0,204,0,0.75);
+    border:5pt outset rgba(164,164,164,0.75);
     border-radius:50%;
 }
 #odkaznahoru:hover, #odkazdolu:hover, #odkaznahoru:active, #odkazdolu:active {
-    background:rgba(0,102,0,1);
+    background:rgba(40,40,40,1);
     border-color:rgba(255,255,0,1);
-    color:rgba(0,204,0,1);
+    color:rgba(164,164,164,1);
     text-decoration:none;
     opacity:1;
 }
@@ -776,15 +806,15 @@ nav.menu>a {
     padding:0.25em;
     min-width:6em;
     /*white-space:nowrap;*/
-    background:rgb(0,102,0);
-    color:rgb(255,255,255);
+    background:rgb(40,40,40);
+    color:rgb(164,164,164);
     /*font-weight:bold;*/
-    text-shadow:0 0 0.1em rgba(0,0,0, 1);
+    text-shadow:0 0 0.1em rgba(0,0,0, 0);
     text-decoration:none;
 }
 nav.menu>a:hover {
     z-index:6;
-    box-shadow:0 0 0.1em 0.1em rgb(0,102,0);
+    box-shadow:0 0 0.1em 0.1em rgb(40,40,40);
 }
 nav.menu>a::before {
     content:"≡ ";
@@ -797,10 +827,10 @@ nav.menu>a+aside {
     position:fixed;left:-50%;top:5pt;bottom:5pt;right:auto;z-index:-2;
     width:40%;min-width:20em;max-width:40em;
     margin:0;
-    border:medium solid rgb(0,0,0);
+    border:medium solid rgb(60,60,60);
     padding:0;
     box-shadow:1rem 1rem 5rem 0 rgba(0,0,0,0.5);
-    background-color:rgb(212,221,208);
+    background-color:rgb(40,40,40);
     color:inherit;
     opacity:0;
     transition-duration:0.5s;
@@ -823,14 +853,14 @@ nav.menu div.polozky {
 }
 nav.menu div.polozky>a {
     display:block;
-    background-color:rgb(212,221,208);
-    color:rgb(51,51,51);
+    background-color:rgb(40,40,40);
+    color:rgb(164,164,164);
     margin:0;border:none;padding:0.25em 1rem;
     text-decoration:none;
 }
 nav.menu div.polozky>a:hover {
     background-color:rgb(120,120,120);
-    color:rgb(212,221,208);
+    color:rgb(40,40,40);
 }
 nav.menu .nadpis {
     margin:0;
@@ -838,6 +868,11 @@ nav.menu .nadpis {
     padding:0.5rem 1rem;
     font-size:150%;
     text-transform:uppercase;
+}
+
+nav.menu .text {
+    padding:1em;
+    line-height:1.5;
 }
 
 nav.menu div.polozky .cislo {
@@ -867,6 +902,42 @@ a.zavritmenu::after {
     font-size:150%;
     vertical-align:-0.07em;
 }
+
+nav.menuokna {
+    background:rgb(60,60,60);
+    line-height:1.5;
+    border-bottom:thin solid rgb(60,60,60);
+    padding:0 0.25em;
+}
+nav.menuokna a {
+    display:inline-block;
+    margin:0.1em 0;
+    padding:0 0.25em;
+    min-width:5em;
+    color:inherit;
+    text-align:center;
+    text-decoration:none;
+    white-space:nowrap;
+    border:0.2rem solid transparent;
+}
+nav.menuokna a:hover {
+    border-color:rgba(128,128,128,0.75);
+}
+
+nav.menuokna a.menu::before {
+    content:"≡ ";
+    font-weight:bold;
+    text-decoration:none;
+}
+
+nav.menuokna a.prehled::before {
+    content:"🗐 ";
+    font-weight:bold;
+    text-decoration:none;
+}
+
+nav.menuokna a.predchozi::before {content:"« "}
+nav.menuokna a.nasledujici::after{content:" »"}
 
 @media print {
     html, body, article {

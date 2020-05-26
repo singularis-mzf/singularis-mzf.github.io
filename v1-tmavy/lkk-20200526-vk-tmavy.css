@@ -68,6 +68,7 @@ nav {
     line-height:2;
 }
 nav.horni {
+    display:none; /* potlačit zobrazení, dokud se nerozhodnu ji odstranit */
     margin:1rem 0 0;
     text-align:left;
 }
@@ -238,6 +239,9 @@ nav a[rel="prev"]::after, nav a[rel="next"]::before {content:none;}
 
 .zaklinadlo .zahlavi b {
     color:rgba(255,255,255,0.95);
+}
+.zaklinadlo .zahlavi sup {
+    vertical-align:super;
 }
 
 .zaklinadlo .zahlavi>.cislo {
@@ -484,6 +488,16 @@ footer img {float:left;margin:0 1rem 1rem 0;}
     font-style:italic;
     line-height:1.5;
 }
+body>.slogan {
+    position:relative;
+    top:0.5em;
+    height:0;
+    padding-right:0.5em;
+    overflow:visible;
+    text-align:right;
+    font-size:90%;
+    font-style:italic;
+}
 
 .podzahlavim {
     display:flex;
@@ -655,7 +669,7 @@ nav .next {text-align:left;}
     margin:2em 0 2em 1em;
 }
 .prehledy>div {width:33%;}
-.prehledy>div>div {padding-bottom:2rem;}
+.prehledy>div>div {margin-bottom:5rem;}
 .prehledy>div>div>div {width:85%;margin-top:0.5em;}
 /*.prehledy li+li {margin-top:0.5em;}*/
 .prehledy a {
@@ -665,7 +679,8 @@ nav .next {text-align:left;}
     text-decoration:none;
 }
 .prehledy a>* {display:block;}
-.prehledy strong {display:block;font-weight:bold;margin-top:1em;}
+.prehledy strong {display:block;font-weight:bold;}
+.prehledy .cislo, .prehledy .nazev {margin-top:1em;}
 .prehledy .cislo {
     flex-shrink:0;
     width:3em;
@@ -674,17 +689,15 @@ nav .next {text-align:left;}
 }
 .prehledy .cislo::after {content:"."}
 .prehledy .ikona {
-    position:relative;z-index:1;
     flex-shrink:0;
     display:inline-block;
     margin-right:0.5em;
-    width:3em;height:1em;
+    width:3em;height:3em;
     /*border:1px dotted blue; /*DEBUG*/
     opacity:0.7;
 }
 .prehledy .ikona img {
-    position:absolute;left:0;top:0;bottom:auto;right:auto;
-    width:100%;height:auto;
+    width:100%;height:auto;vertical-align:middle;
 }
 .prehledy .nazev {
     flex-shrink:1;
@@ -842,6 +855,11 @@ nav.menu .nadpis {
     text-transform:uppercase;
 }
 
+nav.menu .text {
+    padding:1em;
+    line-height:1.5;
+}
+
 nav.menu div.polozky .cislo {
     display:inline-block;
     margin:0 0.5em;
@@ -869,6 +887,42 @@ a.zavritmenu::after {
     font-size:150%;
     vertical-align:-0.07em;
 }
+
+nav.menuokna {
+    background:rgb(50,50,50);
+    line-height:1.5;
+    border-bottom:thin solid rgb(255,255,255);
+    padding:0 0.25em;
+}
+nav.menuokna a {
+    display:inline-block;
+    margin:0.1em 0;
+    padding:0 0.25em;
+    min-width:5em;
+    color:inherit;
+    text-align:center;
+    text-decoration:none;
+    white-space:nowrap;
+    border:0.2rem solid transparent;
+}
+nav.menuokna a:hover {
+    border-color:rgba(128,128,128,0.75);
+}
+
+nav.menuokna a.menu::before {
+    content:"≡ ";
+    font-weight:bold;
+    text-decoration:none;
+}
+
+nav.menuokna a.prehled::before {
+    content:"🗐 ";
+    font-weight:bold;
+    text-decoration:none;
+}
+
+nav.menuokna a.predchozi::before {content:"« "}
+nav.menuokna a.nasledujici::after{content:" »"}
 
 @media print {
     html, body, article {

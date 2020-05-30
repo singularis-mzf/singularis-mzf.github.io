@@ -1,0 +1,676 @@
+<!doctype html>
+<html lang="cs">
+<head profile="http://www.w3.org/2005/10/profile">
+<meta charset="UTF-8">
+
+<title>Proměnné prostředí a interpretu − Linux: Kniha kouzel</title>
+
+<link rel="stylesheet" type="text/css" href="lkk-20200530.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200530-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200530-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200530-tmavy.css" title="Tmavý motiv">
+<link rel="icon" type="image/png" href="obrazky/favicon.png">
+</head>
+<body>
+<div id="nahore"></div>
+<header>
+<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, Sid 20200530 (30. května 2020)</span>
+<span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
+</header>
+<nav class="menuokna">
+<a href="#menukapitoly" class="menu"><span class="prvnipismeno">K</span>apitoly</a>
+<a href="#menuosnova" class="menu"><span class="prvnipismeno">O</span>snova</a>
+<a href="#menustitky" class="menu"><span class="prvnipismeno">Š</span>títky</a>
+<a href="#menunapoveda" class="menu"><span class="prvnipismeno">N</span>ápověda</a>
+<a href="predmluva.htm" rel="prev" title="1. Předmluva" accesskey="p" class="predchozi">Předchozí&nbsp;kapitola</a>
+<a href="index.htm" class="prehled"><span class="prvnipismeno">P</span>řehled kapitol</a>
+<a href="pdf.htm" rel="next" title="3. PDF" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
+</nav>
+
+<div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+
+<!--
+<nav class="horni">
+<div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+<span class="prev">
+<a href="predmluva.htm" rel="prev" title="1. Předmluva" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+</span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!- -
+- ->&nbsp;| <a href="pdf.htm" rel="next" title="3. PDF" accesskey="n">Následující&nbsp;kapitola</a>
+</span>
+</nav>
+-->
+
+
+<article>
+
+<h1 class="kapitola">2. <img src="obrazky/ik-vychozi.png" alt="" width="64" height="64"> Proměnné prostředí a interpretu</h1>
+<div class="stitky"><a href="x-stitky.htm#sbsh">bash</a>
+<a href="x-stitky.htm#ssystm">systém</a>
+<a href="x-stitky.htm#stemtickokruh">tematický okruh</a>
+</div>
+<h2 id="cast1"><a href="#cast1"><span class="cislo">1.</span> Úvod</a></h2>
+<p class="ponadpisu">
+Tato kapitola pokrývá veškerou práci s proměnnými prostředí v Linuxu
+a dále také veškerou práci s proměnnými a funkcemi interpretu Bash.
+Rovněž uvádí některé důležité proměnné prostředí, kterými lze ovlivnit funkci programů
+a systému, a pokrývá také práci s parametry skriptů a funkcí v Bashi.
+</p><p>
+Tato verze kapitoly nepokrývá proměnné interpretu bash, které řídí jeho funkci,
+ale normálně nejsou proměnnými prostředí a nešíří se do nově vytvořených procesů.
+Do této kapitoly nespadají takzvané zvláštní parametry (jako např. $?, $! apod.).
+</p>
+
+<h2 id="cast2"><a href="#cast2"><span class="cislo">2.</span> Definice</a></h2>
+<ul><li><b>Prostředí</b> je soubor pojmenovaných textových proměnných, který má v Linuxu každý proces. Prostředí nového procesu většinou vzniká jako kopie prostředí rodičovského procesu. Je-li proces spuštěn příkazem „exec“, nově spuštěný program převezme prostředí bashe beze změny.
+</li><li><b>Proměnná prostředí</b> je jedna z proměnných v prostředí (např. „HOME“). Názvy proměnných prostředí se obvykle zapisují velkými písmeny.
+</li><li><b>Proměnná interpretu</b> je proměnná vytvořená interpretem Bash (popř. jiným) za účelem použití ve funkcích a skriptech. Může být <b>řetězcová</b>, <b>pole</b> (indexované celými čísly od 0) či <b>asociativní pole</b> (indexované neprázdným řetězcem zvaným <b>klíč</b>). Proměnné interpretu nejsou přístupné z jiných procesů, nešíří se do nově spuštěných instancí a ukončením dané instance bashe zanikají, proto jsou vhodné i k ukládání hesel a jiných citlivých údajů.
+</li><li><b>Funkce</b> je v bashi krátký skript, který se ukládá stejným způsobem jako proměnná interpretu. Funkci lze zavolat zadáním jejího názvu jako příkazu a podobně jako skript má svoje poziční parametry.
+</li></ul><p>
+Názvy proměnných a funkcí jsou obvykle tvořeny jen velkými a malými písmeny anglické abecedy, podtržítky a číslicemi, přičemž nesmí začínat číslicí.
+</p><p>
+Kde používám označení „proměnná“, platí to pro proměnné prostředí i interpretu bez rozdílu.
+</p>
+
+<h2 id="cast3"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla: Bash</a></h2>
+
+<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 2 (Proměnné prostředí a interpretu), sekce 3 (Zaklínadla: Bash), podsekce 1 (Testy proměnných)"><sup>3/</sup>1 Testy proměnných</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1502984899"><span><a href="#z1502984899">ⵃ</a></span></span>jde o proměnnou?<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">test -v <i class="dopln">název_proměnné</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z453250311"><span><a href="#z453250311">⡤</a></span></span>jde o proměnnou interpretu? (alternativy)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">[[ -v <i class="dopln">název_proměnné</i> &amp;&amp; ${<i class="dopln">název_proměnné</i>@a} = *([!x]) ]]</div>
+<div class="radekzaklinadla">[[ -v <i class="dopln">název_proměnné</i> &amp;&amp; ${<i class="dopln">název_proměnné</i>@a} =~ ^[^x]*$ ]]</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z186742401"><span><a href="#z186742401">♓</a></span></span>jde o proměnnou prostředí?<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">[[ ${<i class="dopln">název_proměnné</i>@a} = *x* ]]</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1334731993"><span><a href="#z1334731993">⣕</a></span></span>jde o řetězcovou proměnnou (interpretu nebo prostředí) (alternativy)?<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">[[ -v <i class="dopln">název_proměnné</i> &amp;&amp; ${<i class="dopln">název_proměnné</i>@a} = *([!aA]) ]]</div>
+<div class="radekzaklinadla">[[ -v <i class="dopln">název_proměnné</i> &amp;&amp; ${<i class="dopln">název_proměnné</i>@a} =~ ^[^aA]*$ ]]</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1079061527"><span><a href="#z1079061527">⪒</a></span></span>jde o pole? (alternativy)<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">[[ ${<i class="dopln">název_proměnné</i>@a} = *a* ]]</div>
+<div class="radekzaklinadla">compgen -A arrayvar | fgrep -qx <i class="dopln">název_proměnné</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1480084093"><span><a href="#z1480084093">↺</a></span></span>jde o asociativní pole?<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">[[ ${<i class="dopln">název_proměnné</i>@a} = *A* ]]</div>
+</div></div>
+
+<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 2 (Proměnné prostředí a interpretu), sekce 3 (Zaklínadla: Bash), podsekce 2 (Seznamy proměnných)"><sup>3/</sup>2 Seznamy proměnných</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z932721537"><span><a href="#z932721537">≓</a></span></span>seznam všech proměnných (s hodnotami pro člověka/bez hodnot)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">(set -o posix; set)</div>
+<div class="radekzaklinadla">compgen -v</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1977001360"><span><a href="#z1977001360">⩽</a></span></span>seznam všech proměnných interpretu (s hodnotami/bez hodnot)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">promenzkum | sed -znE '/^\S+\s+[^x]+\s+\S+$/{s/^(\S+)<span class="viditelnamezera">&nbsp;</span>\S+<span class="viditelnamezera">&nbsp;</span>/\1=/;p}' | tr \\0 \\n</div>
+<div class="radekzaklinadla">promenzkum | sed -znE '/^\S+\s+[^x]+\s+\S+$/{s/.*\s//;p}' | tr \\0 \\n</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1633517652"><span><a href="#z1633517652">⬀</a></span></span>seznam proměnných prostředí (s hodnotami/bez hodnot/s hodnotami ve formátu txtz)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">env -0 | egrep -zv '^_' | tr \\0 \\n</div>
+<div class="radekzaklinadla">compgen -e</div>
+<div class="radekzaklinadla">env -0 | egrep -zv '^_'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1046569632"><span><a href="#z1046569632">⚄</a></span></span>seznam řetězcových proměnných interpretu (s hodnotami/bez hodnot)<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">promenzkum | sed -znE '/^\S+\s+[^aAx]+\s+\S+$/{s/^(\S+)<span class="viditelnamezera">&nbsp;</span>\S+<span class="viditelnamezera">&nbsp;</span>/\1=/;p}' | tr \\0 \\n</div>
+<div class="radekzaklinadla">promenzkum | sed -znE '/^\S+\s+[^aAx]+\s+\S+$/{s/\s.*//;p}' | tr \\0 \\n</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1456191932"><span><a href="#z1456191932">▰</a></span></span>seznam polí (bez hodnot)<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">compgen -A arrayvar</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z724483965"><span><a href="#z724483965">ʔ</a></span></span>seznam asociativních polí (bez hodnot)<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">promenzkum | egrep -z '^\S+<span class="viditelnamezera">&nbsp;</span>\S*A\S*<span class="viditelnamezera">&nbsp;</span>' | cut -d '<span class="viditelnamezera">&nbsp;</span>' -f 1 -z | tr \\0 \\n</div>
+</div></div>
+
+<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 2 (Proměnné prostředí a interpretu), sekce 3 (Zaklínadla: Bash), podsekce 3 (Řetězcové proměnné interpretu)"><sup>3/</sup>3 Řetězcové proměnné interpretu</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1993743983"><span><a href="#z1993743983">⪆</a></span></span>přiřadit proměnné hodnotu<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">název_proměnné</i>=&quot;<i class="dopln">nová-hodnota</i>&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z450924046"><span><a href="#z450924046">╬</a></span></span>připojit novou hodnotu na začátek/konec proměnné<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">název_proměnné</i>=&quot;<i class="dopln">nová-hodnota</i>$<i class="dopln">název_proměnné</i>&quot;</div>
+<div class="radekzaklinadla"><i class="dopln">název_proměnné</i>+=&quot;<i class="dopln">nová-hodnota</i>&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1305328073"><span><a href="#z1305328073">⡪</a></span></span>zrušit proměnnou<span class="cislo">#3 </span><sup><a href="#kappromenneppc1" id="kappromenneppcr1" title="Pozor! Příkaz „unset“ uspěje i tehdy, pokud daná proměnná neexistuje.">(1)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">unset -v <i class="dopln">název_proměnné</i></div>
+</div></div>
+
+<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 2 (Proměnné prostředí a interpretu), sekce 3 (Zaklínadla: Bash), podsekce 4 (Pole)"><sup>3/</sup>4 Pole</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona L" id="z980528219"><span><a href="#z980528219">⏞</a></span></span><b>vytvořit</b> či přepsat/<b>zrušit</b>/vyprázdnit<span class="cislo">#1 </span><sup><a href="#kappromenneppc2" id="kappromenneppcr2" title="Prvky pole se zadávají stejně jako parametry příkazu, tzn. oddělují se mezerami; obsahují-li zvláštní znaky, budou interpretovány, pokud je neodzvláštníte (vhodné je umístění do uvozovek či apostrofů).">(2)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">název_pole</i>=(<span class="volznak">[</span><i class="dopln">prvky</i><span class="volznak">]</span><span class="tritecky"></span>)</div>
+<div class="radekzaklinadla">unset <i class="dopln">název_pole</i></div>
+<div class="radekzaklinadla"><i class="dopln">název_pole</i>=()</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1240803747"><span><a href="#z1240803747">☩</a></span></span><b>zkopírovat</b> (celé pole/výřez)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">cílové_pole</i>=(&quot;${<i class="dopln">zdrojové_pole</i>[@]}&quot;)</div>
+<div class="radekzaklinadla"><i class="dopln">cílové_pole</i>=(&quot;${<i class="dopln">zdrojové_pole</i>[@]:<i class="dopln">první-kopírovaný-index</i><span class="volznak">[</span>:<i class="dopln">maximální-počet</i><span class="volznak">]</span>}&quot;)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z292595324"><span><a href="#z292595324">◔</a></span></span>zjistit <b>počet</b> prvků<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">${#<i class="dopln">názevpole</i>[@]}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1489043493"><span><a href="#z1489043493">∆</a></span></span><b>přečíst</b> prvek na indexu N/<b>přiřadit</b> do něj<span class="cislo">#4 </span><sup><a href="#kappromenneppc3" id="kappromenneppcr3" title="Je dovoleno přiřadit do prvku libovolně daleko za koncem pole; Bash v takovém případě pole automaticky prodlouží prázdnými řetězci, aby index byl platný.">(3)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">${<i class="dopln">název_pole</i>[<i class="dopln">N</i>]<span class="volznak">[</span>-<i class="dopln">náhradní hodnota</i><span class="volznak">]</span>}</div>
+<div class="radekzaklinadla"><i class="dopln">název_pole</i>[<i class="dopln">N</i>]=<i class="dopln">hodnota</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z139900797"><span><a href="#z139900797">⣺</a></span></span><b>iterovat</b> přes prvky/přes indexy<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">for <i class="dopln">iterační_proměnná</i> in &quot;${<i class="dopln">název_pole</i>[@]}&quot;; do <i class="dopln">...</i>; done</div>
+<div class="radekzaklinadla">for <i class="dopln">iterační_proměnná</i> in &quot;${!<i class="dopln">název_pole</i>[@]}&quot;; do <i class="dopln">...</i>; done</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1470540931"><span><a href="#z1470540931">⪄</a></span></span><b>vložit</b> nový prvek na začátek/konec<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">název_pole</i>=(&quot;<i class="dopln">nový prvek</i>&quot; &quot;${<i class="dopln">název_pole</i>[@]}&quot;)</div>
+<div class="radekzaklinadla"><i class="dopln">název_pole</i>+=(&quot;<i class="dopln">nový prvek</i>&quot;)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z384470782"><span><a href="#z384470782">⣋</a></span></span><b>odstranit</b> N prvků na začátku/konci<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">název_pole</i>=(&quot;${<i class="dopln">názevpole</i>[@]:<i class="dopln">N</i>}&quot;)</div>
+<div class="radekzaklinadla"><i class="dopln">název_pole</i>=(&quot;${<i class="dopln">názevpole</i>[@]:0:$((${#<i class="dopln">název_pole</i>[@]}-<i class="dopln">N</i>))}&quot;)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z764309945"><span><a href="#z764309945">∯</a></span></span>přiřadit do pole parametry této instance bashe<span class="cislo">#8 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">cílové_pole</i>=(&quot;$@&quot;)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1616686101"><span><a href="#z1616686101">∙</a></span></span>spojit dvě pole<span class="cislo">#9 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">cílové_pole</i>=(&quot;${<i class="dopln">první_pole</i>[@]}&quot; &quot;${<i class="dopln">druhé_pole</i>[@]}&quot;)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2135527765"><span><a href="#z2135527765">⇻</a></span></span>rozdělit pole na poloviny<span class="cislo">#10 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">první_cíl</i>=(&quot;${<i class="dopln">názevpole</i>[@]:0:$((${#<i class="dopln">název_pole</i>[@]}/2+1))}&quot;)</div>
+<div class="radekzaklinadla"><i class="dopln">druhý_cíl</i>=(&quot;${<i class="dopln">názevpole</i>[@]:$((${#<i class="dopln">název_pole</i>[@]}/2+1))}&quot;)</div>
+</div></div>
+
+<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 2 (Proměnné prostředí a interpretu), sekce 3 (Zaklínadla: Bash), podsekce 5 (Asociativní pole)"><sup>3/</sup>5 Asociativní pole</a></span></h3>
+<p class="ponadpisu">
+Pozor! Klíčem v asociativním poli může být pouze neprázdný řetězec!
+Prázdný klíč způsobí chybu „chybný podskript pole“.
+</p>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z532479083"><span><a href="#z532479083">┈</a></span></span><b>vytvořit</b> = vyprázdnit<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">unset <i class="dopln">název</i></div>
+<div class="radekzaklinadla">declare -A <i class="dopln">název</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1089427782"><span><a href="#z1089427782">⡤</a></span></span><b>zrušit</b><span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">unset -v <i class="dopln">název</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z627569485"><span><a href="#z627569485">☝</a></span></span><b>přečíst</b> hodnotu prvku (klíč je řetězec/hodnota proměnné)<span class="cislo">#3 </span><sup><a href="#kappromenneppc4" id="kappromenneppcr4" title="Tyto tvary uvádějte vždy ve dvojitých uvozovkách. Klíč se v tomto případě vyhodnocuje, jako by byl sám uvnitř samostatných dvojitých uvozovek, což umožňuje i vícenásobné vnoření této konstrukce, ačkoliv to je špatně čitelné.">(4)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>&quot;<i class="dopln">...</i><span class="volznak">]</span>${<i class="dopln">názevpole</i>[&quot;<i class="dopln">klíč</i>&quot;]}<span class="volznak">[</span><i class="dopln">...</i>&quot;<span class="volznak">]</span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>&quot;<i class="dopln">...</i><span class="volznak">]</span>${<i class="dopln">názevpole</i>[&quot;$<i class="dopln">klíč_proměnná</i>&quot;]}<span class="volznak">[</span><i class="dopln">...</i>&quot;<span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z816261630"><span><a href="#z816261630">⤋</a></span></span><b>přiřadit</b> hodnotu prvku (klíč je: řetězec/hodnota proměnné)<span class="cislo">#4 </span><sup><a href="#kappromenneppc5" id="kappromenneppcr5" title="Uvozovky kolem klíče slouží pouze k odzvláštnění znaků klíče, můžete je odzvláštnit i jinak, např. zpětným lomítkem či apostrofy.">(5)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">názevpole</i>[&quot;<i class="dopln">klíč</i>&quot;]=&quot;<i class="dopln">hodnota</i>&quot;</div>
+<div class="radekzaklinadla"><i class="dopln">názevpole</i>[$<i class="dopln">klíč_proměnná</i>]=&quot;<i class="dopln">hodnota</i>&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z7554241"><span><a href="#z7554241">╈</a></span></span>obsahuje prvek se zadaným klíčem? (alternativy)<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">asocexist <i class="dopln">názevpole</i> &quot;<i class="dopln">klíč</i>&quot;</div>
+<div class="radekzaklinadla">test -v '<i class="dopln">názevpole</i><span class="volznak">[</span>{<i>klíč</i>}<span class="volznak">]</span>'</div>
+<div class="radekzaklinadla">test -v &quot;<i class="dopln">názevpole</i>[${<i class="dopln">proměnná_s_klíčem</i>@Q}]&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1820395129"><span><a href="#z1820395129">∿</a></span></span><b>iterovat</b> přes klíče/přes hodnoty<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">for <i class="dopln">iterační_proměnná</i> in &quot;${!<i class="dopln">název_pole</i>[@]}&quot;; do <i class="dopln">...</i>; done</div>
+<div class="radekzaklinadla">for <i class="dopln">iterační_proměnná</i> in &quot;${<i class="dopln">název_pole</i>[@]}&quot;; do <i class="dopln">...</i>; done</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z707305665"><span><a href="#z707305665">⪅</a></span></span>odstranit prvek podle klíče (klíč je hodnota proměnné)<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla">unset -v &quot;<i class="dopln">názevpole</i>[${<i class="dopln">proměnná_s_klíčem</i>@Q}]&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1358431853"><span><a href="#z1358431853">≿</a></span></span><b>odstranit</b> prvek podle klíče (klíč je řetězec)<span class="cislo">#8 </span></div><div class="radky">
+<div class="radekzaklinadla">: &quot;<i class="dopln">klíč</i>&quot;</div>
+<div class="radekzaklinadla">unset -v &quot;<i class="dopln">názevpole</i>[${_@Q}]&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z292595324x"><span><a href="#z292595324x">◔</a></span></span>zjistit <b>počet</b> prvků<span class="cislo">#9 </span></div><div class="radky">
+<div class="radekzaklinadla">${#<i class="dopln">název</i>[@]}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1987047164"><span><a href="#z1987047164">⣔</a></span></span><b>zkopírovat</b><span class="cislo">#10 </span></div><div class="radky">
+<div class="radekzaklinadla">asockopirovat <i class="dopln">zdrojovépole</i> <i class="dopln">cílovépole</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1111577208"><span><a href="#z1111577208">⁛</a></span></span><b>sloučit</b> dvě asociativní pole<span class="cislo">#11 </span></div><div class="radky">
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z238322068"><span><a href="#z238322068">⣄</a></span></span>příklady: přiřadit do proměnné „x“ hodnotu z asociativního pole „a“, kde klíčem je: zpětné lomítko/dvě zpětná lomítka/apostrof/dvojitá uvozovka/„A B“/„} }“<span class="cislo">#12 </span></div><div class="radky">
+<div class="radekzaklinadla">x=&quot;${a[&quot;\\&quot;]}&quot;</div>
+<div class="radekzaklinadla">x=&quot;${a[&quot;\\\\&quot;]}&quot;</div>
+<div class="radekzaklinadla">x=&quot;${a[&quot;'&quot;]}&quot;</div>
+<div class="radekzaklinadla">x=&quot;${a[&quot;\&quot;&quot;]}&quot;</div>
+<div class="radekzaklinadla">x=&quot;${a[&quot;A B&quot;]}&quot;</div>
+<div class="radekzaklinadla">x=&quot;${a[&quot;} }&quot;]}&quot;</div>
+</div></div>
+
+<h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 2 (Proměnné prostředí a interpretu), sekce 3 (Zaklínadla: Bash), podsekce 6 (Funkce)"><sup>3/</sup>6 Funkce</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2136939592"><span><a href="#z2136939592">≦</a></span></span><b>vytvořit</b>/přepsat funkci<span class="cislo">#1 </span><sup><a href="#kappromenneppc6" id="kappromenneppcr6" title="Pokud je uzavírací závorka „}“ na stejném řádku jako poslední příkaz těla funkce, musí být od příkazu oddělená středníkem.">(6)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>function<span class="volznak">]</span> <i class="dopln">název_funkce</i>() {</div>
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">tělo-funkce</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla">}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z490251465"><span><a href="#z490251465">⡆</a></span></span>zavolat funkci<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">název_funkce</i> <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z711658042"><span><a href="#z711658042">ᚚ</a></span></span><b>zrušit</b> funkci<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">unset -f <i class="dopln">název_funkce</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2131720846"><span><a href="#z2131720846">▱</a></span></span>vypsat definici funkce<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">declare -f <i class="dopln">název_funkce</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z481073136"><span><a href="#z481073136">✷</a></span></span>existuje funkce?<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">declare -f <i class="dopln">název_funkce</i> &gt;/dev/null</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2039011623"><span><a href="#z2039011623">⇣</a></span></span>seznam funkcí (s těly/bez těl)<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">declare -f</div>
+<div class="radekzaklinadla">compgen -A function</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1851165558"><span><a href="#z1851165558">◮</a></span></span>exportovat/neexportovat funkci<span class="cislo">#7 </span><sup><a href="#kappromenneppc7" id="kappromenneppcr7" title="Exportované funkce se uloží do zvláštních proměnných prostředí a další instance bashe, která je tímto způsobem „zdědí“, je opět načte jako funkce. Doporučuji příliš nepoužívat, protože tak můžete snadno ztratit kontrolu nad tím, kam všude se vaše funkce dostanou.">(7)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">export -f <i class="dopln">název_funkce</i></div>
+<div class="radekzaklinadla">export -fn <i class="dopln">název_funkce</i></div>
+</div></div>
+
+<h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 2 (Proměnné prostředí a interpretu), sekce 3 (Zaklínadla: Bash), podsekce 7 (Pokročilé dosazování proměnných)"><sup>3/</sup>7 Pokročilé dosazování proměnných</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z870460222"><span><a href="#z870460222">⡦</a></span></span>dosadit hodnotu proměnné (alternativy)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">$<i class="dopln">název_proměnné</i></div>
+<div class="radekzaklinadla">${<i class="dopln">název_proměnné</i>}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z279715931"><span><a href="#z279715931">☈</a></span></span>dosadit hodnotu proměnné, jejíž název je v jiné proměnné<span class="cislo">#2 </span><sup><a href="#kappromenneppc8" id="kappromenneppcr8" title="Tuto konstrukci lze skombinovat s většinou ostatních druhů dosazení.">(8)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">${!<i class="dopln">název_jiné_proměnné</i><span class="volznak">[</span><i class="dopln">zbytek výrazu</i><span class="volznak">]</span>}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1940159228"><span><a href="#z1940159228">◍</a></span></span>dosadit hodnotu proměnné, která musí být definovaná/neprázdná; jinak zobrazit chybové hlášení a ukončit skript<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">${<i class="dopln">název_proměnné</i>?<span class="volznak">[</span>&quot;<span class="volznak">]</span><i class="dopln">chybové hlášení</i><span class="volznak">]</span><span class="volznak">[</span>&quot;<span class="volznak">]</span>}</div>
+<div class="radekzaklinadla">${<i class="dopln">název_proměnné</i>:?<span class="volznak">[</span>&quot;<span class="volznak">]</span><i class="dopln">chybové hlášení</i><span class="volznak">]</span><span class="volznak">[</span>&quot;<span class="volznak">]</span>}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1581868641"><span><a href="#z1581868641">˔</a></span></span>je-li proměnná definovaná/neprázdná, dosadit; jinak použít náhradní řetězec<span class="cislo">#4 </span><sup><a href="#kappromenneppc9" id="kappromenneppcr9" title="Pokud má náhradní řetězec obsahovat zvláštní znaky či znak „}“, doporučuji uzavřít jej do dvojitých uvozovek. To funguje i tehdy, pokud je dosazovací výraz jako celek použit uvnitř dvojitých uvozovek.">(9)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">${<i class="dopln">název_proměnné</i>-<span class="volznak">[</span>&quot;<span class="volznak">]</span><i class="dopln">náhradní řetězec</i><span class="volznak">[</span>&quot;<span class="volznak">]</span>}</div>
+<div class="radekzaklinadla">${<i class="dopln">název_proměnné</i>:-<span class="volznak">[</span>&quot;<span class="volznak">]</span><i class="dopln">náhradní řetězec</i><span class="volznak">[</span>&quot;<span class="volznak">]</span>}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2052618033"><span><a href="#z2052618033">⬁</a></span></span>je-li proměnná definovaná/neprázdná, dosadit; jinak jí přiřadit náhradní hodnotu a dosadit<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">${<i class="dopln">název_proměnné</i>=<span class="volznak">[</span>&quot;<span class="volznak">]</span><i class="dopln">náhradní řetězec</i><span class="volznak">[</span>&quot;<span class="volznak">]</span>}</div>
+<div class="radekzaklinadla">${<i class="dopln">název_proměnné</i>:=<span class="volznak">[</span>&quot;<span class="volznak">]</span><i class="dopln">náhradní řetězec</i><span class="volznak">[</span>&quot;<span class="volznak">]</span>}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z263916036"><span><a href="#z263916036">▍</a></span></span>dosadit náhradní řetězec, jen pokud je proměnná definovaná/neprázdná; jinak dosadit prázdný řetězec<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">${<i class="dopln">název_proměnné</i>+<span class="volznak">[</span>&quot;<span class="volznak">]</span><i class="dopln">náhradní řetězec</i><span class="volznak">[</span>&quot;<span class="volznak">]</span>}</div>
+<div class="radekzaklinadla">${<i class="dopln">název_proměnné</i>:+<span class="volznak">[</span>&quot;<span class="volznak">]</span><i class="dopln">náhradní řetězec</i><span class="volznak">[</span>&quot;<span class="volznak">]</span>}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1115825063"><span><a href="#z1115825063">⢙</a></span></span>dosadit <b>délku</b> hodnoty proměnné ve znacích<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla">${#<i class="dopln">název_proměnné</i>}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1752751867"><span><a href="#z1752751867">♺</a></span></span>dosadit <b>podřetězec</b> hodnoty proměnné<span class="cislo">#8 </span><sup><a href="#kappromenneppc10" id="kappromenneppcr10" title="Tip: kolem indexu a délku mohou být mezery, kolem názvu proměnné ne.">(10)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">${<i class="dopln">název_proměnné</i>: <i class="dopln">index-prvního-znaku-od-0</i> : <i class="dopln">maximální-délka</i> }</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z759565210"><span><a href="#z759565210">ᐓ</a></span></span>dosadit hodnotu proměnné po odebrání nejkratší/nejdelší shody začátku hodnoty se vzorkem<span class="cislo">#9 </span></div><div class="radky">
+<div class="radekzaklinadla">${<i class="dopln">název_proměnné</i>#<i class="dopln">vzorek</i>}</div>
+<div class="radekzaklinadla">${<i class="dopln">název_proměnné</i>##<i class="dopln">vzorek</i>}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1650629458"><span><a href="#z1650629458">⋥</a></span></span>dosadit hodnotu proměnné po odebrání nejkratší/nejdelší shody konce hodnoty se vzorkem<span class="cislo">#10 </span></div><div class="radky">
+<div class="radekzaklinadla">${<i class="dopln">název_proměnné</i>%<i class="dopln">vzorek</i>}</div>
+<div class="radekzaklinadla">${<i class="dopln">název_proměnné</i>%%<i class="dopln">vzorek</i>}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1113543447"><span><a href="#z1113543447">╓</a></span></span>dosadit hodnotu proměnné po nahrazení první/všech shod se vzorkem náhradním řetězcem<span class="cislo">#11 </span></div><div class="radky">
+<div class="radekzaklinadla">${<i class="dopln">název_proměnné</i>/<i class="dopln">vzorek</i><span class="volznak">[</span>/<i class="dopln">náhradní řetězec</i><span class="volznak">]</span>}</div>
+<div class="radekzaklinadla">${<i class="dopln">název_proměnné</i>//<i class="dopln">vzorek</i><span class="volznak">[</span>/<i class="dopln">náhradní řetězec</i><span class="volznak">]</span>}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1025528896"><span><a href="#z1025528896">⡰</a></span></span>dosadit hodnotu proměnné velkými/malými písmeny<span class="cislo">#12 </span></div><div class="radky">
+<div class="radekzaklinadla">${<i class="dopln">název_proměnné</i>^^}</div>
+<div class="radekzaklinadla">${<i class="dopln">název_proměnné</i>,,}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1869172367"><span><a href="#z1869172367">⠚</a></span></span>dosadit názvy všech definovaných proměnných, které začínají určitou předponou<span class="cislo">#13 </span></div><div class="radky">
+<div class="radekzaklinadla">${!<i class="dopln">předpona</i>@}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z740948119"><span><a href="#z740948119">∙</a></span></span>dosadit hodnotu proměnné s odzvláštněním<span class="cislo">#14 </span><sup><a href="#kappromenneppc11" id="kappromenneppcr11" title="Hodnota bude typicky v apostrofech či konstrukci „$''“. Konkrétní tvar se může lišit, ale vždy bude možno ho bezpečně dosadit do skriptu.">(11)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">${<i class="dopln">název_proměnné</i>@Q}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1675217209"><span><a href="#z1675217209">╜</a></span></span>interpretovat hodnotu jako by byla uvedena v konstrukci $'' a výsledek dosadit<span class="cislo">#15 </span></div><div class="radky">
+<div class="radekzaklinadla">${<i class="dopln">název_proměnné</i>@E}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z342793108"><span><a href="#z342793108">┅</a></span></span>dosadit znaky reprezentující zapnuté atributy dané proměnné<span class="cislo">#16 </span></div><div class="radky">
+<div class="radekzaklinadla">${<i class="dopln">název_proměnné</i>@a}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z899544986"><span><a href="#z899544986">ᔲ</a></span></span>dosadit příkaz bashe, který vytvoří danou proměnnou včetně atributů a hodnoty<span class="cislo">#17 </span></div><div class="radky">
+<div class="radekzaklinadla">${<i class="dopln">název_proměnné</i>@A}</div>
+</div></div>
+
+<h3 id="cast3x8"><span><a href="#cast3x8" title="kapitola 2 (Proměnné prostředí a interpretu), sekce 3 (Zaklínadla: Bash), podsekce 8 (Dosazování parametrů skriptu)"><sup>3/</sup>8 Dosazování parametrů skriptu</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z517229454"><span><a href="#z517229454">⪁</a></span></span>dosadit N-tý parametr skriptu (alternativy)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">$<i class="dopln">číslice-N</i></div>
+<div class="radekzaklinadla">${<i class="dopln">N</i>}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z221961066"><span><a href="#z221961066">䷂</a></span></span>dosadit všechny parametry od $1: do samostatných parametrů/jen oddělené mezerou<span class="cislo">#2 </span><sup><a href="#kappromenneppc12" id="kappromenneppcr12" title="Dvojité uvozovky zde znamenají, že pro správnou funkci musí být tyto konstrukce použity ve dvoji.">(12)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">&quot;$@&quot;</div>
+<div class="radekzaklinadla">&quot;$*&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z98549220"><span><a href="#z98549220">≮</a></span></span>dosadit úsek parametrů (samostatně/oddělené mezerou)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">&quot;${@: <i class="dopln">číslo-prvního-parametru</i> <span class="volznak">[</span>: <i class="dopln">maximální-počet</i><span class="volznak">]</span> }&quot;</div>
+<div class="radekzaklinadla">&quot;${*: <i class="dopln">číslo-prvního-parametru</i> <span class="volznak">[</span>: <i class="dopln">maximální-počet</i><span class="volznak">]</span> }&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z599921680"><span><a href="#z599921680">⁜</a></span></span>dosadit všechny parametry od $0 (samostatně/oddělené mezerou)<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">&quot;${@:0}&quot;</div>
+<div class="radekzaklinadla">&quot;${*:0}&quot;</div>
+</div></div>
+
+<h3 id="cast3x9"><span><a href="#cast3x9" title="kapitola 2 (Proměnné prostředí a interpretu), sekce 3 (Zaklínadla: Bash), podsekce 9 (Jmenné odkazy)"><sup>3/</sup>9 Jmenné odkazy</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z825597905"><span><a href="#z825597905">≽</a></span></span>vytvořit jmenný odkaz<span class="cislo">#1 </span><sup><a href="#kappromenneppc13" id="kappromenneppcr13" title="Poznámka: jmenným odkazem nelze odkazovat na normální ani asociativní pole!">(13)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">declare -n <i class="dopln">název_odkazu</i>=<i class="dopln">název_odkazované_proměnné</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1689653347"><span><a href="#z1689653347">ⵈ</a></span></span>zrušit jmenný odkaz<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">unset -n <i class="dopln">název_odkazu</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1329350162"><span><a href="#z1329350162">≍</a></span></span>je proměnná jmenný odkaz?<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">test -R <i class="dopln">název_proměnné</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z360406200"><span><a href="#z360406200">▹</a></span></span>přečíst jmenný odkaz<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">if test -R <i class="dopln">název_odkazu</i>; then declare +n <i class="dopln">název_odkazu</i>; echo $<i class="dopln">název_odkazu</i>; declare -n <i class="dopln">název_odkazu</i>; else false; fi</div>
+</div></div>
+
+<h2 id="cast4"><a href="#cast4"><span class="cislo">4.</span> Zaklíndla: Proměnné prostředí</a></h2>
+
+<h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 2 (Proměnné prostředí a interpretu), sekce 4 (Zaklíndla: Proměnné prostředí), podsekce 1 (Spouštění programů s upraveným prostředím)"><sup>4/</sup>1 Spouštění programů s upraveným prostředím</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona L" id="z1468874709"><span><a href="#z1468874709">〗</a></span></span><b>spustit</b> s upraveným prostředím (jednodušší varianta)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span><span class="volznak">[</span>/usr/bin/<span class="volznak">]</span>env<span class="volznak">]</span> <i class="dopln">PROMÉNNÁ</i>=<i class="dopln">hodnota</i> <span class="volznak">[</span><i class="dopln">DALŠÍ_PROMÉNNÁ</i>=<i class="dopln">další-hodnota</i><span class="volznak">]</span><span class="tritecky"></span> <i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametr</i><span class="volznak">]</span><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1640398905"><span><a href="#z1640398905">◑</a></span></span>spustit v jiném aktuálním <b>adresáři</b><span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">env -C <i class="dopln">cesta</i> <i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametr</i><span class="volznak">]</span><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z599898034"><span><a href="#z599898034">↞</a></span></span>spustit s upraveným prostředím (<b>komplexní</b> varianta)<span class="cislo">#3 </span><sup><a href="#kappromenneppc14" id="kappromenneppcr14" title="-i prostředí zcela vyprázdní; --unset z něj odebírá uvedené proměnné, přiřazení proměnné prostředí nastavuje a parametr „-C“ změní aktuální adresář.">(14)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span><span class="volznak">[</span>/usr/bin/<span class="volznak">]</span>env<span class="volznak">]</span> <span class="volznak">[</span>-i<span class="volznak">]</span> <span class="volznak">[</span>--unset=<i class="dopln">PROMÉNNÁ</i><span class="volznak">]</span><span class="tritecky"></span> <span class="volznak">[</span><i class="dopln">PROMÉNNÁ</i>=<i class="dopln">hodnota</i><span class="volznak">]</span><span class="tritecky"></span> <span class="volznak">[</span>-C <i class="dopln">nový/aktuální/adresář</i><span class="volznak">]</span> <i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametr</i><span class="volznak">]</span><span class="tritecky"></span></div>
+</div></div>
+
+<h3 id="cast4x2"><span><a href="#cast4x2" title="kapitola 2 (Proměnné prostředí a interpretu), sekce 4 (Zaklíndla: Proměnné prostředí), podsekce 2 (Základní operace)"><sup>4/</sup>2 Základní operace</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z753668856"><span><a href="#z753668856">⪂</a></span></span><b>přiřadit</b> proměnné hodnotu<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">název_proměnné</i>=&quot;<i class="dopln">nová-hodnota</i>&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1627192943"><span><a href="#z1627192943">☘</a></span></span><b>připojit</b> novou hodnotu na začátek/konec proměnné<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">název_proměnné</i>=&quot;<i class="dopln">nová-hodnota</i>$<i class="dopln">název_proměnné</i>&quot;</div>
+<div class="radekzaklinadla"><i class="dopln">název_proměnné</i>+=&quot;<i class="dopln">nová-hodnota</i>&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1105945306"><span><a href="#z1105945306">⚴</a></span></span>změnit proměnnou interpretu na proměnnou prostředí/naopak<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">export <i class="dopln">název_proměnné</i><span class="volznak">[</span>=<i class="dopln">nová-hodnota</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla">export -n <i class="dopln">název_proměnné</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z640902348"><span><a href="#z640902348">˕</a></span></span><b>zrušit</b> proměnnou<span class="cislo">#4 </span><sup><a href="#kappromenneppc15" id="kappromenneppcr15" title="Pozor! Příkaz „unset“ uspěje i tehdy, pokud daná proměnná neexistuje.">(15)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">unset -v <i class="dopln">název_proměnné</i><span class="tritecky"></span></div>
+</div></div>
+
+<h3 id="cast4x3"><span><a href="#cast4x3" title="kapitola 2 (Proměnné prostředí a interpretu), sekce 4 (Zaklíndla: Proměnné prostředí), podsekce 3 (Předdefinované proměnné)"><sup>4/</sup>3 Předdefinované proměnné</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1023375461"><span><a href="#z1023375461">⡃</a></span></span>absolutní cesta <b>domovského adresáře</b><span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">$HOME<span class="prikladhodnoty">⊨ /home/petr</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1368599044"><span><a href="#z1368599044">⣅</a></span></span>vyhledávací cesty externích příkazů<span class="cislo">#2 </span><sup><a href="#kappromenneppc16" id="kappromenneppcr16" title="Cesty jsou odděleny. Bývají absolutní, ale mohou být i relativní. Zahrnout aktuální adresář „.“ je možné, ale z bezpečnostních důvodů se to striktně nedoporučuje.">(16)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">$PATH<span class="prikladhodnoty">⊨ /home/petr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1500664090"><span><a href="#z1500664090">☵</a></span></span>označení příslušného grafického zobrazovacího rozhraní<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">$DISPLAY<span class="prikladhodnoty">⊨ :0.0</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1256246827"><span><a href="#z1256246827">┄</a></span></span>typ terminálu<span class="cislo">#4 </span><sup><a href="#kappromenneppc17" id="kappromenneppcr17" title="Pro textovou konzoli je to „linux“. Další hodnoty, se kterými se lze setkat, jsou „xterm“ a „rxvt“.">(17)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">$TERM<span class="prikladhodnoty">⊨ xterm-256color</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z694926099"><span><a href="#z694926099">ສ</a></span></span>typ sezení<span class="cislo">#5 </span><sup><a href="#kappromenneppc18" id="kappromenneppcr18" title="Jde-li o X-server, hodnota je „x11“, pro Wayland je to „wayland“, v textové konzoli je to „tty“.">(18)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">$XDG_SESSION_TYPE<span class="prikladhodnoty">⊨ x11</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z249343059"><span><a href="#z249343059">✏</a></span></span>jazyk/lokalizace systému<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">$LANGUAGE<span class="prikladhodnoty">⊨ cs_CZ</span></div>
+<div class="radekzaklinadla">$LANG<span class="prikladhodnoty">⊨ cs_CZ.UTF-8</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1606345992"><span><a href="#z1606345992">⠁</a></span></span>výchozí interpret příkazové řádky<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla">$SHELL<span class="prikladhodnoty">⊨ /bin/bash</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1894976136"><span><a href="#z1894976136">⛂</a></span></span>uživatelské jméno<span class="cislo">#8 </span><sup><a href="#kappromenneppc19" id="kappromenneppcr19" title="Poznámka: proměnnou prostředí lze snadno podvrhnout. Pro bezpečné zjištění uživatelského jména použijte příkaz „id -un“.">(19)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">$USER<span class="prikladhodnoty">⊨ petr</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z505653144"><span><a href="#z505653144">⨔</a></span></span>adresář pro dočasné soubory<span class="cislo">#9 </span></div><div class="radky">
+<div class="radekzaklinadla">${TMPDIR-/tmp}</div>
+</div></div>
+
+<h3 id="cast4x4"><span><a href="#cast4x4" title="kapitola 2 (Proměnné prostředí a interpretu), sekce 4 (Zaklíndla: Proměnné prostředí), podsekce 4 (Proměnné ovládající programy a systém)"><sup>4/</sup>4 Proměnné ovládající programy a systém</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1174928621"><span><a href="#z1174928621">⪒</a></span></span>vypnout lokalizaci a podporu Unicode<span class="cislo">#1 </span><sup><a href="#kappromenneppc20" id="kappromenneppcr20" title="Tato volba se zapíná především při řazení, kdy způsobí, že soubor se seřadí podle kódových hodnot bajtů. Hodí se také pro dosažení vyššího výkonu některých skriptovacích nástrojů, ale tam je potřeba, aby uživatel věděl, co dělá.">(20)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">LC_ALL=C</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1913495998"><span><a href="#z1913495998">⪹</a></span></span>vypnout lokalizaci, ale ponechat kódování UTF-8<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">LC_ALL=C.utf8</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2103663802"><span><a href="#z2103663802">⚄</a></span></span>preferovaná časová zóna<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">TZ=UTC</div>
+<div class="radekzaklinadla">TZ=Europe/Prague</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1256178465"><span><a href="#z1256178465">⚤</a></span></span>nelokalizovat výpisy a hlášení<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">LC_MESSAGES=C.utf8</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1996323302"><span><a href="#z1996323302">₰</a></span></span>požádat aplikaci o použití určitého dočasného adresáře<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">TMPDIR=<i class="dopln">/absolutní/cesta</i></div>
+</div></div>
+
+<h3 id="cast4x5"><span><a href="#cast4x5" title="kapitola 2 (Proměnné prostředí a interpretu), sekce 4 (Zaklíndla: Proměnné prostředí), podsekce 5 (Preferované aplikace)"><sup>4/</sup>5 Preferované aplikace</a></span></h3>
+<p class="ponadpisu">
+Poznámka: proměnné prostředí EDITOR, VISUAL a PAGER se obvykle nastavují v souboru „~/.bashrc“.
+</p>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z781821345"><span><a href="#z781821345">⋕</a></span></span>výchozí textový editor (terminálový/grafický)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">EDITOR=/bin/nano</div>
+<div class="radekzaklinadla">VISUAL=/usr/bin/gedit</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z322232366"><span><a href="#z322232366">⇀</a></span></span>výchozí terminálový stránkovač<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">PAGER=/usr/bin/less</div>
+</div></div>
+
+<h3 id="cast4x6"><span><a href="#cast4x6" title="kapitola 2 (Proměnné prostředí a interpretu), sekce 4 (Zaklíndla: Proměnné prostředí), podsekce 6 (Prostředí jiných procesů)"><sup>4/</sup>6 Prostředí jiných procesů</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1007406284"><span><a href="#z1007406284">₰</a></span></span><b>mohu</b> číst prostředí daného procesu?<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">test -r /proc/<i class="dopln">PID</i>/environ</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z367498320"><span><a href="#z367498320">⠬</a></span></span>vypsat <b>seznam</b><span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">sed -zE 's/=.*//' /proc/<i class="dopln">PID</i>/environ | tr \\0 \\n <span class="volznak">[</span>| sort<span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1788145517"><span><a href="#z1788145517">⢱</a></span></span>je proměnná <b>definovaná</b>/neprázdná?<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">egrep -q '^<i class="dopln">název_proměnné</i>=' /proc/<i class="dopln">PID</i>/environ</div>
+<div class="radekzaklinadla">egrep -q '^<i class="dopln">název_proměnné</i>=.' /proc/<i class="dopln">PID</i>/environ</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1598139774"><span><a href="#z1598139774">∙</a></span></span><b>přečíst</b> hodnotu<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">sed -znE 's/^<i class="dopln">název_proměnné</i>=//;T;p' /proc/<i class="dopln">PID</i>/environ | tr -d \\0</div>
+</div></div>
+
+<h3 id="cast4x7"><span><a href="#cast4x7" title="kapitola 2 (Proměnné prostředí a interpretu), sekce 4 (Zaklíndla: Proměnné prostředí), podsekce 7 (Proměnné pro programátory)"><sup>4/</sup>7 Proměnné pro programátory</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z426264323"><span><a href="#z426264323">✚</a></span></span>cesty pro vyhledávání sdílených knihoven<span class="cislo">#1 </span><sup><a href="#kappromenneppc21" id="kappromenneppcr21" title="Když spuštěný program požádá systém o nahrátí sdílené knihovny, systém ji obvykle vyhledává v několika standardních adresářích. Má-li však program v prostředí proměnnou „LD_LIBRARY_PATH“, systém nejprve prohledává adresáře uvedené zde. V každém případě nahraje první nalezenou knihovnu a případné další knihovny téhož jména ignoruje.">(21)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">LD_LIBRARY_PATH=<i class="dopln">cesta</i><span class="volznak">[</span>:<i class="dopln">další/cesta</i><span class="volznak">]</span><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z685223532"><span><a href="#z685223532">⡁</a></span></span>vypsat ladicí informace ohledně sdílených knihoven<span class="cislo">#2 </span><sup><a href="#kappromenneppc22" id="kappromenneppcr22" title="Nápovědu k proměnné LD_DEBUG si můžete zobrazit příkazem „env LD_DEBUG=help cat“. Bez proměnné LD_DEBUG_OUTPUT se ladicí údaje vypíšou na standardní výstup; s ní se k jejímu obsahu připojí tečka a PID procesu a výpis se provede do daného souboru.">(22)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">LD_DEBUG=libs<span class="volznak">[</span>,symbols<span class="volznak">]</span> <span class="volznak">[</span>LD_DEBUG_OUTPUT=<i class="dopln">předpona/výstupní/cesty</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z848550636"><span><a href="#z848550636">⎔</a></span></span>vynutit načtení funkcí ze zadané sdílené knihovny do aplikace (nezkoušeno, bez záruky).<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">LD_PRELOAD=/home/petr/moje.so</div>
+</div></div>
+
+<h2 id="cast5"><a href="#cast5"><span class="cislo">5.</span> Parametry příkazů</a></h2>
+<figure><img src="obrazky/ve-vystavbe.png" alt="ve výstavbě"></figure>
+<h2 id="cast6"><a href="#cast6"><span class="cislo">6.</span> Instalace na Ubuntu</a></h2>
+<p class="ponadpisu">
+Všechny použité nástroje jsou základní součástí Ubuntu, přítomné i v minimální instalaci.
+</p>
+
+<h2 id="cast7"><a href="#cast7"><span class="cislo">7.</span> Ukázka</a></h2>
+<figure><img src="obrazky/ve-vystavbe.png" alt="ve výstavbě"></figure>
+<h2 id="cast8"><a href="#cast8"><span class="cislo">8.</span> Tipy a zkušenosti</a></h2>
+<figure><img src="obrazky/ve-vystavbe.png" alt="ve výstavbě"></figure><ul><li>Pokud potřebujete v asociativním poli použít jako klíč prázdný řetězec, pomůže upravit kód tak, aby před každý klíč vkládal konkrétní písmeno (např. „X“).
+</li><li>Identifikátory proměnných, které mají řídicí či systémový význam (jako např. <i>HOME</i> či <i>PATH</i>) se obvykle píšou velkými písmeny, bez ohledu na to, zda jde o proměnné interpretu nebo prostředí. Identifikátory „obyčejných“ proměnných (různé dočasné a výpočetní hodnoty) ve skriptech pište malými.
+</li><li>Znak ~ se v bashi rozvíjí na hodnotu „${HOME}“, proto ho uvnitř dvojitých uvozovek můžete snadno a bezpečně nahradit za „$HOME“.
+</li></ul>
+<h2 id="cast9"><a href="#cast9"><span class="cislo">9.</span> Další zdroje informací</a></h2>
+<figure><img src="obrazky/ve-vystavbe.png" alt="ve výstavbě"></figure><p>
+Co hledat:
+</p>
+<ul class="kompaktni"><li><a href="https://cs.wikipedia.org/wiki/Hlavn%C3%AD_strana">Článek na Wikipedii</a>
+</li><li>Oficiální stránku programu
+</li><li>Oficiální dokumentaci
+</li><li><a href="http://manpages.ubuntu.com/">Manuálovou stránku</a>
+</li><li><a href="https://packages.ubuntu.com/">Balíček</a>
+</li><li>Online referenční příručky
+</li><li>Různé další praktické stránky, recenze, videa, tutorialy, blogy, ...
+</li><li>Publikované knihy
+</li><li><a href="https://github.com/tldr-pages/tldr/tree/master/pages/common">Stránky TL;DR</a>
+</li></ul><ul class="kompaktni"><li><a href="https://help.ubuntu.com/community/EnvironmentVariables">Ubuntu Documentation: EnvironmentVariables</a> (anglicky)
+</li></ul>
+<h2 id="cast10"><a href="#cast10"><span class="cislo">10.</span> Pomocné funkce</a></h2>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1022586141"><span><a href="#z1022586141">⡼</a></span></span>asocexist() – testuje, zda v asociativním poli $1 existuje prvek $2<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">function asocexist() { test -v &quot;$1[${2@Q}]&quot;; }</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1070462063"><span><a href="#z1070462063">╖</a></span></span>asockopirovat() – kopií asociativního pole $1 přepíše proměnnou $2<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">function kopirovatasocpole() {</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">declare -p &quot;$1&quot; &gt;/dev/null || return $?</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">: '^declare -\S*A'</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">if [[ $(declare -p &quot;$1&quot;) =~ $_ ]]</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">then</div>
+<div class="radekzaklinadla" style="padding-left:4ch;">unset &quot;$2&quot; &amp;&amp;</div>
+<div class="radekzaklinadla" style="padding-left:4ch;">declare -Ag &quot;$2&quot; &amp;&amp;</div>
+<div class="radekzaklinadla" style="padding-left:4ch;">eval &quot;for _ in \&quot;\${!$1[@]}\&quot;; do $2[\$_]=\${$1[\$_]}; done&quot;</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">else</div>
+<div class="radekzaklinadla" style="padding-left:4ch;">printf 'kopirovatasocpole: Není asociativní pole: %s\n' &quot;$1&quot; &gt;&amp;2</div>
+<div class="radekzaklinadla" style="padding-left:4ch;">false</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">fi</div>
+<div class="radekzaklinadla">}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1998937097"><span><a href="#z1998937097">˕</a></span></span>promenzkum() – vypíše údaje o proměnných ve formátu vhodném pro další zpracování<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">function promenzkum() {</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">for X in $(compgen -v)</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">do</div>
+<div class="radekzaklinadla" style="padding-left:4ch;">declare -p $X</div>
+<div class="radekzaklinadla" style="padding-left:4ch;">printf \\0</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">done | sed -zE 's/^\S+\s+(\S+)\s+([^<span class="viditelnamezera">&nbsp;</span>=]+)=/\2<span class="viditelnamezera">&nbsp;</span>\1<span class="viditelnamezera">&nbsp;</span>/;s/\n$//'</div>
+<div class="radekzaklinadla">}</div>
+</div></div>
+<div class="ppc"><div id="kappromenneppc1"><a href="#kappromenneppcr1" class="cislopozn">1</a>&nbsp;Pozor! Příkaz „unset“ uspěje i tehdy, pokud daná proměnná neexistuje.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kappromenneppc2"><a href="#kappromenneppcr2" class="cislopozn">2</a>&nbsp;Prvky pole se zadávají stejně jako parametry příkazu, tzn. oddělují se mezerami; obsahují-li zvláštní znaky, budou interpretovány, pokud je neodzvláštníte (vhodné je umístění do uvozovek či apostrofů).</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kappromenneppc3"><a href="#kappromenneppcr3" class="cislopozn">3</a>&nbsp;Je dovoleno přiřadit do prvku libovolně daleko za koncem pole; Bash v takovém případě pole automaticky prodlouží prázdnými řetězci, aby index byl platný.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kappromenneppc4"><a href="#kappromenneppcr4" class="cislopozn">4</a>&nbsp;Tyto tvary uvádějte vždy ve dvojitých uvozovkách. Klíč se v tomto případě vyhodnocuje, jako by byl sám uvnitř samostatných dvojitých uvozovek, což umožňuje i vícenásobné vnoření této konstrukce, ačkoliv to je špatně čitelné.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kappromenneppc5"><a href="#kappromenneppcr5" class="cislopozn">5</a>&nbsp;Uvozovky kolem klíče slouží pouze k odzvláštnění znaků klíče, můžete je odzvláštnit i jinak, např. zpětným lomítkem či apostrofy.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kappromenneppc6"><a href="#kappromenneppcr6" class="cislopozn">6</a>&nbsp;Pokud je uzavírací závorka „}“ na stejném řádku jako poslední příkaz těla funkce, musí být od příkazu oddělená středníkem.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kappromenneppc7"><a href="#kappromenneppcr7" class="cislopozn">7</a>&nbsp;Exportované funkce se uloží do zvláštních proměnných prostředí a další instance bashe, která je tímto způsobem „zdědí“, je opět načte jako funkce. Doporučuji příliš nepoužívat, protože tak můžete snadno ztratit kontrolu nad tím, kam všude se vaše funkce dostanou.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kappromenneppc8"><a href="#kappromenneppcr8" class="cislopozn">8</a>&nbsp;Tuto konstrukci lze skombinovat s většinou ostatních druhů dosazení.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kappromenneppc9"><a href="#kappromenneppcr9" class="cislopozn">9</a>&nbsp;Pokud má náhradní řetězec obsahovat zvláštní znaky či znak „}“, doporučuji uzavřít jej do dvojitých uvozovek. To funguje i tehdy, pokud je dosazovací výraz jako celek použit uvnitř dvojitých uvozovek.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kappromenneppc10"><a href="#kappromenneppcr10" class="cislopozn">10</a>&nbsp;Tip: kolem indexu a délku mohou být mezery, kolem názvu proměnné ne.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kappromenneppc11"><a href="#kappromenneppcr11" class="cislopozn">11</a>&nbsp;Hodnota bude typicky v apostrofech či konstrukci „$''“. Konkrétní tvar se může lišit, ale vždy bude možno ho bezpečně dosadit do skriptu.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kappromenneppc12"><a href="#kappromenneppcr12" class="cislopozn">12</a>&nbsp;Dvojité uvozovky zde znamenají, že pro správnou funkci musí být tyto konstrukce použity ve dvoji.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kappromenneppc13"><a href="#kappromenneppcr13" class="cislopozn">13</a>&nbsp;Poznámka: jmenným odkazem nelze odkazovat na normální ani asociativní pole!</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kappromenneppc14"><a href="#kappromenneppcr14" class="cislopozn">14</a>&nbsp;-i prostředí zcela vyprázdní; --unset z něj odebírá uvedené proměnné, přiřazení proměnné prostředí nastavuje a parametr „-C“ změní aktuální adresář.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kappromenneppc15"><a href="#kappromenneppcr15" class="cislopozn">15</a>&nbsp;Pozor! Příkaz „unset“ uspěje i tehdy, pokud daná proměnná neexistuje.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kappromenneppc16"><a href="#kappromenneppcr16" class="cislopozn">16</a>&nbsp;Cesty jsou odděleny. Bývají absolutní, ale mohou být i relativní. Zahrnout aktuální adresář „.“ je možné, ale z bezpečnostních důvodů se to striktně nedoporučuje.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kappromenneppc17"><a href="#kappromenneppcr17" class="cislopozn">17</a>&nbsp;Pro textovou konzoli je to „linux“. Další hodnoty, se kterými se lze setkat, jsou „xterm“ a „rxvt“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kappromenneppc18"><a href="#kappromenneppcr18" class="cislopozn">18</a>&nbsp;Jde-li o X-server, hodnota je „x11“, pro Wayland je to „wayland“, v textové konzoli je to „tty“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kappromenneppc19"><a href="#kappromenneppcr19" class="cislopozn">19</a>&nbsp;Poznámka: proměnnou prostředí lze snadno podvrhnout. Pro bezpečné zjištění uživatelského jména použijte příkaz „id -un“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kappromenneppc20"><a href="#kappromenneppcr20" class="cislopozn">20</a>&nbsp;Tato volba se zapíná především při řazení, kdy způsobí, že soubor se seřadí podle kódových hodnot bajtů. Hodí se také pro dosažení vyššího výkonu některých skriptovacích nástrojů, ale tam je potřeba, aby uživatel věděl, co dělá.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kappromenneppc21"><a href="#kappromenneppcr21" class="cislopozn">21</a>&nbsp;Když spuštěný program požádá systém o nahrátí sdílené knihovny, systém ji obvykle vyhledává v několika standardních adresářích. Má-li však program v prostředí proměnnou „LD_LIBRARY_PATH“, systém nejprve prohledává adresáře uvedené zde. V každém případě nahraje první nalezenou knihovnu a případné další knihovny téhož jména ignoruje.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kappromenneppc22"><a href="#kappromenneppcr22" class="cislopozn">22</a>&nbsp;Nápovědu k proměnné LD_DEBUG si můžete zobrazit příkazem „env LD_DEBUG=help cat“. Bez proměnné LD_DEBUG_OUTPUT se ladicí údaje vypíšou na standardní výstup; s ní se k jejímu obsahu připojí tečka a PID procesu a výpis se provede do daného souboru.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+</div>
+<div class="odkazydole"><a href="system.htm"><img src="obrazky/ik/system.png" alt="" width="32" height="32">Systém</a><a href="wine.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">Wine</a><a href="dosbox.htm"><img src="obrazky/ik-vychozi.png" alt="" width="32" height="32">DOSBox</a></div>
+
+<nav class="spodni"><span class="prev">
+<a href="predmluva.htm" rel="prev" title="1. Předmluva">Předchozí&nbsp;kapitola</a>&nbsp;|
+</span><a href="index.htm">Přehled</a><span class="next"><!--
+-->&nbsp;| <a href="pdf.htm" rel="next" title="3. PDF">Následující&nbsp;kapitola</a>
+</span>
+<a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
+<a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
+</nav>
+
+
+</article>
+<nav class="menu">
+<!-- MENU KAPITOLY -->
+<a href="#menukapitoly" id="menukapitoly"><span class="prvnipismeno">K</span>apitoly</a>
+<aside class="menukapitoly">
+<div><div class="nadpis">Kapitoly</div><div class="polozky">
+<a href="predmluva.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/predmluva.png" alt="[]"></span><span class="cislo">1</span><span class="nazev">Předmluva</span></a>
+<a href="promenne.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">2</span><span class="nazev">Proměnné prostředí a interpretu</span></a>
+<a href="pdf.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">3</span><span class="nazev">PDF</span></a>
+<a href="bash.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">4</span><span class="nazev">Bash</span></a>
+<a href="wine.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">5</span><span class="nazev">Wine</span></a>
+<a href="dosbox.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">6</span><span class="nazev">DOSBox</span></a>
+<a href="system.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="cislo">7</span><span class="nazev">Systém</span></a>
+<a href="koncepce-projektu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="cislo">8</span><span class="nazev">Koncepce projektu Linux: Kniha kouzel</span></a>
+<a href="plan-vyvoje.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">9</span><span class="nazev">Plán budoucího vývoje</span></a>
+<a href="licence.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">10</span><span class="nazev">Licence</span></a>
+</div></div>
+<a href="#zavritmenu" id="zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU OSNOVA -->
+<a href="#menuosnova" id="menuosnova"><span class="prvnipismeno">O</span>snova</a>
+<aside class="menuosnova">
+<div><div class="nadpis">Osnova</div><div class="polozky">
+<a href="#cast1" class="sekce">1 Úvod</a>
+<a href="#cast2" class="sekce">2 Definice</a>
+<a href="#cast3" class="sekce">3 Zaklínadla: Bash</a>
+<a href="#cast3x1" class="podsekce">/1 Testy proměnných</a>
+<a href="#cast3x2" class="podsekce">/2 Seznamy proměnných</a>
+<a href="#cast3x3" class="podsekce">/3 Řetězcové proměnné interpretu</a>
+<a href="#cast3x4" class="podsekce">/4 Pole</a>
+<a href="#cast3x5" class="podsekce">/5 Asociativní pole</a>
+<a href="#cast3x6" class="podsekce">/6 Funkce</a>
+<a href="#cast3x7" class="podsekce">/7 Pokročilé dosazování proměnných</a>
+<a href="#cast3x8" class="podsekce">/8 Dosazování parametrů skriptu</a>
+<a href="#cast3x9" class="podsekce">/9 Jmenné odkazy</a>
+<a href="#cast4" class="sekce">4 Zaklíndla: Proměnné prostředí</a>
+<a href="#cast4x1" class="podsekce">/1 Spouštění programů s upraveným prostředím</a>
+<a href="#cast4x2" class="podsekce">/2 Základní operace</a>
+<a href="#cast4x3" class="podsekce">/3 Předdefinované proměnné</a>
+<a href="#cast4x4" class="podsekce">/4 Proměnné ovládající programy a systém</a>
+<a href="#cast4x5" class="podsekce">/5 Preferované aplikace</a>
+<a href="#cast4x6" class="podsekce">/6 Prostředí jiných procesů</a>
+<a href="#cast4x7" class="podsekce">/7 Proměnné pro programátory</a>
+<a href="#cast5" class="sekce">5 Parametry příkazů</a>
+<a href="#cast6" class="sekce">6 Instalace na Ubuntu</a>
+<a href="#cast7" class="sekce">7 Ukázka</a>
+<a href="#cast8" class="sekce">8 Tipy a zkušenosti</a>
+<a href="#cast9" class="sekce">9 Další zdroje informací</a>
+<a href="#cast10" class="sekce">10 Pomocné funkce</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU ŠTÍTKY -->
+<a href="#menustitky" id="menustitky"><span class="prvnipismeno">Š</span>títky</a>
+<aside class="menustitky">
+<div><div class="nadpis">Štítky</div><div class="polozky">
+<a href="x-stitky.htm#sbsh">bash&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#sdmoni">démoni&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#semulce">emulace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#shry">hry&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sklvesnice">klávesnice&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#spdf">PDF&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sprogrm">program&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#ssystm">systém&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#stemtickokruh">tematický okruh&nbsp;&nbsp;(3)</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU NÁPOVĚDA -->
+<a href="#menunapoveda" id="menunapoveda"><span class="prvnipismeno">N</span>ápověda</a>
+<aside class="menunapoveda">
+<div><div class="nadpis">Nápověda</div><div class="polozky">
+<a href="predmluva.htm">Předmluva</a>
+<a href="koncepce-projektu.htm">Koncepce projektu</a>
+<a href="https://singularis-mzf.github.io/">Ostatní verze knihy</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook">Repozitář na GitHubu</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+
+</nav>
+<!-- *** -->
+<footer id="dole">
+<img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
+<p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
+<a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
+Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
+či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
+na stránce „<a href="x-autori.htm">Přehled autorů</a>“.
+Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
+licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
+Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód
+a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
+<a href="https://github.com/singularis-mzf/linux-spellbook">repozitář na GitHubu</a>.
+</footer>
+</body>
+</html>

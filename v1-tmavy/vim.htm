@@ -5,16 +5,16 @@
 
 <title>Vim − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20200526.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200526-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200526-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200526-tmavy.css" title="Tmavý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20200628.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200628-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200628-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200628-tmavy.css" title="Tmavý motiv">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body>
 <div id="nahore"></div>
 <header>
-<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.8, D. D. (26. května 2020)</span>
+<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.9, E. E. (28. června 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -56,9 +56,9 @@ mezi řadou režimů, z nichž nejdůležitější jsou <i>základní režim</i
 kterými uživatel ovládá editor, a <i>vkládací režim</i>, v němž uživatel píše text.
 </p><p>
 Tato verze kapitoly se nevěnuje stylu „práce s objekty“ a vyhýbá se funkcím,
-jejichž činnost závisí na konkrétní syntaxi editovaného textu.
-Rovněž nepokrývá doplňování s našeptáváním (autocomplete), skládání (folding), režim srovávání „vimdiff“
-a specifika GUI varianty (gvim).
+jejichž činnost závisí na konkrétní syntaxi editovaného textu (např. skok na deklaraci proměnné pod kurzorem).
+Rovněž nepokrývá doplňování s našeptáváním (autocomplete), skládání (folding), režim srovávání „vimdiff“,
+specifika GUI varianty (gvim) a zásuvné moduly (plug-ins).
 Nedostatečně pokrývá příkaz „g//“.
 </p>
 
@@ -139,11 +139,14 @@ PNZ = první nebílý znak
 <div class="radekzaklinadla">gg</div>
 <div class="radekzaklinadla">G</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z49527886"><span><a href="#z49527886">┊</a></span></span>na následující/předchozí řádku, PNZ<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1379002780"><span><a href="#z1379002780">⇁</a></span></span>na N-tý řádek pohledu, PNZ<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">N</i>H</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z49527886"><span><a href="#z49527886">┊</a></span></span>na následující/předchozí řádku, PNZ<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla"><kbd>Enter</kbd></div>
 <div class="radekzaklinadla"><kbd>↑</kbd>^</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1789095016"><span><a href="#z1789095016">䷽</a></span></span>na následující <b>prázdný</b>/neprázdný řádek<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1789095016"><span><a href="#z1789095016">䷽</a></span></span>na následující <b>prázdný</b>/neprázdný řádek<span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">počet-opakování</i><span class="volznak">]</span>/^$<kbd>Enter</kbd></div>
 <div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">počet-opakování</i><span class="volznak">]</span>/^.<kbd>Enter</kbd></div>
 </div></div>
@@ -262,7 +265,7 @@ PNZ = první nebílý znak
 <div class="radekzaklinadla">:cd <i class="dopln">cesta</i><kbd>Enter</kbd></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2106037432"><span><a href="#z2106037432">✏</a></span></span>vytvořit adresář<span class="cislo">#7 </span></div><div class="radky">
-<div class="radekzaklinadla">:!mkdir <span class="volznak">[</span>-p<span class="volznak">]</span> <i class="dopln">cesta</i></div>
+<div class="radekzaklinadla">:!mkdir <span class="volznak">[</span>-p<span class="volznak">]</span> <i class="dopln">cesta</i><kbd>Enter</kbd></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z869473907"><span><a href="#z869473907">⢙</a></span></span>zapsat <b>kopii</b> souboru<span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla">:w <i class="dopln">cílová/cesta</i><kbd>Enter</kbd></div>
@@ -529,7 +532,27 @@ Tip: jako výchozí schránku pro makra používejte schránku „q“.
 <div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">kolikrát</i><span class="volznak">]</span>@@</div>
 </div></div>
 
-<h3 id="cast6x3"><span><a href="#cast6x3" title="kapitola 20 (Vim), sekce 6 (Zaklínadla: Ostatní), podsekce 3 (Zvýraznění syntaxe)"><sup>6/</sup>3 Zvýraznění syntaxe</a></span></h3>
+<h3 id="cast6x3"><span><a href="#cast6x3" title="kapitola 20 (Vim), sekce 6 (Zaklínadla: Ostatní), podsekce 3 (Správce souborů)"><sup>6/</sup>3 Správce souborů</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z652980370"><span><a href="#z652980370">┍</a></span></span>otevřít <b>správce souborů</b> (v pohledu nad/pod/vlevo/vpravo/na novém panelu)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">:Sex<kbd>Enter</kbd></div>
+<div class="radekzaklinadla">:Hex<kbd>Enter</kbd></div>
+<div class="radekzaklinadla">:Vex<kbd>Enter</kbd></div>
+<div class="radekzaklinadla">:Vex!<kbd>Enter</kbd></div>
+<div class="radekzaklinadla">:Tex<kbd>Enter</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1339957686"><span><a href="#z1339957686">⇈</a></span></span><b>otevřít</b> soubor/adresář ze správce souborů<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla akce">Nastavte kurzor na název souboru.</div>
+<div class="radekzaklinadla"><kbd>Enter</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1151530026"><span><a href="#z1151530026">⊔</a></span></span>přejít o adresář výš<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">(ve správci souborů)</i><kbd>-</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1936657290"><span><a href="#z1936657290">┏</a></span></span><b>zavřít</b> správce souborů (alternativy)<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">(ve správci souborů)</i>ZZ</div>
+<div class="radekzaklinadla"><i class="dopln">(ve správci souborů)</i>:q</div>
+</div></div>
+
+<h3 id="cast6x4"><span><a href="#cast6x4" title="kapitola 20 (Vim), sekce 6 (Zaklínadla: Ostatní), podsekce 4 (Zvýraznění syntaxe)"><sup>6/</sup>4 Zvýraznění syntaxe</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1598644848"><span><a href="#z1598644848">⊕</a></span></span>zapnout/vypnout zvýraznění syntaxe<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">:syntax on<kbd>Enter</kbd></div>
 <div class="radekzaklinadla">:syntax off<kbd>Enter</kbd></div>
@@ -538,8 +561,7 @@ Tip: jako výchozí schránku pro makra používejte schránku „q“.
 <div class="radekzaklinadla">:setfiletype <i class="dopln">syntaxe</i><kbd>Enter</kbd></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1641850999"><span><a href="#z1641850999">➤</a></span></span>vypsat seznam podporovaných syntaxí<span class="cislo">#3 </span></div><div class="radky">
-<div class="radekzaklinadla">:setfiletype</div>
-<div class="radekzaklinadla"><kbd>Space</kbd></div>
+<div class="radekzaklinadla">:setfiletype<kbd>Space</kbd></div>
 <div class="radekzaklinadla"><kbd>Ctrl</kbd>+<kbd>D</kbd></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1967657843"><span><a href="#z1967657843">꞉</a></span></span>zvýrazňovat klíčové slovo jako klíčové slovo/identifikátor/funkci/operátor<span class="cislo">#4 </span></div><div class="radky">
@@ -552,7 +574,7 @@ Tip: jako výchozí schránku pro makra používejte schránku „q“.
 <div class="radekzaklinadla">:syntax list<kbd>Enter</kbd></div>
 </div></div>
 
-<h3 id="cast6x4"><span><a href="#cast6x4" title="kapitola 20 (Vim), sekce 6 (Zaklínadla: Ostatní), podsekce 4 (Ostatní)"><sup>6/</sup>4 Ostatní</a></span></h3>
+<h3 id="cast6x5"><span><a href="#cast6x5" title="kapitola 20 (Vim), sekce 6 (Zaklínadla: Ostatní), podsekce 5 (Ostatní)"><sup>6/</sup>5 Ostatní</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z426612680"><span><a href="#z426612680">⢟</a></span></span>zobrazit <b>kódovou</b> (číselnou) hodnotu znaku pod kurzorem<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">ga<span class="prikladhodnoty">⊨ &lt;ž&gt; 382, Hex 017e, Octal 576</span></div>
 </div></div>
@@ -572,19 +594,26 @@ Tip: jako výchozí schránku pro makra používejte schránku „q“.
 <div class="radekzaklinadla"><kbd>PageUp</kbd></div>
 <div class="radekzaklinadla"><kbd>PageDown</kbd></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z202619499"><span><a href="#z202619499">➛</a></span></span>o půl okna nahoru/dolů<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1469197563"><span><a href="#z1469197563">┮</a></span></span>aktuální řádku doprostřed pohledu<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">zz</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z202619499"><span><a href="#z202619499">➛</a></span></span>o půl okna nahoru/dolů<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla"><kbd>Ctrl</kbd>+<kbd>U</kbd></div>
 <div class="radekzaklinadla"><kbd>Ctrl</kbd>+<kbd>D</kbd></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1565814562"><span><a href="#z1565814562">❉</a></span></span>o řádek nahoru/dolů<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1565814562"><span><a href="#z1565814562">❉</a></span></span>o řádek nahoru/dolů<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla"><kbd>Ctrl</kbd>+<kbd>Y</kbd></div>
 <div class="radekzaklinadla"><kbd>Ctrl</kbd>+<kbd>E</kbd></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2063774341"><span><a href="#z2063774341">✄</a></span></span>na začátek/konec souboru<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2063774341"><span><a href="#z2063774341">✄</a></span></span>na začátek/konec souboru<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">gg</div>
 <div class="radekzaklinadla">G</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z524522140"><span><a href="#z524522140">䷻</a></span></span>o N znaků vlevo/vpravo (jen při vypnutém zalamování)<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1437007384"><span><a href="#z1437007384">❖</a></span></span>aktuální řádek na horní/dolní okraj pohledu<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">zt</div>
+<div class="radekzaklinadla">zb</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z524522140"><span><a href="#z524522140">䷻</a></span></span>o N znaků vlevo/vpravo (jen při vypnutém zalamování)<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">N</i>zh</div>
 <div class="radekzaklinadla"><i class="dopln">N</i>zl</div>
 </div></div>
@@ -604,19 +633,25 @@ Tip: jako výchozí schránku pro makra používejte schránku „q“.
 <div class="radekzaklinadla">:split<kbd>Enter</kbd></div>
 <div class="radekzaklinadla">:vsplit<kbd>Enter</kbd></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z158899112"><span><a href="#z158899112">ᕷ</a></span></span>nastavit výšku aktivního pohledu<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z390030213"><span><a href="#z390030213">⡅</a></span></span>otevřít nový prázdný pohled nad aktivním/vlevo od aktivního<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">:new<kbd>Enter</kbd></div>
+<div class="radekzaklinadla">:vnew<kbd>Enter</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z158899112"><span><a href="#z158899112">ᕷ</a></span></span>nastavit výšku aktivního pohledu<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">:res <i class="dopln">počet-řádek</i><kbd>Enter</kbd></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z478518392"><span><a href="#z478518392">◳</a></span></span>nastavit všechna rozdělení rovnoměrně<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z478518392"><span><a href="#z478518392">◳</a></span></span>nastavit všechna rozdělení rovnoměrně<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla"><kbd>Ctrl</kbd>+<kbd>W</kbd><kbd>=</kbd></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z315323547"><span><a href="#z315323547">䷷</a></span></span><b>rotovat</b> pohledy<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z315323547"><span><a href="#z315323547">䷷</a></span></span><b>rotovat</b> pohledy<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla"><kbd>Ctrl</kbd>+<kbd>W</kbd><kbd>R</kbd></div>
 </div></div>
 
 <h3 id="cast7x3"><span><a href="#cast7x3" title="kapitola 20 (Vim), sekce 7 (Zaklínadla: Pohledy a panely), podsekce 3 (Práce s více panely)"><sup>7/</sup>3 Práce s více panely</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1781723226"><span><a href="#z1781723226">≻</a></span></span>otevřít <b>nový</b> panel<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z430126199"><span><a href="#z430126199">✹</a></span></span>otevřít <b>nový</b> panel (prázdný/se stejným souborem jako v aktivním pohledu/s jiným souborem)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">:tabnew<kbd>Enter</kbd></div>
+<div class="radekzaklinadla">:tabnew %<kbd>Enter</kbd></div>
+<div class="radekzaklinadla">:tabnew <i class="dopln">cesta/k/souboru</i><kbd>Enter</kbd></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z57892410"><span><a href="#z57892410">ᚆ</a></span></span>přepnout se na další/předchozí panel<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">gt</div>
@@ -635,10 +670,13 @@ Tip: jako výchozí schránku pro makra používejte schránku „q“.
 <div class="radekzaklinadla">:set inv<i class="dopln">volba</i><kbd>Enter</kbd></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z660291094"><span><a href="#z660291094">□</a></span></span>nastavit číselnou či textovou volbu<span class="cislo">#2 </span><sup><a href="#kapvimppc26" id="kapvimppcr26" title="Hodnota může být prázdná. Pokud textová hodnota obsahuje bílé či speciální znaky (kromě tečky a čárky), musíte je odzvláštnit zpětným lomítkem; použití uvozovek vim, zdá se, nepodporuje..">(26)</a></sup></div><div class="radky">
-<div class="radekzaklinadla">:set <i class="dopln">volba</i>=<i class="dopln">hodnota</i></div>
+<div class="radekzaklinadla">:set <i class="dopln">volba</i>=<i class="dopln">hodnota</i><kbd>Enter</kbd></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1467579885"><span><a href="#z1467579885">⛂</a></span></span><b>zjistit</b> hodnotu volby<span class="cislo">#3 </span></div><div class="radky">
-<div class="radekzaklinadla">:set <i class="dopln">volba</i>?</div>
+<div class="radekzaklinadla">:set <i class="dopln">volba</i>?<kbd>Enter</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z225019883"><span><a href="#z225019883">≉</a></span></span>vypsat hodnoty všech voleb<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">:set all<kbd>Enter</kbd></div>
 </div></div>
 
 <h3 id="cast8x2"><span><a href="#cast8x2" title="kapitola 20 (Vim), sekce 8 (Zaklínadla: Nastavení), podsekce 2 (Vzhled)"><sup>8/</sup>2 Vzhled</a></span></h3>
@@ -659,10 +697,10 @@ Tip: jako výchozí schránku pro makra používejte schránku „q“.
 <div class="radekzaklinadla">:set cc=<i class="dopln">číslo-sloupce</i><span class="volznak">[</span>,<i class="dopln">další-číslo-sloupce</i><span class="volznak">]</span><kbd>Enter</kbd></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z378849292"><span><a href="#z378849292">⣡</a></span></span>skrýt informace o aktuální <b>pozici</b> ve stavové řádce (nedoporučuji)<span class="cislo">#6 </span></div><div class="radky">
-<div class="radekzaklinadla">:set noruler</div>
+<div class="radekzaklinadla">:set noruler<kbd>Enter</kbd></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1388332605"><span><a href="#z1388332605">↷</a></span></span>skrýt název aktivního <b>režimu</b> ve stavové řádce (nedoporučuji)<span class="cislo">#7 </span></div><div class="radky">
-<div class="radekzaklinadla">:set noshowmode</div>
+<div class="radekzaklinadla">:set noshowmode<kbd>Enter</kbd></div>
 </div></div>
 
 <h3 id="cast8x3"><span><a href="#cast8x3" title="kapitola 20 (Vim), sekce 8 (Zaklínadla: Nastavení), podsekce 3 (Chování)"><sup>8/</sup>3 Chování</a></span></h3>
@@ -671,7 +709,7 @@ Tip: jako výchozí schránku pro makra používejte schránku „q“.
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1508098234"><span><a href="#z1508098234">⋕</a></span></span>vypnout a smazat dočasný odkládací soubor/nastavit, kam ho uložit<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">:set noswapfile<kbd>Enter</kbd></div>
-<div class="radekzaklinadla">:set dir=<i class="dopln">cesta</i><span class="volznak">[</span>,<i class="dopln">další/cesta</i><span class="volznak">]</span><span class="tritecky"></span></div>
+<div class="radekzaklinadla">:set dir=<i class="dopln">cesta</i><span class="volznak">[</span>,<i class="dopln">další/cesta</i><span class="volznak">]</span><span class="tritecky"></span><kbd>Enter</kbd></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z444156018"><span><a href="#z444156018">⠪</a></span></span>zapnout <b>automatické</b> odsazování<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">:set autoindent<kbd>Enter</kbd></div>
@@ -750,6 +788,7 @@ V něm však většina zaklínadel z této kapitoly není použitelná.
 </li><li>Doporučuji nastavit si „:set number“ a „:set cursorline“. Editor s nimi podle mě vypadá podstatně lépe.
 </li><li>Většina uživatelů Vimu intenzivně používá příkazy „y“ a „p“ bez uvedení schránky; to se ovšem vyplácí jen tehdy, pokud chcete zkopírovaný text okamžitě někam vložit a pak už ho nebudete potřebovat. V ostatních případech totiž brzy narazíte na problém, že skoro jakákoliv další úprava vám „poslední smazaný text“ přepíše. Doporučuji proto si zvyknout jakékoliv úseky, které si chcete udržet delší dobu, ukládat do schránky „p“ (příkaz bude vypadat např. „&quot;pdd“). Alternativním řešením je směrovat ostatní příkazy mazání a náhrad do zvláštního registru „_“ (např. „&quot;_dd“).
 </li><li>Nastavení provedená příkazem „:set“ z editoru jsou platná jen do ukončení procesu. Pro trvalé nastavení pro nově otevírané instance editoru zapište příkazy „:set“ do souboru „~/.vimrc“ nebo do „/etc/vim/vimrc.local“.
+</li><li>Jeden editovaný soubor může být otevřen ve více pohledech, dokonce i na různých panelech. V těchto případech má ovšem každý pohled svůj kurzor, čehož lze někdy chytře využít.
 </li></ul>
 <h2 id="cast12"><a href="#cast12"><span class="cislo">12.</span> Další zdroje informací</a></h2>
 <p class="ponadpisu">
@@ -830,16 +869,21 @@ příručku i s velmi starou verzí Vimu (ne však s „vi“).
 <div id="kapvimppc27"><a href="#kapvimppcr27" class="cislopozn">27</a>&nbsp;Tuto vlastnost jsem příliš nezkoušel/a. Pokud s ní nemáte zkušenosti, doporučuji překódování raději provádět příkazem „iconv“ mimo vim.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 </div>
-<div class="odkazydole"><a href="datum-cas-kalendar.htm"><img src="obrazky/ik/datum-cas-kalendar.png" alt="" width="32" height="32">Datum, čas a kalendář</a><a href="planovani-uloh.htm"><img src="obrazky/ik/planovani-uloh.png" alt="" width="32" height="32">Plánování úloh</a><a href="hledani-souboru.htm"><img src="obrazky/ik/hledani-souboru.png" alt="" width="32" height="32">Hledání souborů</a></div>
 
-<nav class="spodni"><span class="prev">
-<a href="system.htm" rel="prev" title="19. Systém">Předchozí&nbsp;kapitola</a>&nbsp;|
-</span><a href="index.htm">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="zpracovani-textovych-souboru.htm" rel="next" title="21. Zpracování textových souborů">Následující&nbsp;kapitola</a>
-</span>
+
+<nav class="spodni">
+<a href="index.htm" class="naindex">🗐&nbsp;Přehled&nbsp;kapitol</a>
+<div class="naslkap">
+<a href="zpracovani-textovych-souboru.htm" rel="next" title="21. Zpracování textových souborů">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">21</span>
+<span class="nazev">Zpracování textových souborů</span></a>
+</div>
+<!--<div><a href="index.htm">🗐&nbsp;Přehled&nbsp;kapitol</a></div>-->
 <a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
 <a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
 </nav>
+
+
+<div class="odkazydole"><div><a href="barvy-a-titulek.htm"><img src="obrazky/ik/barvy-a-titulek.png" alt="" width="32" height="32">Barvy, titulek a výzva terminálu</a><a href="prace-s-archivy.htm"><img src="obrazky/ik/prace-s-archivy.png" alt="" width="32" height="32">Práce s archivy</a><a href="stahovani-videi.htm"><img src="obrazky/ik/stahovani-videi.png" alt="" width="32" height="32">Stahování videí</a></div></div>
 
 
 </article>
@@ -909,8 +953,9 @@ příručku i s velmi starou verzí Vimu (ne však s „vi“).
 <a href="#cast6" class="sekce">6 Zaklínadla: Ostatní</a>
 <a href="#cast6x1" class="podsekce">/1 Historie změn</a>
 <a href="#cast6x2" class="podsekce">/2 Makra</a>
-<a href="#cast6x3" class="podsekce">/3 Zvýraznění syntaxe</a>
-<a href="#cast6x4" class="podsekce">/4 Ostatní</a>
+<a href="#cast6x3" class="podsekce">/3 Správce souborů</a>
+<a href="#cast6x4" class="podsekce">/4 Zvýraznění syntaxe</a>
+<a href="#cast6x5" class="podsekce">/5 Ostatní</a>
 <a href="#cast7" class="sekce">7 Zaklínadla: Pohledy a panely</a>
 <a href="#cast7x1" class="podsekce">/1 Posun pohledu</a>
 <a href="#cast7x2" class="podsekce">/2 Práce s rozděleným panelem</a>

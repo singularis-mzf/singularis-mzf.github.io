@@ -5,16 +5,16 @@
 
 <title>Plán budoucího vývoje − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20200526.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200526-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200526-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200526-tmavy.css" title="Tmavý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20200628.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200628-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200628-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200628-tmavy.css" title="Tmavý motiv">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body>
 <div id="nahore"></div>
 <header>
-<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.8, D. D. (26. května 2020)</span>
+<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.9, E. E. (28. června 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -46,7 +46,8 @@
 <h1 class="kapitola">24. <img src="obrazky/ik-vychozi.png" alt="" width="64" height="64"> Plán budoucího vývoje</h1>
 
 <h2 id="cast1"><a href="#cast1"><span class="cislo">1.</span> Chystané kapitoly</a></h2>
-<ul class="kompaktni"><li>„Proměnné prostředí“ (printenv a další možnosti)
+<ul class="kompaktni"><li>„Proměnné prostředí a interpretu“
+</li><li>„Zpracování binárních souborů“ (md5sum, uuencode, base64, analýzy, konverze a další)
 </li><li>„Unicode a emotikony“ („mapa znaků“, vzorníky a různé symboly)
 </li><li>„Základy Perlu“ (jednoduše, konzistentně)
 </li><li>„Komplexní textové formáty“ (JSON, XML apod.)
@@ -54,18 +55,17 @@
 </li><li>„Šifrování a kryptografie“ (gpg, šifrování archivů, elektronické podpisy, HTTPS certifikáty)
 </li><li>„X (správce oken)“ (práce s okny, se schránkou, oznámení a další)
 </li><li>„Zpracování obrázků“ (ImageMagick, konverze RAW z fotoaparátů, zatím asi bez animovaných gifů)
-</li><li>„Zpracování binárních souborů“ (md5sum, uuencode, base64, analýzy, konverze a další)
 </li><li>„Firewall“ (asi hlavně iptables)
-</li><li>„GRUB“ (konfigurace, dualboot, nastavení grafického pozadí)
-</li><li>„Vim“ (základní a mírně pokročilé ovládání)
-</li><li>„Záznam obrazovky“ (maim, ffmpeg a další)
 </li><li>„Pevné a symbolické odkazy“
+</li><li>„Jádro a GRUB“ (konfigurace, dualboot, nastavení grafického pozadí)
+</li><li>„Záznam obrazovky“ (maim, ffmpeg a další)
 </li><li>„Bash“ (syntaxe, rozvoj proměnných, exec, přesměrování, roury a další)
 </li><li>„LaTeX“ (základní struktura dokumentu, standardní značky, překlad do PDF, důležité balíčky)
 </li><li>„SQL“ (SQLite, MySQL, MariaDB; všechno možné)
 </li><li>„ASCII art“ (banner, toilet a další)
 </li><li>„DOSBox“ (ovládání, konfigurace, spouštění)
 </li><li>„Wine“ (parametry, konfigurace, zkušenosti, wine-prefixy apod.)
+</li><li>„VirtualBox“ (ovládání z terminálu)
 </li><li>„Správa balíčků 2“ (apt-src, apt-mirror, aptly)
 </li><li>„Matematické výpočty“ (bc, dc, expr apod.)
 </li></ul><p class="ponadpisu">
@@ -87,16 +87,21 @@ i nadále v AWK.
 Plánuji však převod spouštěče „lkk“ do Perlu, tak aby GNU awk nebylo
 vyžadováno jako závislost balíčku „lkk“.
 </p>
-<div class="odkazydole"><a href="make.htm"><img src="obrazky/ik/make.png" alt="" width="32" height="32">Make</a><a href="prace-s-archivy.htm"><img src="obrazky/ik/prace-s-archivy.png" alt="" width="32" height="32">Práce s archivy</a><a href="sprava-procesu.htm"><img src="obrazky/ik/sprava-procesu.png" alt="" width="32" height="32">Správa procesů</a></div>
 
-<nav class="spodni"><span class="prev">
-<a href="koncepce-projektu.htm" rel="prev" title="23. Koncepce projektu Linux: Kniha kouzel">Předchozí&nbsp;kapitola</a>&nbsp;|
-</span><a href="index.htm">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="licence.htm" rel="next" title="25. Licence">Následující&nbsp;kapitola</a>
-</span>
+
+<nav class="spodni">
+<a href="index.htm" class="naindex">🗐&nbsp;Přehled&nbsp;kapitol</a>
+<div class="naslkap">
+<a href="licence.htm" rel="next" title="25. Licence">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">25</span>
+<span class="nazev">Licence</span></a>
+</div>
+<!--<div><a href="index.htm">🗐&nbsp;Přehled&nbsp;kapitol</a></div>-->
 <a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
 <a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
 </nav>
+
+
+<div class="odkazydole"><div><a href="regularni-vyrazy.htm"><img src="obrazky/ik/regularni-vyrazy.png" alt="" width="32" height="32">Regulární výrazy</a><a href="datum-cas-kalendar.htm"><img src="obrazky/ik/datum-cas-kalendar.png" alt="" width="32" height="32">Datum, čas a kalendář</a><a href="hledani-souboru.htm"><img src="obrazky/ik/hledani-souboru.png" alt="" width="32" height="32">Hledání souborů</a></div></div>
 
 
 </article>

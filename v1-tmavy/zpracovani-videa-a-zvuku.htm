@@ -5,16 +5,16 @@
 
 <title>Zpracování videa a zvuku − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20200526.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200526-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200526-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200526-tmavy.css" title="Tmavý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20200628.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200628-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200628-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200628-tmavy.css" title="Tmavý motiv">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body>
 <div id="nahore"></div>
 <header>
-<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.8, D. D. (26. května 2020)</span>
+<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.9, E. E. (28. června 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -248,16 +248,21 @@ pomocná propojení filtrů, kterým musíte vymyslet nové, v grafu filtrů do
 </div></div>
 
 <h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 22 (Zpracování videa a zvuku), sekce 3 (Zaklínadla (filtry)), podsekce 6 (Zapékání titulků)"><sup>3/</sup>6 Zapékání titulků</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z697596784"><span><a href="#z697596784">⁂</a></span></span><b>zapéci titulky</b> do obrazu (normálně)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z697596784"><span><a href="#z697596784">⁂</a></span></span><b>zapéci titulky</b> do obrazu (normálně)<span class="cislo">#1 </span><sup><a href="#kapzpracovanivideaazvukuppc15" id="kapzpracovanivideaazvukuppcr15" title="Pokud název souboru obsahuje mezery či jiné speciální znaky, uzavřete ho do apostrofů. Zadáváte-li graf filtrů přímo na příkazové řádce do apostrofů, musíte kvůli bashi apostrof zadat kombinací &quot;'\''&quot;.">(15)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">[<i class="dopln">vi</i>] subtitles=<i class="dopln">soubor-s-titulky</i> [<i class="dopln">vo</i>]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z842321178"><span><a href="#z842321178">⠳</a></span></span>zapéci titulky do obrazu (obecně/podtrženým červeným písmem Arial velikosti 48)<span class="cislo">#2 </span><sup><a href="#kapzpracovanivideaazvukuppc15" id="kapzpracovanivideaazvukuppcr15" title="Nastavení stylu jsou ve formátu ASS, přičemž znaky = a , musíte odzvláštnit kvůli ffmpegu.">(15)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z940578817"><span><a href="#z940578817">–</a></span></span>zapéci titulky s časovým posunem (opozdit titulky/opozdit video/příklad)<span class="cislo">#2 </span><sup><a href="#kapzpracovanivideaazvukuppc16" id="kapzpracovanivideaazvukuppcr16" title="Posun se zadává v sekundách s desetinnou částí, např. „2.0“ pro posun o dvě sekundy.">(16)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">[<i class="dopln">vi</i>] setpts=PTS-<i class="dopln">posun-sekund</i>/TB,subtitles=<i class="dopln">soubor-s-titulky</i>,setpts=PTS+<i class="dopln">posun-sekund</i>/TB [<i class="dopln">vo</i>]</div>
+<div class="radekzaklinadla">[<i class="dopln">vi</i>] setpts=PTS+<i class="dopln">posun-sekund</i>/TB,subtitles=<i class="dopln">soubor-s-titulky</i>,setpts=PTS-<i class="dopln">posun-sekund</i>/TB [<i class="dopln">vo</i>]</div>
+<div class="radekzaklinadla">[vst] setpts=PTS+1.25/TB,subtitles=titulky.srt,setpts=PTS-1.25/TB [vvyst]</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z842321178"><span><a href="#z842321178">⠳</a></span></span>zapéci titulky do obrazu (obecně/podtrženým červeným písmem Arial velikosti 48)<span class="cislo">#3 </span><sup><a href="#kapzpracovanivideaazvukuppc17" id="kapzpracovanivideaazvukuppcr17" title="Nastavení stylu jsou ve formátu ASS, přičemž znaky = a , musíte odzvláštnit kvůli ffmpegu.">(17)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">[<i class="dopln">vi</i>] subtitles=<i class="dopln">soubor-s-titulky</i><span class="volznak">[</span>:force_style=<i class="dopln">nastavení-stylu</i><span class="volznak">]</span> [<i class="dopln">vo</i>]</div>
 <div class="radekzaklinadla">[<i class="dopln">vi</i>] subtitles=<i class="dopln">soubor-s-titulky</i>:force_style=FontName\=Arial\,Fontsize\=48\,PrimaryColour\=&amp;H000000FF\,Underline\=1 [<i class="dopln">vo</i>]</div>
 </div></div>
 
 <h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 22 (Zpracování videa a zvuku), sekce 3 (Zaklínadla (filtry)), podsekce 7 (Roztmívačky, zatmívačky a další přechody (obr. i zvuku))"><sup>3/</sup>7 Roztmívačky, zatmívačky a další přechody (obr. i zvuku)</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1840830639"><span><a href="#z1840830639">♗</a></span></span>vložit roztmívačku/zatmívačku<span class="cislo">#1 </span><sup><a href="#kapzpracovanivideaazvukuppc16" id="kapzpracovanivideaazvukuppcr16" title="Všechny snímky před začátkem roztmívačky a za koncem zatmívačky budou nastaveny na uvedenou barvu, resp. zprůhledněny (je-li uveden parametr „alpha=1“).">(16)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1840830639"><span><a href="#z1840830639">♗</a></span></span>vložit roztmívačku/zatmívačku<span class="cislo">#1 </span><sup><a href="#kapzpracovanivideaazvukuppc18" id="kapzpracovanivideaazvukuppcr18" title="Všechny snímky před začátkem roztmívačky a za koncem zatmívačky budou nastaveny na uvedenou barvu, resp. zprůhledněny (je-li uveden parametr „alpha=1“).">(18)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">[<i class="dopln">vi</i>] fade=t=in:st=<i class="dopln">začátek</i>:d=<i class="dopln">trvání</i><span class="volznak">[</span>:c=<i class="dopln">barva</i><span class="volznak">]</span><span class="volznak">[</span>:alpha=1<span class="volznak">]</span> [<i class="dopln">vo</i>]</div>
 <div class="radekzaklinadla">[<i class="dopln">vi</i>] fade=t=out:st=<i class="dopln">začátek</i>:d=<i class="dopln">trvání</i><span class="volznak">[</span>:c=<i class="dopln">barva</i><span class="volznak">]</span><span class="volznak">[</span>:alpha=1<span class="volznak">]</span> [<i class="dopln">vo</i>]</div>
 </div></div>
@@ -265,15 +270,15 @@ pomocná propojení filtrů, kterým musíte vymyslet nové, v grafu filtrů do
 <div class="radekzaklinadla">[<i class="dopln">ai</i>][<i class="dopln">ai</i>] acrossfade=d=7:c1=exp:c2=exp [<i class="dopln">ao</i>]</div>
 <div class="radekzaklinadla">[<i class="dopln">ai</i>][<i class="dopln">ai</i>] acrossfade=d=<i class="dopln">trvání-prolínačky</i>:c1=<i class="dopln">funkce-zatmívačky</i>:c2=<i class="dopln">funkce-roztmívačky</i> [<i class="dopln">ao</i>]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z554796024"><span><a href="#z554796024">▹</a></span></span>spojit za sebe dva <b>obrazové</b> vstupy <b>prolínačkou</b> (konkrétně sedmisekundovou/obecně)<span class="cislo">#3 </span><sup><a href="#kapzpracovanivideaazvukuppc17" id="kapzpracovanivideaazvukuppcr17" title="Tip: Pro pochopení fungování této konstrukce důrazně doporučuji si uvedený graf filtrů nakreslit.">(17)</a>,&nbsp;<a href="#kapzpracovanivideaazvukuppc18" id="kapzpracovanivideaazvukuppcr18" title="Začátek prolínačky zde znamená počet sekund od začátku prvního videa, kdy má prolínačka začít. Tento počet sekund je nutno předem zjistit.">(18)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z554796024"><span><a href="#z554796024">▹</a></span></span>spojit za sebe dva <b>obrazové</b> vstupy <b>prolínačkou</b> (konkrétně sedmisekundovou/obecně)<span class="cislo">#3 </span><sup><a href="#kapzpracovanivideaazvukuppc19" id="kapzpracovanivideaazvukuppcr19" title="Tip: Pro pochopení fungování této konstrukce důrazně doporučuji si uvedený graf filtrů nakreslit.">(19)</a>,&nbsp;<a href="#kapzpracovanivideaazvukuppc20" id="kapzpracovanivideaazvukuppcr20" title="Začátek prolínačky zde znamená počet sekund od začátku prvního videa, kdy má prolínačka začít. Tento počet sekund je nutno předem zjistit.">(20)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">[prvnivideo] split [x1][x2];[x2] trim=0:5.12 [x3];[x3][druhevideo] concat=n=2:v=1:a=0 [x4];[x1] fade=out:st=5.12:d=7.0:alpha=1 [x5];[x4][x5] overlay=eof_action=pass [vystup]</div>
 <div class="radekzaklinadla">[<i class="dopln">vi</i>] split [<i class="dopln">io1</i>][<i class="dopln">io2</i>];[<i class="dopln">io2</i>] trim=0:<i class="dopln">začátek</i> [<i class="dopln">io3</i>];[<i class="dopln">io3</i>][<i class="dopln">vi</i>] concat=n=2:v=1:a=0 [<i class="dopln">io4</i>];[<i class="dopln">io1</i>] fade=out:st={<i>začátek</i>}:d={<i>trvání</i>}:alpha=1 [<i class="dopln">io5</i>];[<i class="dopln">io4</i>][<i class="dopln">io5</i>] overlay=eof_action=pass [<i class="dopln">vo</i>]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z623919552"><span><a href="#z623919552">⚈</a></span></span>aplikovat <b>zvukovou</b> zatmívačku/roztmívačku<span class="cislo">#4 </span><sup><a href="#kapzpracovanivideaazvukuppc19" id="kapzpracovanivideaazvukuppcr19" title="Podporované tvary jsou: tri, qsin, hsin, esin, log, ipar, qua, cub, squ, cbr, par, exp, iqsin, ihsin, dese. Poznámka: Veškerý zvuk po konci zatmívačky, resp. začátkem roztmívačky bude tímto filtrem nahrazen tichem.">(19)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z623919552"><span><a href="#z623919552">⚈</a></span></span>aplikovat <b>zvukovou</b> zatmívačku/roztmívačku<span class="cislo">#4 </span><sup><a href="#kapzpracovanivideaazvukuppc21" id="kapzpracovanivideaazvukuppcr21" title="Podporované tvary jsou: tri, qsin, hsin, esin, log, ipar, qua, cub, squ, cbr, par, exp, iqsin, ihsin, dese. Poznámka: Veškerý zvuk po konci zatmívačky, resp. začátkem roztmívačky bude tímto filtrem nahrazen tichem.">(21)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">[<i class="dopln">ai</i>] afade=out:st=<i class="dopln">čas-začátku</i>:d=<i class="dopln">trvání-v-s</i>:curve=<i class="dopln">tvar</i> [<i class="dopln">ao</i>]</div>
 <div class="radekzaklinadla">[<i class="dopln">ai</i>] afade=in:st=<i class="dopln">čas-začátku</i>:d=<i class="dopln">trvání-v-s</i>:curve=<i class="dopln">tvar</i> [<i class="dopln">ao</i>]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2080308015"><span><a href="#z2080308015">∦</a></span></span>roztmívačka/zatmívačka saturace<span class="cislo">#5 </span><sup><a href="#kapzpracovanivideaazvukuppc20" id="kapzpracovanivideaazvukuppcr20" title="Čas začátku a trvání efektu jsou v sekundách.">(20)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2080308015"><span><a href="#z2080308015">∦</a></span></span>roztmívačka/zatmívačka saturace<span class="cislo">#5 </span><sup><a href="#kapzpracovanivideaazvukuppc22" id="kapzpracovanivideaazvukuppcr22" title="Čas začátku a trvání efektu jsou v sekundách.">(22)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">[<i class="dopln">vi</i>] hue=s=max(0\,min(1\,(t - <i class="dopln">začátek</i>)/<i class="dopln">trvání</i>)) [<i class="dopln">vo</i>]</div>
 <div class="radekzaklinadla">[<i class="dopln">vi</i>] hue=s=max(0\,min(1\,(<i class="dopln">začátek</i> - t)/<i class="dopln">trvání</i>)) [<i class="dopln">vo</i>]</div>
 </div></div>
@@ -282,12 +287,12 @@ pomocná propojení filtrů, kterým musíte vymyslet nové, v grafu filtrů do
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1142852493"><span><a href="#z1142852493">▌</a></span></span>zakrýt/odstranit logo nebo jiný <b>rušivý element</b> z obrazu<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">[<i class="dopln">vi</i>] delogo=x=<i class="dopln">posun-x-zleva</i>:y=<i class="dopln">posun-y-shora</i>:w=<i class="dopln">šířka</i>:h=<i class="dopln">výška</i> [<i class="dopln">vo</i>]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1211768402"><span><a href="#z1211768402">☢</a></span></span><b>zneviditelnit předmět</b><span class="cislo">#2 </span><sup><a href="#kapzpracovanivideaazvukuppc21" id="kapzpracovanivideaazvukuppcr21" title="Mapa by měla mít stejný rozměr jako video a musí obsahovat bílé pixely na pozicích, kde je na videu předmět k odstranění, a černé pixely na místech, která se nemají změnit. Tento filtr je pro oblasti výpočetně náročný, proto by měla být drtivá většina pixelů mapy zcela černá.">(21)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1211768402"><span><a href="#z1211768402">☢</a></span></span><b>zneviditelnit předmět</b><span class="cislo">#2 </span><sup><a href="#kapzpracovanivideaazvukuppc23" id="kapzpracovanivideaazvukuppcr23" title="Mapa by měla mít stejný rozměr jako video a musí obsahovat bílé pixely na pozicích, kde je na videu předmět k odstranění, a černé pixely na místech, která se nemají změnit. Tento filtr je pro oblasti výpočetně náročný, proto by měla být drtivá většina pixelů mapy zcela černá.">(23)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">[<i class="dopln">vi</i>] removelogo=<i class="dopln">obrázek-s-mapou.png</i> [<i class="dopln">vo</i>]</div>
 </div></div>
 
 <h3 id="cast3x9"><span><a href="#cast3x9" title="kapitola 22 (Zpracování videa a zvuku), sekce 3 (Zaklínadla (filtry)), podsekce 9 (Vykreslování do videa)"><sup>3/</sup>9 Vykreslování do videa</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1241359009"><span><a href="#z1241359009">ꙩ</a></span></span><b>obdelník</b><span class="cislo">#1 </span><sup><a href="#kapzpracovanivideaazvukuppc22" id="kapzpracovanivideaazvukuppcr22" title="Volba invert vykreslí invertující rámeček; volba fill zajistí vyplněný obdelník.">(22)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1241359009"><span><a href="#z1241359009">ꙩ</a></span></span><b>obdelník</b><span class="cislo">#1 </span><sup><a href="#kapzpracovanivideaazvukuppc24" id="kapzpracovanivideaazvukuppcr24" title="Volba invert vykreslí invertující rámeček; volba fill zajistí vyplněný obdelník.">(24)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">[<i class="dopln">vi</i>] drawbox=<i class="dopln">posun-x-zleva</i>:<i class="dopln">posun-y-shora</i>:<i class="dopln">šířka</i>:<i class="dopln">výška</i>:<i class="dopln">barva-nebo-invert</i><span class="volznak">[</span>@<i class="dopln">krytí-0-až-1</i><span class="volznak">]</span><span class="volznak">[</span>:<i class="dopln">tloušťka-nebo-fill</i><span class="volznak">]</span> [<i class="dopln">vo</i>]</div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z141641343"><span><a href="#z141641343">⎜</a></span></span>trojúhelník<span class="cislo">#2 </span></div><div class="radky">
@@ -301,10 +306,10 @@ pomocná propojení filtrů, kterým musíte vymyslet nové, v grafu filtrů do
 </div></div>
 
 <h3 id="cast3x10"><span><a href="#cast3x10" title="kapitola 22 (Zpracování videa a zvuku), sekce 3 (Zaklínadla (filtry)), podsekce 10 (Ostatní)"><sup>3/</sup>10 Ostatní</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1625301506"><span><a href="#z1625301506">⡬</a></span></span>odstranit <b>prokládání</b><span class="cislo">#1 </span><sup><a href="#kapzpracovanivideaazvukuppc23" id="kapzpracovanivideaazvukuppcr23" title="Odstranění prokládání zvýší fps na dvojnásobek. Existuje na ně i mnoho dalších filtrů.">(23)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1625301506"><span><a href="#z1625301506">⡬</a></span></span>odstranit <b>prokládání</b><span class="cislo">#1 </span><sup><a href="#kapzpracovanivideaazvukuppc25" id="kapzpracovanivideaazvukuppcr25" title="Odstranění prokládání zvýší fps na dvojnásobek. Existuje na ně i mnoho dalších filtrů.">(25)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">[<i class="dopln">vi</i>] yadif [<i class="dopln">vo</i>]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z108927033"><span><a href="#z108927033">⋏</a></span></span>proložit obraz<span class="cislo">#2 </span><sup><a href="#kapzpracovanivideaazvukuppc24" id="kapzpracovanivideaazvukuppcr24" title="Prokláďání obrazu sníží fps na polovinu.">(24)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z108927033"><span><a href="#z108927033">⋏</a></span></span>proložit obraz<span class="cislo">#2 </span><sup><a href="#kapzpracovanivideaazvukuppc26" id="kapzpracovanivideaazvukuppcr26" title="Prokláďání obrazu sníží fps na polovinu.">(26)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">[<i class="dopln">vi</i>] interlace [<i class="dopln">vo</i>]</div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1864321425"><span><a href="#z1864321425">⠅</a></span></span>aplikovat na obraz <b>Sobelův operátor</b> detekce hran<span class="cislo">#3 </span></div><div class="radky">
@@ -315,21 +320,21 @@ pomocná propojení filtrů, kterým musíte vymyslet nové, v grafu filtrů do
 </div></div>
 
 <h3 id="cast3x11"><span><a href="#cast3x11" title="kapitola 22 (Zpracování videa a zvuku), sekce 3 (Zaklínadla (filtry)), podsekce 11 (Nízkoúrovňové manipulace)"><sup>3/</sup>11 Nízkoúrovňové manipulace</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z195896787"><span><a href="#z195896787">✣</a></span></span>nahradit všechny pixely barvou/průhledností při zachování ostatních parametrů stopy<span class="cislo">#1 </span><sup><a href="#kapzpracovanivideaazvukuppc25" id="kapzpracovanivideaazvukuppcr25" title="Ačkoliv stejného efektu můžete dosáhnout i použitím univerzálních nízkoúrovňových filtrů, použití filtru „fade“ by mělo být výrazně rychlejší.">(25)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z195896787"><span><a href="#z195896787">✣</a></span></span>nahradit všechny pixely barvou/průhledností při zachování ostatních parametrů stopy<span class="cislo">#1 </span><sup><a href="#kapzpracovanivideaazvukuppc27" id="kapzpracovanivideaazvukuppcr27" title="Ačkoliv stejného efektu můžete dosáhnout i použitím univerzálních nízkoúrovňových filtrů, použití filtru „fade“ by mělo být výrazně rychlejší.">(27)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">[<i class="dopln">vi</i>] fade=t=in:s=2G:c=<i class="dopln">barva</i> [<i class="dopln">vo</i>]</div>
 <div class="radekzaklinadla">[<i class="dopln">vi</i>] fade=t=in:s=2G:alpha=1 [<i class="dopln">vo</i>]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z177601748"><span><a href="#z177601748">䷛</a></span></span>aplikovat výraz po pixelech<span class="cislo">#2 </span><sup><a href="#kapzpracovanivideaazvukuppc26" id="kapzpracovanivideaazvukuppcr26" title="K tomuto úkolu slouží filtr „geq“, ale jeho efektivní použití je náročné a vyžaduje pochopení formátu pixelu a barevných kanálů U a V. Rovněž se mi nepodařilo s ním upravit alfa-kanál.">(26)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z177601748"><span><a href="#z177601748">䷛</a></span></span>aplikovat výraz po pixelech<span class="cislo">#2 </span><sup><a href="#kapzpracovanivideaazvukuppc28" id="kapzpracovanivideaazvukuppcr28" title="K tomuto úkolu slouží filtr „geq“, ale jeho efektivní použití je náročné a vyžaduje pochopení formátu pixelu a barevných kanálů U a V. Rovněž se mi nepodařilo s ním upravit alfa-kanál.">(28)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1716434696"><span><a href="#z1716434696">⣝</a></span></span>sestavit každý nový snímek z pixelů původního (obecně/příklad)<span class="cislo">#3 </span><sup><a href="#kapzpracovanivideaazvukuppc27" id="kapzpracovanivideaazvukuppcr27" title="Ve výrazech můžete použít souřadnice výstupního pixelu „(X/SW)“ a „(Y/SH)“, šířku snímku „(W/SW)“, výšku snímku „(H/SH)“, čas v sekundách „T“ a sekvenční číslo snímku „N“. Souřadnice mimo rozsah budou zarovnány na nejbližší platnou hodnotu.">(27)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1716434696"><span><a href="#z1716434696">⣝</a></span></span>sestavit každý nový snímek z pixelů původního (obecně/příklad)<span class="cislo">#3 </span><sup><a href="#kapzpracovanivideaazvukuppc29" id="kapzpracovanivideaazvukuppcr29" title="Ve výrazech můžete použít souřadnice výstupního pixelu „(X/SW)“ a „(Y/SH)“, šířku snímku „(W/SW)“, výšku snímku „(H/SH)“, čas v sekundách „T“ a sekvenční číslo snímku „N“. Souřadnice mimo rozsah budou zarovnány na nejbližší platnou hodnotu.">(29)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">[<i class="dopln">vi</i>] geq=p(SW*(<i class="dopln">výraz-x</i>)\,SH*(<i class="dopln">výraz-y</i>)) [<i class="dopln">vo</i>]</div>
 <div class="radekzaklinadla">[video] geq=p(SW*((X/SW)+100)\,SH*((Y/SH)+150)) [<i class="dopln">vo</i>]</div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z274558898"><span><a href="#z274558898">∺</a></span></span>oříznout hodnoty složek obrazu (kromě alfa-kanálu)<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">[<i class="dopln">vi</i>] limiter=<span class="volznak">[</span>min=<i class="dopln">minimum</i><span class="volznak">]</span><span class="volznak">[</span>:max=<i class="dopln">maximum</i><span class="volznak">]</span> [<i class="dopln">vo</i>]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1012681443"><span><a href="#z1012681443">⇿</a></span></span>aplikovat na zvukové vzorky obecný výraz<span class="cislo">#5 </span><sup><a href="#kapzpracovanivideaazvukuppc28" id="kapzpracovanivideaazvukuppcr28" title="Ve výrazu můžeme použít: hodnotu prvního/druhého kanálu (val(0)/val(1)), čas vzorku v sekundách (t), číslo vzorku (n), číslo počítaného kanálu (ch), původní počet kanálů (nb_in_channels), vzorkovací frekvenci (s).">(28)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1012681443"><span><a href="#z1012681443">⇿</a></span></span>aplikovat na zvukové vzorky obecný výraz<span class="cislo">#5 </span><sup><a href="#kapzpracovanivideaazvukuppc30" id="kapzpracovanivideaazvukuppcr30" title="Ve výrazu můžeme použít: hodnotu prvního/druhého kanálu (val(0)/val(1)), čas vzorku v sekundách (t), číslo vzorku (n), číslo počítaného kanálu (ch), původní počet kanálů (nb_in_channels), vzorkovací frekvenci (s).">(30)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">[<i class="dopln">ai</i>] aeval=<i class="dopln">výraz</i><span class="volznak">[</span>|<i class="dopln">výraz-pro-druhý-kanál</i><span class="volznak">]</span>:c=same [<i class="dopln">ao</i>]</div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1104623575"><span><a href="#z1104623575">Ꙕ</a></span></span>vynásobit vzorky dvou vstupů<span class="cislo">#6 </span></div><div class="radky">
@@ -340,13 +345,13 @@ pomocná propojení filtrů, kterým musíte vymyslet nové, v grafu filtrů do
 </div></div>
 
 <h3 id="cast3x12"><span><a href="#cast3x12" title="kapitola 22 (Zpracování videa a zvuku), sekce 3 (Zaklínadla (filtry)), podsekce 12 (Manipulace obrazu po snímcích)"><sup>3/</sup>12 Manipulace obrazu po snímcích</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1194854609"><span><a href="#z1194854609">┱</a></span></span><b>prohazovat a zahazovat snímky</b> podle zadaného klíče<span class="cislo">#1 </span><sup><a href="#kapzpracovanivideaazvukuppc29" id="kapzpracovanivideaazvukuppcr29" title="Filtr načte do vstupního bufferu tolik snímků ze vstupu, kolik jste zadal/a indexů. Následně na výstup vybírá snímky z bufferu podle indexů, které jste uvedli. Indexy se mohou opakovat a lze uvést speciální index -1, který způsobí vynechání snímku na výstupu (zahození).">(29)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1194854609"><span><a href="#z1194854609">┱</a></span></span><b>prohazovat a zahazovat snímky</b> podle zadaného klíče<span class="cislo">#1 </span><sup><a href="#kapzpracovanivideaazvukuppc31" id="kapzpracovanivideaazvukuppcr31" title="Filtr načte do vstupního bufferu tolik snímků ze vstupu, kolik jste zadal/a indexů. Následně na výstup vybírá snímky z bufferu podle indexů, které jste uvedli. Indexy se mohou opakovat a lze uvést speciální index -1, který způsobí vynechání snímku na výstupu (zahození).">(31)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">[<i class="dopln">vi</i>] shuffleframes=<i class="dopln">indexy dělené mezerami</i> [<i class="dopln">vo</i>]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z610320384"><span><a href="#z610320384">≮</a></span></span><b>náhodně prohazovat snímky</b> v čase (snímky se do bufferu vkládají sekvenčně a vybírají v náhodném pořadí)<span class="cislo">#2 </span><sup><a href="#kapzpracovanivideaazvukuppc30" id="kapzpracovanivideaazvukuppcr30" title="Velikost bufferu musí být v rozmezí 2 až 512 (výchozí hodnota je 30); snímky se do bufferu vkládají sekvenčně a vybírají se v náhodném pořadí.">(30)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z610320384"><span><a href="#z610320384">≮</a></span></span><b>náhodně prohazovat snímky</b> v čase (snímky se do bufferu vkládají sekvenčně a vybírají v náhodném pořadí)<span class="cislo">#2 </span><sup><a href="#kapzpracovanivideaazvukuppc32" id="kapzpracovanivideaazvukuppcr32" title="Velikost bufferu musí být v rozmezí 2 až 512 (výchozí hodnota je 30); snímky se do bufferu vkládají sekvenčně a vybírají se v náhodném pořadí.">(32)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">[<i class="dopln">vi</i>] random=<i class="dopln">velikost-bufferu</i> [<i class="dopln">vo</i>]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1675134399"><span><a href="#z1675134399">⢶</a></span></span>z každé dávky snímků vybrat ten nejreprezentativnější a ten roztáhnout na celou délku dávky<span class="cislo">#3 </span><sup><a href="#kapzpracovanivideaazvukuppc31" id="kapzpracovanivideaazvukuppcr31" title="Má velké paměťové nároky, nepoužívat pro velký počet snímků; rozumný je tak maximálně 1000.">(31)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1675134399"><span><a href="#z1675134399">⢶</a></span></span>z každé dávky snímků vybrat ten nejreprezentativnější a ten roztáhnout na celou délku dávky<span class="cislo">#3 </span><sup><a href="#kapzpracovanivideaazvukuppc33" id="kapzpracovanivideaazvukuppcr33" title="Má velké paměťové nároky, nepoužívat pro velký počet snímků; rozumný je tak maximálně 1000.">(33)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">[<i class="dopln">vi</i>] thumbnail=<i class="dopln">počet-snímků-na-dávku</i> [<i class="dopln">vo</i>]</div>
 </div></div>
 
@@ -355,7 +360,7 @@ pomocná propojení filtrů, kterým musíte vymyslet nové, v grafu filtrů do
 <div class="radekzaklinadla">[<i class="dopln">ai</i>] volume=0.1 [<i class="dopln">ao</i>]</div>
 <div class="radekzaklinadla">[<i class="dopln">ai</i>] volume=5.0 [<i class="dopln">ao</i>]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1540272403"><span><a href="#z1540272403">←</a></span></span>přidat <b>ozvěnu</b><span class="cislo">#2 </span><sup><a href="#kapzpracovanivideaazvukuppc32" id="kapzpracovanivideaazvukuppcr32" title="Hlasitost ozvěny je v rozsahu 0 až 1.0 a nesmí být 0. Filtr mírně sníží hlasitost původních zvuků, je potřeba ji vyladit.">(32)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1540272403"><span><a href="#z1540272403">←</a></span></span>přidat <b>ozvěnu</b><span class="cislo">#2 </span><sup><a href="#kapzpracovanivideaazvukuppc34" id="kapzpracovanivideaazvukuppcr34" title="Hlasitost ozvěny je v rozsahu 0 až 1.0 a nesmí být 0. Filtr mírně sníží hlasitost původních zvuků, je potřeba ji vyladit.">(34)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">[<i class="dopln">ai</i>] aecho=0.6:0.3:<i class="dopln">ms-zpoždění</i>:<i class="dopln">hlasitost-ozvěny</i> [<i class="dopln">ao</i>]</div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1108735599"><span><a href="#z1108735599">☶</a></span></span>přidat dvě a více ozvěn<span class="cislo">#3 </span></div><div class="radky">
@@ -375,7 +380,7 @@ pomocná propojení filtrů, kterým musíte vymyslet nové, v grafu filtrů do
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z932534943"><span><a href="#z932534943">⚦</a></span></span>zvýraznit rozdíl mezi stereokanály<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">[<i class="dopln">ai</i>] extrastereo<span class="volznak">[</span>=<i class="dopln">koeficient</i><span class="volznak">]</span> [<i class="dopln">ao</i>]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1745644092"><span><a href="#z1745644092">⇕</a></span></span>rozkolísat amplitudu/fázi zvuku<span class="cislo">#4 </span><sup><a href="#kapzpracovanivideaazvukuppc33" id="kapzpracovanivideaazvukuppcr33" title="Frekvence je v rozsahu 0.1 až 20000; rozumně slyšitelné jsou hodnoty do 20 Hz. Síla je v rozsahu 0.0 až 1.0.">(33)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1745644092"><span><a href="#z1745644092">⇕</a></span></span>rozkolísat amplitudu/fázi zvuku<span class="cislo">#4 </span><sup><a href="#kapzpracovanivideaazvukuppc35" id="kapzpracovanivideaazvukuppcr35" title="Frekvence je v rozsahu 0.1 až 20000; rozumně slyšitelné jsou hodnoty do 20 Hz. Síla je v rozsahu 0.0 až 1.0.">(35)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">[<i class="dopln">ai</i>] tremolo=f=<i class="dopln">frekvence-Hz</i><span class="volznak">[</span>:d=<i class="dopln">síla</i><span class="volznak">]</span> [<i class="dopln">ao</i>]</div>
 <div class="radekzaklinadla">[<i class="dopln">ai</i>] vibrato=f=<i class="dopln">frekvence-Hz</i><span class="volznak">[</span>:d=<i class="dopln">síla</i><span class="volznak">]</span> [<i class="dopln">ao</i>]</div>
 </div></div>
@@ -385,7 +390,7 @@ pomocná propojení filtrů, kterým musíte vymyslet nové, v grafu filtrů do
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1655557359"><span><a href="#z1655557359">╡</a></span></span><b>za stopu</b><span class="cislo">#2 </span><sup><a href="#kapzpracovanivideaazvukuppc34" id="kapzpracovanivideaazvukuppcr34" title="V případě opakovaného použití v rámci jednoho grafu filtrů nahraďte identifikátor „tmpticho“ při každém použití jiným identifikátorem.">(34)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1655557359"><span><a href="#z1655557359">╡</a></span></span><b>za stopu</b><span class="cislo">#2 </span><sup><a href="#kapzpracovanivideaazvukuppc36" id="kapzpracovanivideaazvukuppcr36" title="V případě opakovaného použití v rámci jednoho grafu filtrů nahraďte identifikátor „tmpticho“ při každém použití jiným identifikátorem.">(36)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">anoisesrc=a=0:d=<i class="dopln">trvání-v-s</i> [<i class="dopln">io1</i>]; [<i class="dopln">ai</i>][<i class="dopln">io1</i>] concat=n=2:v=0:a=1 [<i class="dopln">ao</i>]</div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z965806064"><span><a href="#z965806064">ⵞ</a></span></span><b>nadstavení</b> zvuku na určitou délku<span class="cislo">#3 </span></div><div class="radky">
@@ -402,7 +407,7 @@ pomocná propojení filtrů, kterým musíte vymyslet nové, v grafu filtrů do
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z35358346"><span><a href="#z35358346">◭</a></span></span>smíchat kanály stereo-stopy do mono-stopy<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">[<i class="dopln">ai</i>] channelsplit,amix,channelmap=0-mono:mono [<i class="dopln">ao</i>]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z468047223"><span><a href="#z468047223">≫</a></span></span>sloučit kanály stereo-stopy do mono-stopy daným výrazem<span class="cislo">#3 </span><sup><a href="#kapzpracovanivideaazvukuppc35" id="kapzpracovanivideaazvukuppcr35" title="Hodnota první stopy je „val(0)“ a hodnota druhé „val(1)“.">(35)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z468047223"><span><a href="#z468047223">≫</a></span></span>sloučit kanály stereo-stopy do mono-stopy daným výrazem<span class="cislo">#3 </span><sup><a href="#kapzpracovanivideaazvukuppc37" id="kapzpracovanivideaazvukuppcr37" title="Hodnota první stopy je „val(0)“ a hodnota druhé „val(1)“.">(37)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">[<i class="dopln">ai</i>] <span class="volznak">[</span>channelmap=FR-0|FL-1,<span class="volznak">]</span>aeval=<i class="dopln">výraz</i>:c=mono [<i class="dopln">ao</i>]</div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2049140298"><span><a href="#z2049140298">➥</a></span></span>rozdělit stereo-stopu na FR a FL stopu/na dvě mono-stopy („pravou“ a „levou“)<span class="cislo">#4 </span></div><div class="radky">
@@ -418,7 +423,7 @@ pomocná propojení filtrů, kterým musíte vymyslet nové, v grafu filtrů do
 </div></div>
 
 <h3 id="cast3x17"><span><a href="#cast3x17" title="kapitola 22 (Zpracování videa a zvuku), sekce 3 (Zaklínadla (filtry)), podsekce 17 (Generátory a čtení „bokem“)"><sup>3/</sup>17 Generátory a čtení „bokem“</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1299447815"><span><a href="#z1299447815">✢</a></span></span>bílý/jiný <b>šum</b><span class="cislo">#1 </span><sup><a href="#kapzpracovanivideaazvukuppc36" id="kapzpracovanivideaazvukuppcr36" title="Amplituda se uvádí v rozsahu 0 až 1. Místo white lze použít také pink, brown, blue a violet.">(36)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1299447815"><span><a href="#z1299447815">✢</a></span></span>bílý/jiný <b>šum</b><span class="cislo">#1 </span><sup><a href="#kapzpracovanivideaazvukuppc38" id="kapzpracovanivideaazvukuppcr38" title="Amplituda se uvádí v rozsahu 0 až 1. Místo white lze použít také pink, brown, blue a violet.">(38)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">anoisesrc=c=white<span class="volznak">[</span>:d=<i class="dopln">trvání-v-s</i><span class="volznak">]</span><span class="volznak">[</span>:a=<i class="dopln">amplituda</i><span class="volznak">]</span><span class="volznak">[</span>:r=<i class="dopln">vzorkovací-frekvence</i><span class="volznak">]</span> [<i class="dopln">ao</i>]</div>
 <div class="radekzaklinadla">anoisesrc=c=<i class="dopln">druh-šumu</i><span class="volznak">[</span>:d=<i class="dopln">trvání-v-s</i><span class="volznak">]</span><span class="volznak">[</span>:a=<i class="dopln">amplituda</i><span class="volznak">]</span><span class="volznak">[</span>:r=<i class="dopln">vzorkovací-frekvence</i><span class="volznak">]</span> [<i class="dopln">ao</i>]</div>
 </div></div>
@@ -430,10 +435,10 @@ pomocná propojení filtrů, kterým musíte vymyslet nové, v grafu filtrů do
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1032695746"><span><a href="#z1032695746">⇿</a></span></span><b>ticho</b><span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">anoisesrc=a=0<span class="volznak">[</span>:d=<i class="dopln">trvání-v-s</i><span class="volznak">]</span><span class="volznak">[</span>:r=<i class="dopln">vzorkovací-frekvence</i><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z538866123"><span><a href="#z538866123">⡝</a></span></span><b>tón</b> o zadané frekvenci<span class="cislo">#4 </span><sup><a href="#kapzpracovanivideaazvukuppc37" id="kapzpracovanivideaazvukuppcr37" title="V praxi může být nutno zvýšit výchozí hodnotu parametru „samples_per_frame“, ale nemám s tím zkušenosti. Amplituda generovaného signálu je 1/8.">(37)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z538866123"><span><a href="#z538866123">⡝</a></span></span><b>tón</b> o zadané frekvenci<span class="cislo">#4 </span><sup><a href="#kapzpracovanivideaazvukuppc39" id="kapzpracovanivideaazvukuppcr39" title="V praxi může být nutno zvýšit výchozí hodnotu parametru „samples_per_frame“, ale nemám s tím zkušenosti. Amplituda generovaného signálu je 1/8.">(39)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sine=f=<i class="dopln">frekvence-v-Hz</i><span class="volznak">[</span>:d=<i class="dopln">trvání-v-s</i><span class="volznak">]</span><span class="volznak">[</span>:r=<i class="dopln">vzorkovací-frekvence</i><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1914795493"><span><a href="#z1914795493">♅</a></span></span>černý/modrý/poloprůhledný zelený/zcela průhledný obraz<span class="cislo">#5 </span><sup><a href="#kapzpracovanivideaazvukuppc38" id="kapzpracovanivideaazvukuppcr38" title="Nejsou-li zadány parametry „d“ a „r“, výstup generátoru bude nekonečný s fps 25.">(38)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1914795493"><span><a href="#z1914795493">♅</a></span></span>černý/modrý/poloprůhledný zelený/zcela průhledný obraz<span class="cislo">#5 </span><sup><a href="#kapzpracovanivideaazvukuppc40" id="kapzpracovanivideaazvukuppcr40" title="Nejsou-li zadány parametry „d“ a „r“, výstup generátoru bude nekonečný s fps 25.">(40)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">color=c=#000000:s=<i class="dopln">šířka</i>x<i class="dopln">výška</i><span class="volznak">[</span>:r=<i class="dopln">fps</i><span class="volznak">]</span><span class="volznak">[</span>:d=<i class="dopln">trvání-v-sekundách</i><span class="volznak">]</span></div>
 <div class="radekzaklinadla">color=c=#0000FF:s=<i class="dopln">šířka</i>x<i class="dopln">výška</i><span class="volznak">[</span>:r=<i class="dopln">fps</i><span class="volznak">]</span><span class="volznak">[</span>:d=<i class="dopln">trvání-v-sekundách</i><span class="volznak">]</span></div>
 <div class="radekzaklinadla">color=c=#00FF0080:s=<i class="dopln">šířka</i>x<i class="dopln">výška</i><span class="volznak">[</span>:r=<i class="dopln">fps</i><span class="volznak">]</span><span class="volznak">[</span>:d=<i class="dopln">trvání-v-sekundách</i><span class="volznak">]</span></div>
@@ -481,7 +486,7 @@ a platí pouze pro daný výstup.
 </div></div>
 
 <h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 22 (Zpracování videa a zvuku), sekce 4 (Zaklínadla (příkaz ffmpeg)), podsekce 1 (Globální parametry)"><sup>4/</sup>1 Globální parametry</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1785308602"><span><a href="#z1785308602">❨</a></span></span>nastavit <b>graf filtrů</b>/načíst ho ze souboru<span class="cislo">#1 </span><sup><a href="#kapzpracovanivideaazvukuppc39" id="kapzpracovanivideaazvukuppcr39" title="Některá zaklínadla v této kapitole používají vložené příkazy bashe pomocí syntaxe „'&quot;$(příkaz)&quot;'“; tyto konstrukce budou v dané podobě fungovat jen na příkazové řádce.">(39)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1785308602"><span><a href="#z1785308602">❨</a></span></span>nastavit <b>graf filtrů</b>/načíst ho ze souboru<span class="cislo">#1 </span><sup><a href="#kapzpracovanivideaazvukuppc41" id="kapzpracovanivideaazvukuppcr41" title="Některá zaklínadla v této kapitole používají vložené příkazy bashe pomocí syntaxe „'&quot;$(příkaz)&quot;'“; tyto konstrukce budou v dané podobě fungovat jen na příkazové řádce.">(41)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">-filter_complex '<i class="dopln">graf filtrů</i>'</div>
 <div class="radekzaklinadla">-filter_complex_script <i class="dopln">soubor</i></div>
 </div></div>
@@ -494,17 +499,17 @@ a platí pouze pro daný výstup.
 </div></div>
 
 <h3 id="cast4x2"><span><a href="#cast4x2" title="kapitola 22 (Zpracování videa a zvuku), sekce 4 (Zaklínadla (příkaz ffmpeg)), podsekce 2 (Výstupní parametry)"><sup>4/</sup>2 Výstupní parametry</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z747625420"><span><a href="#z747625420">ⵢ</a></span></span>pro obrazové stopy: nastavit kodek/nepřekódovávat/zakázat výstup<span class="cislo">#1 </span><sup><a href="#kapzpracovanivideaazvukuppc40" id="kapzpracovanivideaazvukuppcr40" title="Doporučené kodeky: „h264“ (synonymum „libx264“), „mpeg4“ (starší), „rawvideo“ (opatrně). Další použitelné kodeky: „gif“. Při generování série obrázků: „png“, „tiff“, „mjpeg“.">(40)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z747625420"><span><a href="#z747625420">ⵢ</a></span></span>pro obrazové stopy: nastavit kodek/nepřekódovávat/zakázat výstup<span class="cislo">#1 </span><sup><a href="#kapzpracovanivideaazvukuppc42" id="kapzpracovanivideaazvukuppcr42" title="Doporučené kodeky: „h264“ (synonymum „libx264“), „mpeg4“ (starší), „rawvideo“ (opatrně). Další použitelné kodeky: „gif“. Při generování série obrázků: „png“, „tiff“, „mjpeg“.">(42)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">-c:v <i class="dopln">kodek</i></div>
 <div class="radekzaklinadla">-c:v copy</div>
 <div class="radekzaklinadla">-vn</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z560749306"><span><a href="#z560749306">䷩</a></span></span>pro zvukové stopy: nastavit kodek/nepřekódovávat/zakázat výstup<span class="cislo">#2 </span><sup><a href="#kapzpracovanivideaazvukuppc41" id="kapzpracovanivideaazvukuppcr41" title="Doporučené kodeky podle formátu: „aac“ (pro mp4), „libmp3lame“ (pro mp3, ale i mp4), „pcm16_le“ (pro wav), „libvorbis“ (pro ogg), „flac“ (pro flac).">(41)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z560749306"><span><a href="#z560749306">䷩</a></span></span>pro zvukové stopy: nastavit kodek/nepřekódovávat/zakázat výstup<span class="cislo">#2 </span><sup><a href="#kapzpracovanivideaazvukuppc43" id="kapzpracovanivideaazvukuppcr43" title="Doporučené kodeky podle formátu: „aac“ (pro mp4), „libmp3lame“ (pro mp3, ale i mp4), „pcm16_le“ (pro wav), „libvorbis“ (pro ogg), „flac“ (pro flac).">(43)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">-c:a <i class="dopln">kodek</i></div>
 <div class="radekzaklinadla">-c:a copy</div>
 <div class="radekzaklinadla">-an</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1589927180"><span><a href="#z1589927180">⣢</a></span></span>nastavit bitrate obrazových stop/zvukových stop<span class="cislo">#3 </span><sup><a href="#kapzpracovanivideaazvukuppc42" id="kapzpracovanivideaazvukuppcr42" title="Možno použít přípony, např. 128k či 5M.">(42)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1589927180"><span><a href="#z1589927180">⣢</a></span></span>nastavit bitrate obrazových stop/zvukových stop<span class="cislo">#3 </span><sup><a href="#kapzpracovanivideaazvukuppc44" id="kapzpracovanivideaazvukuppcr44" title="Možno použít přípony, např. 128k či 5M.">(44)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">-vb <i class="dopln">bitrate</i></div>
 <div class="radekzaklinadla">-ab <i class="dopln">bitrate</i></div>
 </div></div>
@@ -523,7 +528,7 @@ a platí pouze pro daný výstup.
 <div class="radekzaklinadla">-vf '<i class="dopln">jednoduchý-graf-filtrů</i>'</div>
 <div class="radekzaklinadla">-af '<i class="dopln">jednoduchý-graf-filtrů</i>'</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z876282091"><span><a href="#z876282091">⪐</a></span></span>vynutit poměr stran videa obrazové stopy<span class="cislo">#8 </span><sup><a href="#kapzpracovanivideaazvukuppc43" id="kapzpracovanivideaazvukuppcr43" title="Doporučené hodnoty: 4:3, 16:9, 1:1, 5:4, 16:10">(43)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z876282091"><span><a href="#z876282091">⪐</a></span></span>vynutit poměr stran videa obrazové stopy<span class="cislo">#8 </span><sup><a href="#kapzpracovanivideaazvukuppc45" id="kapzpracovanivideaazvukuppcr45" title="Doporučené hodnoty: 4:3, 16:9, 1:1, 5:4, 16:10">(45)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">-aspect<span class="volznak">[</span>:<i class="dopln">číslo-stopy</i><span class="volznak">]</span> <i class="dopln">hodnota</i></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1368815379"><span><a href="#z1368815379">╻</a></span></span>konverze zvukové stopy na stereo/na mono<span class="cislo">#9 </span></div><div class="radky">
@@ -534,7 +539,7 @@ a platí pouze pro daný výstup.
 <div class="radekzaklinadla">-sn</div>
 <div class="radekzaklinadla">-dn</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z142321091"><span><a href="#z142321091">䷧</a></span></span>vynutit vzorkovací frekvenci zvuku (v Hz, obvykle 44100, ale také 22050 či 48000)<span class="cislo">#11 </span><sup><a href="#kapzpracovanivideaazvukuppc44" id="kapzpracovanivideaazvukuppcr44" title="Doporučená hodnota: 44100; další obvyklé: 22050, 48000.">(44)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z142321091"><span><a href="#z142321091">䷧</a></span></span>vynutit vzorkovací frekvenci zvuku (v Hz, obvykle 44100, ale také 22050 či 48000)<span class="cislo">#11 </span><sup><a href="#kapzpracovanivideaazvukuppc46" id="kapzpracovanivideaazvukuppcr46" title="Doporučená hodnota: 44100; další obvyklé: 22050, 48000.">(46)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">-ar<span class="volznak">[</span>:<i class="dopln">číslo-stopy</i><span class="volznak">]</span> <i class="dopln">frekvence</i></div>
 </div></div>
 
@@ -551,16 +556,16 @@ a platí pouze pro daný výstup.
 </div></div>
 
 <h3 id="cast4x4"><span><a href="#cast4x4" title="kapitola 22 (Zpracování videa a zvuku), sekce 4 (Zaklínadla (příkaz ffmpeg)), podsekce 4 (Celé příkazy)"><sup>4/</sup>4 Celé příkazy</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z237588363"><span><a href="#z237588363">✗</a></span></span><b>konvertovat</b> video a zvuk z jednoho formátu na druhý<span class="cislo">#1 </span><sup><a href="#kapzpracovanivideaazvukuppc45" id="kapzpracovanivideaazvukuppcr45" title="Uvedený parametr „-qscale“ se pokusí zachovat kvalitu vstupního souboru.">(45)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z237588363"><span><a href="#z237588363">✗</a></span></span><b>konvertovat</b> video a zvuk z jednoho formátu na druhý<span class="cislo">#1 </span><sup><a href="#kapzpracovanivideaazvukuppc47" id="kapzpracovanivideaazvukuppcr47" title="Uvedený parametr „-qscale“ se pokusí zachovat kvalitu vstupního souboru.">(47)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">ffmpeg -i <i class="dopln">vstupní-soubor.přípona</i> -qscale:0 0 <span class="volznak">[</span>-qscale:1 0<span class="volznak">]</span> <i class="dopln">výstupní soubor.přípona</i></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1660872037"><span><a href="#z1660872037">⟆</a></span></span>rozložit <b>video na obrázky</b> ve formátu podle výstupní přípony: JPEG (jpg), PNG (png), BMP (bmp), TIFF (tif)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">ffmpeg -i <i class="dopln">video.přípona</i> -r <i class="dopln">počet-snímků-za-sekundu</i> -f image2 -q:v 0 <i class="dopln">obrázek</i>-%05d.<i class="dopln">výstupní-přípona</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1926294327"><span><a href="#z1926294327">⢼</a></span></span>vygenerovat sekvenci <b>zmenšených náhledů</b> z videa (šířka max. 640 pixelů), přibližně pro každou minutu<span class="cislo">#3 </span><sup><a href="#kapzpracovanivideaazvukuppc46" id="kapzpracovanivideaazvukuppcr46" title="Časování je u tohoto příkazu velmi přibližné, proto se hodí spíše na dlouhá videa, kde posun o půl minuty či minutu nebude vadit.">(46)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1926294327"><span><a href="#z1926294327">⢼</a></span></span>vygenerovat sekvenci <b>zmenšených náhledů</b> z videa (šířka max. 640 pixelů), přibližně pro každou minutu<span class="cislo">#3 </span><sup><a href="#kapzpracovanivideaazvukuppc48" id="kapzpracovanivideaazvukuppcr48" title="Časování je u tohoto příkazu velmi přibližné, proto se hodí spíše na dlouhá videa, kde posun o půl minuty či minutu nebude vadit.">(48)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">ffmpeg -i <i class="dopln">video</i> -r 1/60 -q:v 14 -vf 'scale=min(640\,iw):-1' nahled%05d.jpg</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1577608664"><span><a href="#z1577608664">⊿</a></span></span><b>spojit</b> za sebou soubory<span class="cislo">#4 </span><sup><a href="#kapzpracovanivideaazvukuppc47" id="kapzpracovanivideaazvukuppcr47" title="Názvy souborů při volání tímto způsobem nesmějí obsahovat apostrof. Při spojování tímto způsobem nedochází k překódování, takže vstupní soubory si musejí velmi přesně odpovídat všemi parametry, jinak hrozí problémy při přehrávání.">(47)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1577608664"><span><a href="#z1577608664">⊿</a></span></span><b>spojit</b> za sebou soubory<span class="cislo">#4 </span><sup><a href="#kapzpracovanivideaazvukuppc49" id="kapzpracovanivideaazvukuppcr49" title="Názvy souborů při volání tímto způsobem nesmějí obsahovat apostrof. Při spojování tímto způsobem nedochází k překódování, takže vstupní soubory si musejí velmi přesně odpovídat všemi parametry, jinak hrozí problémy při přehrávání.">(49)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">ffmpeg -f concat -safe 0 -i &lt;(printf &quot;file '%s'\\n&quot; <i class="dopln">soubor</i><span class="tritecky"></span>) -c copy <i class="dopln">výstup</i></div>
 </div></div>
 
@@ -608,6 +613,7 @@ Ukázka vyžaduje, abyste v aktuálním adresáři měl/a video „video.mp4“
 </li><li>Výstupy filtrů <b>split</b> a <b>asplit</b> musejí být odebírány paralelně, jinak hrozí přetečení bufferu. Řadě problémů se lze vyhnout tím, že místo rozdělení vstupu na dva načtete tentýž vstupní soubor vícekrát (více parametry <b>-i</b>). Rychlým (ale škaredým a nebezpečným) řešením problémů někdy může být zneužití filtrů „reverse“ a „areverse“, které dokážou v paměti zřídit buffer neomezené velikosti (resp. velikosti omezené jen množstvím dostupné paměti).
 </li><li>Můžete-li téhož efektu dosáhnout pomocí filtru nebo pomocí výstupního parametru, preferujte parametr; dává jistější výsledky, možná i kvalitnější.
 </li><li>Pokud použijete kodek „mjpeg“ a vypisuje vám varování „deprecated pixel format used, make sure you did set range correctly“, toto můžete bezpečně ignorovat.
+</li><li>Při zapékání titulků se ujistěte, že soubor s titulky je v kódování UTF-8 (což často nebývá). Titulky, které nepůjde tímto kódováním znaků dekódovat, filtr „subtitles“ bez varování vynechá!
 </li></ul>
 <h2 id="cast10"><a href="#cast10"><span class="cislo">10.</span> Další zdroje informací</a></h2>
 <div class="zaklinadlo"><div class="radky">
@@ -652,83 +658,92 @@ Dalším dobrým zdrojem je oficiální dokumentace k filtrům, ale ta je podst
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapzpracovanivideaazvukuppc14"><a href="#kapzpracovanivideaazvukuppcr14" class="cislopozn">14</a>&nbsp;Úhel čočky je v rozsahu 0 (žádný účinek) až PI/2 (maximální účinek). Pro vyhodnocování výrazů pro každý snímek musíte přidat parametr „eval=frame“.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc15"><a href="#kapzpracovanivideaazvukuppcr15" class="cislopozn">15</a>&nbsp;Nastavení stylu jsou ve formátu ASS, přičemž znaky = a , musíte odzvláštnit kvůli ffmpegu.</div>
+<div id="kapzpracovanivideaazvukuppc15"><a href="#kapzpracovanivideaazvukuppcr15" class="cislopozn">15</a>&nbsp;Pokud název souboru obsahuje mezery či jiné speciální znaky, uzavřete ho do apostrofů. Zadáváte-li graf filtrů přímo na příkazové řádce do apostrofů, musíte kvůli bashi apostrof zadat kombinací &quot;'\''&quot;.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc16"><a href="#kapzpracovanivideaazvukuppcr16" class="cislopozn">16</a>&nbsp;Všechny snímky před začátkem roztmívačky a za koncem zatmívačky budou nastaveny na uvedenou barvu, resp. zprůhledněny (je-li uveden parametr „alpha=1“).</div>
+<div id="kapzpracovanivideaazvukuppc16"><a href="#kapzpracovanivideaazvukuppcr16" class="cislopozn">16</a>&nbsp;Posun se zadává v sekundách s desetinnou částí, např. „2.0“ pro posun o dvě sekundy.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc17"><a href="#kapzpracovanivideaazvukuppcr17" class="cislopozn">17</a>&nbsp;Tip: Pro pochopení fungování této konstrukce důrazně doporučuji si uvedený graf filtrů nakreslit.</div>
+<div id="kapzpracovanivideaazvukuppc17"><a href="#kapzpracovanivideaazvukuppcr17" class="cislopozn">17</a>&nbsp;Nastavení stylu jsou ve formátu ASS, přičemž znaky = a , musíte odzvláštnit kvůli ffmpegu.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc18"><a href="#kapzpracovanivideaazvukuppcr18" class="cislopozn">18</a>&nbsp;Začátek prolínačky zde znamená počet sekund od začátku prvního videa, kdy má prolínačka začít. Tento počet sekund je nutno předem zjistit.</div>
+<div id="kapzpracovanivideaazvukuppc18"><a href="#kapzpracovanivideaazvukuppcr18" class="cislopozn">18</a>&nbsp;Všechny snímky před začátkem roztmívačky a za koncem zatmívačky budou nastaveny na uvedenou barvu, resp. zprůhledněny (je-li uveden parametr „alpha=1“).</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc19"><a href="#kapzpracovanivideaazvukuppcr19" class="cislopozn">19</a>&nbsp;Podporované tvary jsou: tri, qsin, hsin, esin, log, ipar, qua, cub, squ, cbr, par, exp, iqsin, ihsin, dese. Poznámka: Veškerý zvuk po konci zatmívačky, resp. začátkem roztmívačky bude tímto filtrem nahrazen tichem.</div>
+<div id="kapzpracovanivideaazvukuppc19"><a href="#kapzpracovanivideaazvukuppcr19" class="cislopozn">19</a>&nbsp;Tip: Pro pochopení fungování této konstrukce důrazně doporučuji si uvedený graf filtrů nakreslit.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc20"><a href="#kapzpracovanivideaazvukuppcr20" class="cislopozn">20</a>&nbsp;Čas začátku a trvání efektu jsou v sekundách.</div>
+<div id="kapzpracovanivideaazvukuppc20"><a href="#kapzpracovanivideaazvukuppcr20" class="cislopozn">20</a>&nbsp;Začátek prolínačky zde znamená počet sekund od začátku prvního videa, kdy má prolínačka začít. Tento počet sekund je nutno předem zjistit.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc21"><a href="#kapzpracovanivideaazvukuppcr21" class="cislopozn">21</a>&nbsp;Mapa by měla mít stejný rozměr jako video a musí obsahovat bílé pixely na pozicích, kde je na videu předmět k odstranění, a černé pixely na místech, která se nemají změnit. Tento filtr je pro oblasti výpočetně náročný, proto by měla být drtivá většina pixelů mapy zcela černá.</div>
+<div id="kapzpracovanivideaazvukuppc21"><a href="#kapzpracovanivideaazvukuppcr21" class="cislopozn">21</a>&nbsp;Podporované tvary jsou: tri, qsin, hsin, esin, log, ipar, qua, cub, squ, cbr, par, exp, iqsin, ihsin, dese. Poznámka: Veškerý zvuk po konci zatmívačky, resp. začátkem roztmívačky bude tímto filtrem nahrazen tichem.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc22"><a href="#kapzpracovanivideaazvukuppcr22" class="cislopozn">22</a>&nbsp;Volba invert vykreslí invertující rámeček; volba fill zajistí vyplněný obdelník.</div>
+<div id="kapzpracovanivideaazvukuppc22"><a href="#kapzpracovanivideaazvukuppcr22" class="cislopozn">22</a>&nbsp;Čas začátku a trvání efektu jsou v sekundách.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc23"><a href="#kapzpracovanivideaazvukuppcr23" class="cislopozn">23</a>&nbsp;Odstranění prokládání zvýší fps na dvojnásobek. Existuje na ně i mnoho dalších filtrů.</div>
+<div id="kapzpracovanivideaazvukuppc23"><a href="#kapzpracovanivideaazvukuppcr23" class="cislopozn">23</a>&nbsp;Mapa by měla mít stejný rozměr jako video a musí obsahovat bílé pixely na pozicích, kde je na videu předmět k odstranění, a černé pixely na místech, která se nemají změnit. Tento filtr je pro oblasti výpočetně náročný, proto by měla být drtivá většina pixelů mapy zcela černá.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc24"><a href="#kapzpracovanivideaazvukuppcr24" class="cislopozn">24</a>&nbsp;Prokláďání obrazu sníží fps na polovinu.</div>
+<div id="kapzpracovanivideaazvukuppc24"><a href="#kapzpracovanivideaazvukuppcr24" class="cislopozn">24</a>&nbsp;Volba invert vykreslí invertující rámeček; volba fill zajistí vyplněný obdelník.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc25"><a href="#kapzpracovanivideaazvukuppcr25" class="cislopozn">25</a>&nbsp;Ačkoliv stejného efektu můžete dosáhnout i použitím univerzálních nízkoúrovňových filtrů, použití filtru „fade“ by mělo být výrazně rychlejší.</div>
+<div id="kapzpracovanivideaazvukuppc25"><a href="#kapzpracovanivideaazvukuppcr25" class="cislopozn">25</a>&nbsp;Odstranění prokládání zvýší fps na dvojnásobek. Existuje na ně i mnoho dalších filtrů.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc26"><a href="#kapzpracovanivideaazvukuppcr26" class="cislopozn">26</a>&nbsp;K tomuto úkolu slouží filtr „geq“, ale jeho efektivní použití je náročné a vyžaduje pochopení formátu pixelu a barevných kanálů U a V. Rovněž se mi nepodařilo s ním upravit alfa-kanál.</div>
+<div id="kapzpracovanivideaazvukuppc26"><a href="#kapzpracovanivideaazvukuppcr26" class="cislopozn">26</a>&nbsp;Prokláďání obrazu sníží fps na polovinu.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc27"><a href="#kapzpracovanivideaazvukuppcr27" class="cislopozn">27</a>&nbsp;Ve výrazech můžete použít souřadnice výstupního pixelu „(X/SW)“ a „(Y/SH)“, šířku snímku „(W/SW)“, výšku snímku „(H/SH)“, čas v sekundách „T“ a sekvenční číslo snímku „N“. Souřadnice mimo rozsah budou zarovnány na nejbližší platnou hodnotu.</div>
+<div id="kapzpracovanivideaazvukuppc27"><a href="#kapzpracovanivideaazvukuppcr27" class="cislopozn">27</a>&nbsp;Ačkoliv stejného efektu můžete dosáhnout i použitím univerzálních nízkoúrovňových filtrů, použití filtru „fade“ by mělo být výrazně rychlejší.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc28"><a href="#kapzpracovanivideaazvukuppcr28" class="cislopozn">28</a>&nbsp;Ve výrazu můžeme použít: hodnotu prvního/druhého kanálu (val(0)/val(1)), čas vzorku v sekundách (t), číslo vzorku (n), číslo počítaného kanálu (ch), původní počet kanálů (nb_in_channels), vzorkovací frekvenci (s).</div>
+<div id="kapzpracovanivideaazvukuppc28"><a href="#kapzpracovanivideaazvukuppcr28" class="cislopozn">28</a>&nbsp;K tomuto úkolu slouží filtr „geq“, ale jeho efektivní použití je náročné a vyžaduje pochopení formátu pixelu a barevných kanálů U a V. Rovněž se mi nepodařilo s ním upravit alfa-kanál.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc29"><a href="#kapzpracovanivideaazvukuppcr29" class="cislopozn">29</a>&nbsp;Filtr načte do vstupního bufferu tolik snímků ze vstupu, kolik jste zadal/a indexů. Následně na výstup vybírá snímky z bufferu podle indexů, které jste uvedli. Indexy se mohou opakovat a lze uvést speciální index -1, který způsobí vynechání snímku na výstupu (zahození).</div>
+<div id="kapzpracovanivideaazvukuppc29"><a href="#kapzpracovanivideaazvukuppcr29" class="cislopozn">29</a>&nbsp;Ve výrazech můžete použít souřadnice výstupního pixelu „(X/SW)“ a „(Y/SH)“, šířku snímku „(W/SW)“, výšku snímku „(H/SH)“, čas v sekundách „T“ a sekvenční číslo snímku „N“. Souřadnice mimo rozsah budou zarovnány na nejbližší platnou hodnotu.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc30"><a href="#kapzpracovanivideaazvukuppcr30" class="cislopozn">30</a>&nbsp;Velikost bufferu musí být v rozmezí 2 až 512 (výchozí hodnota je 30); snímky se do bufferu vkládají sekvenčně a vybírají se v náhodném pořadí.</div>
+<div id="kapzpracovanivideaazvukuppc30"><a href="#kapzpracovanivideaazvukuppcr30" class="cislopozn">30</a>&nbsp;Ve výrazu můžeme použít: hodnotu prvního/druhého kanálu (val(0)/val(1)), čas vzorku v sekundách (t), číslo vzorku (n), číslo počítaného kanálu (ch), původní počet kanálů (nb_in_channels), vzorkovací frekvenci (s).</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc31"><a href="#kapzpracovanivideaazvukuppcr31" class="cislopozn">31</a>&nbsp;Má velké paměťové nároky, nepoužívat pro velký počet snímků; rozumný je tak maximálně 1000.</div>
+<div id="kapzpracovanivideaazvukuppc31"><a href="#kapzpracovanivideaazvukuppcr31" class="cislopozn">31</a>&nbsp;Filtr načte do vstupního bufferu tolik snímků ze vstupu, kolik jste zadal/a indexů. Následně na výstup vybírá snímky z bufferu podle indexů, které jste uvedli. Indexy se mohou opakovat a lze uvést speciální index -1, který způsobí vynechání snímku na výstupu (zahození).</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc32"><a href="#kapzpracovanivideaazvukuppcr32" class="cislopozn">32</a>&nbsp;Hlasitost ozvěny je v rozsahu 0 až 1.0 a nesmí být 0. Filtr mírně sníží hlasitost původních zvuků, je potřeba ji vyladit.</div>
+<div id="kapzpracovanivideaazvukuppc32"><a href="#kapzpracovanivideaazvukuppcr32" class="cislopozn">32</a>&nbsp;Velikost bufferu musí být v rozmezí 2 až 512 (výchozí hodnota je 30); snímky se do bufferu vkládají sekvenčně a vybírají se v náhodném pořadí.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc33"><a href="#kapzpracovanivideaazvukuppcr33" class="cislopozn">33</a>&nbsp;Frekvence je v rozsahu 0.1 až 20000; rozumně slyšitelné jsou hodnoty do 20 Hz. Síla je v rozsahu 0.0 až 1.0.</div>
+<div id="kapzpracovanivideaazvukuppc33"><a href="#kapzpracovanivideaazvukuppcr33" class="cislopozn">33</a>&nbsp;Má velké paměťové nároky, nepoužívat pro velký počet snímků; rozumný je tak maximálně 1000.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc34"><a href="#kapzpracovanivideaazvukuppcr34" class="cislopozn">34</a>&nbsp;V případě opakovaného použití v rámci jednoho grafu filtrů nahraďte identifikátor „tmpticho“ při každém použití jiným identifikátorem.</div>
+<div id="kapzpracovanivideaazvukuppc34"><a href="#kapzpracovanivideaazvukuppcr34" class="cislopozn">34</a>&nbsp;Hlasitost ozvěny je v rozsahu 0 až 1.0 a nesmí být 0. Filtr mírně sníží hlasitost původních zvuků, je potřeba ji vyladit.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc35"><a href="#kapzpracovanivideaazvukuppcr35" class="cislopozn">35</a>&nbsp;Hodnota první stopy je „val(0)“ a hodnota druhé „val(1)“.</div>
+<div id="kapzpracovanivideaazvukuppc35"><a href="#kapzpracovanivideaazvukuppcr35" class="cislopozn">35</a>&nbsp;Frekvence je v rozsahu 0.1 až 20000; rozumně slyšitelné jsou hodnoty do 20 Hz. Síla je v rozsahu 0.0 až 1.0.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc36"><a href="#kapzpracovanivideaazvukuppcr36" class="cislopozn">36</a>&nbsp;Amplituda se uvádí v rozsahu 0 až 1. Místo white lze použít také pink, brown, blue a violet.</div>
+<div id="kapzpracovanivideaazvukuppc36"><a href="#kapzpracovanivideaazvukuppcr36" class="cislopozn">36</a>&nbsp;V případě opakovaného použití v rámci jednoho grafu filtrů nahraďte identifikátor „tmpticho“ při každém použití jiným identifikátorem.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc37"><a href="#kapzpracovanivideaazvukuppcr37" class="cislopozn">37</a>&nbsp;V praxi může být nutno zvýšit výchozí hodnotu parametru „samples_per_frame“, ale nemám s tím zkušenosti. Amplituda generovaného signálu je 1/8.</div>
+<div id="kapzpracovanivideaazvukuppc37"><a href="#kapzpracovanivideaazvukuppcr37" class="cislopozn">37</a>&nbsp;Hodnota první stopy je „val(0)“ a hodnota druhé „val(1)“.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc38"><a href="#kapzpracovanivideaazvukuppcr38" class="cislopozn">38</a>&nbsp;Nejsou-li zadány parametry „d“ a „r“, výstup generátoru bude nekonečný s fps 25.</div>
+<div id="kapzpracovanivideaazvukuppc38"><a href="#kapzpracovanivideaazvukuppcr38" class="cislopozn">38</a>&nbsp;Amplituda se uvádí v rozsahu 0 až 1. Místo white lze použít také pink, brown, blue a violet.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc39"><a href="#kapzpracovanivideaazvukuppcr39" class="cislopozn">39</a>&nbsp;Některá zaklínadla v této kapitole používají vložené příkazy bashe pomocí syntaxe „'&quot;$(příkaz)&quot;'“; tyto konstrukce budou v dané podobě fungovat jen na příkazové řádce.</div>
+<div id="kapzpracovanivideaazvukuppc39"><a href="#kapzpracovanivideaazvukuppcr39" class="cislopozn">39</a>&nbsp;V praxi může být nutno zvýšit výchozí hodnotu parametru „samples_per_frame“, ale nemám s tím zkušenosti. Amplituda generovaného signálu je 1/8.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc40"><a href="#kapzpracovanivideaazvukuppcr40" class="cislopozn">40</a>&nbsp;Doporučené kodeky: „h264“ (synonymum „libx264“), „mpeg4“ (starší), „rawvideo“ (opatrně). Další použitelné kodeky: „gif“. Při generování série obrázků: „png“, „tiff“, „mjpeg“.</div>
+<div id="kapzpracovanivideaazvukuppc40"><a href="#kapzpracovanivideaazvukuppcr40" class="cislopozn">40</a>&nbsp;Nejsou-li zadány parametry „d“ a „r“, výstup generátoru bude nekonečný s fps 25.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc41"><a href="#kapzpracovanivideaazvukuppcr41" class="cislopozn">41</a>&nbsp;Doporučené kodeky podle formátu: „aac“ (pro mp4), „libmp3lame“ (pro mp3, ale i mp4), „pcm16_le“ (pro wav), „libvorbis“ (pro ogg), „flac“ (pro flac).</div>
+<div id="kapzpracovanivideaazvukuppc41"><a href="#kapzpracovanivideaazvukuppcr41" class="cislopozn">41</a>&nbsp;Některá zaklínadla v této kapitole používají vložené příkazy bashe pomocí syntaxe „'&quot;$(příkaz)&quot;'“; tyto konstrukce budou v dané podobě fungovat jen na příkazové řádce.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc42"><a href="#kapzpracovanivideaazvukuppcr42" class="cislopozn">42</a>&nbsp;Možno použít přípony, např. 128k či 5M.</div>
+<div id="kapzpracovanivideaazvukuppc42"><a href="#kapzpracovanivideaazvukuppcr42" class="cislopozn">42</a>&nbsp;Doporučené kodeky: „h264“ (synonymum „libx264“), „mpeg4“ (starší), „rawvideo“ (opatrně). Další použitelné kodeky: „gif“. Při generování série obrázků: „png“, „tiff“, „mjpeg“.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc43"><a href="#kapzpracovanivideaazvukuppcr43" class="cislopozn">43</a>&nbsp;Doporučené hodnoty: 4:3, 16:9, 1:1, 5:4, 16:10</div>
+<div id="kapzpracovanivideaazvukuppc43"><a href="#kapzpracovanivideaazvukuppcr43" class="cislopozn">43</a>&nbsp;Doporučené kodeky podle formátu: „aac“ (pro mp4), „libmp3lame“ (pro mp3, ale i mp4), „pcm16_le“ (pro wav), „libvorbis“ (pro ogg), „flac“ (pro flac).</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc44"><a href="#kapzpracovanivideaazvukuppcr44" class="cislopozn">44</a>&nbsp;Doporučená hodnota: 44100; další obvyklé: 22050, 48000.</div>
+<div id="kapzpracovanivideaazvukuppc44"><a href="#kapzpracovanivideaazvukuppcr44" class="cislopozn">44</a>&nbsp;Možno použít přípony, např. 128k či 5M.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc45"><a href="#kapzpracovanivideaazvukuppcr45" class="cislopozn">45</a>&nbsp;Uvedený parametr „-qscale“ se pokusí zachovat kvalitu vstupního souboru.</div>
+<div id="kapzpracovanivideaazvukuppc45"><a href="#kapzpracovanivideaazvukuppcr45" class="cislopozn">45</a>&nbsp;Doporučené hodnoty: 4:3, 16:9, 1:1, 5:4, 16:10</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc46"><a href="#kapzpracovanivideaazvukuppcr46" class="cislopozn">46</a>&nbsp;Časování je u tohoto příkazu velmi přibližné, proto se hodí spíše na dlouhá videa, kde posun o půl minuty či minutu nebude vadit.</div>
+<div id="kapzpracovanivideaazvukuppc46"><a href="#kapzpracovanivideaazvukuppcr46" class="cislopozn">46</a>&nbsp;Doporučená hodnota: 44100; další obvyklé: 22050, 48000.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaazvukuppc47"><a href="#kapzpracovanivideaazvukuppcr47" class="cislopozn">47</a>&nbsp;Názvy souborů při volání tímto způsobem nesmějí obsahovat apostrof. Při spojování tímto způsobem nedochází k překódování, takže vstupní soubory si musejí velmi přesně odpovídat všemi parametry, jinak hrozí problémy při přehrávání.</div>
+<div id="kapzpracovanivideaazvukuppc47"><a href="#kapzpracovanivideaazvukuppcr47" class="cislopozn">47</a>&nbsp;Uvedený parametr „-qscale“ se pokusí zachovat kvalitu vstupního souboru.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapzpracovanivideaazvukuppc48"><a href="#kapzpracovanivideaazvukuppcr48" class="cislopozn">48</a>&nbsp;Časování je u tohoto příkazu velmi přibližné, proto se hodí spíše na dlouhá videa, kde posun o půl minuty či minutu nebude vadit.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapzpracovanivideaazvukuppc49"><a href="#kapzpracovanivideaazvukuppcr49" class="cislopozn">49</a>&nbsp;Názvy souborů při volání tímto způsobem nesmějí obsahovat apostrof. Při spojování tímto způsobem nedochází k překódování, takže vstupní soubory si musejí velmi přesně odpovídat všemi parametry, jinak hrozí problémy při přehrávání.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 </div>
-<div class="odkazydole"><a href="git.htm"><img src="obrazky/ik/git.png" alt="" width="32" height="32">Git</a><a href="stahovani-videi.htm"><img src="obrazky/ik/stahovani-videi.png" alt="" width="32" height="32">Stahování videí</a><a href="system.htm"><img src="obrazky/ik/system.png" alt="" width="32" height="32">Systém</a></div>
 
-<nav class="spodni"><span class="prev">
-<a href="zpracovani-textovych-souboru.htm" rel="prev" title="21. Zpracování textových souborů">Předchozí&nbsp;kapitola</a>&nbsp;|
-</span><a href="index.htm">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="koncepce-projektu.htm" rel="next" title="23. Koncepce projektu Linux: Kniha kouzel">Následující&nbsp;kapitola</a>
-</span>
+
+<nav class="spodni">
+<a href="index.htm" class="naindex">🗐&nbsp;Přehled&nbsp;kapitol</a>
+<div class="naslkap">
+<a href="koncepce-projektu.htm" rel="next" title="23. Koncepce projektu Linux: Kniha kouzel">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">23</span>
+<span class="nazev">Koncepce projektu Linux: Kniha kouzel</span></a>
+</div>
+<!--<div><a href="index.htm">🗐&nbsp;Přehled&nbsp;kapitol</a></div>-->
 <a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
 <a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
 </nav>
+
+
+<div class="odkazydole"><div><a href="barvy-a-titulek.htm"><img src="obrazky/ik/barvy-a-titulek.png" alt="" width="32" height="32">Barvy, titulek a výzva terminálu</a><a href="planovani-uloh.htm"><img src="obrazky/ik/planovani-uloh.png" alt="" width="32" height="32">Plánování úloh</a><a href="sed.htm"><img src="obrazky/ik/sed.png" alt="" width="32" height="32">Sed</a></div></div>
 
 
 </article>

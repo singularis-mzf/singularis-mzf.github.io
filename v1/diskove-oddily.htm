@@ -5,16 +5,16 @@
 
 <title>Diskové oddíly − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20200526.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200526-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200526-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200526-tmavy.css" title="Tmavý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20200628.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200628-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200628-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200628-tmavy.css" title="Tmavý motiv">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body>
 <div id="nahore"></div>
 <header>
-<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.8, D. D. (26. května 2020)</span>
+<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.9, E. E. (28. června 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -55,7 +55,7 @@
 Tato kapitola se zabývá dělením pevného disku na oddíly, jejich formátováním (zejména souborové systémy ext4, FAT32 a NTFS), údržbou a připojováním (ručním i automatickým). Zabývá se také prací s ramdisky, odkládacím prostorem a LVM.
 
 </p><p>
-Tato verze kapitoly nepokrývá připojovaní souborových systémů obyčejným uživatelem;
+Tato verze kapitoly nepokrývá připojovaní souborových systémů obyčejnými uživateli;
 šifrování a nastavování kvót a další typy systému souborů, např. BTRFS a ZFS.
 Rovněž nepokrývá síťové souborové systémy, vypalování DVD ani práci s ISO obrazy CD a DVD.
 Rovněž nepokrývá práci se systémem souborů SquashFS. U LVM nepokrývá „layouty“ a „snapshoty“.
@@ -106,27 +106,27 @@ V následujících zaklínadlech platí:
 <h2 id="cast3"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla</a></h2>
 
 <h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 5 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 1 (Položky v /etc/fstab)"><sup>3/</sup>1 Položky v /etc/fstab</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1856555621"><span><a href="#z1856555621">♌</a></span></span>připojit kořenový systém souborů (obecně/příklad)<span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilyppc1" id="kapdiskoveoddilyppcr1" title="Poznámka: Připojení kořenového systému souborů by mělo být v /etc/fstab první řádkou kromě komentářů a prázdných řádek.">(1)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1465493174"><span><a href="#z1465493174">↥</a></span></span>připojit <b>kořenový</b> systém souborů (obecně/příklad)<span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilyppc1" id="kapdiskoveoddilyppcr1" title="Poznámka: Připojení kořenového systému souborů by mělo být v /etc/fstab první řádkou kromě komentářů a prázdných řádek.">(1)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">co-připojit</i> / <i class="dopln">typ-soub-sys</i> <i class="dopln">volby-připojení</i> 0 1</div>
 <div class="radekzaklinadla">UUID=&quot;61bbd562-0694-4561-a8e2-4ccfd004a660&quot;<span class="tab" style="width:7ch">&#9;</span>/<span class="tab" style="width:7ch">&#9;</span>ext4<span class="tab" style="width:7ch">&#9;</span>errors=remount-ro,discard,nouser_xattr<span class="tab" style="width:3ch">&#9;</span>0<span class="tab" style="width:7ch">&#9;</span>1</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z478650030"><span><a href="#z478650030">⡛</a></span></span>připojit jiný než kořenový systém souborů (obecně/příklad)<span class="cislo">#2 </span><sup><a href="#kapdiskoveoddilyppc2" id="kapdiskoveoddilyppcr2" title="2 v posledním poli zapne automatickou kontrolu souboru systémů při startu; tato volba je vhodná pro místní souborové systémy. 0 v posledním poli automatickou kontrolu vypne, ta je vhodná především pro výměnná média a síťové systémy souborů. Rovněž je vhodná pro místní systémy souborů připojované výhradně pro čtení.">(2)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2097136607"><span><a href="#z2097136607">⊂</a></span></span><b>připojit</b> jiný než kořenový systém souborů (obecně/příklad)<span class="cislo">#2 </span><sup><a href="#kapdiskoveoddilyppc2" id="kapdiskoveoddilyppcr2" title="2 v posledním poli zapne automatickou kontrolu souboru systémů při startu; tato volba je vhodná pro místní souborové systémy. 0 v posledním poli automatickou kontrolu vypne, ta je vhodná především pro výměnná média a síťové systémy souborů. Rovněž je vhodná pro místní systémy souborů připojované výhradně pro čtení.">(2)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">co-připojit</i> <i class="dopln">kam-připojit</i> <i class="dopln">typ-soub-sys</i> <i class="dopln">volby-připojení</i> 0 <i class="dopln">2-nebo-0</i></div>
 <div class="radekzaklinadla">/dev/skupina/muj-oddil ext4 defaults 0 2</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1038246214"><span><a href="#z1038246214">⌆</a></span></span>připojit ramdisk<span class="cislo">#3 </span><sup><a href="#kapdiskoveoddilyppc3" id="kapdiskoveoddilyppcr3" title="Velikost se udává nejčastěji v mebibajtech (s příponou M – např. „256M“) nebo gibibajtech (s příponou G – např. „10G“).">(3)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1679693027"><span><a href="#z1679693027">❘</a></span></span>připojit <b>ramdisk</b><span class="cislo">#3 </span><sup><a href="#kapdiskoveoddilyppc3" id="kapdiskoveoddilyppcr3" title="Velikost se udává nejčastěji v mebibajtech (s příponou M – např. „256M“) nebo gibibajtech (s příponou G – např. „10G“).">(3)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">tmpfs <i class="dopln">kam-připojit</i> tmpfs size=<i class="dopln">velikost</i><span class="volznak">[</span>,nosuid<span class="volznak">]</span><span class="volznak">[</span>,nodev<span class="volznak">]</span><span class="volznak">[</span>,noexec<span class="volznak">]</span><span class="volznak">[</span>,mode=<i class="dopln">práva-číselně</i><span class="volznak">]</span><span class="volznak">[</span>,uid=<i class="dopln">UID-vlastníka</i><span class="volznak">]</span><span class="volznak">[</span>,gid=<i class="dopln">GID-skupiny</i><span class="volznak">]</span><span class="volznak">[</span>,<i class="dopln">další,volby</i><span class="volznak">]</span> 0 0</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z318817910"><span><a href="#z318817910">☶</a></span></span>připojit odkládací oddíl/odkládací soubor<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1242293117"><span><a href="#z1242293117">╌</a></span></span>připojit <b>odkládací</b> oddíl/odkládací soubor<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">co-připojit</i> none swap sw 0 0</div>
 <div class="radekzaklinadla"><i class="dopln">/cesta/k/souboru</i> none swap sw 0 0</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1009875491"><span><a href="#z1009875491">≋</a></span></span>připojit adresář z již připojeného systému souborů na nové místo<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2132362182"><span><a href="#z2132362182">◜</a></span></span>připojit <b>adresář</b> z již připojeného systému souborů na nové místo<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">/původní/adresář /nový/adresář none bind 0 0</div>
 </div></div>
 
 <h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 5 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 2 (Připojení a odpojení systému souborů)"><sup>3/</sup>2 Připojení a odpojení systému souborů</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z284746620"><span><a href="#z284746620">⣈</a></span></span>připojit systém souborů uvedený v /etc/fstab (alternativy)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1903233041"><span><a href="#z1903233041">ⵞ</a></span></span><b>připojit</b> systém souborů uvedený v /etc/fstab (alternativy)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> mount <i class="dopln">kam-připojit</i></div>
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> mount <i class="dopln">co-připojit</i></div>
 </div></div>
@@ -134,17 +134,22 @@ V následujících zaklínadlech platí:
 <div class="radekzaklinadla">sudo mount -t <i class="dopln">typ-soub-sys</i> -o <i class="dopln">volby,připojení</i> <i class="dopln">/co/připojit</i> <i class="dopln">/kam/připojit</i></div>
 <div class="radekzaklinadla">sudo mount -t ext4 -o defaults,nosuid,nodev,lazytime,discard UUID=61bbd562-0694-4561-a8e2-4ccfd004a660 /mnt/abc</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1117228510"><span><a href="#z1117228510">⪓</a></span></span>odpojit systém souborů<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z135782631"><span><a href="#z135782631">⣴</a></span></span>odpojit systém souborů a <b>vysunout</b> zařízení (alternativy)<span class="cislo">#3 </span><sup><a href="#kapdiskoveoddilyppc4" id="kapdiskoveoddilyppcr4" title="Příkaz „eject“ pro jistotu používejte se sudo, popř. vyzkoušejte, zda bez něj ve vašem konkrétním případě funguje. Často se mi stává, že i uživateli, který je ve skupinách „cdrom“ a „plugdev“ selže s chybou „Nemohu otevřít zařízení“ a zatím se mi nepodařilo zjistit, jaké tam platí pravidlo.">(4)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> eject <span class="volznak">[</span>-v<span class="volznak">]</span> <i class="dopln">/dev/oddíl</i></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> eject <span class="volznak">[</span>-v<span class="volznak">]</span> <i class="dopln">/dev/zařízení</i></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> eject <span class="volznak">[</span>-v<span class="volznak">]</span> <i class="dopln">/cesta/přípojného/bodu</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z275425907"><span><a href="#z275425907">↘</a></span></span><b>odpojit</b> systém souborů<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> umount <i class="dopln">kam-připojit</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z921446621"><span><a href="#z921446621">⸟</a></span></span>připojit adresář z již připojeného systému souborů na nový přípojný bod<span class="cislo">#4 </span><sup><a href="#kapdiskoveoddilyppc4" id="kapdiskoveoddilyppcr4" title="Poznámka: Tímto příkazem se vytvoří nové, nezávislé připojení existujícího systému souborů.">(4)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1738641934"><span><a href="#z1738641934">┠</a></span></span>připojit <b>adresář</b> z již připojeného systému souborů na nový přípojný bod<span class="cislo">#5 </span><sup><a href="#kapdiskoveoddilyppc5" id="kapdiskoveoddilyppcr5" title="Poznámka: Tímto příkazem se vytvoří nové, nezávislé připojení existujícího systému souborů.">(5)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo mount --bind <i class="dopln">/cesta/k/adresáři</i> <i class="dopln">/nový/přípojný/bod</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2003198128"><span><a href="#z2003198128">┢</a></span></span>přesunout systém souborů na jiný přípojný bod (alternativa 1)<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z220739479"><span><a href="#z220739479">⁀</a></span></span><b>přesunout</b> systém souborů na jiný přípojný bod (alternativa 1)<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo mount --bind <i class="dopln">/původní/přípojný/bod</i> <i class="dopln">/nový/přípojný/bod</i></div>
 <div class="radekzaklinadla">sudo umount <i class="dopln">/původní/přípojný/bod</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2003712383"><span><a href="#z2003712383">┡</a></span></span>přesunout systém souborů na jiný přípojný bod (alternativa 2)<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2003712383"><span><a href="#z2003712383">┡</a></span></span>přesunout systém souborů na jiný přípojný bod (alternativa 2)<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo mount --make-private <i class="dopln">/nadřazený/přípojný/bod</i> &amp;&amp;</div>
 <div class="radekzaklinadla">sudo mount --move <i class="dopln">/původní/přípojný/bod</i> <i class="dopln">/nový/přípojný/bod</i></div>
 </div></div>
@@ -197,7 +202,7 @@ V následujících zaklínadlech platí:
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z822269857x"><span><a href="#z822269857x">ຮ</a></span></span><b>typ</b> souborového systému<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> lsblk -ln -o FSTYPE <i class="dopln">/dev/oddíl</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1770574508"><span><a href="#z1770574508">ᕹ</a></span></span>vypsat místní zařízení a oddíly (pro člověka/pro skript)<span class="cislo">#3 </span><sup><a href="#kapdiskoveoddilyppc5" id="kapdiskoveoddilyppcr5" title="Poznámka: vypsaný seznam může obsahovat i zařízení nedostupná či k ukládání dat nevhodná. Buďte při jejich zkoumání opatrní.">(5)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1770574508"><span><a href="#z1770574508">ᕹ</a></span></span>vypsat místní zařízení a oddíly (pro člověka/pro skript)<span class="cislo">#3 </span><sup><a href="#kapdiskoveoddilyppc6" id="kapdiskoveoddilyppcr6" title="Poznámka: vypsaný seznam může obsahovat i zařízení nedostupná či k ukládání dat nevhodná. Buďte při jejich zkoumání opatrní.">(6)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span><i>sudo</i><span class="volznak">]</span> lsblk <span class="volznak">[</span>--all<span class="volznak">]</span></div>
 <div class="radekzaklinadla"><span class="volznak">[</span><i>sudo</i><span class="volznak">]</span> lsblk -ln -o NAME | sed -E 's!--!\x00!g;s!-!/!g;s!\x00!-!g;s!^!/dev/!' | LC_ALL=C sort</div>
 </div></div>
@@ -205,7 +210,7 @@ V následujících zaklínadlech platí:
 <div class="radekzaklinadla">sudo blockdev --getsize64 <i class="dopln">/dev/oddíl</i></div>
 <div class="radekzaklinadla">sudo blockdev --getsize64 <i class="dopln">/dev/disk</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1200466299"><span><a href="#z1200466299">᚛</a></span></span>je oddíl či zařízení jen pro čtení?<span class="cislo">#5 </span><sup><a href="#kapdiskoveoddilyppc6" id="kapdiskoveoddilyppcr6" title="Odpověď 0 znamená, že zařízení je i pro zápis; odpověď 1 znamená, že je jen pro čtení.">(6)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1200466299"><span><a href="#z1200466299">᚛</a></span></span>je oddíl či zařízení jen pro čtení?<span class="cislo">#5 </span><sup><a href="#kapdiskoveoddilyppc7" id="kapdiskoveoddilyppcr7" title="Odpověď 0 znamená, že zařízení je i pro zápis; odpověď 1 znamená, že je jen pro čtení.">(7)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo blockdev --getro <i class="dopln">/dev/oddíl-nebo-zařízení</i></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z913147416"><span><a href="#z913147416">△</a></span></span>zjistit velikost fyzického bloku/logického sektoru (v bajtech)<span class="cislo">#6 </span></div><div class="radky">
@@ -214,24 +219,24 @@ V následujících zaklínadlech platí:
 </div></div>
 
 <h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 5 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 5 (Formátování)"><sup>3/</sup>5 Formátování</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z878563309"><span><a href="#z878563309">⢧</a></span></span>formátovat na <b>ext4</b> (obecně/příklad)<span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilyppc7" id="kapdiskoveoddilyppcr7" title="Maximální velikost jmenovky je 16 bajtů.">(7)</a>,&nbsp;<a href="#kapdiskoveoddilyppc8" id="kapdiskoveoddilyppcr8" title="Parametr -U přijímá také speciální hodnoty „random“ (vygenerovat náhodné UUID), „time“ (vygenerovat UUID závislé na čase), „clear“ (zrušit UUID).">(8)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z878563309"><span><a href="#z878563309">⢧</a></span></span>formátovat na <b>ext4</b> (obecně/příklad)<span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilyppc8" id="kapdiskoveoddilyppcr8" title="Maximální velikost jmenovky je 16 bajtů.">(8)</a>,&nbsp;<a href="#kapdiskoveoddilyppc9" id="kapdiskoveoddilyppcr9" title="Parametr -U přijímá také speciální hodnoty „random“ (vygenerovat náhodné UUID), „time“ (vygenerovat UUID závislé na čase), „clear“ (zrušit UUID).">(9)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo mke2fs -t ext4 <span class="volznak">[</span>-c<span class="volznak">[</span>c<span class="volznak">]</span><span class="volznak">]</span> -v <span class="volznak">[</span>-E root_owner=<i class="dopln">UID</i>:<i class="dopln">GID</i><span class="volznak">]</span> <span class="volznak">[</span>-L <i class="dopln">jmenovka</i><span class="volznak">]</span> <span class="volznak">[</span>-U <i class="dopln">UUID</i><span class="volznak">]</span> <span class="volznak">[</span>-d <i class="dopln">cesta</i><span class="volznak">]</span> <span class="volznak">[</span>-F<span class="volznak">]</span> <i class="dopln">/dev/zařízení-nebo-oddíl</i></div>
 <div class="radekzaklinadla">sudo mke2fs -t ext4 -c -v -U 977bda6f-ce11-4549-9325-c48c360069ef /dev/sda3</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z116551276"><span><a href="#z116551276">⨑</a></span></span>formátovat na <b>FAT32</b> (obecně/příklad)<span class="cislo">#2 </span><sup><a href="#kapdiskoveoddilyppc9" id="kapdiskoveoddilyppcr9" title="Poznámka: jmenovka systémů FAT může být maximálně 11 znaků dlouhá!">(9)</a>,&nbsp;<a href="#kapdiskoveoddilyppc10" id="kapdiskoveoddilyppcr10" title="Pro formátování na FAT16 či FAT12 nahraďte hodnotu 32 u parametru -F. Tyto staré souborové systémy se dnes už ale v praxi nepoužívají.">(10)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z116551276"><span><a href="#z116551276">⨑</a></span></span>formátovat na <b>FAT32</b> (obecně/příklad)<span class="cislo">#2 </span><sup><a href="#kapdiskoveoddilyppc10" id="kapdiskoveoddilyppcr10" title="Poznámka: jmenovka systémů FAT může být maximálně 11 znaků dlouhá!">(10)</a>,&nbsp;<a href="#kapdiskoveoddilyppc11" id="kapdiskoveoddilyppcr11" title="Pro formátování na FAT16 či FAT12 nahraďte hodnotu 32 u parametru -F. Tyto staré souborové systémy se dnes už ale v praxi nepoužívají.">(11)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo mkfs.fat -F 32 <span class="volznak">[</span>-c<span class="volznak">]</span> <span class="volznak">[</span>-h <i class="dopln">počet-skrytých-sektorů</i><span class="volznak">]</span> <span class="volznak">[</span>-n &quot;<i class="dopln">JMENOVKA</i>&quot;<span class="volznak">]</span> <span class="volznak">[</span>-v<span class="volznak">]</span> <i class="dopln">/dev/oddíl</i></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1883378611"><span><a href="#z1883378611">☩</a></span></span>formátovat na <b>NTFS</b> (obecně/příklad)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo mkntfs <span class="volznak">[</span>-f<span class="volznak">]</span> <span class="volznak">[</span>-v<span class="volznak">]</span> <span class="volznak">[</span>-L <i class="dopln">jmenovka</i><span class="volznak">]</span> <span class="volznak">[</span>-C<span class="volznak">]</span> <span class="volznak">[</span>-U<span class="volznak">]</span> <i class="dopln">/dev/zařízení-nebo-oddíl</i></div>
 <div class="radekzaklinadla">sudo mkntfs -f -v -L MůjDisk /dev/sda3</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1485527849"><span><a href="#z1485527849">ຊ</a></span></span>změnit velikost souborového systému ext4<span class="cislo">#4 </span><sup><a href="#kapdiskoveoddilyppc11" id="kapdiskoveoddilyppcr11" title="Velikost se zadává s příponou (např. „2048M“ nebo „4G“). Pokud ji nezadáte, souborový systém se zvětší tak, aby pokud možno zaplnil celý oddíl. Tip: velikost souborového systému lze obvykle změnit i tehdy, když je souborový systém připojený.">(11)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1485527849"><span><a href="#z1485527849">ຊ</a></span></span>změnit velikost souborového systému ext4<span class="cislo">#4 </span><sup><a href="#kapdiskoveoddilyppc12" id="kapdiskoveoddilyppcr12" title="Velikost se zadává s příponou (např. „2048M“ nebo „4G“). Pokud ji nezadáte, souborový systém se zvětší tak, aby pokud možno zaplnil celý oddíl. Tip: velikost souborového systému lze obvykle změnit i tehdy, když je souborový systém připojený.">(12)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo e2fsck -f <i class="dopln">/dev/oddíl</i></div>
 <div class="radekzaklinadla">sudo resize2fs <i class="dopln">/dev/oddíl</i> <span class="volznak">[</span><i class="dopln">velikost</i><span class="volznak">]</span></div>
 </div></div>
 
 <h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 5 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 6 (Odkládací oddíly a soubory)"><sup>3/</sup>6 Odkládací oddíly a soubory</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1025588810"><span><a href="#z1025588810">⇓</a></span></span><b>připojit</b> odkládací oddíl či soubor (obecně/příklady)<span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilyppc12" id="kapdiskoveoddilyppcr12" title="Pro odkládací oddíl či soubor platí totéž, co pro běžné diskové oddíly — aby se připojil automaticky při startu systému, musí být odpovídající záznam zapsaný v /etc/fstab!">(12)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1025588810"><span><a href="#z1025588810">⇓</a></span></span><b>připojit</b> odkládací oddíl či soubor (obecně/příklady)<span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilyppc13" id="kapdiskoveoddilyppcr13" title="Pro odkládací oddíl či soubor platí totéž, co pro běžné diskové oddíly — aby se připojil automaticky při startu systému, musí být odpovídající záznam zapsaný v /etc/fstab!">(13)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo swapon <i class="dopln">co-připojit</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sudo swapon /mujswap</div>
 <div class="radekzaklinadla">sudo swapon UUID=&quot;977bda6f-ce11-4549-9325-c48c360069ef&quot;</div>
@@ -240,10 +245,10 @@ V následujících zaklínadlech platí:
 <div class="radekzaklinadla">sudo swapoff <i class="dopln">co-připojit</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sudo swapoff -a<span class="volznak">[</span>v<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z148845296"><span><a href="#z148845296">‖</a></span></span><b>vypsat</b> aktivní odkládací oddíly a soubory<span class="cislo">#3 </span><sup><a href="#kapdiskoveoddilyppc13" id="kapdiskoveoddilyppcr13" title="Bez sudo vynechá jmenovky a UUID.">(13)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z148845296"><span><a href="#z148845296">‖</a></span></span><b>vypsat</b> aktivní odkládací oddíly a soubory<span class="cislo">#3 </span><sup><a href="#kapdiskoveoddilyppc14" id="kapdiskoveoddilyppcr14" title="Bez sudo vynechá jmenovky a UUID.">(14)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> swapon --show<span class="volznak">[</span>=NAME,USED,SIZE,PRIO,LABEL,UUID<span class="volznak">]</span> <span class="volznak">[</span>--noheadings<span class="volznak">]</span> <span class="volznak">[</span>--bytes<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1476940009"><span><a href="#z1476940009">䷳</a></span></span><b>vytvořit</b> odkládací soubor<span class="cislo">#4 </span><sup><a href="#kapdiskoveoddilyppc14" id="kapdiskoveoddilyppcr14" title="Velikost můžete zadat také v megabajtech (s příponou „M“) či gigabajtech (s příponou „G“).">(14)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1476940009"><span><a href="#z1476940009">䷳</a></span></span><b>vytvořit</b> odkládací soubor<span class="cislo">#4 </span><sup><a href="#kapdiskoveoddilyppc15" id="kapdiskoveoddilyppcr15" title="Velikost můžete zadat také v megabajtech (s příponou „M“) či gigabajtech (s příponou „G“).">(15)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> fallocate -l <i class="dopln">velikost-v-bajtech</i> <i class="dopln">název-souboru</i></div>
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> chmod 600 <i class="dopln">název-souboru</i></div>
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> mkswap <i class="dopln">název-souboru</i></div>
@@ -268,28 +273,28 @@ V následujících zaklínadlech platí:
 </div></div>
 
 <h3 id="cast3x8"><span><a href="#cast3x8" title="kapitola 5 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 8 (Jmenovka (nastavit))"><sup>3/</sup>8 Jmenovka (nastavit)</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z982477889"><span><a href="#z982477889">✶</a></span></span>nastavit/smazat jmenovku odkládacího oddílu<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1864154398"><span><a href="#z1864154398">⊸</a></span></span>nastavit/smazat jmenovku <b>odkládacího</b> oddílu<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo swaplabel -L &quot;<i class="dopln">novájmenovka</i>&quot; <i class="dopln">/dev/oddíl</i></div>
 <div class="radekzaklinadla">sudo swaplabel -L &quot;&quot; <i class="dopln">/dev/oddíl</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1569326723"><span><a href="#z1569326723">䷽</a></span></span>nastavit/smazat jmenovku ext4<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1012785440"><span><a href="#z1012785440">❤</a></span></span>nastavit/smazat jmenovku <b>ext4</b><span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo e2label <i class="dopln">/dev/oddíl</i> &quot;<i class="dopln">novájmenovka</i>&quot;</div>
 <div class="radekzaklinadla">sudo e2label <i class="dopln">/dev/oddíl</i> &quot;&quot;</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z926947396"><span><a href="#z926947396">䷾</a></span></span>nastavit/smazat jmenovku FAT32<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1618557033"><span><a href="#z1618557033">✯</a></span></span>nastavit/smazat jmenovku <b>FAT32</b><span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1848561941"><span><a href="#z1848561941">⠳</a></span></span>nastavit/smazat jmenovku NTFS<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1558536042"><span><a href="#z1558536042">⨎</a></span></span>nastavit/smazat jmenovku <b>NTFS</b><span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
 <h3 id="cast3x9"><span><a href="#cast3x9" title="kapitola 5 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 9 (Degrafmentace, kontrola, TRIM apod.)"><sup>3/</sup>9 Degrafmentace, kontrola, TRIM apod.</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z462553670"><span><a href="#z462553670">⬃</a></span></span>zkontrolovat a opravit souborový systém<span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilyppc15" id="kapdiskoveoddilyppcr15" title="Příkaz „fsck“ pravděpodobně lze použít i se souborovým systémem v souboru, ale nezkoušel/a jsem to.">(15)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1016368653"><span><a href="#z1016368653">ມ</a></span></span><b>zkontrolovat</b> a opravit souborový systém<span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilyppc16" id="kapdiskoveoddilyppcr16" title="Příkaz „fsck“ pravděpodobně lze použít i se souborovým systémem v souboru, ale nezkoušel/a jsem to.">(16)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo fsck <span class="volznak">[</span>-V<span class="volznak">]</span> <i class="dopln">/dev/oddíl</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1479816234"><span><a href="#z1479816234">➶</a></span></span>najít chybné bloky (obecně/příklad)<span class="cislo">#2 </span><sup><a href="#kapdiskoveoddilyppc16" id="kapdiskoveoddilyppcr16" title="Poznámka: Tento příkaz chybné bloky najde, ale neudělá nic proto, aby se je systém souborů nesnažil používat.">(16)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1479816234"><span><a href="#z1479816234">➶</a></span></span>najít chybné bloky (obecně/příklad)<span class="cislo">#2 </span><sup><a href="#kapdiskoveoddilyppc17" id="kapdiskoveoddilyppcr17" title="Poznámka: Tento příkaz chybné bloky najde, ale neudělá nic proto, aby se je systém souborů nesnažil používat.">(17)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo badblocks <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span> <span class="volznak">[</span>-w<span class="volznak">]</span> <i class="dopln">/dev/zařízení-nebo-oddíl</i></div>
 <div class="radekzaklinadla">sudo badblocks -vv /dev/sda1</div>
 </div></div>
@@ -297,19 +302,19 @@ V následujících zaklínadlech platí:
 <div class="radekzaklinadla">sudo fstrim <span class="volznak">[</span>-v<span class="volznak">]</span> <i class="dopln">/přípojný/bod</i></div>
 <div class="radekzaklinadla">sudo fstrim -a <span class="volznak">[</span>-v<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z710304926"><span><a href="#z710304926">☭</a></span></span>zkontrolovat fragmentaci oddílu typu ext4<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2051448597"><span><a href="#z2051448597">╥</a></span></span>zkontrolovat <b>fragmentaci</b> oddílu typu ext4<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo e4defrag -c <i class="dopln">/dev/oddíl</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z112863918"><span><a href="#z112863918">∼</a></span></span>defragmentovat oddíl typu ext4 (pozor!)<span class="cislo">#5 </span><sup><a href="#kapdiskoveoddilyppc17" id="kapdiskoveoddilyppcr17" title="Pokud jste začátečník, nedefragmentujte oddíly typu ext4! Obvykle to není potřeba.">(17)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z112863918"><span><a href="#z112863918">∼</a></span></span>defragmentovat oddíl typu ext4 (pozor!)<span class="cislo">#5 </span><sup><a href="#kapdiskoveoddilyppc18" id="kapdiskoveoddilyppcr18" title="Pokud jste začátečník, nedefragmentujte oddíly typu ext4! Obvykle to není potřeba.">(18)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo e4defrag <i class="dopln">/dev/oddíl</i></div>
 </div></div>
 
 <h3 id="cast3x10"><span><a href="#cast3x10" title="kapitola 5 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 10 (Ostatní)"><sup>3/</sup>10 Ostatní</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z320716373"><span><a href="#z320716373">⡸</a></span></span>zálohovat diskový oddíl do souboru (přímo/komprimovaný)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1061808262"><span><a href="#z1061808262">⣴</a></span></span><b>zálohovat</b> diskový oddíl do souboru (přímo/komprimovaný)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo dd if=<i class="dopln">/dev/oddíl</i> of=<i class="dopln">cesta</i> <span class="volznak">[</span>status=progress<span class="volznak">]</span></div>
 <div class="radekzaklinadla">sudo dd if=<i class="dopln">/dev/oddíl</i> <span class="volznak">[</span>status=progress<span class="volznak">]</span> | gzip -n<span class="volznak">[</span>9<span class="volznak">]</span> &gt;<i class="dopln">cesta.gz</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona L" id="z372470127"><span><a href="#z372470127">⬳</a></span></span>obnovit diskový oddíl (přímo/komprimovaný)<span class="cislo">#2 </span><sup><a href="#kapdiskoveoddilyppc18" id="kapdiskoveoddilyppcr18" title="Pozor! Tato operace je nebezpečná! Pokud zadáte chybný cílový oddíl, daný oddíl se nevratně přepíše daty určenými pro ten správný. Pokud velikost zálohy neodpovídá přesně velikosti cílového oddílu, nemusí být oddíl po obnově dobře použitelný. Tento příkaz používejte s velkou opatrností!">(18)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z172336570"><span><a href="#z172336570">①</a></span></span><b>obnovit</b> diskový oddíl (přímo/komprimovaný)<span class="cislo">#2 </span><sup><a href="#kapdiskoveoddilyppc19" id="kapdiskoveoddilyppcr19" title="Pozor! Tato operace je nebezpečná! Pokud zadáte chybný cílový oddíl, daný oddíl se nevratně přepíše daty určenými pro ten správný. Pokud velikost zálohy neodpovídá přesně velikosti cílového oddílu, nemusí být oddíl po obnově dobře použitelný. Tento příkaz používejte s velkou opatrností!">(19)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo dd if=<i class="dopln">cesta</i> of=/dev/<i class="dopln">oddíl</i> <span class="volznak">[</span>status=progress<span class="volznak">]</span></div>
 <div class="radekzaklinadla">gunzip -cd <i class="dopln">cesta.gz</i> | sudo dd of=<i class="dopln">/dev/oddíl</i> <span class="volznak">[</span>status=progress<span class="volznak">]</span></div>
 </div></div>
@@ -324,10 +329,10 @@ V následujících zaklínadlech platí:
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1140116989"><span><a href="#z1140116989">⇔</a></span></span><b>smazat</b><span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo pvremove <i class="dopln">/dev/zařízení-nebo-oddíl</i> <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2140386045"><span><a href="#z2140386045">☠</a></span></span>zkontrolovat<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z439129064"><span><a href="#z439129064">⌇</a></span></span><b>zkontrolovat</b><span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo pvck <i class="dopln">/dev/zařízení-nebo-oddíl</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1755999988"><span><a href="#z1755999988">⠭</a></span></span>vypsat (pro člověka/pro skript)<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z303772227x"><span><a href="#z303772227x">⎛</a></span></span><b>vypsat</b> (pro člověka/pro skript)<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo pvs</div>
 <div class="radekzaklinadla">sudo pvs --noheadings | sed -E 's/^\s*(\S+)\s.*$/\1/'</div>
 </div></div>
@@ -349,7 +354,7 @@ V následujících zaklínadlech platí:
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1432048416"><span><a href="#z1432048416">⠂</a></span></span><b>přejmenovat</b><span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo vgrename <i class="dopln">id-skupiny</i> <i class="dopln">nove-id-skupiny</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1755999988x"><span><a href="#z1755999988x">⠭</a></span></span>vypsat (pro člověka/pro skript)<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z303772227xx"><span><a href="#z303772227xx">⎛</a></span></span><b>vypsat</b> (pro člověka/pro skript)<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo vgs</div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
@@ -359,21 +364,21 @@ V následujících zaklínadlech platí:
 </div></div>
 
 <h3 id="cast4x3"><span><a href="#cast4x3" title="kapitola 5 (Diskové oddíly), sekce 4 (Zaklínadla (LVM)), podsekce 3 (Logické oddíly)"><sup>4/</sup>3 Logické oddíly</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z429491941"><span><a href="#z429491941">⨒</a></span></span><b>vytvořit</b> (velikost zadat: absolutně/v procentech velikosti skupiny/v procentech velikosti volného místa/všechno volné místo)<span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilyppc19" id="kapdiskoveoddilyppcr19" title="Pro přesnější určení rozměru můžete zadat velikost oddílu v mebibajtech místo gibibajtů (místo přípony „G“ uveďte příponu „M“), ale v takovém případě počítejte s možností, že systém zadanou hodnotu mírně zaokrouhlí nahoru.">(19)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z429491941"><span><a href="#z429491941">⨒</a></span></span><b>vytvořit</b> (velikost zadat: absolutně/v procentech velikosti skupiny/v procentech velikosti volného místa/všechno volné místo)<span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilyppc20" id="kapdiskoveoddilyppcr20" title="Pro přesnější určení rozměru můžete zadat velikost oddílu v mebibajtech místo gibibajtů (místo přípony „G“ uveďte příponu „M“), ale v takovém případě počítejte s možností, že systém zadanou hodnotu mírně zaokrouhlí nahoru.">(20)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo lvcreate <i class="dopln">id-skupiny</i> --name <i class="dopln">id-oddílu</i> --size <i class="dopln">gibibajtů</i>G <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">/dev/fyzický-svazek</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sudo lvcreate <i class="dopln">id-skupiny</i> --name <i class="dopln">id-oddílu</i> --extents <i class="dopln">procenta</i>%VG <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 <div class="radekzaklinadla">sudo lvcreate <i class="dopln">id-skupiny</i> --name <i class="dopln">id-oddílu</i> --extents <i class="dopln">procenta</i>%FREE <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 <div class="radekzaklinadla">sudo lvcreate <i class="dopln">id-skupiny</i> --name <i class="dopln">id-oddílu</i> --extents 100%FREE <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z303772227x"><span><a href="#z303772227x">⎛</a></span></span><b>vypsat</b> (pro člověka/pro skript)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z303772227xxx"><span><a href="#z303772227xxx">⎛</a></span></span><b>vypsat</b> (pro člověka/pro skript)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo lvs</div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z827537278"><span><a href="#z827537278">ⱶ</a></span></span><b>zvětšit</b> (na velikost/relativně)<span class="cislo">#3 </span><sup><a href="#kapdiskoveoddilyppc20" id="kapdiskoveoddilyppcr20" title="Volba --resizefs je podporována pouze pro některé typy systému souborů, zejména pro ext4.">(20)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z827537278"><span><a href="#z827537278">ⱶ</a></span></span><b>zvětšit</b> (na velikost/relativně)<span class="cislo">#3 </span><sup><a href="#kapdiskoveoddilyppc21" id="kapdiskoveoddilyppcr21" title="Volba --resizefs je podporována pouze pro některé typy systému souborů, zejména pro ext4.">(21)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo lvextend <i class="dopln">id-skupiny</i>/<i class="dopln">id-oddílu</i> --size <i class="dopln">gibibajtů</i>G <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 <div class="radekzaklinadla">sudo lvextend <i class="dopln">id-skupiny</i>/<i class="dopln">id-oddílu</i> --size +<i class="dopln">gibibajtů</i>G <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span> <span class="volznak">[</span>--resizefs<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z119416888"><span><a href="#z119416888">❉</a></span></span><b>zmenšit</b> (na velikost/relativně)<span class="cislo">#4 </span><sup><a href="#kapdiskoveoddilyppc21" id="kapdiskoveoddilyppcr21" title="Pozor! Pokud je na zmenšovaném oddíle souborový systém, musíte ho před zmenšením oddílu zmenšit na odpovídající velikost, jinak dojde ke ztrátě dat! To neplatí, použijete-li zde parametr --resizefs.">(21)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z119416888"><span><a href="#z119416888">❉</a></span></span><b>zmenšit</b> (na velikost/relativně)<span class="cislo">#4 </span><sup><a href="#kapdiskoveoddilyppc22" id="kapdiskoveoddilyppcr22" title="Pozor! Pokud je na zmenšovaném oddíle souborový systém, musíte ho před zmenšením oddílu zmenšit na odpovídající velikost, jinak dojde ke ztrátě dat! To neplatí, použijete-li zde parametr --resizefs.">(22)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo lvreduce <i class="dopln">id-skupiny</i>/<i class="dopln">id-oddílu</i> --size <i class="dopln">gibibajtů</i>G <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 <div class="radekzaklinadla">sudo lvreduce <i class="dopln">id-skupiny</i>/<i class="dopln">id-oddílu</i> --size +<i class="dopln">gibibajtů</i>G <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span> <span class="volznak">[</span>--resizefs<span class="volznak">]</span></div>
 </div></div>
@@ -490,6 +495,7 @@ Nástroj GParted najdete v balíčku „gparted“:
 <ul><li>Pomocí příkazu „mount --bind“ můžete jeden ramdisk připojit na několik různých míst VFS!
 </li><li>V případě změny velikosti oddílu v LVM je třeba samostatně změnit velikost souborového systému a samostatně velikost logického oddílu. Výjimkou je souborový systém „ext4“, u kterého je možné tyto operace sloučit použitím parametru „--resizefs“.
 </li><li>LVM poskytuje svůj vlastní interpret příkazové řádky, který nabízí pouze příkazy související s LVM (bez zadávání „sudo“). Spustíte ho příkazem „sudo lvm“.
+</li><li>Zadáte-li výměnnou jednotku (např. USB flash disk) v /etc/fstab a tato jednotka nebude dostupná při startu systému, zavádění selže a nabídne vám přechod do záchranného režimu. Proti tomu pomohou volby „nofail“ (v případě jakékoliv chyby se připojení systému souborů tiše přeskočí) a „noauto“ (systém se vůbec nepokusí o připojení, ale oddíl či jednotku půjde připojit zkrácenou syntaxí příkazu „mount“).
 </li></ul>
 <h2 id="cast8"><a href="#cast8"><span class="cislo">8.</span> Další zdroje informací</a></h2>
 <ul class="kompaktni"><li><a href="https://www.abclinuxu.cz/serialy/lvm">Seriál Logical Volume Manager</a>
@@ -507,53 +513,60 @@ Nástroj GParted najdete v balíčku „gparted“:
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapdiskoveoddilyppc3"><a href="#kapdiskoveoddilyppcr3" class="cislopozn">3</a>&nbsp;Velikost se udává nejčastěji v mebibajtech (s příponou M – např. „256M“) nebo gibibajtech (s příponou G – např. „10G“).</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilyppc4"><a href="#kapdiskoveoddilyppcr4" class="cislopozn">4</a>&nbsp;Poznámka: Tímto příkazem se vytvoří nové, nezávislé připojení existujícího systému souborů.</div>
+<div id="kapdiskoveoddilyppc4"><a href="#kapdiskoveoddilyppcr4" class="cislopozn">4</a>&nbsp;Příkaz „eject“ pro jistotu používejte se sudo, popř. vyzkoušejte, zda bez něj ve vašem konkrétním případě funguje. Často se mi stává, že i uživateli, který je ve skupinách „cdrom“ a „plugdev“ selže s chybou „Nemohu otevřít zařízení“ a zatím se mi nepodařilo zjistit, jaké tam platí pravidlo.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilyppc5"><a href="#kapdiskoveoddilyppcr5" class="cislopozn">5</a>&nbsp;Poznámka: vypsaný seznam může obsahovat i zařízení nedostupná či k ukládání dat nevhodná. Buďte při jejich zkoumání opatrní.</div>
+<div id="kapdiskoveoddilyppc5"><a href="#kapdiskoveoddilyppcr5" class="cislopozn">5</a>&nbsp;Poznámka: Tímto příkazem se vytvoří nové, nezávislé připojení existujícího systému souborů.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilyppc6"><a href="#kapdiskoveoddilyppcr6" class="cislopozn">6</a>&nbsp;Odpověď 0 znamená, že zařízení je i pro zápis; odpověď 1 znamená, že je jen pro čtení.</div>
+<div id="kapdiskoveoddilyppc6"><a href="#kapdiskoveoddilyppcr6" class="cislopozn">6</a>&nbsp;Poznámka: vypsaný seznam může obsahovat i zařízení nedostupná či k ukládání dat nevhodná. Buďte při jejich zkoumání opatrní.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilyppc7"><a href="#kapdiskoveoddilyppcr7" class="cislopozn">7</a>&nbsp;Maximální velikost jmenovky je 16 bajtů.</div>
+<div id="kapdiskoveoddilyppc7"><a href="#kapdiskoveoddilyppcr7" class="cislopozn">7</a>&nbsp;Odpověď 0 znamená, že zařízení je i pro zápis; odpověď 1 znamená, že je jen pro čtení.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilyppc8"><a href="#kapdiskoveoddilyppcr8" class="cislopozn">8</a>&nbsp;Parametr -U přijímá také speciální hodnoty „random“ (vygenerovat náhodné UUID), „time“ (vygenerovat UUID závislé na čase), „clear“ (zrušit UUID).</div>
+<div id="kapdiskoveoddilyppc8"><a href="#kapdiskoveoddilyppcr8" class="cislopozn">8</a>&nbsp;Maximální velikost jmenovky je 16 bajtů.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilyppc9"><a href="#kapdiskoveoddilyppcr9" class="cislopozn">9</a>&nbsp;Poznámka: jmenovka systémů FAT může být maximálně 11 znaků dlouhá!</div>
+<div id="kapdiskoveoddilyppc9"><a href="#kapdiskoveoddilyppcr9" class="cislopozn">9</a>&nbsp;Parametr -U přijímá také speciální hodnoty „random“ (vygenerovat náhodné UUID), „time“ (vygenerovat UUID závislé na čase), „clear“ (zrušit UUID).</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilyppc10"><a href="#kapdiskoveoddilyppcr10" class="cislopozn">10</a>&nbsp;Pro formátování na FAT16 či FAT12 nahraďte hodnotu 32 u parametru -F. Tyto staré souborové systémy se dnes už ale v praxi nepoužívají.</div>
+<div id="kapdiskoveoddilyppc10"><a href="#kapdiskoveoddilyppcr10" class="cislopozn">10</a>&nbsp;Poznámka: jmenovka systémů FAT může být maximálně 11 znaků dlouhá!</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilyppc11"><a href="#kapdiskoveoddilyppcr11" class="cislopozn">11</a>&nbsp;Velikost se zadává s příponou (např. „2048M“ nebo „4G“). Pokud ji nezadáte, souborový systém se zvětší tak, aby pokud možno zaplnil celý oddíl. Tip: velikost souborového systému lze obvykle změnit i tehdy, když je souborový systém připojený.</div>
+<div id="kapdiskoveoddilyppc11"><a href="#kapdiskoveoddilyppcr11" class="cislopozn">11</a>&nbsp;Pro formátování na FAT16 či FAT12 nahraďte hodnotu 32 u parametru -F. Tyto staré souborové systémy se dnes už ale v praxi nepoužívají.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilyppc12"><a href="#kapdiskoveoddilyppcr12" class="cislopozn">12</a>&nbsp;Pro odkládací oddíl či soubor platí totéž, co pro běžné diskové oddíly — aby se připojil automaticky při startu systému, musí být odpovídající záznam zapsaný v /etc/fstab!</div>
+<div id="kapdiskoveoddilyppc12"><a href="#kapdiskoveoddilyppcr12" class="cislopozn">12</a>&nbsp;Velikost se zadává s příponou (např. „2048M“ nebo „4G“). Pokud ji nezadáte, souborový systém se zvětší tak, aby pokud možno zaplnil celý oddíl. Tip: velikost souborového systému lze obvykle změnit i tehdy, když je souborový systém připojený.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilyppc13"><a href="#kapdiskoveoddilyppcr13" class="cislopozn">13</a>&nbsp;Bez sudo vynechá jmenovky a UUID.</div>
+<div id="kapdiskoveoddilyppc13"><a href="#kapdiskoveoddilyppcr13" class="cislopozn">13</a>&nbsp;Pro odkládací oddíl či soubor platí totéž, co pro běžné diskové oddíly — aby se připojil automaticky při startu systému, musí být odpovídající záznam zapsaný v /etc/fstab!</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilyppc14"><a href="#kapdiskoveoddilyppcr14" class="cislopozn">14</a>&nbsp;Velikost můžete zadat také v megabajtech (s příponou „M“) či gigabajtech (s příponou „G“).</div>
+<div id="kapdiskoveoddilyppc14"><a href="#kapdiskoveoddilyppcr14" class="cislopozn">14</a>&nbsp;Bez sudo vynechá jmenovky a UUID.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilyppc15"><a href="#kapdiskoveoddilyppcr15" class="cislopozn">15</a>&nbsp;Příkaz „fsck“ pravděpodobně lze použít i se souborovým systémem v souboru, ale nezkoušel/a jsem to.</div>
+<div id="kapdiskoveoddilyppc15"><a href="#kapdiskoveoddilyppcr15" class="cislopozn">15</a>&nbsp;Velikost můžete zadat také v megabajtech (s příponou „M“) či gigabajtech (s příponou „G“).</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilyppc16"><a href="#kapdiskoveoddilyppcr16" class="cislopozn">16</a>&nbsp;Poznámka: Tento příkaz chybné bloky najde, ale neudělá nic proto, aby se je systém souborů nesnažil používat.</div>
+<div id="kapdiskoveoddilyppc16"><a href="#kapdiskoveoddilyppcr16" class="cislopozn">16</a>&nbsp;Příkaz „fsck“ pravděpodobně lze použít i se souborovým systémem v souboru, ale nezkoušel/a jsem to.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilyppc17"><a href="#kapdiskoveoddilyppcr17" class="cislopozn">17</a>&nbsp;Pokud jste začátečník, nedefragmentujte oddíly typu ext4! Obvykle to není potřeba.</div>
+<div id="kapdiskoveoddilyppc17"><a href="#kapdiskoveoddilyppcr17" class="cislopozn">17</a>&nbsp;Poznámka: Tento příkaz chybné bloky najde, ale neudělá nic proto, aby se je systém souborů nesnažil používat.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilyppc18"><a href="#kapdiskoveoddilyppcr18" class="cislopozn">18</a>&nbsp;Pozor! Tato operace je nebezpečná! Pokud zadáte chybný cílový oddíl, daný oddíl se nevratně přepíše daty určenými pro ten správný. Pokud velikost zálohy neodpovídá přesně velikosti cílového oddílu, nemusí být oddíl po obnově dobře použitelný. Tento příkaz používejte s velkou opatrností!</div>
+<div id="kapdiskoveoddilyppc18"><a href="#kapdiskoveoddilyppcr18" class="cislopozn">18</a>&nbsp;Pokud jste začátečník, nedefragmentujte oddíly typu ext4! Obvykle to není potřeba.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilyppc19"><a href="#kapdiskoveoddilyppcr19" class="cislopozn">19</a>&nbsp;Pro přesnější určení rozměru můžete zadat velikost oddílu v mebibajtech místo gibibajtů (místo přípony „G“ uveďte příponu „M“), ale v takovém případě počítejte s možností, že systém zadanou hodnotu mírně zaokrouhlí nahoru.</div>
+<div id="kapdiskoveoddilyppc19"><a href="#kapdiskoveoddilyppcr19" class="cislopozn">19</a>&nbsp;Pozor! Tato operace je nebezpečná! Pokud zadáte chybný cílový oddíl, daný oddíl se nevratně přepíše daty určenými pro ten správný. Pokud velikost zálohy neodpovídá přesně velikosti cílového oddílu, nemusí být oddíl po obnově dobře použitelný. Tento příkaz používejte s velkou opatrností!</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilyppc20"><a href="#kapdiskoveoddilyppcr20" class="cislopozn">20</a>&nbsp;Volba --resizefs je podporována pouze pro některé typy systému souborů, zejména pro ext4.</div>
+<div id="kapdiskoveoddilyppc20"><a href="#kapdiskoveoddilyppcr20" class="cislopozn">20</a>&nbsp;Pro přesnější určení rozměru můžete zadat velikost oddílu v mebibajtech místo gibibajtů (místo přípony „G“ uveďte příponu „M“), ale v takovém případě počítejte s možností, že systém zadanou hodnotu mírně zaokrouhlí nahoru.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilyppc21"><a href="#kapdiskoveoddilyppcr21" class="cislopozn">21</a>&nbsp;Pozor! Pokud je na zmenšovaném oddíle souborový systém, musíte ho před zmenšením oddílu zmenšit na odpovídající velikost, jinak dojde ke ztrátě dat! To neplatí, použijete-li zde parametr --resizefs.</div>
+<div id="kapdiskoveoddilyppc21"><a href="#kapdiskoveoddilyppcr21" class="cislopozn">21</a>&nbsp;Volba --resizefs je podporována pouze pro některé typy systému souborů, zejména pro ext4.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapdiskoveoddilyppc22"><a href="#kapdiskoveoddilyppcr22" class="cislopozn">22</a>&nbsp;Pozor! Pokud je na zmenšovaném oddíle souborový systém, musíte ho před zmenšením oddílu zmenšit na odpovídající velikost, jinak dojde ke ztrátě dat! To neplatí, použijete-li zde parametr --resizefs.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 </div>
-<div class="odkazydole"><a href="sprava-procesu.htm"><img src="obrazky/ik/sprava-procesu.png" alt="" width="32" height="32">Správa procesů</a><a href="vim.htm"><img src="obrazky/ik/vim.png" alt="" width="32" height="32">Vim</a><a href="soubory-a-adresare.htm"><img src="obrazky/ik/soubory-a-adresare.png" alt="" width="32" height="32">Soubory a adresáře</a></div>
 
-<nav class="spodni"><span class="prev">
-<a href="datum-cas-kalendar.htm" rel="prev" title="4. Datum, čas a kalendář">Předchozí&nbsp;kapitola</a>&nbsp;|
-</span><a href="index.htm">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="docker.htm" rel="next" title="6. Docker">Následující&nbsp;kapitola</a>
-</span>
+
+<nav class="spodni">
+<a href="index.htm" class="naindex">🗐&nbsp;Přehled&nbsp;kapitol</a>
+<div class="naslkap">
+<a href="docker.htm" rel="next" title="6. Docker">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">6</span>
+<span class="nazev">Docker</span></a>
+</div>
+<!--<div><a href="index.htm">🗐&nbsp;Přehled&nbsp;kapitol</a></div>-->
 <a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
 <a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
 </nav>
+
+
+<div class="odkazydole"><div><a href="vim.htm"><img src="obrazky/ik/vim.png" alt="" width="32" height="32">Vim</a><a href="planovani-uloh.htm"><img src="obrazky/ik/planovani-uloh.png" alt="" width="32" height="32">Plánování úloh</a><a href="docker.htm"><img src="obrazky/ik/docker.png" alt="" width="32" height="32">Docker</a></div></div>
 
 
 </article>

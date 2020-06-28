@@ -5,16 +5,16 @@
 
 <title>Barvy, titulek a výzva terminálu − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20200526.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200526-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200526-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200526-tmavy.css" title="Tmavý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20200628.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200628-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200628-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200628-tmavy.css" title="Tmavý motiv">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body>
 <div id="nahore"></div>
 <header>
-<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.8, D. D. (26. května 2020)</span>
+<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.9, E. E. (28. června 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -89,9 +89,10 @@ Jedna z prvních věcí, která mě po otevření linuxového terminálu naštv
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z568068531"><span><a href="#z568068531">⨖</a></span></span><b>resetovat</b> všechny atributy písma a barev<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">tput sgr0</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1468409664"><span><a href="#z1468409664">⚳</a></span></span>nastavit <b>barvu popředí/pozadí</b><span class="cislo">#4 </span><sup><a href="#kapbarvyatitulekppc2" id="kapbarvyatitulekppcr2" title="Funkce „bezp_set“ použije ze svých argumentů první podporované číslo barvy. Není-li žádné z uvedených čísel podporováno, žádná barva se nanastaví. Při volání doporučuji jako první uvést číslo pro paletu s 256 barvami a jako druhé číslo náhradní barvy z osmibarevné palety.">(2)</a></sup></div><div class="radky">
-<div class="radekzaklinadla">bezp_set setaf <i class="dopln">číslo-barvy</i><span class="tritecky"></span></div>
-<div class="radekzaklinadla">bezp_set setab <i class="dopln">číslo-barvy</i><span class="tritecky"></span></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1468409664"><span><a href="#z1468409664">⚳</a></span></span>nastavit <b>barvu popředí/pozadí</b><span class="cislo">#4 </span><sup><a href="#kapbarvyatitulekppc2" id="kapbarvyatitulekppcr2" title="Funkce „lkk_bezp_set“ použije ze svých argumentů první podporované číslo barvy. Není-li žádné z uvedených čísel podporováno, žádná barva se nanastaví. Při volání doporučuji jako první uvést číslo pro paletu s 256 barvami a jako druhé číslo náhradní barvy z osmibarevné palety.">(2)</a></sup></div><div class="radky">
+<div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>source &lt;(lkk --funkce)</div>
+<div class="radekzaklinadla">lkk_bezp_set setaf <i class="dopln">číslo-barvy</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla">lkk_bezp_set setab <i class="dopln">číslo-barvy</i><span class="tritecky"></span></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1571971774"><span><a href="#z1571971774">✓</a></span></span><b>ztmavit</b> text (jen zapnout)<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">tput dim</div>
@@ -110,7 +111,8 @@ Jedna z prvních věcí, která mě po otevření linuxového terminálu naštv
 <div class="radekzaklinadla">tput blink</div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1278726417"><span><a href="#z1278726417">↣</a></span></span>vyplnit celý terminál barvou<span class="cislo">#10 </span></div><div class="radky">
-<div class="radekzaklinadla">bezp_set setab <i class="dopln">číslo-barvy</i> <span class="volznak">[</span><i class="dopln">náhradní-číslo-barvy</i><span class="volznak">]</span><span class="tritecky"></span>; tput clear; tput sgr0</div>
+<div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>source &lt;(lkk --funkce)</div>
+<div class="radekzaklinadla">lkk_bezp_set setab <i class="dopln">číslo-barvy</i> <span class="volznak">[</span><i class="dopln">náhradní-číslo-barvy</i><span class="volznak">]</span><span class="tritecky"></span>; tput clear; tput sgr0</div>
 </div></div>
 
 <h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 3 (Barvy, titulek a výzva terminálu), sekce 3 (Zaklínadla), podsekce 3 (Nastavení písma)"><sup>3/</sup>3 Nastavení písma</a></span></h3>
@@ -258,18 +260,19 @@ Poznámka: z hlediska odzvláštnění jsou zaklínadla v této sekci upravena
 
 <h2 id="cast5"><a href="#cast5"><span class="cislo">5.</span> Zaklínadla (příklady)</a></h2>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1777684340"><span><a href="#z1777684340">䷥</a></span></span>návratová hodnota, čas, aktuální adresář a dolar<span class="cislo">#1 </span></div><div class="radky">
-<div class="radekzaklinadla">function pstput () { printf \\[; tput &quot;$@&quot; &amp;&amp; printf \\]; }</div>
+<div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>source &lt;(lkk --funkce)</div>
 <div class="radekzaklinadla">PROMPT_COMMAND=&quot;navr_hodn=\$?&quot;</div>
-<div class="radekzaklinadla">PS1=&quot;$(pstput sgr0)\$navr_hodn $(pstput setaf 6)\A &quot;</div>
-<div class="radekzaklinadla">PS1+=&quot;$(pstput sgr0; pstput bold; pstput setaf 2)\w$(pstput sgr0)\\\$<span class="viditelnamezera">&nbsp;</span>&quot;</div>
+<div class="radekzaklinadla">PS1=&quot;$(lkk_pstput sgr0)\$navr_hodn $(lkk_pstput setaf 6)\A &quot;</div>
+<div class="radekzaklinadla">PS1+=&quot;$(lkk_pstput sgr0; lkk_pstput bold; lkk_pstput setaf 2)\w$(lkk_pstput sgr0)\\\$<span class="viditelnamezera">&nbsp;</span>&quot;</div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z941766651"><span><a href="#z941766651">╘</a></span></span>vedlejší výzva: zelené svislítko<span class="cislo">#2 </span></div><div class="radky">
-<div class="radekzaklinadla">function pstput () { printf \\[; tput &quot;$@&quot; &amp;&amp; printf \\]; }</div>
-<div class="radekzaklinadla">PS2=&quot;\\[$(bezp_set setaf 2)\\]|$(pstput sgr0)<span class="viditelnamezera">&nbsp;</span>&quot;</div>
+<div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>source &lt;(lkk --funkce)</div>
+<div class="radekzaklinadla">PS2=&quot;\\[$(lkk_bezp_set setaf 2)\\]|$(lkk_pstput sgr0)<span class="viditelnamezera">&nbsp;</span>&quot;</div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z249239496"><span><a href="#z249239496">≲</a></span></span>příkazy psát červeně na zeleném pozadí, výpisy příkazů tyrkysově na fialové pozadí<span class="cislo">#3 </span></div><div class="radky">
-<div class="radekzaklinadla">PS1=&quot;\\[$(bezp_set setaf 1; bezp_set setab 2; tput el)\\]\$<span class="viditelnamezera">&nbsp;</span>&quot;</div>
-<div class="radekzaklinadla">PS0=&quot;$(bezp_set setaf 6; bezp_set setab 5; tput el)&quot;</div>
+<div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>source &lt;(lkk --funkce)</div>
+<div class="radekzaklinadla">PS1=&quot;\\[$(lkk_bezp_set setaf 1; lkk_bezp_set setab 2; tput el)\\]\$<span class="viditelnamezera">&nbsp;</span>&quot;</div>
+<div class="radekzaklinadla">PS0=&quot;$(lkk_bezp_set setaf 6; lkk_bezp_set setab 5; tput el)&quot;</div>
 </div></div>
 
 <h2 id="cast6"><a href="#cast6"><span class="cislo">6.</span> Parametry příkazů</a></h2>
@@ -278,7 +281,7 @@ Poznámka: z hlediska odzvláštnění jsou zaklínadla v této sekci upravena
 <div class="radekzaklinadla">PS1+=&quot;<i class="dopln">další text</i>&quot;</div>
 </div></div>
 <p>
-<i>Důležitá poznámka:</i> Aby mohl bash správně zformátovat hlavní a vedlejší výzvu (PS1 a PS2), potřebuje předem znát počet tisknutých znaků na každém řádku. Bohužel bash nerozumí escape sekvencím, proto mu musíte napovědět a tyto sekvence uzavřít do zvláštních závorek „\[“ a „\]“ (ve dvojitých uvozovkách se zadávají „\\[“ a „\\]“), které znamenají, že jejich obsah bash nemá při výpočtu šířky řádků vůbec zohledňovat. Tyto závorky se bohužel naopak nesmějí používat v proměnné PS0, tam by vypsaly škaredé paznaky na terminál. V ukázce a v některých zaklínadlech lze tento problém vyřešit tak, že místo přímého zadání příkazu tput použijete pomocnou funkci pstput.
+<i>Důležitá poznámka:</i> Aby mohl bash správně zformátovat hlavní a vedlejší výzvu (PS1 a PS2), potřebuje předem znát počet tisknutých znaků na každém řádku. Bohužel bash nerozumí escape sekvencím, proto mu musíte napovědět a tyto sekvence uzavřít do zvláštních závorek „\[“ a „\]“ (ve dvojitých uvozovkách se zadávají „\\[“ a „\\]“), které znamenají, že jejich obsah bash nemá při výpočtu šířky řádků vůbec zohledňovat. Tyto závorky se bohužel naopak nesmějí používat v proměnné PS0, tam by vypsaly škaredé paznaky na terminál. V ukázce a v některých zaklínadlech lze tento problém vyřešit tak, že místo přímého zadání příkazu tput použijete pomocnou funkci lkk_pstput.
 </p>
 
 <h2 id="cast7"><a href="#cast7"><span class="cislo">7.</span> Instalace na Ubuntu</a></h2>
@@ -288,16 +291,14 @@ Všechny použité součásti jsou základními nástroji přítomnými v každ
 
 <h2 id="cast8"><a href="#cast8"><span class="cislo">8.</span> Ukázka</a></h2>
 <div class="zaklinadlo"><div class="radky">
-<div class="radekzaklinadla">function pstput () {</div>
-<div class="radekzaklinadla" style="padding-left:2ch;">printf \\[; tput &quot;$@&quot; &amp;&amp; printf \\]</div>
-<div class="radekzaklinadla">}</div>
+<div class="radekzaklinadla">source &lt;(lkk --funkce)</div>
 <div class="radekzaklinadla">PROMPT_COMMAND=&quot;navr_hodn=\$?;$PROMPT_COMMAND&quot;</div>
 <div class="radekzaklinadla">PS1=&quot;\\[$(printf %s\\n &quot;$TERM&quot; | egrep -isq &quot;^(xterm|rxvt)&quot; &amp;&amp; printf &quot;\\e]2;%s\\a&quot; &quot;Bude příkaz č. \\#&quot;)\\]&quot;</div>
-<div class="radekzaklinadla">PS1+=&quot;Tato $(pstput smul)výzva je $(pstput sitm)zbytečně$(pstput rmul) rozsáhlá, aby ukázala $(pstput bold)spoustu$(pstput sgr0) možností.\\n&quot;</div>
-<div class="radekzaklinadla">PS1+=&quot;$(pstput dim)Velikost terminálu: \$(tput cols)x\$(tput lines) Volné místo: $(pstput smul)\$(df -h --output=avail . | tail -n 1 | tr -d \&quot; \&quot;)$(pstput sgr0)\\n&quot;</div>
-<div class="radekzaklinadla">PS1+=&quot;Návr.kód:\\[\$(barvapronh \${navr_hodn})\\]\${navr_hodn}$(pstput sgr0)<span class="viditelnamezera">&nbsp;</span>(\\[$(bezp_set setaf 87 6)\\]\\t$(pstput sgr0)) !&quot;&quot;\\!<span class="viditelnamezera">&nbsp;</span>&quot;</div>
-<div class="radekzaklinadla">PS1+=&quot;\\[$(bezp_set setaf 220 3; tput bold)\\]\\w$(pstput sgr0)<span class="viditelnamezera">&nbsp;</span>\\$<span class="viditelnamezera">&nbsp;</span>&quot;</div>
-<div class="radekzaklinadla">PS2=&quot;\\[$(bezp_set setaf 10 2; tput bold)\\]|<span class="viditelnamezera">&nbsp;</span>$(pstput sgr0)&quot;</div>
+<div class="radekzaklinadla">PS1+=&quot;Tato $(lkk_pstput smul)výzva je $(lkk_pstput sitm)zbytečně$(lkk_pstput rmul) rozsáhlá, aby ukázala $(lkk_pstput bold)spoustu$(lkk_pstput sgr0) možností.\\n&quot;</div>
+<div class="radekzaklinadla">PS1+=&quot;$(lkk_pstput dim)Velikost terminálu: \$(tput cols)x\$(tput lines) Volné místo: $(lkk_pstput smul)\$(df -h --output=avail . | tail -n 1 | tr -d \&quot; \&quot;)$(lkk_pstput sgr0)\\n&quot;</div>
+<div class="radekzaklinadla">PS1+=&quot;Návr.kód:\\[\$(lkk_barvapronh \${navr_hodn})\\]\${navr_hodn}$(lkk_pstput sgr0)<span class="viditelnamezera">&nbsp;</span>(\\[$(lkk_bezp_set setaf 87 6)\\]\\t$(lkk_pstput sgr0)) !&quot;&quot;\\!<span class="viditelnamezera">&nbsp;</span>&quot;</div>
+<div class="radekzaklinadla">PS1+=&quot;\\[$(lkk_bezp_set setaf 220 3; tput bold)\\]\\w$(lkk_pstput sgr0)<span class="viditelnamezera">&nbsp;</span>\\$<span class="viditelnamezera">&nbsp;</span>&quot;</div>
+<div class="radekzaklinadla">PS2=&quot;\\[$(lkk_bezp_set setaf 10 2; tput bold)\\]|<span class="viditelnamezera">&nbsp;</span>$(lkk_pstput sgr0)&quot;</div>
 </div></div>
 
 <h2 id="cast9"><a href="#cast9"><span class="cislo">9.</span> Tipy a zkušenosti</a></h2>
@@ -326,23 +327,23 @@ Různé další tipy se dají najít v článku Bash/Prompt customization (angl
 </li><li><a href="https://www.youtube.com/watch?v=N8pdAvIwj28">Video: Color Variables BASH Shell Script Linux Tutorial</a> (anglicky)
 </li></ul>
 <h2 id="cast11"><a href="#cast11"><span class="cislo">11.</span> Pomocné funkce</a></h2>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1368099097"><span><a href="#z1368099097">⌂</a></span></span>bezp_set() – nastaví písmo či pozadí na první podporovanou barvu<span class="cislo">#1 </span></div><div class="radky">
-<div class="radekzaklinadla">function bezp_set () {</div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z936110830"><span><a href="#z936110830">⋎</a></span></span>lkk_bezp_set() – nastaví písmo či pozadí na první podporovanou barvu<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">function lkk_bezp_set () {</div>
 <div class="radekzaklinadla" style="padding-left:2ch;">local f=&quot;$1&quot; c=&quot;$(tput colors 2&gt;/dev/null || printf 0)&quot; x=&quot;&quot;</div>
 <div class="radekzaklinadla" style="padding-left:2ch;">shift</div>
 <div class="radekzaklinadla" style="padding-left:2ch;">for x in $@; do if test $x -lt $c; then tput $f $x; break; fi; done</div>
 <div class="radekzaklinadla" style="padding-left:2ch;">return 0</div>
 <div class="radekzaklinadla">}</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1202875945"><span><a href="#z1202875945">⡂</a></span></span>barvapronh() – nastaví barvu písma podle hodnoty parametru<span class="cislo">#2 </span></div><div class="radky">
-<div class="radekzaklinadla">function barvapronh () {</div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1027333186"><span><a href="#z1027333186">↝</a></span></span>lkk_barvapronh() – nastaví barvu písma podle hodnoty parametru<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">function lkk_barvapronh () {</div>
 <div class="radekzaklinadla" style="padding-left:2ch;">test $1 -gt 0 &amp;&amp; tput bold</div>
-<div class="radekzaklinadla" style="padding-left:2ch;">test $1 -eq 1 &amp;&amp; bezp_set setaf 1</div>
-<div class="radekzaklinadla" style="padding-left:2ch;">test $1 -gt 1 &amp;&amp; bezp_set setaf 2</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">test $1 -eq 1 &amp;&amp; lkk_bezp_set setaf 1</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">test $1 -gt 1 &amp;&amp; lkk_bezp_set setaf 2</div>
 <div class="radekzaklinadla">}</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1880627127"><span><a href="#z1880627127">⨛</a></span></span>pstput() – vypíše escape sekvenci uzavřenou pro použití v proměnných PS1 a PS2<span class="cislo">#3 </span></div><div class="radky">
-<div class="radekzaklinadla">function pstput () {</div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1132868224"><span><a href="#z1132868224">⧺</a></span></span>lkk_pstput() – vypíše escape sekvenci uzavřenou pro použití v proměnných PS1 a PS2<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">function lkk_pstput () {</div>
 <div class="radekzaklinadla" style="padding-left:2ch;">printf \\[; tput &quot;$@&quot; &amp;&amp; printf \\]</div>
 <div class="radekzaklinadla">}</div>
 </div></div>
@@ -350,7 +351,7 @@ Různé další tipy se dají najít v článku Bash/Prompt customization (angl
 <h2 id="cast12"><a href="#cast12"><span class="cislo">12.</span> Snímek obrazovky</a></h2>
 <figure><img src="obrazky/barvy.png" alt="snímek obrazovky"></figure><div class="ppc"><div id="kapbarvyatitulekppc1"><a href="#kapbarvyatitulekppcr1" class="cislopozn">1</a>&nbsp;Ve výchozím nastavení nastavuje titulek terminálu jeho hlavní výzva PS1. Proto ji musíte před experimentováním vypnout, např. příkazem „PS=&quot;&quot;“, jinak vám vaše nové nastavení hned přepíše a ani si toho nevšimnete.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapbarvyatitulekppc2"><a href="#kapbarvyatitulekppcr2" class="cislopozn">2</a>&nbsp;Funkce „bezp_set“ použije ze svých argumentů první podporované číslo barvy. Není-li žádné z uvedených čísel podporováno, žádná barva se nanastaví. Při volání doporučuji jako první uvést číslo pro paletu s 256 barvami a jako druhé číslo náhradní barvy z osmibarevné palety.</div>
+<div id="kapbarvyatitulekppc2"><a href="#kapbarvyatitulekppcr2" class="cislopozn">2</a>&nbsp;Funkce „lkk_bezp_set“ použije ze svých argumentů první podporované číslo barvy. Není-li žádné z uvedených čísel podporováno, žádná barva se nanastaví. Při volání doporučuji jako první uvést číslo pro paletu s 256 barvami a jako druhé číslo náhradní barvy z osmibarevné palety.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapbarvyatitulekppc3"><a href="#kapbarvyatitulekppcr3" class="cislopozn">3</a>&nbsp;Na některých terminálech je realizován jako inverzní text, na jiných jako tučné písmo.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
@@ -365,16 +366,21 @@ Různé další tipy se dají najít v článku Bash/Prompt customization (angl
 <div id="kapbarvyatitulekppc8"><a href="#kapbarvyatitulekppcr8" class="cislopozn">8</a>&nbsp;Pro popis vlastního formátu viz „man strftime“ nebo kapitolu „Datum, čas a kalendář“.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 </div>
-<div class="odkazydole"><a href="zpracovani-videa-a-zvuku.htm"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="" width="32" height="32">Zpracování videa a zvuku</a><a href="sprava-procesu.htm"><img src="obrazky/ik/sprava-procesu.png" alt="" width="32" height="32">Správa procesů</a><a href="diskove-oddily.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly</a></div>
 
-<nav class="spodni"><span class="prev">
-<a href="awk.htm" rel="prev" title="2. AWK">Předchozí&nbsp;kapitola</a>&nbsp;|
-</span><a href="index.htm">Přehled</a><span class="next"><!--
--->&nbsp;| <a href="datum-cas-kalendar.htm" rel="next" title="4. Datum, čas a kalendář">Následující&nbsp;kapitola</a>
-</span>
+
+<nav class="spodni">
+<a href="index.htm" class="naindex">🗐&nbsp;Přehled&nbsp;kapitol</a>
+<div class="naslkap">
+<a href="datum-cas-kalendar.htm" rel="next" title="4. Datum, čas a kalendář">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">4</span>
+<span class="nazev">Datum, čas a kalendář</span></a>
+</div>
+<!--<div><a href="index.htm">🗐&nbsp;Přehled&nbsp;kapitol</a></div>-->
 <a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
 <a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
 </nav>
+
+
+<div class="odkazydole"><div><a href="regularni-vyrazy.htm"><img src="obrazky/ik/regularni-vyrazy.png" alt="" width="32" height="32">Regulární výrazy</a><a href="soubory-a-adresare.htm"><img src="obrazky/ik/soubory-a-adresare.png" alt="" width="32" height="32">Soubory a adresáře</a><a href="planovani-uloh.htm"><img src="obrazky/ik/planovani-uloh.png" alt="" width="32" height="32">Plánování úloh</a></div></div>
 
 
 </article>

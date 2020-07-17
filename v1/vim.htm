@@ -5,16 +5,16 @@
 
 <title>Vim − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20200628.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200628-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200628-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200628-tmavy.css" title="Tmavý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20200717.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200717-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200717-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200717-tmavy.css" title="Tmavý motiv">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body>
 <div id="nahore"></div>
 <header>
-<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.9, E. E. (28. června 2020)</span>
+<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.10, F. F. (17. července 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -22,9 +22,9 @@
 <a href="#menuosnova" class="menu"><span class="prvnipismeno">O</span>snova</a>
 <a href="#menustitky" class="menu"><span class="prvnipismeno">Š</span>títky</a>
 <a href="#menunapoveda" class="menu"><span class="prvnipismeno">N</span>ápověda</a>
-<a href="system.htm" rel="prev" title="19. Systém" accesskey="p" class="predchozi">Předchozí&nbsp;kapitola</a>
+<a href="system.htm" rel="prev" title="20. Systém" accesskey="p" class="predchozi">Předchozí&nbsp;kapitola</a>
 <a href="index.htm" class="prehled"><span class="prvnipismeno">P</span>řehled kapitol</a>
-<a href="zpracovani-textovych-souboru.htm" rel="next" title="21. Zpracování textových souborů" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
+<a href="zpracovani-textovych-souboru.htm" rel="next" title="22. Zpracování textových souborů" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
 </nav>
 
 <div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
@@ -33,9 +33,9 @@
 <nav class="horni">
 <div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
 <span class="prev">
-<a href="system.htm" rel="prev" title="19. Systém" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="system.htm" rel="prev" title="20. Systém" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!- -
-- ->&nbsp;| <a href="zpracovani-textovych-souboru.htm" rel="next" title="21. Zpracování textových souborů" accesskey="n">Následující&nbsp;kapitola</a>
+- ->&nbsp;| <a href="zpracovani-textovych-souboru.htm" rel="next" title="22. Zpracování textových souborů" accesskey="n">Následující&nbsp;kapitola</a>
 </span>
 </nav>
 -->
@@ -43,7 +43,7 @@
 
 <article>
 
-<h1 class="kapitola">20. <img src="obrazky/ik/vim.png" alt="" width="64" height="64"> Vim</h1>
+<h1 class="kapitola">21. <img src="obrazky/ik/vim.png" alt="" width="64" height="64"> Vim</h1>
 <div class="stitky"><a href="x-stitky.htm#seditor">editor</a>
 <a href="x-stitky.htm#sovldn">ovládání</a>
 <a href="x-stitky.htm#sprogrm">program</a>
@@ -64,7 +64,7 @@ Nedostatečně pokrývá příkaz „g//“.
 
 <h2 id="cast2"><a href="#cast2"><span class="cislo">2.</span> Definice</a></h2>
 
-<h3 id="cast2x1"><span><a href="#cast2x1" title="kapitola 20 (Vim), sekce 2 (Definice), podsekce 1 (Režimy editoru Vim)"><sup>2/</sup>1 Režimy editoru Vim</a></span></h3>
+<h3 id="cast2x1"><span><a href="#cast2x1" title="kapitola 22 (Vim), sekce 2 (Definice), podsekce 1 (Režimy editoru Vim)"><sup>2/</sup>1 Režimy editoru Vim</a></span></h3>
 <ul><li><b>Základní režim</b> (také „normální mód“, „command mode“) je výchozí po spuštění programu. Každé zaklínadlo v této kapitole, není-li uvedeno jinak, předpokládá zadání v základním režimu. Z každého jiného režimu se můžete vrátit zpět do základního režimu jedním nebo více stisky klávesy <kbd>Esc</kbd>.
 </li><li><b>Režim vkládání</b> je režim, ve kterém se zapsané znaky vkládají do editovaného textu. Jeho variantou je <b>režim přepisování</b>, kdy zapsané znaky přepisují stávající znaky textu.
 </li><li>V <b>režimu příkazové řádky</b> místo textu otevřeného souboru upravujete příkaz, který bude vykonán teprve po potvrzení klávesou <kbd>Enter</kbd>. Do tohoto režimu vstoupíte ze základního režimu klávesou „:“.
@@ -73,7 +73,7 @@ Nedostatečně pokrývá příkaz „g//“.
 Další režimy můžete najít v dokumentaci, ale pravděpodobně o nich nyní nepotřebujete vědět.
 </p>
 
-<h3 id="cast2x2"><span><a href="#cast2x2" title="kapitola 20 (Vim), sekce 2 (Definice), podsekce 2 (Další pojmy)"><sup>2/</sup>2 Další pojmy</a></span></h3>
+<h3 id="cast2x2"><span><a href="#cast2x2" title="kapitola 22 (Vim), sekce 2 (Definice), podsekce 2 (Další pojmy)"><sup>2/</sup>2 Další pojmy</a></span></h3>
 <ul><li><b>Kurzor</b> je značka označující jednoznačnou pozici v upravovaném textu, k níž se budou vztahovat prováděné operace.
 </li><li><b>Aktuální řádek</b> je řádek upravovaného textu, na kterém se nachází kurzor.
 </li><li><b>Pohled</b> je výřez z upravovaného textu zobrazený uživateli; vždy zahrnuje aktuální řádek. Normálně okno editoru obsahuje pouze jeden <b>panel</b> a ten obsahuje pouze jeden pohled. Příslušnými příkazy však lze panel rozdělit na více pohledů a lze také otevřít další panely a ty také rozdělit. Nicméně uzavřením posledního pohledu z panelu se vždy uzavře i panel a uzavřením posledního panelu se uzavře celý editor.
@@ -82,7 +82,7 @@ Další režimy můžete najít v dokumentaci, ale pravděpodobně o nich nyn�
 </li></ul>
 <h2 id="cast3"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla: Posuny kurzoru a pohledu, záložky</a></h2>
 
-<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 20 (Vim), sekce 3 (Zaklínadla: Posuny kurzoru a pohledu, záložky), podsekce 1 (Posun kurzoru jen v rámci řádky)"><sup>3/</sup>1 Posun kurzoru jen v rámci řádky</a></span></h3>
+<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 22 (Vim), sekce 3 (Zaklínadla: Posuny kurzoru a pohledu, záložky), podsekce 1 (Posun kurzoru jen v rámci řádky)"><sup>3/</sup>1 Posun kurzoru jen v rámci řádky</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1584972733"><span><a href="#z1584972733">✶</a></span></span><b>vlevo</b>/<b>vpravo</b> o 1 znak<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><kbd>←</kbd></div>
 <div class="radekzaklinadla"><kbd>→</kbd></div>
@@ -114,7 +114,7 @@ Další režimy můžete najít v dokumentaci, ale pravděpodobně o nich nyn�
 <div class="radekzaklinadla"><kbd>Home</kbd><i class="dopln">číslo-sloupce</i><kbd>→</kbd></div>
 </div></div>
 
-<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 20 (Vim), sekce 3 (Zaklínadla: Posuny kurzoru a pohledu, záložky), podsekce 2 (Posun kurzoru na jinou řádku)"><sup>3/</sup>2 Posun kurzoru na jinou řádku</a></span></h3>
+<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 22 (Vim), sekce 3 (Zaklínadla: Posuny kurzoru a pohledu, záložky), podsekce 2 (Posun kurzoru na jinou řádku)"><sup>3/</sup>2 Posun kurzoru na jinou řádku</a></span></h3>
 <p class="ponadpisu">
 PNZ = první nebílý znak
 </p>
@@ -151,7 +151,7 @@ PNZ = první nebílý znak
 <div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">počet-opakování</i><span class="volznak">]</span>/^.<kbd>Enter</kbd></div>
 </div></div>
 
-<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 20 (Vim), sekce 3 (Zaklínadla: Posuny kurzoru a pohledu, záložky), podsekce 3 (Vyhledávání)"><sup>3/</sup>3 Vyhledávání</a></span></h3>
+<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 22 (Vim), sekce 3 (Zaklínadla: Posuny kurzoru a pohledu, záložky), podsekce 3 (Vyhledávání)"><sup>3/</sup>3 Vyhledávání</a></span></h3>
 <p class="ponadpisu">
 \c = ignorovat velikost písmen; /e = kurzor nastavit na poslední znak shody (jinak na první).
 </p>
@@ -168,7 +168,7 @@ PNZ = první nebílý znak
 <div class="radekzaklinadla">N</div>
 </div></div>
 
-<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 20 (Vim), sekce 3 (Zaklínadla: Posuny kurzoru a pohledu, záložky), podsekce 4 (Záložky)"><sup>3/</sup>4 Záložky</a></span></h3>
+<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 22 (Vim), sekce 3 (Zaklínadla: Posuny kurzoru a pohledu, záložky), podsekce 4 (Záložky)"><sup>3/</sup>4 Záložky</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1796408384"><span><a href="#z1796408384">⚒</a></span></span>nastavit záložku na pozici kurzoru<span class="cislo">#1 </span><sup><a href="#kapvimppc5" id="kapvimppcr5" title="Jako označení záložky můžete použít malá písmena anglické abecedy („a“ až „z“.)">(5)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">m<i class="dopln">písmeno</i></div>
 </div></div>
@@ -179,7 +179,7 @@ PNZ = první nebílý znak
 <div class="radekzaklinadla">:marks<kbd>Enter</kbd></div>
 </div></div>
 
-<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 20 (Vim), sekce 3 (Zaklínadla: Posuny kurzoru a pohledu, záložky), podsekce 5 (Ostatní posuny)"><sup>3/</sup>5 Ostatní posuny</a></span></h3>
+<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 22 (Vim), sekce 3 (Zaklínadla: Posuny kurzoru a pohledu, záložky), podsekce 5 (Ostatní posuny)"><sup>3/</sup>5 Ostatní posuny</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z584903830"><span><a href="#z584903830">╜</a></span></span>posun na znak, který je zobrazený <b>nad</b>/<b>pod</b> aktuálním<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">počet-opakování</i><span class="volznak">]</span>gk</div>
 <div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">počet-opakování</i><span class="volznak">]</span>gj</div>
@@ -191,7 +191,7 @@ PNZ = první nebílý znak
 <div class="radekzaklinadla">g;</div>
 </div></div>
 
-<h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 20 (Vim), sekce 3 (Zaklínadla: Posuny kurzoru a pohledu, záložky), podsekce 6 (Posuny po slovech)"><sup>3/</sup>6 Posuny po slovech</a></span></h3>
+<h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 22 (Vim), sekce 3 (Zaklínadla: Posuny kurzoru a pohledu, záložky), podsekce 6 (Posuny po slovech)"><sup>3/</sup>6 Posuny po slovech</a></span></h3>
 <p class="ponadpisu">
 „<i>Programátorské slovo</i>“ je sekvence jakýchkoliv nebílých znaků; „<i>standardních slovo</i>“ je sekvence nebílých znaků, které jsou buď alfanumerické, nebo tvoří interpunkci. To znamená, že např. „a1a;;;B2B“ je jedno programátorské slovo, ale tři standardní! (Podobně „Ahoj, světe!“ jsou dvě programátoská slova, ale čtyři standardní.)
 </p>
@@ -218,7 +218,7 @@ PNZ = první nebílý znak
 
 <h2 id="cast4"><a href="#cast4"><span class="cislo">4.</span> Zaklínadla: Základní</a></h2>
 
-<h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 20 (Vim), sekce 4 (Zaklínadla: Základní), podsekce 1 (Psaní textu (vkládání a přepisování))"><sup>4/</sup>1 Psaní textu (vkládání a přepisování)</a></span></h3>
+<h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 22 (Vim), sekce 4 (Zaklínadla: Základní), podsekce 1 (Psaní textu (vkládání a přepisování))"><sup>4/</sup>1 Psaní textu (vkládání a přepisování)</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1846621314"><span><a href="#z1846621314">♇</a></span></span><b>psát</b> text, počínaje znakem pod kurzorem/následujícím znakem/koncem řádky/začátkem řádky<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">i<i class="dopln">(režim vkládání)</i></div>
 <div class="radekzaklinadla">a<i class="dopln">(režim vkládání)</i></div>
@@ -240,7 +240,7 @@ PNZ = první nebílý znak
 <div class="radekzaklinadla"><i class="dopln">počet-opakování</i>i<i class="dopln">text</i><kbd>Esc</kbd></div>
 </div></div>
 
-<h3 id="cast4x2"><span><a href="#cast4x2" title="kapitola 20 (Vim), sekce 4 (Zaklínadla: Základní), podsekce 2 (Soubory, adresáře a aktivní pohled)"><sup>4/</sup>2 Soubory, adresáře a aktivní pohled</a></span></h3>
+<h3 id="cast4x2"><span><a href="#cast4x2" title="kapitola 22 (Vim), sekce 4 (Zaklínadla: Základní), podsekce 2 (Soubory, adresáře a aktivní pohled)"><sup>4/</sup>2 Soubory, adresáře a aktivní pohled</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1079572489"><span><a href="#z1079572489">⚨</a></span></span><b>uložit</b> změny a zavřít pohled (alternativy)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">ZZ</div>
 <div class="radekzaklinadla">:wq<kbd>Enter</kbd></div>
@@ -286,7 +286,7 @@ PNZ = první nebílý znak
 <div class="radekzaklinadla">:qa!<kbd>Enter</kbd></div>
 </div></div>
 
-<h3 id="cast4x3"><span><a href="#cast4x3" title="kapitola 20 (Vim), sekce 4 (Zaklínadla: Základní), podsekce 3 (Kopírování, mazání a schránky)"><sup>4/</sup>3 Kopírování, mazání a schránky</a></span></h3>
+<h3 id="cast4x3"><span><a href="#cast4x3" title="kapitola 22 (Vim), sekce 4 (Zaklínadla: Základní), podsekce 3 (Kopírování, mazání a schránky)"><sup>4/</sup>3 Kopírování, mazání a schránky</a></span></h3>
 <p class="ponadpisu">
 Tip: jako výchozí používejte schránku „p“.
 </p>
@@ -328,7 +328,7 @@ Tip: jako výchozí používejte schránku „p“.
 <div class="radekzaklinadla"><span class="volznak">[</span>&quot;<i class="dopln">schránka</i><span class="volznak">]</span><i class="dopln">N</i>cc<i class="dopln">text</i><kbd>Esc</kbd></div>
 </div></div>
 
-<h3 id="cast4x4"><span><a href="#cast4x4" title="kapitola 20 (Vim), sekce 4 (Zaklínadla: Základní), podsekce 4 (Vložit, spojit, duplikovat)"><sup>4/</sup>4 Vložit, spojit, duplikovat</a></span></h3>
+<h3 id="cast4x4"><span><a href="#cast4x4" title="kapitola 22 (Vim), sekce 4 (Zaklínadla: Základní), podsekce 4 (Vložit, spojit, duplikovat)"><sup>4/</sup>4 Vložit, spojit, duplikovat</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1239440377"><span><a href="#z1239440377">₰</a></span></span><b>vložit</b> obsah schránky (za aktuální pozici/před ni)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">&quot;<i class="dopln">schránka</i><span class="volznak">]</span><span class="volznak">[</span><i class="dopln">počet-opakování</i><span class="volznak">]</span>p</div>
 <div class="radekzaklinadla">&quot;<i class="dopln">schránka</i><span class="volznak">]</span><span class="volznak">[</span><i class="dopln">počet-opakování</i><span class="volznak">]</span>P</div>
@@ -344,7 +344,7 @@ Tip: jako výchozí používejte schránku „p“.
 <div class="radekzaklinadla">yy<i class="dopln">počet-opakování</i>p</div>
 </div></div>
 
-<h3 id="cast4x5"><span><a href="#cast4x5" title="kapitola 20 (Vim), sekce 4 (Zaklínadla: Základní), podsekce 5 (Externí příkazy a spolupráce s bashem)"><sup>4/</sup>5 Externí příkazy a spolupráce s bashem</a></span></h3>
+<h3 id="cast4x5"><span><a href="#cast4x5" title="kapitola 22 (Vim), sekce 4 (Zaklínadla: Základní), podsekce 5 (Externí příkazy a spolupráce s bashem)"><sup>4/</sup>5 Externí příkazy a spolupráce s bashem</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z269650506"><span><a href="#z269650506">˥</a></span></span><b>ukončit</b> editor bez uložení změn (opatrně/zahodit změny/uložit změny)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">:qa<kbd>Enter</kbd></div>
 <div class="radekzaklinadla">:qa!<kbd>Enter</kbd></div>
@@ -367,7 +367,7 @@ Tip: jako výchozí používejte schránku „p“.
 <div class="radekzaklinadla"><i class="dopln">N</i>gs</div>
 </div></div>
 
-<h3 id="cast4x6"><span><a href="#cast4x6" title="kapitola 20 (Vim), sekce 4 (Zaklínadla: Základní), podsekce 6 (Nahradit text (příkaz „:s“))"><sup>4/</sup>6 Nahradit text (příkaz „:s“)</a></span></h3>
+<h3 id="cast4x6"><span><a href="#cast4x6" title="kapitola 22 (Vim), sekce 4 (Zaklínadla: Základní), podsekce 6 (Nahradit text (příkaz „:s“))"><sup>4/</sup>6 Nahradit text (příkaz „:s“)</a></span></h3>
 <p class="ponadpisu">
 Poznámka: parametr „kde“ u příkazu „:s“ může být:
 <b>prázdný řetězec</b> pro nahrazování v aktuální řádce;
@@ -383,7 +383,7 @@ Poznámka: parametr „kde“ u příkazu „:s“ může být:
 <div class="radekzaklinadla">:<i class="dopln">kde</i>s/\v<i class="dopln">regulární výraz</i>/<i class="dopln">čím nahradit</i>/g<span class="volznak">[</span>c<span class="volznak">]</span><kbd>Enter</kbd></div>
 </div></div>
 
-<h3 id="cast4x7"><span><a href="#cast4x7" title="kapitola 20 (Vim), sekce 4 (Zaklínadla: Základní), podsekce 7 (Odsazení)"><sup>4/</sup>7 Odsazení</a></span></h3>
+<h3 id="cast4x7"><span><a href="#cast4x7" title="kapitola 22 (Vim), sekce 4 (Zaklínadla: Základní), podsekce 7 (Odsazení)"><sup>4/</sup>7 Odsazení</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1302198129"><span><a href="#z1302198129">ຂ</a></span></span>nastavit šířku jedné úrovně odsazení<span class="cislo">#1 </span><sup><a href="#kapvimppc17" id="kapvimppcr17" title="Výchozí hodnota je 8. Toto nastavení nezmění text, má vliv až na další operace.">(17)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">:set shiftwidth=<i class="dopln">počet-mezer</i><kbd>Enter</kbd></div>
 </div></div>
@@ -402,7 +402,7 @@ Poznámka: parametr „kde“ u příkazu „:s“ může být:
 <div class="radekzaklinadla">V999&lt;</div>
 </div></div>
 
-<h3 id="cast4x8"><span><a href="#cast4x8" title="kapitola 20 (Vim), sekce 4 (Zaklínadla: Základní), podsekce 8 (Velikost písmen)"><sup>4/</sup>8 Velikost písmen</a></span></h3>
+<h3 id="cast4x8"><span><a href="#cast4x8" title="kapitola 22 (Vim), sekce 4 (Zaklínadla: Základní), podsekce 8 (Velikost písmen)"><sup>4/</sup>8 Velikost písmen</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1331650041"><span><a href="#z1331650041">⟸</a></span></span>písmeno pod kurzorem (přepnout/malé/velké)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">~</div>
 <div class="radekzaklinadla">vu</div>
@@ -423,7 +423,7 @@ Poznámka: parametr „kde“ u příkazu „:s“ může být:
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
-<h3 id="cast4x9"><span><a href="#cast4x9" title="kapitola 20 (Vim), sekce 4 (Zaklínadla: Základní), podsekce 9 (Pokročilé úpravy)"><sup>4/</sup>9 Pokročilé úpravy</a></span></h3>
+<h3 id="cast4x9"><span><a href="#cast4x9" title="kapitola 22 (Vim), sekce 4 (Zaklínadla: Základní), podsekce 9 (Pokročilé úpravy)"><sup>4/</sup>9 Pokročilé úpravy</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z161680604"><span><a href="#z161680604">⋥</a></span></span>odstranit každý řádek vyhovující/nevyhovující regulárnímu výrazu<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">:g/<span class="volznak">[</span>\v<span class="volznak">]</span><i class="dopln">regulární výraz</i>/d <span class="volznak">[</span>_<span class="volznak">]</span><kbd>Enter</kbd></div>
 <div class="radekzaklinadla">:v/<span class="volznak">[</span>\v<span class="volznak">]</span><i class="dopln">regulární výraz</i>/d <span class="volznak">[</span>_<span class="volznak">]</span><kbd>Enter</kbd></div>
@@ -431,7 +431,7 @@ Poznámka: parametr „kde“ u příkazu „:s“ může být:
 
 <h2 id="cast5"><a href="#cast5"><span class="cislo">5.</span> Zaklínadla: Režim výběru</a></h2>
 
-<h3 id="cast5x1"><span><a href="#cast5x1" title="kapitola 20 (Vim), sekce 5 (Zaklínadla: Režim výběru), podsekce 1 (Režim výběru)"><sup>5/</sup>1 Režim výběru</a></span></h3>
+<h3 id="cast5x1"><span><a href="#cast5x1" title="kapitola 22 (Vim), sekce 5 (Zaklínadla: Režim výběru), podsekce 1 (Režim výběru)"><sup>5/</sup>1 Režim výběru</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z146769030"><span><a href="#z146769030">⋋</a></span></span>výběr po znacích (normální)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">v<i class="dopln">(režim výběru)</i></div>
 </div></div>
@@ -451,7 +451,7 @@ Poznámka: parametr „kde“ u příkazu „:s“ může být:
 <div class="radekzaklinadla"><i class="dopln">(režim výběru)</i>O<i class="dopln">(režim výběru)</i></div>
 </div></div>
 
-<h3 id="cast5x2"><span><a href="#cast5x2" title="kapitola 20 (Vim), sekce 5 (Zaklínadla: Režim výběru), podsekce 2 (Operace nad jakýmkoliv výběrem)"><sup>5/</sup>2 Operace nad jakýmkoliv výběrem</a></span></h3>
+<h3 id="cast5x2"><span><a href="#cast5x2" title="kapitola 22 (Vim), sekce 5 (Zaklínadla: Režim výběru), podsekce 2 (Operace nad jakýmkoliv výběrem)"><sup>5/</sup>2 Operace nad jakýmkoliv výběrem</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1140116989"><span><a href="#z1140116989">⇔</a></span></span><b>smazat</b><span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">(režim výběru)</i>d</div>
 </div></div>
@@ -471,7 +471,7 @@ Poznámka: parametr „kde“ u příkazu „:s“ může být:
 <div class="radekzaklinadla"><i class="dopln">(režim výběru)</i>r<i class="dopln">znak</i></div>
 </div></div>
 
-<h3 id="cast5x3"><span><a href="#cast5x3" title="kapitola 20 (Vim), sekce 5 (Zaklínadla: Režim výběru), podsekce 3 (Operace nad řádkovým výběrem)"><sup>5/</sup>3 Operace nad řádkovým výběrem</a></span></h3>
+<h3 id="cast5x3"><span><a href="#cast5x3" title="kapitola 22 (Vim), sekce 5 (Zaklínadla: Režim výběru), podsekce 3 (Operace nad řádkovým výběrem)"><sup>5/</sup>3 Operace nad řádkovým výběrem</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z179932468"><span><a href="#z179932468">♊</a></span></span><b>spojit</b> řádky<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">(režim výběru)</i>J</div>
 </div></div>
@@ -489,7 +489,7 @@ Poznámka: parametr „kde“ u příkazu „:s“ může být:
 <div class="radekzaklinadla"><i class="dopln">(režim výběru)</i>:s/<i class="dopln">co</i>/<i class="dopln">čím</i>/<span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span><kbd>Enter</kbd></div>
 </div></div>
 
-<h3 id="cast5x4"><span><a href="#cast5x4" title="kapitola 20 (Vim), sekce 5 (Zaklínadla: Režim výběru), podsekce 4 (Operace nad sloupcovým výběrem)"><sup>5/</sup>4 Operace nad sloupcovým výběrem</a></span></h3>
+<h3 id="cast5x4"><span><a href="#cast5x4" title="kapitola 22 (Vim), sekce 5 (Zaklínadla: Režim výběru), podsekce 4 (Operace nad sloupcovým výběrem)"><sup>5/</sup>4 Operace nad sloupcovým výběrem</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z217190438"><span><a href="#z217190438">⠅</a></span></span>před/za každý řádek výběru <b>vložit</b> text<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">(režim výběru)</i>I<i class="dopln">text</i><kbd>Esc</kbd></div>
 <div class="radekzaklinadla"><i class="dopln">(režim výběru)</i>A<i class="dopln">text</i><kbd>Esc</kbd></div>
@@ -504,7 +504,7 @@ Poznámka: parametr „kde“ u příkazu „:s“ může být:
 
 <h2 id="cast6"><a href="#cast6"><span class="cislo">6.</span> Zaklínadla: Ostatní</a></h2>
 
-<h3 id="cast6x1"><span><a href="#cast6x1" title="kapitola 20 (Vim), sekce 6 (Zaklínadla: Ostatní), podsekce 1 (Historie změn)"><sup>6/</sup>1 Historie změn</a></span></h3>
+<h3 id="cast6x1"><span><a href="#cast6x1" title="kapitola 22 (Vim), sekce 6 (Zaklínadla: Ostatní), podsekce 1 (Historie změn)"><sup>6/</sup>1 Historie změn</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1959357638"><span><a href="#z1959357638">∯</a></span></span><b>zopakovat</b> poslední provedenou změnu na aktuální pozici<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">počet-opakování</i><span class="volznak">]</span>.</div>
 </div></div>
@@ -518,7 +518,7 @@ Poznámka: parametr „kde“ u příkazu „:s“ může být:
 <div class="radekzaklinadla">U</div>
 </div></div>
 
-<h3 id="cast6x2"><span><a href="#cast6x2" title="kapitola 20 (Vim), sekce 6 (Zaklínadla: Ostatní), podsekce 2 (Makra)"><sup>6/</sup>2 Makra</a></span></h3>
+<h3 id="cast6x2"><span><a href="#cast6x2" title="kapitola 22 (Vim), sekce 6 (Zaklínadla: Ostatní), podsekce 2 (Makra)"><sup>6/</sup>2 Makra</a></span></h3>
 <p class="ponadpisu">
 Tip: jako výchozí schránku pro makra používejte schránku „q“.
 </p>
@@ -532,7 +532,7 @@ Tip: jako výchozí schránku pro makra používejte schránku „q“.
 <div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">kolikrát</i><span class="volznak">]</span>@@</div>
 </div></div>
 
-<h3 id="cast6x3"><span><a href="#cast6x3" title="kapitola 20 (Vim), sekce 6 (Zaklínadla: Ostatní), podsekce 3 (Správce souborů)"><sup>6/</sup>3 Správce souborů</a></span></h3>
+<h3 id="cast6x3"><span><a href="#cast6x3" title="kapitola 22 (Vim), sekce 6 (Zaklínadla: Ostatní), podsekce 3 (Správce souborů)"><sup>6/</sup>3 Správce souborů</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z652980370"><span><a href="#z652980370">┍</a></span></span>otevřít <b>správce souborů</b> (v pohledu nad/pod/vlevo/vpravo/na novém panelu)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">:Sex<kbd>Enter</kbd></div>
 <div class="radekzaklinadla">:Hex<kbd>Enter</kbd></div>
@@ -552,7 +552,7 @@ Tip: jako výchozí schránku pro makra používejte schránku „q“.
 <div class="radekzaklinadla"><i class="dopln">(ve správci souborů)</i>:q</div>
 </div></div>
 
-<h3 id="cast6x4"><span><a href="#cast6x4" title="kapitola 20 (Vim), sekce 6 (Zaklínadla: Ostatní), podsekce 4 (Zvýraznění syntaxe)"><sup>6/</sup>4 Zvýraznění syntaxe</a></span></h3>
+<h3 id="cast6x4"><span><a href="#cast6x4" title="kapitola 22 (Vim), sekce 6 (Zaklínadla: Ostatní), podsekce 4 (Zvýraznění syntaxe)"><sup>6/</sup>4 Zvýraznění syntaxe</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1598644848"><span><a href="#z1598644848">⊕</a></span></span>zapnout/vypnout zvýraznění syntaxe<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">:syntax on<kbd>Enter</kbd></div>
 <div class="radekzaklinadla">:syntax off<kbd>Enter</kbd></div>
@@ -574,7 +574,7 @@ Tip: jako výchozí schránku pro makra používejte schránku „q“.
 <div class="radekzaklinadla">:syntax list<kbd>Enter</kbd></div>
 </div></div>
 
-<h3 id="cast6x5"><span><a href="#cast6x5" title="kapitola 20 (Vim), sekce 6 (Zaklínadla: Ostatní), podsekce 5 (Ostatní)"><sup>6/</sup>5 Ostatní</a></span></h3>
+<h3 id="cast6x5"><span><a href="#cast6x5" title="kapitola 22 (Vim), sekce 6 (Zaklínadla: Ostatní), podsekce 5 (Ostatní)"><sup>6/</sup>5 Ostatní</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z426612680"><span><a href="#z426612680">⢟</a></span></span>zobrazit <b>kódovou</b> (číselnou) hodnotu znaku pod kurzorem<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">ga<span class="prikladhodnoty">⊨ &lt;ž&gt; 382, Hex 017e, Octal 576</span></div>
 </div></div>
@@ -589,7 +589,7 @@ Tip: jako výchozí schránku pro makra používejte schránku „q“.
 
 <h2 id="cast7"><a href="#cast7"><span class="cislo">7.</span> Zaklínadla: Pohledy a panely</a></h2>
 
-<h3 id="cast7x1"><span><a href="#cast7x1" title="kapitola 20 (Vim), sekce 7 (Zaklínadla: Pohledy a panely), podsekce 1 (Posun pohledu)"><sup>7/</sup>1 Posun pohledu</a></span></h3>
+<h3 id="cast7x1"><span><a href="#cast7x1" title="kapitola 22 (Vim), sekce 7 (Zaklínadla: Pohledy a panely), podsekce 1 (Posun pohledu)"><sup>7/</sup>1 Posun pohledu</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z781363655"><span><a href="#z781363655">⊞</a></span></span>o stránku nahoru/dolů<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><kbd>PageUp</kbd></div>
 <div class="radekzaklinadla"><kbd>PageDown</kbd></div>
@@ -618,7 +618,7 @@ Tip: jako výchozí schránku pro makra používejte schránku „q“.
 <div class="radekzaklinadla"><i class="dopln">N</i>zl</div>
 </div></div>
 
-<h3 id="cast7x2"><span><a href="#cast7x2" title="kapitola 20 (Vim), sekce 7 (Zaklínadla: Pohledy a panely), podsekce 2 (Práce s rozděleným panelem)"><sup>7/</sup>2 Práce s rozděleným panelem</a></span></h3>
+<h3 id="cast7x2"><span><a href="#cast7x2" title="kapitola 22 (Vim), sekce 7 (Zaklínadla: Pohledy a panely), podsekce 2 (Práce s rozděleným panelem)"><sup>7/</sup>2 Práce s rozděleným panelem</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z513526415"><span><a href="#z513526415">ຈ</a></span></span><b>rozdělit</b> panel a v novém pohledu (nad stávajícím/vlevo od stávajícího) otevřít jiný soubor<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">:split <i class="dopln">cesta/k/souboru</i><kbd>Enter</kbd></div>
 <div class="radekzaklinadla">:vsplit <i class="dopln">cesta/k/souboru</i><kbd>Enter</kbd></div>
@@ -647,7 +647,7 @@ Tip: jako výchozí schránku pro makra používejte schránku „q“.
 <div class="radekzaklinadla"><kbd>Ctrl</kbd>+<kbd>W</kbd><kbd>R</kbd></div>
 </div></div>
 
-<h3 id="cast7x3"><span><a href="#cast7x3" title="kapitola 20 (Vim), sekce 7 (Zaklínadla: Pohledy a panely), podsekce 3 (Práce s více panely)"><sup>7/</sup>3 Práce s více panely</a></span></h3>
+<h3 id="cast7x3"><span><a href="#cast7x3" title="kapitola 22 (Vim), sekce 7 (Zaklínadla: Pohledy a panely), podsekce 3 (Práce s více panely)"><sup>7/</sup>3 Práce s více panely</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z430126199"><span><a href="#z430126199">✹</a></span></span>otevřít <b>nový</b> panel (prázdný/se stejným souborem jako v aktivním pohledu/s jiným souborem)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">:tabnew<kbd>Enter</kbd></div>
 <div class="radekzaklinadla">:tabnew %<kbd>Enter</kbd></div>
@@ -663,7 +663,7 @@ Tip: jako výchozí schránku pro makra používejte schránku „q“.
 
 <h2 id="cast8"><a href="#cast8"><span class="cislo">8.</span> Zaklínadla: Nastavení</a></h2>
 
-<h3 id="cast8x1"><span><a href="#cast8x1" title="kapitola 20 (Vim), sekce 8 (Zaklínadla: Nastavení), podsekce 1 (Obecně)"><sup>8/</sup>1 Obecně</a></span></h3>
+<h3 id="cast8x1"><span><a href="#cast8x1" title="kapitola 22 (Vim), sekce 8 (Zaklínadla: Nastavení), podsekce 1 (Obecně)"><sup>8/</sup>1 Obecně</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona L" id="z391828794"><span><a href="#z391828794">⨅</a></span></span>nastavit volbu typu „ano/ne“ (zapnout/vypnout/přepnout)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">:set <i class="dopln">volba</i><kbd>Enter</kbd></div>
 <div class="radekzaklinadla">:set no<i class="dopln">volba</i><kbd>Enter</kbd></div>
@@ -679,7 +679,7 @@ Tip: jako výchozí schránku pro makra používejte schránku „q“.
 <div class="radekzaklinadla">:set all<kbd>Enter</kbd></div>
 </div></div>
 
-<h3 id="cast8x2"><span><a href="#cast8x2" title="kapitola 20 (Vim), sekce 8 (Zaklínadla: Nastavení), podsekce 2 (Vzhled)"><sup>8/</sup>2 Vzhled</a></span></h3>
+<h3 id="cast8x2"><span><a href="#cast8x2" title="kapitola 22 (Vim), sekce 8 (Zaklínadla: Nastavení), podsekce 2 (Vzhled)"><sup>8/</sup>2 Vzhled</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1149211046"><span><a href="#z1149211046">≩</a></span></span>před každou řádkou zobrazit její <b>číslo</b> (v rámci souboru/relativní)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">:set number<kbd>Enter</kbd></div>
 <div class="radekzaklinadla">:set relativenumber<kbd>Enter</kbd></div>
@@ -703,7 +703,7 @@ Tip: jako výchozí schránku pro makra používejte schránku „q“.
 <div class="radekzaklinadla">:set noshowmode<kbd>Enter</kbd></div>
 </div></div>
 
-<h3 id="cast8x3"><span><a href="#cast8x3" title="kapitola 20 (Vim), sekce 8 (Zaklínadla: Nastavení), podsekce 3 (Chování)"><sup>8/</sup>3 Chování</a></span></h3>
+<h3 id="cast8x3"><span><a href="#cast8x3" title="kapitola 22 (Vim), sekce 8 (Zaklínadla: Nastavení), podsekce 3 (Chování)"><sup>8/</sup>3 Chování</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z421712599"><span><a href="#z421712599">╕</a></span></span>při vyhledávání <b>ignorovat</b> velikost písmen<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">:set ignorecase<kbd>Enter</kbd></div>
 </div></div>
@@ -724,7 +724,7 @@ Tip: jako výchozí schránku pro makra používejte schránku „q“.
 <div class="radekzaklinadla">:set title<kbd>Enter</kbd></div>
 </div></div>
 
-<h3 id="cast8x4"><span><a href="#cast8x4" title="kapitola 20 (Vim), sekce 8 (Zaklínadla: Nastavení), podsekce 4 (Ostatní)"><sup>8/</sup>4 Ostatní</a></span></h3>
+<h3 id="cast8x4"><span><a href="#cast8x4" title="kapitola 22 (Vim), sekce 8 (Zaklínadla: Nastavení), podsekce 4 (Ostatní)"><sup>8/</sup>4 Ostatní</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1708819744"><span><a href="#z1708819744">▀</a></span></span>zapnout/vypnout ovládání <b>myší</b> (doporučuji zapnout)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">:set mouse=a<kbd>Enter</kbd></div>
 <div class="radekzaklinadla">:set mouse=<kbd>Enter</kbd></div>
@@ -736,7 +736,7 @@ Tip: jako výchozí schránku pro makra používejte schránku „q“.
 <div class="radekzaklinadla">:set fileencoding=<i class="dopln">kódování</i><kbd>Enter</kbd></div>
 </div></div>
 
-<h3 id="cast8x5"><span><a href="#cast8x5" title="kapitola 20 (Vim), sekce 8 (Zaklínadla: Nastavení), podsekce 5 (Příznaky)"><sup>8/</sup>5 Příznaky</a></span></h3>
+<h3 id="cast8x5"><span><a href="#cast8x5" title="kapitola 22 (Vim), sekce 8 (Zaklínadla: Nastavení), podsekce 5 (Příznaky)"><sup>8/</sup>5 Příznaky</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2106132848"><span><a href="#z2106132848">⇏</a></span></span>zakázat jakoukoliv změnu textu/zápis do souboru bez !/jakýkoliv zápis do souboru<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">:set nomodifiable<kbd>Enter</kbd></div>
 <div class="radekzaklinadla">:set ro<kbd>Enter</kbd></div>
@@ -874,7 +874,7 @@ příručku i s velmi starou verzí Vimu (ne však s „vi“).
 <nav class="spodni">
 <a href="index.htm" class="naindex">🗐&nbsp;Přehled&nbsp;kapitol</a>
 <div class="naslkap">
-<a href="zpracovani-textovych-souboru.htm" rel="next" title="21. Zpracování textových souborů">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">21</span>
+<a href="zpracovani-textovych-souboru.htm" rel="next" title="22. Zpracování textových souborů">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">22</span>
 <span class="nazev">Zpracování textových souborů</span></a>
 </div>
 <!--<div><a href="index.htm">🗐&nbsp;Přehled&nbsp;kapitol</a></div>-->
@@ -883,7 +883,7 @@ příručku i s velmi starou verzí Vimu (ne však s „vi“).
 </nav>
 
 
-<div class="odkazydole"><div><a href="barvy-a-titulek.htm"><img src="obrazky/ik/barvy-a-titulek.png" alt="" width="32" height="32">Barvy, titulek a výzva terminálu</a><a href="prace-s-archivy.htm"><img src="obrazky/ik/prace-s-archivy.png" alt="" width="32" height="32">Práce s archivy</a><a href="stahovani-videi.htm"><img src="obrazky/ik/stahovani-videi.png" alt="" width="32" height="32">Stahování videí</a></div></div>
+<div class="odkazydole"><div><a href="sprava-procesu.htm"><img src="obrazky/ik/sprava-procesu.png" alt="" width="32" height="32">Správa procesů</a><a href="docker.htm"><img src="obrazky/ik/docker.png" alt="" width="32" height="32">Docker</a><a href="stahovani-videi.htm"><img src="obrazky/ik/stahovani-videi.png" alt="" width="32" height="32">Stahování videí</a></div></div>
 
 
 </article>
@@ -904,19 +904,20 @@ příručku i s velmi starou verzí Vimu (ne však s „vi“).
 <a href="markdown.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/markdown.png" alt="[]"></span><span class="cislo">10</span><span class="nazev">Markdown</span></a>
 <a href="planovani-uloh.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/planovani-uloh.png" alt="[]"></span><span class="cislo">11</span><span class="nazev">Plánování úloh</span></a>
 <a href="prace-s-archivy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="cislo">12</span><span class="nazev">Práce s archivy</span></a>
-<a href="regularni-vyrazy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="cislo">13</span><span class="nazev">Regulární výrazy</span></a>
-<a href="sed.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sed.png" alt="[]"></span><span class="cislo">14</span><span class="nazev">Sed</span></a>
-<a href="soubory-a-adresare.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/soubory-a-adresare.png" alt="[]"></span><span class="cislo">15</span><span class="nazev">Soubory a adresáře</span></a>
-<a href="sprava-balicku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="cislo">16</span><span class="nazev">Správa balíčků</span></a>
-<a href="sprava-procesu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-procesu.png" alt="[]"></span><span class="cislo">17</span><span class="nazev">Správa procesů</span></a>
-<a href="stahovani-videi.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/stahovani-videi.png" alt="[]"></span><span class="cislo">18</span><span class="nazev">Stahování videí</span></a>
-<a href="system.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="cislo">19</span><span class="nazev">Systém</span></a>
-<a href="vim.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/vim.png" alt="[]"></span><span class="cislo">20</span><span class="nazev">Vim</span></a>
-<a href="zpracovani-textovych-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="cislo">21</span><span class="nazev">Zpracování textových souborů</span></a>
-<a href="zpracovani-videa-a-zvuku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="cislo">22</span><span class="nazev">Zpracování videa a zvuku</span></a>
-<a href="koncepce-projektu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="cislo">23</span><span class="nazev">Koncepce projektu Linux: Kniha kouzel</span></a>
-<a href="plan-vyvoje.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">24</span><span class="nazev">Plán budoucího vývoje</span></a>
-<a href="licence.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">25</span><span class="nazev">Licence</span></a>
+<a href="promenne.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/promenne.png" alt="[]"></span><span class="cislo">13</span><span class="nazev">Proměnné prostředí a interpretu</span></a>
+<a href="regularni-vyrazy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="cislo">14</span><span class="nazev">Regulární výrazy</span></a>
+<a href="sed.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sed.png" alt="[]"></span><span class="cislo">15</span><span class="nazev">Sed</span></a>
+<a href="soubory-a-adresare.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/soubory-a-adresare.png" alt="[]"></span><span class="cislo">16</span><span class="nazev">Soubory a adresáře</span></a>
+<a href="sprava-balicku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="cislo">17</span><span class="nazev">Správa balíčků</span></a>
+<a href="sprava-procesu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-procesu.png" alt="[]"></span><span class="cislo">18</span><span class="nazev">Správa procesů</span></a>
+<a href="stahovani-videi.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/stahovani-videi.png" alt="[]"></span><span class="cislo">19</span><span class="nazev">Stahování videí</span></a>
+<a href="system.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="cislo">20</span><span class="nazev">Systém</span></a>
+<a href="vim.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/vim.png" alt="[]"></span><span class="cislo">21</span><span class="nazev">Vim</span></a>
+<a href="zpracovani-textovych-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="cislo">22</span><span class="nazev">Zpracování textových souborů</span></a>
+<a href="zpracovani-videa-a-zvuku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="cislo">23</span><span class="nazev">Zpracování videa a zvuku</span></a>
+<a href="koncepce-projektu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="cislo">24</span><span class="nazev">Koncepce projektu Linux: Kniha kouzel</span></a>
+<a href="plan-vyvoje.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">25</span><span class="nazev">Plán budoucího vývoje</span></a>
+<a href="licence.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">26</span><span class="nazev">Licence</span></a>
 </div></div>
 <a href="#zavritmenu" id="zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
 </aside>
@@ -980,7 +981,7 @@ příručku i s velmi starou verzí Vimu (ne však s „vi“).
 <a href="x-stitky.htm#sdrese">adresáře&nbsp;&nbsp;(2)</a>
 <a href="x-stitky.htm#spt">apt&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#sbrvy">barvy&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sbsh">bash&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#sbsh">bash&nbsp;&nbsp;(3)</a>
 <a href="x-stitky.htm#scs">čas&nbsp;&nbsp;(2)</a>
 <a href="x-stitky.htm#sdmoni">démoni&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#seditor">editor&nbsp;&nbsp;(1)</a>
@@ -1002,8 +1003,8 @@ příručku i s velmi starou verzí Vimu (ne však s „vi“).
 <a href="x-stitky.htm#ssoubory">soubory&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#ssprvverz">správa verzí&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#ssyntxe">syntaxe&nbsp;&nbsp;(4)</a>
-<a href="x-stitky.htm#ssystm">systém&nbsp;&nbsp;(4)</a>
-<a href="x-stitky.htm#stemtickokruh">tematický okruh&nbsp;&nbsp;(13)</a>
+<a href="x-stitky.htm#ssystm">systém&nbsp;&nbsp;(5)</a>
+<a href="x-stitky.htm#stemtickokruh">tematický okruh&nbsp;&nbsp;(14)</a>
 <a href="x-stitky.htm#svideo">video&nbsp;&nbsp;(2)</a>
 <a href="x-stitky.htm#svirtulizce">virtualizace&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#szip">zip&nbsp;&nbsp;(1)</a>

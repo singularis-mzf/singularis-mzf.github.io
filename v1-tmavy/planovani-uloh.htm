@@ -5,16 +5,16 @@
 
 <title>Plánování úloh − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20200628.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200628-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200628-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200628-tmavy.css" title="Tmavý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20200717.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200717-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200717-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200717-tmavy.css" title="Tmavý motiv">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body>
 <div id="nahore"></div>
 <header>
-<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.9, E. E. (28. června 2020)</span>
+<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.10, F. F. (17. července 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -75,7 +75,7 @@ spouštěné pod účtem superuživatele, ty však nejsou touto verzí kapitoly 
 </li></ul>
 <h2 id="cast3"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla</a></h2>
 
-<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 11 (Plánování úloh), sekce 3 (Zaklínadla), podsekce 1 (Pravidelné úlohy (obecně))"><sup>3/</sup>1 Pravidelné úlohy (obecně)</a></span></h3>
+<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 12 (Plánování úloh), sekce 3 (Zaklínadla), podsekce 1 (Pravidelné úlohy (obecně))"><sup>3/</sup>1 Pravidelné úlohy (obecně)</a></span></h3>
 <p class="ponadpisu">
 Plán – viz podsekci „Pravidelné úlohy (plány)“.
 </p>
@@ -83,7 +83,7 @@ Plán – viz podsekci „Pravidelné úlohy (plány)“.
 <div class="radekzaklinadla">lkk pridat-ulohu <i class="dopln">id-úlohy</i> <i class="dopln">plán</i> '<i class="dopln">příkaz a parametry</i>'</div>
 <div class="radekzaklinadla">lkk pridat-ulohu <i class="dopln">id-úlohy</i> <i class="dopln">plán</i> '~/bin/spustit-v-x <i class="dopln">příkaz a parametry</i>'</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1391154480"><span><a href="#z1391154480">⠭</a></span></span><b>vypsat</b> seznam úloh (id je na konci řádku, za znakem „#“)/vypsat konkrétní úlohu<span class="cislo">#2 </span><sup><a href="#kapplanovaniulohppc1" id="kapplanovaniulohppcr1" title="Poznámka: Znaky „\“ a „%“ jsou ve výpisu odzvláštněny, protože mají pro crontab speciální význam.">(1)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1391154480"><span><a href="#z1391154480">⠭</a></span></span><b>vypsat</b> seznam úloh (id je na konci řádku, za znakem „#“)/vypsat konkrétní úlohu<span class="cislo">#2 </span><sup><a href="#kapplnovniulohppc1" id="kapplnovniulohppcr1" title="Poznámka: Znaky „\“ a „%“ jsou ve výpisu odzvláštněny, protože mají pro crontab speciální význam.">(1)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">crontab -l</div>
 <div class="radekzaklinadla">crontab -l | egrep '#<i class="dopln">id-úlohy</i>$'</div>
 </div></div>
@@ -91,7 +91,7 @@ Plán – viz podsekci „Pravidelné úlohy (plány)“.
 <div class="radekzaklinadla">crontab -l | egrep -v '#<i class="dopln">id-úlohy</i>$' | crontab -</div>
 <div class="radekzaklinadla">crontab -r</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1168630790"><span><a href="#z1168630790">⋫</a></span></span><b>změnit</b> plán úlohy<span class="cislo">#4 </span><sup><a href="#kapplanovaniulohppc2" id="kapplanovaniulohppcr2" title="Vyžaduje nainstalovat balíček „gawk“.">(2)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1168630790"><span><a href="#z1168630790">⋫</a></span></span><b>změnit</b> plán úlohy<span class="cislo">#4 </span><sup><a href="#kapplnovniulohppc2" id="kapplnovniulohppcr2" title="Vyžaduje nainstalovat balíček „gawk“.">(2)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">crontab -l | gawk '{ if (/#<i class="dopln">id-úlohy</i>$/ &amp;&amp; match($0, /^(([^<span class="viditelnamezera">&nbsp;</span>]+<span class="viditelnamezera">&nbsp;</span>){5}|@[a-z]+<span class="viditelnamezera">&nbsp;</span>)/)) {print <i class="dopln">nový-plán</i> substr($0, RLENGTH)} else {print}}' | crontab -</div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1912012504"><span><a href="#z1912012504">╠</a></span></span>uložit tabulku úloh do souboru/načíst ze souboru<span class="cislo">#5 </span></div><div class="radky">
@@ -102,12 +102,12 @@ Plán – viz podsekci „Pravidelné úlohy (plány)“.
 <div class="radekzaklinadla">sudo crontab -l -u <i class="dopln">cílový-uživatel</i></div>
 </div></div>
 
-<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 11 (Plánování úloh), sekce 3 (Zaklínadla), podsekce 2 (Pravidelné úlohy (systémové))"><sup>3/</sup>2 Pravidelné úlohy (systémové)</a></span></h3>
+<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 12 (Plánování úloh), sekce 3 (Zaklínadla), podsekce 2 (Pravidelné úlohy (systémové))"><sup>3/</sup>2 Pravidelné úlohy (systémové)</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1977661180"><span><a href="#z1977661180">▃</a></span></span>vypsat seznam systémových pravidelných úloh<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
-<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 11 (Plánování úloh), sekce 3 (Zaklínadla), podsekce 3 (Pravidelné úlohy (plány))"><sup>3/</sup>3 Pravidelné úlohy (plány)</a></span></h3>
+<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 12 (Plánování úloh), sekce 3 (Zaklínadla), podsekce 3 (Pravidelné úlohy (plány))"><sup>3/</sup>3 Pravidelné úlohy (plány)</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1951949521"><span><a href="#z1951949521">䷒</a></span></span>spouštět každou <b>hodinu</b>/každou hodinu od 10.00 do 15.59<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">&quot;<i class="dopln">číslo-minuty</i> * * * *&quot;</div>
 <div class="radekzaklinadla">&quot;<i class="dopln">číslo-minuty</i> 10-15 * * *&quot;</div>
@@ -134,7 +134,7 @@ Plán – viz podsekci „Pravidelné úlohy (plány)“.
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1132048831"><span><a href="#z1132048831">⪵</a></span></span>spouštět <b>měsíčně</b> v N-tý den měsíce<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">&quot;<i class="dopln">číslo-minuty</i> <i class="dopln">číslo-hodiny</i> <i class="dopln">N</i> * *&quot;</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1595912907"><span><a href="#z1595912907">⬟</a></span></span>spouštět v druhé a čtvrté pondělí od května do září včetně (celý příkaz)<span class="cislo">#8 </span><sup><a href="#kapplanovaniulohppc3" id="kapplanovaniulohppcr3" title="Rozsahy dnů pro N-tý den týdne v měsíci jsou: první: 1-7, druhý: 8-14, třetí: 15-21, čtvrtý: 22-28, pátý: 29-31.">(3)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1595912907"><span><a href="#z1595912907">⬟</a></span></span>spouštět v druhé a čtvrté pondělí od května do září včetně (celý příkaz)<span class="cislo">#8 </span><sup><a href="#kapplnovniulohppc3" id="kapplnovniulohppcr3" title="Rozsahy dnů pro N-tý den týdne v měsíci jsou: první: 1-7, druhý: 8-14, třetí: 15-21, čtvrtý: 22-28, pátý: 29-31.">(3)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">lkk pridat-ulohu <i class="dopln">id-úlohy</i> &quot;<i class="dopln">číslo-minuty</i> <i class="dopln">číslo-hodiny</i> 8-14,22-28 5-9 *&quot; 'test $(date +%u) -eq 1 &amp;&amp; <i class="dopln">příkaz</i>'</div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1758674828"><span><a href="#z1758674828">☛</a></span></span>spouštět jednou ročně v určitý den<span class="cislo">#9 </span></div><div class="radky">
@@ -143,11 +143,11 @@ Plán – viz podsekci „Pravidelné úlohy (plány)“.
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1050908041"><span><a href="#z1050908041">⢲</a></span></span>spouštět v poledne 29. února každého přestupného roku<span class="cislo">#10 </span></div><div class="radky">
 <div class="radekzaklinadla">&quot;0 12 29 2 *&quot;</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z570546823"><span><a href="#z570546823">┗</a></span></span>spouštět v poledne každou adventní neděli (celý příkaz)<span class="cislo">#11 </span><sup><a href="#kapplanovaniulohppc4" id="kapplanovaniulohppcr4" title="Uvedený příkaz využívá skutečnost, že adventní neděle se vyskytují pouze v období 27. listopadu až 24. prosince včetně.">(4)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z570546823"><span><a href="#z570546823">┗</a></span></span>spouštět v poledne každou adventní neděli (celý příkaz)<span class="cislo">#11 </span><sup><a href="#kapplnovniulohppc4" id="kapplnovniulohppcr4" title="Uvedený příkaz využívá skutečnost, že adventní neděle se vyskytují pouze v období 27. listopadu až 24. prosince včetně.">(4)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">lkk pridat-ulohu <i class="dopln">id-úlohy</i> &quot;0 12 * 11-12 7&quot; 'test 1127 -le $(date +%m%d) -a $(date +%m%d) -le 1224 &amp;&amp; <i class="dopln">příkaz</i>'</div>
 </div></div>
 
-<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 11 (Plánování úloh), sekce 3 (Zaklínadla), podsekce 4 (Jednorázové úlohy)"><sup>3/</sup>4 Jednorázové úlohy</a></span></h3>
+<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 12 (Plánování úloh), sekce 3 (Zaklínadla), podsekce 4 (Jednorázové úlohy)"><sup>3/</sup>4 Jednorázové úlohy</a></span></h3>
 <p class="ponadpisu">
 Plán – viz sekci „Jednorázové úlohy (plány)“. Plán se zde neuzavírá do uvozovek!
 </p>
@@ -168,8 +168,8 @@ Plán – viz sekci „Jednorázové úlohy (plány)“. Plán se zde neuzavír�
 <div class="radekzaklinadla">at -c <i class="dopln">číslo-úlohy</i></div>
 </div></div>
 
-<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 11 (Plánování úloh), sekce 3 (Zaklínadla), podsekce 5 (Jednorázové úlohy (plány))"><sup>3/</sup>5 Jednorázové úlohy (plány)</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1307272647"><span><a href="#z1307272647">⇰</a></span></span>spustit v přesně zadaný čas/31. prosince 2030 ve 2 hodiny a 3 minuty<span class="cislo">#1 </span><sup><a href="#kapplanovaniulohppc5" id="kapplanovaniulohppcr5" title="Hodina, minuta, měsíc a den musí být zadány dvěma číslicemi.">(5)</a></sup></div><div class="radky">
+<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 12 (Plánování úloh), sekce 3 (Zaklínadla), podsekce 5 (Jednorázové úlohy (plány))"><sup>3/</sup>5 Jednorázové úlohy (plány)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1307272647"><span><a href="#z1307272647">⇰</a></span></span>spustit v přesně zadaný čas/31. prosince 2030 ve 2 hodiny a 3 minuty<span class="cislo">#1 </span><sup><a href="#kapplnovniulohppc5" id="kapplnovniulohppcr5" title="Hodina, minuta, měsíc a den musí být zadány dvěma číslicemi.">(5)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">hodina</i>:<i class="dopln">minuta</i> <span class="volznak">[</span><i class="dopln">rok</i>-<i class="dopln">měsíc</i>-<i class="dopln">den</i><span class="volznak">]</span></div>
 <div class="radekzaklinadla">02:03 2030-12-31</div>
 </div></div>
@@ -263,7 +263,7 @@ Poznámka: ukázka vyžaduje nainstalovaný balíček „mplayer“ (a pochopit
 <div class="radekzaklinadla">shift 2</div>
 <div class="radekzaklinadla">(crontab -l 2&gt;/dev/null | sed -E &quot;/#$nazevulohy\$/d&quot;; printf &quot;$plan %s #$nazevulohy\\n&quot; &quot;$@&quot; | sed -E 's/[\\%]/\\&amp;/g') | crontab -</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z856242696"><span><a href="#z856242696">➻</a></span></span>lkk spustit-v-x – slouží ke spouštění grafických aplikací z naplánovaných úloh<span class="cislo">#2 </span><sup><a href="#kapplanovaniulohppc6" id="kapplanovaniulohppcr6" title="Tento skript je vyžadován pro spouštění grafických aplikací z naplánovaných úloh. Pro správný běh takto spuštěných aplikací může být nutno doplnit do seznamu u příkazu „egrep“ mnoho dalších proměnných.">(6)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z856242696"><span><a href="#z856242696">➻</a></span></span>lkk spustit-v-x – slouží ke spouštění grafických aplikací z naplánovaných úloh<span class="cislo">#2 </span><sup><a href="#kapplnovniulohppc6" id="kapplnovniulohppcr6" title="Tento skript je vyžadován pro spouštění grafických aplikací z naplánovaných úloh. Pro správný běh takto spuštěných aplikací může být nutno doplnit do seznamu u příkazu „egrep“ mnoho dalších proměnných.">(6)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">#!/bin/bash -e</div>
 <div class="radekzaklinadla">function f () {</div>
 <div class="radekzaklinadla">local xpid=&quot;$(pgrep -u &quot;$(whoami)&quot; '^[A-Za-z0-9]*-session$' | head -n 1)&quot;</div>
@@ -273,17 +273,17 @@ Poznámka: ukázka vyžaduje nainstalovaný balíček „mplayer“ (a pochopit
 <div class="radekzaklinadla">f</div>
 <div class="radekzaklinadla">exec &quot;$@&quot;</div>
 </div></div>
-<div class="ppc"><div id="kapplanovaniulohppc1"><a href="#kapplanovaniulohppcr1" class="cislopozn">1</a>&nbsp;Poznámka: Znaky „\“ a „%“ jsou ve výpisu odzvláštněny, protože mají pro crontab speciální význam.</div>
+<div class="ppc"><div id="kapplnovniulohppc1"><a href="#kapplnovniulohppcr1" class="cislopozn">1</a>&nbsp;Poznámka: Znaky „\“ a „%“ jsou ve výpisu odzvláštněny, protože mají pro crontab speciální význam.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapplanovaniulohppc2"><a href="#kapplanovaniulohppcr2" class="cislopozn">2</a>&nbsp;Vyžaduje nainstalovat balíček „gawk“.</div>
+<div id="kapplnovniulohppc2"><a href="#kapplnovniulohppcr2" class="cislopozn">2</a>&nbsp;Vyžaduje nainstalovat balíček „gawk“.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapplanovaniulohppc3"><a href="#kapplanovaniulohppcr3" class="cislopozn">3</a>&nbsp;Rozsahy dnů pro N-tý den týdne v měsíci jsou: první: 1-7, druhý: 8-14, třetí: 15-21, čtvrtý: 22-28, pátý: 29-31.</div>
+<div id="kapplnovniulohppc3"><a href="#kapplnovniulohppcr3" class="cislopozn">3</a>&nbsp;Rozsahy dnů pro N-tý den týdne v měsíci jsou: první: 1-7, druhý: 8-14, třetí: 15-21, čtvrtý: 22-28, pátý: 29-31.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapplanovaniulohppc4"><a href="#kapplanovaniulohppcr4" class="cislopozn">4</a>&nbsp;Uvedený příkaz využívá skutečnost, že adventní neděle se vyskytují pouze v období 27. listopadu až 24. prosince včetně.</div>
+<div id="kapplnovniulohppc4"><a href="#kapplnovniulohppcr4" class="cislopozn">4</a>&nbsp;Uvedený příkaz využívá skutečnost, že adventní neděle se vyskytují pouze v období 27. listopadu až 24. prosince včetně.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapplanovaniulohppc5"><a href="#kapplanovaniulohppcr5" class="cislopozn">5</a>&nbsp;Hodina, minuta, měsíc a den musí být zadány dvěma číslicemi.</div>
+<div id="kapplnovniulohppc5"><a href="#kapplnovniulohppcr5" class="cislopozn">5</a>&nbsp;Hodina, minuta, měsíc a den musí být zadány dvěma číslicemi.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapplanovaniulohppc6"><a href="#kapplanovaniulohppcr6" class="cislopozn">6</a>&nbsp;Tento skript je vyžadován pro spouštění grafických aplikací z naplánovaných úloh. Pro správný běh takto spuštěných aplikací může být nutno doplnit do seznamu u příkazu „egrep“ mnoho dalších proměnných.</div>
+<div id="kapplnovniulohppc6"><a href="#kapplnovniulohppcr6" class="cislopozn">6</a>&nbsp;Tento skript je vyžadován pro spouštění grafických aplikací z naplánovaných úloh. Pro správný běh takto spuštěných aplikací může být nutno doplnit do seznamu u příkazu „egrep“ mnoho dalších proměnných.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 </div>
 
@@ -300,7 +300,7 @@ Poznámka: ukázka vyžaduje nainstalovaný balíček „mplayer“ (a pochopit
 </nav>
 
 
-<div class="odkazydole"><div><a href="system.htm"><img src="obrazky/ik/system.png" alt="" width="32" height="32">Systém</a><a href="diskove-oddily.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly</a><a href="zpracovani-textovych-souboru.htm"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="" width="32" height="32">Zpracování textových souborů</a></div></div>
+<div class="odkazydole"><div><a href="make.htm"><img src="obrazky/ik/make.png" alt="" width="32" height="32">Make</a><a href="vim.htm"><img src="obrazky/ik/vim.png" alt="" width="32" height="32">Vim</a><a href="soubory-a-adresare.htm"><img src="obrazky/ik/soubory-a-adresare.png" alt="" width="32" height="32">Soubory a adresáře</a></div></div>
 
 
 </article>
@@ -321,19 +321,20 @@ Poznámka: ukázka vyžaduje nainstalovaný balíček „mplayer“ (a pochopit
 <a href="markdown.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/markdown.png" alt="[]"></span><span class="cislo">10</span><span class="nazev">Markdown</span></a>
 <a href="planovani-uloh.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/planovani-uloh.png" alt="[]"></span><span class="cislo">11</span><span class="nazev">Plánování úloh</span></a>
 <a href="prace-s-archivy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="cislo">12</span><span class="nazev">Práce s archivy</span></a>
-<a href="regularni-vyrazy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="cislo">13</span><span class="nazev">Regulární výrazy</span></a>
-<a href="sed.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sed.png" alt="[]"></span><span class="cislo">14</span><span class="nazev">Sed</span></a>
-<a href="soubory-a-adresare.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/soubory-a-adresare.png" alt="[]"></span><span class="cislo">15</span><span class="nazev">Soubory a adresáře</span></a>
-<a href="sprava-balicku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="cislo">16</span><span class="nazev">Správa balíčků</span></a>
-<a href="sprava-procesu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-procesu.png" alt="[]"></span><span class="cislo">17</span><span class="nazev">Správa procesů</span></a>
-<a href="stahovani-videi.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/stahovani-videi.png" alt="[]"></span><span class="cislo">18</span><span class="nazev">Stahování videí</span></a>
-<a href="system.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="cislo">19</span><span class="nazev">Systém</span></a>
-<a href="vim.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/vim.png" alt="[]"></span><span class="cislo">20</span><span class="nazev">Vim</span></a>
-<a href="zpracovani-textovych-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="cislo">21</span><span class="nazev">Zpracování textových souborů</span></a>
-<a href="zpracovani-videa-a-zvuku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="cislo">22</span><span class="nazev">Zpracování videa a zvuku</span></a>
-<a href="koncepce-projektu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="cislo">23</span><span class="nazev">Koncepce projektu Linux: Kniha kouzel</span></a>
-<a href="plan-vyvoje.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">24</span><span class="nazev">Plán budoucího vývoje</span></a>
-<a href="licence.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">25</span><span class="nazev">Licence</span></a>
+<a href="promenne.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/promenne.png" alt="[]"></span><span class="cislo">13</span><span class="nazev">Proměnné prostředí a interpretu</span></a>
+<a href="regularni-vyrazy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="cislo">14</span><span class="nazev">Regulární výrazy</span></a>
+<a href="sed.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sed.png" alt="[]"></span><span class="cislo">15</span><span class="nazev">Sed</span></a>
+<a href="soubory-a-adresare.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/soubory-a-adresare.png" alt="[]"></span><span class="cislo">16</span><span class="nazev">Soubory a adresáře</span></a>
+<a href="sprava-balicku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="cislo">17</span><span class="nazev">Správa balíčků</span></a>
+<a href="sprava-procesu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-procesu.png" alt="[]"></span><span class="cislo">18</span><span class="nazev">Správa procesů</span></a>
+<a href="stahovani-videi.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/stahovani-videi.png" alt="[]"></span><span class="cislo">19</span><span class="nazev">Stahování videí</span></a>
+<a href="system.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="cislo">20</span><span class="nazev">Systém</span></a>
+<a href="vim.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/vim.png" alt="[]"></span><span class="cislo">21</span><span class="nazev">Vim</span></a>
+<a href="zpracovani-textovych-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="cislo">22</span><span class="nazev">Zpracování textových souborů</span></a>
+<a href="zpracovani-videa-a-zvuku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="cislo">23</span><span class="nazev">Zpracování videa a zvuku</span></a>
+<a href="koncepce-projektu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="cislo">24</span><span class="nazev">Koncepce projektu Linux: Kniha kouzel</span></a>
+<a href="plan-vyvoje.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">25</span><span class="nazev">Plán budoucího vývoje</span></a>
+<a href="licence.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">26</span><span class="nazev">Licence</span></a>
 </div></div>
 <a href="#zavritmenu" id="zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
 </aside>
@@ -365,7 +366,7 @@ Poznámka: ukázka vyžaduje nainstalovaný balíček „mplayer“ (a pochopit
 <a href="x-stitky.htm#sdrese">adresáře&nbsp;&nbsp;(2)</a>
 <a href="x-stitky.htm#spt">apt&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#sbrvy">barvy&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sbsh">bash&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#sbsh">bash&nbsp;&nbsp;(3)</a>
 <a href="x-stitky.htm#scs">čas&nbsp;&nbsp;(2)</a>
 <a href="x-stitky.htm#sdmoni">démoni&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#seditor">editor&nbsp;&nbsp;(1)</a>
@@ -387,8 +388,8 @@ Poznámka: ukázka vyžaduje nainstalovaný balíček „mplayer“ (a pochopit
 <a href="x-stitky.htm#ssoubory">soubory&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#ssprvverz">správa verzí&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#ssyntxe">syntaxe&nbsp;&nbsp;(4)</a>
-<a href="x-stitky.htm#ssystm">systém&nbsp;&nbsp;(4)</a>
-<a href="x-stitky.htm#stemtickokruh">tematický okruh&nbsp;&nbsp;(13)</a>
+<a href="x-stitky.htm#ssystm">systém&nbsp;&nbsp;(5)</a>
+<a href="x-stitky.htm#stemtickokruh">tematický okruh&nbsp;&nbsp;(14)</a>
 <a href="x-stitky.htm#svideo">video&nbsp;&nbsp;(2)</a>
 <a href="x-stitky.htm#svirtulizce">virtualizace&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#szip">zip&nbsp;&nbsp;(1)</a>

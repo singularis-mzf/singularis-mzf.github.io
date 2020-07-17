@@ -5,16 +5,16 @@
 
 <title>Make − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20200628.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200628-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200628-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200628-tmavy.css" title="Tmavý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20200717.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200717-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200717-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200717-tmavy.css" title="Tmavý motiv">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body>
 <div id="nahore"></div>
 <header>
-<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.9, E. E. (28. června 2020)</span>
+<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.10, F. F. (17. července 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -68,7 +68,7 @@ jemuž se bude věnovat většina této kapitoly.
 </li></ul>
 <h2 id="cast3"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla (v souboru Makefile)</a></h2>
 
-<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 9 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 1 (Nastavení proměnných)"><sup>3/</sup>1 Nastavení proměnných</a></span></h3>
+<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 10 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 1 (Nastavení proměnných)"><sup>3/</sup>1 Nastavení proměnných</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2089379896"><span><a href="#z2089379896">䷻</a></span></span><b>nastavit</b> proměnnou (expandovat v místě definice)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">NÁZEV_PROMĚNNÉ</i> := <i class="dopln">hodnota včetně mezer</i></div>
 </div></div>
@@ -82,7 +82,7 @@ jemuž se bude věnovat většina této kapitoly.
 <div class="radekzaklinadla">PRAZDNA :=</div>
 <div class="radekzaklinadla"><i class="dopln">NÁZEV_PROMĚNNÉ</i> := $(PRAZDNA)<span class="viditelnamezera">&nbsp;</span>$(PRAZDNA)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1470418915"><span><a href="#z1470418915">⬟</a></span></span>nastavit/připojit víceřádkový obsah<span class="cislo">#5 </span><sup><a href="#kapmakeppc1" id="kapmakeppcr1" title="„endef“ musí být na samostatném řádku; operátor může být „=“, „:=“ nebo „+=“.">(1)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1470418915"><span><a href="#z1470418915">⬟</a></span></span>nastavit/připojit víceřádkový obsah<span class="cislo">#5 </span><sup><a href="#kapmkeppc1" id="kapmkeppcr1" title="„endef“ musí být na samostatném řádku; operátor může být „=“, „:=“ nebo „+=“.">(1)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">define <i class="dopln">NÁZEV_PROMĚNNÉ</i> <span class="volznak">[</span><i class="dopln">operátor</i><span class="volznak">]</span></div>
 <div class="radekzaklinadla"><i class="dopln">víceřádkový obsah</i></div>
 <div class="radekzaklinadla">endef</div>
@@ -91,11 +91,11 @@ jemuž se bude věnovat většina této kapitoly.
 <div class="radekzaklinadla">export <i class="dopln">NÁZEV_PROMĚNNÉ</i> := <i class="dopln">hodnota včetně mezer</i></div>
 </div></div>
 
-<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 9 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 2 (Rozvoj proměnných)"><sup>3/</sup>2 Rozvoj proměnných</a></span></h3>
+<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 10 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 2 (Rozvoj proměnných)"><sup>3/</sup>2 Rozvoj proměnných</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z9228506"><span><a href="#z9228506">❘</a></span></span>rozvinout proměnnou<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">$(<i class="dopln">NÁZEV_PROMĚNNÉ</i>)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z790332531"><span><a href="#z790332531">♂</a></span></span>při rozvinutí proměnné nahradit v každém slově prefix/suffix/obojí<span class="cislo">#2 </span><sup><a href="#kapmakeppc2" id="kapmakeppcr2" title="Třetí uvedená varianta provede náhradu jen ve slovech, kde odpovídá prefix i suffix. Slova, u kterých odpovídá jen prefix nebo jen suffix, projdou bez náhrady.">(2)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z790332531"><span><a href="#z790332531">♂</a></span></span>při rozvinutí proměnné nahradit v každém slově prefix/suffix/obojí<span class="cislo">#2 </span><sup><a href="#kapmkeppc2" id="kapmkeppcr2" title="Třetí uvedená varianta provede náhradu jen ve slovech, kde odpovídá prefix i suffix. Slova, u kterých odpovídá jen prefix nebo jen suffix, projdou bez náhrady.">(2)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">$(<i class="dopln">NÁZEV_PROMĚNNÉ</i>:<span class="volznak">[</span><i class="dopln">původní-prefix</i><span class="volznak">]</span>%=<span class="volznak">[</span><i class="dopln">nový-prefix</i><span class="volznak">]</span>%)</div>
 <div class="radekzaklinadla">$(<i class="dopln">NÁZEV_PROMĚNNÉ</i>:%<span class="volznak">[</span><i class="dopln">původní-suffix</i><span class="volznak">]</span>=%<span class="volznak">[</span><i class="dopln">nový-suffix</i><span class="volznak">]</span>)</div>
 <div class="radekzaklinadla">$(<i class="dopln">NÁZEV_PROMĚNNÉ</i>:<span class="volznak">[</span><i class="dopln">původní-prefix</i><span class="volznak">]</span>%<span class="volznak">[</span><i class="dopln">původní-suffix</i><span class="volznak">]</span>=<span class="volznak">[</span><i class="dopln">nový-prefix</i><span class="volznak">]</span>%<span class="volznak">[</span><i class="dopln">nový-suffix</i><span class="volznak">]</span>)</div>
@@ -113,7 +113,7 @@ jemuž se bude věnovat většina této kapitoly.
 <div class="radekzaklinadla"><span class="tab" style="width:8ch">&#9;</span>@echo $(TEST:a%.cc=b%.cpp)</div>
 </div></div>
 
-<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 9 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 3 (Automatické a předdefinované proměnné)"><sup>3/</sup>3 Automatické a předdefinované proměnné</a></span></h3>
+<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 10 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 3 (Automatické a předdefinované proměnné)"><sup>3/</sup>3 Automatické a předdefinované proměnné</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1927732170"><span><a href="#z1927732170">⁚</a></span></span><b>cíl</b> pravidla (alternativy)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">$@</div>
 <div class="radekzaklinadla">$(@)</div>
@@ -136,7 +136,7 @@ jemuž se bude věnovat většina této kapitoly.
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
-<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 9 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 4 (Obecný tvar pravidel)"><sup>3/</sup>4 Obecný tvar pravidel</a></span></h3>
+<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 10 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 4 (Obecný tvar pravidel)"><sup>3/</sup>4 Obecný tvar pravidel</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1579012536"><span><a href="#z1579012536">╉</a></span></span>normální (<b>pevné</b>) pravidlo<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">cíle oddělené mezerami</i>: <span class="volznak">[</span><i class="dopln">zdroje oddělené mezerami</i><span class="volznak">]</span> <span class="volznak">[</span>;<i class="dopln">příkaz</i><span class="volznak">]</span></div>
 <div class="radekzaklinadla"><span class="volznak">[</span><span class="tab" style="width:8ch">&#9;</span><span class="volznak">[</span><i class="dopln">prefix-příkazu</i><span class="volznak">]</span><i class="dopln">příkaz</i><span class="volznak">]</span><span class="tritecky"></span></div>
@@ -145,18 +145,18 @@ jemuž se bude věnovat většina této kapitoly.
 <div class="radekzaklinadla"><i class="dopln">cíle oddělené mezerami</i>: <i class="dopln">%-vzor-pro-cíle</i>: <i class="dopln">cesta-nebo-%-vzor-zdroje</i><span class="tritecky"></span> <span class="volznak">[</span>;<i class="dopln">příkaz</i><span class="volznak">]</span></div>
 <div class="radekzaklinadla"><span class="volznak">[</span><span class="tab" style="width:8ch">&#9;</span><span class="volznak">[</span><i class="dopln">prefix-příkazu</i><span class="volznak">]</span><i class="dopln">příkaz</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1908271624"><span><a href="#z1908271624">▜</a></span></span>obecné (<b>implicitní</b>) pravidlo (zdroje lze odvodit od cíle)<span class="cislo">#3 </span><sup><a href="#kapmakeppc3" id="kapmakeppcr3" title="Obecné pravidlo má nižší prioritu než všechna pevná a generovaná pravidla. Navíc je tiše ignorováno, pokud chybí nekterý ze zdrojů. Má-li uvedeno víc cílů, považují se po jeho provedení všechny uvedené cíle za vygenerované, a tedy se pravidlo nevolá pro překlad dalších zdrojů znovu.">(3)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1908271624"><span><a href="#z1908271624">▜</a></span></span>obecné (<b>implicitní</b>) pravidlo (zdroje lze odvodit od cíle)<span class="cislo">#3 </span><sup><a href="#kapmkeppc3" id="kapmkeppcr3" title="Obecné pravidlo má nižší prioritu než všechna pevná a generovaná pravidla. Navíc je tiše ignorováno, pokud chybí nekterý ze zdrojů. Má-li uvedeno víc cílů, považují se po jeho provedení všechny uvedené cíle za vygenerované, a tedy se pravidlo nevolá pro překlad dalších zdrojů znovu.">(3)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">%-vzor cíle</i><span class="tritecky"></span>: <i class="dopln">cesta-nebo-%-vzor-zdroje</i><span class="tritecky"></span> <span class="volznak">[</span>;<i class="dopln">příkaz</i><span class="volznak">]</span></div>
 <div class="radekzaklinadla"><span class="volznak">[</span><span class="tab" style="width:8ch">&#9;</span><span class="volznak">[</span><i class="dopln">prefix-příkazu</i><span class="volznak">]</span><i class="dopln">příkaz</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1808967104"><span><a href="#z1808967104">⨛</a></span></span>označit, že určité cíle jsou <b>akce</b>, ne soubory<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">.PHONY: <span class="volznak">[</span><i class="dopln">akce oddělené mezerami</i><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z266817297"><span><a href="#z266817297">ᚂ</a></span></span>přeložit soubory uvedené v proměnné ZDROJE, které se nacházejí v adresáři „kod“ a jeho podadresářích a mají příponu „.cc“, na objektové soubory do adresáře obj<span class="cislo">#5 </span><sup><a href="#kapmakeppc4" id="kapmakeppcr4" title="Uvedený příklad předpokládá předdefinované proměnné CXX a CXXFLAGS, které GNU make předdefinovává, takže je nemusíte sami nastavovat.">(4)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z266817297"><span><a href="#z266817297">ᚂ</a></span></span>přeložit soubory uvedené v proměnné ZDROJE, které se nacházejí v adresáři „kod“ a jeho podadresářích a mají příponu „.cc“, na objektové soubory do adresáře obj<span class="cislo">#5 </span><sup><a href="#kapmkeppc4" id="kapmkeppcr4" title="Uvedený příklad předpokládá předdefinované proměnné CXX a CXXFLAGS, které GNU make předdefinovává, takže je nemusíte sami nastavovat.">(4)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">$(patsubst kod/%.cc,obj/%.o,$(filter kod/%.cc,$(ZDROJE))): obj/%.o: kod/%.cc</div>
 <div class="radekzaklinadla"><span class="tab" style="width:8ch">&#9;</span>$(CXX) $(CXXFLAGS) -c -o $@ $&lt;</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z633464349"><span><a href="#z633464349">☈</a></span></span>cíl závisí na zdroji, jen pokud zdroj existuje (<b>nepovinný zdroj</b>)<span class="cislo">#6 </span><sup><a href="#kapmakeppc5" id="kapmakeppcr5" title="Poznámka: nepovinné zdroje se zadávají jako vzorky interpretu oddělené mezerami, což znamená, že „?“, „*“ a „&blank;“ jsou v nich znaky se speciální významem.">(5)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z633464349"><span><a href="#z633464349">☈</a></span></span>cíl závisí na zdroji, jen pokud zdroj existuje (<b>nepovinný zdroj</b>)<span class="cislo">#6 </span><sup><a href="#kapmkeppc5" id="kapmkeppcr5" title="Poznámka: nepovinné zdroje se zadávají jako vzorky interpretu oddělené mezerami, což znamená, že „?“, „*“ a „&blank;“ jsou v nich znaky se speciální významem.">(5)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">cíle oddělené mezerami</i>: $(wildcard <i class="dopln">nepovinný-zdroj</i><span class="tritecky"></span>)</div>
 <div class="radekzaklinadla"><span class="volznak">[</span><span class="tab" style="width:8ch">&#9;</span><span class="volznak">[</span><i class="dopln">prefix-příkazu</i><span class="volznak">]</span><i class="dopln">příkaz</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
@@ -167,8 +167,8 @@ jemuž se bude věnovat většina této kapitoly.
 <div class="radekzaklinadla">.IGNORE: <i class="dopln">cíl</i> <span class="volznak">[</span><i class="dopln">další-cíl</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
 
-<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 9 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 5 (Textové funkce)"><sup>3/</sup>5 Textové funkce</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1747366748"><span><a href="#z1747366748">█</a></span></span><b>připojit</b> text před/za každé slovo v řetězci/v rozvoji proměnné<span class="cislo">#1 </span><sup><a href="#kapmakeppc6" id="kapmakeppcr6" title="Při použití poslední uvedené varianty nesmějí text-před a text-za obsahovat znak %.">(6)</a></sup></div><div class="radky">
+<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 10 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 5 (Textové funkce)"><sup>3/</sup>5 Textové funkce</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1747366748"><span><a href="#z1747366748">█</a></span></span><b>připojit</b> text před/za každé slovo v řetězci/v rozvoji proměnné<span class="cislo">#1 </span><sup><a href="#kapmkeppc6" id="kapmkeppcr6" title="Při použití poslední uvedené varianty nesmějí text-před a text-za obsahovat znak %.">(6)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">$(addprefix <i class="dopln">text-před</i>,<i class="dopln">řetězec slov</i>)</div>
 <div class="radekzaklinadla">$(addsuffix <i class="dopln">text-za</i>,<i class="dopln">řetězec slov</i>)</div>
 <div class="radekzaklinadla">$(<i class="dopln">proměnná</i>:%=<i class="dopln">text-před</i>%<i class="dopln">text-za</i>)</div>
@@ -205,15 +205,15 @@ jemuž se bude věnovat většina této kapitoly.
 <div class="radekzaklinadla">$(shell printf %s\\n '$(strip <i class="dopln">řetězec slov</i>)' | tr '<span class="viditelnamezera">&nbsp;</span>' \\n | tac)</div>
 </div></div>
 
-<h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 9 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 6 (Analýza adresářových cest (pro každé slovo zvlášť))"><sup>3/</sup>6 Analýza adresářových cest (pro každé slovo zvlášť)</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z758089228"><span><a href="#z758089228">⣭</a></span></span>získat <b>adresářovou cestu</b> (např. „../a/“)<span class="cislo">#1 </span><sup><a href="#kapmakeppc7" id="kapmakeppcr7" title="Neobsahuje-li slovo žádné „/“, vrací pro něj $(dir) „./“.">(7)</a></sup></div><div class="radky">
+<h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 10 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 6 (Analýza adresářových cest (pro každé slovo zvlášť))"><sup>3/</sup>6 Analýza adresářových cest (pro každé slovo zvlášť)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z758089228"><span><a href="#z758089228">⣭</a></span></span>získat <b>adresářovou cestu</b> (např. „../a/“)<span class="cislo">#1 </span><sup><a href="#kapmkeppc7" id="kapmkeppcr7" title="Neobsahuje-li slovo žádné „/“, vrací pro něj $(dir) „./“.">(7)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">$(dir <i class="dopln">řetězec slov</i>)</div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z34037335"><span><a href="#z34037335">۵</a></span></span>získat samotný <b>název souboru</b> včetně přípony/bez přípony (např. „b.o“, resp. „b“)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">$(notdir <i class="dopln">řetězec slov</i>)</div>
 <div class="radekzaklinadla">$(basename $(notdir <i class="dopln">řetězec slov</i>))</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1457722364"><span><a href="#z1457722364">⡧</a></span></span>získat <b>příponu</b> souboru (např. „.o“)<span class="cislo">#3 </span><sup><a href="#kapmakeppc8" id="kapmakeppcr8" title="Pozor! Slova, která takovou příponu neobsahují, budou touto funkcí vynechána bez náhrady, což sníží počet slov ve výsledném řetězci.">(8)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1457722364"><span><a href="#z1457722364">⡧</a></span></span>získat <b>příponu</b> souboru (např. „.o“)<span class="cislo">#3 </span><sup><a href="#kapmkeppc8" id="kapmkeppcr8" title="Pozor! Slova, která takovou příponu neobsahují, budou touto funkcí vynechána bez náhrady, což sníží počet slov ve výsledném řetězci.">(8)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">$(suffix <i class="dopln">řetězec slov</i>)</div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1948363170"><span><a href="#z1948363170">▟</a></span></span>získat adresářovou cestu (je-li uvedena) + název souboru bez přípony (např. „../a/b“)<span class="cislo">#4 </span></div><div class="radky">
@@ -222,11 +222,11 @@ jemuž se bude věnovat většina této kapitoly.
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z247980869"><span><a href="#z247980869">⋙</a></span></span>získat úplnou kanonickou cestu existujících souborů a adresářů (např. „/home/elli/test/a/b.o“)<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">$(realpath <i class="dopln">řetězec slov</i>)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1772064269"><span><a href="#z1772064269">⊙</a></span></span>získat seznam existujících souborů a adresářů odpovídajících vzorku interpretu<span class="cislo">#6 </span><sup><a href="#kapmakeppc9" id="kapmakeppcr9" title="Vzorek příkazového interpretu může obsahovat znaky ? a * s významem obvyklým v bashi. Pokud vzorku neodpovídá žádný soubor ani adresář, vzorek se potichu přeskočí. Toho je možno použít k vynechání neexistujících souborů z proměnné.">(9)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1772064269"><span><a href="#z1772064269">⊙</a></span></span>získat seznam existujících souborů a adresářů odpovídajících vzorku interpretu<span class="cislo">#6 </span><sup><a href="#kapmkeppc9" id="kapmkeppcr9" title="Vzorek příkazového interpretu může obsahovat znaky ? a * s významem obvyklým v bashi. Pokud vzorku neodpovídá žádný soubor ani adresář, vzorek se potichu přeskočí. Toho je možno použít k vynechání neexistujících souborů z proměnné.">(9)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">$(wildcard <i class="dopln">vzorek</i><span class="tritecky"></span>)</div>
 </div></div>
 
-<h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 9 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 7 (Příkazy v pravidlech)"><sup>3/</sup>7 Příkazy v pravidlech</a></span></h3>
+<h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 10 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 7 (Příkazy v pravidlech)"><sup>3/</sup>7 Příkazy v pravidlech</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z333908240"><span><a href="#z333908240">᚜</a></span></span>vykonat příkaz <b>bez vypsání</b><span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><span class="tab" style="width:8ch">&#9;</span>@<i class="dopln">příkaz</i></div>
 </div></div>
@@ -237,7 +237,7 @@ jemuž se bude věnovat většina této kapitoly.
 <div class="radekzaklinadla">.SILENT: <i class="dopln">cíl</i> <span class="volznak">[</span><i class="dopln">další-cíl</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
 
-<h3 id="cast3x8"><span><a href="#cast3x8" title="kapitola 9 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 8 (Logické funkce)"><sup>3/</sup>8 Logické funkce</a></span></h3>
+<h3 id="cast3x8"><span><a href="#cast3x8" title="kapitola 10 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 8 (Logické funkce)"><sup>3/</sup>8 Logické funkce</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1612347538"><span><a href="#z1612347538">⬉</a></span></span>podmíněný výraz<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">$(if <i class="dopln">podmínkový řetězec</i>,<i class="dopln">je-li neprázdný</i><span class="volznak">[</span>,<i class="dopln">jinak</i><span class="volznak">]</span>)</div>
 </div></div>
@@ -257,8 +257,8 @@ jemuž se bude věnovat většina této kapitoly.
 <div class="radekzaklinadla">$(foreach PROM,a b c c b a,$(PROM)$(PROM))</div>
 </div></div>
 
-<h3 id="cast3x9"><span><a href="#cast3x9" title="kapitola 9 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 9 (Podmíněný překlad a include)"><sup>3/</sup>9 Podmíněný překlad a include</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1656871053"><span><a href="#z1656871053">⣂</a></span></span>podmíněný překlad<span class="cislo">#1 </span><sup><a href="#kapmakeppc10" id="kapmakeppcr10" title="Vybere první z alternativ, kde jsou si uvedené výrazy po rozvinutí rovny. Doporučuji alternativy v Makefilu odsadit, ale není to vyžadováno.">(10)</a></sup></div><div class="radky">
+<h3 id="cast3x9"><span><a href="#cast3x9" title="kapitola 10 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 9 (Podmíněný překlad a include)"><sup>3/</sup>9 Podmíněný překlad a include</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1656871053"><span><a href="#z1656871053">⣂</a></span></span>podmíněný překlad<span class="cislo">#1 </span><sup><a href="#kapmkeppc10" id="kapmkeppcr10" title="Vybere první z alternativ, kde jsou si uvedené výrazy po rozvinutí rovny. Doporučuji alternativy v Makefilu odsadit, ale není to vyžadováno.">(10)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">ifeq &quot;<i class="dopln">výraz 1</i>&quot; &quot;<i class="dopln">výraz 2</i>&quot;</div>
 <div class="radekzaklinadla" style="padding-left:2ch;"><i class="dopln">první alternativa</i></div>
 <div class="radekzaklinadla"><span class="volznak">[</span>else ifeq &quot;<i class="dopln">výraz 1</i>&quot; &quot;<i class="dopln">výraz 2</i>&quot;</div>
@@ -271,14 +271,14 @@ jemuž se bude věnovat většina této kapitoly.
 <div class="radekzaklinadla">include <i class="dopln">soubory</i><span class="tritecky"></span></div>
 </div></div>
 
-<h3 id="cast3x10"><span><a href="#cast3x10" title="kapitola 9 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 10 (Ostatní funkce)"><sup>3/</sup>10 Ostatní funkce</a></span></h3>
+<h3 id="cast3x10"><span><a href="#cast3x10" title="kapitola 10 (Make), sekce 3 (Zaklínadla (v souboru Makefile)), podsekce 10 (Ostatní funkce)"><sup>3/</sup>10 Ostatní funkce</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z54634474"><span><a href="#z54634474">⎣</a></span></span><b>vykonat příkaz</b> a rozvinout se na jeho výstup; konce řádků se nahradí mezerami<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">$(shell <i class="dopln">příkaz shellu</i>)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1282867869"><span><a href="#z1282867869">⣽</a></span></span><b>vyvolat chybu</b> a ukončit zpracování Makefile<span class="cislo">#2 </span><sup><a href="#kapmakeppc11" id="kapmakeppcr11" title="Tip: Popis chyby v parametru funkce $(error) může obsahovat rozvoj proměnných a volání funkcí.">(11)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1282867869"><span><a href="#z1282867869">⣽</a></span></span><b>vyvolat chybu</b> a ukončit zpracování Makefile<span class="cislo">#2 </span><sup><a href="#kapmkeppc11" id="kapmkeppcr11" title="Tip: Popis chyby v parametru funkce $(error) může obsahovat rozvoj proměnných a volání funkcí.">(11)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">$(error <i class="dopln">popis chyby</i>)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2107718974"><span><a href="#z2107718974">∫</a></span></span>vypsat varování/zprávu<span class="cislo">#3 </span><sup><a href="#kapmakeppc12" id="kapmakeppcr12" title="Výsledkem expanze funkcí $(warning) a $(info) je prázdný řetězec.">(12)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2107718974"><span><a href="#z2107718974">∫</a></span></span>vypsat varování/zprávu<span class="cislo">#3 </span><sup><a href="#kapmkeppc12" id="kapmkeppcr12" title="Výsledkem expanze funkcí $(warning) a $(info) je prázdný řetězec.">(12)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">$(warning <i class="dopln">popis varování</i>)</div>
 <div class="radekzaklinadla">$(info <i class="dopln">zpráva</i>)</div>
 </div></div>
@@ -356,29 +356,29 @@ jemuž se bude věnovat většina této kapitoly.
 </li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/common/make.md">TL;DR stránka „make“</a> (anglicky)
 </li></ul>
 <h2 id="cast9"><a href="#cast9"><span class="cislo">9.</span> Snímek obrazovky</a></h2>
-<figure><img src="obrazky/make.png" alt="(snímek obrazovky)"></figure><div class="ppc"><div id="kapmakeppc1"><a href="#kapmakeppcr1" class="cislopozn">1</a>&nbsp;„endef“ musí být na samostatném řádku; operátor může být „=“, „:=“ nebo „+=“.</div>
+<figure><img src="obrazky/make.png" alt="(snímek obrazovky)"></figure><div class="ppc"><div id="kapmkeppc1"><a href="#kapmkeppcr1" class="cislopozn">1</a>&nbsp;„endef“ musí být na samostatném řádku; operátor může být „=“, „:=“ nebo „+=“.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapmakeppc2"><a href="#kapmakeppcr2" class="cislopozn">2</a>&nbsp;Třetí uvedená varianta provede náhradu jen ve slovech, kde odpovídá prefix i suffix. Slova, u kterých odpovídá jen prefix nebo jen suffix, projdou bez náhrady.</div>
+<div id="kapmkeppc2"><a href="#kapmkeppcr2" class="cislopozn">2</a>&nbsp;Třetí uvedená varianta provede náhradu jen ve slovech, kde odpovídá prefix i suffix. Slova, u kterých odpovídá jen prefix nebo jen suffix, projdou bez náhrady.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapmakeppc3"><a href="#kapmakeppcr3" class="cislopozn">3</a>&nbsp;Obecné pravidlo má nižší prioritu než všechna pevná a generovaná pravidla. Navíc je tiše ignorováno, pokud chybí nekterý ze zdrojů. Má-li uvedeno víc cílů, považují se po jeho provedení všechny uvedené cíle za vygenerované, a tedy se pravidlo nevolá pro překlad dalších zdrojů znovu.</div>
+<div id="kapmkeppc3"><a href="#kapmkeppcr3" class="cislopozn">3</a>&nbsp;Obecné pravidlo má nižší prioritu než všechna pevná a generovaná pravidla. Navíc je tiše ignorováno, pokud chybí nekterý ze zdrojů. Má-li uvedeno víc cílů, považují se po jeho provedení všechny uvedené cíle za vygenerované, a tedy se pravidlo nevolá pro překlad dalších zdrojů znovu.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapmakeppc4"><a href="#kapmakeppcr4" class="cislopozn">4</a>&nbsp;Uvedený příklad předpokládá předdefinované proměnné CXX a CXXFLAGS, které GNU make předdefinovává, takže je nemusíte sami nastavovat.</div>
+<div id="kapmkeppc4"><a href="#kapmkeppcr4" class="cislopozn">4</a>&nbsp;Uvedený příklad předpokládá předdefinované proměnné CXX a CXXFLAGS, které GNU make předdefinovává, takže je nemusíte sami nastavovat.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapmakeppc5"><a href="#kapmakeppcr5" class="cislopozn">5</a>&nbsp;Poznámka: nepovinné zdroje se zadávají jako vzorky interpretu oddělené mezerami, což znamená, že „?“, „*“ a „<span class="viditelnamezera">&nbsp;</span>“ jsou v nich znaky se speciální významem.</div>
+<div id="kapmkeppc5"><a href="#kapmkeppcr5" class="cislopozn">5</a>&nbsp;Poznámka: nepovinné zdroje se zadávají jako vzorky interpretu oddělené mezerami, což znamená, že „?“, „*“ a „<span class="viditelnamezera">&nbsp;</span>“ jsou v nich znaky se speciální významem.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapmakeppc6"><a href="#kapmakeppcr6" class="cislopozn">6</a>&nbsp;Při použití poslední uvedené varianty nesmějí text-před a text-za obsahovat znak %.</div>
+<div id="kapmkeppc6"><a href="#kapmkeppcr6" class="cislopozn">6</a>&nbsp;Při použití poslední uvedené varianty nesmějí text-před a text-za obsahovat znak %.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapmakeppc7"><a href="#kapmakeppcr7" class="cislopozn">7</a>&nbsp;Neobsahuje-li slovo žádné „/“, vrací pro něj $(dir) „./“.</div>
+<div id="kapmkeppc7"><a href="#kapmkeppcr7" class="cislopozn">7</a>&nbsp;Neobsahuje-li slovo žádné „/“, vrací pro něj $(dir) „./“.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapmakeppc8"><a href="#kapmakeppcr8" class="cislopozn">8</a>&nbsp;Pozor! Slova, která takovou příponu neobsahují, budou touto funkcí vynechána bez náhrady, což sníží počet slov ve výsledném řetězci.</div>
+<div id="kapmkeppc8"><a href="#kapmkeppcr8" class="cislopozn">8</a>&nbsp;Pozor! Slova, která takovou příponu neobsahují, budou touto funkcí vynechána bez náhrady, což sníží počet slov ve výsledném řetězci.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapmakeppc9"><a href="#kapmakeppcr9" class="cislopozn">9</a>&nbsp;Vzorek příkazového interpretu může obsahovat znaky ? a * s významem obvyklým v bashi. Pokud vzorku neodpovídá žádný soubor ani adresář, vzorek se potichu přeskočí. Toho je možno použít k vynechání neexistujících souborů z proměnné.</div>
+<div id="kapmkeppc9"><a href="#kapmkeppcr9" class="cislopozn">9</a>&nbsp;Vzorek příkazového interpretu může obsahovat znaky ? a * s významem obvyklým v bashi. Pokud vzorku neodpovídá žádný soubor ani adresář, vzorek se potichu přeskočí. Toho je možno použít k vynechání neexistujících souborů z proměnné.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapmakeppc10"><a href="#kapmakeppcr10" class="cislopozn">10</a>&nbsp;Vybere první z alternativ, kde jsou si uvedené výrazy po rozvinutí rovny. Doporučuji alternativy v Makefilu odsadit, ale není to vyžadováno.</div>
+<div id="kapmkeppc10"><a href="#kapmkeppcr10" class="cislopozn">10</a>&nbsp;Vybere první z alternativ, kde jsou si uvedené výrazy po rozvinutí rovny. Doporučuji alternativy v Makefilu odsadit, ale není to vyžadováno.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapmakeppc11"><a href="#kapmakeppcr11" class="cislopozn">11</a>&nbsp;Tip: Popis chyby v parametru funkce $(error) může obsahovat rozvoj proměnných a volání funkcí.</div>
+<div id="kapmkeppc11"><a href="#kapmkeppcr11" class="cislopozn">11</a>&nbsp;Tip: Popis chyby v parametru funkce $(error) může obsahovat rozvoj proměnných a volání funkcí.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapmakeppc12"><a href="#kapmakeppcr12" class="cislopozn">12</a>&nbsp;Výsledkem expanze funkcí $(warning) a $(info) je prázdný řetězec.</div>
+<div id="kapmkeppc12"><a href="#kapmkeppcr12" class="cislopozn">12</a>&nbsp;Výsledkem expanze funkcí $(warning) a $(info) je prázdný řetězec.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 </div>
 
@@ -395,7 +395,7 @@ jemuž se bude věnovat většina této kapitoly.
 </nav>
 
 
-<div class="odkazydole"><div><a href="soubory-a-adresare.htm"><img src="obrazky/ik/soubory-a-adresare.png" alt="" width="32" height="32">Soubory a adresáře</a><a href="barvy-a-titulek.htm"><img src="obrazky/ik/barvy-a-titulek.png" alt="" width="32" height="32">Barvy, titulek a výzva terminálu</a><a href="markdown.htm"><img src="obrazky/ik/markdown.png" alt="" width="32" height="32">Markdown</a></div></div>
+<div class="odkazydole"><div><a href="regularni-vyrazy.htm"><img src="obrazky/ik/regularni-vyrazy.png" alt="" width="32" height="32">Regulární výrazy</a><a href="system.htm"><img src="obrazky/ik/system.png" alt="" width="32" height="32">Systém</a><a href="prace-s-archivy.htm"><img src="obrazky/ik/prace-s-archivy.png" alt="" width="32" height="32">Práce s archivy</a></div></div>
 
 
 </article>
@@ -416,19 +416,20 @@ jemuž se bude věnovat většina této kapitoly.
 <a href="markdown.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/markdown.png" alt="[]"></span><span class="cislo">10</span><span class="nazev">Markdown</span></a>
 <a href="planovani-uloh.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/planovani-uloh.png" alt="[]"></span><span class="cislo">11</span><span class="nazev">Plánování úloh</span></a>
 <a href="prace-s-archivy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="cislo">12</span><span class="nazev">Práce s archivy</span></a>
-<a href="regularni-vyrazy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="cislo">13</span><span class="nazev">Regulární výrazy</span></a>
-<a href="sed.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sed.png" alt="[]"></span><span class="cislo">14</span><span class="nazev">Sed</span></a>
-<a href="soubory-a-adresare.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/soubory-a-adresare.png" alt="[]"></span><span class="cislo">15</span><span class="nazev">Soubory a adresáře</span></a>
-<a href="sprava-balicku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="cislo">16</span><span class="nazev">Správa balíčků</span></a>
-<a href="sprava-procesu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-procesu.png" alt="[]"></span><span class="cislo">17</span><span class="nazev">Správa procesů</span></a>
-<a href="stahovani-videi.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/stahovani-videi.png" alt="[]"></span><span class="cislo">18</span><span class="nazev">Stahování videí</span></a>
-<a href="system.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="cislo">19</span><span class="nazev">Systém</span></a>
-<a href="vim.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/vim.png" alt="[]"></span><span class="cislo">20</span><span class="nazev">Vim</span></a>
-<a href="zpracovani-textovych-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="cislo">21</span><span class="nazev">Zpracování textových souborů</span></a>
-<a href="zpracovani-videa-a-zvuku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="cislo">22</span><span class="nazev">Zpracování videa a zvuku</span></a>
-<a href="koncepce-projektu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="cislo">23</span><span class="nazev">Koncepce projektu Linux: Kniha kouzel</span></a>
-<a href="plan-vyvoje.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">24</span><span class="nazev">Plán budoucího vývoje</span></a>
-<a href="licence.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">25</span><span class="nazev">Licence</span></a>
+<a href="promenne.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/promenne.png" alt="[]"></span><span class="cislo">13</span><span class="nazev">Proměnné prostředí a interpretu</span></a>
+<a href="regularni-vyrazy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="cislo">14</span><span class="nazev">Regulární výrazy</span></a>
+<a href="sed.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sed.png" alt="[]"></span><span class="cislo">15</span><span class="nazev">Sed</span></a>
+<a href="soubory-a-adresare.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/soubory-a-adresare.png" alt="[]"></span><span class="cislo">16</span><span class="nazev">Soubory a adresáře</span></a>
+<a href="sprava-balicku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="cislo">17</span><span class="nazev">Správa balíčků</span></a>
+<a href="sprava-procesu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-procesu.png" alt="[]"></span><span class="cislo">18</span><span class="nazev">Správa procesů</span></a>
+<a href="stahovani-videi.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/stahovani-videi.png" alt="[]"></span><span class="cislo">19</span><span class="nazev">Stahování videí</span></a>
+<a href="system.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="cislo">20</span><span class="nazev">Systém</span></a>
+<a href="vim.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/vim.png" alt="[]"></span><span class="cislo">21</span><span class="nazev">Vim</span></a>
+<a href="zpracovani-textovych-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="cislo">22</span><span class="nazev">Zpracování textových souborů</span></a>
+<a href="zpracovani-videa-a-zvuku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="cislo">23</span><span class="nazev">Zpracování videa a zvuku</span></a>
+<a href="koncepce-projektu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="cislo">24</span><span class="nazev">Koncepce projektu Linux: Kniha kouzel</span></a>
+<a href="plan-vyvoje.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">25</span><span class="nazev">Plán budoucího vývoje</span></a>
+<a href="licence.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">26</span><span class="nazev">Licence</span></a>
 </div></div>
 <a href="#zavritmenu" id="zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
 </aside>
@@ -465,7 +466,7 @@ jemuž se bude věnovat většina této kapitoly.
 <a href="x-stitky.htm#sdrese">adresáře&nbsp;&nbsp;(2)</a>
 <a href="x-stitky.htm#spt">apt&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#sbrvy">barvy&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sbsh">bash&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#sbsh">bash&nbsp;&nbsp;(3)</a>
 <a href="x-stitky.htm#scs">čas&nbsp;&nbsp;(2)</a>
 <a href="x-stitky.htm#sdmoni">démoni&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#seditor">editor&nbsp;&nbsp;(1)</a>
@@ -487,8 +488,8 @@ jemuž se bude věnovat většina této kapitoly.
 <a href="x-stitky.htm#ssoubory">soubory&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#ssprvverz">správa verzí&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#ssyntxe">syntaxe&nbsp;&nbsp;(4)</a>
-<a href="x-stitky.htm#ssystm">systém&nbsp;&nbsp;(4)</a>
-<a href="x-stitky.htm#stemtickokruh">tematický okruh&nbsp;&nbsp;(13)</a>
+<a href="x-stitky.htm#ssystm">systém&nbsp;&nbsp;(5)</a>
+<a href="x-stitky.htm#stemtickokruh">tematický okruh&nbsp;&nbsp;(14)</a>
 <a href="x-stitky.htm#svideo">video&nbsp;&nbsp;(2)</a>
 <a href="x-stitky.htm#svirtulizce">virtualizace&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#szip">zip&nbsp;&nbsp;(1)</a>

@@ -5,16 +5,16 @@
 
 <title>Systém − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20200801.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200801-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200801-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200801-tmavy.css" title="Tmavý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20200906.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200906-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200906-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200906-tmavy.css" title="Tmavý motiv">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body>
 <div id="nahore"></div>
 <header>
-<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.11, G. G. (1. srpna 2020)</span>
+<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.12, H. H. (6. září 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -252,8 +252,10 @@ Poznámka: práce s odkládacím prostorem byla přesunuta do kapitoly <i>Disko
 </div></div>
 
 <h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 22 (Systém), sekce 3 (Zaklínadla), podsekce 7 (Ostatní)"><sup>3/</sup>7 Ostatní</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1787576055"><span><a href="#z1787576055">䷆</a></span></span>nastavit jméno počítače<span class="cislo">#1 </span></div><div class="radky">
-<div class="radekzaklinadla">sudo sed -i -E &quot;s/(\\s)$(hostname)\$/\\1<i class="dopln">novéjméno</i>/&quot; /etc/hosts &amp;&amp; sudo hostname <i class="dopln">novéjméno</i></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1787576055"><span><a href="#z1787576055">䷆</a></span></span>nastavit jméno počítače<span class="cislo">#1 </span><sup><a href="#kapsystemppc9" id="kapsystemppcr9" title="Jméno počítače může být dlouhé maximálně 63 znaků a smí obsahovat pouze malá a velká písmena anglické abecedy, číslice. Může také obsahovat pomlčky, ale nesmí pomlčkou začínat ani končit. Např. „0---9Az“ je také dovolené jméno počítače.">(9)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">stare=$(hostname)</div>
+<div class="radekzaklinadla">nove=<i class="dopln">nove-jmeno</i></div>
+<div class="radekzaklinadla">sudo sed -i -E 's/(\s)'${stare}'$/\1'${nove}'/' /etc/hosts &amp;&amp; sudo sed -i -E 's/^'${stare}'/'${nove}'/' /etc/hostname</div>
 <div class="radekzaklinadla akce">Restartujte počítač.</div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1323363449"><span><a href="#z1323363449">⠭</a></span></span>nastavit proměnnou prostředí krále démonů/smazat ji<span class="cislo">#2 </span></div><div class="radky">
@@ -274,7 +276,7 @@ Poznámka: práce s odkládacím prostorem byla přesunuta do kapitoly <i>Disko
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z391234817"><span><a href="#z391234817">☋</a></span></span>rozdělení času mezi firmware, zavaděč, jádro a zbytek (pro člověka)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">systemd-analyze time<span class="prikladhodnoty">⊨ Startup finished in 13.465s (firmware) + 1.435s (loader) + 3.459s (kernel) + 1min 30.339s (userspace) = 1min 48.700s</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2096833063"><span><a href="#z2096833063">⏥</a></span></span>kolik času zabrala inicializace jednotek? (pro člověka)<span class="cislo">#2 </span><sup><a href="#kapsystemppc9" id="kapsystemppcr9" title="Pozor! Do uvedeného času se započítává i čas strávený čekáním na inicializaci jiných jednotek; proto pokud má některá jednotka uvedený dlouhý čas, nemusí to znamenat, že zpomalení způsobuje ona!">(9)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2096833063"><span><a href="#z2096833063">⏥</a></span></span>kolik času zabrala inicializace jednotek? (pro člověka)<span class="cislo">#2 </span><sup><a href="#kapsystemppc10" id="kapsystemppcr10" title="Pozor! Do uvedeného času se započítává i čas strávený čekáním na inicializaci jiných jednotek; proto pokud má některá jednotka uvedený dlouhý čas, nemusí to znamenat, že zpomalení způsobuje ona!">(10)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">systemd-analyze blame <span class="volznak">[</span>--user<span class="volznak">]</span></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z181282030"><span><a href="#z181282030">☷</a></span></span>vykreslit graf popisující inicializaci jednotek při zavádění<span class="cislo">#3 </span></div><div class="radky">
@@ -284,7 +286,7 @@ Poznámka: práce s odkládacím prostorem byla přesunuta do kapitoly <i>Disko
 <h2 id="cast4"><a href="#cast4"><span class="cislo">4.</span> Zaklínadla (klávesnice)</a></h2>
 
 <h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 22 (Systém), sekce 4 (Zaklínadla (klávesnice)), podsekce 1 (Ovládání počítače klávesnicí)"><sup>4/</sup>1 Ovládání počítače klávesnicí</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2013373730"><span><a href="#z2013373730">䷖</a></span></span><b>nouzový restart</b> počítače<span class="cislo">#1 </span><sup><a href="#kapsystemppc10" id="kapsystemppcr10" title="Ne, opravdu to není Ctrl+Alt+Delete...">(10)</a>,&nbsp;<a href="#kapsystemppc11" id="kapsystemppcr11" title="Poznámka: Skutečně důležitá je pouze poslední klávesa „B“; ty předchozí pouze vykonávají operace, díky nimž nebude restart tak drastický. Pokud chcete opravdu drastický reset, stačí na to klávesová zkratka „Alt“+„PrintScreen“+„B“.">(11)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2013373730"><span><a href="#z2013373730">䷖</a></span></span><b>nouzový restart</b> počítače<span class="cislo">#1 </span><sup><a href="#kapsystemppc11" id="kapsystemppcr11" title="Ne, opravdu to není Ctrl+Alt+Delete...">(11)</a>,&nbsp;<a href="#kapsystemppc12" id="kapsystemppcr12" title="Poznámka: Skutečně důležitá je pouze poslední klávesa „B“; ty předchozí pouze vykonávají operace, díky nimž nebude restart tak drastický. Pokud chcete opravdu drastický reset, stačí na to klávesová zkratka „Alt“+„PrintScreen“+„B“.">(12)</a></sup></div><div class="radky">
 <div class="radekzaklinadla akce">Stiskněte a držte stisknuté klávesy <kbd>Alt</kbd> + <kbd>PrtScr</kbd>.</div>
 <div class="radekzaklinadla akce">Na klávesnici s krátkými přestávkami vyťukejte: <kbd>R</kbd>, <kbd>E</kbd>, <kbd>I</kbd>, <kbd>S</kbd>, <kbd>U</kbd>, <kbd>B</kbd>.</div>
 <div class="radekzaklinadla akce">Uvolněte <kbd>PrtScr</kbd> a <kbd>Alt</kbd>.</div>
@@ -292,7 +294,7 @@ Poznámka: práce s odkládacím prostorem byla přesunuta do kapitoly <i>Disko
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z598582410"><span><a href="#z598582410">⚋</a></span></span>drastické <b>nouzové vypnutí</b> počítače<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla akce"><kbd>Alt</kbd> + <kbd>PrtScr</kbd> + <kbd>O</kbd>.</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z57282130"><span><a href="#z57282130">⁕</a></span></span>vypsat nápovědu k nouzovým klávesovým zkratkám jádra<span class="cislo">#3 </span><sup><a href="#kapsystemppc12" id="kapsystemppcr12" title="Poznámka: Většina vypsaných operací je v jádru Ubuntu zakázána. Po stisknutí příslušné kombinace kláves se v takovém případě vypíše na konzoli zpráva, že operace je zakázána.">(12)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z57282130"><span><a href="#z57282130">⁕</a></span></span>vypsat nápovědu k nouzovým klávesovým zkratkám jádra<span class="cislo">#3 </span><sup><a href="#kapsystemppc13" id="kapsystemppcr13" title="Poznámka: Většina vypsaných operací je v jádru Ubuntu zakázána. Po stisknutí příslušné kombinace kláves se v takovém případě vypíše na konzoli zpráva, že operace je zakázána.">(13)</a></sup></div><div class="radky">
 <div class="radekzaklinadla akce">Jste-li v grafickém režimu, přepněte se na textovou virutální konzoli zkratkou <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>F2</kbd>.</div>
 <div class="radekzaklinadla akce">Stiskněte <kbd>Alt</kbd> + <kbd>PrtScr</kbd> + <kbd>H</kbd>. Měla by se vypsat nápověda.</div>
 <div class="radekzaklinadla akce">Zpět do grafického režimu se vrátíte <kbd>Alt</kbd> + <kbd>F7</kbd> (pouze ve variantách Ubuntu a Kubuntu je to místo toho <kbd>Alt</kbd> + <kbd>F1</kbd>).</div>
@@ -406,13 +408,15 @@ Většina použitých příkazů je základní součástí Ubuntu, pouze příka
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapsystemppc8"><a href="#kapsystemppcr8" class="cislopozn">8</a>&nbsp;Poznámka: tento příkaz dokáže přepnout i mezi X a virtuální konzolí!</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapsystemppc9"><a href="#kapsystemppcr9" class="cislopozn">9</a>&nbsp;Pozor! Do uvedeného času se započítává i čas strávený čekáním na inicializaci jiných jednotek; proto pokud má některá jednotka uvedený dlouhý čas, nemusí to znamenat, že zpomalení způsobuje ona!</div>
+<div id="kapsystemppc9"><a href="#kapsystemppcr9" class="cislopozn">9</a>&nbsp;Jméno počítače může být dlouhé maximálně 63 znaků a smí obsahovat pouze malá a velká písmena anglické abecedy, číslice. Může také obsahovat pomlčky, ale nesmí pomlčkou začínat ani končit. Např. „0---9Az“ je také dovolené jméno počítače.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapsystemppc10"><a href="#kapsystemppcr10" class="cislopozn">10</a>&nbsp;Ne, opravdu to není Ctrl+Alt+Delete...</div>
+<div id="kapsystemppc10"><a href="#kapsystemppcr10" class="cislopozn">10</a>&nbsp;Pozor! Do uvedeného času se započítává i čas strávený čekáním na inicializaci jiných jednotek; proto pokud má některá jednotka uvedený dlouhý čas, nemusí to znamenat, že zpomalení způsobuje ona!</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapsystemppc11"><a href="#kapsystemppcr11" class="cislopozn">11</a>&nbsp;Poznámka: Skutečně důležitá je pouze poslední klávesa „B“; ty předchozí pouze vykonávají operace, díky nimž nebude restart tak drastický. Pokud chcete opravdu drastický reset, stačí na to klávesová zkratka „Alt“+„PrintScreen“+„B“.</div>
+<div id="kapsystemppc11"><a href="#kapsystemppcr11" class="cislopozn">11</a>&nbsp;Ne, opravdu to není Ctrl+Alt+Delete...</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapsystemppc12"><a href="#kapsystemppcr12" class="cislopozn">12</a>&nbsp;Poznámka: Většina vypsaných operací je v jádru Ubuntu zakázána. Po stisknutí příslušné kombinace kláves se v takovém případě vypíše na konzoli zpráva, že operace je zakázána.</div>
+<div id="kapsystemppc12"><a href="#kapsystemppcr12" class="cislopozn">12</a>&nbsp;Poznámka: Skutečně důležitá je pouze poslední klávesa „B“; ty předchozí pouze vykonávají operace, díky nimž nebude restart tak drastický. Pokud chcete opravdu drastický reset, stačí na to klávesová zkratka „Alt“+„PrintScreen“+„B“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapsystemppc13"><a href="#kapsystemppcr13" class="cislopozn">13</a>&nbsp;Poznámka: Většina vypsaných operací je v jádru Ubuntu zakázána. Po stisknutí příslušné kombinace kláves se v takovém případě vypíše na konzoli zpráva, že operace je zakázána.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 </div>
 
@@ -429,7 +433,7 @@ Většina použitých příkazů je základní součástí Ubuntu, pouze příka
 </nav>
 
 
-<div class="odkazydole"><div><a href="promenne.htm"><img src="obrazky/ik/promenne.png" alt="" width="32" height="32">Proměnné prostředí a interpretu</a><a href="awk.htm"><img src="obrazky/ik/awk.png" alt="" width="32" height="32">AWK</a><a href="hledani-souboru.htm"><img src="obrazky/ik/hledani-souboru.png" alt="" width="32" height="32">Hledání souborů</a></div></div>
+<div class="odkazydole"><div><a href="sprava-uzivatelskych-uctu.htm"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="" width="32" height="32">Správa uživatelských účtů</a><a href="sed.htm"><img src="obrazky/ik/sed.png" alt="" width="32" height="32">Sed</a><a href="awk.htm"><img src="obrazky/ik/awk.png" alt="" width="32" height="32">AWK</a></div></div>
 
 
 </article>

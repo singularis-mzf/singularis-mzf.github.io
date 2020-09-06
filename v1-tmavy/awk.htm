@@ -5,16 +5,16 @@
 
 <title>AWK − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20200801.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200801-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200801-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200801-tmavy.css" title="Tmavý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20200906.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200906-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200906-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200906-tmavy.css" title="Tmavý motiv">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body>
 <div id="nahore"></div>
 <header>
-<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.11, G. G. (1. srpna 2020)</span>
+<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.12, H. H. (6. září 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -578,11 +578,11 @@ Poznámka: Parametry -f a -e můžete kombinovat a zadávat opakovaně. Každ�
 
 <h2 id="cast8"><a href="#cast8"><span class="cislo">8.</span> Tipy a zkušenosti</a></h2>
 <ul><li>V AWK jsou všechna pole asociativní (včetně těch indexovaných celými čísly), a tedy neuspořádaná. Při indexování pole číslem se číslo nejprve převede na řetězec.
-</li><li>Je velmi často využívána syntaktická zkratka, že literál regulárního výrazu (např. /^a/) se automaticky rozšířít na test načteného řádku (např. „($0 ~ /^a/)“).
+</li><li>Je velmi často využívána syntaktická zkratka, že literál regulárního výrazu (např. /^a/) se automaticky rozšíří na test načteného řádku (např. „($0 ~ /^a/)“).
 </li><li>V AWK je středník potřeba jen k oddělení příkazů na jednom řádku, přesto z důvodu přehlednosti doporučuji ho psát na konci příkazu s výjimkou případu, kdy jde o jediný příkaz v bloku, k němuž těsně přiléhají složené závorky, např. „{print $0}“.
 </li><li>Skalární proměnné se do funkcí předávají hodnotou, pole odkazem.
 </li><li>Hodnoty ARGC a ARGV je možno za běhu skriptu bez omezení měnit, a tím ovlivňovat, které další soubory gawk či mawk otevře. Na již otevřené soubory to ale nemá vliv.
-</li><li>Používání koprocesů vyžaduje pečlivou synchronizaci mezi procesy. Existuje dvě situace, které vedou k zamrznutí programu a musíte se jim vyhnout: 1) Pokus o přečtení řádku z výstupu koprocesu, zatímco koproces nezapisuje, ale sám čeká na další vstup. 2) Zapsání velkého množství dat (cca od desítek kilobajtů) na vstup koprocesu, která koproces nenačte. (V takovém případě se naplní buffer roury.)
+</li><li>Používání koprocesů vyžaduje pečlivou synchronizaci mezi procesy. Existují dvě situace, které vedou k zamrznutí programu a musíte se jim vyhnout: 1) Pokus o přečtení řádku z výstupu koprocesu, zatímco koproces nezapisuje, ale sám čeká na další vstup. 2) Zapsání velkého množství dat (cca od desítek kilobajtů) na vstup koprocesu, která koproces nenačte. (V takovém případě se naplní buffer roury.)
 </li><li>V literálech regulárních výrazů je nutno odzvláštňovat obyčejná lomítka, a to dokonce i uvnitř hranatých závorek, např. „a*[x\/y]+“, v dynamických regulárních výrazech je není nutno odzvláštňovat.
 </li><li>Chcete-li příkaz pokračovat na další řádce, vložte před konec řádky „\“.
 </li><li>Obsahuje-li skript pouze vzorky BEGIN a žádné jiné, AWK nebude otevírat vstupní soubory a po vykonání průchodu BEGIN okamžitě skončí. Toho lze využít k napsání programu, který vstup nezpracovává.
@@ -677,7 +677,7 @@ Poznámka: Parametry -f a -e můžete kombinovat a zadávat opakovaně. Každ�
 </nav>
 
 
-<div class="odkazydole"><div><a href="make.htm"><img src="obrazky/ik/make.png" alt="" width="32" height="32">Make</a><a href="planovani-uloh.htm"><img src="obrazky/ik/planovani-uloh.png" alt="" width="32" height="32">Plánování úloh</a><a href="promenne.htm"><img src="obrazky/ik/promenne.png" alt="" width="32" height="32">Proměnné prostředí a interpretu</a></div></div>
+<div class="odkazydole"><div><a href="sprava-procesu.htm"><img src="obrazky/ik/sprava-procesu.png" alt="" width="32" height="32">Správa procesů</a><a href="sprava-balicku.htm"><img src="obrazky/ik/sprava-balicku.png" alt="" width="32" height="32">Správa balíčků</a><a href="planovani-uloh.htm"><img src="obrazky/ik/planovani-uloh.png" alt="" width="32" height="32">Plánování úloh</a></div></div>
 
 
 </article>

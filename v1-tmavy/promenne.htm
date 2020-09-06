@@ -5,16 +5,16 @@
 
 <title>Proměnné prostředí a interpretu − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20200801.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200801-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200801-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200801-tmavy.css" title="Tmavý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20200906.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200906-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200906-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200906-tmavy.css" title="Tmavý motiv">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body>
 <div id="nahore"></div>
 <header>
-<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.11, G. G. (1. srpna 2020)</span>
+<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.12, H. H. (6. září 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -359,8 +359,8 @@ Prázdný klíč způsobí chybu „chybný podskript pole“.
 <div class="radekzaklinadla">&quot;${<i class="dopln">název_pole</i>[-1]}&quot;</div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2068040832"><span><a href="#z2068040832">♪</a></span></span>dosadit hodnotu z <b>asociativního pole</b> (klíč je řetězec/hodnota proměnné)<span class="cislo">#5 </span><sup><a href="#kappromenneppc20" id="kappromenneppcr20" title="Tyto tvary uvádějte vždy ve dvojitých uvozovkách. Klíč se v tomto případě vyhodnocuje, jako by byl sám uvnitř samostatných dvojitých uvozovek, což umožňuje i vícenásobné vnoření této konstrukce, ačkoliv to je špatně čitelné.">(20)</a></sup></div><div class="radky">
-<div class="radekzaklinadla"><span class="volznak">[</span>&quot;<i class="dopln">...</i><span class="volznak">]</span>${<i class="dopln">název_asoc_pole</i>[&quot;<i class="dopln">klíč</i>&quot;]}<span class="volznak">[</span><i class="dopln">...</i>&quot;<span class="volznak">]</span></div>
-<div class="radekzaklinadla"><span class="volznak">[</span>&quot;<i class="dopln">...</i><span class="volznak">]</span>${<i class="dopln">název_asoc_pole</i>[&quot;$<i class="dopln">klíč_proměnná</i>&quot;]}<span class="volznak">[</span><i class="dopln">...</i>&quot;<span class="volznak">]</span></div>
+<div class="radekzaklinadla">${<i class="dopln">název_asoc_pole</i>[&quot;<i class="dopln">klíč</i>&quot;]}</div>
+<div class="radekzaklinadla">${<i class="dopln">název_asoc_pole</i>[&quot;$<i class="dopln">klíč_proměnná</i>&quot;]}</div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1528564577"><span><a href="#z1528564577">ທ</a></span></span>dosadit všechny klíče/všechny hodnoty z asociativního pole<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">&quot;${!<i class="dopln">název_asoc_pole</i>[@]}&quot;</div>
@@ -473,13 +473,13 @@ Prázdný klíč způsobí chybu „chybný podskript pole“.
 
 <h3 id="cast5x1"><span><a href="#cast5x1" title="kapitola 14 (Proměnné prostředí a interpretu), sekce 5 (Zaklínadla: Proměnné prostředí), podsekce 1 (Spouštění programů s upraveným prostředím)"><sup>5/</sup>1 Spouštění programů s upraveným prostředím</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona L" id="z1468874709"><span><a href="#z1468874709">〗</a></span></span><b>spustit</b> s upraveným prostředím (jednodušší varianta)<span class="cislo">#1 </span></div><div class="radky">
-<div class="radekzaklinadla"><span class="volznak">[</span><span class="volznak">[</span>/usr/bin/<span class="volznak">]</span>env<span class="volznak">]</span> <i class="dopln">PROMÉNNÁ</i>=<i class="dopln">hodnota</i> <span class="volznak">[</span><i class="dopln">DALŠÍ_PROMÉNNÁ</i>=<i class="dopln">další-hodnota</i><span class="volznak">]</span><span class="tritecky"></span> <i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametr</i><span class="volznak">]</span><span class="tritecky"></span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span><span class="volznak">[</span>/usr/bin/<span class="volznak">]</span>env<span class="volznak">]</span> <i class="dopln">PROMĚNNÁ</i>=<i class="dopln">hodnota</i> <span class="volznak">[</span><i class="dopln">DALŠÍ_PROMĚNNÁ</i>=<i class="dopln">další-hodnota</i><span class="volznak">]</span><span class="tritecky"></span> <i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametr</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1640398905"><span><a href="#z1640398905">◑</a></span></span>spustit v jiném aktuálním <b>adresáři</b><span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">env -C <i class="dopln">cesta</i> <i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametr</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z599898034"><span><a href="#z599898034">↞</a></span></span>spustit s upraveným prostředím (<b>komplexní</b> varianta)<span class="cislo">#3 </span><sup><a href="#kappromenneppc28" id="kappromenneppcr28" title="-i prostředí zcela vyprázdní; --unset z něj odebírá uvedené proměnné, přiřazení proměnné prostředí nastavuje a parametr „-C“ změní aktuální adresář.">(28)</a></sup></div><div class="radky">
-<div class="radekzaklinadla"><span class="volznak">[</span><span class="volznak">[</span>/usr/bin/<span class="volznak">]</span>env<span class="volznak">]</span> <span class="volznak">[</span>-i<span class="volznak">]</span> <span class="volznak">[</span>--unset=<i class="dopln">PROMÉNNÁ</i><span class="volznak">]</span><span class="tritecky"></span> <span class="volznak">[</span><i class="dopln">PROMÉNNÁ</i>=<i class="dopln">hodnota</i><span class="volznak">]</span><span class="tritecky"></span> <span class="volznak">[</span>-C <i class="dopln">nový/aktuální/adresář</i><span class="volznak">]</span> <i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametr</i><span class="volznak">]</span><span class="tritecky"></span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span><span class="volznak">[</span>/usr/bin/<span class="volznak">]</span>env<span class="volznak">]</span> <span class="volznak">[</span>-i<span class="volznak">]</span> <span class="volznak">[</span>--unset=<i class="dopln">PROMĚNNÁ</i><span class="volznak">]</span><span class="tritecky"></span> <span class="volznak">[</span><i class="dopln">PROMĚNNÁ</i>=<i class="dopln">hodnota</i><span class="volznak">]</span><span class="tritecky"></span> <span class="volznak">[</span>-C <i class="dopln">nový/aktuální/adresář</i><span class="volznak">]</span> <i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametr</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
 
 <h3 id="cast5x2"><span><a href="#cast5x2" title="kapitola 14 (Proměnné prostředí a interpretu), sekce 5 (Zaklínadla: Proměnné prostředí), podsekce 2 (Předdefinované proměnné)"><sup>5/</sup>2 Předdefinované proměnné</a></span></h3>
@@ -676,7 +676,7 @@ Všechny použité nástroje jsou základní součástí Ubuntu, přítomné i 
 </nav>
 
 
-<div class="odkazydole"><div><a href="sprava-uzivatelskych-uctu.htm"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="" width="32" height="32">Správa uživatelských účtů</a><a href="barvy-a-titulek.htm"><img src="obrazky/ik/barvy-a-titulek.png" alt="" width="32" height="32">Barvy, titulek a výzva terminálu</a><a href="sprava-procesu.htm"><img src="obrazky/ik/sprava-procesu.png" alt="" width="32" height="32">Správa procesů</a></div></div>
+<div class="odkazydole"><div><a href="sprava-balicku.htm"><img src="obrazky/ik/sprava-balicku.png" alt="" width="32" height="32">Správa balíčků</a><a href="regularni-vyrazy.htm"><img src="obrazky/ik/regularni-vyrazy.png" alt="" width="32" height="32">Regulární výrazy</a><a href="docker.htm"><img src="obrazky/ik/docker.png" alt="" width="32" height="32">Docker</a></div></div>
 
 
 </article>

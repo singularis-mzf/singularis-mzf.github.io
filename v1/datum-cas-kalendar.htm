@@ -5,16 +5,16 @@
 
 <title>Datum, čas a kalendář − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20200801.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200801-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200801-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200801-tmavy.css" title="Tmavý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20200906.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200906-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200906-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20200906-tmavy.css" title="Tmavý motiv">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body>
 <div id="nahore"></div>
 <header>
-<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.11, G. G. (1. srpna 2020)</span>
+<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.12, H. H. (6. září 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -258,8 +258,8 @@ Příkaz „date“ podporuje i mnoho dalších vstupních formátů; úplná d
 <div class="radekzaklinadla">date -ud &quot;<i class="dopln">čas</i>&quot; +%s</div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z577797285"><span><a href="#z577797285">➣</a></span></span>konverze časové známky Unixu na lokální čas/UTC<span class="cislo">#2 </span></div><div class="radky">
-<div class="radekzaklinadla">date -d %<i class="dopln">časová-známka</i> &quot;+%F %T<span class="volznak">[</span><span class="viditelnamezera">&nbsp;</span>%z<span class="volznak">]</span>&quot;</div>
-<div class="radekzaklinadla">date -ud %<i class="dopln">časová-známka</i> &quot;+%F %T&quot;</div>
+<div class="radekzaklinadla">date -d @<i class="dopln">časová-známka</i> &quot;+%F %T<span class="volznak">[</span><span class="viditelnamezera">&nbsp;</span>%z<span class="volznak">]</span>&quot;</div>
+<div class="radekzaklinadla">date -ud @<i class="dopln">časová-známka</i> &quot;+%F %T&quot;</div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z221645512"><span><a href="#z221645512">⠺</a></span></span><b>přičíst/odečíst</b> N sekund (v UTC)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">date -ud @$(($(date -ud &quot;<i class="dopln">datum čas</i>&quot; +%s) + <i class="dopln">N</i> )) &quot;+%F %T&quot;</div>
@@ -287,7 +287,7 @@ Příkaz „date“ podporuje i mnoho dalších vstupních formátů; úplná d
 <div class="radekzaklinadla">timedatectl set-ntp off</div>
 <div class="radekzaklinadla">timedatectl set-ntp on</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1030595631"><span><a href="#z1030595631">䷳</a></span></span><b>ručně</b> nastavit systémový čas<span class="cislo">#4 </span><sup><a href="#kapdtumcsklendrppc9" id="kapdtumcsklendrppcr9" title="Zadejte čas a datum ve formátu „YYYY-MM-DD HH:MM:SS“. Poznámka: Ve VirtualBoxu .">(9)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1030595631"><span><a href="#z1030595631">䷳</a></span></span><b>ručně</b> nastavit systémový čas<span class="cislo">#4 </span><sup><a href="#kapdtumcsklendrppc9" id="kapdtumcsklendrppcr9" title="Zadejte čas a datum ve formátu „YYYY-MM-DD HH:MM:SS“. Poznámka: Jsou-li ve VirtualBoxu nainstalované přídavky pro hosta, tyto přídavky velmi často systémový čas vnitřního systému (hosta) synchronizují se systémovým časem vnějšího systému (hostitele), proto v takovém případě změna systémového času vnitřního systému vydrží jen velmi krátce a je sotva pozorovatelná.">(9)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">timedatectl set-ntp off</div>
 <div class="radekzaklinadla">timedatectl set-time &quot;<i class="dopln">nový lokální čas</i>&quot;</div>
 </div></div>
@@ -377,7 +377,7 @@ Veškeré použité nástroje jsou základními součástmi Ubuntu dostupnými v
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapdtumcsklendrppc8"><a href="#kapdtumcsklendrppcr8" class="cislopozn">8</a>&nbsp;Počet sekund může být i necelé číslo, např. 0.12 počká 120 milisekund. Pro hodnoty pod 100 milisekund ale neočekávejte velkou přesnost.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdtumcsklendrppc9"><a href="#kapdtumcsklendrppcr9" class="cislopozn">9</a>&nbsp;Zadejte čas a datum ve formátu „YYYY-MM-DD HH:MM:SS“. Poznámka: Ve VirtualBoxu .</div>
+<div id="kapdtumcsklendrppc9"><a href="#kapdtumcsklendrppcr9" class="cislopozn">9</a>&nbsp;Zadejte čas a datum ve formátu „YYYY-MM-DD HH:MM:SS“. Poznámka: Jsou-li ve VirtualBoxu nainstalované přídavky pro hosta, tyto přídavky velmi často systémový čas vnitřního systému (hosta) synchronizují se systémovým časem vnějšího systému (hostitele), proto v takovém případě změna systémového času vnitřního systému vydrží jen velmi krátce a je sotva pozorovatelná.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapdtumcsklendrppc10"><a href="#kapdtumcsklendrppcr10" class="cislopozn">10</a>&nbsp;Datum a čas by měly být ve formátu „YYYY-MM-DD HH:MM:SS“, dovoleny jsou i jiné formáty. Pozor, je vyžadován lokální čas v časové zóně systému!</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
@@ -396,7 +396,7 @@ Veškeré použité nástroje jsou základními součástmi Ubuntu dostupnými v
 </nav>
 
 
-<div class="odkazydole"><div><a href="sprava-procesu.htm"><img src="obrazky/ik/sprava-procesu.png" alt="" width="32" height="32">Správa procesů</a><a href="sprava-balicku.htm"><img src="obrazky/ik/sprava-balicku.png" alt="" width="32" height="32">Správa balíčků</a><a href="diskove-oddily.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly</a></div></div>
+<div class="odkazydole"><div><a href="diskove-oddily.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly</a><a href="make.htm"><img src="obrazky/ik/make.png" alt="" width="32" height="32">Make</a><a href="regularni-vyrazy.htm"><img src="obrazky/ik/regularni-vyrazy.png" alt="" width="32" height="32">Regulární výrazy</a></div></div>
 
 
 </article>

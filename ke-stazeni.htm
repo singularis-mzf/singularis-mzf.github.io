@@ -6,6 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
+<link rel="icon" type="image/png" href="obrazky/favicon.png">
 <style>
 html, body
 {
@@ -22,6 +23,11 @@ body
 p
 {
     max-width:50em;
+}
+dt
+{
+    margin-top:0.5em;
+    font-weight:bold;
 }
 /*
 li
@@ -44,15 +50,59 @@ th, td
 </head>
 <body>
 <h1>Linux: Kniha kouzel − Ke stažení</h1>
-<div><a href="index.html">zpět na úvodní stránku</a></div>
+<div><strong><a href="index.html">zpět na úvodní stránku</a></strong></div>
+
+<h2>Aktuální verze vanilkové příchuti (2.0 Chranislav Charbulový)</h2>
+
+<ul>
+<li><a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v2.0/pdf-a4.pdf">PDF A4 profesionální</a></li>
+<li><a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v2.0/pdf-a4-bez.pdf">PDF A4 bez ořezových značek</a> (vhodné pro domácí tisk)</li>
+<li><a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v2.0/pdf-b5.pdf">PDF B5 profesionální</a></li>
+<li><a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v2.0/pdf-b5-bez.pdf">PDF B5 bez ořezových značek</a></li>
+<li><a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v2.0/pdf-b5-na-a4.pdf">PDF B5 na A4</a> (tisk na A4 pro následný ořez na formát B5)</li>
+<li><a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v2.0/html.zip">Offline HTML</a> (obsahuje všechny barevné motivy, motiv lze přepnout přejmenováním souborů CSS)</li>
+<li>Volitelné příslušenství (pomocné skripty a příkaz „lkk“): <a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v2.0/lkk_2.0_all.deb">balíček DEB</a></li>
+<li><a href="https://github.com/singularis-mzf/linux-spellbook/archive/v2.0.tar.gz">Zdrojový kód</a> (obsahuje návod k překladu – soubor PREKLAD.md)</li>
+</ul>
+
+<p>Všechny uvedené soubory lze šířit pod podmínkami licence <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.</p>
 
 
-<h2>PDF pro tisk − vanilková příchuť 1.x</h2>
-<p>Verze označené „vanilková příchut“ obsahují jen kapitoly, které považuji za kvalitní a dostatečně kompletní. Varianty pro tisk procházejí před vydáním ruční korekcí typografických vad.</p>
-<p>Řada „vanilková příchuť 1.x“ je zaměřena především na Ubuntu 18.04, Bionic Beaver, a podle plánu má být aktivně vyvíjena do října 2020 a dále pasivně podporována do března 2023.</p>
-<p>Pojmenování „vanilková příchuť“ vychází z označení „vanilla kernel“ pro základní společné verze jádra Linuxu, ze kterých vycházejí verze jádra nabízené jednotlivými distribucemi.</p>
+<h2>Vysvětlivky</h2>
 
-<p>Zvolte verzi a variantu, kterou si chcete stáhnout:</p>
+<dl>
+<dt>vanilková příchuť</dt>
+<dd>Verze Linuxu: Knihy kouzel označené „vanilková příchut“ obsahují jen kapitoly, které považuji
+za kvalitní a dostatečně kompletní. Varianty pro tisk procházejí před vydáním
+ruční korekcí typografických vad. Pojmenování „vanilková příchuť“ vychází
+z označení „vanilla kernel“ pro základní společné verze jádra Linuxu,
+ze kterých vycházejí verze jádra nabízené jednotlivými distribucemi.</dd>
+<dt>vanilková příchuť 1.x/2.x</dt>
+<dd>Vývojová řada „vanilková příchuť 2.x“ je zaměřena především na Ubuntu 20.04, Focal Fossa, a podle plánu má být aktivně vyvíjena do října 2022 a dále pasivně udržována do března 2025.
+Starší vývojová řada „vanilková příchuť 1.x“ je zaměřena především na Ubuntu 18.04, Bionic Beaver, a podle plánu má být pasivně udržována do 1. března 2023.</dd>
+<dt>offline HTML</dt>
+<dd>Linux: Kniha kouzel je určen/a především pro tisk, je však doplněna offline HTML verzí,
+která je výhodná pro snadné vykopírování zaklínadel přímo do terminálu či textového editoru.
+Z hlediska orientace a čtivosti je ale horší než tištěná verze.</dd>
+<dt>volitelné příslušenství (balíček DEB)</dt>
+<dd>Pro pohodlí uživatelů je k Linuxu: Knize kouzel poskytován také instalační balíček
+(DEB), který obsahuje všechny pomocné skripty z kapitol vydaných v odpovídající verzi
+vanilkové příchuti a příkaz „lkk“, kterým lze tyto skripty snadno spouštět,
+upravovat nebo vytvářet skripty vlastní.
+Instalace tohoto balíčku <em>není</em> nutná k používání zaklínadel
+z Linuxu: Knihy kouzel. Většina zaklínadel příkaz „lkk“ a pomocné skripty nevyžaduje;
+u těch zbylých můžete volání příkazu „lkk“ nahradit voláním odpovídajího skriptu či funkce.
+(Zdrojový kód každého skriptu či funkce je uvedený v příslušné kapitole.)
+Pro nápovědu zadejte po instalaci balíčku příkaz „lkk --help“,
+manuálovou stránku příkaz lkk zatím nemá.</dd>
+</dl>
+
+
+
+<!--
+<h2>Vanilková příchuť 2.x (starší verze)</h2>
+
+<p>Řada „vanilková příchuť 2.x“ je zaměřena především na Ubuntu 20.04, Focal Fossa.</p>
 
 <table class="vanprichut">
 <thead><tr>
@@ -60,7 +110,72 @@ th, td
 </tr></thead>
 <tbody>
 <tr>
-<td>vanilková příchuť 1.12 Hana Hlavní (aktuální)</td>
+<td>vanilková příchuť 2.0, Ch. Ch. (aktuální)</td>
+<td>1. října 2020</td>
+<td><a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v2.0/pdf-a4.pdf">PDF A4</a>
+(<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v2.0/pdf-a4-bez.pdf">bez</a>)
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v2.0/pdf-b5.pdf">PDF B5</a>
+(<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v2.0/pdf-b5-bez.pdf">bez</a>,
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v2.0/pdf-b5-na-a4.pdf">na A4</a>)
+</td>
+</tr>
+
+
+</tbody></table>
+
+<p>Aktuální verze: <strong><a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v2.0/html.zip">offline HTML 2.0, Ch. Ch.</a></strong>
+</p><!- -<p>Starší verze offline HTML:
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.12/html.zip">1.12, H. H.</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.11/html.zip">1.11, G. G.</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.10/html.zip">1.10, F. F.</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.9/html.zip">1.9, E. E.</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.8/html.zip">1.8, D. D.</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.7/html.zip">1.7, Č. Č.</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.6/html.zip">1.6, C. C.</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.5/html.zip">1.5, B. B.</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.4/html.zip">1.4 A. A.</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.3/html.zip">1.3</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.2/html.zip">1.2</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.1/html.zip">1.1</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.0/html.zip">1.0</a>.</p>- ->
+
+<p>Aktuální verze: <strong><a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v2.0/lkk_2.0_all.deb">balíček DEB 2.0</a></strong>
+</p><!- -<p>Starší verze balíčku DEB:
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.12/lkk_1.12_all.deb">1.12, H. H.</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.11/lkk_1.11_all.deb">1.11, G. G.</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.10/lkk_1.10_all.deb">1.10, F. F.</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.9/lkk_1.9_all.deb">1.9, E. E.</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.8/lkk_1.8_all.deb">1.8, D. D.</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.7/lkk_1.7_all.deb">1.7, Č. Č.</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.6/lkk_1.6_all.deb">1.6, C. C.</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.5/lkk_1.5_all.deb">1.5, B. B.</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.4/lkk_1.4_all.deb">1.4 A. A.</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.3/lkk_1.3_all.deb">1.3</a>.</p>- ->
+-->
+
+<h2>Vanilková příchuť 1.x</h2>
+
+<p>Řada „vanilková příchuť 1.x“ je zaměřena především na Ubuntu 18.04, Bionic Beaver.
+Je ve stavu dlouhodobé pasivní údržby do března 2023; nové verze jsou vydávány podle potřeby.</p>
+
+<table class="vanprichut">
+<thead><tr>
+<th>Verze</th><th>Vydána</th><th>Varianty ke stažení</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>vanilková příchuť 1.13 (aktuální)</td>
+<td>1. října 2020</td>
+<td><a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.13/pdf-a4.pdf">PDF A4</a>
+(<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.13/pdf-a4-bez.pdf">bez</a>)
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.13/pdf-b5.pdf">PDF B5</a>
+(<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.13/pdf-b5-bez.pdf">bez</a>,
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.13/pdf-b5-na-a4.pdf">na A4</a>)
+</td>
+</tr>
+
+<tr>
+<td>vanilková příchuť 1.12 Hana Hlavní</td>
 <td>6. září 2020</td>
 <td><a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.12/pdf-a4.pdf">PDF A4</a>
 (<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.12/pdf-a4-bez.pdf">bez</a>)
@@ -192,42 +307,9 @@ th, td
 
 </tbody></table>
 
-<p>Všechny uvedené soubory lze šířit pod podmínkami licence <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
-Odkazy ke stažení odpovídajícího zdrojového kódu najdete níže v sekci
-„Výplach repozitáře a zdrojový kód“.</p>
-
-<h2>Příslušenství (skripty a spouštěč)</h2>
-<p>Pro pohodlí uživatelů je k Linuxu: Knize kouzel poskytován také instalační balíček
-(DEB). V tomto balíčku jsou zabaleny všechny pomocné skripty z kapitol vydaných
-v odpovídající verzi vanilkové příchutě a příkaz „lkk“, kterým tyto skripty
-můžete spouštět, upravovat nebo vytvářet vlastní. (Pro nápovědu stačí po instalaci
-spustit „lkk --help“, manuálovou stránku příkaz zatím nemá.)</p><p>
-Instalace tohoto balíčku <em>není</em> nutná k používání zaklínadel.
-Většina zaklínadel příkaz „lkk“ a pomocné skripty nepotřebuje; u zbytku můžete
-nahradit volání příkazu „lkk“ voláním skriptu, který spouští.</p>
-
-<p>Aktuální verze: <strong><a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.12/lkk_1.12_all.deb">1.12, H. H.</a></strong>
-</p><p>Starší verze:
-<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.11/lkk_1.11_all.deb">1.11, G. G.</a>;
-<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.10/lkk_1.10_all.deb">1.10, F. F.</a>;
-<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.9/lkk_1.9_all.deb">1.9, E. E.</a>;
-<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.8/lkk_1.8_all.deb">1.8, D. D.</a>;
-<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.7/lkk_1.7_all.deb">1.7, Č. Č.</a>;
-<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.6/lkk_1.6_all.deb">1.6, C. C.</a>;
-<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.5/lkk_1.5_all.deb">1.5, B. B.</a>;
-<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.4/lkk_1.4_all.deb">1.4 A. A.</a>;
-<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.3/lkk_1.3_all.deb">1.3</a>.</p>
-
-<h2>Offline HTML</h2>
-<p>
-HTML verze slouží především jako pomůcka k vykopírování zaklínadel,
-abyste je nemusel/a ručně opisovat to terminálu, v čemž byste jistě udělal/a mnoho chyb.
-Také slouží k propagaci projektu, protože je snazší ji šířit
-než šířit tištěnou verzi. Není určena ke studiu zaklínadel a učení se,
-k tomu je určena tištěná verze.</p>
-
-<p>Aktuální verze: <strong><a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.12/html.zip">1.12, H. H.</a></strong>
-</p><p>Starší verze:
+<p>Aktuální verze: <strong><a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.13/html.zip">offline HTML 1.13</a></strong>
+</p><p>Starší verze offline HTML:
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.12/html.zip">1.12, H. H.</a>;
 <a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.11/html.zip">1.11, G. G.</a>;
 <a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.10/html.zip">1.10, F. F.</a>;
 <a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.9/html.zip">1.9, E. E.</a>;
@@ -240,6 +322,42 @@ k tomu je určena tištěná verze.</p>
 <a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.2/html.zip">1.2</a>;
 <a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.1/html.zip">1.1</a>;
 <a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.0/html.zip">1.0</a>.</p>
+
+<p>Aktuální verze: <strong><a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.13/lkk_1.13_all.deb">balíček DEB 1.13</a></strong>
+</p><p>Starší verze balíčku DEB:
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.12/lkk_1.12_all.deb">1.12, H. H.</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.11/lkk_1.11_all.deb">1.11, G. G.</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.10/lkk_1.10_all.deb">1.10, F. F.</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.9/lkk_1.9_all.deb">1.9, E. E.</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.8/lkk_1.8_all.deb">1.8, D. D.</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.7/lkk_1.7_all.deb">1.7, Č. Č.</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.6/lkk_1.6_all.deb">1.6, C. C.</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.5/lkk_1.5_all.deb">1.5, B. B.</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.4/lkk_1.4_all.deb">1.4 A. A.</a>;
+<a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.3/lkk_1.3_all.deb">1.3</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <h2>Výplach repozitáře a zdrojový kód</h2>
@@ -255,7 +373,7 @@ rozpracovaných, neověřených, zkušebních, zastaralých, zpochybněných
 aby zahrnul jen kapitoly vydané v odpovídající verzi vanilkové příchutě.)
 </p><p>
 Ke zdrojovému kódu je vydáván také „výplach repozitáře“ jménem Sid, a to ve formátu
-PDF A4 bez spadávek (některé verze byly se spadávkami). Ten je určen zájemcům,
+PDF A4 bez ořezových značek (některé verze byly se značkami). Ten je určen zájemcům,
 které zajímá, co se ve zdrojovém kódu dá najít za kapitoly a dodatky,
 ale v samotném zdrojovém kódu se neorientují. Sestavování výplachu také prokazuje,
 že všechny tyto kapitoly lze bez chyb sestavit.
@@ -268,6 +386,7 @@ Jméno „Sid“ vychází z pojmenování pro verzi distribuce Debian a ta je
 <th>Verze</th><th>Datum</th><th>Ke stažení</th>
 </tr></thead>
 <tbody>
+<tr><td>Sid 20201001</td><td>1. října 2020</td><td><a href="https://github.com/singularis-mzf/linux-spellbook/archive/v2.0.tar.gz">zdrojový kód</a> <a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v2.0/Sid-a4-bez.pdf">PDF A4 bez</a></td></tr>
 <tr><td>Sid 20200906</td><td>6. září 2020</td><td><a href="https://github.com/singularis-mzf/linux-spellbook/archive/v1.12.tar.gz">zdrojový kód</a> <a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.12/Sid-a4-bez.pdf">PDF A4 bez</a></td></tr>
 <tr><td>Sid 20200801</td><td>1. srpna 2020</td><td><a href="https://github.com/singularis-mzf/linux-spellbook/archive/v1.11.tar.gz">zdrojový kód</a> <a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.11/Sid-a4-bez.pdf">PDF A4 bez</a></td></tr>
 <tr><td>Sid 20200717</td><td>17. července 2020</td><td><a href="https://github.com/singularis-mzf/linux-spellbook/archive/v1.10.tar.gz">zdrojový kód</a> <a href="https://github.com/singularis-mzf/linux-spellbook/releases/download/v1.10/Sid-a4-bez.pdf">PDF A4 bez</a></td></tr>

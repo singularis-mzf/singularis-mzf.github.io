@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="cs">
+<head profile="http://www.w3.org/2005/10/profile">
+<meta charset="UTF-8">
+
+<title>Zpracování binárních souborů − Linux: Kniha kouzel</title>
+
+<link rel="stylesheet" type="text/css" href="lkk-20201001.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20201001-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20201001-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20201001-svetly.css" title="Světlý motiv">
+<link rel="icon" type="image/png" href="obrazky/favicon.png">
+</head>
+<body>
+<div id="nahore"><div id="okno">
+<header>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.0, Ch. Ch. (1. října 2020)</span>
+<span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
+</header>
+<nav class="menuokna">
+<a href="#menukapitoly" class="menu"><span class="prvnipismeno">K</span>apitoly</a>
+<a href="#menuosnova" class="menu"><span class="prvnipismeno">O</span>snova</a>
+<a href="#menustitky" class="menu"><span class="prvnipismeno">Š</span>títky</a>
+<a href="#menunapoveda" class="menu"><span class="prvnipismeno">N</span>ápověda</a>
+<a href="vim.htm" rel="prev" title="21. Vim" accesskey="p" class="predchozi">Předchozí&nbsp;kapitola</a>
+<a href="index.htm" class="prehled"><span class="prvnipismeno">P</span>řehled kapitol</a>
+<a href="zpracovani-textovych-souboru.htm" rel="next" title="23. Zpracování textových souborů" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
+</nav>
+
+<div class="slogan-veskera-moc">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+
+<!--
+<nav class="horni">
+<div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+<span class="prev">
+<a href="vim.htm" rel="prev" title="21. Vim" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+</span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!- -
+- ->&nbsp;| <a href="zpracovani-textovych-souboru.htm" rel="next" title="23. Zpracování textových souborů" accesskey="n">Následující&nbsp;kapitola</a>
+</span>
+</nav>
+-->
+
+
+<article>
+
+<h1 class="kapitola">22. <img src="obrazky/ik/zpracovani-binarnich-souboru.png" alt="" width="64" height="64"> Zpracování binárních souborů</h1>
+<div class="stitky"><a href="x-stitky.htm#sbjty">bajty</a>
+<a href="x-stitky.htm#sdt">data</a>
+<a href="x-stitky.htm#shesovcfunkce">hešovací funkce</a>
+<a href="x-stitky.htm#skdovn">kódování</a>
+<a href="x-stitky.htm#stemtickokruh">tematický okruh</a>
+</div>
+<h2 id="cast1"><a href="#cast1"><span class="cislo">1.</span> Úvod</a></h2>
+<p class="ponadpisu">
+Tato kapitola uvádí příkazy k analýze, zpracování a úpravě souborů bez jakéhokoliv ohledu
+na formát jejich obsahu. Jde o zpracování souboru jako celek, zpracování po jednotlivých bajtech
+nebo po blocích pevné velikosti.
+</p><p>
+Předmětem této kapitoly není šifrování dat, elektronické podepisování, komprese ani ukládání souborů
+do archivů či vybalování z nich.
+</p>
+
+<h2 id="cast2"><a href="#cast2"><span class="cislo">2.</span> Definice</a></h2>
+<ul><li><b>Velikost-P</b> je počet bajtů, který může obsahovat (a často obsahuje) multiplikativní příponu K, M, G, T, P pro mocniny 1024 (kibibajty, mebibajty atd.) nebo kB, MB, GB, TB, PB (kilobajty, megabajty atd.) pro mocniny 1000. Takže máte-li do příkazu zadat <i class="dopln">velikost-P</i>, čtyři mebibajty můžete zadat jako „4194304“ nebo jako „4M“ (což je podstatně snazší a přehlednější).
+</li><li><b>Heš</b> („hash“, „hash code“, někdy méně přesně „kontrolní součet“) je číslo (obvykle v hexadecimálním tvaru) vypočítané z určitých binárních dat pomocí hešovací funkce.
+</li></ul>
+<h2 id="cast3" class="zaklinadla"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla: Soubor jako celek</a></h2>
+
+<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 23 (Zpracování binárních souborů), sekce 3 (Zaklínadla: Soubor jako celek), podsekce 1 (Vypsat obsah souboru pro člověka)"><sup>3/</sup>1 Vypsat obsah souboru pro člověka</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1002883048"><span><a href="#z1002883048">♎</a></span></span>vypsat <b>hexadecimálně</b><span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">xxd <span class="volznak">[</span>-c <i class="dopln">bajtů-na-řádek</i><span class="volznak">]</span> <span class="volznak">[</span>-g <i class="dopln">bajtů-na-skupinu</i><span class="volznak">]</span> <span class="volznak">[</span>-s <i class="dopln">počáteční-adresa</i><span class="volznak">]</span> <span class="volznak">[</span>-l <i class="dopln">max-počet-bajtů</i><span class="volznak">]</span> <span class="volznak">[</span>-u<span class="volznak">]</span> <i class="dopln">soubor</i> <span class="volznak">[</span>| less<span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z101099537"><span><a href="#z101099537">⡋</a></span></span>vypsat <b>binárně</b><span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">xxd -b <span class="volznak">[</span>-c <i class="dopln">bajtů-na-řádku</i><span class="volznak">]</span> <span class="volznak">[</span>-s <i class="dopln">počáteční-adresa</i><span class="volznak">]</span> <span class="volznak">[</span>-l <i class="dopln">max-počet-bajtů</i><span class="volznak">]</span> <i class="dopln">soubor</i> <span class="volznak">[</span>| less<span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1432631953"><span><a href="#z1432631953">䷊</a></span></span>najít v binárním souboru čitelné textové řetězce a vypsat je<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">strings <span class="volznak">[</span>-f<span class="volznak">]</span> <span class="volznak">[</span>-n <i class="dopln">minimální-délka-řetězce</i><span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">soubor</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1594537685"><span><a href="#z1594537685">┙</a></span></span>vypsat <b>osmičkově</b><span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">od -A x -t o1z <span class="volznak">[</span>-w<i class="dopln">bajtů-na-řádku</i><span class="volznak">]</span> <span class="volznak">[</span>-j <i class="dopln">počáteční-adresa</i><span class="volznak">]</span> <span class="volznak">[</span>-N <i class="dopln">max-počet-bajtů</i><span class="volznak">]</span> <i class="dopln">--</i> <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span> <span class="volznak">[</span>| less<span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z376790559"><span><a href="#z376790559">⪃</a></span></span>vypsat hodnoty bajtů <b>desítkově</b><span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">od -A x -t u1z <span class="volznak">[</span>-w<i class="dopln">bajtů-na-řádku</i><span class="volznak">]</span> <span class="volznak">[</span>-j <i class="dopln">počáteční-adresa</i><span class="volznak">]</span> <span class="volznak">[</span>-N <i class="dopln">max-počet-bajtů</i><span class="volznak">]</span> <i class="dopln">--</i> <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span> <span class="volznak">[</span>| less<span class="volznak">]</span></div>
+</div></div>
+
+<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 23 (Zpracování binárních souborů), sekce 3 (Zaklínadla: Soubor jako celek), podsekce 2 (Vypočítat a ověřit heš)"><sup>3/</sup>2 Vypočítat a ověřit heš</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1932645069"><span><a href="#z1932645069">╁</a></span></span>vypočítat hexidecimální <b>haše</b> souborů, každou hash na nový řádek (MD5/SHA1/SHA256/SHA512)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">md5sum <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">soubor</i><span class="tritecky"></span> | sed -E 's/^\\?(\S+)\s.*/\1/'<span class="prikladhodnoty">⊨ 8147f2a49ee708d9f7c20164cf48cfcf</span></div>
+<div class="radekzaklinadla">sha1sum <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">soubor</i><span class="tritecky"></span> | sed -E 's/^\\?(\S+)\s.*/\1/'<span class="prikladhodnoty">⊨ c61d1871cf7d71f29e2cfeda9dd73abe18a8fb42</span></div>
+<div class="radekzaklinadla">sha256sum <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">soubor</i><span class="tritecky"></span> | sed -E 's/^\\?(\S+)\s.*/\1/'</div>
+<div class="radekzaklinadla">sha512sum <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">soubor</i><span class="tritecky"></span> | sed -E 's/^\\?(\S+)\s.*/\1/'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1788938674"><span><a href="#z1788938674">⊏</a></span></span>vypočítat/ověřit heše (<b>SHA256</b>)<span class="cislo">#2 </span><sup><a href="#kapzprcovnibinrnichppc1" id="kapzprcovnibinrnichppcr1" title="Analogicky můžete také použít příkazy „sha1sum“, „sha224sum“, „sha384sum“ a „sha512sum“. Existuje také obecný „shasum“.">(1)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">sha256sum <i class="dopln">soubor</i><span class="tritecky"></span> &gt; <i class="dopln">cílový-soubor.sha256</i></div>
+<div class="radekzaklinadla">sha256sum <span class="volznak">[</span>--ignore-missing<span class="volznak">]</span> <span class="volznak">[</span>--status<span class="volznak">]</span> -c <i class="dopln">soubor.sha256</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z441950355"><span><a href="#z441950355">ᔴ</a></span></span>vypočítat/ověřit heše (<b>MD5</b>)<span class="cislo">#3 </span><sup><a href="#kapzprcovnibinrnichppc2" id="kapzprcovnibinrnichppcr2" title="Heše souborů a jejich názvy (včetně cesty) se uloží do uvedeného souboru.">(2)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">md5sum <i class="dopln">cesta</i><span class="tritecky"></span> &gt; <i class="dopln">cílový-soubor.md5</i></div>
+<div class="radekzaklinadla">md5sum <span class="volznak">[</span>--ignore-missing<span class="volznak">]</span> <span class="volznak">[</span>--status<span class="volznak">]</span> -c <i class="dopln">soubor.md5</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z966135870"><span><a href="#z966135870">÷</a></span></span>vypočítat kontrolní součet <b>CRC32</b> (v hexadecimální soustavě/v desítkové)<span class="cislo">#4 </span><sup><a href="#kapzprcovnibinrnichppc3" id="kapzprcovnibinrnichppcr3" title="Poznámka: Příkaz „crc32“ lze použít i s více soubory, ale v takovém případě vypisuje ke kontrolním součtům i názvy souborů bez odzvláštnění, což znamená, že nelze bezpečně zpracovat soubory jejichž cesta obsahuje znak konce řádky.">(3)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">crc32 <i class="dopln">soubor</i></div>
+<div class="radekzaklinadla">printf %d\\n $((0x$(crc32 &quot;<i class="dopln">soubor</i>&quot;)))</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2144878029"><span><a href="#z2144878029">⊸</a></span></span>vypočítat z jednoho souboru heše (MD5) záznamů ukončených nulovým bajtem<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+
+<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 23 (Zpracování binárních souborů), sekce 3 (Zaklínadla: Soubor jako celek), podsekce 3 (Určit formát dat a velikost souboru)"><sup>3/</sup>3 Určit formát dat a velikost souboru</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z895289645"><span><a href="#z895289645">✠</a></span></span><b>popsat</b> typ dat souboru (zejména pro člověka)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">file <i class="dopln">soubor</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z795957484"><span><a href="#z795957484">⊞</a></span></span>vypsat <b>MIME typ</b> souboru (vhodné i pro skript)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">file <span class="volznak">[</span>-b<span class="volznak">]</span> <span class="volznak">[</span>-L<span class="volznak">]</span> --mime-type <i class="dopln">soubor</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z564795721"><span><a href="#z564795721">✘</a></span></span>určit <b>velikost</b> souboru v bajtech (alternativy)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">wc -c <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
+<div class="radekzaklinadla">stat -c %s <i class="dopln">soubor</i></div>
+<div class="radekzaklinadla"><i class="dopln">zdroj</i> | wc -c</div>
+</div></div>
+
+<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 23 (Zpracování binárních souborů), sekce 3 (Zaklínadla: Soubor jako celek), podsekce 4 (Vygenerovat data)"><sup>3/</sup>4 Vygenerovat data</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1475898902"><span><a href="#z1475898902">◶</a></span></span>data tvořená <b>nulovými</b> bajty<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">head -c <i class="dopln">velikost-P</i> /dev/zero | <i class="dopln">zpracování</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z445974602"><span><a href="#z445974602">⡌</a></span></span>data tvořená <b>pseudonáhodnými</b> bajty (maximálně 2 147 483 647 bajtů/bez omezení)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">openssl rand <i class="dopln">počet-bajtů</i> | <i class="dopln">zpracování</i></div>
+<div class="radekzaklinadla">while openssl rand 1073741824; do :; done | head -c <i class="dopln">velikost-P</i> | <i class="dopln">zpracování</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z126322056"><span><a href="#z126322056">‧</a></span></span>prázdná data<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">&gt; <i class="dopln">soubor</i> <span class="volznak">[</span>&gt; <i class="dopln">další-soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
+<div class="radekzaklinadla">: | <i class="dopln">zpracování</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2101353560"><span><a href="#z2101353560">⎝</a></span></span>data tvořená bajty konkrétní hodnoty<span class="cislo">#4 </span><sup><a href="#kapzprcovnibinrnichppc4" id="kapzprcovnibinrnichppcr4" title="Hodnotu bajtu můžete zadat dekadicky (např. „127“), hexadecimálně (např. „0x7f“) nebo osmičkově (např. „0177“).">(4)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">head -c <i class="dopln">velikost-P</i> /dev/zero | tr \\0 $(printf '\\%03o' <i class="dopln">hodnota-bajtu</i> ) | <i class="dopln">zpracování</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z845305893"><span><a href="#z845305893">…</a></span></span>bajty 0 až 255<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">printf %02x {0..255} | xxd -r -p | <i class="dopln">zpracování</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1133653906"><span><a href="#z1133653906">☶</a></span></span>příklad: vytvořit soubor o velikosti 2 MiB, tvořený bajty s hodnotu 37 (0x25)<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">head -c 2M /dev/zero | tr \\0 $(printf '\\%03o' 0x25) | <i class="dopln">zpracování</i></div>
+</div></div>
+
+<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 23 (Zpracování binárních souborů), sekce 3 (Zaklínadla: Soubor jako celek), podsekce 5 (Vytvořit/prodloužit/zkrátit soubor na disku)"><sup>3/</sup>5 Vytvořit/prodloužit/zkrátit soubor na disku</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z328969212"><span><a href="#z328969212">⤊</a></span></span><b>zkrátit</b> či <b>prodloužit</b> soubor na uvedenou velikost (obecně/příklady...)<span class="cislo">#1 </span><sup><a href="#kapzprcovnibinrnichppc5" id="kapzprcovnibinrnichppcr5" title="Prodlužuje se vždy nulovými bajty, zkracuje se zprava (tzn. od konce). Pokud soubor neexistuje, vytvoří se.">(5)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">truncate -s <i class="dopln">nová-velikost-P</i> <i class="dopln">soubor</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla">truncate -s 0 soubory/k-vyprazdneni.dat</div>
+<div class="radekzaklinadla">truncate -s 4M soubory/na-4-mebibajty.dat soubory/dalsi-na-4-mebibajty.dat</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z448449499"><span><a href="#z448449499">♄</a></span></span>vytvořit prázdný soubor (vyprázdnit, pokud existuje)(alternativy)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">truncate -s 0 <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">soubor</i> <span class="volznak">[</span><i class="dopln">další-soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
+<div class="radekzaklinadla">&gt; <i class="dopln">soubor</i> <span class="volznak">[</span>&gt; <i class="dopln">další-soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2094330101"><span><a href="#z2094330101">≰</a></span></span>vytvořit soubor tvořený nulovými bajty (alternativy)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">truncate -s 0 <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">soubor</i> &amp;&amp; truncate -s <i class="dopln">velikost-P</i> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">soubor</i></div>
+<div class="radekzaklinadla">head -c <i class="dopln">velikost-P</i> /dev/zero &gt;<i class="dopln">soubor</i></div>
+</div></div>
+
+<h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 23 (Zpracování binárních souborů), sekce 3 (Zaklínadla: Soubor jako celek), podsekce 6 (Spojování a dělení souborů)"><sup>3/</sup>6 Spojování a dělení souborů</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1719595112"><span><a href="#z1719595112">┻</a></span></span>spojit soubory<span class="cislo">#1 </span><sup><a href="#kapzprcovnibinrnichppc6" id="kapzprcovnibinrnichppcr6" title="Tip: mezi soubory můžete vložit data ze standardního vstupu zadáním parametru minus („-“) místo jednoho souboru.">(6)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">cat <i class="dopln">soubor</i><span class="tritecky"></span> &gt;<i class="dopln">cíl</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1108530908"><span><a href="#z1108530908">ƪ</a></span></span>rozdělit soubor na díly po blocích určité velikosti (obecně/příklad)<span class="cislo">#2 </span><sup><a href="#kapzprcovnibinrnichppc7" id="kapzprcovnibinrnichppcr7" title="Pro „-typ-počítadla“ viz popis příkazu „split“ v sekci Parametry příkazů. Pro kontrolu vřele doporučuji použít parametr „--verbose“.">(7)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">split <span class="volznak">[</span>--verbose<span class="volznak">]</span> -b <i class="dopln">velikost-bloku-P</i> <span class="volznak">[</span><i class="dopln">-typ-počítadla</i><span class="volznak">]</span> <span class="volznak">[</span>-a<i class="dopln">počet-znaků-počítadla</i><span class="volznak">]</span> <span class="volznak">[</span>--additional-suffix=&quot;<i class="dopln">přípona-za-počítadlo</i>&quot;<span class="volznak">]</span> <i class="dopln">cesta/k/souboru</i> <i class="dopln">předpona/cesty/výsledků</i></div>
+<div class="radekzaklinadla">split --verbose -b 4M -d -a 5 --additional-suffix=&quot;.část&quot; &quot;původní soubor.jpg&quot; &quot;&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1334359738"><span><a href="#z1334359738">≪</a></span></span>rozdělit soubor na N přibližně stejně velkých dílů (obecně/příklad)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">split <span class="volznak">[</span>--verbose<span class="volznak">]</span> -n <i class="dopln">počet-dílů</i> <span class="volznak">[</span><i class="dopln">-typ-počítadla</i><span class="volznak">]</span> <span class="volznak">[</span>-a<i class="dopln">počet-znaků-počítadla</i><span class="volznak">]</span> <span class="volznak">[</span>--additional-suffix=&quot;<i class="dopln">přípona-za-počítadlo</i>&quot;<span class="volznak">]</span> <span class="volznak">[</span>-e<span class="volznak">]</span> <i class="dopln">cesta/k/souboru</i> <i class="dopln">předpona/cesty/výsledků</i></div>
+<div class="radekzaklinadla">split --verbose -n 7 -d -a 3 --additional-suffix=&quot;.část&quot; &quot;původní soubor.jpg&quot; &quot;část-&quot;</div>
+</div></div>
+
+<h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 23 (Zpracování binárních souborů), sekce 3 (Zaklínadla: Soubor jako celek), podsekce 7 (Srovnání souborů podle obsahu)"><sup>3/</sup>7 Srovnání souborů podle obsahu</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z380524224"><span><a href="#z380524224">⢽</a></span></span>jsou dva soubory po bajtech <b>shodné</b>?<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">cmp <span class="volznak">[</span>-s<span class="volznak">]</span> <i class="dopln">soubor1</i> <i class="dopln">soubor2</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1480757355"><span><a href="#z1480757355">∼</a></span></span>jsou po bajtech shodné zadané úseky?<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">cmp <span class="volznak">[</span>-s<span class="volznak">]</span> -n <i class="dopln">bajtů-k-porovnání-P</i> <i class="dopln">soubor1</i> <i class="dopln">soubor2</i> <i class="dopln">začátek1-P</i> <i class="dopln">začátek2-P</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1230115011"><span><a href="#z1230115011">⋹</a></span></span>který ze dvou souborů je <b>větší</b>?<span class="cislo">#3 </span><sup><a href="#kapzprcovnibinrnichppc8" id="kapzprcovnibinrnichppcr8" title="Pokud příkaz uspěje, „soubor1“ je větší; jinak je nutno soubory otestovat ještě v opačném pořadí; pokud obě testování selžou, jsou soubory stejně velké.">(8)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">test $(stat -c %s &quot;<i class="dopln">soubor1</i>&quot;) -gt $(stat -c %s &quot;<i class="dopln">soubor2</i>&quot;)</div>
+</div></div>
+
+<h3 id="cast3x8"><span><a href="#cast3x8" title="kapitola 23 (Zpracování binárních souborů), sekce 3 (Zaklínadla: Soubor jako celek), podsekce 8 (Hexadecimální editory)"><sup>3/</sup>8 Hexadecimální editory</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1416535867"><span><a href="#z1416535867">⡋</a></span></span>grafické rozhraní (GUI)<span class="cislo">#1 </span><sup><a href="#kapzprcovnibinrnichppc9" id="kapzprcovnibinrnichppcr9" title="Když otevřete nové okno příkazem „View“/„Add View“, nové okno nebude mít sloupec s adresami, bez něhož je obtížně použitelné. Vyřešit se to dá tak, že zvolíte „Edit“/„Preferences“ a na kartě „Editing“ odškrtnete a zaškrtnete pole „Show offset columns“; pak se sloupec s adresami zobrazí ve všech oknech editoru.">(9)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">ghex <i class="dopln">soubor</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1227225801"><span><a href="#z1227225801">⋜</a></span></span>textové rozhraní (TUI)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">hexcurse <span class="volznak">[</span>-r <i class="dopln">bajtů-na-řádku</i><span class="volznak">]</span> <i class="dopln">soubor</i></div>
+</div></div>
+
+<h3 id="cast3x9"><span><a href="#cast3x9" title="kapitola 23 (Zpracování binárních souborů), sekce 3 (Zaklínadla: Soubor jako celek), podsekce 9 (Transformace souboru)"><sup>3/</sup>9 Transformace souboru</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z123145551"><span><a href="#z123145551">⋣</a></span></span>obrátit po bajtech celý soubor<span class="cislo">#1 </span><sup><a href="#kapzprcovnibinrnichppc10" id="kapzprcovnibinrnichppcr10" title="Při obracení velkých souborů se ujistěte, že se do paměti RAM a odkládacího souboru vejde dvojnásobek celého souboru! To znamená, že např. pro obrácení souboru o velikosti 4 GiB potřebujete 8 GiB prostoru.">(10)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">perl -MEnglish -0777 -n -e 'print(scalar(reverse($ARG)))' &lt;<i class="dopln">vstupní-soubor</i> &gt;<i class="dopln">výstupní-soubor</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1926542666"><span><a href="#z1926542666">⋎</a></span></span>obrátit každou dvojici/čtveřici/osmici bajtů<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">dd <span class="volznak">[</span>if=<i class="dopln">vstupní-soubor</i><span class="volznak">]</span> <span class="volznak">[</span>of=<i class="dopln">výstupní-soubor</i><span class="volznak">]</span> conv=swab</div>
+<div class="radekzaklinadla">xxd -e -g 4 <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span> | xxd -r &gt; <i class="dopln">cíl</i></div>
+<div class="radekzaklinadla">xxd -e -g 8 <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span> | xxd -r &gt; <i class="dopln">cíl</i></div>
+</div></div>
+
+<h3 id="cast3x10"><span><a href="#cast3x10" title="kapitola 23 (Zpracování binárních souborů), sekce 3 (Zaklínadla: Soubor jako celek), podsekce 10 (Kódování (base64, uuencode, xor))"><sup>3/</sup>10 Kódování (base64, uuencode, xor)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z406329540"><span><a href="#z406329540">䷻</a></span></span>zakódovat do/dekódovat z <b>base64</b><span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">base64 -w 0 <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla">base64 -d <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span> | <i class="dopln">zpracování</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1425713995"><span><a href="#z1425713995">☰</a></span></span>zakódovat do/dekódovat z <b>uuencode</b><span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">uuencode /dev/stdout &lt; <i class="dopln">soubor</i> | sed -n 'x;3,$p'</div>
+<div class="radekzaklinadla">sed $'1i\\\nbegin 644 /dev/stdout\n$a\\\nend' temp.dat | uudecode &gt; <i class="dopln">cíl</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1912327132"><span><a href="#z1912327132">ᚋ</a></span></span>symetrické kódování operátorem „xor“<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+
+<h3 id="cast3x11"><span><a href="#cast3x11" title="kapitola 23 (Zpracování binárních souborů), sekce 3 (Zaklínadla: Soubor jako celek), podsekce 11 (Záplatování)"><sup>3/</sup>11 Záplatování</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1900239133"><span><a href="#z1900239133">⬒</a></span></span>vytvořit záplatu<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">rdiff -- signature <i class="dopln">původní-soubor</i> - | rdiff <span class="volznak">[</span>-s<span class="volznak">]</span> -- delta - <i class="dopln">nový-soubor</i> - | gzip -9 &gt;<i class="dopln">cíl-záplata.gz</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z188543729"><span><a href="#z188543729">┒</a></span></span>aplikovat záplatu<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">zcat <i class="dopln">záplata.gz</i> | rdiff <span class="volznak">[</span>-s<span class="volznak">]</span> -- patch <i class="dopln">původní-soubor</i> - - &gt;<i class="dopln">cíl-soubor</i></div>
+</div></div>
+
+<h2 id="cast4" class="zaklinadla"><a href="#cast4"><span class="cislo">4.</span> Zaklínadla: Zpracování po bajtech</a></h2>
+
+<h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 23 (Zpracování binárních souborů), sekce 4 (Zaklínadla: Zpracování po bajtech), podsekce 1 (Vyjmout úsek bajtů)"><sup>4/</sup>1 Vyjmout úsek bajtů</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z217266776"><span><a href="#z217266776">◵</a></span></span><b>vzít</b> prvních N bajtů/kibibajtů/mebibajtů/gibibajtů<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">head -c <i class="dopln">N</i> <i class="dopln">soubor</i></div>
+<div class="radekzaklinadla">head -c <i class="dopln">N</i>K <i class="dopln">soubor</i></div>
+<div class="radekzaklinadla">head -c <i class="dopln">N</i>M <i class="dopln">soubor</i></div>
+<div class="radekzaklinadla">head -c <i class="dopln">N</i>G <i class="dopln">soubor</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1162116371"><span><a href="#z1162116371">⌨</a></span></span>vzít prvních N bajtů/kilobajtů/megabajtů/gigabajtů<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">head -c <i class="dopln">N</i> <i class="dopln">soubor</i></div>
+<div class="radekzaklinadla">head -c <i class="dopln">N</i>kB <i class="dopln">soubor</i></div>
+<div class="radekzaklinadla">head -c <i class="dopln">N</i>MB <i class="dopln">soubor</i></div>
+<div class="radekzaklinadla">head -c <i class="dopln">N</i>GB <i class="dopln">soubor</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1391597919"><span><a href="#z1391597919">▐</a></span></span><b>vynechat</b> prvních N bajtů/kibibajtů/mebibajtů/gibibajtů<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">tail -c +<i class="dopln">N</i> <i class="dopln">soubor</i> | tail -c +2</div>
+<div class="radekzaklinadla">tail -c +<i class="dopln">N</i>K <i class="dopln">soubor</i> | tail -c +2</div>
+<div class="radekzaklinadla">tail -c +<i class="dopln">N</i>M <i class="dopln">soubor</i> | tail -c +2</div>
+<div class="radekzaklinadla">tail -c +<i class="dopln">N</i>G <i class="dopln">soubor</i> | tail -c +2</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z100665185"><span><a href="#z100665185">≣</a></span></span><b>vynechat</b> prvních N bajtů/kilobajtů/megabajtů/gigabajtů<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">tail -c +<i class="dopln">N</i> <i class="dopln">soubor</i> | tail -c +2</div>
+<div class="radekzaklinadla">tail -c +<i class="dopln">N</i>kB <i class="dopln">soubor</i> | tail -c +2</div>
+<div class="radekzaklinadla">tail -c +<i class="dopln">N</i>MB <i class="dopln">soubor</i> | tail -c +2</div>
+<div class="radekzaklinadla">tail -c +<i class="dopln">N</i>GB <i class="dopln">soubor</i> | tail -c +2</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z730714887"><span><a href="#z730714887">⋧</a></span></span>příklad: vzít třetí mebibajt souboru<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">tail -c +2M soubor.dat | tail -c +2 | head -c 1M</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z26418576"><span><a href="#z26418576">ⵤ</a></span></span>příklad: vynechat třetí mebibajt souboru<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">(head -c 2M soubor.dat &amp;&amp; tail -c +3M soubor.dat | tail -c +2) | <i class="dopln">zpracování</i></div>
+</div></div>
+
+<h3 id="cast4x2"><span><a href="#cast4x2" title="kapitola 23 (Zpracování binárních souborů), sekce 4 (Zaklínadla: Zpracování po bajtech), podsekce 2 (Analyzovat po bajtech)"><sup>4/</sup>2 Analyzovat po bajtech</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1385652788"><span><a href="#z1385652788">ꜛ</a></span></span>určit počet bajtů určité hodnoty v daném souboru (obecně/určit počet bajtů 0xa9)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">tr -cd \\$(printf %o <i class="dopln">hodnota-bajtu</i>) &lt;<i class="dopln">soubor</i> | wc -c</div>
+<div class="radekzaklinadla">tr -cd \\$(printf %o 0xa9) &lt;<i class="dopln">soubor</i> | wc -c</div>
+</div></div>
+
+<h3 id="cast4x3"><span><a href="#cast4x3" title="kapitola 23 (Zpracování binárních souborů), sekce 4 (Zaklínadla: Zpracování po bajtech), podsekce 3 (Konverze na/z číselné reprezentace)"><sup>4/</sup>3 Konverze na/z číselné reprezentace</a></span></h3>
+<p class="ponadpisu">
+Poznámka: Následující zaklínadla generují/přijímají jednu číselnou hodnotu na každou řádku.
+</p>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z379009599"><span><a href="#z379009599">◑</a></span></span>bajty <b>hexadecimálně</b> „00“ až „FF“ (na čísla/z čísel)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">zdroj</i> | xxd -p -u -c 1 | <i class="dopln">zpracování</i></div>
+<div class="radekzaklinadla"><i class="dopln">zdroj</i> | xxd -r -p | <i class="dopln">zpracování</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z521259918"><span><a href="#z521259918">÷</a></span></span>bajty <b>desítkově</b> „0“ až „255“ (na čísla/z čísel)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">zdroj</i> | od -A n -t u1 -v -w1 | tr -d &quot;<span class="viditelnamezera">&nbsp;</span>&quot; | <i class="dopln">zpracování</i></div>
+<div class="radekzaklinadla"><i class="dopln">zdroj</i> | sed $'1i\\\nobase=16' | bc | sed -E 's/^.$/0&amp;/' | xxd -r -p | <i class="dopln">zpracování</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z633524166"><span><a href="#z633524166">┬</a></span></span>bajty <b>binárně</b> „00000000“ až „11111111“ (na čísla/z čísel)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">zdroj</i> | xxd -b -c 1 | cut -d &quot;<span class="viditelnamezera">&nbsp;</span>&quot; -f 2 | <i class="dopln">zpracování</i></div>
+<div class="radekzaklinadla"><i class="dopln">zdroj</i> | sed $'1i\\\nobase=16\\\nibase=2' | bc | sed -E 's/^.$/0&amp;/' | xxd -r -p | <i class="dopln">zpracování</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1825225183"><span><a href="#z1825225183">╋</a></span></span>bajty <b>osmičkově</b> „000“ až „377“ (na čísla/z čísel)<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">zdroj</i> | od -A n -t o1 -v -w1 | tr -d &quot;<span class="viditelnamezera">&nbsp;</span>&quot; | <i class="dopln">zpracování</i></div>
+<div class="radekzaklinadla"><i class="dopln">zdroj</i> | sed $'1i\\\nobase=16\\\nibase=8' | bc | sed -E 's/^.$/0&amp;/' | xxd -r -p | <i class="dopln">zpracování</i></div>
+</div></div>
+
+<h3 id="cast4x4"><span><a href="#cast4x4" title="kapitola 23 (Zpracování binárních souborů), sekce 4 (Zaklínadla: Zpracování po bajtech), podsekce 4 (Přepsat/nahradit/vynechat/vložit bajty)"><sup>4/</sup>4 Přepsat/nahradit/vynechat/vložit bajty</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z707108291"><span><a href="#z707108291">⨒</a></span></span>nastavit <b>bajt</b> na určité adrese<span class="cislo">#1 </span><sup><a href="#kapzprcovnibinrnichppc11" id="kapzprcovnibinrnichppcr11" title="Adresy nemusejí být v pořadí, dokonce se mohou opakovat; xxd zapíše jeden bajt po druhém.">(11)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">printf '%08x:%02x\n' <i class="dopln">adresa</i> <i class="dopln">hodnota-bajtu</i> <span class="volznak">[</span><i class="dopln">další-adresa</i> <i class="dopln">hodnota-bajtu</i><span class="volznak">]</span><span class="tritecky"></span> | xxd -r -c 1 - <i class="dopln">soubor</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1756826060"><span><a href="#z1756826060">▆</a></span></span><b>přepsat</b> úsek bajtů v souboru<span class="cislo">#2 </span><sup><a href="#kapzprcovnibinrnichppc12" id="kapzprcovnibinrnichppcr12" title="Hodnota „kam-zapsat“ je obyčejné dekadické číslo v bajtech od nuly, tzn. např. 3 znamená, že první přepsaný má být čtvrtý bajt výstupního souboru. Pokud leží výstupní adresa za koncem souboru, soubor se doplní nulami; pokud má zápis pokračovat za konec existujících dat, soubor bude podle potřeby prodloužen.">(12)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">zdroj</i> | xxd -p | xxd -p -r <span class="volznak">[</span>--seek <i class="dopln">kam-zapsat</i><span class="volznak">]</span> - <i class="dopln">soubor-k-zapsání</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z763629799"><span><a href="#z763629799">⠉</a></span></span>vypustit bajty uvedených hodnot/všechny kromě bajtů uvedených hodnot<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">zdroj</i> | tr $(printf -d '\\%03o' <i class="dopln">bajt</i><span class="tritecky"></span>) | <i class="dopln">zpracování</i></div>
+<div class="radekzaklinadla"><i class="dopln">zdroj</i> | tr $(printf -cd '\\%03o' <i class="dopln">bajt</i><span class="tritecky"></span>) | <i class="dopln">zpracování</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1067402537"><span><a href="#z1067402537">█</a></span></span>tabulkový překlad bajtů<span class="cislo">#4 </span><sup><a href="#kapzprcovnibinrnichppc13" id="kapzprcovnibinrnichppcr13" title="Počet „původních bajtů“ musí přesně odpovídat počtu náhradních bajtů, jinak výsledek nemusí odpovídat očekávání.">(13)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">zdroj</i> | tr $(printf '\\%03o' <i class="dopln">původní-bajt</i><span class="tritecky"></span>) $(printf '\\%03o' <i class="dopln">náhradní-bajt</i><span class="tritecky"></span>) | <i class="dopln">zpracování</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z844889996"><span><a href="#z844889996">⪅</a></span></span>příklad: nahradit v souboru a.bin bajty 0x0a hodnotou 0x0c a výsledek zapsat do b.bin<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">tr $(printf '\\%03o' 0x0a) $(printf '\\%03o' 0x0c) &lt;a.bin &gt;b.bin</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1159936857"><span><a href="#z1159936857">✱</a></span></span>vynechat úsek mezi dvěma adresami<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z489483060"><span><a href="#z489483060">⣓</a></span></span>nahradit úsek mezi dvěma adresami vstupem<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z467630859"><span><a href="#z467630859">⣽</a></span></span><b>vložit</b> nový úsek dat na zadanou adresu (obecně/příklad)<span class="cislo">#8 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">zdroj-nového-úseku</i> | cat &lt;(head -c <i class="dopln">adresa-desítkově</i> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">soubor</i>) - &lt;(tail -c +$((<i class="dopln">adresa-desítkově</i>+1)) <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">soubor</i>) | <i class="dopln">zpracování</i></div>
+<div class="radekzaklinadla">cat novy-usek.dat | cat &lt;(head -c 21734 puvodni.dat) - &lt;(tail -c +$((21734+1)) puvodni.dat) &gt;novy-soubor.dat</div>
+</div></div>
+
+<h2 id="cast5"><a href="#cast5"><span class="cislo">5.</span> Parametry příkazů</a></h2>
+<p class="ponadpisu">
+<b>Důležitý tip:</b> v každém příkazu, kde je „| <i class="dopln">zpracování</i>“, můžete místo něj uvést přesměrování do souboru.
+</p>
+
+<h3 id="cast5x1"><span><a href="#cast5x1" title="kapitola 23 (Zpracování binárních souborů), sekce 5 (Parametry příkazů), podsekce 1 (split)"><sup>5/</sup>1 split</a></span></h3>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">split <i class="dopln">-typ-dělení</i> <i class="dopln">-typ-počítadla</i> <span class="volznak">[</span><i class="dopln">-další -parametry</i><span class="volznak">]</span> <i class="dopln">vstupní-soubor</i> <i class="dopln">předpona/výstupu</i></div>
+</div></div>
+<p>
+Typ dělení může být:
+</p>
+<ul class="kompaktni"><li>-b <i class="dopln">velikost-P</i> :: dělení na bloky pevné velikosti
+</li><li>-C <i class="dopln">velikost-P</i> :: dělení po záznamech; do každého dílu zapíše jen tolik záznamů, aby nepřekročil uvedenou velikost // [ ] vyzkoušet!
+</li><li>-l <i class="dopln">počet-záznamů</i> :: dělení po záznamech; do každého dílu zapíše pevný počet záznamů (poslední díl jich může obsahovat méně) // [ ] vyzkoušet!
+</li><li>-n <i class="dopln">počet-výstupních-souborů</i> :: pokusí se rozdělit vstup na daný počet přibližně stejně velkých souborů.
+</li></ul><p>
+Při dělení po záznamech je možno uvést parametr -t, který specifikuje ukončovač záznamů; např.:
+</p>
+<ul class="kompaktni"><li>-t \\0 :: nulový bajt
+</li><li>-t $'\t' :: tabulátor
+</li><li>-t $'\n' :: konec řádky (výchozí hodnota)
+</li><li>-t $'\xa0' :: bajt o hodnotě 0xa0
+</li></ul><p>
+Typ počítadla může být:
+</p>
+<ul class="kompaktni"><li>(neuvedený) :: použijí se malá písmena anglické abecedy (aa, ab, ac, ...)
+</li><li>-d :: použijí se desítkové číslice (00, 01, 02, ...)
+</li><li>-x :: použijí se šestnáctkové číslice (00, 01, ..., 09, 0a, 0b, 0c, 0d, 0e, 0f, 10, ...)
+</li><li>--numeric-suffixes=<i class="dopln">hodnota</i> :: použijí se desítkové číslice počínaje uvedenou hodnotou (např. 12, 13, ...)
+</li></ul><p>
+Další parametry mohou být:
+</p>
+<ul class="kompaktni"><li>-a<i class="dopln">číslo</i> :: počet „číslic“ počítadla (výchozí hodnota: 2)
+</li><li>--additional-suffix=<i class="dopln">řetězec</i> :: řetězec k připojení za počítadlo (Poznámka: nesmí obsahovat „/“.) Výchozí hodnotou je prázdný řetězec.
+</li><li>--verbose :: oznámí vytvoření každého výstupního souboru
+</li></ul><p>
+Tip: Místo vstupního souboru může být „-“; příkaz pak čte ze standardního vstupu.
+</p>
+
+<h3 id="cast5x2"><span><a href="#cast5x2" title="kapitola 23 (Zpracování binárních souborů), sekce 5 (Parametry příkazů), podsekce 2 (xxd)"><sup>5/</sup>2 xxd</a></span></h3>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">xxd <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> <i class="dopln">vstupní-soubor</i></div>
+<div class="radekzaklinadla"><i class="dopln">zdroj</i> | xxd -r <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> - <i class="dopln">soubor-k-přepsání</i></div>
+<div class="radekzaklinadla"><i class="dopln">zdroj</i> | xxd -r <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> - | <i class="dopln">zpracování</i></div>
+</div></div>
+<table class="parametryprikazu"><tbody><tr><td>-p</td><td>použije „holý“ hexadecimální formát bez adres (výchozí chování: čitelný formát s adresami)</td></tr>
+
+<tr><td>-u</td><td>v hexadecimálních číslech použije velká písmena (výchozí chování: malá písmena)</td></tr>
+
+<tr><td>-c <i class="dopln">bajtů</i></td><td>počet bajtů na řádek výstupu</td></tr>
+
+<tr><td>-s <i class="dopln">adresa</i></td><td>začne vypisovat od zadané adresy (např. „0x80“)</td></tr>
+
+<tr><td>-l <i class="dopln">počet-bajtů</i></td><td>vypíše nejvýše zadaný počet bajtů</td></tr>
+
+</tbody></table>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">zdroj</i> | xxd -r <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> | <i class="dopln">zpracování</i></div>
+<div class="radekzaklinadla"><i class="dopln">zdroj</i> | xxd -r <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> - <i class="dopln">soubor-k-editaci</i></div>
+</div></div>
+<table class="parametryprikazu"><tbody><tr><td>-c <i class="dopln">bajtů</i></td><td>počet bajtů na řádku vstupu (nemá smysl v kombinaci s parametrem „-p“)</td></tr>
+
+<tr><td>-p</td><td>očekává „holý“ hexadecimální formát bez adres; bílé znaky jsou ignorovány</td></tr>
+
+<tr><td>-seek <i class="dopln">posun</i></td><td>před každým zápisem k adrese <i>přičte</i> uvedený posun (např „0x80“)</td></tr>
+
+</tbody></table>
+
+<h2 id="cast6"><a href="#cast6"><span class="cislo">6.</span> Instalace na Ubuntu</a></h2>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1565875746"><span><a href="#z1565875746">☃</a></span></span>rdiff, xxd, ghex, hexcurse<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">sudo apt-get install rdiff xxd ghex hexcurse</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1190130739"><span><a href="#z1190130739">䷖</a></span></span>crc32<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">sudo apt-get install libarchive-zip-perl</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1183165854"><span><a href="#z1183165854">⛢</a></span></span>uudecode, uuencode<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">sudo apt-get install sharutils</div>
+</div></div>
+<p>
+Ostatní použité příkazy jsou přítomny i v minimální instalaci Ubuntu.
+</p>
+
+<h2 id="cast7"><a href="#cast7"><span class="cislo">7.</span> Tipy a zkušenosti</a></h2>
+<ul><li>Příkaz „cmp“ je nejrychleji čtoucí příkaz, který znám, lze jej použít např. pro výkonnostní test SSD disku.
+</li></ul>
+<h2 id="cast8"><a href="#cast8"><span class="cislo">8.</span> Další zdroje informací</a></h2>
+<ul class="kompaktni"><li><a href="http://manpages.ubuntu.com/manpages/focal/en/man1/split.1.html">man 1 split</a>
+</li><li><a href="http://manpages.ubuntu.com/manpages/focal/en/man1/xxd.1.html">man 1 xxd</a>
+</li><li><a href="http://manpages.ubuntu.com/manpages/focal/en/man1/od.1.html">man 1 od</a>
+</li><li><a href="https://packages.ubuntu.com/focal/xxd">balíček xxd</a>
+</li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/common/split.md">TL;DR: split</a>
+</li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/common/xxd.md">TL;DR: xxd</a>
+</li></ul><div class="ppc"><div id="kapzprcovnibinrnichppc1"><a href="#kapzprcovnibinrnichppcr1" class="cislopozn">1</a>&nbsp;Analogicky můžete také použít příkazy „sha1sum“, „sha224sum“, „sha384sum“ a „sha512sum“. Existuje také obecný „shasum“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapzprcovnibinrnichppc2"><a href="#kapzprcovnibinrnichppcr2" class="cislopozn">2</a>&nbsp;Heše souborů a jejich názvy (včetně cesty) se uloží do uvedeného souboru.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapzprcovnibinrnichppc3"><a href="#kapzprcovnibinrnichppcr3" class="cislopozn">3</a>&nbsp;Poznámka: Příkaz „crc32“ lze použít i s více soubory, ale v takovém případě vypisuje ke kontrolním součtům i názvy souborů bez odzvláštnění, což znamená, že nelze bezpečně zpracovat soubory jejichž cesta obsahuje znak konce řádky.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapzprcovnibinrnichppc4"><a href="#kapzprcovnibinrnichppcr4" class="cislopozn">4</a>&nbsp;Hodnotu bajtu můžete zadat dekadicky (např. „127“), hexadecimálně (např. „0x7f“) nebo osmičkově (např. „0177“).</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapzprcovnibinrnichppc5"><a href="#kapzprcovnibinrnichppcr5" class="cislopozn">5</a>&nbsp;Prodlužuje se vždy nulovými bajty, zkracuje se zprava (tzn. od konce). Pokud soubor neexistuje, vytvoří se.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapzprcovnibinrnichppc6"><a href="#kapzprcovnibinrnichppcr6" class="cislopozn">6</a>&nbsp;Tip: mezi soubory můžete vložit data ze standardního vstupu zadáním parametru minus („-“) místo jednoho souboru.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapzprcovnibinrnichppc7"><a href="#kapzprcovnibinrnichppcr7" class="cislopozn">7</a>&nbsp;Pro „-typ-počítadla“ viz popis příkazu „split“ v sekci Parametry příkazů. Pro kontrolu vřele doporučuji použít parametr „--verbose“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapzprcovnibinrnichppc8"><a href="#kapzprcovnibinrnichppcr8" class="cislopozn">8</a>&nbsp;Pokud příkaz uspěje, „soubor1“ je větší; jinak je nutno soubory otestovat ještě v opačném pořadí; pokud obě testování selžou, jsou soubory stejně velké.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapzprcovnibinrnichppc9"><a href="#kapzprcovnibinrnichppcr9" class="cislopozn">9</a>&nbsp;Když otevřete nové okno příkazem „View“/„Add View“, nové okno nebude mít sloupec s adresami, bez něhož je obtížně použitelné. Vyřešit se to dá tak, že zvolíte „Edit“/„Preferences“ a na kartě „Editing“ odškrtnete a zaškrtnete pole „Show offset columns“; pak se sloupec s adresami zobrazí ve všech oknech editoru.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapzprcovnibinrnichppc10"><a href="#kapzprcovnibinrnichppcr10" class="cislopozn">10</a>&nbsp;Při obracení velkých souborů se ujistěte, že se do paměti RAM a odkládacího souboru vejde dvojnásobek celého souboru! To znamená, že např. pro obrácení souboru o velikosti 4 GiB potřebujete 8 GiB prostoru.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapzprcovnibinrnichppc11"><a href="#kapzprcovnibinrnichppcr11" class="cislopozn">11</a>&nbsp;Adresy nemusejí být v pořadí, dokonce se mohou opakovat; xxd zapíše jeden bajt po druhém.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapzprcovnibinrnichppc12"><a href="#kapzprcovnibinrnichppcr12" class="cislopozn">12</a>&nbsp;Hodnota „kam-zapsat“ je obyčejné dekadické číslo v bajtech od nuly, tzn. např. 3 znamená, že první přepsaný má být čtvrtý bajt výstupního souboru. Pokud leží výstupní adresa za koncem souboru, soubor se doplní nulami; pokud má zápis pokračovat za konec existujících dat, soubor bude podle potřeby prodloužen.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapzprcovnibinrnichppc13"><a href="#kapzprcovnibinrnichppcr13" class="cislopozn">13</a>&nbsp;Počet „původních bajtů“ musí přesně odpovídat počtu náhradních bajtů, jinak výsledek nemusí odpovídat očekávání.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+</div>
+
+
+<nav class="spodni">
+<a href="index.htm" class="naindex">🗐&nbsp;Přehled&nbsp;kapitol</a>
+<div class="naslkap">
+<a href="zpracovani-textovych-souboru.htm" rel="next" title="23. Zpracování textových souborů">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">23</span>
+<span class="nazev">Zpracování textových souborů</span></a>
+</div>
+<!--<div><a href="index.htm">🗐&nbsp;Přehled&nbsp;kapitol</a></div>-->
+</nav>
+
+
+<div class="odkazydole"><div><a href="datum-cas-kalendar.htm"><img src="obrazky/ik/datum-cas-kalendar.png" alt="" width="32" height="32">Datum, čas a kalendář</a><a href="make.htm"><img src="obrazky/ik/make.png" alt="" width="32" height="32">Make</a><a href="zpracovani-videa-a-zvuku.htm"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="" width="32" height="32">Zpracování videa a zvuku</a></div></div>
+
+
+</article>
+<!-- *** -->
+<footer id="dole">
+<img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
+<p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
+<a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
+Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
+či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
+na stránce „<a href="x-autori.htm">Přehled autorů</a>“.
+Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
+licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
+Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód
+a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
+<a href="https://github.com/singularis-mzf/linux-spellbook">repozitář na GitHubu</a>.
+</footer>
+</div>
+
+<nav class="menu">
+<!-- MENU KAPITOLY -->
+<a href="#menukapitoly" id="menukapitoly"><span class="prvnipismeno">K</span>apitoly</a>
+<aside class="menukapitoly">
+<div><div class="nadpis">Kapitoly</div><div class="polozky">
+<a href="predmluva.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/predmluva.png" alt="[]"></span><span class="cislo">1</span><span class="nazev">Předmluva</span></a>
+<a href="zakladni-znalosti.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zakladni-znalosti.png" alt="[]"></span><span class="cislo">2</span><span class="nazev">Základní znalosti</span></a>
+<a href="awk.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/awk.png" alt="[]"></span><span class="cislo">3</span><span class="nazev">AWK</span></a>
+<a href="datum-cas-kalendar.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/datum-cas-kalendar.png" alt="[]"></span><span class="cislo">4</span><span class="nazev">Datum, čas a kalendář</span></a>
+<a href="diskove-oddily.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/diskove-oddily.png" alt="[]"></span><span class="cislo">5</span><span class="nazev">Diskové oddíly</span></a>
+<a href="git.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/git.png" alt="[]"></span><span class="cislo">6</span><span class="nazev">Git</span></a>
+<a href="hledani-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/hledani-souboru.png" alt="[]"></span><span class="cislo">7</span><span class="nazev">Hledání souborů</span></a>
+<a href="make.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/make.png" alt="[]"></span><span class="cislo">8</span><span class="nazev">Make</span></a>
+<a href="markdown.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/markdown.png" alt="[]"></span><span class="cislo">9</span><span class="nazev">Markdown</span></a>
+<a href="prace-s-archivy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="cislo">10</span><span class="nazev">Práce s archivy</span></a>
+<a href="promenne.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/promenne.png" alt="[]"></span><span class="cislo">11</span><span class="nazev">Proměnné prostředí a interpretu</span></a>
+<a href="regularni-vyrazy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="cislo">12</span><span class="nazev">Regulární výrazy</span></a>
+<a href="sed.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sed.png" alt="[]"></span><span class="cislo">13</span><span class="nazev">Sed</span></a>
+<a href="soubory-a-adresare.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/soubory-a-adresare.png" alt="[]"></span><span class="cislo">14</span><span class="nazev">Soubory a adresáře</span></a>
+<a href="sprava-balicku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="cislo">15</span><span class="nazev">Správa balíčků</span></a>
+<a href="sprava-procesu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-procesu.png" alt="[]"></span><span class="cislo">16</span><span class="nazev">Správa procesů</span></a>
+<a href="sprava-uzivatelskych-uctu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="cislo">17</span><span class="nazev">Správa uživatelských účtů</span></a>
+<a href="stahovani-videi.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/stahovani-videi.png" alt="[]"></span><span class="cislo">18</span><span class="nazev">Stahování videí</span></a>
+<a href="system.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="cislo">19</span><span class="nazev">Systém</span></a>
+<a href="terminal.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/terminal.png" alt="[]"></span><span class="cislo">20</span><span class="nazev">Terminál</span></a>
+<a href="vim.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/vim.png" alt="[]"></span><span class="cislo">21</span><span class="nazev">Vim</span></a>
+<a href="zpracovani-binarnich-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-binarnich-souboru.png" alt="[]"></span><span class="cislo">22</span><span class="nazev">Zpracování binárních souborů</span></a>
+<a href="zpracovani-textovych-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="cislo">23</span><span class="nazev">Zpracování textových souborů</span></a>
+<a href="zpracovani-videa-a-zvuku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="cislo">24</span><span class="nazev">Zpracování videa a zvuku</span></a>
+<a href="koncepce-projektu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="cislo">25</span><span class="nazev">Koncepce projektu Linux: Kniha kouzel</span></a>
+<a href="plan-vyvoje.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/plan-vyvoje.png" alt="[]"></span><span class="cislo">26</span><span class="nazev">Plán budoucího vývoje</span></a>
+<a href="licence.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="cislo">27</span><span class="nazev">Licence</span></a>
+</div></div>
+<a href="#zavritmenu" id="zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU OSNOVA -->
+<a href="#menuosnova" id="menuosnova"><span class="prvnipismeno">O</span>snova</a>
+<aside class="menuosnova">
+<div><div class="nadpis">Osnova</div><div class="polozky">
+<a href="#cast1" class="sekce">1 Úvod</a>
+<a href="#cast2" class="sekce">2 Definice</a>
+<a href="#cast3" class="sekce">3 Zaklínadla: Soubor jako celek</a>
+<a href="#cast3x1" class="podsekce">/1 Vypsat obsah souboru pro člověka</a>
+<a href="#cast3x2" class="podsekce">/2 Vypočítat a ověřit heš</a>
+<a href="#cast3x3" class="podsekce">/3 Určit formát dat a velikost souboru</a>
+<a href="#cast3x4" class="podsekce">/4 Vygenerovat data</a>
+<a href="#cast3x5" class="podsekce">/5 Vytvořit/prodloužit/zkrátit soubor na disku</a>
+<a href="#cast3x6" class="podsekce">/6 Spojování a dělení souborů</a>
+<a href="#cast3x7" class="podsekce">/7 Srovnání souborů podle obsahu</a>
+<a href="#cast3x8" class="podsekce">/8 Hexadecimální editory</a>
+<a href="#cast3x9" class="podsekce">/9 Transformace souboru</a>
+<a href="#cast3x10" class="podsekce">/10 Kódování (base64, uuencode, xor)</a>
+<a href="#cast3x11" class="podsekce">/11 Záplatování</a>
+<a href="#cast4" class="sekce">4 Zaklínadla: Zpracování po bajtech</a>
+<a href="#cast4x1" class="podsekce">/1 Vyjmout úsek bajtů</a>
+<a href="#cast4x2" class="podsekce">/2 Analyzovat po bajtech</a>
+<a href="#cast4x3" class="podsekce">/3 Konverze na/z číselné reprezentace</a>
+<a href="#cast4x4" class="podsekce">/4 Přepsat/nahradit/vynechat/vložit bajty</a>
+<a href="#cast5" class="sekce">5 Parametry příkazů</a>
+<a href="#cast5x1" class="podsekce">/1 split</a>
+<a href="#cast5x2" class="podsekce">/2 xxd</a>
+<a href="#cast6" class="sekce">6 Instalace na Ubuntu</a>
+<a href="#cast7" class="sekce">7 Tipy a zkušenosti</a>
+<a href="#cast8" class="sekce">8 Další zdroje informací</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU ŠTÍTKY -->
+<a href="#menustitky" id="menustitky"><span class="prvnipismeno">Š</span>títky</a>
+<aside class="menustitky">
+<div><div class="nadpis">Štítky</div><div class="polozky">
+<a href="x-stitky.htm#sdrese">adresáře&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#spt">apt&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sbjty">bajty&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sbrvy">barvy&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sbsh">bash&nbsp;&nbsp;(4)</a>
+<a href="x-stitky.htm#scs">čas&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sdt">data&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sdmoni">démoni&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#seditor">editor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#semotikony">emotikony&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sfltpk">Flatpak&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#shesovcfunkce">hešovací funkce&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#shledn">hledání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sinternet">internet&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sklvesnice">klávesnice&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#skdovn">kódování&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#skomprese">komprese&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#slvm">LVM&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sodkldcprostor">odkládací prostor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sovldn">ovládání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sprocesy">procesy&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sprogrm">program&nbsp;&nbsp;(6)</a>
+<a href="x-stitky.htm#sprogrmovn">programování&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#spstupovprv">přístupová práva&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#srmdisk">ramdisk&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#ssnp">Snap&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#ssoubory">soubory&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#ssprvverz">správa verzí&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#ssyntxe">syntaxe&nbsp;&nbsp;(4)</a>
+<a href="x-stitky.htm#ssystm">systém&nbsp;&nbsp;(6)</a>
+<a href="x-stitky.htm#stemtickokruh">tematický okruh&nbsp;&nbsp;(14)</a>
+<a href="x-stitky.htm#sunicode">Unicode&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#svideo">video&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#szip">zip&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#szprcovntextu">zpracování textu&nbsp;&nbsp;(4)</a>
+<a href="x-stitky.htm#szvuk">zvuk&nbsp;&nbsp;(1)</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU NÁPOVĚDA -->
+<a href="#menunapoveda" id="menunapoveda"><span class="prvnipismeno">N</span>ápověda</a>
+<aside class="menunapoveda">
+<div><div class="nadpis">Nápověda</div><div class="polozky">
+<a href="predmluva.htm">Předmluva</a>
+<a href="koncepce-projektu.htm">Koncepce projektu</a>
+<a href="https://singularis-mzf.github.io/">Ostatní verze knihy</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook">Repozitář na GitHubu</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+</nav>
+
+<a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
+<a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
+
+</div>
+</body>
+</html>

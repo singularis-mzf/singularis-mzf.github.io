@@ -5,16 +5,16 @@
 
 <title>Diskové oddíly − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20200906.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200906-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200906-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20200906-tmavy.css" title="Tmavý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20201001.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20201001-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20201001-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20201001-tmavy.css" title="Tmavý motiv">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body>
 <div id="nahore"></div>
 <header>
-<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.12, H. H. (6. září 2020)</span>
+<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.13 (1. října 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -44,6 +44,14 @@
 <article>
 
 <h1 class="kapitola">5. <img src="obrazky/ik/diskove-oddily.png" alt="" width="64" height="64"> Diskové oddíly</h1>
+<div class="varovani">
+Řada 1.x vanilkové příchuti Linuxu: Knihy kouzel je od 1. října 2020
+do 1. března 2023 ve stavu dlouhodobé pasivní údržby;
+nahlášené chyby budou opravovány, ale aktivní vývoj se již věnuje novější
+vývojové řadě určené pro novější verze operačního systému a programů.
+Pokud nejste vázáni na starší verze programů, doporučuji vyhledat novou
+verzi z aktivně vyvíjené vývojové řady.
+</div>
 <div class="stitky"><a href="x-stitky.htm#slvm">LVM</a>
 <a href="x-stitky.htm#sodkldcprostor">odkládací prostor</a>
 <a href="x-stitky.htm#srmdisk">ramdisk</a>
@@ -68,7 +76,7 @@ Rovněž nepokrývá práci se systémem souborů SquashFS. U LVM nepokrývá �
 </li><li><b>Virtuální souborový systém</b> (VFS) je způsob, jakým Linux nahlíží na strukturu souborů v počítači; není to skutečný systém souborů. Existuje pouze jeden, je pouze pro čtení a neobsahuje nic jiného než prázdný počáteční kořenový adresář. Při startu systému je na tento adresář připojen kořenový adresář kořenového systému souborů.
 </li><li><b>Připojení</b> systému souborů znamená, že systém vezme existující adresář ve VFS (takzvaný <b>přípojný bod</b>, anglicky „mount point“) a „překryje“ ho kořenovým adresářem připojovaného systému souborů včetně jeho vlastnictví, příznaků a přístupových práv. Celá adresářová struktura připojeného systému souborů se pak stane součástí VFS, dostupnou přes daný přípojný bod. Naopak původní překrytý adresář (včetně svého obsahu) tímto z VFS odpadne. Opačným úkonem je <b>odpojení</b> systému souborů; při něm dojde k opětovnému zpřístupnění původního adresáře. Zvláštním (ale komplikovaným a méně častým) případem je připojení jiného než kořenového adresáře systému souborů.
 </li><li><b>Typ systému souborů</b> je buď způsob uložení souborů a adresářů na diskovém oddílu (např. „ext4“) nebo druh ovladače, který poskytuje nějakým způsobem získanou adresářovou strukturu (např. „tmpfs“). Zvláštním typem systému souborů je „swap“, tedy odkládací oddíl, protože ten adresářovou strukturu neposkytuje.
-</li><li>K identifikaci konkrétního systémů souborů se používají: <b>UUID</b>, což je identifikátor souborového systému přidělovaný při formátování (tzn. dalším formátováním se změní); ne všechny souborové systémy mají nějakou formu UUID, ale ext4, FAT32 a NTFS ano; <b>PARTUUID</b>, což je identifikátor oddílu na disku, je-li dělen metodou GPT (na discích dělených starší metodou MBR se emuluje, u logických oddílů LVM není dostupný vůbec); <b>jmenovka</b>, což je textový identifikátor souborového systému přidělovaný uživatelem, zpravidla při formátování. Poslední možností je cesta k idenfikátoru zařízení v /dev, např. „/dev/sda1“.
+</li><li>K identifikaci konkrétního systému souborů se používají: <b>UUID</b>, což je identifikátor souborového systému přidělovaný při formátování (tzn. dalším formátováním se změní); ne všechny souborové systémy mají nějakou formu UUID, ale ext4, FAT32 a NTFS ano; <b>PARTUUID</b>, což je identifikátor oddílu na disku, je-li dělen metodou GPT (na discích dělených starší metodou MBR se emuluje, u logických oddílů LVM není dostupný vůbec); <b>jmenovka</b>, což je textový identifikátor souborového systému přidělovaný uživatelem, zpravidla při formátování. Poslední možností je cesta k idenfikátoru zařízení v /dev, např. „/dev/sda1“.
 </li></ul>
 <h3 id="cast2x2"><span><a href="#cast2x2" title="kapitola 6 (Diskové oddíly), sekce 2 (Definice), podsekce 2 (LVM)"><sup>2/</sup>2 LVM</a></span></h3>
 <p class="ponadpisu">
@@ -575,7 +583,7 @@ Nástroj GParted najdete v balíčku „gparted“:
 </nav>
 
 
-<div class="odkazydole"><div><a href="sprava-procesu.htm"><img src="obrazky/ik/sprava-procesu.png" alt="" width="32" height="32">Správa procesů</a><a href="sed.htm"><img src="obrazky/ik/sed.png" alt="" width="32" height="32">Sed</a><a href="vim.htm"><img src="obrazky/ik/vim.png" alt="" width="32" height="32">Vim</a></div></div>
+<div class="odkazydole"><div><a href="planovani-uloh.htm"><img src="obrazky/ik/planovani-uloh.png" alt="" width="32" height="32">Plánování úloh</a><a href="sed.htm"><img src="obrazky/ik/sed.png" alt="" width="32" height="32">Sed</a><a href="datum-cas-kalendar.htm"><img src="obrazky/ik/datum-cas-kalendar.png" alt="" width="32" height="32">Datum, čas a kalendář</a></div></div>
 
 
 </article>
@@ -603,14 +611,11 @@ Nástroj GParted najdete v balíčku „gparted“:
 <a href="sprava-balicku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="cislo">17</span><span class="nazev">Správa balíčků</span></a>
 <a href="sprava-procesu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-procesu.png" alt="[]"></span><span class="cislo">18</span><span class="nazev">Správa procesů</span></a>
 <a href="sprava-uzivatelskych-uctu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="cislo">19</span><span class="nazev">Správa uživatelských účtů</span></a>
-<a href="stahovani-videi.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/stahovani-videi.png" alt="[]"></span><span class="cislo">20</span><span class="nazev">Stahování videí</span></a>
-<a href="system.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="cislo">21</span><span class="nazev">Systém</span></a>
-<a href="vim.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/vim.png" alt="[]"></span><span class="cislo">22</span><span class="nazev">Vim</span></a>
-<a href="zpracovani-textovych-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="cislo">23</span><span class="nazev">Zpracování textových souborů</span></a>
-<a href="zpracovani-videa-a-zvuku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="cislo">24</span><span class="nazev">Zpracování videa a zvuku</span></a>
-<a href="koncepce-projektu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="cislo">25</span><span class="nazev">Koncepce projektu Linux: Kniha kouzel</span></a>
-<a href="plan-vyvoje.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">26</span><span class="nazev">Plán budoucího vývoje</span></a>
-<a href="licence.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">27</span><span class="nazev">Licence</span></a>
+<a href="system.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="cislo">20</span><span class="nazev">Systém</span></a>
+<a href="vim.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/vim.png" alt="[]"></span><span class="cislo">21</span><span class="nazev">Vim</span></a>
+<a href="zpracovani-textovych-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="cislo">22</span><span class="nazev">Zpracování textových souborů</span></a>
+<a href="zpracovani-videa-a-zvuku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="cislo">23</span><span class="nazev">Zpracování videa a zvuku</span></a>
+<a href="licence.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik-vychozi.png" alt="[]"></span><span class="cislo">24</span><span class="nazev">Licence</span></a>
 </div></div>
 <a href="#zavritmenu" id="zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
 </aside>
@@ -660,7 +665,6 @@ Nástroj GParted najdete v balíčku „gparted“:
 <a href="x-stitky.htm#seditor">editor&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#sfltpk">Flatpak&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#shledn">hledání&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sinternet">internet&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#sklvesnice">klávesnice&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#skomprese">komprese&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#skontejnery">kontejnery&nbsp;&nbsp;(1)</a>
@@ -677,8 +681,8 @@ Nástroj GParted najdete v balíčku „gparted“:
 <a href="x-stitky.htm#ssprvverz">správa verzí&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#ssyntxe">syntaxe&nbsp;&nbsp;(4)</a>
 <a href="x-stitky.htm#ssystm">systém&nbsp;&nbsp;(6)</a>
-<a href="x-stitky.htm#stemtickokruh">tematický okruh&nbsp;&nbsp;(15)</a>
-<a href="x-stitky.htm#svideo">video&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#stemtickokruh">tematický okruh&nbsp;&nbsp;(14)</a>
+<a href="x-stitky.htm#svideo">video&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#svirtulizce">virtualizace&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#szip">zip&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#szprcovntextu">zpracování textu&nbsp;&nbsp;(4)</a>
@@ -691,7 +695,6 @@ Nástroj GParted najdete v balíčku „gparted“:
 <aside class="menunapoveda">
 <div><div class="nadpis">Nápověda</div><div class="polozky">
 <a href="predmluva.htm">Předmluva</a>
-<a href="koncepce-projektu.htm">Koncepce projektu</a>
 <a href="https://singularis-mzf.github.io/">Ostatní verze knihy</a>
 <a href="https://github.com/singularis-mzf/linux-spellbook">Repozitář na GitHubu</a>
 </div></div>

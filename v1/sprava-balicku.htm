@@ -5,16 +5,16 @@
 
 <title>Správa balíčků − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20201001.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20201001-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20201001-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20201001-tmavy.css" title="Tmavý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20201029.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20201029-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20201029-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20201029-tmavy.css" title="Tmavý motiv">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body>
 <div id="nahore"></div>
 <header>
-<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.13 (1. října 2020)</span>
+<span class="left"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 1.14 (29. října 2020)</span>
 <span class="right"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -119,16 +119,20 @@ výchozí práva aplikace zúžit nebo rozšířit).
 <div class="radekzaklinadla">sudo apt-get install <span class="volznak">[</span>-y<span class="volznak">]</span> <span class="volznak">[</span>--no-install-recommends<span class="volznak">]</span> <span class="volznak">[</span>--install-suggests<span class="volznak">]</span> <span class="volznak">[</span>-V<span class="volznak">]</span> <i class="dopln">balíček</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sudo gdebi <i class="dopln">balíček.deb</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2046421317"><span><a href="#z2046421317">⋽</a></span></span>aktualizovat jen konkrétní balíčky a jejich závislosti<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z180153637"><span><a href="#z180153637">⡍</a></span></span><b>odinstalovat</b> balíček (celosystémové konfigurační soubory smazat/ponechat)<span class="cislo">#4 </span><sup><a href="#kapsprvblickuppc1" id="kapsprvblickuppcr1" title="Ponechat celosystémové konfigurační soubory má smysl v případě, že chcete zachovat konfiguraci balíčku pro případ, že byste ho v budoucnu znovu nainstaloval/a. Uživatelskou konfiguraci programů (uloženou v domovských adresářích) APT ani DPKG odstranit neumí.">(1)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">sudo apt-get purge <span class="volznak">[</span>--autoremove<span class="volznak">]</span> <i class="dopln">balíček</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla">sudo apt-get remove <span class="volznak">[</span>--autoremove<span class="volznak">]</span> <i class="dopln">balíček</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2046421317"><span><a href="#z2046421317">⋽</a></span></span>aktualizovat jen konkrétní balíčky a jejich závislosti<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-get install --only-upgrade <i class="dopln">balíček</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1562120967"><span><a href="#z1562120967">ᚒ</a></span></span>nainstalovat či upgradovat zvolené balíčky a současně upgradovat ostatní<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1562120967"><span><a href="#z1562120967">ᚒ</a></span></span>nainstalovat či upgradovat zvolené balíčky a současně upgradovat ostatní<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-get upgrade <span class="volznak">[</span>-y<span class="volznak">]</span> &amp;&amp; sudo apt-get install <span class="volznak">[</span>-y<span class="volznak">]</span> <span class="volznak">[</span>--autoremove <span class="volznak">[</span>--purge<span class="volznak">]</span><span class="volznak">]</span> <i class="dopln">balíček</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1739416237"><span><a href="#z1739416237">⇁</a></span></span>pokusit se napravit poškozené závislosti<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1739416237"><span><a href="#z1739416237">⇁</a></span></span>pokusit se napravit poškozené závislosti<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-get install --fix-broken</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z666999823"><span><a href="#z666999823">┝</a></span></span>stáhnout balíčky do lokálních souborů .deb (bez závislostí)<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z666999823"><span><a href="#z666999823">┝</a></span></span>stáhnout balíčky do lokálních souborů .deb (bez závislostí)<span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla">apt-get download <i class="dopln">balíček</i><span class="tritecky"></span></div>
 </div></div>
 
@@ -151,13 +155,13 @@ výchozí práva aplikace zúžit nebo rozšířit).
 <div class="radekzaklinadla">(apt-mark showauto; apt-mark showmanual) | LC_ALL=C sort -u</div>
 <div class="radekzaklinadla">aptitude --disable-columns -F <i class="dopln">formát</i> search '?installed'</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z168448100"><span><a href="#z168448100">⋞</a></span></span>vypsat seznam nainstalovaných balíčků podle místa zabraného na disku; od největšího po nejmenší (pro člověka)<span class="cislo">#6 </span><sup><a href="#kapsprvblickuppc1" id="kapsprvblickuppcr1" title="Velikosti jsou uvedeny v kilobajtech.">(1)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z168448100"><span><a href="#z168448100">⋞</a></span></span>vypsat seznam nainstalovaných balíčků podle místa zabraného na disku; od největšího po nejmenší (pro člověka)<span class="cislo">#6 </span><sup><a href="#kapsprvblickuppc2" id="kapsprvblickuppcr2" title="Velikosti jsou uvedeny v kilobajtech.">(2)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">dpkg-query -Wf '${Installed-Size}\t${Package}:${Architecture}\n' | sort -nr | less</div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1288640141"><span><a href="#z1288640141">⠢</a></span></span>vypsat všechny známé (nainstalované nebo dostupné) balíčky (pro všechny architektury)<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">aptitude search '?true'</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z230309476"><span><a href="#z230309476">ກ</a></span></span>vypsat balíčky, pro které je dostupný upgrade (pro člověka/pro skript)<span class="cislo">#8 </span><sup><a href="#kapsprvblickuppc2" id="kapsprvblickuppcr2" title="Poznámka: vypíše i balíčky, jejichž upgrade není možný např. kvůli konfliktu s jiným balíčkem.">(2)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z230309476"><span><a href="#z230309476">ກ</a></span></span>vypsat balíčky, pro které je dostupný upgrade (pro člověka/pro skript)<span class="cislo">#8 </span><sup><a href="#kapsprvblickuppc3" id="kapsprvblickuppcr3" title="Poznámka: vypíše i balíčky, jejichž upgrade není možný např. kvůli konfliktu s jiným balíčkem.">(3)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">apt list --upgradable</div>
 <div class="radekzaklinadla">aptitude search --disable-columns -F %p &quot;?upgradable&quot;</div>
 </div></div>
@@ -179,7 +183,7 @@ výchozí práva aplikace zúžit nebo rozšířit).
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z782458859"><span><a href="#z782458859">✘</a></span></span>kolik místa na disku zabírá balíček? (pro člověka)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">aptitude search -F %I '?name(<i class="dopln">balíček</i>)' | head -n1</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1565519549"><span><a href="#z1565519549">┎</a></span></span>vypsat seznam souborů a adresářů v systému, které kontroluje daný (nainstalovaný/dostupný) balíček<span class="cislo">#3 </span><sup><a href="#kapsprvblickuppc3" id="kapsprvblickuppcr3" title="Poznámka: Ve výpisu „dpkg-query -L“ se typicky objevují také společné adresáře jako /etc či /usr; není příliš spolehnutí na to, že jde pouze o soubory příslušné danému balíčku.">(3)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1565519549"><span><a href="#z1565519549">┎</a></span></span>vypsat seznam souborů a adresářů v systému, které kontroluje daný (nainstalovaný/dostupný) balíček<span class="cislo">#3 </span><sup><a href="#kapsprvblickuppc4" id="kapsprvblickuppcr4" title="Poznámka: Ve výpisu „dpkg-query -L“ se typicky objevují také společné adresáře jako /etc či /usr; není příliš spolehnutí na to, že jde pouze o soubory příslušné danému balíčku.">(4)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">dpkg-query -L <i class="dopln">balíček</i></div>
 <div class="radekzaklinadla">apt-file list <i class="dopln">balíček</i><span class="tritecky"></span></div>
 </div></div>
@@ -223,7 +227,7 @@ výchozí práva aplikace zúžit nebo rozšířit).
 <div class="radekzaklinadla">linux-version list</div>
 </div></div>
 
-<h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 18 (Správa balíčků), sekce 3 (Zaklínadla (DPKG a APT)), podsekce 7 (Správá důvěryhodných klíčů)"><sup>3/</sup>7 Správá důvěryhodných klíčů</a></span></h3>
+<h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 18 (Správa balíčků), sekce 3 (Zaklínadla (DPKG a APT)), podsekce 7 (Správa důvěryhodných klíčů)"><sup>3/</sup>7 Správa důvěryhodných klíčů</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1352632487"><span><a href="#z1352632487">⡏</a></span></span><b>přidat</b> klíč jako důvěryhodný (ze souboru/ze standardního vstupu)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-key add <i class="dopln">soubor</i></div>
 <div class="radekzaklinadla">sudo apt-key add -</div>
@@ -236,7 +240,7 @@ výchozí práva aplikace zúžit nebo rozšířit).
 </div></div>
 
 <h3 id="cast3x8"><span><a href="#cast3x8" title="kapitola 18 (Správa balíčků), sekce 3 (Zaklínadla (DPKG a APT)), podsekce 8 (Offline provoz APT)"><sup>3/</sup>8 Offline provoz APT</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z988931965"><span><a href="#z988931965">┭</a></span></span>aktualizovat údaje o dostupných balíčcích (poprvé)<span class="cislo">#1 </span><sup><a href="#kapsprvblickuppc4" id="kapsprvblickuppcr4" title="Příkazy „get“ se provádějí na online počítači a stáhnout vše, co je potřeba, do uvedeného archivu typu zip, příkazy „set“ a „install“ se spouštějí na offline počítači.">(4)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z988931965"><span><a href="#z988931965">┭</a></span></span>aktualizovat údaje o dostupných balíčcích (poprvé)<span class="cislo">#1 </span><sup><a href="#kapsprvblickuppc5" id="kapsprvblickuppcr5" title="Příkazy „get“ se provádějí na online počítači a stáhnout vše, co je potřeba, do uvedeného archivu typu zip, příkazy „set“ a „install“ se spouštějí na offline počítači.">(5)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-offline set pozadavek.sig --update</div>
 <div class="radekzaklinadla">sudo apt-offline get pozadavek.sig --generate-changelog --bundle pozadavek.zip</div>
 <div class="radekzaklinadla">sudo apt-offline install pozadavek.zip</div>
@@ -314,7 +318,7 @@ výchozí práva aplikace zúžit nebo rozšířit).
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1054636687"><span><a href="#z1054636687">➚</a></span></span>balíčky, které by byly odstraněny operací „autoremove“<span class="cislo">#9 </span></div><div class="radky">
 <div class="radekzaklinadla">~g</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1400788288"><span><a href="#z1400788288">♢</a></span></span>balíčky, pro které je dostupná novější verze/které mohou být upgradovány<span class="cislo">#10 </span><sup><a href="#kapsprvblickuppc5" id="kapsprvblickuppcr5" title="Pozor! Tento filtr zahrne i balíčky, které nemohou být aktualizovány, protože tomu brání konflikt mezi balíčky nebo zákaz jejich instalace! Naopak nezahrnuje balíčky, které budou nově instalovány pouze pro splnění nově vzniklých závislostí. Proto tento filtr není tak praktický, jak by se mohl zdát.">(5)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1400788288"><span><a href="#z1400788288">♢</a></span></span>balíčky, pro které je dostupná novější verze/které mohou být upgradovány<span class="cislo">#10 </span><sup><a href="#kapsprvblickuppc6" id="kapsprvblickuppcr6" title="Pozor! Tento filtr zahrne i balíčky, které nemohou být aktualizovány, protože tomu brání konflikt mezi balíčky nebo zákaz jejich instalace! Naopak nezahrnuje balíčky, které budou nově instalovány pouze pro splnění nově vzniklých závislostí. Proto tento filtr není tak praktický, jak by se mohl zdát.">(6)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">?upgradable</div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
@@ -329,7 +333,7 @@ výchozí práva aplikace zúžit nebo rozšířit).
 <p class="ponadpisu">
 Za znakem „=“ následuje příklad hodnoty pro balíček „gimp“.
 </p>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1877923023"><span><a href="#z1877923023">⣽</a></span></span><b>název</b> balíčku<span class="cislo">#1 </span><sup><a href="#kapsprvblickuppc6" id="kapsprvblickuppcr6" title="Název balíčku jiné než výchozí architektury bude doplněn o architekturu, např. „gimp:i386“.">(6)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1877923023"><span><a href="#z1877923023">⣽</a></span></span><b>název</b> balíčku<span class="cislo">#1 </span><sup><a href="#kapsprvblickuppc7" id="kapsprvblickuppcr7" title="Název balíčku jiné než výchozí architektury bude doplněn o architekturu, např. „gimp:i386“.">(7)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">%p = gimp</div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1338457980"><span><a href="#z1338457980">❭</a></span></span>krátký <b>popis</b> balíčku<span class="cislo">#2 </span></div><div class="radky">
@@ -338,11 +342,11 @@ Za znakem „=“ následuje příklad hodnoty pro balíček „gimp“.
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z906079998"><span><a href="#z906079998">⠌</a></span></span><b>architektura</b><span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">%E = amd64</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1297668797"><span><a href="#z1297668797">◯</a></span></span><b>verze</b> (instalovaná/dostupná)<span class="cislo">#4 </span><sup><a href="#kapsprvblickuppc7" id="kapsprvblickuppcr7" title="Je-li dostupných víc verzí balíčku, parametr %V vybere tu, která by se nejspíš instalovala.">(7)</a>,&nbsp;<a href="#kapsprvblickuppc8" id="kapsprvblickuppcr8" title="Není-li instalovaná, resp. dostupná žádná verze, tyto parametry vypíšou „&lt;žádná&gt;“ a ignorují snahu o změnu lokalizace. Pro přenositelnost je proto doporučuji ve skriptech testovat proti regulárnímu výrazu „&lt;.*&gt;“ místo porovnání s konkrétní hodnotou.">(8)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1297668797"><span><a href="#z1297668797">◯</a></span></span><b>verze</b> (instalovaná/dostupná)<span class="cislo">#4 </span><sup><a href="#kapsprvblickuppc8" id="kapsprvblickuppcr8" title="Je-li dostupných víc verzí balíčku, parametr %V vybere tu, která by se nejspíš instalovala.">(8)</a>,&nbsp;<a href="#kapsprvblickuppc9" id="kapsprvblickuppcr9" title="Není-li instalovaná, resp. dostupná žádná verze, tyto parametry vypíšou „&lt;žádná&gt;“ a ignorují snahu o změnu lokalizace. Pro přenositelnost je proto doporučuji ve skriptech testovat proti regulárnímu výrazu „&lt;.*&gt;“ místo porovnání s konkrétní hodnotou.">(9)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">%v = 2.8.22-1</div>
 <div class="radekzaklinadla">%V = 2.8.22-1</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z289490605"><span><a href="#z289490605">⡳</a></span></span><b>archiv</b> balíčku v repozitáři<span class="cislo">#5 </span><sup><a href="#kapsprvblickuppc9" id="kapsprvblickuppcr9" title="Je-li dostupných víc verzí balíčku, tento parametr zohledňuje pouze nejnovější verzi. Je-li dostupná ve více archivech, vypíše parametr %t všechny dané archivy oddělené čárkou, typicky např. „bionic-security,bionic-updates“.">(9)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z289490605"><span><a href="#z289490605">⡳</a></span></span><b>archiv</b> balíčku v repozitáři<span class="cislo">#5 </span><sup><a href="#kapsprvblickuppc10" id="kapsprvblickuppcr10" title="Je-li dostupných víc verzí balíčku, tento parametr zohledňuje pouze nejnovější verzi. Je-li dostupná ve více archivech, vypíše parametr %t všechny dané archivy oddělené čárkou, typicky např. „bionic-security,bionic-updates“.">(10)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">%t = bionic</div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1517809626"><span><a href="#z1517809626">Ꙫ</a></span></span><b>sekce a podsekce</b> balíčku<span class="cislo">#6 </span></div><div class="radky">
@@ -355,7 +359,7 @@ Za znakem „=“ následuje příklad hodnoty pro balíček „gimp“.
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1129518946"><span><a href="#z1129518946">❴</a></span></span>popis původu balíčku<span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla">%O = Ubuntu:18.04/bionic [amd64]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z366056758"><span><a href="#z366056758">↤</a></span></span>příznak automatické instalace<span class="cislo">#9 </span><sup><a href="#kapsprvblickuppc10" id="kapsprvblickuppcr10" title="Pro balíčky instalované jen pro splnění závislosti jiného balíčku vypíše „A“, jinak vypíše prázdný řetězec.">(10)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z366056758"><span><a href="#z366056758">↤</a></span></span>příznak automatické instalace<span class="cislo">#9 </span><sup><a href="#kapsprvblickuppc11" id="kapsprvblickuppcr11" title="Pro balíčky instalované jen pro splnění závislosti jiného balíčku vypíše „A“, jinak vypíše prázdný řetězec.">(11)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">%M =</div>
 </div></div>
 
@@ -387,7 +391,7 @@ Poznámka: „server“ je v uvedených příkazech zpravidla „flathub“.
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z494563282"><span><a href="#z494563282">˔</a></span></span>vypsat výchozí práva aplikace<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">flatpak info --show-permissions <i class="dopln">balíček</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z676360462"><span><a href="#z676360462">╧</a></span></span>vypsat podrobnější informace o balíčku (nainstalovaném/dostupném)<span class="cislo">#8 </span><sup><a href="#kapsprvblickuppc11" id="kapsprvblickuppcr11" title="Uvedení verze k balíčku je povinné, pokud je v repozitáři víc verzí téhož balíčku. Bez něj v takovém případě příkaz „flathub remote-info“ selže a vypíše dostupné verze.">(11)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z676360462"><span><a href="#z676360462">╧</a></span></span>vypsat podrobnější informace o balíčku (nainstalovaném/dostupném)<span class="cislo">#8 </span><sup><a href="#kapsprvblickuppc12" id="kapsprvblickuppcr12" title="Uvedení verze k balíčku je povinné, pokud je v repozitáři víc verzí téhož balíčku. Bez něj v takovém případě příkaz „flathub remote-info“ selže a vypíše dostupné verze.">(12)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">flatpak info <i class="dopln">balíček</i></div>
 <div class="radekzaklinadla">flatpak remote-info <i class="dopln">server</i> <i class="dopln">balíček</i><span class="volznak">[</span>//<i class="dopln">verze</i><span class="volznak">]</span></div>
 </div></div>
@@ -398,7 +402,7 @@ Poznámka: „server“ je v uvedených příkazech zpravidla „flathub“.
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z902681702"><span><a href="#z902681702">☟</a></span></span>spustit program z balíčku bez přístupu k síti<span class="cislo">#10 </span></div><div class="radky">
 <div class="radekzaklinadla">flatpak run --unshare=network <i class="dopln">balíček</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z386991564"><span><a href="#z386991564">ͳ</a></span></span>spustit GIMP s přístupem jen ke čtení k většině systému souborů<span class="cislo">#11 </span><sup><a href="#kapsprvblickuppc12" id="kapsprvblickuppcr12" title="K provedení tohoto příkazu musíte mít daný balíček nainstalovaný.">(12)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z386991564"><span><a href="#z386991564">ͳ</a></span></span>spustit GIMP s přístupem jen ke čtení k většině systému souborů<span class="cislo">#11 </span><sup><a href="#kapsprvblickuppc13" id="kapsprvblickuppcr13" title="K provedení tohoto příkazu musíte mít daný balíček nainstalovaný.">(13)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">flatpak run --nofilesystem=host --filesystem=host:ro org.gimp.GIMP</div>
 </div></div>
 
@@ -444,7 +448,7 @@ Poznámka: „server“ je v uvedených příkazech zpravidla „flathub“.
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z330221712x"><span><a href="#z330221712x">⠶</a></span></span><b>vypsat</b> nainstalované balíčky<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">snap list</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1448551697"><span><a href="#z1448551697">▞</a></span></span>vypsat seznam všech dostupných balíčků<span class="cislo">#2 </span><sup><a href="#kapsprvblickuppc13" id="kapsprvblickuppcr13" title="Poznámka: provedení tohoto příkazu může trvat i několik minut a vzhledem k velkému rozsahu vypsaných informací doporučuji výstup přesměrovat do souboru.">(13)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1448551697"><span><a href="#z1448551697">▞</a></span></span>vypsat seznam všech dostupných balíčků<span class="cislo">#2 </span><sup><a href="#kapsprvblickuppc14" id="kapsprvblickuppcr14" title="Poznámka: provedení tohoto příkazu může trvat i několik minut a vzhledem k velkému rozsahu vypsaných informací doporučuji výstup přesměrovat do souboru.">(14)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">(for X in {a..z} {0..9}; do snap find <span class="volznak">[</span>--narrow<span class="volznak">]</span> $X | sed 1d; done) | tr -s &quot;<span class="viditelnamezera">&nbsp;</span>&quot; | sort -iu | sed &quot;$(printf &quot;%s/<span class="viditelnamezera">&nbsp;</span>/\\|/\\n&quot; s s s)&quot; | column -ts \| <span class="volznak">[</span>&gt; <i class="dopln">soubor</i><span class="volznak">]</span></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z964559854"><span><a href="#z964559854">❫</a></span></span>vypsat podrobnější <b>informace</b> o balíčku<span class="cislo">#3 </span></div><div class="radky">
@@ -464,10 +468,10 @@ Poznámka: „server“ je v uvedených příkazech zpravidla „flathub“.
 <div class="radekzaklinadla">sudo snap connect <i class="dopln">balíček</i>:<i class="dopln">jeho-konektor</i> <i class="dopln">jiný-balíček</i>:<i class="dopln">jeho-slot</i></div>
 <div class="radekzaklinadla">sudo snap disconnect <i class="dopln">balíček</i>:<i class="dopln">konektor-nebo-slot</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1422821248"><span><a href="#z1422821248">䷽</a></span></span>stáhnout balíček k offline instalaci<span class="cislo">#3 </span><sup><a href="#kapsprvblickuppc14" id="kapsprvblickuppcr14" title="Kanál může být: edge, beta, candidate nebo stable.">(14)</a>,&nbsp;<a href="#kapsprvblickuppc15" id="kapsprvblickuppcr15" title="Poznámka: tento příkaz stáhne pouze uvedený balíček, ne však jeho závislosti.">(15)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1422821248"><span><a href="#z1422821248">䷽</a></span></span>stáhnout balíček k offline instalaci<span class="cislo">#3 </span><sup><a href="#kapsprvblickuppc15" id="kapsprvblickuppcr15" title="Kanál může být: edge, beta, candidate nebo stable.">(15)</a>,&nbsp;<a href="#kapsprvblickuppc16" id="kapsprvblickuppcr16" title="Poznámka: tento příkaz stáhne pouze uvedený balíček, ne však jeho závislosti.">(16)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">snap download <span class="volznak">[</span>--<i class="dopln">kanál</i><span class="volznak">]</span> <i class="dopln">balíček</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1511107964"><span><a href="#z1511107964">⚖</a></span></span>nainstalovat balíček offline<span class="cislo">#4 </span><sup><a href="#kapsprvblickuppc16" id="kapsprvblickuppcr16" title="Pokud má balíček závislosti na dalších balíčcích, je potřeba nejprve nainstalovat je, jinak se je bude se snap-démon nainstalovat online.">(16)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1511107964"><span><a href="#z1511107964">⚖</a></span></span>nainstalovat balíček offline<span class="cislo">#4 </span><sup><a href="#kapsprvblickuppc17" id="kapsprvblickuppcr17" title="Pokud má balíček závislosti na dalších balíčcích, je potřeba nejprve nainstalovat je, jinak se je bude se snap-démon nainstalovat online.">(17)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo snap ack <i class="dopln">soubor_s_balíčkem.assert</i></div>
 <div class="radekzaklinadla">sudo snap install <i class="dopln">soubor_s_balíčkem.snap</i></div>
 </div></div>
@@ -482,7 +486,7 @@ Poznámka: „server“ je v uvedených příkazech zpravidla „flathub“.
 <p>
 Poznámka: Neinstalujte balíček apt-file, pokud ho nevyužijete. Výrazně zvyšuje objem dat přednášených při každé aktualizaci (při každém „sudo apt-get update“)!
 </p>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1020806005"><span><a href="#z1020806005">◊</a></span></span>Flatpak<span class="cislo">#3 </span><sup><a href="#kapsprvblickuppc17" id="kapsprvblickuppcr17" title="PPA podle: https://flatpak.org/setup/Ubuntu/">(17)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1020806005"><span><a href="#z1020806005">◊</a></span></span>Flatpak<span class="cislo">#3 </span><sup><a href="#kapsprvblickuppc18" id="kapsprvblickuppcr18" title="PPA podle: https://flatpak.org/setup/Ubuntu/">(18)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo add-apt-repository ppa:alexlarsson/flatpak</div>
 <div class="radekzaklinadla">sudo aptitude update</div>
 <div class="radekzaklinadla">sudo apt-get install flatpak <span class="volznak">[</span>gnome-software-plugin-flatpak<span class="volznak">]</span></div>
@@ -559,39 +563,41 @@ Pro APT: „man apt-get“ apod. (ale není příliš přehledná) Pro Flatpak: 
 </li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/linux/apt.md">TL;DR „apt“</a> (anglicky)
 </li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/linux/apt-key.md">TL;DR „apt-key“</a> (anglicky)
 </li><li><a href="https://www.youtube.com/watch?v=K0bkapSpzzk">Video „Flatpak, a technical walkthrough“</a> (anglicky)
-</li></ul><div class="ppc"><div id="kapsprvblickuppc1"><a href="#kapsprvblickuppcr1" class="cislopozn">1</a>&nbsp;Velikosti jsou uvedeny v kilobajtech.</div>
+</li></ul><div class="ppc"><div id="kapsprvblickuppc1"><a href="#kapsprvblickuppcr1" class="cislopozn">1</a>&nbsp;Ponechat celosystémové konfigurační soubory má smysl v případě, že chcete zachovat konfiguraci balíčku pro případ, že byste ho v budoucnu znovu nainstaloval/a. Uživatelskou konfiguraci programů (uloženou v domovských adresářích) APT ani DPKG odstranit neumí.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapsprvblickuppc2"><a href="#kapsprvblickuppcr2" class="cislopozn">2</a>&nbsp;Poznámka: vypíše i balíčky, jejichž upgrade není možný např. kvůli konfliktu s jiným balíčkem.</div>
+<div id="kapsprvblickuppc2"><a href="#kapsprvblickuppcr2" class="cislopozn">2</a>&nbsp;Velikosti jsou uvedeny v kilobajtech.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapsprvblickuppc3"><a href="#kapsprvblickuppcr3" class="cislopozn">3</a>&nbsp;Poznámka: Ve výpisu „dpkg-query -L“ se typicky objevují také společné adresáře jako /etc či /usr; není příliš spolehnutí na to, že jde pouze o soubory příslušné danému balíčku.</div>
+<div id="kapsprvblickuppc3"><a href="#kapsprvblickuppcr3" class="cislopozn">3</a>&nbsp;Poznámka: vypíše i balíčky, jejichž upgrade není možný např. kvůli konfliktu s jiným balíčkem.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapsprvblickuppc4"><a href="#kapsprvblickuppcr4" class="cislopozn">4</a>&nbsp;Příkazy „get“ se provádějí na online počítači a stáhnout vše, co je potřeba, do uvedeného archivu typu zip, příkazy „set“ a „install“ se spouštějí na offline počítači.</div>
+<div id="kapsprvblickuppc4"><a href="#kapsprvblickuppcr4" class="cislopozn">4</a>&nbsp;Poznámka: Ve výpisu „dpkg-query -L“ se typicky objevují také společné adresáře jako /etc či /usr; není příliš spolehnutí na to, že jde pouze o soubory příslušné danému balíčku.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapsprvblickuppc5"><a href="#kapsprvblickuppcr5" class="cislopozn">5</a>&nbsp;Pozor! Tento filtr zahrne i balíčky, které nemohou být aktualizovány, protože tomu brání konflikt mezi balíčky nebo zákaz jejich instalace! Naopak nezahrnuje balíčky, které budou nově instalovány pouze pro splnění nově vzniklých závislostí. Proto tento filtr není tak praktický, jak by se mohl zdát.</div>
+<div id="kapsprvblickuppc5"><a href="#kapsprvblickuppcr5" class="cislopozn">5</a>&nbsp;Příkazy „get“ se provádějí na online počítači a stáhnout vše, co je potřeba, do uvedeného archivu typu zip, příkazy „set“ a „install“ se spouštějí na offline počítači.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapsprvblickuppc6"><a href="#kapsprvblickuppcr6" class="cislopozn">6</a>&nbsp;Název balíčku jiné než výchozí architektury bude doplněn o architekturu, např. „gimp:i386“.</div>
+<div id="kapsprvblickuppc6"><a href="#kapsprvblickuppcr6" class="cislopozn">6</a>&nbsp;Pozor! Tento filtr zahrne i balíčky, které nemohou být aktualizovány, protože tomu brání konflikt mezi balíčky nebo zákaz jejich instalace! Naopak nezahrnuje balíčky, které budou nově instalovány pouze pro splnění nově vzniklých závislostí. Proto tento filtr není tak praktický, jak by se mohl zdát.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapsprvblickuppc7"><a href="#kapsprvblickuppcr7" class="cislopozn">7</a>&nbsp;Je-li dostupných víc verzí balíčku, parametr %V vybere tu, která by se nejspíš instalovala.</div>
+<div id="kapsprvblickuppc7"><a href="#kapsprvblickuppcr7" class="cislopozn">7</a>&nbsp;Název balíčku jiné než výchozí architektury bude doplněn o architekturu, např. „gimp:i386“.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapsprvblickuppc8"><a href="#kapsprvblickuppcr8" class="cislopozn">8</a>&nbsp;Není-li instalovaná, resp. dostupná žádná verze, tyto parametry vypíšou „&lt;žádná&gt;“ a ignorují snahu o změnu lokalizace. Pro přenositelnost je proto doporučuji ve skriptech testovat proti regulárnímu výrazu „&lt;.*&gt;“ místo porovnání s konkrétní hodnotou.</div>
+<div id="kapsprvblickuppc8"><a href="#kapsprvblickuppcr8" class="cislopozn">8</a>&nbsp;Je-li dostupných víc verzí balíčku, parametr %V vybere tu, která by se nejspíš instalovala.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapsprvblickuppc9"><a href="#kapsprvblickuppcr9" class="cislopozn">9</a>&nbsp;Je-li dostupných víc verzí balíčku, tento parametr zohledňuje pouze nejnovější verzi. Je-li dostupná ve více archivech, vypíše parametr %t všechny dané archivy oddělené čárkou, typicky např. „bionic-security,bionic-updates“.</div>
+<div id="kapsprvblickuppc9"><a href="#kapsprvblickuppcr9" class="cislopozn">9</a>&nbsp;Není-li instalovaná, resp. dostupná žádná verze, tyto parametry vypíšou „&lt;žádná&gt;“ a ignorují snahu o změnu lokalizace. Pro přenositelnost je proto doporučuji ve skriptech testovat proti regulárnímu výrazu „&lt;.*&gt;“ místo porovnání s konkrétní hodnotou.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapsprvblickuppc10"><a href="#kapsprvblickuppcr10" class="cislopozn">10</a>&nbsp;Pro balíčky instalované jen pro splnění závislosti jiného balíčku vypíše „A“, jinak vypíše prázdný řetězec.</div>
+<div id="kapsprvblickuppc10"><a href="#kapsprvblickuppcr10" class="cislopozn">10</a>&nbsp;Je-li dostupných víc verzí balíčku, tento parametr zohledňuje pouze nejnovější verzi. Je-li dostupná ve více archivech, vypíše parametr %t všechny dané archivy oddělené čárkou, typicky např. „bionic-security,bionic-updates“.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapsprvblickuppc11"><a href="#kapsprvblickuppcr11" class="cislopozn">11</a>&nbsp;Uvedení verze k balíčku je povinné, pokud je v repozitáři víc verzí téhož balíčku. Bez něj v takovém případě příkaz „flathub remote-info“ selže a vypíše dostupné verze.</div>
+<div id="kapsprvblickuppc11"><a href="#kapsprvblickuppcr11" class="cislopozn">11</a>&nbsp;Pro balíčky instalované jen pro splnění závislosti jiného balíčku vypíše „A“, jinak vypíše prázdný řetězec.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapsprvblickuppc12"><a href="#kapsprvblickuppcr12" class="cislopozn">12</a>&nbsp;K provedení tohoto příkazu musíte mít daný balíček nainstalovaný.</div>
+<div id="kapsprvblickuppc12"><a href="#kapsprvblickuppcr12" class="cislopozn">12</a>&nbsp;Uvedení verze k balíčku je povinné, pokud je v repozitáři víc verzí téhož balíčku. Bez něj v takovém případě příkaz „flathub remote-info“ selže a vypíše dostupné verze.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapsprvblickuppc13"><a href="#kapsprvblickuppcr13" class="cislopozn">13</a>&nbsp;Poznámka: provedení tohoto příkazu může trvat i několik minut a vzhledem k velkému rozsahu vypsaných informací doporučuji výstup přesměrovat do souboru.</div>
+<div id="kapsprvblickuppc13"><a href="#kapsprvblickuppcr13" class="cislopozn">13</a>&nbsp;K provedení tohoto příkazu musíte mít daný balíček nainstalovaný.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapsprvblickuppc14"><a href="#kapsprvblickuppcr14" class="cislopozn">14</a>&nbsp;Kanál může být: edge, beta, candidate nebo stable.</div>
+<div id="kapsprvblickuppc14"><a href="#kapsprvblickuppcr14" class="cislopozn">14</a>&nbsp;Poznámka: provedení tohoto příkazu může trvat i několik minut a vzhledem k velkému rozsahu vypsaných informací doporučuji výstup přesměrovat do souboru.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapsprvblickuppc15"><a href="#kapsprvblickuppcr15" class="cislopozn">15</a>&nbsp;Poznámka: tento příkaz stáhne pouze uvedený balíček, ne však jeho závislosti.</div>
+<div id="kapsprvblickuppc15"><a href="#kapsprvblickuppcr15" class="cislopozn">15</a>&nbsp;Kanál může být: edge, beta, candidate nebo stable.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapsprvblickuppc16"><a href="#kapsprvblickuppcr16" class="cislopozn">16</a>&nbsp;Pokud má balíček závislosti na dalších balíčcích, je potřeba nejprve nainstalovat je, jinak se je bude se snap-démon nainstalovat online.</div>
+<div id="kapsprvblickuppc16"><a href="#kapsprvblickuppcr16" class="cislopozn">16</a>&nbsp;Poznámka: tento příkaz stáhne pouze uvedený balíček, ne však jeho závislosti.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapsprvblickuppc17"><a href="#kapsprvblickuppcr17" class="cislopozn">17</a>&nbsp;PPA podle: https://flatpak.org/setup/Ubuntu/</div>
+<div id="kapsprvblickuppc17"><a href="#kapsprvblickuppcr17" class="cislopozn">17</a>&nbsp;Pokud má balíček závislosti na dalších balíčcích, je potřeba nejprve nainstalovat je, jinak se je bude se snap-démon nainstalovat online.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapsprvblickuppc18"><a href="#kapsprvblickuppcr18" class="cislopozn">18</a>&nbsp;PPA podle: https://flatpak.org/setup/Ubuntu/</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 </div>
 
@@ -608,7 +614,7 @@ Pro APT: „man apt-get“ apod. (ale není příliš přehledná) Pro Flatpak: 
 </nav>
 
 
-<div class="odkazydole"><div><a href="diskove-oddily.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly</a><a href="vim.htm"><img src="obrazky/ik/vim.png" alt="" width="32" height="32">Vim</a><a href="datum-cas-kalendar.htm"><img src="obrazky/ik/datum-cas-kalendar.png" alt="" width="32" height="32">Datum, čas a kalendář</a></div></div>
+<div class="odkazydole"><div><a href="vim.htm"><img src="obrazky/ik/vim.png" alt="" width="32" height="32">Vim</a><a href="system.htm"><img src="obrazky/ik/system.png" alt="" width="32" height="32">Systém</a><a href="diskove-oddily.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly</a></div></div>
 
 
 </article>
@@ -657,7 +663,7 @@ Pro APT: „man apt-get“ apod. (ale není příliš přehledná) Pro Flatpak: 
 <a href="#cast3x4" class="podsekce">/4 Zákaz aktualizace a označení „automaticky“</a>
 <a href="#cast3x5" class="podsekce">/5 PPA</a>
 <a href="#cast3x6" class="podsekce">/6 Jádra</a>
-<a href="#cast3x7" class="podsekce">/7 Správá důvěryhodných klíčů</a>
+<a href="#cast3x7" class="podsekce">/7 Správa důvěryhodných klíčů</a>
 <a href="#cast3x8" class="podsekce">/8 Offline provoz APT</a>
 <a href="#cast3x9" class="podsekce">/9 Odklonění</a>
 <a href="#cast3x10" class="podsekce">/10 Ostatní</a>

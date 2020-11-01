@@ -5,26 +5,26 @@
 
 <title>Regulární výrazy − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20201001.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20201001-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20201001-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20201001-svetly.css" title="Světlý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20201101.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20201101-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20201101-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20201101-svetly.css" title="Světlý motiv">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body>
 <div id="nahore"><div id="okno">
 <header>
-<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.0, Ch. Ch. (1. října 2020)</span>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.1, I. I. (1. listopadu 2020)</span>
 <span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
-<a href="#menukapitoly" class="menu"><span class="prvnipismeno">K</span>apitoly</a>
 <a href="#menuosnova" class="menu"><span class="prvnipismeno">O</span>snova</a>
+<a href="#menukapitoly" class="menu"><span class="prvnipismeno">K</span>apitoly</a>
 <a href="#menustitky" class="menu"><span class="prvnipismeno">Š</span>títky</a>
 <a href="#menunapoveda" class="menu"><span class="prvnipismeno">N</span>ápověda</a>
-<a href="promenne.htm" rel="prev" title="11. Proměnné prostředí a interpretu" accesskey="p" class="predchozi">Předchozí&nbsp;kapitola</a>
+<a href="prace-s-archivy.htm" rel="prev" title="6. Práce s archivy" accesskey="p" class="predchozi">Předchozí&nbsp;kapitola</a>
 <a href="index.htm" class="prehled"><span class="prvnipismeno">P</span>řehled kapitol</a>
-<a href="sed.htm" rel="next" title="13. Sed" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
+<a href="sprava-balicku.htm" rel="next" title="8. Správa balíčků" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
 </nav>
 
 <div class="slogan-veskera-moc">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
@@ -33,9 +33,9 @@
 <nav class="horni">
 <div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
 <span class="prev">
-<a href="promenne.htm" rel="prev" title="11. Proměnné prostředí a interpretu" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="prace-s-archivy.htm" rel="prev" title="6. Práce s archivy" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!- -
-- ->&nbsp;| <a href="sed.htm" rel="next" title="13. Sed" accesskey="n">Následující&nbsp;kapitola</a>
+- ->&nbsp;| <a href="sprava-balicku.htm" rel="next" title="8. Správa balíčků" accesskey="n">Následující&nbsp;kapitola</a>
 </span>
 </nav>
 -->
@@ -43,10 +43,10 @@
 
 <article>
 
-<h1 class="kapitola">12. <img src="obrazky/ik/regularni-vyrazy.png" alt="" width="64" height="64"> Regulární výrazy</h1>
-<div class="stitky"><a href="x-stitky.htm#sbsh">bash</a>
-<a href="x-stitky.htm#ssyntxe">syntaxe</a>
-<a href="x-stitky.htm#szprcovntextu">zpracování textu</a>
+<h1 class="kapitola">7. <img src="obrazky/ik/regularni-vyrazy.png" alt="" width="64" height="64"> Regulární výrazy</h1>
+<div class="stitky"><a href="x-stitky.htm#sbash">bash</a>
+<a href="x-stitky.htm#ssyntaxe">syntaxe</a>
+<a href="x-stitky.htm#szpracovanitextu">zpracování textu</a>
 </div>
 <h2 id="cast1"><a href="#cast1"><span class="cislo">1.</span> Úvod</a></h2>
 <p class="ponadpisu">
@@ -59,13 +59,15 @@ vyhledávání řetězců z této množiny v textu. S takto vyhledanými řet
 Regulární výrazy se objevují se ve většině programovacích jazyků,
 ale také v textových editorech či manuálním nastavení e-mailových filtrů.
 </p><p>
-V Linuxu se bohužel vyskytují tři různé syntaxe regulárních výrazů – základní
+V linuxu se bohužel vyskytují tři různé syntaxe regulárních výrazů – základní
 regulární výrazy, rozšířené regulární výrazy a regulární výrazy jazyka Perl.
 Z praktických důvodů považuji za nejdůležitější rozšířené regulární výrazy,
 a proto kdykoliv napíšu „regulární výraz“ bez dalšího upřesnění, mám na mysli
 rozšířený regulární výraz. Kde se od sebe syntaxe liší, bude to u zaklínadel
 upřesněno; kde není uvedena samostatná varianta pro Perl, platí pro Perl
 varianta pro rozšířený regulární výraz.
+</p><p>
+GNU Bash je vyvíjen v rámci projektu GNU.
 </p>
 
 <h2 id="cast2"><a href="#cast2"><span class="cislo">2.</span> Definice</a></h2>
@@ -79,15 +81,15 @@ varianta pro rozšířený regulární výraz.
 </li></ul>
 <h2 id="cast3" class="zaklinadla"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla: Regulární výrazy</a></h2>
 
-<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 13 (Regulární výrazy), sekce 3 (Zaklínadla: Regulární výrazy), podsekce 1 (Jednotlivé znaky)"><sup>3/</sup>1 Jednotlivé znaky</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1348571199"><span><a href="#z1348571199">ᚂ</a></span></span>konkrétní znak<span class="cislo">#1 </span><sup><a href="#kapregulrnivyrzyppc1" id="kapregulrnivyrzyppcr1" title="Některé znaky musejí být v regulárních výrazech pro zbavení svého speciálního významu odzvláštněny zpětným lomítkem.">(1)</a></sup></div><div class="radky">
+<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 8 (Regulární výrazy), sekce 3 (Zaklínadla: Regulární výrazy), podsekce 1 (Jednotlivé znaky)"><sup>3/</sup>1 Jednotlivé znaky</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1348571199"><span><a href="#z1348571199">ᚂ</a></span></span>konkrétní znak<span class="cislo">#1 </span><sup><a href="#kapregularnivyrazyppc1" id="kapregularnivyrazyppcr1" title="Některé znaky musejí být v regulárních výrazech pro zbavení svého speciálního významu odzvláštněny zpětným lomítkem.">(1)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">znak</i></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1400538885"><span><a href="#z1400538885">┙</a></span></span><b>libovolný znak</b> (rozšířený i základní/Perl)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">.</div>
 <div class="radekzaklinadla">(?:.|\n)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z751079040"><span><a href="#z751079040">➞</a></span></span>kterýkoliv <b>z uvedených znaků</b><span class="cislo">#3 </span><sup><a href="#kapregulrnivyrzyppc2" id="kapregulrnivyrzyppcr2" title="Uvnitř těchto hranatých závorek se speciální znaky neodzvláštňují zpětným lomítkem, ale uvedením na určitou pozici.">(2)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z751079040"><span><a href="#z751079040">➞</a></span></span>kterýkoliv <b>z uvedených znaků</b><span class="cislo">#3 </span><sup><a href="#kapregularnivyrazyppc2" id="kapregularnivyrazyppcr2" title="Uvnitř těchto hranatých závorek se speciální znaky neodzvláštňují zpětným lomítkem, ale uvedením na určitou pozici.">(2)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">[<i class="dopln">znaky</i>]</div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2114815523"><span><a href="#z2114815523">‗</a></span></span>libovolný znak <b>kromě uvedených</b><span class="cislo">#4 </span></div><div class="radky">
@@ -133,7 +135,7 @@ varianta pro rozšířený regulární výraz.
 <div class="radekzaklinadla">[[:upper:]]</div>
 </div></div>
 
-<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 13 (Regulární výrazy), sekce 3 (Zaklínadla: Regulární výrazy), podsekce 2 (Kvantifikátory (operátory opakování))"><sup>3/</sup>2 Kvantifikátory (operátory opakování)</a></span></h3>
+<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 8 (Regulární výrazy), sekce 3 (Zaklínadla: Regulární výrazy), podsekce 2 (Kvantifikátory (operátory opakování))"><sup>3/</sup>2 Kvantifikátory (operátory opakování)</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1476294323"><span><a href="#z1476294323">⨜</a></span></span><b>jednou nebo vůbec</b> (≤ 1)(rozšířený/základní)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">atom</i>?</div>
 <div class="radekzaklinadla"><i class="dopln">atom</i>\?</div>
@@ -166,13 +168,13 @@ varianta pro rozšířený regulární výraz.
 <div class="radekzaklinadla"><i class="dopln">atom</i><i class="dopln">kvantifikátor</i>?</div>
 </div></div>
 
-<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 13 (Regulární výrazy), sekce 3 (Zaklínadla: Regulární výrazy), podsekce 3 (Operátor „nebo“)"><sup>3/</sup>3 Operátor „nebo“</a></span></h3>
+<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 8 (Regulární výrazy), sekce 3 (Zaklínadla: Regulární výrazy), podsekce 3 (Operátor „nebo“)"><sup>3/</sup>3 Operátor „nebo“</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z160317836"><span><a href="#z160317836">⢋</a></span></span>některý z podvýrazů (rozšířený/základní)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">výraz 1</i><span class="volznak">[</span>|<i class="dopln">další výraz</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla"><i class="dopln">výraz 1</i><span class="volznak">[</span>\|<i class="dopln">další výraz</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
 
-<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 13 (Regulární výrazy), sekce 3 (Zaklínadla: Regulární výrazy), podsekce 4 (Kotvy a hranice (pozice))"><sup>3/</sup>4 Kotvy a hranice (pozice)</a></span></h3>
+<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 8 (Regulární výrazy), sekce 3 (Zaklínadla: Regulární výrazy), podsekce 4 (Kotvy a hranice (pozice))"><sup>3/</sup>4 Kotvy a hranice (pozice)</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1901707423"><span><a href="#z1901707423">ⵘ</a></span></span>začátek testovaného řetězce (rozšířený i základní/víceřádkový režim/Perl)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">^</div>
 <div class="radekzaklinadla">\`</div>
@@ -201,7 +203,7 @@ varianta pro rozšířený regulární výraz.
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
-<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 13 (Regulární výrazy), sekce 3 (Zaklínadla: Regulární výrazy), podsekce 5 (Seskupení)"><sup>3/</sup>5 Seskupení</a></span></h3>
+<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 8 (Regulární výrazy), sekce 3 (Zaklínadla: Regulární výrazy), podsekce 5 (Seskupení)"><sup>3/</sup>5 Seskupení</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2039150421"><span><a href="#z2039150421">♀</a></span></span>seskupení (rozšířený/základní)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">(<i class="dopln">podvýraz</i>)</div>
 <div class="radekzaklinadla">\(<i class="dopln">podvýraz</i>\)</div>
@@ -213,21 +215,21 @@ varianta pro rozšířený regulární výraz.
 <div class="radekzaklinadla">(?&lt;<i class="dopln">název</i>&gt;<i class="dopln">podvýraz</i>)</div>
 </div></div>
 
-<h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 13 (Regulární výrazy), sekce 3 (Zaklínadla: Regulární výrazy), podsekce 6 (Paměť (omezená podpora))"><sup>3/</sup>6 Paměť (omezená podpora)</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1266666139"><span><a href="#z1266666139">↹</a></span></span>původní podřetězec odpovídající celému regulárnímu výrazu (rozšířený a základní/Perl)<span class="cislo">#1 </span><sup><a href="#kapregulrnivyrzyppc3" id="kapregulrnivyrzyppcr3" title="Platí jen v rámci řetězce náhrady, ne v samotném regulárním výrazu.">(3)</a></sup></div><div class="radky">
+<h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 8 (Regulární výrazy), sekce 3 (Zaklínadla: Regulární výrazy), podsekce 6 (Paměť (omezená podpora))"><sup>3/</sup>6 Paměť (omezená podpora)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1266666139"><span><a href="#z1266666139">↹</a></span></span>původní podřetězec odpovídající celému regulárnímu výrazu (rozšířený a základní/Perl)<span class="cislo">#1 </span><sup><a href="#kapregularnivyrazyppc3" id="kapregularnivyrazyppcr3" title="Platí jen v rámci řetězce náhrady, ne v samotném regulárním výrazu.">(3)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">&amp;</div>
 <div class="radekzaklinadla">$&amp;</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1920668123"><span><a href="#z1920668123">⨁</a></span></span><b>záchyt</b> – podřetězec původního řetězce odpovídající seskupení (varianty)<span class="cislo">#2 </span><sup><a href="#kapregulrnivyrzyppc4" id="kapregulrnivyrzyppcr4" title="Zdvojení zpětného lomítka v GNU awk vyplývá ze skutečnosti, že ho (obvykle) zadáváte jako řetězec v programovacím jazyce. Pokud byste náhodou např. načítali řetězec náhrady ze souboru, bude tam zpětné lomítko patřit pouze jedno!">(4)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1920668123"><span><a href="#z1920668123">⨁</a></span></span><b>záchyt</b> – podřetězec původního řetězce odpovídající seskupení (varianty)<span class="cislo">#2 </span><sup><a href="#kapregularnivyrazyppc4" id="kapregularnivyrazyppcr4" title="Zdvojení zpětného lomítka v GNU awk vyplývá ze skutečnosti, že ho (obvykle) zadáváte jako řetězec v programovacím jazyce. Pokud byste náhodou např. načítali řetězec náhrady ze souboru, bude tam zpětné lomítko patřit pouze jedno!">(4)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">\<i class="dopln">pořadové-číslo-1-až-9</i><span class="prikladhodnoty">⊨ v reg. výrazu: GNU sed a Perl; v řetězci náhrady: GNU sed</span></div>
 <div class="radekzaklinadla">\\<i class="dopln">pořadové-číslo-1-až-9</i><span class="prikladhodnoty">⊨ v řetězci náhrady: GNU awk (jen funkce gensub())</span></div>
 <div class="radekzaklinadla">$<i class="dopln">pořadové-číslo-1-až-9</i><span class="prikladhodnoty">⊨ v řetězci náhrady: Perl</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1404093939"><span><a href="#z1404093939">⬗</a></span></span>totéž, ale první písmeno malé/velké<span class="cislo">#3 </span><sup><a href="#kapregulrnivyrzyppc5" id="kapregulrnivyrzyppcr5" title="Tuto variantu podporuje pravděpodobně jen Perl a sed a smí se vyskytnout pouze v řetězci pro náhradu, nikoliv přímo ve vlastním regulárním výrazu.">(5)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1404093939"><span><a href="#z1404093939">⬗</a></span></span>totéž, ale první písmeno malé/velké<span class="cislo">#3 </span><sup><a href="#kapregularnivyrazyppc5" id="kapregularnivyrazyppcr5" title="Tuto variantu podporuje pravděpodobně jen Perl a sed a smí se vyskytnout pouze v řetězci pro náhradu, nikoliv přímo ve vlastním regulárním výrazu.">(5)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">\l\<i class="dopln">pořadové-číslo-1-až-9</i>\E</div>
 <div class="radekzaklinadla">\u\<i class="dopln">pořadové-číslo-1-až-9</i>\E</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1817761238"><span><a href="#z1817761238">☒</a></span></span>totéž, ale celý text malými/velkými písmeny<span class="cislo">#4 </span><sup><a href="#kapregulrnivyrzyppc6" id="kapregulrnivyrzyppcr6" title="Viz poznámku k předchozímu zaklínadlu.">(6)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1817761238"><span><a href="#z1817761238">☒</a></span></span>totéž, ale celý text malými/velkými písmeny<span class="cislo">#4 </span><sup><a href="#kapregularnivyrazyppc6" id="kapregularnivyrazyppcr6" title="Viz poznámku k předchozímu zaklínadlu.">(6)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">\L\<i class="dopln">pořadové-číslo-1-až-9</i>\E</div>
 <div class="radekzaklinadla">\U\<i class="dopln">pořadové-číslo-1-až-9</i>\E</div>
 </div></div>
@@ -236,7 +238,7 @@ varianta pro rozšířený regulární výraz.
 <div class="radekzaklinadla">\g{<i class="dopln">název</i>}</div>
 </div></div>
 
-<h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 13 (Regulární výrazy), sekce 3 (Zaklínadla: Regulární výrazy), podsekce 7 (Vyhlížení (jen Perl))"><sup>3/</sup>7 Vyhlížení (jen Perl)</a></span></h3>
+<h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 8 (Regulární výrazy), sekce 3 (Zaklínadla: Regulární výrazy), podsekce 7 (Vyhlížení (jen Perl))"><sup>3/</sup>7 Vyhlížení (jen Perl)</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z582787748"><span><a href="#z582787748">⪯</a></span></span>ověřit, že za aktuální pozicí <b>následuje</b> shoda s daným regulárním podvýrazem<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">(?=<i class="dopln">podvýraz</i>)</div>
 </div></div>
@@ -252,18 +254,18 @@ varianta pro rozšířený regulární výraz.
 
 <h2 id="cast4" class="zaklinadla"><a href="#cast4"><span class="cislo">4.</span> Zaklínadla: Vzorky bashe</a></h2>
 
-<h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 13 (Regulární výrazy), sekce 4 (Zaklínadla: Vzorky bashe), podsekce 1 (Základní)"><sup>4/</sup>1 Základní</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1348571199x"><span><a href="#z1348571199x">ᚂ</a></span></span>konkrétní znak<span class="cislo">#1 </span><sup><a href="#kapregulrnivyrzyppc7" id="kapregulrnivyrzyppcr7" title="Znaky, které mají pro bash zvláštní význam, je nutno ve vzorku odzvláštnit, nejčastěji zpětným lomítkem.">(7)</a></sup></div><div class="radky">
+<h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 8 (Regulární výrazy), sekce 4 (Zaklínadla: Vzorky bashe), podsekce 1 (Základní)"><sup>4/</sup>1 Základní</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1348571199x"><span><a href="#z1348571199x">ᚂ</a></span></span>konkrétní znak<span class="cislo">#1 </span><sup><a href="#kapregularnivyrazyppc7" id="kapregularnivyrazyppcr7" title="Znaky, které mají pro bash zvláštní význam, je nutno ve vzorku odzvláštnit, nejčastěji zpětným lomítkem.">(7)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">znak</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1971951562"><span><a href="#z1971951562">ᚈ</a></span></span>žádný či více libovolných znaků/jeden libovolný znak<span class="cislo">#2 </span><sup><a href="#kapregulrnivyrzyppc8" id="kapregulrnivyrzyppcr8" title="V bashi tyto znaky nepokrývají tečku jako první znak skrytých souborů a adresářů.">(8)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1971951562"><span><a href="#z1971951562">ᚈ</a></span></span>žádný či více libovolných znaků/jeden libovolný znak<span class="cislo">#2 </span><sup><a href="#kapregularnivyrazyppc8" id="kapregularnivyrazyppcr8" title="V bashi tyto znaky nepokrývají tečku jako první znak skrytých souborů a adresářů.">(8)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">*</div>
 <div class="radekzaklinadla">?</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z51248741"><span><a href="#z51248741">᚜</a></span></span>kterýkoliv z uvedených znaků<span class="cislo">#3 </span><sup><a href="#kapregulrnivyrzyppc9" id="kapregulrnivyrzyppcr9" title="Znaky „!“, „^“ a „-“ mají uvnitř těchto závorek zvláštní význam a při použití jako znaky je nutno je odzvláštnit! V bashi tato konstrukce nepokrývá tečku jako první znak skrytých souborů a adresářů.">(9)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z51248741"><span><a href="#z51248741">᚜</a></span></span>kterýkoliv z uvedených znaků<span class="cislo">#3 </span><sup><a href="#kapregularnivyrazyppc9" id="kapregularnivyrazyppcr9" title="Znaky „!“, „^“ a „-“ mají uvnitř těchto závorek zvláštní význam a při použití jako znaky je nutno je odzvláštnit! V bashi tato konstrukce nepokrývá tečku jako první znak skrytých souborů a adresářů.">(9)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">[<i class="dopln">znaky</i>]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1362604252"><span><a href="#z1362604252">≾</a></span></span>kterýkoliv kromě uvedených znaků<span class="cislo">#4 </span><sup><a href="#kapregulrnivyrzyppc10" id="kapregulrnivyrzyppcr10" title="Znaky „!“, „^“ a „-“ mají uvnitř těchto závorek zvláštní význam a při použití jako znaky je nutno je odzvláštnit! V bashi tato konstrukce nepokrývá tečku jako první znak skrytých souborů a adresářů.">(10)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1362604252"><span><a href="#z1362604252">≾</a></span></span>kterýkoliv kromě uvedených znaků<span class="cislo">#4 </span><sup><a href="#kapregularnivyrazyppc10" id="kapregularnivyrazyppcr10" title="Znaky „!“, „^“ a „-“ mají uvnitř těchto závorek zvláštní význam a při použití jako znaky je nutno je odzvláštnit! V bashi tato konstrukce nepokrývá tečku jako první znak skrytých souborů a adresářů.">(10)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">[^<i class="dopln">znaky</i>]</div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2022931553x"><span><a href="#z2022931553x">⬢</a></span></span><b>bílý znak</b>/nebílý znak<span class="cislo">#5 </span></div><div class="radky">
@@ -293,7 +295,7 @@ varianta pro rozšířený regulární výraz.
 <div class="radekzaklinadla">[[:upper:]]</div>
 </div></div>
 
-<h3 id="cast4x2"><span><a href="#cast4x2" title="kapitola 13 (Regulární výrazy), sekce 4 (Zaklínadla: Vzorky bashe), podsekce 2 (Rozšířené (s kvantifikací))"><sup>4/</sup>2 Rozšířené (s kvantifikací)</a></span></h3>
+<h3 id="cast4x2"><span><a href="#cast4x2" title="kapitola 8 (Regulární výrazy), sekce 4 (Zaklínadla: Vzorky bashe), podsekce 2 (Rozšířené (s kvantifikací))"><sup>4/</sup>2 Rozšířené (s kvantifikací)</a></span></h3>
 <p class="ponadpisu">
 Podvzorek v následujících zaklínadlech je jakýkoliv vzorek, který by byl platný sám o sobě.
 </p>
@@ -332,7 +334,7 @@ Podvzorek v následujících zaklínadlech je jakýkoliv vzorek, který by byl 
 
 <h2 id="cast5"><a href="#cast5"><span class="cislo">5.</span> Parametry příkazů</a></h2>
 
-<h3 id="cast5x1"><span><a href="#cast5x1" title="kapitola 13 (Regulární výrazy), sekce 5 (Parametry příkazů), podsekce 1 (bash)"><sup>5/</sup>1 bash</a></span></h3>
+<h3 id="cast5x1"><span><a href="#cast5x1" title="kapitola 8 (Regulární výrazy), sekce 5 (Parametry příkazů), podsekce 1 (bash)"><sup>5/</sup>1 bash</a></span></h3>
 <div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla">[[ <i class="dopln">řetězec</i> =~ <i class="dopln">regulární-výraz</i> ]]</div>
 </div></div>
@@ -363,7 +365,7 @@ Příklad:
 <div class="radekzaklinadla">[[ $prom = A@(0|1|2)C ]]</div>
 </div></div>
 
-<h3 id="cast5x2"><span><a href="#cast5x2" title="kapitola 13 (Regulární výrazy), sekce 5 (Parametry příkazů), podsekce 2 (egrep)"><sup>5/</sup>2 egrep</a></span></h3>
+<h3 id="cast5x2"><span><a href="#cast5x2" title="kapitola 8 (Regulární výrazy), sekce 5 (Parametry příkazů), podsekce 2 (egrep)"><sup>5/</sup>2 egrep</a></span></h3>
 <div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla">egrep <i class="dopln">parametry</i> <span class="volznak">[</span>-e<span class="volznak">]</span> '<i class="dopln">regulární výraz</i>' <span class="volznak">[</span><i class="dopln">soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
@@ -394,7 +396,7 @@ Příklad:
 Poznámka: příkaz „grep“ má tytéž parametry jako „egrep“, ale pracuje se základními regulárními výrazy.
 </p>
 
-<h3 id="cast5x3"><span><a href="#cast5x3" title="kapitola 13 (Regulární výrazy), sekce 5 (Parametry příkazů), podsekce 3 (gawk)"><sup>5/</sup>3 gawk</a></span></h3>
+<h3 id="cast5x3"><span><a href="#cast5x3" title="kapitola 8 (Regulární výrazy), sekce 5 (Parametry příkazů), podsekce 3 (gawk)"><sup>5/</sup>3 gawk</a></span></h3>
 <div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla">gawk <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> '/<i class="dopln">regulární výraz</i>/<span class="volznak">[</span>{<i class="dopln">příkazy</i>}<span class="volznak">]</span>' <i class="dopln">soubor</i><span class="tritecky"></span></div>
 </div></div>
@@ -406,7 +408,7 @@ Poznámka: příkaz „grep“ má tytéž parametry jako „egrep“, ale pracu
 
 </tbody></table>
 
-<h3 id="cast5x4"><span><a href="#cast5x4" title="kapitola 13 (Regulární výrazy), sekce 5 (Parametry příkazů), podsekce 4 (perl)"><sup>5/</sup>4 perl</a></span></h3>
+<h3 id="cast5x4"><span><a href="#cast5x4" title="kapitola 8 (Regulární výrazy), sekce 5 (Parametry příkazů), podsekce 4 (perl)"><sup>5/</sup>4 perl</a></span></h3>
 <div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla">perl -nwe 'if ($_ =~ /<i class="dopln">regulární výraz Perlu</i>/) {print $_}' &lt;<i class="dopln">vstupní-soubor</i></div>
 <div class="radekzaklinadla">perl -pwe 's/<i class="dopln">regulární výraz Perlu</i>/<i class="dopln">výraz náhrady</i>/<span class="volznak">[</span>g<span class="volznak">]</span>' &lt;<i class="dopln">vstupní-soubor</i></div>
@@ -423,7 +425,7 @@ Poznámka: příkaz „grep“ má tytéž parametry jako „egrep“, ale pracu
 
 </tbody></table>
 
-<h3 id="cast5x5"><span><a href="#cast5x5" title="kapitola 13 (Regulární výrazy), sekce 5 (Parametry příkazů), podsekce 5 (sed)"><sup>5/</sup>5 sed</a></span></h3>
+<h3 id="cast5x5"><span><a href="#cast5x5" title="kapitola 8 (Regulární výrazy), sekce 5 (Parametry příkazů), podsekce 5 (sed)"><sup>5/</sup>5 sed</a></span></h3>
 <div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla">sed <i class="dopln">parametry</i> <span class="volznak">[</span><span class="volznak">[</span>-e <i class="dopln">příkazy</i><span class="volznak">]</span><span class="tritecky"></span> -e<span class="volznak">]</span> <i class="dopln">příkazy</i> <span class="volznak">[</span><i class="dopln">vstupní-soubor</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
@@ -495,25 +497,25 @@ Pro zmíněné programy:
 </li><li><a href="https://packages.ubuntu.com/focal/gawk">Balíček „gawk“</a> (anglicky)
 </li><li><a href="https://packages.ubuntu.com/focal/perl">Balíček „perl“</a> (anglicky)
 </li><li><a href="https://packages.ubuntu.com/focal/sed">Balíček „sed“</a> (anglicky)
-</li></ul><div class="ppc"><div id="kapregulrnivyrzyppc1"><a href="#kapregulrnivyrzyppcr1" class="cislopozn">1</a>&nbsp;Některé znaky musejí být v regulárních výrazech pro zbavení svého speciálního významu odzvláštněny zpětným lomítkem.</div>
+</li></ul><div class="ppc"><div id="kapregularnivyrazyppc1"><a href="#kapregularnivyrazyppcr1" class="cislopozn">1</a>&nbsp;Některé znaky musejí být v regulárních výrazech pro zbavení svého speciálního významu odzvláštněny zpětným lomítkem.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapregulrnivyrzyppc2"><a href="#kapregulrnivyrzyppcr2" class="cislopozn">2</a>&nbsp;Uvnitř těchto hranatých závorek se speciální znaky neodzvláštňují zpětným lomítkem, ale uvedením na určitou pozici.</div>
+<div id="kapregularnivyrazyppc2"><a href="#kapregularnivyrazyppcr2" class="cislopozn">2</a>&nbsp;Uvnitř těchto hranatých závorek se speciální znaky neodzvláštňují zpětným lomítkem, ale uvedením na určitou pozici.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapregulrnivyrzyppc3"><a href="#kapregulrnivyrzyppcr3" class="cislopozn">3</a>&nbsp;Platí jen v rámci řetězce náhrady, ne v samotném regulárním výrazu.</div>
+<div id="kapregularnivyrazyppc3"><a href="#kapregularnivyrazyppcr3" class="cislopozn">3</a>&nbsp;Platí jen v rámci řetězce náhrady, ne v samotném regulárním výrazu.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapregulrnivyrzyppc4"><a href="#kapregulrnivyrzyppcr4" class="cislopozn">4</a>&nbsp;Zdvojení zpětného lomítka v GNU awk vyplývá ze skutečnosti, že ho (obvykle) zadáváte jako řetězec v programovacím jazyce. Pokud byste náhodou např. načítali řetězec náhrady ze souboru, bude tam zpětné lomítko patřit pouze jedno!</div>
+<div id="kapregularnivyrazyppc4"><a href="#kapregularnivyrazyppcr4" class="cislopozn">4</a>&nbsp;Zdvojení zpětného lomítka v GNU awk vyplývá ze skutečnosti, že ho (obvykle) zadáváte jako řetězec v programovacím jazyce. Pokud byste náhodou např. načítali řetězec náhrady ze souboru, bude tam zpětné lomítko patřit pouze jedno!</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapregulrnivyrzyppc5"><a href="#kapregulrnivyrzyppcr5" class="cislopozn">5</a>&nbsp;Tuto variantu podporuje pravděpodobně jen Perl a sed a smí se vyskytnout pouze v řetězci pro náhradu, nikoliv přímo ve vlastním regulárním výrazu.</div>
+<div id="kapregularnivyrazyppc5"><a href="#kapregularnivyrazyppcr5" class="cislopozn">5</a>&nbsp;Tuto variantu podporuje pravděpodobně jen Perl a sed a smí se vyskytnout pouze v řetězci pro náhradu, nikoliv přímo ve vlastním regulárním výrazu.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapregulrnivyrzyppc6"><a href="#kapregulrnivyrzyppcr6" class="cislopozn">6</a>&nbsp;Viz poznámku k předchozímu zaklínadlu.</div>
+<div id="kapregularnivyrazyppc6"><a href="#kapregularnivyrazyppcr6" class="cislopozn">6</a>&nbsp;Viz poznámku k předchozímu zaklínadlu.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapregulrnivyrzyppc7"><a href="#kapregulrnivyrzyppcr7" class="cislopozn">7</a>&nbsp;Znaky, které mají pro bash zvláštní význam, je nutno ve vzorku odzvláštnit, nejčastěji zpětným lomítkem.</div>
+<div id="kapregularnivyrazyppc7"><a href="#kapregularnivyrazyppcr7" class="cislopozn">7</a>&nbsp;Znaky, které mají pro bash zvláštní význam, je nutno ve vzorku odzvláštnit, nejčastěji zpětným lomítkem.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapregulrnivyrzyppc8"><a href="#kapregulrnivyrzyppcr8" class="cislopozn">8</a>&nbsp;V bashi tyto znaky nepokrývají tečku jako první znak skrytých souborů a adresářů.</div>
+<div id="kapregularnivyrazyppc8"><a href="#kapregularnivyrazyppcr8" class="cislopozn">8</a>&nbsp;V bashi tyto znaky nepokrývají tečku jako první znak skrytých souborů a adresářů.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapregulrnivyrzyppc9"><a href="#kapregulrnivyrzyppcr9" class="cislopozn">9</a>&nbsp;Znaky „!“, „^“ a „-“ mají uvnitř těchto závorek zvláštní význam a při použití jako znaky je nutno je odzvláštnit! V bashi tato konstrukce nepokrývá tečku jako první znak skrytých souborů a adresářů.</div>
+<div id="kapregularnivyrazyppc9"><a href="#kapregularnivyrazyppcr9" class="cislopozn">9</a>&nbsp;Znaky „!“, „^“ a „-“ mají uvnitř těchto závorek zvláštní význam a při použití jako znaky je nutno je odzvláštnit! V bashi tato konstrukce nepokrývá tečku jako první znak skrytých souborů a adresářů.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapregulrnivyrzyppc10"><a href="#kapregulrnivyrzyppcr10" class="cislopozn">10</a>&nbsp;Znaky „!“, „^“ a „-“ mají uvnitř těchto závorek zvláštní význam a při použití jako znaky je nutno je odzvláštnit! V bashi tato konstrukce nepokrývá tečku jako první znak skrytých souborů a adresářů.</div>
+<div id="kapregularnivyrazyppc10"><a href="#kapregularnivyrazyppcr10" class="cislopozn">10</a>&nbsp;Znaky „!“, „^“ a „-“ mají uvnitř těchto závorek zvláštní význam a při použití jako znaky je nutno je odzvláštnit! V bashi tato konstrukce nepokrývá tečku jako první znak skrytých souborů a adresářů.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 </div>
 
@@ -521,14 +523,14 @@ Pro zmíněné programy:
 <nav class="spodni">
 <a href="index.htm" class="naindex">🗐&nbsp;Přehled&nbsp;kapitol</a>
 <div class="naslkap">
-<a href="sed.htm" rel="next" title="13. Sed">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">13</span>
-<span class="nazev">Sed</span></a>
+<a href="sprava-balicku.htm" rel="next" title="8. Správa balíčků">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">8</span>
+<span class="nazev">Správa balíčků</span></a>
 </div>
 <!--<div><a href="index.htm">🗐&nbsp;Přehled&nbsp;kapitol</a></div>-->
 </nav>
 
 
-<div class="odkazydole"><div><a href="sprava-procesu.htm"><img src="obrazky/ik/sprava-procesu.png" alt="" width="32" height="32">Správa procesů</a><a href="git.htm"><img src="obrazky/ik/git.png" alt="" width="32" height="32">Git</a><a href="sed.htm"><img src="obrazky/ik/sed.png" alt="" width="32" height="32">Sed</a></div></div>
+<div class="odkazydole"><div><a href="hledani-souboru.htm"><img src="obrazky/ik/hledani-souboru.png" alt="" width="32" height="32">Hledání souborů</a><a href="sprava-uzivatelskych-uctu.htm"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="" width="32" height="32">Správa uživatelských účtů</a><a href="git.htm"><img src="obrazky/ik/git.png" alt="" width="32" height="32">Git</a></div></div>
 
 
 </article>
@@ -549,40 +551,6 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 </div>
 
 <nav class="menu">
-<!-- MENU KAPITOLY -->
-<a href="#menukapitoly" id="menukapitoly"><span class="prvnipismeno">K</span>apitoly</a>
-<aside class="menukapitoly">
-<div><div class="nadpis">Kapitoly</div><div class="polozky">
-<a href="predmluva.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/predmluva.png" alt="[]"></span><span class="cislo">1</span><span class="nazev">Předmluva</span></a>
-<a href="zakladni-znalosti.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zakladni-znalosti.png" alt="[]"></span><span class="cislo">2</span><span class="nazev">Základní znalosti</span></a>
-<a href="awk.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/awk.png" alt="[]"></span><span class="cislo">3</span><span class="nazev">AWK</span></a>
-<a href="datum-cas-kalendar.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/datum-cas-kalendar.png" alt="[]"></span><span class="cislo">4</span><span class="nazev">Datum, čas a kalendář</span></a>
-<a href="diskove-oddily.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/diskove-oddily.png" alt="[]"></span><span class="cislo">5</span><span class="nazev">Diskové oddíly</span></a>
-<a href="git.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/git.png" alt="[]"></span><span class="cislo">6</span><span class="nazev">Git</span></a>
-<a href="hledani-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/hledani-souboru.png" alt="[]"></span><span class="cislo">7</span><span class="nazev">Hledání souborů</span></a>
-<a href="make.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/make.png" alt="[]"></span><span class="cislo">8</span><span class="nazev">Make</span></a>
-<a href="markdown.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/markdown.png" alt="[]"></span><span class="cislo">9</span><span class="nazev">Markdown</span></a>
-<a href="prace-s-archivy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="cislo">10</span><span class="nazev">Práce s archivy</span></a>
-<a href="promenne.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/promenne.png" alt="[]"></span><span class="cislo">11</span><span class="nazev">Proměnné prostředí a interpretu</span></a>
-<a href="regularni-vyrazy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="cislo">12</span><span class="nazev">Regulární výrazy</span></a>
-<a href="sed.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sed.png" alt="[]"></span><span class="cislo">13</span><span class="nazev">Sed</span></a>
-<a href="soubory-a-adresare.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/soubory-a-adresare.png" alt="[]"></span><span class="cislo">14</span><span class="nazev">Soubory a adresáře</span></a>
-<a href="sprava-balicku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="cislo">15</span><span class="nazev">Správa balíčků</span></a>
-<a href="sprava-procesu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-procesu.png" alt="[]"></span><span class="cislo">16</span><span class="nazev">Správa procesů</span></a>
-<a href="sprava-uzivatelskych-uctu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="cislo">17</span><span class="nazev">Správa uživatelských účtů</span></a>
-<a href="stahovani-videi.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/stahovani-videi.png" alt="[]"></span><span class="cislo">18</span><span class="nazev">Stahování videí</span></a>
-<a href="system.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="cislo">19</span><span class="nazev">Systém</span></a>
-<a href="terminal.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/terminal.png" alt="[]"></span><span class="cislo">20</span><span class="nazev">Terminál</span></a>
-<a href="vim.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/vim.png" alt="[]"></span><span class="cislo">21</span><span class="nazev">Vim</span></a>
-<a href="zpracovani-binarnich-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-binarnich-souboru.png" alt="[]"></span><span class="cislo">22</span><span class="nazev">Zpracování binárních souborů</span></a>
-<a href="zpracovani-textovych-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="cislo">23</span><span class="nazev">Zpracování textových souborů</span></a>
-<a href="zpracovani-videa-a-zvuku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="cislo">24</span><span class="nazev">Zpracování videa a zvuku</span></a>
-<a href="koncepce-projektu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="cislo">25</span><span class="nazev">Koncepce projektu Linux: Kniha kouzel</span></a>
-<a href="plan-vyvoje.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/plan-vyvoje.png" alt="[]"></span><span class="cislo">26</span><span class="nazev">Plán budoucího vývoje</span></a>
-<a href="licence.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="cislo">27</span><span class="nazev">Licence</span></a>
-</div></div>
-<a href="#zavritmenu" id="zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
-</aside>
 <!-- MENU OSNOVA -->
 <a href="#menuosnova" id="menuosnova"><span class="prvnipismeno">O</span>snova</a>
 <aside class="menuosnova">
@@ -612,45 +580,67 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 </div></div>
 <a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
 </aside>
+<!-- MENU KAPITOLY -->
+<a href="#menukapitoly" id="menukapitoly"><span class="prvnipismeno">K</span>apitoly</a>
+<aside class="menukapitoly">
+<div><div class="nadpis">Kapitoly</div><div class="polozky">
+<a href="predmluva.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/predmluva.png" alt="[]"></span><span class="cislo">1</span><span class="nazev">Předmluva</span></a>
+<a href="zakladni-znalosti.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zakladni-znalosti.png" alt="[]"></span><span class="cislo">2</span><span class="nazev">Základní znalosti</span></a>
+<a href="diskove-oddily.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/diskove-oddily.png" alt="[]"></span><span class="cislo">3</span><span class="nazev">Diskové oddíly</span></a>
+<a href="git.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/git.png" alt="[]"></span><span class="cislo">4</span><span class="nazev">Git</span></a>
+<a href="hledani-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/hledani-souboru.png" alt="[]"></span><span class="cislo">5</span><span class="nazev">Hledání souborů</span></a>
+<a href="prace-s-archivy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="cislo">6</span><span class="nazev">Práce s archivy</span></a>
+<a href="regularni-vyrazy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="cislo">7</span><span class="nazev">Regulární výrazy</span></a>
+<a href="sprava-balicku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="cislo">8</span><span class="nazev">Správa balíčků</span></a>
+<a href="sprava-uzivatelskych-uctu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="cislo">9</span><span class="nazev">Správa uživatelských účtů</span></a>
+<a href="system.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="cislo">10</span><span class="nazev">Systém</span></a>
+<a href="zpracovani-textovych-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="cislo">11</span><span class="nazev">Zpracování textových souborů</span></a>
+<a href="zpracovani-videa-a-zvuku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="cislo">12</span><span class="nazev">Zpracování videa a zvuku</span></a>
+<a href="koncepce-projektu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="cislo">13</span><span class="nazev">Koncepce projektu Linux: Kniha kouzel</span></a>
+<a href="plan-vyvoje.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/plan-vyvoje.png" alt="[]"></span><span class="cislo">14</span><span class="nazev">Plán budoucího vývoje</span></a>
+<a href="licence.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="cislo">15</span><span class="nazev">Licence</span></a>
+<div class="premiove"><strong>Prémiové kapitoly:</strong>
+<div>AWK</div>
+<div>Datum, čas a kalendář</div>
+<div>Make</div>
+<div>Markdown</div>
+<div>Proměnné prostředí a interpretu</div>
+<div>Sed</div>
+<div>Soubory a adresáře</div>
+<div>Správa procesů</div>
+<div>Stahování videí</div>
+<div>Terminál</div>
+<div>Vim</div>
+<div>Zpracování binárních souborů</div>
+</div><p>Tyto kapitoly můžete získat jako odměnu za překlad ze zdrojového kódu. Podrobnější informace <a href="https://github.com/singularis-mzf/linux-spellbook/blob/stabilni/dokumentace/odm%C4%9Bna-za-sestaven%C3%AD.md">na GitHubu</a>.</p>
+</div></div>
+<a href="#zavritmenu" id="zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
 <!-- MENU ŠTÍTKY -->
 <a href="#menustitky" id="menustitky"><span class="prvnipismeno">Š</span>títky</a>
 <aside class="menustitky">
 <div><div class="nadpis">Štítky</div><div class="polozky">
-<a href="x-stitky.htm#sdrese">adresáře&nbsp;&nbsp;(2)</a>
-<a href="x-stitky.htm#spt">apt&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sbjty">bajty&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sbrvy">barvy&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sbsh">bash&nbsp;&nbsp;(4)</a>
-<a href="x-stitky.htm#scs">čas&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sdt">data&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sdmoni">démoni&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#seditor">editor&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#semotikony">emotikony&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sfltpk">Flatpak&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#shesovcfunkce">hešovací funkce&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#shledn">hledání&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sinternet">internet&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sklvesnice">klávesnice&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#skdovn">kódování&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sadresare">adresáře&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sapt">apt&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sbash">bash&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sdemoni">démoni&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sflatpak">Flatpak&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#shledani">hledání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sklavesnice">klávesnice&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#skomprese">komprese&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#slvm">LVM&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sodkldcprostor">odkládací prostor&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sovldn">ovládání&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sprocesy">procesy&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sprogrm">program&nbsp;&nbsp;(6)</a>
-<a href="x-stitky.htm#sprogrmovn">programování&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#spstupovprv">přístupová práva&nbsp;&nbsp;(2)</a>
-<a href="x-stitky.htm#srmdisk">ramdisk&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#ssnp">Snap&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#ssoubory">soubory&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#ssprvverz">správa verzí&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#ssyntxe">syntaxe&nbsp;&nbsp;(4)</a>
-<a href="x-stitky.htm#ssystm">systém&nbsp;&nbsp;(6)</a>
-<a href="x-stitky.htm#stemtickokruh">tematický okruh&nbsp;&nbsp;(14)</a>
-<a href="x-stitky.htm#sunicode">Unicode&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#svideo">video&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#sodkladaciprostor">odkládací prostor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sprogram">program&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#spristupovaprava">přístupová práva&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sramdisk">ramdisk&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#ssnap">Snap&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sspravaverzi">správa verzí&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#ssyntaxe">syntaxe&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#ssystem">systém&nbsp;&nbsp;(4)</a>
+<a href="x-stitky.htm#stematickyokruh">tematický okruh&nbsp;&nbsp;(8)</a>
+<a href="x-stitky.htm#svideo">video&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#szip">zip&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#szprcovntextu">zpracování textu&nbsp;&nbsp;(4)</a>
+<a href="x-stitky.htm#szpracovanitextu">zpracování textu&nbsp;&nbsp;(2)</a>
 <a href="x-stitky.htm#szvuk">zvuk&nbsp;&nbsp;(1)</a>
 </div></div>
 <a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
@@ -659,10 +649,10 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <a href="#menunapoveda" id="menunapoveda"><span class="prvnipismeno">N</span>ápověda</a>
 <aside class="menunapoveda">
 <div><div class="nadpis">Nápověda</div><div class="polozky">
-<a href="predmluva.htm">Předmluva</a>
 <a href="koncepce-projektu.htm">Koncepce projektu</a>
 <a href="https://singularis-mzf.github.io/">Ostatní verze knihy</a>
 <a href="https://github.com/singularis-mzf/linux-spellbook">Repozitář na GitHubu</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook/blob/stabilni/dokumentace/odm%C4%9Bna-za-sestaven%C3%AD.md">Odměna za sestavení (prémiové kapitoly)</a>
 </div></div>
 <a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
 </aside>

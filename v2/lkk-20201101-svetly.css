@@ -194,7 +194,7 @@ kbd {
 }
 
 html {
-    background:rgb(210,224,235) url("obrazky/marsh.jpg") 100% 0%/cover repeat fixed;
+    background:rgb(210,224,235) url("obrazky/mocal.jpg") 100% 0%/cover repeat fixed;
     color:rgb(51,51,51);
     font:62.5%/1.2 sans-serif;
 }
@@ -804,17 +804,17 @@ nav.menu a.zavritmenu::after {
 .prehledy>div>div>div {width:85%;margin-top:0.5em;}
 .prehledy a {
     display:flex;
-    border-bottom:thin dotted rgba(0,0,0,0.2);
+/*    border-bottom:thin dotted rgba(0,0,0,0.2);*/
+    align-items:center;
     flex-direction:row;
     text-decoration:none;
 }
 .prehledy a>* {display:block;}
 .prehledy strong {display:block;font-weight:bold;}
-.prehledy .cislo, .prehledy .nazev {margin-top:1em;}
+/*.prehledy .cislo, .prehledy .nazev {margin-top:1em;}*/
 .prehledy .cislo {
     flex-shrink:0;
     width:3em;
-    margin-right:0.25em;
     text-align:right;
 }
 .prehledy .cislo::after {content:"."}
@@ -836,6 +836,33 @@ nav.menu a.zavritmenu::after {
     opacity:1;
     z-index:5;
 }
+.premiove {
+    margin-bottom:1em !important;
+    font-style:italic;
+}
+.premiove strong {
+    display:block;
+    margin-bottom:1em;
+    font-style:normal;
+    font-weight:bold;
+}
+.premiove>div::before {
+    content:"🔒";
+    margin:0 0.25em 0 0;
+    font-style:normal;
+}
+.premiove+p {
+    margin:0 0 3rem;
+    font-style:italic;
+    font-size:85%;
+}
+.premiove+p a {
+    display:inline;
+}
+.menukapitoly .premiove, .menukapitoly .premiove+p {
+    margin-left:5%;margin-right:5%;
+}
+.menukapitoly .premiove strong {margin-top:1em;}
 
 .prehledstitku dt {position:relative;top:-3em;}
 .prehledstitku dt>span {position:relative;top:3em;display:block;}
@@ -843,13 +870,19 @@ nav.menu a.zavritmenu::after {
     margin:1em 0 0.5em;
 }
 .prehledstitku div {
+    display:flex;
+    flex-direction:row;
+    align-items:center;
     margin-left:10em;
     border-radius:3rem;
 }
 .prehledstitku div:nth-child(even) {background:rgba(180,180,180,1)}
 .prehledstitku div:nth-child(odd) {background:rgba(200,200,200,1)}
 .prehledstitku div>a {
-    display:inline-block;
+    display:flex;
+    align-items:center;
+    flex-direction:row;
+    /*display:inline-block;*/
     width:50%;
     text-decoration:none;
 }

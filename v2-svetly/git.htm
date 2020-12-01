@@ -5,16 +5,16 @@
 
 <title>Git − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20201101.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20201101-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20201101-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20201101-svetly.css" title="Světlý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20201201.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20201201-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20201201-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20201201-svetly.css" title="Světlý motiv">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body>
 <div id="nahore"><div id="okno">
 <header>
-<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.1, I. I. (1. listopadu 2020)</span>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.2, J. J. (1. prosince 2020)</span>
 <span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -149,13 +149,13 @@ Za jakýmkoliv označením revize můžete (i opakovaně a v kombinaci) použ
 <h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 5 (Git), sekce 3 (Zaklínadla: Revize, větve a změny), podsekce 3 (Aktivní větev/revize)"><sup>3/</sup>3 Aktivní větev/revize</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z572656825"><span><a href="#z572656825">Ɣ</a></span></span><b>přepnout</b> aktivní větev a načíst ji do PA i PO/bez načtení<span class="cislo">#1 </span><sup><a href="#kapgitppc6" id="kapgitppcr6" title="Pokud byly v PA a PO již nějaké změny oproti původní aktivní větvi, Git se je při načítání nové větve pokusí zachovat.">(6)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">git checkout <i class="dopln">větev</i></div>
-<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+<div class="radekzaklinadla">git checkout --detach &amp;&amp; git reset --soft <i class="dopln">větev</i> &amp;&amp; git checkout <i class="dopln">větev</i></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1659047845"><span><a href="#z1659047845">✮</a></span></span><b>název</b> aktivní větve<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">git branch --show-current</div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1929075702"><span><a href="#z1929075702">⌋</a></span></span><b>odpojit</b> se od aktivní větve<span class="cislo">#3 </span></div><div class="radky">
-<div class="radekzaklinadla">git checkout &quot;HEAD~0&quot;</div>
+<div class="radekzaklinadla">git checkout --detach</div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1782858140"><span><a href="#z1782858140">▘</a></span></span><b>heš</b> aktivní revize<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">git rev-parse --verify HEAD</div>
@@ -207,14 +207,23 @@ Za jakýmkoliv označením revize můžete (i opakovaně a v kombinaci) použ
 <div class="radekzaklinadla">git checkout $(git rev-list -n 1 --first-parent &quot;--until=<i class="dopln">datum-YYYY-MM-DD HH:mm:ss</i>&quot; HEAD)</div>
 <div class="radekzaklinadla">git checkout $(git rev-list -n 1 --first-parent &quot;--until=$(date -d &quot;14 days ago&quot; &quot;+%F %T&quot;)&quot; HEAD)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z669456058"><span><a href="#z669456058">╏</a></span></span>získat do samostatného nového adresáře konkrétní revizi<span class="cislo">#5 </span><sup><a href="#kapgitppc12" id="kapgitppcr12" title="Tip: nový adresář může být i uvnitř pracovního adresáře, před provedením příkazu však nesmí existovat.">(12)</a></sup></div><div class="radky">
-<div class="radekzaklinadla">revize=$(git rev-parse --verify <i class="dopln">revize</i>); test -n $revize &amp;&amp; git clone -sn -- &quot;$(git rev-parse --show-toplevel)&quot; <i class="dopln">nový/adresář</i> &amp;&amp; (cd <i class="dopln">nový/adresář</i> &amp;&amp; git checkout --detach $revize &amp;&amp; rm -Rf .git)</div>
-</div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z783705277"><span><a href="#z783705277">╦</a></span></span>načíst revizi do PO a PA, ale nepřepnout se na ni<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z783705277"><span><a href="#z783705277">╦</a></span></span>načíst revizi do PO a PA, ale nepřepnout se na ni<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
-<h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 5 (Git), sekce 3 (Zaklínadla: Revize, větve a změny), podsekce 6 (Jména revizí)"><sup>3/</sup>6 Jména revizí</a></span></h3>
+<h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 5 (Git), sekce 3 (Zaklínadla: Revize, větve a změny), podsekce 6 (Přístup k revizím z repozitáře)"><sup>3/</sup>6 Přístup k revizím z repozitáře</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z693369865"><span><a href="#z693369865">ⵇ</a></span></span>získat do samostatného nového adresáře konkrétní <b>revizi</b><span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>rm -Rf <i class="dopln">cílový/adresář</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla">mkdir -p<span class="volznak">[</span>v<span class="volznak">]</span> <i class="dopln">cílový/adresář</i> &amp;&amp; git -C &quot;$(git rev-parse --show-toplevel)&quot; archive <i class="dopln">revize</i> | tar x -C <i class="dopln">cílový/adresář</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z185471319"><span><a href="#z185471319">●</a></span></span>vypsat na standardní výstup <b>soubor</b> z určité revize<span class="cislo">#2 </span><sup><a href="#kapgitppc12" id="kapgitppcr12" title="Pozor! Cesta/k/souboru nesmí opustit podstrom aktuálního adresáře. Tzn. např. cesta „../x.c“ je neplatná a skončí chybou, a to i v případě, že odkazovaný soubor je verzovaný v daném repozitáři.">(12)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">git archive <i class="dopln">revize</i> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/k/souboru</i> | tar xO</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z320359093"><span><a href="#z320359093">⣻</a></span></span>zabalit konkrétní revizi jako <b>archiv</b> typu zip<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">git -C &quot;$(git rev-parse --show-toplevel)&quot; archive --format=zip <span class="volznak">[</span>-9<span class="volznak">]</span> <i class="dopln">revize</i> &gt;<i class="dopln">výstup.zip</i></div>
+</div></div>
+
+<h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 5 (Git), sekce 3 (Zaklínadla: Revize, větve a změny), podsekce 7 (Jména revizí)"><sup>3/</sup>7 Jména revizí</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2133583567"><span><a href="#z2133583567">✓</a></span></span><b>pojmenovat</b> revizi<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">git tag <i class="dopln">nové-jméno</i> <span class="volznak">[</span><i class="dopln">revize</i><span class="volznak">]</span></div>
 </div></div>
@@ -225,7 +234,7 @@ Za jakýmkoliv označením revize můžete (i opakovaně a v kombinaci) použ
 <div class="radekzaklinadla">git tag -d <i class="dopln">jméno-revize</i></div>
 </div></div>
 
-<h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 5 (Git), sekce 3 (Zaklínadla: Revize, větve a změny), podsekce 7 (Práce se změnami)"><sup>3/</sup>7 Práce se změnami</a></span></h3>
+<h3 id="cast3x8"><span><a href="#cast3x8" title="kapitola 5 (Git), sekce 3 (Zaklínadla: Revize, větve a změny), podsekce 8 (Práce se změnami)"><sup>3/</sup>8 Práce se změnami</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1252234300"><span><a href="#z1252234300">⇩</a></span></span><b>sloučit změny</b> do aktivní větve<span class="cislo">#1 </span><sup><a href="#kapgitppc14" id="kapgitppcr14" title="Příkaz „git merge“ se pokusí do aktivní větve sloučit všechny změny od NSP po uvedenou revizi. Pokud to bude potřeba, vytvoří pro to novou revizi se dvěma rodiči.">(14)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">git merge <i class="dopln">revize</i></div>
 </div></div>
@@ -247,23 +256,6 @@ Za jakýmkoliv označením revize můžete (i opakovaně a v kombinaci) použ
 <div class="radekzaklinadla">git merge --abort</div>
 </div></div>
 
-<h3 id="cast3x8"><span><a href="#cast3x8" title="kapitola 5 (Git), sekce 3 (Zaklínadla: Revize, větve a změny), podsekce 8 (Odkládání změn v PA a PO)"><sup>3/</sup>8 Odkládání změn v PA a PO</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2116829617"><span><a href="#z2116829617">❂</a></span></span><b>odložit</b> změny v PA a PO<span class="cislo">#1 </span></div><div class="radky">
-<div class="radekzaklinadla">git stash push -ku <span class="volznak">[</span>-m &quot;<i class="dopln">Popis</i>&quot;<span class="volznak">]</span></div>
-</div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z744342752"><span><a href="#z744342752">⡞</a></span></span><b>obnovit</b> odložené změny do PA a PO<span class="cislo">#2 </span><sup><a href="#kapgitppc17" id="kapgitppcr17" title="Poznámka: PA a PO nemusí být při obnovování změn v přesně stejném stavu jako při odkládání, stačí když při obnovování změn nedojde ke konfliktu.">(17)</a></sup></div><div class="radky">
-<div class="radekzaklinadla">git stash pop --index</div>
-</div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1883707115"><span><a href="#z1883707115">⊮</a></span></span><b>smazat</b> odložené změny<span class="cislo">#3 </span></div><div class="radky">
-<div class="radekzaklinadla">git stash clear</div>
-</div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2082554725"><span><a href="#z2082554725">╿</a></span></span>vypsat odložené změny (jen poslední odložení)<span class="cislo">#4 </span></div><div class="radky">
-<div class="radekzaklinadla">git stash show -p</div>
-</div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1490237226"><span><a href="#z1490237226">䷵</a></span></span>vypsat seznam uložených odložení<span class="cislo">#5 </span></div><div class="radky">
-<div class="radekzaklinadla">git stash list</div>
-</div></div>
-
 <h3 id="cast3x9"><span><a href="#cast3x9" title="kapitola 5 (Git), sekce 3 (Zaklínadla: Revize, větve a změny), podsekce 9 (Vzdálené větve)"><sup>3/</sup>9 Vzdálené větve</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z963335988"><span><a href="#z963335988">☺</a></span></span>stáhnout všechny novinky a sloučit vzdálené změny do aktivní větve/jen sloučit změny<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">git pull</div>
@@ -280,7 +272,7 @@ Za jakýmkoliv označením revize můžete (i opakovaně a v kombinaci) použ
 <div class="radekzaklinadla">git branch -r</div>
 <div class="radekzaklinadla">git branch -r --no-column --format '%(refname:lstrip=2)'</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1988822869"><span><a href="#z1988822869">ᔰ</a></span></span>kam je napojená aktivní větev?<span class="cislo">#5 </span><sup><a href="#kapgitppc18" id="kapgitppcr18" title="Pokud aktivní větev není napojená, příkaz selže s návratovým kódem 128.">(18)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1988822869"><span><a href="#z1988822869">ᔰ</a></span></span>kam je napojená aktivní větev?<span class="cislo">#5 </span><sup><a href="#kapgitppc17" id="kapgitppcr17" title="Pokud aktivní větev není napojená, příkaz selže s návratovým kódem 128.">(17)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">git rev-parse --abbrev-ref &quot;HEAD@{upstream}&quot; 2&gt;/dev/null<span class="prikladhodnoty">⊨ origin/vzdalena-vetev</span></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z346109672"><span><a href="#z346109672">⟵</a></span></span><b>smazat</b> větev ve vzdáleném repozitáři<span class="cislo">#6 </span></div><div class="radky">
@@ -338,7 +330,7 @@ Za jakýmkoliv označením revize můžete (i opakovaně a v kombinaci) použ
 <div class="radekzaklinadla">git init <span class="volznak">[</span>&amp;&amp; git checkout -b <i class="dopln">název_výchozí_větve</i><span class="volznak">]</span></div>
 <div class="radekzaklinadla">git init --bare</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z695772698"><span><a href="#z695772698">┦</a></span></span>vytvořit lokální repozitář <b>ze vzdáleného</b><span class="cislo">#2 </span><sup><a href="#kapgitppc19" id="kapgitppcr19" title="Vzdálená adresa může být URL nebo místní cesta. Vzniklý repozitář pak bude mít automaticky nastavený vzdálený repozitář „origin“ na uvedenou adresu či cestu.">(19)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z695772698"><span><a href="#z695772698">┦</a></span></span>vytvořit lokální repozitář <b>ze vzdáleného</b><span class="cislo">#2 </span><sup><a href="#kapgitppc18" id="kapgitppcr18" title="Vzdálená adresa může být URL nebo místní cesta. Vzniklý repozitář pak bude mít automaticky nastavený vzdálený repozitář „origin“ na uvedenou adresu či cestu.">(18)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">git clone <span class="volznak">[</span>--branch <i class="dopln">větev</i><span class="volznak">]</span> <i class="dopln">vzdálená-adresa</i> <span class="volznak">[</span><i class="dopln">místní-adresář</i><span class="volznak">]</span></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z120340807"><span><a href="#z120340807">⎫</a></span></span>konverze holého repozitáře na <b>místní</b><span class="cislo">#3 </span></div><div class="radky">
@@ -379,7 +371,7 @@ Za jakýmkoliv označením revize můžete (i opakovaně a v kombinaci) použ
 </div></div>
 
 <h3 id="cast4x4"><span><a href="#cast4x4" title="kapitola 5 (Git), sekce 4 (Zaklínadla: Pracovní adresáře a repozitáře), podsekce 4 (Vedlejší pracovní adresáře)"><sup>4/</sup>4 Vedlejší pracovní adresáře</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z826910072"><span><a href="#z826910072">≅</a></span></span><b>vytvořit</b><span class="cislo">#1 </span><sup><a href="#kapgitppc20" id="kapgitppcr20" title="Poznámka: v žádných dvou pracovních adresářích jednoho repozitáře nemůže být současně aktivní tatáž větev; toto opatření platí, aby se zamezilo konfliktům při commitování.">(20)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z826910072"><span><a href="#z826910072">≅</a></span></span><b>vytvořit</b><span class="cislo">#1 </span><sup><a href="#kapgitppc19" id="kapgitppcr19" title="Poznámka: v žádných dvou pracovních adresářích jednoho repozitáře nemůže být současně aktivní tatáž větev; toto opatření platí, aby se zamezilo konfliktům při commitování.">(19)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">git worktree add <span class="volznak">[</span>--detach<span class="volznak">]</span> <span class="volznak">[</span>-b <i class="dopln">nová-větev</i><span class="volznak">]</span> <i class="dopln">/nový/adresář</i> <i class="dopln">revize</i></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1527153056"><span><a href="#z1527153056">⢞</a></span></span><b>vypsat</b> seznam<span class="cislo">#2 </span></div><div class="radky">
@@ -399,7 +391,24 @@ Za jakýmkoliv označením revize můžete (i opakovaně a v kombinaci) použ
 <div class="radekzaklinadla">git worktree unlock <i class="dopln">/sekundární/pracovní/adresář</i></div>
 </div></div>
 
-<h3 id="cast4x5"><span><a href="#cast4x5" title="kapitola 5 (Git), sekce 4 (Zaklínadla: Pracovní adresáře a repozitáře), podsekce 5 (Ostatní)"><sup>4/</sup>5 Ostatní</a></span></h3>
+<h3 id="cast4x5"><span><a href="#cast4x5" title="kapitola 5 (Git), sekce 4 (Zaklínadla: Pracovní adresáře a repozitáře), podsekce 5 (Odkládání a rušení změn v PA a PO)"><sup>4/</sup>5 Odkládání a rušení změn v PA a PO</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2116829617"><span><a href="#z2116829617">❂</a></span></span><b>odložit</b> změny v PA a PO<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">git stash push -ku <span class="volznak">[</span>-m &quot;<i class="dopln">Popis</i>&quot;<span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z744342752"><span><a href="#z744342752">⡞</a></span></span><b>obnovit</b> odložené změny do PA a PO<span class="cislo">#2 </span><sup><a href="#kapgitppc20" id="kapgitppcr20" title="Poznámka: PA a PO nemusí být při obnovování změn v přesně stejném stavu jako při odkládání, stačí když při obnovování změn nedojde ke konfliktu.">(20)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">git stash pop --index</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1883707115"><span><a href="#z1883707115">⊮</a></span></span><b>smazat</b> odložené změny<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">git stash clear</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2082554725"><span><a href="#z2082554725">╿</a></span></span>vypsat odložené změny (jen poslední odložení)<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">git stash show -p</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1490237226"><span><a href="#z1490237226">䷵</a></span></span>vypsat seznam uložených odložení<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">git stash list</div>
+</div></div>
+
+<h3 id="cast4x6"><span><a href="#cast4x6" title="kapitola 5 (Git), sekce 4 (Zaklínadla: Pracovní adresáře a repozitáře), podsekce 6 (Ostatní)"><sup>4/</sup>6 Ostatní</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2074386657"><span><a href="#z2074386657">❯</a></span></span>smazat neverzované soubory a adresáře (kromě/včetně ignorovaných)<span class="cislo">#1 </span><sup><a href="#kapgitppc21" id="kapgitppcr21" title="Poznámka: Tento příkaz smaže pouze soubory v aktuálním adresáři a jeho podadresářích; pokud chcete smazat neverzované soubory v celém PA, musíte příkaz spustit v kořeni pracovního adresáře.">(21)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">git clean -fd<span class="volznak">[</span>i<span class="volznak">]</span></div>
 <div class="radekzaklinadla">git clean -fdx<span class="volznak">[</span>i<span class="volznak">]</span></div>
@@ -617,7 +626,7 @@ Přehled podporovaných konfiguračních voleb pro příkaz „git config“ naj
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapgitppc11"><a href="#kapgitppcr11" class="cislopozn">11</a>&nbsp;Výchozí revize je HEAD. Pozor, bez ptaní přepíše změny v pracovním adresáři!</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapgitppc12"><a href="#kapgitppcr12" class="cislopozn">12</a>&nbsp;Tip: nový adresář může být i uvnitř pracovního adresáře, před provedením příkazu však nesmí existovat.</div>
+<div id="kapgitppc12"><a href="#kapgitppcr12" class="cislopozn">12</a>&nbsp;Pozor! Cesta/k/souboru nesmí opustit podstrom aktuálního adresáře. Tzn. např. cesta „../x.c“ je neplatná a skončí chybou, a to i v případě, že odkazovaný soubor je verzovaný v daném repozitáři.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapgitppc13"><a href="#kapgitppcr13" class="cislopozn">13</a>&nbsp;Poznámka: Jména revizí jsou obvykle trvalá. Pokud se rozhodnete je měnit či mazat, pamatujte, že Git při načítání jmen revizí ze vzdáleného repozitáře nikdy nepřepíše již stažené údaje, takže znovupoužití téhož jména k označení jiné revize povede k tomu, že v repozitářích různých uživatelů bude totéž jméno označovat různé revize, což není dobrý nápad.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
@@ -627,13 +636,13 @@ Přehled podporovaných konfiguračních voleb pro příkaz „git config“ naj
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapgitppc16"><a href="#kapgitppcr16" class="cislopozn">16</a>&nbsp;Tento příkaz používejte opatrně. Vyjde od zadané revize a vytvoří zcela novou sérii revizí, ve které revizi po revizi přehrává změny od NSP po aktivní větev. Nakonec nastaví aktivní větev na konec takto vytvořené sekvence revizí, takže se původní revize ztratí, ledaže na ně vedl jiný odkaz (např. jiná větev či jméno revize).</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapgitppc17"><a href="#kapgitppcr17" class="cislopozn">17</a>&nbsp;Poznámka: PA a PO nemusí být při obnovování změn v přesně stejném stavu jako při odkládání, stačí když při obnovování změn nedojde ke konfliktu.</div>
+<div id="kapgitppc17"><a href="#kapgitppcr17" class="cislopozn">17</a>&nbsp;Pokud aktivní větev není napojená, příkaz selže s návratovým kódem 128.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapgitppc18"><a href="#kapgitppcr18" class="cislopozn">18</a>&nbsp;Pokud aktivní větev není napojená, příkaz selže s návratovým kódem 128.</div>
+<div id="kapgitppc18"><a href="#kapgitppcr18" class="cislopozn">18</a>&nbsp;Vzdálená adresa může být URL nebo místní cesta. Vzniklý repozitář pak bude mít automaticky nastavený vzdálený repozitář „origin“ na uvedenou adresu či cestu.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapgitppc19"><a href="#kapgitppcr19" class="cislopozn">19</a>&nbsp;Vzdálená adresa může být URL nebo místní cesta. Vzniklý repozitář pak bude mít automaticky nastavený vzdálený repozitář „origin“ na uvedenou adresu či cestu.</div>
+<div id="kapgitppc19"><a href="#kapgitppcr19" class="cislopozn">19</a>&nbsp;Poznámka: v žádných dvou pracovních adresářích jednoho repozitáře nemůže být současně aktivní tatáž větev; toto opatření platí, aby se zamezilo konfliktům při commitování.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapgitppc20"><a href="#kapgitppcr20" class="cislopozn">20</a>&nbsp;Poznámka: v žádných dvou pracovních adresářích jednoho repozitáře nemůže být současně aktivní tatáž větev; toto opatření platí, aby se zamezilo konfliktům při commitování.</div>
+<div id="kapgitppc20"><a href="#kapgitppcr20" class="cislopozn">20</a>&nbsp;Poznámka: PA a PO nemusí být při obnovování změn v přesně stejném stavu jako při odkládání, stačí když při obnovování změn nedojde ke konfliktu.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapgitppc21"><a href="#kapgitppcr21" class="cislopozn">21</a>&nbsp;Poznámka: Tento příkaz smaže pouze soubory v aktuálním adresáři a jeho podadresářích; pokud chcete smazat neverzované soubory v celém PA, musíte příkaz spustit v kořeni pracovního adresáře.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
@@ -656,7 +665,7 @@ Přehled podporovaných konfiguračních voleb pro příkaz „git config“ naj
 </nav>
 
 
-<div class="odkazydole"><div><a href="sprava-uzivatelskych-uctu.htm"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="" width="32" height="32">Správa uživatelských účtů</a><a href="diskove-oddily.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly</a><a href="hledani-souboru.htm"><img src="obrazky/ik/hledani-souboru.png" alt="" width="32" height="32">Hledání souborů</a></div></div>
+<div class="odkazydole"><div><a href="sprava-balicku.htm"><img src="obrazky/ik/sprava-balicku.png" alt="" width="32" height="32">Správa balíčků</a><a href="zpracovani-textovych-souboru.htm"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="" width="32" height="32">Zpracování textových souborů</a><a href="hledani-souboru.htm"><img src="obrazky/ik/hledani-souboru.png" alt="" width="32" height="32">Hledání souborů</a></div></div>
 
 
 </article>
@@ -692,9 +701,9 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <a href="#cast3x3" class="podsekce">/3 Aktivní větev/revize</a>
 <a href="#cast3x4" class="podsekce">/4 Z PA do PO a z PO do repozitáře</a>
 <a href="#cast3x5" class="podsekce">/5 Z repozitáře do PO a PA</a>
-<a href="#cast3x6" class="podsekce">/6 Jména revizí</a>
-<a href="#cast3x7" class="podsekce">/7 Práce se změnami</a>
-<a href="#cast3x8" class="podsekce">/8 Odkládání změn v PA a PO</a>
+<a href="#cast3x6" class="podsekce">/6 Přístup k revizím z repozitáře</a>
+<a href="#cast3x7" class="podsekce">/7 Jména revizí</a>
+<a href="#cast3x8" class="podsekce">/8 Práce se změnami</a>
 <a href="#cast3x9" class="podsekce">/9 Vzdálené větve</a>
 <a href="#cast3x10" class="podsekce">/10 Vyhledávání revizí</a>
 <a href="#cast4" class="sekce">4 Zaklínadla: Pracovní adresáře a repozitáře</a>
@@ -702,7 +711,8 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <a href="#cast4x2" class="podsekce">/2 Vytvoření a konverze repozitáře (místní/holý)</a>
 <a href="#cast4x3" class="podsekce">/3 Vzdálený repozitář</a>
 <a href="#cast4x4" class="podsekce">/4 Vedlejší pracovní adresáře</a>
-<a href="#cast4x5" class="podsekce">/5 Ostatní</a>
+<a href="#cast4x5" class="podsekce">/5 Odkládání a rušení změn v PA a PO</a>
+<a href="#cast4x6" class="podsekce">/6 Ostatní</a>
 <a href="#cast5" class="sekce">5 Zaklínadla: Konfigurace a ostatní</a>
 <a href="#cast5x1" class="podsekce">/1 Syntaxe v souboru .gitignore</a>
 <a href="#cast5x2" class="podsekce">/2 Konfigurace obecně</a>
@@ -727,16 +737,17 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <a href="diskove-oddily.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/diskove-oddily.png" alt="[]"></span><span class="cislo">3</span><span class="nazev">Diskové oddíly</span></a>
 <a href="git.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/git.png" alt="[]"></span><span class="cislo">4</span><span class="nazev">Git</span></a>
 <a href="hledani-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/hledani-souboru.png" alt="[]"></span><span class="cislo">5</span><span class="nazev">Hledání souborů</span></a>
-<a href="prace-s-archivy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="cislo">6</span><span class="nazev">Práce s archivy</span></a>
-<a href="regularni-vyrazy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="cislo">7</span><span class="nazev">Regulární výrazy</span></a>
-<a href="sprava-balicku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="cislo">8</span><span class="nazev">Správa balíčků</span></a>
-<a href="sprava-uzivatelskych-uctu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="cislo">9</span><span class="nazev">Správa uživatelských účtů</span></a>
-<a href="system.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="cislo">10</span><span class="nazev">Systém</span></a>
-<a href="zpracovani-textovych-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="cislo">11</span><span class="nazev">Zpracování textových souborů</span></a>
-<a href="zpracovani-videa-a-zvuku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="cislo">12</span><span class="nazev">Zpracování videa a zvuku</span></a>
-<a href="koncepce-projektu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="cislo">13</span><span class="nazev">Koncepce projektu Linux: Kniha kouzel</span></a>
-<a href="plan-vyvoje.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/plan-vyvoje.png" alt="[]"></span><span class="cislo">14</span><span class="nazev">Plán budoucího vývoje</span></a>
-<a href="licence.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="cislo">15</span><span class="nazev">Licence</span></a>
+<a href="odkazy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/odkazy.png" alt="[]"></span><span class="cislo">6</span><span class="nazev">Pevné a symbolické odkazy</span></a>
+<a href="prace-s-archivy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="cislo">7</span><span class="nazev">Práce s archivy</span></a>
+<a href="regularni-vyrazy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="cislo">8</span><span class="nazev">Regulární výrazy</span></a>
+<a href="sprava-balicku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="cislo">9</span><span class="nazev">Správa balíčků</span></a>
+<a href="sprava-uzivatelskych-uctu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="cislo">10</span><span class="nazev">Správa uživatelských účtů</span></a>
+<a href="system.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="cislo">11</span><span class="nazev">Systém</span></a>
+<a href="zpracovani-textovych-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="cislo">12</span><span class="nazev">Zpracování textových souborů</span></a>
+<a href="zpracovani-videa-a-zvuku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="cislo">13</span><span class="nazev">Zpracování videa a zvuku</span></a>
+<a href="koncepce-projektu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="cislo">14</span><span class="nazev">Koncepce projektu Linux: Kniha kouzel</span></a>
+<a href="plan-vyvoje.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/plan-vyvoje.png" alt="[]"></span><span class="cislo">15</span><span class="nazev">Plán budoucího vývoje</span></a>
+<a href="licence.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="cislo">16</span><span class="nazev">Licence</span></a>
 <div class="premiove"><strong>Prémiové kapitoly:</strong>
 <div>AWK</div>
 <div>Datum, čas a kalendář</div>
@@ -750,7 +761,7 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <div>Terminál</div>
 <div>Vim</div>
 <div>Zpracování binárních souborů</div>
-</div><p>Tyto kapitoly můžete získat jako odměnu za překlad ze zdrojového kódu. Podrobnější informace <a href="https://github.com/singularis-mzf/linux-spellbook/blob/stabilni/dokumentace/odm%C4%9Bna-za-sestaven%C3%AD.md">na GitHubu</a>.</p>
+</div><p>Tyto kapitoly můžete získat jako odměnu za překlad ze zdrojového kódu. Podrobnější informace <a href="https://github.com/singularis-mzf/linux-spellbook/blob/stabiln%C3%AD/dokumentace/odm%C4%9Bna-za-sestaven%C3%AD.md">na GitHubu</a>.</p>
 </div></div>
 <a href="#zavritmenu" id="zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
 </aside>
@@ -758,7 +769,7 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <a href="#menustitky" id="menustitky"><span class="prvnipismeno">Š</span>títky</a>
 <aside class="menustitky">
 <div><div class="nadpis">Štítky</div><div class="polozky">
-<a href="x-stitky.htm#sadresare">adresáře&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sadresare">adresáře&nbsp;&nbsp;(2)</a>
 <a href="x-stitky.htm#sapt">apt&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#sbash">bash&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#sdemoni">démoni&nbsp;&nbsp;(1)</a>
@@ -772,10 +783,12 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <a href="x-stitky.htm#spristupovaprava">přístupová práva&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#sramdisk">ramdisk&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#ssnap">Snap&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#ssoubory">soubory&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#sspravaverzi">správa verzí&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#ssyntaxe">syntaxe&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#ssystem">systém&nbsp;&nbsp;(4)</a>
-<a href="x-stitky.htm#stematickyokruh">tematický okruh&nbsp;&nbsp;(8)</a>
+<a href="x-stitky.htm#ssystemsouboru">systém souborů&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#stematickyokruh">tematický okruh&nbsp;&nbsp;(9)</a>
 <a href="x-stitky.htm#svideo">video&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#szip">zip&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#szpracovanitextu">zpracování textu&nbsp;&nbsp;(2)</a>
@@ -790,7 +803,7 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <a href="koncepce-projektu.htm">Koncepce projektu</a>
 <a href="https://singularis-mzf.github.io/">Ostatní verze knihy</a>
 <a href="https://github.com/singularis-mzf/linux-spellbook">Repozitář na GitHubu</a>
-<a href="https://github.com/singularis-mzf/linux-spellbook/blob/stabilni/dokumentace/odm%C4%9Bna-za-sestaven%C3%AD.md">Odměna za sestavení (prémiové kapitoly)</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook/blob/stabiln%C3%AD/dokumentace/odm%C4%9Bna-za-sestaven%C3%AD.md">Odměna za sestavení (prémiové kapitoly)</a>
 </div></div>
 <a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
 </aside>

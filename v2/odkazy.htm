@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="cs">
+<head profile="http://www.w3.org/2005/10/profile">
+<meta charset="UTF-8">
+
+<title>Pevné a symbolické odkazy − Linux: Kniha kouzel</title>
+
+<link rel="stylesheet" type="text/css" href="lkk-20201201.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20201201-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20201201-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20201201-svetly.css" title="Světlý motiv">
+<link rel="icon" type="image/png" href="obrazky/favicon.png">
+</head>
+<body>
+<div id="nahore"><div id="okno">
+<header>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.2, J. J. (1. prosince 2020)</span>
+<span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
+</header>
+<nav class="menuokna">
+<a href="#menuosnova" class="menu"><span class="prvnipismeno">O</span>snova</a>
+<a href="#menukapitoly" class="menu"><span class="prvnipismeno">K</span>apitoly</a>
+<a href="#menustitky" class="menu"><span class="prvnipismeno">Š</span>títky</a>
+<a href="#menunapoveda" class="menu"><span class="prvnipismeno">N</span>ápověda</a>
+<a href="hledani-souboru.htm" rel="prev" title="5. Hledání souborů" accesskey="p" class="predchozi">Předchozí&nbsp;kapitola</a>
+<a href="index.htm" class="prehled"><span class="prvnipismeno">P</span>řehled kapitol</a>
+<a href="prace-s-archivy.htm" rel="next" title="7. Práce s archivy" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
+</nav>
+
+<div class="slogan-veskera-moc">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+
+<!--
+<nav class="horni">
+<div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+<span class="prev">
+<a href="hledani-souboru.htm" rel="prev" title="5. Hledání souborů" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+</span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!- -
+- ->&nbsp;| <a href="prace-s-archivy.htm" rel="next" title="7. Práce s archivy" accesskey="n">Následující&nbsp;kapitola</a>
+</span>
+</nav>
+-->
+
+
+<article>
+
+<h1 class="kapitola">6. <img src="obrazky/ik/odkazy.png" alt="" width="64" height="64"> Pevné a symbolické odkazy</h1>
+<div class="stitky"><a href="x-stitky.htm#sadresare">adresáře</a>
+<a href="x-stitky.htm#ssoubory">soubory</a>
+<a href="x-stitky.htm#ssystemsouboru">systém souborů</a>
+<a href="x-stitky.htm#stematickyokruh">tematický okruh</a>
+</div>
+<h2 id="cast1"><a href="#cast1"><span class="cislo">1.</span> Úvod</a></h2>
+<p class="ponadpisu">
+<b>Pevný odkaz</b> je pojmenovaný odkaz na soubor z adresáře.
+Většina nelinuxových typů souborových systémů dovoluje mít na každý soubor
+pouze jeden pevný odkaz, takže umístění i pojmenování souboru je pak jednoznačné;
+linuxové souborové systémy vás ale takto omezují pouze v umísťování adresářů.
+Na každý soubor vám však dovolují zřídit až tisíce rovnocenných pevných odkazů,
+takže tentýž soubor se pak v souborovém systému nachází pod více názvy,
+případně i v různých adresářích a nezáleží na tom, přes který z těchto názvů
+k němu přistupujete. Zatímco všechny ostatní vlastnosti souboru
+jsou jednoznačně uloženy v jeho metadatech, název a příslušnost k adresáři
+určuje každý pevný odkaz samostatně.
+Pevné odkazy jsou (na rozdíl od symbolických) vždy platné, protože data a metadata
+souboru se nesmažou, dokud na ně nějaký pevný odkaz odkazuje.
+</p><p>
+<b>Symbolický odkaz</b> je něco docela jiného – je to malý zvláštní soubor,
+který obsahuje pouze určitou relativní či absolutní cestu a programy
+s ním pak většinou zachází tak, jako by se na daném místě nacházel soubor
+či adresář touto cestou odkazovaný – jde-li o adresář, můžeme do něj vstoupit
+příkazem „cd“; jde-li o spustitelný program, můžeme ho spustit atd.
+Pokud ovšem na odkazované cestě nic neleží, symbolický odkaz je neplatný
+a programy se s tím musejí nějak vyrovnat.
+</p><p>
+Příkazy ln, readlink, stat a některé další jsou vyvíjeny v rámci projektu GNU.
+</p>
+
+<h2 id="cast2"><a href="#cast2"><span class="cislo">2.</span> Definice</a></h2>
+<ul><li><b>Pevný odkaz</b> je, obecně vzato každá položka v adresáři; pro účely této kapitoly se však omezíme na definici, že pevným odkazem je pouze adresářová položka reprezentující obyčejný soubor. Součástí pevného odkazu je pouze název a umístění v adresáři, <i>všechny</i> ostatní údaje o souboru jsou vlastnostmi souboru jako takového.
+</li><li><b>Symbolický odkaz</b> je malý zvláštní soubor, který obsahuje relativní či absolutní cestu k cílovému souboru či adresáři. Symbolické odkazy se dělí na <b>absolutní</b> (obsahující absolutní cestu) a <b>relativní</b> (obsahující relativní cestu). Symbolický odkaz odkazující na na neexistující cestu se označuje jako <b>neplatný</b>.
+</li><li><b>Následovat</b> symbolický odkaz (follow) znamená chovat se, jako by se na jeho místě a pod jeho názvem skutečně nacházel odkazovaný soubor či adresář. Oproti tomu <b>nenásledovat</b> symbolický odkaz znamená chovat se k němu jen jako k adresářové položce. V linuxu je obvyklé, že při práci s jednotlivým souborem či adresářem se symbolické odkazy následují (např. pokusíte-li se spustit symbolický odkaz na program, spustí se program), zatímco při rekurzivním průchodu adresářovou strukturou (např. příkazy „find“, „cp -R“, „chmod -R“ apod.) se nenásledují. Ve většině případů však toto chování můžete změnit určitým parametrem příkazu.
+</li></ul>
+<h2 id="cast3" class="zaklinadla"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla</a></h2>
+
+<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 7 (Pevné a symbolické odkazy), sekce 3 (Zaklínadla), podsekce 1 (Pevné odkazy)"><sup>3/</sup>1 Pevné odkazy</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z18211572"><span><a href="#z18211572">♰</a></span></span><b>vytvořit</b> pevný odkaz na soubor<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">ln -T<span class="volznak">[</span>f<span class="volznak">]</span><span class="volznak">[</span>v<span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/k/souboru</i> <i class="dopln">cesta/výsl/odkazu</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1931353136"><span><a href="#z1931353136">☑</a></span></span>vytvořit pevné odkazy hromadně<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">ln -t<span class="volznak">[</span>f<span class="volznak">]</span><span class="volznak">[</span>v<span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cílový/adresář</i> <i class="dopln">cesta/k/souboru</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z297302224"><span><a href="#z297302224">⡯</a></span></span>přejmenovat či <b>přesunout</b> pevný odkaz (alternativy)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">mv -T<span class="volznak">[</span>i<span class="volznak">]</span> <i class="dopln">původní/cesta</i> <i class="dopln">nová/cesta</i></div>
+<div class="radekzaklinadla">mv -T<span class="volznak">[</span>f<span class="volznak">]</span> <i class="dopln">původní/cesta</i> <i class="dopln">nová/cesta</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1516215162"><span><a href="#z1516215162">⁍</a></span></span><b>smazat</b> pevný odkaz<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">rm <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/k/odkazu</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1454749716"><span><a href="#z1454749716">⬚</a></span></span>vypsat <b>počítadlo odkazů</b><span class="cislo">#5 </span><sup><a href="#kapodkazyppc1" id="kapodkazyppcr1" title="Parametr „-L“ vypne následování symbolických odkazů. Bez něj se vypíše počítadlo odkazovaného souboru či adresáře, s ním se vypíše počítadlo samotného symbolického odkazu.">(1)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">stat -c %h <span class="volznak">[</span>-L<span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta-k-odkazu</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1729913327"><span><a href="#z1729913327">⡀</a></span></span>vypsat <b>kanonickou</b> (absolutní) cestu (bez/s následováním)<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">sh -c 'r=$(realpath -e &quot;$(dirname &quot;$1&quot;)&quot;); b=$(basename &quot;$1&quot;); echo &quot;${r%/}/${b%/}&quot;' -- <i class="dopln">cesta</i></div>
+<div class="radekzaklinadla">realpath -e <i class="dopln">cesta-k-odkazu</i><span class="prikladhodnoty">⊨ /etc/passwd</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1026815938"><span><a href="#z1026815938">╷</a></span></span>odkazují dva odkazy na <b>tentýž</b> soubor? (s následováním/bez něj)<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla">test <i class="dopln">cesta1</i> -ef <i class="dopln">cesta2</i></div>
+<div class="radekzaklinadla">test &quot;$(stat -c %d/%i -L <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta1</i> )&quot; = &quot;$(stat -c %d/%i -L <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta2</i>)&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z602588526"><span><a href="#z602588526">⬕</a></span></span>osamostatnit pevný odkaz od ostatních odkazů<span class="cislo">#8 </span></div><div class="radky">
+<div class="radekzaklinadla">f=&quot;<i class="dopln">název-souboru</i>&quot;</div>
+<div class="radekzaklinadla">test &quot;$(stat -L -c %h &quot;$f&quot;)&quot; -le 1 || if test -L &quot;$f&quot;; then ln -sfT &quot;$(readlink -- &quot;$1&quot;)&quot;; elif test -f &quot;$f&quot;; then cp -Tai -- &quot;$f&quot; &quot;${f}.nový&quot; &amp;&amp; mv -Tf -- &quot;${f}.nový&quot; &quot;$f&quot;; fi</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2007965503"><span><a href="#z2007965503">⢭</a></span></span>vypsat kanonickou cestu adresáře obsahujícího pevný odkaz (s následováním)<span class="cislo">#9 </span></div><div class="radky">
+<div class="radekzaklinadla">dirname -- &quot;$(realpath -e <i class="dopln">cesta-k-odkazu</i>)&quot;<span class="prikladhodnoty">⊨ /etc</span></div>
+</div></div>
+
+<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 7 (Pevné a symbolické odkazy), sekce 3 (Zaklínadla), podsekce 2 (Symbolické odkazy (vytvořit))"><sup>3/</sup>2 Symbolické odkazy (vytvořit)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1598607989"><span><a href="#z1598607989">┃</a></span></span><b>vytvořit</b> relativní/absolutní (s následováním)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">ln -rsT<span class="volznak">[</span>f<span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/k/cíli</i> <i class="dopln">cesta/výsl/odkazu</i></div>
+<div class="radekzaklinadla">ln -sT<span class="volznak">[</span>f<span class="volznak">]</span> &quot;$(realpath -e <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/k/cíli</i>)&quot; <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/výsl/odkazu</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1217137547"><span><a href="#z1217137547">⚨</a></span></span>vytvořit relativní/absolutní (bez následování)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">ln -sT<span class="volznak">[</span>f<span class="volznak">]</span> &quot;$(realpath -s &quot;--relative-to=$(dirname <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/výsl/odkazu</i>)&quot; <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/k/cíli</i>)&quot; <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/výsl/odkazu</i></div>
+<div class="radekzaklinadla">ln -sT<span class="volznak">[</span>f<span class="volznak">]</span> &quot;$(realpath -s <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/k/cíli</i>)&quot; <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/výsl/odkazu</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z372937640"><span><a href="#z372937640">∡</a></span></span>hromadné vytvoření relativních (s následováním)<span class="cislo">#3 </span><sup><a href="#kapodkazyppc2" id="kapodkazyppcr2" title="Názvy vytvářených symbolických odkazů se odvodí od názvů v „cestě/k/cíli“.">(2)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">ln -rs -t <i class="dopln">cílový/adresář</i> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/k/cíli</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z685701583"><span><a href="#z685701583">⚗</a></span></span>vytvořit obecný<span class="cislo">#4 </span><sup><a href="#kapodkazyppc3" id="kapodkazyppcr3" title="Obsah odkazů musí mít délku 1 až 4095 bajtů, jinak však v tomto případě neprovádí příkaz „ln“ žádnou kontrolu smysluplnosti obsahu odkazu. Toto je tedy preferovaný způsob vytváření symbolických odkazů na dosud neexistující soubory a adresáře.">(3)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">ln -sT<span class="volznak">[</span>f<span class="volznak">]</span> &quot;<i class="dopln">obsah-odkazu</i>&quot; <i class="dopln">cesta/výsl/odkazu</i></div>
+</div></div>
+
+<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 7 (Pevné a symbolické odkazy), sekce 3 (Zaklínadla), podsekce 3 (Symbolické odkazy (ostatní operace))"><sup>3/</sup>3 Symbolické odkazy (ostatní operace)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z307539059"><span><a href="#z307539059">ⵟ</a></span></span>přejmenovat či <b>přesunout</b> (alternativy)<span class="cislo">#1 </span><sup><a href="#kapodkazyppc4" id="kapodkazyppcr4" title="Relativní symbolický odkaz si při přesunutí zachová svůj obsah doslovně, de facto se tedy přesune se odpovídajícím způsobem i to, kam ukazuje. Pokud chcete, aby i po přesunutí odkazoval na původní cíl, budete ho muset „opravit“. Toto se netýká absolutních symbolických odkazů.">(4)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">mv -T<span class="volznak">[</span>i<span class="volznak">]</span> <i class="dopln">původní/cesta</i> <i class="dopln">nová/cesta</i></div>
+<div class="radekzaklinadla">mv -T<span class="volznak">[</span>f<span class="volznak">]</span> <i class="dopln">původní/cesta</i> <i class="dopln">nová/cesta</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1140116989"><span><a href="#z1140116989">⇔</a></span></span><b>smazat</b><span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">rm <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/k/odkazu</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1419049679"><span><a href="#z1419049679">⨌</a></span></span>je adresářová položka symbolický odkaz?<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">test -L <i class="dopln">cesta/k/položce</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z705067828"><span><a href="#z705067828">䷯</a></span></span>je absolutní/relativní?<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">[[ <span class="volznak">[</span>-L <i class="dopln">cesta/k/odkazu</i> &amp;&amp;<span class="volznak">]</span> $(readlink <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/k/odkazu</i> ) = /* ]]</div>
+<div class="radekzaklinadla">[[ <span class="volznak">[</span>-L <i class="dopln">cesta/k/odkazu</i> &amp;&amp;<span class="volznak">]</span> $(readlink <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/k/odkazu</i> ) != /* ]]</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1200641194"><span><a href="#z1200641194">۶</a></span></span>odkazuje na soubor/na adresář/na pojmenovanou rouru?<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">test <span class="volznak">[</span>-L <i class="dopln">cesta/k/odkazu</i> -a<span class="volznak">]</span> -f <i class="dopln">cesta/k/odkazu</i></div>
+<div class="radekzaklinadla">test <span class="volznak">[</span>-L <i class="dopln">cesta/k/odkazu</i> -a<span class="volznak">]</span> -d <i class="dopln">cesta/k/odkazu</i></div>
+<div class="radekzaklinadla">test <span class="volznak">[</span>-L <i class="dopln">cesta/k/odkazu</i> -a<span class="volznak">]</span> -p <i class="dopln">cesta/k/odkazu</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z712651037"><span><a href="#z712651037">≰</a></span></span>je neplatný?<span class="cislo">#6 </span><sup><a href="#kapodkazyppc5" id="kapodkazyppcr5" title="Pozor! Pokud nemáte přístup do adresáře, kam symbolický odkaz vede, bude se vám vždy jevit jako neplatný! V případě pochybností raději hledejte neplatné odkazy s použitím „sudo“ nebo obsah vyhledaných odkazů kontrolujte.">(5)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">!<span class="viditelnamezera">&nbsp;</span>readlink -e -- <i class="dopln">cesta/k/odkazu</i> &gt;/dev/null &amp;&amp; test -L <i class="dopln">cesta/k/odkazu</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1402639498"><span><a href="#z1402639498">╨</a></span></span>vypsat obsah (doslovně)<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla">readlink <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/k/odkazu</i><span class="tritecky"></span><span class="prikladhodnoty">⊨ ../../etc/passwd</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z791170720"><span><a href="#z791170720">╂</a></span></span>vypsat kanonickou (absolutní) cestu cíle<span class="cislo">#8 </span></div><div class="radky">
+<div class="radekzaklinadla">realpath -e <i class="dopln">cesta-k-odkazu</i><span class="prikladhodnoty">⊨ /etc/passwd</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1093975597"><span><a href="#z1093975597">⠎</a></span></span>nahradit symbolický odkaz pevným odkazem na tentýž soubor<span class="cislo">#9 </span></div><div class="radky">
+<div class="radekzaklinadla">ln -Tf<span class="volznak">[</span>v<span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> &quot;$(readlink -e <i class="dopln">cesta/k/odkazu</i>)&quot; &quot;<i class="dopln">cesta/k/odkazu</i>&quot;</div>
+</div></div>
+
+<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 7 (Pevné a symbolické odkazy), sekce 3 (Zaklínadla), podsekce 4 (Rekurzivní operace)"><sup>3/</sup>4 Rekurzivní operace</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2032441091"><span><a href="#z2032441091">◍</a></span></span><b>okopírovat</b> adresáře, ale na soubory místo kopírování vytvořit pevné odkazy<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> cp -TRl<span class="volznak">[</span>v<span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">původní/adresář</i> <i class="dopln">nový/adresář</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z815535439"><span><a href="#z815535439">╖</a></span></span>kopírovat s následováním symbolických odkazů<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> cp -TRL<span class="volznak">[</span>v<span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">původní/adresář</i> <i class="dopln">nový/adresář</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2051466145"><span><a href="#z2051466145">∶</a></span></span><b>nahradit předponu</b> v symbolických odkazech<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">find <i class="dopln">adresář</i><span class="tritecky"></span> -type l -printf '=%p\0=%l\0\0' | gawk -b -v &quot;puv=<i class="dopln">co-nahradit</i>&quot; -v &quot;nov=<i class="dopln">čím-nahradit</i>&quot; -v 'FS=\0' -v 'RS=\0\0' -v 'OFS=' -v apo=\' 'function f(s) {return gensub(apo, apo &quot;\\&quot; apo apo, &quot;g&quot;, s)} substr($2, 2, length(puv)) == puv {print &quot;ln -Tfsv &quot;, apo, f(nov substr($2, 2 + length(puv))), apo, &quot; &quot;, apo, f(substr($1, 2)), apo}' | bash <span class="volznak">[</span>-e<span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z601000231"><span><a href="#z601000231">❅</a></span></span>kde je to možné, konvertovat symbolické odkazy na pevné<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">find <i class="dopln">adresář</i><span class="tritecky"></span> -type l ! -xtype d,l -exec sh -c 'exec ln -Tfv -- &quot;$(readlink -e -- &quot;$1&quot;)&quot; &quot;$1&quot;' -- '{}' \; <span class="volznak">[</span>2&gt;/dev/null<span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z694443446"><span><a href="#z694443446">⊭</a></span></span>symbolické odkazy konvertovat na relativní/absolutní<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">find <i class="dopln">adresář</i><span class="tritecky"></span> -type l ! -xtype l -lname '/*' -exec ln -Trsf -- '{}' '{}' \;</div>
+<div class="radekzaklinadla">find <i class="dopln">adresář</i><span class="tritecky"></span> -type l ! -xtype l ! -lname '/*' -exec sh -c 'exec ln -Tsf -- &quot;$(readlink -e -- &quot;$1&quot;)&quot; &quot;&quot;' -- '{}' \;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1384108488"><span><a href="#z1384108488">໒</a></span></span>odstranit všechny symbolické odkazy<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">find <i class="dopln">adresář</i><span class="tritecky"></span> -type l <span class="volznak">[</span>-print<span class="volznak">]</span> -delete</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2007509128"><span><a href="#z2007509128">⊼</a></span></span>najít duplicitní soubory a sloučit je pomocí pevných odkazů<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+
+<h2 id="cast4"><a href="#cast4"><span class="cislo">4.</span> Parametry příkazů</a></h2>
+
+<h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 7 (Pevné a symbolické odkazy), sekce 4 (Parametry příkazů), podsekce 1 (ln)"><sup>4/</sup>1 ln</a></span></h3>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">ln <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">zdroj</i><span class="tritecky"></span> <i class="dopln">cíl</i></div>
+<div class="radekzaklinadla">ln <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> -t <i class="dopln">cílový/adresář</i> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">zdroj</i><span class="tritecky"></span></div>
+</div></div>
+<table class="parametryprikazu"><tbody><tr><td>○ -s ◉</td><td>Vytváří symbolické odkazy/pevné odkazy.</td></tr>
+
+<tr><td>☐ -v</td><td>Vypíše každý vytvořený odkaz.</td></tr>
+
+<tr><td>○ -f ○ -i ◉</td><td>Pokud cíl existuje: přepíše ho bez ptaní/zeptá se uživatele/selže.</td></tr>
+
+<tr><td>☐ -r</td><td>V kombinaci s -s vytváří platné relativní symbolické odkazy. Výchozí chování: vytváří obecné symbolické odkazy.</td></tr>
+
+<tr><td>☐ -P</td><td>Nenásleduje symbolické odkazy uvedené jako „zdroj“. Nemá smysl v kombinaci s „-s“.</td></tr>
+
+</tbody></table>
+
+<h3 id="cast4x2"><span><a href="#cast4x2" title="kapitola 7 (Pevné a symbolické odkazy), sekce 4 (Parametry příkazů), podsekce 2 (readlink)"><sup>4/</sup>2 readlink</a></span></h3>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">readlink <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla">readlink -n <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i></div>
+</div></div>
+<table class="parametryprikazu"><tbody><tr><td>○ -e ◉</td><td>Vypíše obsah jako kanonickou absolutní cestu (pokud cíl existuje)/tak, jak je.</td></tr>
+
+<tr><td>○ -z ◉</td><td>Jednotlivé obsahy ukončuje nulovým bajtem/znakem „\n“.</td></tr>
+
+<tr><td>-n</td><td>Vypíše obsah symbolického odkazu bez dodatečného ukončovače.</td></tr>
+
+</tbody></table>
+
+<h2 id="cast5"><a href="#cast5"><span class="cislo">5.</span> Instalace na Ubuntu</a></h2>
+<p class="ponadpisu">
+Všechny použité nástroje jsou základní součástí Ubuntu přítomnou i v minimální instalaci.
+Výjimkou je jen příkaz „gawk“, který je nutno doinstalovat:
+</p><p>
+<b>sudo apt-get install gawk</b>
+</p>
+
+<h2 id="cast6"><a href="#cast6"><span class="cislo">6.</span> Ukázka</a></h2>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">echo A1 &gt;a; echo B1 &gt;b</div>
+<div class="radekzaklinadla">ln -Tv a c</div>
+<div class="radekzaklinadla">stat -c %h a</div>
+<div class="radekzaklinadla">echo A2 &gt;a; cat c</div>
+<div class="radekzaklinadla">mkdir o; ln -rsT a o/a</div>
+<div class="radekzaklinadla">readlink -- o/a</div>
+<div class="radekzaklinadla">readlink -e -- o/a</div>
+<div class="radekzaklinadla">cat o/a</div>
+<div class="radekzaklinadla">test a -ef c; echo $?</div>
+<div class="radekzaklinadla">test a -ef o/a; echo $?</div>
+<div class="radekzaklinadla">stat -c %h o/a</div>
+<div class="radekzaklinadla">stat -c %h -L o/a</div>
+<div class="radekzaklinadla">find o -type l -print -delete</div>
+<div class="radekzaklinadla">rmdir -v o; rm -fv a b c</div>
+</div></div>
+
+<h2 id="cast7"><a href="#cast7"><span class="cislo">7.</span> Tipy a zkušenosti</a></h2>
+<ul><li>Častou začátečnickou chybou je příkaz typu „ln -s soubory/a odkazy/na-a“. Uvedený příkaz totiž vytvoří symbolický odkaz s obsahem „soubory/a“ a relativní symbolické odkazy se vždy vyhodnocují relativně vůči adresáři, ve kterém se nacházejí, takže faktickým cílem vytvořeného odkazu bude ve skutečnosti „odkazy/soubory/a“, který nejspíš neexistuje. Proto při vytváření relativních symbolických odkazů vždy používejte parametr „-r“, který cesty automaticky opraví. (Toto se nijak netýká absolutních ani pevných odkazů.)
+</li><li>Méně častou začátečnickou chybou je příkaz typu „ln -sf /etc/passwd odkaz-na-passwd“. Pokud by se totiž stalo, že „odkaz-na-passwd“ je existující symbolický odkaz na adresář, příkaz „ln“ uváží, že chcete vytvořit odkaz uvnitř odkazovaného adresáře, ne že chcete přepsat existující symbolický odkaz. Proto v kombinaci s parametrem „-f“ vždy používejte také parametr „-T“, nebo „-t“. (Tyto parametry se může vyplatit používat i v ostatních případech.)
+</li><li>Pokud symbolický odkaz odkazuje někam dovnitř adresáře, kam uživatel nemá právo vstoupit, bude se odkaz jevit uživateli jako neplatný, i když to ve skutečnosti nebude pravda.
+</li><li>Symbolický odkaz má vlastnictví a skupinu, ale nemá vlastní přístupová práva. Přístup k odkazovanému souboru či adresáři se vždy řídí jeho přístupovými právy odkazovaného souboru či adresáře.
+</li><li>Maximální počet pevných odkazů na jeden soubor je omezený souborovým systémem; v souborových systémech typu ext4 je to 65000, u btrfs 65535 a u tmpfs podstatně víc (podařilo se mi jich vytvořit i víc než milion, aniž by to spotřebovalo příliš mnoho paměti).
+</li><li>Symbolický odkaz sám o sobě je „nezapisovatelný“; pokud ho chceme změnit, musíme ho nejprve smazat a pak znovu vytvořit. To také znamená, že ke změně obsahu symbolického odkazu potřebuje uživatel právo zápisu do adresáře, kde se odkaz nachází.
+</li><li>Symbolický odkaz může odkazovat na jiný symbolický odkaz, ale maximální počet zanoření symbolických odkazů je 40 (pravděpodobně jde změnit).
+</li><li>Maximální délka obsahu symbolického odkazu je 4095 bajtů.
+</li><li>Soubor bude odstraněn z disku v momentě, kdy už na něj neexistují žádné pevné odkazy, není spuštěný jako proces a není otevřený žádným deskriptorem žádného procesu.
+</li></ul>
+<h3 id="cast7x1"><span><a href="#cast7x1" title="kapitola 7 (Pevné a symbolické odkazy), sekce 7 (Tipy a zkušenosti), podsekce 1 (Jaký typ odkazu zvolit?)"><sup>7/</sup>1 Jaký typ odkazu zvolit?</a></span></h3>
+<p class="ponadpisu">
+Při rozhodování mezi absolutním a relativním symbolickým odkazem je zasadní otázka, zda se bude odkaz přesouvat společně s cílem, nebo samostatně.
+</p><p>
+Pokud se bude přesouvat spíše samostatně, je vhodnější <i>absolutní symbolický odkaz</i>, protože ten je možno volně přesouvat kamkoliv a stále bude odkazovat na stejný cíl. Tím pádem s ním i v grafických správcích souborů můžete zacházet víceméně jako se souborem samotným. Pokud by přece jen došlo k přesunutí či přejmenování cíle, je nutno všechny absolutní odkazy na cíl vyhledat a opravit.
+</p><p>
+Pokud se bude odkaz přesouvat spolu s cílem, což je typické pro „blízké“ odkazy a odkazy v rámci výměnných médií, je vhodnější <i>relativní symbolický odkaz</i>, protože ten v takových případech zůstane platný.
+</p><p>
+Pokud se bude přesouvat cíl, vytvořte zvláštní symbolický odkaz na adresář cíle a přes něj směrujte na cíl (bez následování) absolutní symbolické odkazy. Po přesunutí cíle pak bude stačit opravit pouze tento jeden odkaz a ostatní odkazy zůstanou platné beze změny.
+</p><p>
+<i>Pevné odkazy</i> se vyplácí spíš pro dočasné nebo technicky přesně vymezené účely, protože je u nich vždy riziko rozpojení a není snadné si toho všimnout. Většinou se rozpojí při kopírování, při ukládání do archivu nebo když nějaký program soubor smaže a ihned znovu vytvoří. Také se může stát, že původní soubor přejmenujete a místo něj vytvoříte pod původním názvem nový; v takovém případě zůstane pevný odkaz navázaný na původní soubor. K rozpojení také dojde, pokud soubor přesunete příkazem „mv“ přes hranici souborového systému a nazpět.
+</p><p>
+Asi nejužitečnější způsob využití pevných odkazů je, když příkazem „cp -Rl“ vytvoříte kopii adresářové struktury, v ní pak budete soubory volně přesouvat, mazat apod. a později s ní nahradíte původní adresářovou strukturu. Podobný postup můžete s určitými omezeními použít k napodobnení klonů pododdílů btrfs.
+</p><p>
+Pevné odkazy se také vyplatí pro různé dočasné účely, kdy mohou být jejich technické vlastnosti výhodné. Vždy je ale třeba mít na paměti riziko rozpojení.
+</p>
+
+<h2 id="cast8"><a href="#cast8"><span class="cislo">8.</span> Další zdroje informací</a></h2>
+<ul class="kompaktni"><li><a href="https://cs.wikipedia.org/wiki/Symbolick%C3%BD_odkaz">Wikipedie: Symbolický odkaz</a>
+</li><li><a href="https://cs.wikipedia.org/wiki/Pevn%C3%BD_odkaz">Wikipedie: Pevný odkaz</a>
+</li><li><a href="https://www.youtube.com/watch?v=lW_V8oFxQgA">YouTube: MicroNuggets: Hard Links versus Soft Links Explained</a> (anglicky)
+</li><li><a href="https://lbry.tv/@christitustech:5/symbolic-links-in-linux-use-symlinks-for:f">LBRY: Chris Titus Tech: Symbolic Links in Linux</a> (anglicky)
+</li><li>man readlink (anglicky)
+</li><li>man realpath (anglicky)
+</li><li>man ln (anglicky)
+</li><li><a href="https://www.youtube.com/watch?v=rQpT0bRpV3Y">YouTube: BeginLinux Guru: Hard Links and Symbolic Links</a> (anglicky)
+</li></ul><div class="ppc"><div id="kapodkazyppc1"><a href="#kapodkazyppcr1" class="cislopozn">1</a>&nbsp;Parametr „-L“ vypne následování symbolických odkazů. Bez něj se vypíše počítadlo odkazovaného souboru či adresáře, s ním se vypíše počítadlo samotného symbolického odkazu.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapodkazyppc2"><a href="#kapodkazyppcr2" class="cislopozn">2</a>&nbsp;Názvy vytvářených symbolických odkazů se odvodí od názvů v „cestě/k/cíli“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapodkazyppc3"><a href="#kapodkazyppcr3" class="cislopozn">3</a>&nbsp;Obsah odkazů musí mít délku 1 až 4095 bajtů, jinak však v tomto případě neprovádí příkaz „ln“ žádnou kontrolu smysluplnosti obsahu odkazu. Toto je tedy preferovaný způsob vytváření symbolických odkazů na dosud neexistující soubory a adresáře.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapodkazyppc4"><a href="#kapodkazyppcr4" class="cislopozn">4</a>&nbsp;Relativní symbolický odkaz si při přesunutí zachová svůj obsah doslovně, de facto se tedy přesune se odpovídajícím způsobem i to, kam ukazuje. Pokud chcete, aby i po přesunutí odkazoval na původní cíl, budete ho muset „opravit“. Toto se netýká absolutních symbolických odkazů.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapodkazyppc5"><a href="#kapodkazyppcr5" class="cislopozn">5</a>&nbsp;Pozor! Pokud nemáte přístup do adresáře, kam symbolický odkaz vede, bude se vám vždy jevit jako neplatný! V případě pochybností raději hledejte neplatné odkazy s použitím „sudo“ nebo obsah vyhledaných odkazů kontrolujte.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+</div>
+
+
+<nav class="spodni">
+<a href="index.htm" class="naindex">🗐&nbsp;Přehled&nbsp;kapitol</a>
+<div class="naslkap">
+<a href="prace-s-archivy.htm" rel="next" title="7. Práce s archivy">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">7</span>
+<span class="nazev">Práce s archivy</span></a>
+</div>
+<!--<div><a href="index.htm">🗐&nbsp;Přehled&nbsp;kapitol</a></div>-->
+</nav>
+
+
+<div class="odkazydole"><div><a href="diskove-oddily.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly</a><a href="zpracovani-textovych-souboru.htm"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="" width="32" height="32">Zpracování textových souborů</a><a href="sprava-balicku.htm"><img src="obrazky/ik/sprava-balicku.png" alt="" width="32" height="32">Správa balíčků</a></div></div>
+
+
+</article>
+<!-- *** -->
+<footer id="dole">
+<img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
+<p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
+<a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
+Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
+či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
+na stránce „<a href="x-autori.htm">Přehled autorů</a>“.
+Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
+licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
+Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód
+a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
+<a href="https://github.com/singularis-mzf/linux-spellbook">repozitář na GitHubu</a>.
+</footer>
+</div>
+
+<nav class="menu">
+<!-- MENU OSNOVA -->
+<a href="#menuosnova" id="menuosnova"><span class="prvnipismeno">O</span>snova</a>
+<aside class="menuosnova">
+<div><div class="nadpis">Osnova</div><div class="polozky">
+<a href="#cast1" class="sekce">1 Úvod</a>
+<a href="#cast2" class="sekce">2 Definice</a>
+<a href="#cast3" class="sekce">3 Zaklínadla</a>
+<a href="#cast3x1" class="podsekce">/1 Pevné odkazy</a>
+<a href="#cast3x2" class="podsekce">/2 Symbolické odkazy (vytvořit)</a>
+<a href="#cast3x3" class="podsekce">/3 Symbolické odkazy (ostatní operace)</a>
+<a href="#cast3x4" class="podsekce">/4 Rekurzivní operace</a>
+<a href="#cast4" class="sekce">4 Parametry příkazů</a>
+<a href="#cast4x1" class="podsekce">/1 ln</a>
+<a href="#cast4x2" class="podsekce">/2 readlink</a>
+<a href="#cast5" class="sekce">5 Instalace na Ubuntu</a>
+<a href="#cast6" class="sekce">6 Ukázka</a>
+<a href="#cast7" class="sekce">7 Tipy a zkušenosti</a>
+<a href="#cast7x1" class="podsekce">/1 Jaký typ odkazu zvolit?</a>
+<a href="#cast8" class="sekce">8 Další zdroje informací</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU KAPITOLY -->
+<a href="#menukapitoly" id="menukapitoly"><span class="prvnipismeno">K</span>apitoly</a>
+<aside class="menukapitoly">
+<div><div class="nadpis">Kapitoly</div><div class="polozky">
+<a href="predmluva.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/predmluva.png" alt="[]"></span><span class="cislo">1</span><span class="nazev">Předmluva</span></a>
+<a href="zakladni-znalosti.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zakladni-znalosti.png" alt="[]"></span><span class="cislo">2</span><span class="nazev">Základní znalosti</span></a>
+<a href="diskove-oddily.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/diskove-oddily.png" alt="[]"></span><span class="cislo">3</span><span class="nazev">Diskové oddíly</span></a>
+<a href="git.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/git.png" alt="[]"></span><span class="cislo">4</span><span class="nazev">Git</span></a>
+<a href="hledani-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/hledani-souboru.png" alt="[]"></span><span class="cislo">5</span><span class="nazev">Hledání souborů</span></a>
+<a href="odkazy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/odkazy.png" alt="[]"></span><span class="cislo">6</span><span class="nazev">Pevné a symbolické odkazy</span></a>
+<a href="prace-s-archivy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="cislo">7</span><span class="nazev">Práce s archivy</span></a>
+<a href="regularni-vyrazy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="cislo">8</span><span class="nazev">Regulární výrazy</span></a>
+<a href="sprava-balicku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="cislo">9</span><span class="nazev">Správa balíčků</span></a>
+<a href="sprava-uzivatelskych-uctu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="cislo">10</span><span class="nazev">Správa uživatelských účtů</span></a>
+<a href="system.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="cislo">11</span><span class="nazev">Systém</span></a>
+<a href="zpracovani-textovych-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="cislo">12</span><span class="nazev">Zpracování textových souborů</span></a>
+<a href="zpracovani-videa-a-zvuku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="cislo">13</span><span class="nazev">Zpracování videa a zvuku</span></a>
+<a href="koncepce-projektu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="cislo">14</span><span class="nazev">Koncepce projektu Linux: Kniha kouzel</span></a>
+<a href="plan-vyvoje.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/plan-vyvoje.png" alt="[]"></span><span class="cislo">15</span><span class="nazev">Plán budoucího vývoje</span></a>
+<a href="licence.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="cislo">16</span><span class="nazev">Licence</span></a>
+<div class="premiove"><strong>Prémiové kapitoly:</strong>
+<div>AWK</div>
+<div>Datum, čas a kalendář</div>
+<div>Make</div>
+<div>Markdown</div>
+<div>Proměnné prostředí a interpretu</div>
+<div>Sed</div>
+<div>Soubory a adresáře</div>
+<div>Správa procesů</div>
+<div>Stahování videí</div>
+<div>Terminál</div>
+<div>Vim</div>
+<div>Zpracování binárních souborů</div>
+</div><p>Tyto kapitoly můžete získat jako odměnu za překlad ze zdrojového kódu. Podrobnější informace <a href="https://github.com/singularis-mzf/linux-spellbook/blob/stabiln%C3%AD/dokumentace/odm%C4%9Bna-za-sestaven%C3%AD.md">na GitHubu</a>.</p>
+</div></div>
+<a href="#zavritmenu" id="zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU ŠTÍTKY -->
+<a href="#menustitky" id="menustitky"><span class="prvnipismeno">Š</span>títky</a>
+<aside class="menustitky">
+<div><div class="nadpis">Štítky</div><div class="polozky">
+<a href="x-stitky.htm#sadresare">adresáře&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#sapt">apt&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sbash">bash&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sdemoni">démoni&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sflatpak">Flatpak&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#shledani">hledání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sklavesnice">klávesnice&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#skomprese">komprese&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#slvm">LVM&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sodkladaciprostor">odkládací prostor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sprogram">program&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#spristupovaprava">přístupová práva&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sramdisk">ramdisk&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#ssnap">Snap&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#ssoubory">soubory&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sspravaverzi">správa verzí&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#ssyntaxe">syntaxe&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#ssystem">systém&nbsp;&nbsp;(4)</a>
+<a href="x-stitky.htm#ssystemsouboru">systém souborů&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#stematickyokruh">tematický okruh&nbsp;&nbsp;(9)</a>
+<a href="x-stitky.htm#svideo">video&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#szip">zip&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#szpracovanitextu">zpracování textu&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#szvuk">zvuk&nbsp;&nbsp;(1)</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU NÁPOVĚDA -->
+<a href="#menunapoveda" id="menunapoveda"><span class="prvnipismeno">N</span>ápověda</a>
+<aside class="menunapoveda">
+<div><div class="nadpis">Nápověda</div><div class="polozky">
+<a href="koncepce-projektu.htm">Koncepce projektu</a>
+<a href="https://singularis-mzf.github.io/">Ostatní verze knihy</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook">Repozitář na GitHubu</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook/blob/stabiln%C3%AD/dokumentace/odm%C4%9Bna-za-sestaven%C3%AD.md">Odměna za sestavení (prémiové kapitoly)</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+</nav>
+
+<a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
+<a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
+
+</div>
+</body>
+</html>

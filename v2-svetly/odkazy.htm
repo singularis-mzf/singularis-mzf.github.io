@@ -5,16 +5,16 @@
 
 <title>Pevné a symbolické odkazy − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20201201.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20201201-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20201201-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20201201-svetly.css" title="Světlý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20210101.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20210101-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20210101-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20210101-svetly.css" title="Světlý motiv">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body>
 <div id="nahore"><div id="okno">
 <header>
-<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.2, J. J. (1. prosince 2020)</span>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.3, K. K. (1. ledna 2021)</span>
 <span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -24,7 +24,7 @@
 <a href="#menunapoveda" class="menu"><span class="prvnipismeno">N</span>ápověda</a>
 <a href="hledani-souboru.htm" rel="prev" title="5. Hledání souborů" accesskey="p" class="predchozi">Předchozí&nbsp;kapitola</a>
 <a href="index.htm" class="prehled"><span class="prvnipismeno">P</span>řehled kapitol</a>
-<a href="prace-s-archivy.htm" rel="next" title="7. Práce s archivy" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
+<a href="perl-zaklady.htm" rel="next" title="7. Perl: základy" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
 </nav>
 
 <div class="slogan-veskera-moc">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
@@ -35,7 +35,7 @@
 <span class="prev">
 <a href="hledani-souboru.htm" rel="prev" title="5. Hledání souborů" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!- -
-- ->&nbsp;| <a href="prace-s-archivy.htm" rel="next" title="7. Práce s archivy" accesskey="n">Následující&nbsp;kapitola</a>
+- ->&nbsp;| <a href="perl-zaklady.htm" rel="next" title="7. Perl: základy" accesskey="n">Následující&nbsp;kapitola</a>
 </span>
 </nav>
 -->
@@ -77,7 +77,7 @@ Příkazy ln, readlink, stat a některé další jsou vyvíjeny v rámci proje
 
 <h2 id="cast2"><a href="#cast2"><span class="cislo">2.</span> Definice</a></h2>
 <ul><li><b>Pevný odkaz</b> je, obecně vzato každá položka v adresáři; pro účely této kapitoly se však omezíme na definici, že pevným odkazem je pouze adresářová položka reprezentující obyčejný soubor. Součástí pevného odkazu je pouze název a umístění v adresáři, <i>všechny</i> ostatní údaje o souboru jsou vlastnostmi souboru jako takového.
-</li><li><b>Symbolický odkaz</b> je malý zvláštní soubor, který obsahuje relativní či absolutní cestu k cílovému souboru či adresáři. Symbolické odkazy se dělí na <b>absolutní</b> (obsahující absolutní cestu) a <b>relativní</b> (obsahující relativní cestu). Symbolický odkaz odkazující na na neexistující cestu se označuje jako <b>neplatný</b>.
+</li><li><b>Symbolický odkaz</b> je malý zvláštní soubor, který obsahuje relativní či absolutní cestu k cílovému souboru či adresáři. Symbolické odkazy se dělí na <b>absolutní</b> (obsahující absolutní cestu) a <b>relativní</b> (obsahující relativní cestu). Symbolický odkaz odkazující na neexistující cestu se označuje jako <b>neplatný</b>.
 </li><li><b>Následovat</b> symbolický odkaz (follow) znamená chovat se, jako by se na jeho místě a pod jeho názvem skutečně nacházel odkazovaný soubor či adresář. Oproti tomu <b>nenásledovat</b> symbolický odkaz znamená chovat se k němu jen jako k adresářové položce. V linuxu je obvyklé, že při práci s jednotlivým souborem či adresářem se symbolické odkazy následují (např. pokusíte-li se spustit symbolický odkaz na program, spustí se program), zatímco při rekurzivním průchodu adresářovou strukturou (např. příkazy „find“, „cp -R“, „chmod -R“ apod.) se nenásledují. Ve většině případů však toto chování můžete změnit určitým parametrem příkazu.
 </li></ul>
 <h2 id="cast3" class="zaklinadla"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla</a></h2>
@@ -100,7 +100,7 @@ Příkazy ln, readlink, stat a některé další jsou vyvíjeny v rámci proje
 <div class="radekzaklinadla">stat -c %h <span class="volznak">[</span>-L<span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta-k-odkazu</i></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1729913327"><span><a href="#z1729913327">⡀</a></span></span>vypsat <b>kanonickou</b> (absolutní) cestu (bez/s následováním)<span class="cislo">#6 </span></div><div class="radky">
-<div class="radekzaklinadla">sh -c 'r=$(realpath -e &quot;$(dirname &quot;$1&quot;)&quot;); b=$(basename &quot;$1&quot;); echo &quot;${r%/}/${b%/}&quot;' -- <i class="dopln">cesta</i></div>
+<div class="radekzaklinadla">realpath -se <i class="dopln">cesta-k-odkazu</i><span class="prikladhodnoty">⊨ /home/petr/odkaz-na-passwd</span></div>
 <div class="radekzaklinadla">realpath -e <i class="dopln">cesta-k-odkazu</i><span class="prikladhodnoty">⊨ /etc/passwd</span></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1026815938"><span><a href="#z1026815938">╷</a></span></span>odkazují dva odkazy na <b>tentýž</b> soubor? (s následováním/bez něj)<span class="cislo">#7 </span></div><div class="radky">
@@ -116,18 +116,18 @@ Příkazy ln, readlink, stat a některé další jsou vyvíjeny v rámci proje
 </div></div>
 
 <h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 7 (Pevné a symbolické odkazy), sekce 3 (Zaklínadla), podsekce 2 (Symbolické odkazy (vytvořit))"><sup>3/</sup>2 Symbolické odkazy (vytvořit)</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1598607989"><span><a href="#z1598607989">┃</a></span></span><b>vytvořit</b> relativní/absolutní (s následováním)<span class="cislo">#1 </span></div><div class="radky">
-<div class="radekzaklinadla">ln -rsT<span class="volznak">[</span>f<span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/k/cíli</i> <i class="dopln">cesta/výsl/odkazu</i></div>
-<div class="radekzaklinadla">ln -sT<span class="volznak">[</span>f<span class="volznak">]</span> &quot;$(realpath -e <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/k/cíli</i>)&quot; <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/výsl/odkazu</i></div>
-</div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1217137547"><span><a href="#z1217137547">⚨</a></span></span>vytvořit relativní/absolutní (bez následování)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z961475418"><span><a href="#z961475418">⇍</a></span></span><b>vytvořit</b> relativní/absolutní (bez následování)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">ln -sT<span class="volznak">[</span>f<span class="volznak">]</span> &quot;$(realpath -s &quot;--relative-to=$(dirname <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/výsl/odkazu</i>)&quot; <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/k/cíli</i>)&quot; <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/výsl/odkazu</i></div>
 <div class="radekzaklinadla">ln -sT<span class="volznak">[</span>f<span class="volznak">]</span> &quot;$(realpath -s <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/k/cíli</i>)&quot; <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/výsl/odkazu</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z372937640"><span><a href="#z372937640">∡</a></span></span>hromadné vytvoření relativních (s následováním)<span class="cislo">#3 </span><sup><a href="#kapodkazyppc2" id="kapodkazyppcr2" title="Názvy vytvářených symbolických odkazů se odvodí od názvů v „cestě/k/cíli“.">(2)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1808963954"><span><a href="#z1808963954">←</a></span></span>vytvořit relativní/absolutní (s následováním)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">ln -rsT<span class="volznak">[</span>f<span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/k/cíli</i> <i class="dopln">cesta/výsl/odkazu</i></div>
+<div class="radekzaklinadla">ln -sT<span class="volznak">[</span>f<span class="volznak">]</span> &quot;$(realpath -e <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/k/cíli</i>)&quot; <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/výsl/odkazu</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1806178911"><span><a href="#z1806178911">⊭</a></span></span><b>hromadné</b> vytvoření relativních (s následováním)<span class="cislo">#3 </span><sup><a href="#kapodkazyppc2" id="kapodkazyppcr2" title="Názvy vytvářených symbolických odkazů se odvodí od názvů v „cestě/k/cíli“.">(2)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">ln -rs -t <i class="dopln">cílový/adresář</i> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/k/cíli</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z685701583"><span><a href="#z685701583">⚗</a></span></span>vytvořit obecný<span class="cislo">#4 </span><sup><a href="#kapodkazyppc3" id="kapodkazyppcr3" title="Obsah odkazů musí mít délku 1 až 4095 bajtů, jinak však v tomto případě neprovádí příkaz „ln“ žádnou kontrolu smysluplnosti obsahu odkazu. Toto je tedy preferovaný způsob vytváření symbolických odkazů na dosud neexistující soubory a adresáře.">(3)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1593192748"><span><a href="#z1593192748">⇇</a></span></span>vytvořit <b>obecný</b><span class="cislo">#4 </span><sup><a href="#kapodkazyppc3" id="kapodkazyppcr3" title="Obsah odkazů musí mít délku 1 až 4095 bajtů, jinak však v tomto případě neprovádí příkaz „ln“ žádnou kontrolu smysluplnosti obsahu odkazu. Toto je tedy preferovaný způsob vytváření symbolických odkazů na dosud neexistující soubory a adresáře.">(3)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">ln -sT<span class="volznak">[</span>f<span class="volznak">]</span> &quot;<i class="dopln">obsah-odkazu</i>&quot; <i class="dopln">cesta/výsl/odkazu</i></div>
 </div></div>
 
@@ -250,7 +250,7 @@ Výjimkou je jen příkaz „gawk“, který je nutno doinstalovat:
 <ul><li>Častou začátečnickou chybou je příkaz typu „ln -s soubory/a odkazy/na-a“. Uvedený příkaz totiž vytvoří symbolický odkaz s obsahem „soubory/a“ a relativní symbolické odkazy se vždy vyhodnocují relativně vůči adresáři, ve kterém se nacházejí, takže faktickým cílem vytvořeného odkazu bude ve skutečnosti „odkazy/soubory/a“, který nejspíš neexistuje. Proto při vytváření relativních symbolických odkazů vždy používejte parametr „-r“, který cesty automaticky opraví. (Toto se nijak netýká absolutních ani pevných odkazů.)
 </li><li>Méně častou začátečnickou chybou je příkaz typu „ln -sf /etc/passwd odkaz-na-passwd“. Pokud by se totiž stalo, že „odkaz-na-passwd“ je existující symbolický odkaz na adresář, příkaz „ln“ uváží, že chcete vytvořit odkaz uvnitř odkazovaného adresáře, ne že chcete přepsat existující symbolický odkaz. Proto v kombinaci s parametrem „-f“ vždy používejte také parametr „-T“, nebo „-t“. (Tyto parametry se může vyplatit používat i v ostatních případech.)
 </li><li>Pokud symbolický odkaz odkazuje někam dovnitř adresáře, kam uživatel nemá právo vstoupit, bude se odkaz jevit uživateli jako neplatný, i když to ve skutečnosti nebude pravda.
-</li><li>Symbolický odkaz má vlastnictví a skupinu, ale nemá vlastní přístupová práva. Přístup k odkazovanému souboru či adresáři se vždy řídí jeho přístupovými právy odkazovaného souboru či adresáře.
+</li><li>Symbolický odkaz má vlastnictví a skupinu, ale nemá vlastní přístupová práva. Přístup k odkazovanému souboru či adresáři se vždy řídí přístupovými právy odkazovaného souboru či adresáře.
 </li><li>Maximální počet pevných odkazů na jeden soubor je omezený souborovým systémem; v souborových systémech typu ext4 je to 65000, u btrfs 65535 a u tmpfs podstatně víc (podařilo se mi jich vytvořit i víc než milion, aniž by to spotřebovalo příliš mnoho paměti).
 </li><li>Symbolický odkaz sám o sobě je „nezapisovatelný“; pokud ho chceme změnit, musíme ho nejprve smazat a pak znovu vytvořit. To také znamená, že ke změně obsahu symbolického odkazu potřebuje uživatel právo zápisu do adresáře, kde se odkaz nachází.
 </li><li>Symbolický odkaz může odkazovat na jiný symbolický odkaz, ale maximální počet zanoření symbolických odkazů je 40 (pravděpodobně jde změnit).
@@ -299,15 +299,15 @@ Pevné odkazy se také vyplatí pro různé dočasné účely, kdy mohou být je
 <nav class="spodni">
 <a href="index.htm" class="naindex">🗐&nbsp;Přehled&nbsp;kapitol</a>
 <div class="naslkap">
-<a href="prace-s-archivy.htm" rel="next" title="7. Práce s archivy">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">7</span>
-<span class="nazev">Práce s archivy</span></a>
+<a href="perl-zaklady.htm" rel="next" title="7. Perl: základy">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">7</span>
+<span class="nazev">Perl: základy</span></a>
 </div>
 <!--<div><a href="index.htm">🗐&nbsp;Přehled&nbsp;kapitol</a></div>-->
 </nav>
 
 
-<div class="odkazydole"><div><a href="diskove-oddily.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly</a><a href="zpracovani-textovych-souboru.htm"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="" width="32" height="32">Zpracování textových souborů</a><a href="sprava-balicku.htm"><img src="obrazky/ik/sprava-balicku.png" alt="" width="32" height="32">Správa balíčků</a></div></div>
-
+<div class="odkazydole"><div><a href="git.htm"><img src="obrazky/ik/git.png" alt="" width="32" height="32">Git</a><a href="zpracovani-textovych-souboru.htm"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="" width="32" height="32">Zpracování textových souborů</a><a href="sprava-balicku.htm"><img src="obrazky/ik/sprava-balicku.png" alt="" width="32" height="32">Správa balíčků</a></div></div>
+<div class="reklamnipata">Líbí se vám tento projekt a chcete, aby byl ještě lepší? Můžete mi s tím pomoci. Zmiňte se o něm technicky zdatným přátelům, opravte překlepy a nahlašte nefunkční zaklínadla, aby mohla být opravena; poskytněte mi zpětnou vazbu nebo se zapojte do vývoje nových kapitol. Další informace na GitHubu v dokumentu <a href="https://github.com/singularis-mzf/linux-spellbook/blob/v%C3%BDvojov%C3%A1/JAK-SE-ZAPOJIT.md">Jak se zapojit</a>.</div>
 
 </article>
 <!-- *** -->
@@ -359,16 +359,17 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <a href="git.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/git.png" alt="[]"></span><span class="cislo">4</span><span class="nazev">Git</span></a>
 <a href="hledani-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/hledani-souboru.png" alt="[]"></span><span class="cislo">5</span><span class="nazev">Hledání souborů</span></a>
 <a href="odkazy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/odkazy.png" alt="[]"></span><span class="cislo">6</span><span class="nazev">Pevné a symbolické odkazy</span></a>
-<a href="prace-s-archivy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="cislo">7</span><span class="nazev">Práce s archivy</span></a>
-<a href="regularni-vyrazy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="cislo">8</span><span class="nazev">Regulární výrazy</span></a>
-<a href="sprava-balicku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="cislo">9</span><span class="nazev">Správa balíčků</span></a>
-<a href="sprava-uzivatelskych-uctu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="cislo">10</span><span class="nazev">Správa uživatelských účtů</span></a>
-<a href="system.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="cislo">11</span><span class="nazev">Systém</span></a>
-<a href="zpracovani-textovych-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="cislo">12</span><span class="nazev">Zpracování textových souborů</span></a>
-<a href="zpracovani-videa-a-zvuku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="cislo">13</span><span class="nazev">Zpracování videa a zvuku</span></a>
-<a href="koncepce-projektu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="cislo">14</span><span class="nazev">Koncepce projektu Linux: Kniha kouzel</span></a>
-<a href="plan-vyvoje.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/plan-vyvoje.png" alt="[]"></span><span class="cislo">15</span><span class="nazev">Plán budoucího vývoje</span></a>
-<a href="licence.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="cislo">16</span><span class="nazev">Licence</span></a>
+<a href="perl-zaklady.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/perl-zaklady.png" alt="[]"></span><span class="cislo">7</span><span class="nazev">Perl: základy</span></a>
+<a href="prace-s-archivy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="cislo">8</span><span class="nazev">Práce s archivy</span></a>
+<a href="regularni-vyrazy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="cislo">9</span><span class="nazev">Regulární výrazy</span></a>
+<a href="sprava-balicku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="cislo">10</span><span class="nazev">Správa balíčků</span></a>
+<a href="sprava-uzivatelskych-uctu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="cislo">11</span><span class="nazev">Správa uživatelských účtů</span></a>
+<a href="system.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="cislo">12</span><span class="nazev">Systém</span></a>
+<a href="zpracovani-textovych-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="cislo">13</span><span class="nazev">Zpracování textových souborů</span></a>
+<a href="zpracovani-videa-a-zvuku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="cislo">14</span><span class="nazev">Zpracování videa a zvuku</span></a>
+<a href="koncepce-projektu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="cislo">15</span><span class="nazev">Koncepce projektu Linux: Kniha kouzel</span></a>
+<a href="plan-vyvoje.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/plan-vyvoje.png" alt="[]"></span><span class="cislo">16</span><span class="nazev">Plán budoucího vývoje</span></a>
+<a href="licence.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="cislo">17</span><span class="nazev">Licence</span></a>
 <div class="premiove"><strong>Prémiové kapitoly:</strong>
 <div>AWK</div>
 <div>Datum, čas a kalendář</div>
@@ -400,19 +401,21 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <a href="x-stitky.htm#skomprese">komprese&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#slvm">LVM&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#sodkladaciprostor">odkládací prostor&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sprogram">program&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sperl">Perl&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sprogram">program&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#sprogramovani">programování&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#spristupovaprava">přístupová práva&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#sramdisk">ramdisk&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#ssnap">Snap&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#ssoubory">soubory&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#sspravaverzi">správa verzí&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#ssyntaxe">syntaxe&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#ssyntaxe">syntaxe&nbsp;&nbsp;(2)</a>
 <a href="x-stitky.htm#ssystem">systém&nbsp;&nbsp;(4)</a>
 <a href="x-stitky.htm#ssystemsouboru">systém souborů&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#stematickyokruh">tematický okruh&nbsp;&nbsp;(9)</a>
 <a href="x-stitky.htm#svideo">video&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#szip">zip&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#szpracovanitextu">zpracování textu&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#szpracovanitextu">zpracování textu&nbsp;&nbsp;(3)</a>
 <a href="x-stitky.htm#szvuk">zvuk&nbsp;&nbsp;(1)</a>
 </div></div>
 <a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>

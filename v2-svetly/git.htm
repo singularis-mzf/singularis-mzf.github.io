@@ -5,16 +5,16 @@
 
 <title>Git − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20210101.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210101-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210101-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210101-svetly.css" title="Světlý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20210117.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20210117-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20210117-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20210117-svetly.css" title="Světlý motiv">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body>
 <div id="nahore"><div id="okno">
 <header>
-<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.3, K. K. (1. ledna 2021)</span>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.4, L. L. (17. ledna 2021)</span>
 <span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -86,7 +86,7 @@ Příkaz „git stash“ je pokryt částečně, příkaz „git rebase -i“ po
 <p class="ponadpisu">
 V Gitu se používá několik způsobů, jak můžete v příkazech označovat jednotlivé revize:
 </p>
-<ul><li><b>Úplná MD5 heš</b> je vhodná pouze ve skriptech, na ruční použití je nepraktická.
+<ul><li><b>Úplná SHA-1 heš</b> je vhodná pouze ve skriptech, na ruční použití je nepraktická.
 </li><li><b>Jednoznačná předpona heše</b> je vhodná pro ruční použití; v malých projektech obvykle stačí první tři znaky, ve velkých pět nebo šest. Pokud předpona není jednoznačná, Git ohlásí chybu.
 </li><li><b>Symbolické označení</b>, např. název větve, jméno revize nebo „HEAD“.
 </li></ul><p>
@@ -99,7 +99,7 @@ Za jakýmkoliv označením revize můžete (i opakovaně a v kombinaci) použ
 
 <h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 5 (Git), sekce 3 (Zaklínadla: Revize, větve a změny), podsekce 1 (Informace o stavu PO a PA)"><sup>3/</sup>1 Informace o stavu PO a PA</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z774692491"><span><a href="#z774692491">╽</a></span></span><b>běžné informace</b> pro člověka<span class="cislo">#1 </span></div><div class="radky">
-<div class="radekzaklinadla">git status <span class="volznak">[</span>-bs<span class="volznak">]</span></div>
+<div class="radekzaklinadla">git status <span class="volznak">[</span>-bs<span class="volznak">]</span> <span class="volznak">[</span>--ignored<span class="volznak">]</span></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z249410596"><span><a href="#z249410596">⁙</a></span></span><b>změny</b> v PA oproti HEAD/v PA oproti PO/v PO oproti HEAD<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">git diff <span class="volznak">[</span>--name-status<span class="volznak">]</span> HEAD <span class="volznak">[</span>-- <i class="dopln">soubor-nebo-adresář</i><span class="tritecky"></span><span class="volznak">]</span></div>
@@ -119,6 +119,9 @@ Za jakýmkoliv označením revize můžete (i opakovaně a v kombinaci) použ
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1887684203"><span><a href="#z1887684203">⬖</a></span></span>seznam verzovaných souborů<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z784620023"><span><a href="#z784620023">⚃</a></span></span>seznam ignorovaných souborů a adresářů<span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
@@ -665,7 +668,7 @@ Přehled podporovaných konfiguračních voleb pro příkaz „git config“ naj
 </nav>
 
 
-<div class="odkazydole"><div><a href="zpracovani-videa-a-zvuku.htm"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="" width="32" height="32">Zpracování videa a zvuku</a><a href="sprava-uzivatelskych-uctu.htm"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="" width="32" height="32">Správa uživatelských účtů</a><a href="sprava-balicku.htm"><img src="obrazky/ik/sprava-balicku.png" alt="" width="32" height="32">Správa balíčků</a></div></div>
+<div class="odkazydole"><div><a href="zpracovani-videa-a-zvuku.htm"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="" width="32" height="32">Zpracování videa a zvuku</a><a href="nabidka-aplikaci.htm"><img src="obrazky/ik/nabidka-aplikaci.png" alt="" width="32" height="32">Nabídka aplikací</a><a href="diskove-oddily.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly</a></div></div>
 <div class="reklamnipata">Líbí se vám tento projekt a chcete, aby byl ještě lepší? Můžete mi s tím pomoci. Zmiňte se o něm technicky zdatným přátelům, opravte překlepy a nahlašte nefunkční zaklínadla, aby mohla být opravena; poskytněte mi zpětnou vazbu nebo se zapojte do vývoje nových kapitol. Další informace na GitHubu v dokumentu <a href="https://github.com/singularis-mzf/linux-spellbook/blob/v%C3%BDvojov%C3%A1/JAK-SE-ZAPOJIT.md">Jak se zapojit</a>.</div>
 
 </article>
@@ -737,23 +740,26 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <a href="diskove-oddily.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/diskove-oddily.png" alt="[]"></span><span class="cislo">3</span><span class="nazev">Diskové oddíly</span></a>
 <a href="git.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/git.png" alt="[]"></span><span class="cislo">4</span><span class="nazev">Git</span></a>
 <a href="hledani-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/hledani-souboru.png" alt="[]"></span><span class="cislo">5</span><span class="nazev">Hledání souborů</span></a>
-<a href="odkazy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/odkazy.png" alt="[]"></span><span class="cislo">6</span><span class="nazev">Pevné a symbolické odkazy</span></a>
-<a href="perl-zaklady.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/perl-zaklady.png" alt="[]"></span><span class="cislo">7</span><span class="nazev">Perl: základy</span></a>
-<a href="prace-s-archivy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="cislo">8</span><span class="nazev">Práce s archivy</span></a>
-<a href="regularni-vyrazy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="cislo">9</span><span class="nazev">Regulární výrazy</span></a>
-<a href="sprava-balicku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="cislo">10</span><span class="nazev">Správa balíčků</span></a>
-<a href="sprava-uzivatelskych-uctu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="cislo">11</span><span class="nazev">Správa uživatelských účtů</span></a>
-<a href="system.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="cislo">12</span><span class="nazev">Systém</span></a>
-<a href="zpracovani-textovych-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="cislo">13</span><span class="nazev">Zpracování textových souborů</span></a>
-<a href="zpracovani-videa-a-zvuku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="cislo">14</span><span class="nazev">Zpracování videa a zvuku</span></a>
-<a href="koncepce-projektu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="cislo">15</span><span class="nazev">Koncepce projektu Linux: Kniha kouzel</span></a>
-<a href="plan-vyvoje.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/plan-vyvoje.png" alt="[]"></span><span class="cislo">16</span><span class="nazev">Plán budoucího vývoje</span></a>
-<a href="licence.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="cislo">17</span><span class="nazev">Licence</span></a>
+<a href="nabidka-aplikaci.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/nabidka-aplikaci.png" alt="[]"></span><span class="cislo">6</span><span class="nazev">Nabídka aplikací</span></a>
+<a href="odkazy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/odkazy.png" alt="[]"></span><span class="cislo">7</span><span class="nazev">Pevné a symbolické odkazy</span></a>
+<a href="perl-zaklady.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/perl-zaklady.png" alt="[]"></span><span class="cislo">8</span><span class="nazev">Perl: základy</span></a>
+<a href="prace-s-archivy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="cislo">9</span><span class="nazev">Práce s archivy</span></a>
+<a href="regularni-vyrazy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="cislo">10</span><span class="nazev">Regulární výrazy</span></a>
+<a href="sprava-balicku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="cislo">11</span><span class="nazev">Správa balíčků</span></a>
+<a href="sprava-uzivatelskych-uctu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="cislo">12</span><span class="nazev">Správa uživatelských účtů</span></a>
+<a href="system.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="cislo">13</span><span class="nazev">Systém</span></a>
+<a href="zpracovani-textovych-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="cislo">14</span><span class="nazev">Zpracování textových souborů</span></a>
+<a href="zpracovani-videa-a-zvuku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="cislo">15</span><span class="nazev">Zpracování videa a zvuku</span></a>
+<a href="koncepce-projektu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="cislo">16</span><span class="nazev">Koncepce projektu Linux: Kniha kouzel</span></a>
+<a href="plan-vyvoje.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/plan-vyvoje.png" alt="[]"></span><span class="cislo">17</span><span class="nazev">Plán budoucího vývoje</span></a>
+<a href="licence.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="cislo">18</span><span class="nazev">Licence</span></a>
 <div class="premiove"><strong>Prémiové kapitoly:</strong>
 <div>AWK</div>
 <div>Datum, čas a kalendář</div>
 <div>Make</div>
+<div>Manuálové stránky</div>
 <div>Markdown</div>
+<div>Perl: moduly a objekty</div>
 <div>Proměnné prostředí a interpretu</div>
 <div>Sed</div>
 <div>Soubory a adresáře</div>
@@ -771,10 +777,12 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <aside class="menustitky">
 <div><div class="nadpis">Štítky</div><div class="polozky">
 <a href="x-stitky.htm#sadresare">adresáře&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#saplikace">aplikace&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#sapt">apt&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#sbash">bash&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#sdemoni">démoni&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#sflatpak">Flatpak&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sgui">GUI&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#shledani">hledání&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#sklavesnice">klávesnice&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#skomprese">komprese&nbsp;&nbsp;(1)</a>
@@ -788,10 +796,10 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <a href="x-stitky.htm#ssnap">Snap&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#ssoubory">soubory&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#sspravaverzi">správa verzí&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#ssyntaxe">syntaxe&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#ssyntaxe">syntaxe&nbsp;&nbsp;(3)</a>
 <a href="x-stitky.htm#ssystem">systém&nbsp;&nbsp;(4)</a>
 <a href="x-stitky.htm#ssystemsouboru">systém souborů&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#stematickyokruh">tematický okruh&nbsp;&nbsp;(9)</a>
+<a href="x-stitky.htm#stematickyokruh">tematický okruh&nbsp;&nbsp;(10)</a>
 <a href="x-stitky.htm#svideo">video&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#szip">zip&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#szpracovanitextu">zpracování textu&nbsp;&nbsp;(3)</a>

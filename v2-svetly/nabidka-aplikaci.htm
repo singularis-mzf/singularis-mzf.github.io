@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="cs">
+<head profile="http://www.w3.org/2005/10/profile">
+<meta charset="UTF-8">
+
+<title>Nabídka aplikací − Linux: Kniha kouzel</title>
+
+<link rel="stylesheet" type="text/css" href="lkk-20210117.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20210117-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20210117-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20210117-svetly.css" title="Světlý motiv">
+<link rel="icon" type="image/png" href="obrazky/favicon.png">
+</head>
+<body>
+<div id="nahore"><div id="okno">
+<header>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.4, L. L. (17. ledna 2021)</span>
+<span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
+</header>
+<nav class="menuokna">
+<a href="#menuosnova" class="menu"><span class="prvnipismeno">O</span>snova</a>
+<a href="#menukapitoly" class="menu"><span class="prvnipismeno">K</span>apitoly</a>
+<a href="#menustitky" class="menu"><span class="prvnipismeno">Š</span>títky</a>
+<a href="#menunapoveda" class="menu"><span class="prvnipismeno">N</span>ápověda</a>
+<a href="hledani-souboru.htm" rel="prev" title="5. Hledání souborů" accesskey="p" class="predchozi">Předchozí&nbsp;kapitola</a>
+<a href="index.htm" class="prehled"><span class="prvnipismeno">P</span>řehled kapitol</a>
+<a href="odkazy.htm" rel="next" title="7. Pevné a symbolické odkazy" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
+</nav>
+
+<div class="slogan-veskera-moc">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+
+<!--
+<nav class="horni">
+<div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+<span class="prev">
+<a href="hledani-souboru.htm" rel="prev" title="5. Hledání souborů" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+</span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!- -
+- ->&nbsp;| <a href="odkazy.htm" rel="next" title="7. Pevné a symbolické odkazy" accesskey="n">Následující&nbsp;kapitola</a>
+</span>
+</nav>
+-->
+
+
+<article>
+
+<h1 class="kapitola">6. <img src="obrazky/ik/nabidka-aplikaci.png" alt="" width="64" height="64"> Nabídka aplikací</h1>
+<div class="stitky"><a href="x-stitky.htm#saplikace">aplikace</a>
+<a href="x-stitky.htm#sgui">GUI</a>
+<a href="x-stitky.htm#ssyntaxe">syntaxe</a>
+<a href="x-stitky.htm#stematickyokruh">tematický okruh</a>
+</div>
+<h2 id="cast1"><a href="#cast1"><span class="cislo">1.</span> Úvod</a></h2>
+<p class="ponadpisu">
+Tato kapitola pokrývá tvorbu spouštěčů aplikací (*.desktop)
+a jejich použití v nabídce aplikací a automatické spouštění
+aplikací po přihlášení do grafického sezení
+(pro automatické spouštění před přihlášením
+je třeba použít démon „cron“ nebo jiné řešení).
+</p><p>
+Spouštěč je textový soubor s příponou „.desktop“.
+Konkrétní možnosti a chování spouštěčů zavisí na použitém
+okenním prostředí; obecně však platí následující:
+</p><p>
+Spouštěč umístěný v těchto adresářích se objeví v nabídce aplikací
+a je možno ho nastavit, aby se spouštěl při dvojkliku na typy souborů,
+které uvádí v klíči „<b>MimeType</b>“:
+</p>
+<ul class="kompaktni"><li>„<b>/usr/share/applications</b>“
+</li><li>„<b>/usr/local/share/applications</b>“
+</li><li>„<b>~/.local/share/applications</b>“
+</li></ul><p>
+Spouštěč umístěný v těcho adresářích se automaticky spustí
+po přihlášení uživatele, pokud ho uživatel nepotlačí v nastavení systému:
+</p>
+<ul class="kompaktni"><li>„<b>/etc/xdg/autostart</b>“
+</li><li>„<b>~/.config/autostart</b>“
+</li></ul><p>
+Spouštěč, k němuž má uživatel právo „x“, se zobrazí ve správcích souborů
+a (případně) na pracovní ploše se svou ikonou a svým názvem
+místo názvu souboru. Výchozí příkaz takového spouštěče můžete aktivovat
+dvojklikem nebo přetažením adresářových položek na něj.
+</p>
+
+<h2 id="cast2"><a href="#cast2"><span class="cislo">2.</span> Definice</a></h2>
+<ul><li><b>Název</b> (name) je u spouštěče hlavní text, který se v nabídkách zobrazí u ikony spouštěče. Měl by být krátký a téměř nikdy neodpovídá názvu souboru.
+</li><li><b>Popisek</b> (comment) je vedlejší text, který prostředí může zobrazit spolu s názvem. Může být i delší, ale není povinný.
+</li><li><b>Kategorie</b> (category) jsou pojmenované skupiny sloužící především k roztřídění spouštěčů do podnabídek. Spouštěč může patřit i do více podnabídek současně.
+</li><li><b>Výchozí příkaz</b> je příkaz, který se spustí dvojkliknutím (popř. kliknutím) na spouštěč nebo když na něj uživatele přetáhne nějaké adresářové položky.
+</li><li><b>Akce</b> je dodatečný pojmenovaný příkaz příslušný ke spouštěči, který lze v některých prostředích spustit výběrem z kontextové nabídky.
+</li></ul>
+<h2 id="cast3" class="zaklinadla"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla</a></h2>
+
+<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 7 (Nabídka aplikací), sekce 3 (Zaklínadla), podsekce 1 (Spouštěč (syntaxe))"><sup>3/</sup>1 Spouštěč (syntaxe)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1341560405"><span><a href="#z1341560405">▴</a></span></span>obvyklý tvar spouštěče *.desktop<span class="cislo">#1 </span><sup><a href="#kapnabidkaaplikacippc1" id="kapnabidkaaplikacippcr1" title="Pozor — před psaním klíče „Exec“ nastudujte příslušnou podsekci v sekci „Parametry příkazů“! Pokud neznáte přesný identifikátor požadované ikony, doporučuji pro nastavení klíče „Icon“ použít GUI editor.">(1)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">[Desktop<span class="viditelnamezera">&nbsp;</span>Entry]</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>Version=1.0<span class="volznak">]</span></div>
+<div class="radekzaklinadla">Type=Application</div>
+<div class="radekzaklinadla">Name=<i class="dopln">Název spouštěče</i></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>Name[cs]=<i class="dopln">Název jen pro české prostředí</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla">Exec=<i class="dopln">výchozí příkaz</i></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>Icon=<i class="dopln">ikona</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>Actions=<i class="dopln">IdAkce</i>;<span class="volznak">[</span><i class="dopln">IdDalsiAkce</i>;<span class="volznak">]</span><span class="tritecky"></span><span class="volznak">]</span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">další=volby</i><span class="volznak">]</span><span class="tritecky"></span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">definice akcí</i><span class="volznak">]</span><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1528979696"><span><a href="#z1528979696">⟽</a></span></span>nastavit <b>aktuální adresář</b> pro vých. příkaz<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">Path=<i class="dopln">/absolutní/cesta</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1500819958"><span><a href="#z1500819958">┥</a></span></span>spustit příkaz v emulátoru terminálu<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">Terminal=true</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z946552326"><span><a href="#z946552326">⊭</a></span></span>řádka s komentářem (kdekoliv v souboru)<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">#<span class="volznak">[</span><i class="dopln">libovolný text</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2078222096"><span><a href="#z2078222096">⢼</a></span></span>nastavit <b>popisek</b><span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">Comment=<i class="dopln">Popisek</i></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>Comment[cs]=<i class="dopln">Popisek jen pro české prostředí</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z248564667"><span><a href="#z248564667">⨓</a></span></span>potlačit zobrazení v menu<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">NoDisplay=true</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z657738234"><span><a href="#z657738234">✠</a></span></span>zařadit do <b>kategorií</b><span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla">Categories=<i class="dopln">Kategorie</i>;<span class="volznak">[</span><i class="dopln">DalšíKategorie</i>;<span class="volznak">]</span><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z487638460"><span><a href="#z487638460">⇾</a></span></span>nastavit obsluhované MIME typy<span class="cislo">#8 </span></div><div class="radky">
+<div class="radekzaklinadla">MimeType=<i class="dopln">mime/typ</i>;<span class="volznak">[</span><i class="dopln">další/mime/typ</i>;<span class="volznak">]</span><span class="tritecky"></span></div>
+</div></div>
+
+<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 7 (Nabídka aplikací), sekce 3 (Zaklínadla), podsekce 2 (Definice akce (syntaxe))"><sup>3/</sup>2 Definice akce (syntaxe)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1166177141"><span><a href="#z1166177141">⪄</a></span></span>obecný tvar akce<span class="cislo">#1 </span><sup><a href="#kapnabidkaaplikacippc2" id="kapnabidkaaplikacippcr2" title="Pozor — před psaním klíče „Exec“ nastudujte příslušnou podsekci v sekci „Parametry příkazů“!">(2)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">[Desktop<span class="viditelnamezera">&nbsp;</span>Action<span class="viditelnamezera">&nbsp;</span><i class="dopln">IdAkce</i>]</div>
+<div class="radekzaklinadla">Name=<i class="dopln">Titulek</i></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>Name[cs]=<i class="dopln">Titulek česky</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla">Exec=<i class="dopln">příkaz akce</i></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>Icon=<i class="dopln">ikona</i><span class="volznak">]</span></div>
+</div></div>
+
+<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 7 (Nabídka aplikací), sekce 3 (Zaklínadla), podsekce 3 (GUI)"><sup>3/</sup>3 GUI</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1587460551"><span><a href="#z1587460551">♘</a></span></span>otevřít spouštěč v GUI editoru<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">exo-desktop-item-edit <i class="dopln">cesta/ke/spouštěči.desktop</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1799360792"><span><a href="#z1799360792">⁋</a></span></span>vytvořit nový spouštěč (GUI)<span class="cislo">#2 </span><sup><a href="#kapnabidkaaplikacippc3" id="kapnabidkaaplikacippcr3" title="Volitelné parametry jsem nezkoušel/a.">(3)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">exo-desktop-item-edit --create-new --type Application <span class="volznak">[</span>--name <i class="dopln">&quot;Název&quot;</i><span class="volznak">]</span> <span class="volznak">[</span>--command <i class="dopln">&quot;Příkaz&quot;</i><span class="volznak">]</span> <span class="volznak">[</span>--icon <i class="dopln">ikona</i><span class="volznak">]</span> <i class="dopln">cesta/ke/spouštěči.desktop</i></div>
+</div></div>
+
+<h2 id="cast4"><a href="#cast4"><span class="cislo">4.</span> Parametry příkazů</a></h2>
+
+<h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 7 (Nabídka aplikací), sekce 4 (Parametry příkazů), podsekce 1 (Příkazová řádka v klíči Exec)"><sup>4/</sup>1 Příkazová řádka v klíči Exec</a></span></h3>
+<p class="ponadpisu">
+Příkazová řádka v klíčích Exec se zadává podobně jako v Bashi,
+ale s několika dvěma zásadními odchylkami:
+</p>
+<ul class="kompaktni"><li>Znaky !, $, &amp;, ;, &lt;, =, &gt;, ?, [, ], ^, `, {, |, }, ~ a další jsou obyčejné; nemůžete je použít způsobem, na jaký jste zvyklý/á z Bashe, a není třeba je odzvláštňovat.
+</li><li>Příkaz musí začínat názvem spustitelného souboru (bez cesty či s cestou); přiřazení do proměnných, funkce a vestavěné příkazy Bashe (včetně jakýchkoliv zvláštních konstrukcí) jsou vyloučeny.
+</li><li>Znak „\“ má zvláštní význam všude kromě vnitřku apostrofů; znak „%“ i tam. Oba tyto znaky se zde odzvláštňují <b>zdvojením</b>.
+</li><li>Mimo vnitřek apostrofů lze vložit (nezvláštní) konec řádky sekvencí „\n“.
+</li></ul><p>
+Pokud nějakou konstrukci z Bashe potřebujete, musíte zavolat Bash a příkaz mu předat parametrem „-c“;
+přitom si dejte pozor na nutnost odzvláštnění znaku „%“ a znaku „\“ mimo apostrofy (GUI editor vám s tímto bohužel nepomůže).
+</p><p>
+Ve výchozím příkazu (ne v příkazu akce) můžete na místě jednoho parametru
+(obvykle posledního) uvést jednu z následujících značek, která se uplatní
+v případě, že uživatel na spouštěč přetáhne jeden nebo více souborů či adresářů
+(jinak se daný parametr tiše vypustí):
+</p>
+<ul class="kompaktni"><li><b>%f</b> se rozvine na absolutní cestu jednoho souboru/adresáře (v případě přetažení více položek se spustí pro každou položku samostatný příkaz)
+</li><li><b>%F</b> se rozvine na seznam souborů/adresářů (každý v samostatném parametru)
+</li><li><b>%u</b> a <b>%U</b> jsou jako %f a %F, ale místo cesty se předá URI (může být i vzdálené)
+</li></ul>
+<h3 id="cast4x2"><span><a href="#cast4x2" title="kapitola 7 (Nabídka aplikací), sekce 4 (Parametry příkazů), podsekce 2 (Ikona v klíči Icon)"><sup>4/</sup>2 Ikona v klíči Icon</a></span></h3>
+<p class="ponadpisu">
+Ikona je obvykle zadána názvem (v takovém případě bude vyhledávána
+ve standardních adresářích). Může však být zadána také jako absolutní cesta
+k souboru s ikonou (ve formátu PNG nebo SVG), v takovém případě se použije
+vždy daný soubor (nezkoušel/a jsem). Pokud přesný název ikony neznáte,
+použijte k jejímu nastavení GUI editor.
+</p>
+
+<h3 id="cast4x3"><span><a href="#cast4x3" title="kapitola 7 (Nabídka aplikací), sekce 4 (Parametry příkazů), podsekce 3 (Kategorie odpovídající podnabídkám hlavního menu)"><sup>4/</sup>3 Kategorie odpovídající podnabídkám hlavního menu</a></span></h3>
+<p class="ponadpisu">
+(Podnabídka → Category)
+</p>
+<ul class="kompaktni"><li>„<i>Grafika</i>“ → Graphics
+</li><li>„<i>Hry</i>“ → Game
+</li><li>„<i>Internet</i>“ → Network
+</li><li>„<i>Kancelář</i>“ → Office
+</li><li>„<i>Multimédia</i>“ → AudioVideo
+</li><li>„<i>Nastavení</i>“ → Settings — Aplikace v této kategorii se v Xfce objevují také v okně „Nastavení systému“.
+</li><li>„<i>Příslušenství</i>“ → Utility
+</li><li>„<i>Systém</i>“ → System
+</li><li>„<i>Vývoj</i>“ → Development
+</li><li>„<i>Vzdělávání</i>“ → Education
+</li></ul><p class="ponadpisu">
+Příklad (umístit spouštěč do podnabídek „Multimédia“ a „Vzdělávání“):
+</p>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">Category=AudioVideo;Education;</div>
+</div></div>
+
+<h2 id="cast5"><a href="#cast5"><span class="cislo">5.</span> Instalace na Ubuntu</a></h2>
+<p class="ponadpisu">
+Většina použitých nástrojů je přítomna i v minimální instalaci Ubuntu. Pouze GUI editor exo-desktop-item-edit může být nutno doinstalovat:
+</p>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">sudo apt-get install exo-utils</div>
+</div></div>
+
+<h2 id="cast6"><a href="#cast6"><span class="cislo">6.</span> Ukázka</a></h2>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z847974274"><span><a href="#z847974274">↠</a></span></span>~/.local/share/applications/vycet.xterm.desktop<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">[Desktop Entry]</div>
+<div class="radekzaklinadla">Version=1.0</div>
+<div class="radekzaklinadla">Type=Application</div>
+<div class="radekzaklinadla">Name=List of paths in xterm</div>
+<div class="radekzaklinadla">Name[cs]=Výčet cest v xtermu</div>
+<div class="radekzaklinadla">Exec=xterm -e bash -c 'printf %%s\\\\n &quot;$@&quot; &amp;&amp; read' -- %F</div>
+<div class="radekzaklinadla"># řekněme, že lepší ikonu jste nenašel/a...</div>
+<div class="radekzaklinadla">Icon=ibus</div>
+<div class="radekzaklinadla">Categories=Utility;System;</div>
+<div class="radekzaklinadla">Comment=Přetáhněte sem soubory a adresáře, xterm vám vypíše jejich cesty!</div>
+</div></div>
+
+<h2 id="cast7"><a href="#cast7"><span class="cislo">7.</span> Tipy a zkušenosti</a></h2>
+<ul><li>Častá začátečnická chyba je očekávání, že znaky „~“ a „$“ v klíči Exec že budou fungovat stejně jako v Bashi.
+</li><li>Název spouštěče může obsahovat prakticky jakékoliv tisknutelné znaky; zpětné lomítko však musí být odzvláštněno zdvojením a doporučuji název začínat písmenem, číslicí nebo ne-ASCII znakem.
+</li><li>Umístíte-li do „~/.local/share/applications“ spouštěč se stejným názvem souboru, jaký existuje na systémové úrovni, váš spouštěč ten systémový „překryje“. Toho můžete využít k přízpusobení si spouštěčů v rámci svého uživatelského účtu; můžete změnit název, ikonu, příkaz apod.
+</li></ul>
+<h2 id="cast8"><a href="#cast8"><span class="cislo">8.</span> Další zdroje informací</a></h2>
+<ul class="kompaktni"><li><a href="https://www.youtube.com/watch?v=QzXCJFpDBRQ">YouTube: Linux pro začátečníky: Jak vytvořit spouštěč</a>
+</li><li><a href="http://manpages.ubuntu.com/manpages/focal/en/man1/exo-desktop-item-edit.1.html">man exo-destop-item-edit</a> (anglicky)
+</li><li><a href="https://www.youtube.com/watch?v=9Mph07loSMo">YouTube: Managing AppImages on Linux</a> (anglicky)
+</li><li><a href="https://specifications.freedesktop.org/desktop-entry-spec/latest/">Oficiální specifikace formátu spouštěčů</a> (anglicky)
+</li><li><a href="https://packages.ubuntu.com/focal/exo-utils">Balíček exo-utils</a> (anglicky)
+</li><li><a href="https://specifications.freedesktop.org/menu-spec/latest/apa.html">Seznam hlavních kategorií</a> (anglicky)
+</li><li><a href="https://specifications.freedesktop.org/menu-spec/latest/apas02.html">Seznam vedlejších kategorií</a> (anglicky)
+</li></ul><div class="ppc"><div id="kapnabidkaaplikacippc1"><a href="#kapnabidkaaplikacippcr1" class="cislopozn">1</a>&nbsp;Pozor — před psaním klíče „Exec“ nastudujte příslušnou podsekci v sekci „Parametry příkazů“! Pokud neznáte přesný identifikátor požadované ikony, doporučuji pro nastavení klíče „Icon“ použít GUI editor.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapnabidkaaplikacippc2"><a href="#kapnabidkaaplikacippcr2" class="cislopozn">2</a>&nbsp;Pozor — před psaním klíče „Exec“ nastudujte příslušnou podsekci v sekci „Parametry příkazů“!</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapnabidkaaplikacippc3"><a href="#kapnabidkaaplikacippcr3" class="cislopozn">3</a>&nbsp;Volitelné parametry jsem nezkoušel/a.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+</div>
+
+
+<nav class="spodni">
+<a href="index.htm" class="naindex">🗐&nbsp;Přehled&nbsp;kapitol</a>
+<div class="naslkap">
+<a href="odkazy.htm" rel="next" title="7. Pevné a symbolické odkazy">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">7</span>
+<span class="nazev">Pevné a symbolické odkazy</span></a>
+</div>
+<!--<div><a href="index.htm">🗐&nbsp;Přehled&nbsp;kapitol</a></div>-->
+</nav>
+
+
+<div class="odkazydole"><div><a href="hledani-souboru.htm"><img src="obrazky/ik/hledani-souboru.png" alt="" width="32" height="32">Hledání souborů</a><a href="sprava-uzivatelskych-uctu.htm"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="" width="32" height="32">Správa uživatelských účtů</a><a href="diskove-oddily.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly</a></div></div>
+<div class="reklamnipata">Líbí se vám tento projekt a chcete, aby byl ještě lepší? Můžete mi s tím pomoci. Zmiňte se o něm technicky zdatným přátelům, opravte překlepy a nahlašte nefunkční zaklínadla, aby mohla být opravena; poskytněte mi zpětnou vazbu nebo se zapojte do vývoje nových kapitol. Další informace na GitHubu v dokumentu <a href="https://github.com/singularis-mzf/linux-spellbook/blob/v%C3%BDvojov%C3%A1/JAK-SE-ZAPOJIT.md">Jak se zapojit</a>.</div>
+
+</article>
+<!-- *** -->
+<footer id="dole">
+<img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
+<p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
+<a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
+Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
+či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
+na stránce „<a href="x-autori.htm">Přehled autorů</a>“.
+Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
+licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
+Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód
+a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
+<a href="https://github.com/singularis-mzf/linux-spellbook">repozitář na GitHubu</a>.
+</footer>
+</div>
+
+<nav class="menu">
+<!-- MENU OSNOVA -->
+<a href="#menuosnova" id="menuosnova"><span class="prvnipismeno">O</span>snova</a>
+<aside class="menuosnova">
+<div><div class="nadpis">Osnova</div><div class="polozky">
+<a href="#cast1" class="sekce">1 Úvod</a>
+<a href="#cast2" class="sekce">2 Definice</a>
+<a href="#cast3" class="sekce">3 Zaklínadla</a>
+<a href="#cast3x1" class="podsekce">/1 Spouštěč (syntaxe)</a>
+<a href="#cast3x2" class="podsekce">/2 Definice akce (syntaxe)</a>
+<a href="#cast3x3" class="podsekce">/3 GUI</a>
+<a href="#cast4" class="sekce">4 Parametry příkazů</a>
+<a href="#cast4x1" class="podsekce">/1 Příkazová řádka v klíči Exec</a>
+<a href="#cast4x2" class="podsekce">/2 Ikona v klíči Icon</a>
+<a href="#cast4x3" class="podsekce">/3 Kategorie odpovídající podnabídkám hlavního menu</a>
+<a href="#cast5" class="sekce">5 Instalace na Ubuntu</a>
+<a href="#cast6" class="sekce">6 Ukázka</a>
+<a href="#cast7" class="sekce">7 Tipy a zkušenosti</a>
+<a href="#cast8" class="sekce">8 Další zdroje informací</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU KAPITOLY -->
+<a href="#menukapitoly" id="menukapitoly"><span class="prvnipismeno">K</span>apitoly</a>
+<aside class="menukapitoly">
+<div><div class="nadpis">Kapitoly</div><div class="polozky">
+<a href="predmluva.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/predmluva.png" alt="[]"></span><span class="cislo">1</span><span class="nazev">Předmluva</span></a>
+<a href="zakladni-znalosti.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zakladni-znalosti.png" alt="[]"></span><span class="cislo">2</span><span class="nazev">Základní znalosti</span></a>
+<a href="diskove-oddily.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/diskove-oddily.png" alt="[]"></span><span class="cislo">3</span><span class="nazev">Diskové oddíly</span></a>
+<a href="git.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/git.png" alt="[]"></span><span class="cislo">4</span><span class="nazev">Git</span></a>
+<a href="hledani-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/hledani-souboru.png" alt="[]"></span><span class="cislo">5</span><span class="nazev">Hledání souborů</span></a>
+<a href="nabidka-aplikaci.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/nabidka-aplikaci.png" alt="[]"></span><span class="cislo">6</span><span class="nazev">Nabídka aplikací</span></a>
+<a href="odkazy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/odkazy.png" alt="[]"></span><span class="cislo">7</span><span class="nazev">Pevné a symbolické odkazy</span></a>
+<a href="perl-zaklady.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/perl-zaklady.png" alt="[]"></span><span class="cislo">8</span><span class="nazev">Perl: základy</span></a>
+<a href="prace-s-archivy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="cislo">9</span><span class="nazev">Práce s archivy</span></a>
+<a href="regularni-vyrazy.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="cislo">10</span><span class="nazev">Regulární výrazy</span></a>
+<a href="sprava-balicku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="cislo">11</span><span class="nazev">Správa balíčků</span></a>
+<a href="sprava-uzivatelskych-uctu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="cislo">12</span><span class="nazev">Správa uživatelských účtů</span></a>
+<a href="system.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="cislo">13</span><span class="nazev">Systém</span></a>
+<a href="zpracovani-textovych-souboru.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="cislo">14</span><span class="nazev">Zpracování textových souborů</span></a>
+<a href="zpracovani-videa-a-zvuku.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="cislo">15</span><span class="nazev">Zpracování videa a zvuku</span></a>
+<a href="koncepce-projektu.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="cislo">16</span><span class="nazev">Koncepce projektu Linux: Kniha kouzel</span></a>
+<a href="plan-vyvoje.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/plan-vyvoje.png" alt="[]"></span><span class="cislo">17</span><span class="nazev">Plán budoucího vývoje</span></a>
+<a href="licence.htm" class="kapitola"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="cislo">18</span><span class="nazev">Licence</span></a>
+<div class="premiove"><strong>Prémiové kapitoly:</strong>
+<div>AWK</div>
+<div>Datum, čas a kalendář</div>
+<div>Make</div>
+<div>Manuálové stránky</div>
+<div>Markdown</div>
+<div>Perl: moduly a objekty</div>
+<div>Proměnné prostředí a interpretu</div>
+<div>Sed</div>
+<div>Soubory a adresáře</div>
+<div>Správa procesů</div>
+<div>Stahování videí</div>
+<div>Terminál</div>
+<div>Vim</div>
+<div>Zpracování binárních souborů</div>
+</div><p>Tyto kapitoly můžete získat jako odměnu za překlad ze zdrojového kódu. Podrobnější informace <a href="https://github.com/singularis-mzf/linux-spellbook/blob/stabiln%C3%AD/dokumentace/odm%C4%9Bna-za-sestaven%C3%AD.md">na GitHubu</a>.</p>
+</div></div>
+<a href="#zavritmenu" id="zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU ŠTÍTKY -->
+<a href="#menustitky" id="menustitky"><span class="prvnipismeno">Š</span>títky</a>
+<aside class="menustitky">
+<div><div class="nadpis">Štítky</div><div class="polozky">
+<a href="x-stitky.htm#sadresare">adresáře&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#saplikace">aplikace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sapt">apt&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sbash">bash&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sdemoni">démoni&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sflatpak">Flatpak&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sgui">GUI&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#shledani">hledání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sklavesnice">klávesnice&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#skomprese">komprese&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#slvm">LVM&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sodkladaciprostor">odkládací prostor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sperl">Perl&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sprogram">program&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#sprogramovani">programování&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#spristupovaprava">přístupová práva&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sramdisk">ramdisk&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#ssnap">Snap&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#ssoubory">soubory&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#sspravaverzi">správa verzí&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#ssyntaxe">syntaxe&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#ssystem">systém&nbsp;&nbsp;(4)</a>
+<a href="x-stitky.htm#ssystemsouboru">systém souborů&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#stematickyokruh">tematický okruh&nbsp;&nbsp;(10)</a>
+<a href="x-stitky.htm#svideo">video&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#szip">zip&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#szpracovanitextu">zpracování textu&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#szvuk">zvuk&nbsp;&nbsp;(1)</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU NÁPOVĚDA -->
+<a href="#menunapoveda" id="menunapoveda"><span class="prvnipismeno">N</span>ápověda</a>
+<aside class="menunapoveda">
+<div><div class="nadpis">Nápověda</div><div class="polozky">
+<a href="koncepce-projektu.htm">Koncepce projektu</a>
+<a href="https://singularis-mzf.github.io/">Ostatní verze knihy</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook">Repozitář na GitHubu</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook/blob/stabiln%C3%AD/dokumentace/odm%C4%9Bna-za-sestaven%C3%AD.md">Odměna za sestavení (prémiové kapitoly)</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+</nav>
+
+<a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
+<a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
+
+</div>
+</body>
+</html>

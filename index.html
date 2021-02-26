@@ -44,71 +44,19 @@ td
     background:#fdc4be;
     color:#666666;
 }
-.dpu td
-{
-    background:#ccc48f;
-}
-.soucasnost td
-{
-    background:#d6f4b7;
-}
-.budoucnost td
-{
-    background:#b8e6e6;
-    color:#666666;
-}
-td:nth-child(5), td:nth-child(6)
-{
-    text-align:left;
-}
-.minulost td:nth-child(6) span
-{
-    font-style:italic;
-}
-.minulost td:first-child, .minulost td:last-child,
-.budoucnost td:first-child, .budoucnost td:last-child
-{
-    background:none;
-}
-.soucasnost td:first-child, .soucasnost td:last-child
-{
-    width:1rem;
-}
-
+.dpu td {background:#ccc48f}
+.soucasnost td {background:#d6f4b7}
+.budoucnost td {background:#b8e6e6; color:#666666;}
+td:first-child {font-weight:bold}
+td:nth-child(4) {text-align:left}
 strong a
 {
     margin:0.2em 0.2em 0.2em -0.25em;
     padding:0.1em;
 }
-/*
-td.tlacitka {padding:0;width:36em;}
-
-td.tlacitka a
-{
-    display:inline-block;
-    min-width:8em;
-    background:white;
-    margin:0.2rem 0rem;
-    border:thin solid;
-    padding:0.2rem;
-    text-align:center;
-    text-transform:uppercase;
-    font-family:sans-serif;
-    line-height:1.2;
-    vertical-align:top;
-}
-
-td.tlacitka a:hover
-{
-    box-shadow:0.25em 0.25em 0.25em 0 rgba(0,0,0,0.5);
-}
-
-td.tlacitka span {font-size:70%;}
-*/
-
 #stahnoutaspol {text-align:center; line-height:3;}
-#stahnoutaspol a {margin:0 1em;border:1px solid;padding:0.1em 1em;}
-#stahnoutaspol .zvyraznit {box-shadow:0.25em 0.25em 0.25em 0 rgba(0,0,0,0.25);}
+#stahnoutaspol a {margin:0 1em;padding:0.1em 1em;}
+#stahnoutaspol .zvyraznit {font-weight:bold;}
 </style>
 <!--
 td:nth-child(6) {width:15em;}
@@ -125,45 +73,44 @@ Debian a jádru Linux.</p>
 
 <div id="stahnoutaspol">
 <a href="ke-stazeni.htm" class="zvyraznit">KE STAŽENÍ</a>
-<a href="https://github.com/singularis-mzf/linux-spellbook/blob/vývojová/JAK-SE-ZAPOJIT.md">JAK SE ZAPOJIT</a>
 <a href="https://github.com/singularis-mzf/linux-spellbook">NA GITHUBU</a>
-<a href="https://github.com/singularis-mzf/linux-spellbook/blob/vývojová/dokumentace/přehled.md">DOKUMENTACE</a><br>
+<a href="https://github.com/singularis-mzf/linux-spellbook/blob/vývojová/dokumentace/přehled.md">DOKUMENTACE</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook/blob/vývojová/JAK-SE-ZAPOJIT.md">JAK SE ZAPOJIT</a>
+<div style="margin:0 auto; border-style:solid none; border-width:thin; border-color:rgba(0,0,0,0.25);width:80%;">
 Online HTML (jen základní kapitoly): <a href="v2/index.htm" class="zvyraznit">TMAVÝ MOTIV</a>
-<a href="v2-svetly/index.htm">SVĚTLÝ MOTIV</a>
+<a href="v2-svetly/index.htm">SVĚTLÝ MOTIV</a></div>
 </div>
 
 <table>
 <thead><tr>
-<th></th><th>stav</th><th>verze</th><th>především pro</th><th>poznámky</th><th></th>
+<th>verze</th><th>především pro</th><th>stav</th><th>poznámky</th><th></th>
 </tr></thead><tbody>
 <tr class="minulost">
-<td></td>
+<td>2.4<br>Leoš Liška</td>
+<td>Ubuntu 20.04<br>Focal Fossa</td>
 <td>zastaralá</td>
-<td>2.3<br>Klára Krejčí</td>
-<td>Ubuntu 20.04<br>Focal Fossa</td>
-<td>původně vydána 1. ledna 2021</td><td></td>
+<td>původně vydána 17. ledna 2021</td>
 </tr><tr class="dpu">
-<td></td>
-<td><div class="vlevo">dlouhodobá<br>pasivní<br>údržba</div></td>
 <td>1.15</td>
-<td>Ubuntu 18.04<br>Bionic Beaver</td><td><div class="vpravo">vydána 17. ledna 2021;<br>větev 1.x bude udržována do 1. března 2023</div></td><td></td>
+<td>Ubuntu 18.04<br>Bionic Beaver</td>
+<td><div class="vlevo">dlouhodobá<br>pasivní<br>údržba</div></td>
+<td><div class="vpravo">vydána 17. ledna 2021;<br>větev 1.x bude udržována do 1. března 2023</div></td>
 </tr><tr class="soucasnost">
-<td></td>
-<td><div class="vlevo">aktuální</div></td>
-<td>2.4<br>Leoš Liška</td>
-<td>Ubuntu 20.04<br>Focal Fossa</td><td><div class="vpravo">vydána 17. ledna 2021</div></td>
-<td></td>
-</tr><tr class="budoucnost">
-<td></td><td>ve vývoji</td>
-<td>2.5<br>Marie Macků</td>
+<td>2.5<br>Marie Macků</td>
 <td>Ubuntu 20.04<br>Focal Fossa</td>
-<td>vydání očekáváno<br>v 2. polovině února 2021</td><td></td>
+<td><div class="vlevo">aktuální</div></td>
+<td><div class="vpravo">vydána 26. února 2021</div></td>
+</tr><tr class="budoucnost">
+<td>2.6<br>Nikita Nálepka</td>
+<td>Ubuntu 20.04<br>Focal Fossa</td>
+<td>ve vývoji</td>
+<td>vydání očekáváno<br>v 2. polovině března 2021</td>
 </tr>
 </tbody>
 </table>
 
 
-<p>Projekt vede: <a href="http://esterkrejci.mzf.cz/kontakt.php">Singularis</a> &lt;singularis@volny.cz&gt;
+<p>Projekt vede: <a href="http://esterkrejci.mzf.cz/kontakt.php">Singularis</a> &lt;singularis@volny.cz&gt;</p><p>
 <cite>Stojím o zpětnou vazbu. Pište mi, prosím, svoje názory na tento projekt.</cite> Můžete začít
 třeba na <a href="https://github.com/singularis-mzf/linux-spellbook/discussions">novém diskusním fóru na GitHubu</a>.</p>
 <p>Licence projektu: <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a></p>

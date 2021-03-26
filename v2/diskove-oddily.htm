@@ -5,16 +5,16 @@
 
 <title>Diskové oddíly − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20210226.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210226-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210226-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210226-svetly.css" title="Světlý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20210326.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20210326-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20210326-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20210326-svetly.css" title="Světlý motiv">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body>
 <div id="nahore"><div id="okno">
 <header>
-<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.5, M. M. (26. února 2021)</span>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.6, N. N. (26. března 2021)</span>
 <span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -303,18 +303,7 @@ V následujících zaklínadlech platí:
 <div class="radekzaklinadla">sudo mkswap <span class="volznak">[</span>-L <i class="dopln">jmenovka</i><span class="volznak">]</span> <span class="volznak">[</span>-U <i class="dopln">požadované-UUID</i><span class="volznak">]</span> <i class="dopln">/dev/oddíl</i></div>
 </div></div>
 
-<h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 4 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 7 (Dělení disku)"><sup>3/</sup>7 Dělení disku</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1333992918"><span><a href="#z1333992918">—</a></span></span>GUI (grafické uživatelské rozhraní)<span class="cislo">#1 </span></div><div class="radky">
-<div class="radekzaklinadla">sudo gparted</div>
-</div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona L" id="z1557705266"><span><a href="#z1557705266">⏜</a></span></span>TUI (textové uživatelské rozhraní)<span class="cislo">#2 </span></div><div class="radky">
-<div class="radekzaklinadla">sudo cfdisk <i class="dopln">/dev/zařízení</i></div>
-</div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1911108519"><span><a href="#z1911108519">䷧</a></span></span>CLI (ovládání z terminálu)<span class="cislo">#3 </span></div><div class="radky">
-<div class="radekzaklinadla">sudo fdisk <i class="dopln">/dev/zařízení</i></div>
-</div></div>
-
-<h3 id="cast3x8"><span><a href="#cast3x8" title="kapitola 4 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 8 (Jmenovka (nastavit))"><sup>3/</sup>8 Jmenovka (nastavit)</a></span></h3>
+<h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 4 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 7 (Jmenovka (nastavit))"><sup>3/</sup>7 Jmenovka (nastavit)</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1864154398"><span><a href="#z1864154398">⊸</a></span></span>nastavit/smazat jmenovku <b>odkládacího</b> oddílu<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo swaplabel -L &quot;<i class="dopln">novájmenovka</i>&quot; <i class="dopln">/dev/oddíl</i></div>
 <div class="radekzaklinadla">sudo swaplabel -L &quot;&quot; <i class="dopln">/dev/oddíl</i></div>
@@ -343,7 +332,7 @@ V následujících zaklínadlech platí:
 <div class="radekzaklinadla">sudo btrfs filesystem label <i class="dopln">/dev/oddíl</i></div>
 </div></div>
 
-<h3 id="cast3x9"><span><a href="#cast3x9" title="kapitola 4 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 9 (Degrafmentace, kontrola, TRIM apod.)"><sup>3/</sup>9 Degrafmentace, kontrola, TRIM apod.</a></span></h3>
+<h3 id="cast3x8"><span><a href="#cast3x8" title="kapitola 4 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 8 (Degrafmentace, kontrola, TRIM apod.)"><sup>3/</sup>8 Degrafmentace, kontrola, TRIM apod.</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1454212348"><span><a href="#z1454212348">⨀</a></span></span><b>zkontrolovat</b> a opravit souborový systém (kromě btrfs/btrfs)<span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilyppc26" id="kapdiskoveoddilyppcr26" title="Příkaz „fsck“ pravděpodobně lze použít i se souborovým systémem v souboru, ale nezkoušel/a jsem to.">(26)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo fsck <span class="volznak">[</span>-V<span class="volznak">]</span> <i class="dopln">/dev/oddíl</i></div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
@@ -375,7 +364,7 @@ V následujících zaklínadlech platí:
 <div class="radekzaklinadla">sudo e4defrag <i class="dopln">/dev/oddíl</i></div>
 </div></div>
 
-<h3 id="cast3x10"><span><a href="#cast3x10" title="kapitola 4 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 10 (Ostatní)"><sup>3/</sup>10 Ostatní</a></span></h3>
+<h3 id="cast3x9"><span><a href="#cast3x9" title="kapitola 4 (Diskové oddíly), sekce 3 (Zaklínadla), podsekce 9 (Ostatní)"><sup>3/</sup>9 Ostatní</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z445772701"><span><a href="#z445772701">⠒</a></span></span>je adresář <b>přípojným bodem</b>?<span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilyppc30" id="kapdiskoveoddilyppcr30" title="Tento příkaz následuje symbolické odkazy. To, že adresář reprezentuje pododdíl btrfs, ho pro účely tohoto příkazu přípojným bodem nečiní.">(30)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">mountpoint <span class="volznak">[</span>-q<span class="volznak">]</span> <i class="dopln">cesta</i></div>
 </div></div>
@@ -388,9 +377,75 @@ V následujících zaklínadlech platí:
 <div class="radekzaklinadla">zcat <i class="dopln">cesta.gz</i> | sudo dd of=<i class="dopln">/dev/oddíl</i> <span class="volznak">[</span>status=progress<span class="volznak">]</span></div>
 </div></div>
 
-<h2 id="cast4"><a href="#cast4"><span class="cislo">4.</span> Nejdůležitější volby připojení</a></h2>
+<h2 id="cast4" class="zaklinadla"><a href="#cast4"><span class="cislo">4.</span> Zaklínadla: Dělení disku</a></h2>
 
-<h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 4 (Diskové oddíly), sekce 4 (Nejdůležitější volby připojení), podsekce 1 (Pro všechny typy systému souborů)"><sup>4/</sup>1 Pro všechny typy systému souborů</a></span></h3>
+<h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 4 (Diskové oddíly), sekce 4 (Zaklínadla: Dělení disku), podsekce 1 (Dělení disku interaktivně)"><sup>4/</sup>1 Dělení disku interaktivně</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1333992918"><span><a href="#z1333992918">—</a></span></span>GUI (grafické uživatelské rozhraní)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">gnome-disks</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona L" id="z1557705266"><span><a href="#z1557705266">⏜</a></span></span>TUI (textové uživatelské rozhraní)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">sudo cfdisk <i class="dopln">/dev/zařízení</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1911108519"><span><a href="#z1911108519">䷧</a></span></span>CLI (ovládání z terminálu)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">sudo fdisk <i class="dopln">/dev/zařízení</i></div>
+</div></div>
+
+<h3 id="cast4x2"><span><a href="#cast4x2" title="kapitola 4 (Diskové oddíly), sekce 4 (Zaklínadla: Dělení disku), podsekce 2 (Skript pro sfdisk: tabulka GPT)"><sup>4/</sup>2 Skript pro sfdisk: tabulka GPT</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1945005400"><span><a href="#z1945005400">⣟</a></span></span>vytvořit novou tabulku oddílů<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">label: gpt</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2115149247"><span><a href="#z2115149247">‧</a></span></span>vytvořit oddíl (obecně)<span class="cislo">#2 </span><sup><a href="#kapdiskoveoddilyppc32" id="kapdiskoveoddilyppcr32" title="Velikost může být udána třemi způsoby: číslo bez přípony (např. 1024000) znamená přesný počet sektorů; číslo s příponou „KiB“, „MiB“, „GiB“ nebo „TiB“ znamená požadovanou velikost v kibibajtech, mebibajtech atd. Třetí možnost je položku „size“ vůbec neuvést; v takovém případě se vytvoří oddíl do konce disku. Položky „start“ a „uuid“ doporučuji uvádět jen tehdy, když se snažíte obnovit dříve existující oddíl a jejich hodnoty bezpečně znáte. „Typ“ musíte učit podle seznamu uvedeného v sekci „Tipy a zkušenosti“.">(32)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>start=<i class="dopln">první-sektor</i>,<span class="volznak">]</span> <span class="volznak">[</span>size=<i class="dopln">velikost</i>,<span class="volznak">]</span> type=<i class="dopln">typ</i> <span class="volznak">[</span>, bootable<span class="volznak">]</span> <span class="volznak">[</span>, uuid=<i class="dopln">požadované-PARTUUID</i><span class="volznak">]</span> <span class="volznak">[</span>, name=&quot;<i class="dopln">jméno oddílu</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1912096206"><span><a href="#z1912096206">⥁</a></span></span>vytvořit <b>datový</b> oddíl GPT<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>start=<i class="dopln">první-sektor</i>,<span class="volznak">]</span> <span class="volznak">[</span>size=<i class="dopln">velikost</i>,<span class="volznak">]</span> type=0FC63DAF-8483-4772-8E79-3D69D8477DE4 <span class="volznak">[</span>, bootable<span class="volznak">]</span> <span class="volznak">[</span>, uuid=<i class="dopln">požadované-PARTUUID</i><span class="volznak">]</span> <span class="volznak">[</span>, name=&quot;<i class="dopln">jméno oddílu</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1942046770"><span><a href="#z1942046770">┘</a></span></span>vytvořit <b>odkládací</b> oddíl GPT<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>start=<i class="dopln">první-sektor</i>,<span class="volznak">]</span> <span class="volznak">[</span>size=<i class="dopln">velikost</i>,<span class="volznak">]</span> type=0657FD6D-A4AB-43C4-84E5-0933C84B4F4F <span class="volznak">[</span>, uuid=<i class="dopln">požadované-PARTUUID</i><span class="volznak">]</span> <span class="volznak">[</span>, name=&quot;<i class="dopln">jméno oddílu</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1975734616"><span><a href="#z1975734616">⌉</a></span></span>vytvořit oddíl <b>EFI</b><span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>start=<i class="dopln">první-sektor</i>,<span class="volznak">]</span> <span class="volznak">[</span>size=<i class="dopln">velikost</i>,<span class="volznak">]</span> type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B <span class="volznak">[</span>, bootable<span class="volznak">]</span> <span class="volznak">[</span>, uuid=<i class="dopln">požadované-PARTUUID</i><span class="volznak">]</span> <span class="volznak">[</span>, name=&quot;<i class="dopln">jméno oddílu</i><span class="volznak">]</span></div>
+</div></div>
+
+<h3 id="cast4x3"><span><a href="#cast4x3" title="kapitola 4 (Diskové oddíly), sekce 4 (Zaklínadla: Dělení disku), podsekce 3 (Skript pro sfdisk: tabulka MBR)"><sup>4/</sup>3 Skript pro sfdisk: tabulka MBR</a></span></h3>
+<p class="ponadpisu">
+Poznámka: pro vytvoření oddílů v rozšířeném oddílu musíte nejprve vytvořit
+rozšířený oddíl do konce disku; další oddíly pak budou vytvářeny
+uvnitř tohoto rozšířeného oddílu.
+</p>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1945005400x"><span><a href="#z1945005400x">⣟</a></span></span>vytvořit novou tabulku oddílů<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">label: dos</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2115149247x"><span><a href="#z2115149247x">‧</a></span></span>vytvořit oddíl (obecně)<span class="cislo">#2 </span><sup><a href="#kapdiskoveoddilyppc33" id="kapdiskoveoddilyppcr33" title="Velikost může být udána třemi způsoby: číslo bez přípony (např. 1024000) znamená přesný počet sektorů; číslo s příponou „KiB“, „MiB“, „GiB“ nebo „TiB“ znamená požadovanou velikost v kibibajtech, mebibajtech atd. Třetí možnost je položku „size“ vůbec neuvést; v takovém případě se vytvoří oddíl do konce disku. Položky „start“ a „uuid“ doporučuji uvádět jen tehdy, když se snažíte obnovit dříve existující oddíl a jejich hodnoty bezpečně znáte. „Typ“ musíte učit podle seznamu uvedeného v sekci „Tipy a zkušenosti“.">(33)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>start=<i class="dopln">první-sektor</i>,<span class="volznak">]</span> <span class="volznak">[</span>size=<i class="dopln">velikost</i>,<span class="volznak">]</span> type=<i class="dopln">typ</i> <span class="volznak">[</span>, bootable<span class="volznak">]</span> <span class="volznak">[</span>, uuid=<i class="dopln">požadované-PARTUUID</i><span class="volznak">]</span> <span class="volznak">[</span>, name=&quot;<i class="dopln">jméno oddílu</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z663031776"><span><a href="#z663031776">ꜛ</a></span></span>vytvořit datový oddíl<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>start=<i class="dopln">první-sektor</i>,<span class="volznak">]</span> <span class="volznak">[</span>size=<i class="dopln">velikost</i>,<span class="volznak">]</span> type=83 <span class="volznak">[</span>, bootable<span class="volznak">]</span> <span class="volznak">[</span>, uuid=<i class="dopln">požadované-PARTUUID</i><span class="volznak">]</span> <span class="volznak">[</span>, name=&quot;<i class="dopln">jméno oddílu</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1120137439"><span><a href="#z1120137439">⣈</a></span></span>vytvořit odkládací oddíl GPT<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>start=<i class="dopln">první-sektor</i>,<span class="volznak">]</span> <span class="volznak">[</span>size=<i class="dopln">velikost</i>,<span class="volznak">]</span> type=82 <span class="volznak">[</span>, uuid=<i class="dopln">požadované-PARTUUID</i><span class="volznak">]</span> <span class="volznak">[</span>, name=&quot;<i class="dopln">jméno oddílu</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1197079089"><span><a href="#z1197079089">⢸</a></span></span>vytvořit oddíl EFI<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>start=<i class="dopln">první-sektor</i>,<span class="volznak">]</span> <span class="volznak">[</span>size=<i class="dopln">velikost</i>,<span class="volznak">]</span> type=EF <span class="volznak">[</span>, bootable<span class="volznak">]</span> <span class="volznak">[</span>, uuid=<i class="dopln">požadované-PARTUUID</i><span class="volznak">]</span> <span class="volznak">[</span>, name=&quot;<i class="dopln">jméno oddílu</i><span class="volznak">]</span></div>
+</div></div>
+
+<h3 id="cast4x4"><span><a href="#cast4x4" title="kapitola 4 (Diskové oddíly), sekce 4 (Zaklínadla: Dělení disku), podsekce 4 (Skript pro sfdisk: Ostatní)"><sup>4/</sup>4 Skript pro sfdisk: Ostatní</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1693466542"><span><a href="#z1693466542">⎥</a></span></span>komentář<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">#<i class="dopln">komentář do konce řádky</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z594783593"><span><a href="#z594783593">⚛</a></span></span>příklad skriptu<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">label: gpt</div>
+<div class="radekzaklinadla"># datový oddíl:</div>
+<div class="radekzaklinadla">size=120GiB, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4</div>
+<div class="radekzaklinadla"># odkládací oddíl:</div>
+<div class="radekzaklinadla">size=4GiB, type=0657FD6D-A4AB-43C4-84E5-0933C84B4F4F</div>
+<div class="radekzaklinadla"># zbytek jako další datový oddíl:</div>
+<div class="radekzaklinadla">type=0FC63DAF-8483-4772-8E79-3D69D8477DE4</div>
+</div></div>
+
+<h2 id="cast5"><a href="#cast5"><span class="cislo">5.</span> Nejdůležitější volby připojení</a></h2>
+
+<h3 id="cast5x1"><span><a href="#cast5x1" title="kapitola 4 (Diskové oddíly), sekce 5 (Nejdůležitější volby připojení), podsekce 1 (Pro všechny typy systému souborů)"><sup>5/</sup>1 Pro všechny typy systému souborů</a></span></h3>
 <table class="parametryprikazu"><tbody><tr><td>◉ rw ○ ro</td><td>Připojit pro čtení i zápis/jen pro čtení.</td></tr>
 
 <tr><td>◉ dev ○ nodev</td><td>Povolit/zakázat speciální zařízení na připojeném systému souborů. (Doporučuji vždy „nodev“.)</td></tr>
@@ -415,7 +470,7 @@ V následujících zaklínadlech platí:
 
 </tbody></table>
 
-<h3 id="cast4x2"><span><a href="#cast4x2" title="kapitola 4 (Diskové oddíly), sekce 4 (Nejdůležitější volby připojení), podsekce 2 (Zobrazení ve správcích souborů (pro všechny typy))"><sup>4/</sup>2 Zobrazení ve správcích souborů (pro všechny typy)</a></span></h3>
+<h3 id="cast5x2"><span><a href="#cast5x2" title="kapitola 4 (Diskové oddíly), sekce 5 (Nejdůležitější volby připojení), podsekce 2 (Zobrazení ve správcích souborů (pro všechny typy))"><sup>5/</sup>2 Zobrazení ve správcích souborů (pro všechny typy)</a></span></h3>
 <p class="ponadpisu">
 Poznámka: funkčnost těchto voleb ve správcích souborů může být různá; mám vyzkoušeno, že Thunar je respektuje; v ostatních správcích raději nejprve vyzkoušejte, zda tam budou fungovat, než se na ně spolehnete.
 </p>
@@ -427,7 +482,7 @@ Poznámka: funkčnost těchto voleb ve správcích souborů může být různá;
 
 </tbody></table>
 
-<h3 id="cast4x3"><span><a href="#cast4x3" title="kapitola 4 (Diskové oddíly), sekce 4 (Nejdůležitější volby připojení), podsekce 3 (Pro ext4, ext3 a ext2)"><sup>4/</sup>3 Pro ext4, ext3 a ext2</a></span></h3>
+<h3 id="cast5x3"><span><a href="#cast5x3" title="kapitola 4 (Diskové oddíly), sekce 5 (Nejdůležitější volby připojení), podsekce 3 (Pro ext4, ext3 a ext2)"><sup>5/</sup>3 Pro ext4, ext3 a ext2</a></span></h3>
 <table class="parametryprikazu"><tbody><tr><td>○ errors=remount-ro ○ errors=panic ○ errors=continue</td><td>V případě kritické chyby: připojí systém jen pro čtení/zhroutí se/pokračuje. (Nezkoušel/a jsem.)</td></tr>
 
 <tr><td>◉ user_xattr ○ nouser_xattr</td><td>Povolí/zakáže uživatelské rozšířené atributy. (ext3/ext4) V případě nouser_xattr budou uživatelské rozšířené atributy stávajících souborů a adresářů zachovány, ale nepůjdou číst ani zapisovat.</td></tr>
@@ -438,7 +493,7 @@ Poznámka: funkčnost těchto voleb ve správcích souborů může být různá;
 
 </tbody></table>
 
-<h3 id="cast4x4"><span><a href="#cast4x4" title="kapitola 4 (Diskové oddíly), sekce 4 (Nejdůležitější volby připojení), podsekce 4 (Pro „vfat“ (FAT32, FAT16, FAT12))"><sup>4/</sup>4 Pro „vfat“ (FAT32, FAT16, FAT12)</a></span></h3>
+<h3 id="cast5x4"><span><a href="#cast5x4" title="kapitola 4 (Diskové oddíly), sekce 5 (Nejdůležitější volby připojení), podsekce 4 (Pro „vfat“ (FAT32, FAT16, FAT12))"><sup>5/</sup>4 Pro „vfat“ (FAT32, FAT16, FAT12)</a></span></h3>
 <table class="parametryprikazu"><tbody><tr><td>☐ uid=<i class="dopln">UID</i></td><td>Nastaví vlastníka všech položek.</td></tr>
 
 <tr><td>☐ gid=<i class="dopln">GID</i></td><td>Nastaví skupinu všech položek.</td></tr>
@@ -451,7 +506,7 @@ Poznámka: funkčnost těchto voleb ve správcích souborů může být různá;
 
 </tbody></table>
 
-<h3 id="cast4x5"><span><a href="#cast4x5" title="kapitola 4 (Diskové oddíly), sekce 4 (Nejdůležitější volby připojení), podsekce 5 (Pro „ntfs“ (NTFS))"><sup>4/</sup>5 Pro „ntfs“ (NTFS)</a></span></h3>
+<h3 id="cast5x5"><span><a href="#cast5x5" title="kapitola 4 (Diskové oddíly), sekce 5 (Nejdůležitější volby připojení), podsekce 5 (Pro „ntfs“ (NTFS))"><sup>5/</sup>5 Pro „ntfs“ (NTFS)</a></span></h3>
 <table class="parametryprikazu"><tbody><tr><td>☐ uid=<i class="dopln">UID</i></td><td>Nastaví vlastníka všech položek.</td></tr>
 
 <tr><td>☐ gid=<i class="dopln">GID</i></td><td>Nastaví skupinu všech položek.</td></tr>
@@ -460,7 +515,7 @@ Poznámka: funkčnost těchto voleb ve správcích souborů může být různá;
 
 </tbody></table>
 
-<h3 id="cast4x6"><span><a href="#cast4x6" title="kapitola 4 (Diskové oddíly), sekce 4 (Nejdůležitější volby připojení), podsekce 6 (Pro „tmpfs“ (ramdisk))"><sup>4/</sup>6 Pro „tmpfs“ (ramdisk)</a></span></h3>
+<h3 id="cast5x6"><span><a href="#cast5x6" title="kapitola 4 (Diskové oddíly), sekce 5 (Nejdůležitější volby připojení), podsekce 6 (Pro „tmpfs“ (ramdisk))"><sup>5/</sup>6 Pro „tmpfs“ (ramdisk)</a></span></h3>
 <table class="parametryprikazu"><tbody><tr><td>☐ size=<i class="dopln">velikost</i></td><td>Nastaví kapacitu „ramdisku“; typicky se používá s příponami „M“ pro mebibajty a „G“ pro gibibajty (např. „size=4G“).</td></tr>
 
 <tr><td>☐ uid=<i class="dopln">UID</i></td><td>Nastaví počátečního vlastníka kořenového adresáře.</td></tr>
@@ -471,27 +526,35 @@ Poznámka: funkčnost těchto voleb ve správcích souborů může být různá;
 
 </tbody></table>
 
-<h2 id="cast5"><a href="#cast5"><span class="cislo">5.</span> Instalace na Ubuntu</a></h2>
+<h2 id="cast6"><a href="#cast6"><span class="cislo">6.</span> Instalace na Ubuntu</a></h2>
 <p class="ponadpisu">
-Všechny použité nástroje jsou základními součástmi Ubuntu, kromě příkazu zerofree a nástroje GParted,
-které v případě potřeby musíte doinstalovat:
+Všechny použité nástroje jsou základními součástmi Ubuntu, kromě příkazu
+zerofree a nástroje GNOME Disky, které v případě potřeby musíte doinstalovat:
 </p>
 <div class="zaklinadlo"><div class="radky">
-<div class="radekzaklinadla">sudo apt-get install gparted zerofree</div>
+<div class="radekzaklinadla">sudo apt-get install gnome-disk-utility zerofree</div>
 </div></div>
 
-<h2 id="cast6"><a href="#cast6"><span class="cislo">6.</span> Tipy a zkušenosti</a></h2>
+<h2 id="cast7"><a href="#cast7"><span class="cislo">7.</span> Tipy a zkušenosti</a></h2>
 <ul><li>Pomocí příkazu „mount --bind“ můžete jeden ramdisk připojit na několik různých míst VFS!
 </li><li>Zadáte-li výměnnou jednotku (např. USB flash disk) v /etc/fstab a tato jednotka nebude dostupná při startu systému, zavádění selže a nabídne vám přechod do záchranného režimu. Proti tomu pomohou volby „nofail“ (v případě jakékoliv chyby se připojení systému souborů tiše přeskočí) a „noauto“ (systém se vůbec nepokusí o připojení, ale oddíl či jednotku půjde připojit zkrácenou syntaxí příkazu „mount“).
 </li><li>Určitý konkrétní adresář může být použit jako přípojný bod vícenásobně, ale nedoporučuji to (nedává to příliš smysl). Také je možné připojením jiného souborového systému na adresář nadřazený přípojnému bodu překrýt přípojný bod i s jeho obsahem, ale rovněž to nedoporučuji.
 </li></ul>
-<h2 id="cast7"><a href="#cast7"><span class="cislo">7.</span> Další zdroje informací</a></h2>
+<h2 id="cast8"><a href="#cast8"><span class="cislo">8.</span> Typy pro vytvoření oddílu pomocí sfdisku</a></h2>
+<ul class="kompaktni"><li>Oddíl linuxového souborového systému (např. ext4 nebo btrfs): „0FC63DAF-8483-4772-8E79-3D69D8477DE4“ (GPT), „83“ pro MBR.
+</li><li>Odkládací oddíl: „0657FD6D-A4AB-43C4-84E5-0933C84B4F4F“ (GPT), „82“ (MBR).
+</li><li>Oddíl FAT32: „EBD0A0A2-B9E5-4433-87C0-68B6B72699C7“ (GPT), „0C“ (MBR).
+</li><li>Oddíl NTFS: „EBD0A0A2-B9E5-4433-87C0-68B6B72699C7“ (GPT), „07“ (MBR).
+</li><li>Rozšířený oddíl MBR: „5“ (nezkoušeno).
+</li><li>Oddíl EFI: „C12A7328-F81F-11D2-BA4B-00A0C93EC93B“ (GPT), „EF“ (MBR).
+</li></ul>
+<h2 id="cast9"><a href="#cast9"><span class="cislo">9.</span> Další zdroje informací</a></h2>
 <p class="ponadpisu">
 Pokud hledáte nástroj pro dělení disku ze skriptu, zkuste <a href="http://manpages.ubuntu.com/manpages/focal/en/man8/sfdisk.8.html">sfdisk</a> (anglicky).
 </p>
 <ul class="kompaktni"><li><a href="https://en.wikipedia.org/wiki/Mount_(computing)">Wikipedie: Mount (computing)</a> (anglicky)
 </li></ul>
-<h2 id="cast8"><a href="#cast8"><span class="cislo">8.</span> Pomocné funkce a skripty</a></h2>
+<h2 id="cast10"><a href="#cast10"><span class="cislo">10.</span> Pomocné funkce a skripty</a></h2>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z254684806"><span><a href="#z254684806">ⴾ</a></span></span>lkk diskstat – vypíše počty čtených a zapsaných bajtů<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">#!/bin/sh</div>
 <div class="radekzaklinadla">exec perl -CSDAL -Mv5.26.0 -Mstrict -Mutf8 -MEnglish -e '</div>
@@ -584,6 +647,10 @@ Pokud hledáte nástroj pro dělení disku ze skriptu, zkuste <a href="http://ma
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapdiskoveoddilyppc31"><a href="#kapdiskoveoddilyppcr31" class="cislopozn">31</a>&nbsp;Pozor! Tato operace je nebezpečná! Pokud zadáte chybný cílový oddíl, daný oddíl se nevratně přepíše daty určenými pro ten správný. Pokud velikost zálohy neodpovídá přesně velikosti cílového oddílu, nemusí být oddíl po obnově dobře použitelný. Tento příkaz používejte s velkou opatrností!</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapdiskoveoddilyppc32"><a href="#kapdiskoveoddilyppcr32" class="cislopozn">32</a>&nbsp;Velikost může být udána třemi způsoby: číslo bez přípony (např. 1024000) znamená přesný počet sektorů; číslo s příponou „KiB“, „MiB“, „GiB“ nebo „TiB“ znamená požadovanou velikost v kibibajtech, mebibajtech atd. Třetí možnost je položku „size“ vůbec neuvést; v takovém případě se vytvoří oddíl do konce disku. Položky „start“ a „uuid“ doporučuji uvádět jen tehdy, když se snažíte obnovit dříve existující oddíl a jejich hodnoty bezpečně znáte. „Typ“ musíte učit podle seznamu uvedeného v sekci „Tipy a zkušenosti“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapdiskoveoddilyppc33"><a href="#kapdiskoveoddilyppcr33" class="cislopozn">33</a>&nbsp;Velikost může být udána třemi způsoby: číslo bez přípony (např. 1024000) znamená přesný počet sektorů; číslo s příponou „KiB“, „MiB“, „GiB“ nebo „TiB“ znamená požadovanou velikost v kibibajtech, mebibajtech atd. Třetí možnost je položku „size“ vůbec neuvést; v takovém případě se vytvoří oddíl do konce disku. Položky „start“ a „uuid“ doporučuji uvádět jen tehdy, když se snažíte obnovit dříve existující oddíl a jejich hodnoty bezpečně znáte. „Typ“ musíte učit podle seznamu uvedeného v sekci „Tipy a zkušenosti“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 </div>
 
 
@@ -597,7 +664,7 @@ Pokud hledáte nástroj pro dělení disku ze skriptu, zkuste <a href="http://ma
 </nav>
 
 
-<div class="odkazydole"><div><a href="hledani-souboru.htm"><img src="obrazky/ik/hledani-souboru.png" alt="" width="32" height="32">Hledání souborů</a><a href="sprava-uzivatelskych-uctu.htm"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="" width="32" height="32">Správa uživatelských účtů</a><a href="regularni-vyrazy.htm"><img src="obrazky/ik/regularni-vyrazy.png" alt="" width="32" height="32">Regulární výrazy</a></div></div>
+<div class="odkazydole"><div><a href="hledani-souboru.htm"><img src="obrazky/ik/hledani-souboru.png" alt="" width="32" height="32">Hledání souborů</a><a href="prace-s-archivy.htm"><img src="obrazky/ik/prace-s-archivy.png" alt="" width="32" height="32">Práce s archivy</a><a href="diskove-oddily-softwarovy-raid.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly / Softwarový RAID</a></div></div>
 <div class="reklamnipata">Líbí se vám tento projekt a chcete, aby byl ještě lepší? Můžete mi s tím pomoci. Zmiňte se o něm technicky zdatným přátelům, opravte překlepy a nahlašte nefunkční zaklínadla, aby mohla být opravena; poskytněte mi zpětnou vazbu nebo se zapojte do vývoje nových kapitol. Další informace na GitHubu v dokumentu <a href="https://github.com/singularis-mzf/linux-spellbook/blob/v%C3%BDvojov%C3%A1/JAK-SE-ZAPOJIT.md">Jak se zapojit</a>.</div>
 
 </article>
@@ -634,21 +701,26 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <a href="#cast3x4" class="podsekce">/4 Oddíly a zařízení (vypsat/zjistit údaje)</a>
 <a href="#cast3x5" class="podsekce">/5 Formátování</a>
 <a href="#cast3x6" class="podsekce">/6 Odkládací oddíly a soubory</a>
-<a href="#cast3x7" class="podsekce">/7 Dělení disku</a>
-<a href="#cast3x8" class="podsekce">/8 Jmenovka (nastavit)</a>
-<a href="#cast3x9" class="podsekce">/9 Degrafmentace, kontrola, TRIM apod.</a>
-<a href="#cast3x10" class="podsekce">/10 Ostatní</a>
-<a href="#cast4" class="sekce">4 Nejdůležitější volby připojení</a>
-<a href="#cast4x1" class="podsekce">/1 Pro všechny typy systému souborů</a>
-<a href="#cast4x2" class="podsekce">/2 Zobrazení ve správcích souborů (pro všechny typy)</a>
-<a href="#cast4x3" class="podsekce">/3 Pro ext4, ext3 a ext2</a>
-<a href="#cast4x4" class="podsekce">/4 Pro „vfat“ (FAT32, FAT16, FAT12)</a>
-<a href="#cast4x5" class="podsekce">/5 Pro „ntfs“ (NTFS)</a>
-<a href="#cast4x6" class="podsekce">/6 Pro „tmpfs“ (ramdisk)</a>
-<a href="#cast5" class="sekce">5 Instalace na Ubuntu</a>
-<a href="#cast6" class="sekce">6 Tipy a zkušenosti</a>
-<a href="#cast7" class="sekce">7 Další zdroje informací</a>
-<a href="#cast8" class="sekce">8 Pomocné funkce a skripty</a>
+<a href="#cast3x7" class="podsekce">/7 Jmenovka (nastavit)</a>
+<a href="#cast3x8" class="podsekce">/8 Degrafmentace, kontrola, TRIM apod.</a>
+<a href="#cast3x9" class="podsekce">/9 Ostatní</a>
+<a href="#cast4" class="sekce">4 Zaklínadla: Dělení disku</a>
+<a href="#cast4x1" class="podsekce">/1 Dělení disku interaktivně</a>
+<a href="#cast4x2" class="podsekce">/2 Skript pro sfdisk: tabulka GPT</a>
+<a href="#cast4x3" class="podsekce">/3 Skript pro sfdisk: tabulka MBR</a>
+<a href="#cast4x4" class="podsekce">/4 Skript pro sfdisk: Ostatní</a>
+<a href="#cast5" class="sekce">5 Nejdůležitější volby připojení</a>
+<a href="#cast5x1" class="podsekce">/1 Pro všechny typy systému souborů</a>
+<a href="#cast5x2" class="podsekce">/2 Zobrazení ve správcích souborů (pro všechny typy)</a>
+<a href="#cast5x3" class="podsekce">/3 Pro ext4, ext3 a ext2</a>
+<a href="#cast5x4" class="podsekce">/4 Pro „vfat“ (FAT32, FAT16, FAT12)</a>
+<a href="#cast5x5" class="podsekce">/5 Pro „ntfs“ (NTFS)</a>
+<a href="#cast5x6" class="podsekce">/6 Pro „tmpfs“ (ramdisk)</a>
+<a href="#cast6" class="sekce">6 Instalace na Ubuntu</a>
+<a href="#cast7" class="sekce">7 Tipy a zkušenosti</a>
+<a href="#cast8" class="sekce">8 Typy pro vytvoření oddílu pomocí sfdisku</a>
+<a href="#cast9" class="sekce">9 Další zdroje informací</a>
+<a href="#cast10" class="sekce">10 Pomocné funkce a skripty</a>
 </div></div>
 <a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
 </aside>
@@ -687,6 +759,7 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <div>Správa procesů</div>
 <div>Stahování videí</div>
 <div>Terminál</div>
+<div>Terminál / Emodži</div>
 <div>Vim</div>
 <div>Zpracování binárních souborů</div>
 </div><p>Tyto kapitoly můžete získat jako odměnu za překlad ze zdrojového kódu. Podrobnější informace <a href="https://github.com/singularis-mzf/linux-spellbook/blob/stabiln%C3%AD/dokumentace/odm%C4%9Bna-za-sestaven%C3%AD.md">na GitHubu</a>.</p>

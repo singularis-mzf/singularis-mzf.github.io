@@ -5,16 +5,16 @@
 
 <title>Základní znalosti − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20210226.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210226-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210226-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210226-svetly.css" title="Světlý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20210326.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20210326-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20210326-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20210326-svetly.css" title="Světlý motiv">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body>
 <div id="nahore"><div id="okno">
 <header>
-<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.5, M. M. (26. února 2021)</span>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.6, N. N. (26. března 2021)</span>
 <span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -47,7 +47,7 @@
 
 <h2 id="cast1"><a href="#cast1"><span class="cislo">1.</span> Úvod</a></h2>
 <p class="ponadpisu">
-Tato kapitola uvádí základní znalosti, které každý středně pokročilý uživatel bashe
+Tato kapitola uvádí základní znalosti, které každý středně pokročilý uživatel Bashe
 (což je nejčastější a v Ubuntu výchozí interpret příkazové řádky) dobře zná a často používá.
 Jejich znalost se vám může velmi vyplatit při přizpůsobování zaklínadel vašim potřebám,
 takže vám doporučuji si tuto krátkou kapitolu projít.
@@ -92,31 +92,51 @@ aby pracoval se souborem, který se jmenuje „-“, je potřeba ho zadat jako �
 
 <h2 id="cast4"><a href="#cast4"><span class="cislo">4.</span> Oddělovač --</a></h2>
 <p class="ponadpisu">
-Pokud ve skriptech pracujete se soubory, jejichž názvy začínají znakem minus,
-některé příkazy mohou být zmatené a pochopit daný název jako přepínací volbu.
-Řada příkazů proto umožňuje za poslední volbou uvést zvláštní parametr „--“,
-který znamená, že od něj dál už následují jen názvy souborů a žádné volby.
-</p><p>
-Ani tuto možnost nenabízejí všechny příkazy, mnoho příkazů však ano.
-Obzvlášť důležité je to u příkazu <i>rm</i> (uvedený příklad smaže soubor „-f“):
+Když budete potřebovat předat příkazu argument začínající znakem minus
+(např. název souboru nebo formátovací řetězec printf), může být příkaz
+zmatený a omylem považovat daný parametr za přepínací volbu.
+Např. každý z těchto příkazů skončí s chybou:
 </p>
 <div class="zaklinadlo"><div class="radky">
-<div class="radekzaklinadla">rm -- -f</div>
+<div class="radekzaklinadla">printf '-a%s\n' test.c</div>
+<div class="radekzaklinadla">rm -v</div>
 </div></div>
+<p>
+Většina příkazů umožňuje tuto situaci vyřešit tím, že za poslední volbu
+uvedete zvláštní parametr „--“, který znamená, že za ním už následují
+jen argumenty a žádné volby:
+</p>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">printf -- '-a%s\n' test.c</div>
+<div class="radekzaklinadla">rm -- -v</div>
+</div></div>
+<p>
+Druhý příkaz sice stále selže, protože nemáte soubor „-v“, ale už mu bude jasné,
+co po něm chcete.
+</p><p>
+Úplně všechny příkazy tuto možnost nenabízejí; jste-li na pochybách,
+vyzkoušejte to nebo nahlédněte do jejich nápovědy.
+</p>
 
 <h2 id="cast5"><a href="#cast5"><span class="cislo">5.</span> Kde najít nápovědu</a></h2>
 <p class="ponadpisu">
-Pokud objevíte nějaký příkaz a zajímá vás, co dělá, jak se používá a jaké přijímá volby,
-zapomeňte na internet! Online zdroje, které na něm můžete nalézt, jsou totiž buď zastaralé,
-nebo naopak příliš nové (a tedy nabízejí i možnosti, které verze příkazu ve vašem systému
-nemá). Vždy nejprve zkuste následující standardní postup, jak se k nápovědě dostat:
+Když už jsme u té nápovědy — pokud objevíte nějaký příkaz a zajímá vás,
+co dělá, jak se používá a jaké přijímá volby, zapomeňte na internet!
+Online zdroje, které na něm můžete nalézt, jsou sice užitečné jako
+tutorialy a můžete se z nich naučit mnoho jednoduchých technik,
+ale bývají (až na výjimky) buď zastaralé, nebo naopak příliš nové
+(a tedy nabízejí i možnosti, které verze příkazu ve vašem systému
+nemá). Pokud hledáte konkrétní nápovědu a ne obecný tutorial,
+zkuste nejprve následující standardní postup, jak se k nápovědě dostat:
 </p><p>
-1. Pokud jde o interní příkaz bashe, zadáním příkazu „help <i class="dopln">příkaz</i>“ se dostanete
-ke stručné nápovědě. Nejste-li si jistý/á, zda jde o interní příkaz bashe,
+ 
+</p><p>
+1. Pokud jde o interní příkaz Bashe, zadáním příkazu „help <i class="dopln">příkaz</i>“ se dostanete
+ke stručné nápovědě. Nejste-li si jistý/á, zda jde o interní příkaz Bashe,
 napište do terminálu „builtin“ a dvakrát stiskněte klávesu <kbd>Tab</kbd>; vypíše se seznam
-interních příkazů bashe. Tentýž seznam můžete získat příkazem „compgen -A builtin“.
+interních příkazů Bashe. Tentýž seznam můžete získat příkazem „compgen -A builtin“.
 </p><p>
-2. Pokud nejde o interní příkaz bashe, zkuste ho zavolat s parametrem „--help“,
+2. Pokud nejde o interní příkaz Bashe, zkuste ho zavolat s parametrem „--help“,
 případně „-h“. Mnoho příkazů v takovém případě vypíše krátkou nápovědu a poradí,
 kde sehnat podrobnější; některé (např. „youtube-dl“) rovnou vypíšou tu podrobnější.
 </p><p>
@@ -126,6 +146,8 @@ jen málo z nich je ale přeložených do češtiny.
 </p><p>
 4. Poslední obvyklou možností je příkaz „info <i class="dopln">příkaz</i>“. Ten je potřeba poměrně zřídka;
 v praxi jsem ho potřeboval/a pouze u příkazu „date“.
+</p><p>
+ 
 </p><p>
 V krajním případě se můžete vydat prozkoumat adresář „/usr/share/doc/<i class="dopln">příkaz</i>“,
 pokud existuje, ale informace tam bývají obvykle vhodné jen pro nejpokročilejší uživatele
@@ -140,7 +162,7 @@ jakou verzi potřebujete a jak ji do vašeho systému nainstalovat.
 
 <h2 id="cast6"><a href="#cast6"><span class="cislo">6.</span> Odzvláštňování</a></h2>
 <p class="ponadpisu">
-Když v terminálu zadáte příkaz, interpret bash ho přečte znak po znaku od začátku do konce
+Když v terminálu zadáte příkaz, interpret Bash ho přečte znak po znaku od začátku do konce
 a ke každému znaku přiřadí příznak, zda s ním bude zacházat jako s „obyčejným znakem“
 nebo mu přisoudí nějaký zvláštní význam. Jako příklad uvedu příkaz:
 </p>
@@ -149,38 +171,35 @@ nebo mu přisoudí nějaký zvláštní význam. Jako příklad uvedu příkaz:
 </div></div>
 <p>
 V uvedeném příkazu jsou všechny znaky obyčejné, s výjimkou mezery – ta má zvláštní význam:
-odděluje příkaz od jeho parametru. V bashi mají obvykle zvláštní význam tyto znaky:
+odděluje příkaz od jeho parametru. V Bashi mají obvykle zvláštní význam tyto znaky:
 </p><p>
 <b>Konec řádku, mezera, &quot; # $ &amp; ' ( ) * ; &lt; &gt; ? [ \ ] ` { | } ~</b>
 </p><p>
-Znak <b>„!“</b> má zvláštní význam jen v interaktivní režimu, s výjimkou případů,
-kdy po něm následuje mezera, konec řádku nebo ukončující dvojitá uvozovka.
-Ve skriptech nebo v uvedených kontextech se považuje za obyčejný znak
-i bez odzvláštnění.
+Znak <b>„!“</b> má zvláštní význam jen tehdy, když po něm nenásleduje mezera,
+konec řádku nebo ukončující dvojitá uvozovka; ve skriptech je pak obyčejný
+vždy.
 </p><p>
 Znaky <b>„^“</b> a <b>„=“</b> mají zvláštní význam převážně jen v místě,
 kde se očekává název příkazu (tam se pak interpretují jako přiřazení do proměnné
 nebo rozvoj z historie); v ostatních místech s nimi lze zacházet jako
 s obyčejnými znaky.
 </p><p>
-Naopak tyto znaky jsou v bashi v normálním kontextu vždy obyčejné (existují
-zvláštní kontexty jako např. uvnitř vzorku nebo uvnitř regulárního výrazu,
-kde platí zase jiná pravidla):
+Naopak tyto znaky jsou v Bashi v normálním kontextu vždy obyčejné:
 </p><p>
 <b>% + , - . / : @ _</b>
 </p><p>
-Někdy ale potřebujete, aby se znak, kterému bash připisuje zvláštní význam,
-zpracoval stejně jako obyčejné znaky, a právě k tomu slouží „odzvláštňování“.
-Uvedu příklad:
+Někdy ale potřebujete, aby se znak, kterému Bash připisuje zvláštní význam,
+zpracoval stejně jako obyčejné znaky. Nejčastěji tehdy, když název souboru
+obsahuje mezeru a chcete, aby Bash dokázal rozlišit mezeru oddělující příkaz
+od názvu souboru od mezery, která do názvu souboru přímo patří. Uvedu příklad:
 </p>
 <div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla">cat Ahoj, světe.txt</div>
 </div></div>
 <p>
-V uvedeném příkazu by bash mezeru mezi čárkou a písmenem „s“ pochopil jako oddělovač parametrů
-a příkaz „cat“ by pak hledal dva různé soubory. Řešením je sdělit bashi, aby danou mezeru
-přijal jako obyčejný znak, tedy tuto mezeru <b>odzvláštnit</b>,
-a na to existují čtyři metody:
+Aby příkaz „cat“ nehledal dva různé soubory „Ahoj,“ a „světe.txt“,
+musíte sdělit Bashi, že s mezerou mezi nimi má nakládat jako s obyčejným
+znakem, musíte ji tedy <b>odzvláštnit</b>. Na to existují čtyři metody:
 </p>
 <div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla">cat Ahoj,\ světe.txt</div>
@@ -193,7 +212,7 @@ Základní (ačkoliv ne nejpoužívanější) metodou odzvláštnění je umíst
 před zvláštní znak. Tato metoda funguje se všemi zvláštními znaky kromě konce řádky
 – ten se v takovém případě z příkazu úplně vypustí.
 </p><p>
-Často používaná je druhá metoda – uzavření do <i>apostrofů</i>. Když bash narazí při čtení příkazu
+Často používaná je druhá metoda – uzavření do <i>apostrofů</i>. Když Bash narazí při čtení příkazu
 na apostrof, přepne se do kontextu, ve kterém považuje za zvláštní znak jen další apostrof
 a všechny ostatní znaky <i>bez výjimky</i> (tzn. včetně konce řádku či zpětného lomítka)
 považuje za znaky obyčejné. Pokud do takto odzvláštněného parametru potřebujeme
@@ -204,14 +223,14 @@ vložit apostrof, musíme ho nahradit konstrukcí:
 </div></div>
 <p>
 Uzavření do <i>dvojitých uvozovek</i> je určitý kompromis. Uvnitř nich zůstává zvláštní význam
-pouze znakům „!“, „&quot;“, „$“, „\“ a „`“ a tyto znaky (kromě vykřičníku) lze i uvnitř
-dvojitých uvozovek odzvláštnit zpětným lomítkem. Obzvlášť často se dvojité uvozovky
-používají v kombinaci s dosazováním proměnných.
+pouze znakům „!“ (ne ve skriptech), „&quot;“, „$“, „\“ a „`“ a tyto znaky
+(kromě vykřičníku) lze i uvnitř dvojitých uvozovek odzvláštnit zpětným lomítkem.
+Obzvlášť často se dvojité uvozovky používají v kombinaci s dosazováním proměnných.
 </p><p>
 Poslední metodou jsou <i>apostrofy s dolarem</i>. Uvnitř nich zůstává zvláštní význam pouze
 znakům „'“ a „\“, přičemž oba lze odzvláštnit zpětným lomítkem a zpětné lomítko zde
 navíc umožňuje zadat širokou škálu zvláštních sekvencí, které se přeloží
-na řídící či jiné znaky; např. „\n“ se zde přeloží na konec řádky
+na řídicí či jiné znaky; např. „\n“ se zde přeloží na konec řádky
 a „\u2251“ zde vygeneruje znak Unicode s hexadecimálním kódem 0x2251.
 </p>
 
@@ -220,7 +239,7 @@ a „\u2251“ zde vygeneruje znak Unicode s hexadecimálním kódem 0x2251.
 Mezery normálně oddělují od sebe parametry příkazu. Pokud použijete víc mezer za sebou,
 utvoří dohromady jen jeden oddělovač. Výjimkou je případ, kdy mezi mezery vložíte
 prázdnou konstrukci z apostrofů, uvozovek či apostrofů s dolarem. V takovém případě
-bash každou takovou konstrukci interpretuje jako <i>jeden</i> další (prázdný) parametr,
+Bash každou takovou konstrukci interpretuje jako <i>jeden</i> další (prázdný) parametr,
 bez ohledu na to, jak je složitá.
 Příklady:
 </p>
@@ -234,26 +253,42 @@ Příklady:
 
 <h2 id="cast7"><a href="#cast7"><span class="cislo">7.</span> Návratový kód a zřetězení</a></h2>
 <p class="ponadpisu">
-Mnoho příkazů, když selže, vypíše uživateli chybové hlášení. Bylo by ale nepraktické
-taková hlášení zpracovávat ve skriptu, proto příkazy současně s tím
-(a někdy dokonce místo toho)
-vracejí číselnou hodnotu 0 až 255, která signalizuje, zda daný příkaz uspěl nebo selhal.
-Tato hodnota se po skončení každého příkazu uloží do zvláštní proměnné „$?“.
-Hodnota 0 znamená, že příkaz uspěl; hodnoty 1 až 255, že selhal.
+Každý příkaz, když skončí, vrací číselný kód (0 až 255), který značí,
+zda vykonání příkazu proběhlo v pořádku nebo selhalo.
+Tento kód se v Bashi ukládá do zvláštní proměnné „$?“,
+odkud ho můžete vypsat např. příkazem „echo $?“,
+ale všem uživatelům důrazně doporučuji si jeho výpis přidat do výzvy terminálu
+(viz kapitolu <i>Terminál</i>); některé příkazy (např. „test“, „false“
+či „laptop-detect“) totiž normálně nevypisují žádné výsledky ani chybová hlášení
+a návratový kód je pak jedinou zprávou o jejich činnosti.
+To, že ho výchozí výzva ponechává skrytý, považuji za značný nedostatek.
 </p><p>
-Je-li příkazem několik příkazů spojených rourami, návratovým kódem je kód <i>posledního</i> uvedeného.
-Návratové kódy všech částí roury pak lze získat z pole „PIPESTATUS“, ale to obvykle není potřeba.
+Návratový kód 0 znamená, že příkaz uspěl; jiná hodnota (1 až 255), že selhal.
 </p><p>
-Příkazy (popř. sestavy příkazů spojených rourami) lze zřetězit pomocí logických
-operátorů &amp;&amp; a ||:
+Je-li příkazem několik příkazů spojených rourami, návratovým kódem
+je kód <i>posledního</i> uvedeného. (Návratové kódy všech částí roury lze získat
+z pole „PIPESTATUS“, ale obvykle to není potřeba.)
+</p><p>
+Návratový kód umožňuje zřetězit samostatné příkazy a rourami spojené
+sestavy příkazů pomocí logických operátorů &amp;&amp; („a“) a || („nebo“):
 </p>
-<ul class="kompaktni"><li>&amp;&amp; – Po provedení příkazu vlevo se vyhodnotí jeho návratový kód. Pokud příkaz selhal (kód je vyšší než 0), příkaz vpravo se přeskočí (a návratový kód zůstane nenulový).
-</li><li>|| – Po provedení příkazu vlevo se vyhodnotí jeho návratový kód. Pokud příkaz selhal, provede se příkaz vpravo; jinak se příkaz vpravo přeskočí (a návratový kód zůstane 0).
+<ul class="kompaktni"><li><b>&amp;&amp;</b> — Příkaz napravo se provede jen tehdy, když to, co je od operátoru nalevo, skončí úspěchem (tzn. s návratovým kódem 0). V opačném případě se příkaz napravo od tohoto operátoru tiše přeskočí a návratová hodnota zůstane nezměněná.
+</li><li><b>||</b> — Totéž, ale příkaz napravo se přeskočí, pokud část vlevo selže (tzn. návratová hodnota bude nenulová).
 </li></ul><p>
-Tyto operátory se vyhodnocují vždy zleva doprava a neliší se prioritou.
-Nejčastěji se používají v záhlaví příkazu „if“.
+Příklad („false“ je příkaz, který vždy selže):
 </p>
-
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">echo a || false &amp;&amp; echo b &amp;&amp; false | wc -c &amp;&amp; echo c || echo d || false; echo $?</div>
+</div></div>
+<ul class="kompaktni"><li>Nejprve se vypíše „a“ (návratový kód 0).
+</li><li>Operátor „||“ a kód je 0, takže se příkaz „false“ přeskočí a kód se nezmění.
+</li><li>Operátor „&amp;&amp;“ a kód je 0, takže se vypíše „b“ (kód 0).
+</li><li>Pak se provede příkaz „false“ (kód 1), ale je rourou spojený s „wc -c“ (kód 0). U roury zůstává návratový kód posledního příkazu, takže „wc -c“ vypíše nulu a výsledný kód bude opět 0.
+</li><li>Operátor „&amp;&amp;“ a kód je 0, takže se vypíše ještě „c“ (kód 0).
+</li><li>Operátor „||“ a kód je 0, takže příkaz „echo d“ se přeskočí a kód se nezmění.
+</li><li>Operátor „||“ a kód je 0, takže příkaz „false“ se přeskočí a kód se nezmění.
+</li><li>Příkaz „echo $?“ za středníkem se vykoná bez ohledu na poslední návratový kód a vypíše „0“ (kód 0).
+</li></ul>
 
 <nav class="spodni">
 <a href="index.htm" class="naindex">🗐&nbsp;Přehled&nbsp;kapitol</a>
@@ -265,7 +300,7 @@ Nejčastěji se používají v záhlaví příkazu „if“.
 </nav>
 
 
-<div class="odkazydole"><div><a href="hledani-souboru.htm"><img src="obrazky/ik/hledani-souboru.png" alt="" width="32" height="32">Hledání souborů</a><a href="sprava-uzivatelskych-uctu.htm"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="" width="32" height="32">Správa uživatelských účtů</a><a href="prace-s-archivy.htm"><img src="obrazky/ik/prace-s-archivy.png" alt="" width="32" height="32">Práce s archivy</a></div></div>
+<div class="odkazydole"><div><a href="diskove-oddily-softwarovy-raid.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly / Softwarový RAID</a><a href="odkazy.htm"><img src="obrazky/ik/odkazy.png" alt="" width="32" height="32">Pevné a symbolické odkazy</a><a href="diskove-oddily-btrfs.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly / Btrfs</a></div></div>
 <div class="reklamnipata">Líbí se vám tento projekt a chcete, aby byl ještě lepší? Můžete mi s tím pomoci. Zmiňte se o něm technicky zdatným přátelům, opravte překlepy a nahlašte nefunkční zaklínadla, aby mohla být opravena; poskytněte mi zpětnou vazbu nebo se zapojte do vývoje nových kapitol. Další informace na GitHubu v dokumentu <a href="https://github.com/singularis-mzf/linux-spellbook/blob/v%C3%BDvojov%C3%A1/JAK-SE-ZAPOJIT.md">Jak se zapojit</a>.</div>
 
 </article>
@@ -336,6 +371,7 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <div>Správa procesů</div>
 <div>Stahování videí</div>
 <div>Terminál</div>
+<div>Terminál / Emodži</div>
 <div>Vim</div>
 <div>Zpracování binárních souborů</div>
 </div><p>Tyto kapitoly můžete získat jako odměnu za překlad ze zdrojového kódu. Podrobnější informace <a href="https://github.com/singularis-mzf/linux-spellbook/blob/stabiln%C3%AD/dokumentace/odm%C4%9Bna-za-sestaven%C3%AD.md">na GitHubu</a>.</p>

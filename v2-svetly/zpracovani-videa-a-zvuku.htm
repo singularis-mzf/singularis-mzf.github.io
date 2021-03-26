@@ -5,16 +5,16 @@
 
 <title>Zpracování videa a zvuku − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20210226.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210226-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210226-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210226-svetly.css" title="Světlý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20210326.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20210326-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20210326-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20210326-svetly.css" title="Světlý motiv">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body>
 <div id="nahore"><div id="okno">
 <header>
-<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.5, M. M. (26. února 2021)</span>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.6, N. N. (26. března 2021)</span>
 <span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -560,14 +560,14 @@ a platí pouze pro daný výstup.
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z237588363"><span><a href="#z237588363">✗</a></span></span><b>konvertovat</b> video a zvuk z jednoho formátu na druhý<span class="cislo">#1 </span><sup><a href="#kapzpracovanivideaappc46" id="kapzpracovanivideaappcr46" title="Uvedený parametr „-qscale“ se pokusí zachovat kvalitu vstupního souboru.">(46)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">ffmpeg -i <i class="dopln">vstupní-soubor.přípona</i> -qscale:0 0 <span class="volznak">[</span>-qscale:1 0<span class="volznak">]</span> <i class="dopln">výstupní soubor.přípona</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1660872037"><span><a href="#z1660872037">⟆</a></span></span>rozložit <b>video na obrázky</b> ve formátu podle výstupní přípony: JPEG (jpg), PNG (png), BMP (bmp), TIFF (tif)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1577608664"><span><a href="#z1577608664">⊿</a></span></span><b>spojit</b> za sebou soubory<span class="cislo">#2 </span><sup><a href="#kapzpracovanivideaappc47" id="kapzpracovanivideaappcr47" title="Názvy souborů při volání tímto způsobem nesmějí obsahovat apostrof. Při spojování tímto způsobem nedochází k překódování, takže vstupní soubory si musejí velmi přesně odpovídat všemi parametry, jinak hrozí problémy při přehrávání.">(47)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">ffmpeg -f concat -safe 0 -i &lt;(for x in <i class="dopln">soubor</i><span class="tritecky"></span>; do realpath -ze -- &quot;$x&quot;; done | sed -zE $'/^\\x2f/!d;s/\x27/&amp;\\x5c&amp;&amp;/g;s/.*/file<span class="viditelnamezera">&nbsp;</span>\x27&amp;\x27/' | tr \\0 \\n) -c copy <i class="dopln">výstup</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1660872037"><span><a href="#z1660872037">⟆</a></span></span>rozložit <b>video na obrázky</b> ve formátu podle výstupní přípony: JPEG (jpg), PNG (png), BMP (bmp), TIFF (tif)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">ffmpeg -i <i class="dopln">video.přípona</i> -r <i class="dopln">počet-snímků-za-sekundu</i> -f image2 -q:v 0 <i class="dopln">obrázek</i>-%05d.<i class="dopln">výstupní-přípona</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1926294327"><span><a href="#z1926294327">⢼</a></span></span>vygenerovat sekvenci <b>zmenšených náhledů</b> z videa (šířka max. 640 pixelů), přibližně pro každou minutu<span class="cislo">#3 </span><sup><a href="#kapzpracovanivideaappc47" id="kapzpracovanivideaappcr47" title="Časování je u tohoto příkazu velmi přibližné, proto se hodí spíše na dlouhá videa, kde posun o půl minuty či minutu nebude vadit.">(47)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1926294327"><span><a href="#z1926294327">⢼</a></span></span>vygenerovat sekvenci <b>zmenšených náhledů</b> z videa (šířka max. 640 pixelů), přibližně pro každou minutu<span class="cislo">#4 </span><sup><a href="#kapzpracovanivideaappc48" id="kapzpracovanivideaappcr48" title="Časování je u tohoto příkazu velmi přibližné, proto se hodí spíše na dlouhá videa, kde posun o půl minuty či minutu nebude vadit.">(48)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">ffmpeg -i <i class="dopln">video</i> -r 1/60 -q:v 14 -vf 'scale=min(640\,iw):-1' nahled%05d.jpg</div>
-</div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1577608664"><span><a href="#z1577608664">⊿</a></span></span><b>spojit</b> za sebou soubory<span class="cislo">#4 </span><sup><a href="#kapzpracovanivideaappc48" id="kapzpracovanivideaappcr48" title="Názvy souborů při volání tímto způsobem nesmějí obsahovat apostrof. Při spojování tímto způsobem nedochází k překódování, takže vstupní soubory si musejí velmi přesně odpovídat všemi parametry, jinak hrozí problémy při přehrávání.">(48)</a></sup></div><div class="radky">
-<div class="radekzaklinadla">ffmpeg -f concat -safe 0 -i &lt;(printf &quot;file '%s'\\n&quot; <i class="dopln">soubor</i><span class="tritecky"></span>) -c copy <i class="dopln">výstup</i></div>
 </div></div>
 
 <h2 id="cast5" class="zaklinadla"><a href="#cast5"><span class="cislo">5.</span> Zaklínadla: Ostatní příkazy</a></h2>
@@ -725,9 +725,9 @@ Dalším velmi dobrým zdrojem je oficiální dokumentace k filtrům, ke které
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 <div id="kapzpracovanivideaappc46"><a href="#kapzpracovanivideaappcr46" class="cislopozn">46</a>&nbsp;Uvedený parametr „-qscale“ se pokusí zachovat kvalitu vstupního souboru.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaappc47"><a href="#kapzpracovanivideaappcr47" class="cislopozn">47</a>&nbsp;Časování je u tohoto příkazu velmi přibližné, proto se hodí spíše na dlouhá videa, kde posun o půl minuty či minutu nebude vadit.</div>
+<div id="kapzpracovanivideaappc47"><a href="#kapzpracovanivideaappcr47" class="cislopozn">47</a>&nbsp;Názvy souborů při volání tímto způsobem nesmějí obsahovat apostrof. Při spojování tímto způsobem nedochází k překódování, takže vstupní soubory si musejí velmi přesně odpovídat všemi parametry, jinak hrozí problémy při přehrávání.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapzpracovanivideaappc48"><a href="#kapzpracovanivideaappcr48" class="cislopozn">48</a>&nbsp;Názvy souborů při volání tímto způsobem nesmějí obsahovat apostrof. Při spojování tímto způsobem nedochází k překódování, takže vstupní soubory si musejí velmi přesně odpovídat všemi parametry, jinak hrozí problémy při přehrávání.</div>
+<div id="kapzpracovanivideaappc48"><a href="#kapzpracovanivideaappcr48" class="cislopozn">48</a>&nbsp;Časování je u tohoto příkazu velmi přibližné, proto se hodí spíše na dlouhá videa, kde posun o půl minuty či minutu nebude vadit.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 </div>
 
@@ -742,7 +742,7 @@ Dalším velmi dobrým zdrojem je oficiální dokumentace k filtrům, ke které
 </nav>
 
 
-<div class="odkazydole"><div><a href="diskove-oddily-softwarovy-raid.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly / Softwarový RAID</a><a href="hledani-souboru.htm"><img src="obrazky/ik/hledani-souboru.png" alt="" width="32" height="32">Hledání souborů</a><a href="prace-s-archivy.htm"><img src="obrazky/ik/prace-s-archivy.png" alt="" width="32" height="32">Práce s archivy</a></div></div>
+<div class="odkazydole"><div><a href="regularni-vyrazy.htm"><img src="obrazky/ik/regularni-vyrazy.png" alt="" width="32" height="32">Regulární výrazy</a><a href="hledani-souboru.htm"><img src="obrazky/ik/hledani-souboru.png" alt="" width="32" height="32">Hledání souborů</a><a href="sprava-uzivatelskych-uctu.htm"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="" width="32" height="32">Správa uživatelských účtů</a></div></div>
 <div class="reklamnipata">Líbí se vám tento projekt a chcete, aby byl ještě lepší? Můžete mi s tím pomoci. Zmiňte se o něm technicky zdatným přátelům, opravte překlepy a nahlašte nefunkční zaklínadla, aby mohla být opravena; poskytněte mi zpětnou vazbu nebo se zapojte do vývoje nových kapitol. Další informace na GitHubu v dokumentu <a href="https://github.com/singularis-mzf/linux-spellbook/blob/v%C3%BDvojov%C3%A1/JAK-SE-ZAPOJIT.md">Jak se zapojit</a>.</div>
 
 </article>
@@ -839,6 +839,7 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <div>Správa procesů</div>
 <div>Stahování videí</div>
 <div>Terminál</div>
+<div>Terminál / Emodži</div>
 <div>Vim</div>
 <div>Zpracování binárních souborů</div>
 </div><p>Tyto kapitoly můžete získat jako odměnu za překlad ze zdrojového kódu. Podrobnější informace <a href="https://github.com/singularis-mzf/linux-spellbook/blob/stabiln%C3%AD/dokumentace/odm%C4%9Bna-za-sestaven%C3%AD.md">na GitHubu</a>.</p>

@@ -5,16 +5,16 @@
 
 <title>Systém − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20210226.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210226-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210226-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210226-svetly.css" title="Světlý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20210326.css">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20210326-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20210326-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
+<link rel="alternate stylesheet" type="text/css" href="lkk-20210326-svetly.css" title="Světlý motiv">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body>
 <div id="nahore"><div id="okno">
 <header>
-<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.5, M. M. (26. února 2021)</span>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.6, N. N. (26. března 2021)</span>
 <span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -263,20 +263,23 @@ GNU GRUB je vyvíjen v rámci projektu GNU.
 <div class="radekzaklinadla">sudo sed -i -E 's/(\s)'${stare}'$/\1'${nove}'/' /etc/hosts &amp;&amp; sudo hostnamectl set-hostname &quot;$nove&quot;</div>
 <div class="radekzaklinadla akce">Restartujte počítač.</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1976512560"><span><a href="#z1976512560">⋂</a></span></span>otestovat volnou paměť RAM<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1444325702"><span><a href="#z1444325702">↺</a></span></span>spustit program a po dobu jeho běhu neumožnit běžným uživatelům uspání počítače, restart či vypnutí systému<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">systemd-inhibit <span class="volznak">[</span>&quot;--why=<i class="dopln">Popis důvodu</i>&quot;<span class="volznak">]</span> <span class="volznak">[</span>&quot;--who=<i class="dopln">Popis příkazu</i>&quot;<span class="volznak">]</span> <span class="volznak">[</span>sudo<span class="volznak">]</span> <i class="dopln">příkaz</i> <i class="dopln">parametry</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1976512560"><span><a href="#z1976512560">⋂</a></span></span>otestovat volnou paměť RAM<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo memtester <i class="dopln">velikost-P</i> <span class="volznak">[</span><i class="dopln">počet-iterací</i><span class="volznak">]</span><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1323363449"><span><a href="#z1323363449">⠭</a></span></span>nastavit proměnnou prostředí krále démonů/smazat ji<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1323363449"><span><a href="#z1323363449">⠭</a></span></span>nastavit proměnnou prostředí krále démonů/smazat ji<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo systemctl set-environment <i class="dopln">PROMĚNNÁ</i>=&quot;<i class="dopln">hodnota</i>&quot; <span class="volznak">[</span><i class="dopln">DALŠÍ_PROMĚNNÁ</i>=&quot;<i class="dopln">její hodnota</i>&quot;<span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sudo systemctl unset-environment <i class="dopln">PROMĚNNÁ</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z111318780"><span><a href="#z111318780">✳</a></span></span>který cíl je pro start systému výchozí?<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z111318780"><span><a href="#z111318780">✳</a></span></span>který cíl je pro start systému výchozí?<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">systemctl get-default</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z103848038"><span><a href="#z103848038">⡣</a></span></span>nastavit výchozí cíl<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z103848038"><span><a href="#z103848038">⡣</a></span></span>nastavit výchozí cíl<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo systemctl set-default <i class="dopln">cíl.target</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z5620886"><span><a href="#z5620886">◙</a></span></span>dočasně vypnout automatické připojování výměnných jednotek <span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z5620886"><span><a href="#z5620886">◙</a></span></span>dočasně vypnout automatické připojování výměnných jednotek <span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
@@ -446,7 +449,7 @@ Většina použitých příkazů je základní součástí Ubuntu, pouze příka
 </nav>
 
 
-<div class="odkazydole"><div><a href="nabidka-aplikaci.htm"><img src="obrazky/ik/nabidka-aplikaci.png" alt="" width="32" height="32">Nabídka aplikací</a><a href="diskove-oddily-lvm.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly / LVM</a><a href="prace-s-archivy.htm"><img src="obrazky/ik/prace-s-archivy.png" alt="" width="32" height="32">Práce s archivy</a></div></div>
+<div class="odkazydole"><div><a href="zpracovani-videa-a-zvuku.htm"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="" width="32" height="32">Zpracování videa a zvuku</a><a href="sprava-balicku.htm"><img src="obrazky/ik/sprava-balicku.png" alt="" width="32" height="32">Správa balíčků</a><a href="diskove-oddily.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly</a></div></div>
 <div class="reklamnipata">Líbí se vám tento projekt a chcete, aby byl ještě lepší? Můžete mi s tím pomoci. Zmiňte se o něm technicky zdatným přátelům, opravte překlepy a nahlašte nefunkční zaklínadla, aby mohla být opravena; poskytněte mi zpětnou vazbu nebo se zapojte do vývoje nových kapitol. Další informace na GitHubu v dokumentu <a href="https://github.com/singularis-mzf/linux-spellbook/blob/v%C3%BDvojov%C3%A1/JAK-SE-ZAPOJIT.md">Jak se zapojit</a>.</div>
 
 </article>
@@ -529,6 +532,7 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <div>Správa procesů</div>
 <div>Stahování videí</div>
 <div>Terminál</div>
+<div>Terminál / Emodži</div>
 <div>Vim</div>
 <div>Zpracování binárních souborů</div>
 </div><p>Tyto kapitoly můžete získat jako odměnu za překlad ze zdrojového kódu. Podrobnější informace <a href="https://github.com/singularis-mzf/linux-spellbook/blob/stabiln%C3%AD/dokumentace/odm%C4%9Bna-za-sestaven%C3%AD.md">na GitHubu</a>.</p>

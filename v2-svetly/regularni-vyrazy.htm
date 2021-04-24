@@ -5,16 +5,13 @@
 
 <title>Regulární výrazy − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20210326.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210326-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210326-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210326-svetly.css" title="Světlý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20210424.css">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body>
 <div id="nahore"><div id="okno">
 <header>
-<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.6, N. N. (26. března 2021)</span>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.7, O. O. (24. dubna 2021)</span>
 <span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -22,9 +19,9 @@
 <a href="#menukapitoly" class="menu"><span class="prvnipismeno">K</span>apitoly</a>
 <a href="#menustitky" class="menu"><span class="prvnipismeno">Š</span>títky</a>
 <a href="#menunapoveda" class="menu"><span class="prvnipismeno">N</span>ápověda</a>
-<a href="prace-s-archivy.htm" rel="prev" title="12. Práce s archivy" accesskey="p" class="predchozi">Předchozí&nbsp;kapitola</a>
+<a href="prace-s-archivy.htm" rel="prev" title="13. Práce s archivy" accesskey="p" class="predchozi">Předchozí&nbsp;kapitola</a>
 <a href="index.htm" class="prehled"><span class="prvnipismeno">P</span>řehled kapitol</a>
-<a href="sprava-balicku.htm" rel="next" title="14. Správa balíčků" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
+<a href="sprava-balicku.htm" rel="next" title="15. Správa balíčků" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
 </nav>
 
 <div class="slogan-veskera-moc">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
@@ -33,9 +30,9 @@
 <nav class="horni">
 <div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
 <span class="prev">
-<a href="prace-s-archivy.htm" rel="prev" title="12. Práce s archivy" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="prace-s-archivy.htm" rel="prev" title="13. Práce s archivy" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!- -
-- ->&nbsp;| <a href="sprava-balicku.htm" rel="next" title="14. Správa balíčků" accesskey="n">Následující&nbsp;kapitola</a>
+- ->&nbsp;| <a href="sprava-balicku.htm" rel="next" title="15. Správa balíčků" accesskey="n">Následující&nbsp;kapitola</a>
 </span>
 </nav>
 -->
@@ -43,11 +40,19 @@
 
 <article>
 
-<h1 class="kapitola">13. <img src="obrazky/ik/regularni-vyrazy.png" alt="" width="64" height="64"> Regulární výrazy</h1>
-<div class="stitky"><a href="x-stitky.htm#sbash">bash</a>
-<a href="x-stitky.htm#ssyntaxe">syntaxe</a>
-<a href="x-stitky.htm#szpracovanitextu">zpracování textu</a>
-</div>
+<h1 class="kapitola">14. <img src="obrazky/ik/regularni-vyrazy.png" alt="" width="64" height="64"> Regulární výrazy</h1>
+<div class="stitky"><a href="x-stitky.htm#">bash</a>
+<a href="x-stitky.htm#">syntaxe</a>
+<a href="x-stitky.htm#">zpracování textu</a>
+</div><div class="zaklinadlo"><div class="zahlavi"><span class="ikona D"><span><a href="#zx6db48bb">⣜</a></span></span>začátek testovaného řetězce (rozšířený i základní/víceřádkový režim/Perl)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">^</div>
+<div class="radekzaklinadla">\`</div>
+<div class="radekzaklinadla">\A</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D"><span><a href="#zx2c6508e">ʔ</a></span></span>kterýkoliv kromě uvedených znaků<span class="cislo">#2 </span><sup><a href="#kapx6c8c3abppc1" id="kapx6c8c3abppcr1" title="Znaky „!“, „^“ a „-“ mají uvnitř těchto závorek zvláštní význam a při použití jako znaky je nutno je odzvláštnit! V bashi tato konstrukce nepokrývá tečku jako první znak skrytých souborů a adresářů.">(1)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">[^<i class="dopln">znaky</i>]</div>
+</div></div>
+
 <h2 id="cast1"><a href="#cast1"><span class="cislo">1.</span> Úvod</a></h2>
 <p class="ponadpisu">
 Regulární výrazy představují velmi silný nástroj k vyhledávání, analýze,
@@ -82,215 +87,215 @@ GNU Bash je vyvíjen v rámci projektu GNU.
 <h2 id="cast3" class="zaklinadla"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla: Regulární výrazy</a></h2>
 
 <h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 14 (Regulární výrazy), sekce 3 (Zaklínadla: Regulární výrazy), podsekce 1 (Jednotlivé znaky)"><sup>3/</sup>1 Jednotlivé znaky</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1348571199"><span><a href="#z1348571199">ᚂ</a></span></span>konkrétní znak<span class="cislo">#1 </span><sup><a href="#kapregularnivyrazyppc1" id="kapregularnivyrazyppcr1" title="Některé znaky musejí být v regulárních výrazech pro zbavení svého speciálního významu odzvláštněny zpětným lomítkem.">(1)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx134744a"><span><a href="#zx134744a">ƿ</a></span></span>konkrétní znak<span class="cislo">#1 </span><sup><a href="#kapx6c8c3abppc2" id="kapx6c8c3abppcr2" title="Některé znaky musejí být v regulárních výrazech pro zbavení svého speciálního významu odzvláštněny zpětným lomítkem.">(2)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">znak</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1400538885"><span><a href="#z1400538885">┙</a></span></span><b>libovolný znak</b> (rozšířený i základní/Perl)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5abddfa"><span><a href="#zx5abddfa">∠</a></span></span><b>libovolný znak</b> (rozšířený i základní/Perl)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">.</div>
 <div class="radekzaklinadla">(?:.|\n)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z751079040"><span><a href="#z751079040">➞</a></span></span>kterýkoliv <b>z uvedených znaků</b><span class="cislo">#3 </span><sup><a href="#kapregularnivyrazyppc2" id="kapregularnivyrazyppcr2" title="Uvnitř těchto hranatých závorek se speciální znaky neodzvláštňují zpětným lomítkem, ale uvedením na určitou pozici.">(2)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6c5b94a"><span><a href="#zx6c5b94a">╩</a></span></span>kterýkoliv <b>z uvedených znaků</b><span class="cislo">#3 </span><sup><a href="#kapx6c8c3abppc3" id="kapx6c8c3abppcr3" title="Uvnitř těchto hranatých závorek se speciální znaky neodzvláštňují zpětným lomítkem, ale uvedením na určitou pozici.">(3)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">[<i class="dopln">znaky</i>]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2114815523"><span><a href="#z2114815523">‗</a></span></span>libovolný znak <b>kromě uvedených</b><span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1942e1b"><span><a href="#zx1942e1b">⬊</a></span></span>libovolný znak <b>kromě uvedených</b><span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">[^<i class="dopln">znaky</i>]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z263127578"><span><a href="#z263127578">⟿</a></span></span>všechny znaky po první výskyt některého z uvedených/případně až do konce řetězce<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxadd8393"><span><a href="#zxadd8393">ⴴ</a></span></span>všechny znaky po první výskyt některého z uvedených/případně až do konce řetězce<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">[^<i class="dopln">znaky</i>]*[<i class="dopln">znaky</i>]</div>
 <div class="radekzaklinadla">[^<i class="dopln">znaky</i>]*</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2022931553"><span><a href="#z2022931553">⬢</a></span></span><b>bílý znak</b>/nebílý znak<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd3823ed"><span><a href="#zxd3823ed">↳</a></span></span><b>bílý znak</b>/nebílý znak<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">\s</div>
 <div class="radekzaklinadla">\S</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1421208282"><span><a href="#z1421208282">⋲</a></span></span>desítková <b>číslice</b> (rozšířený/základní/Perl)<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx96f993c"><span><a href="#zx96f993c">䷗</a></span></span>desítková <b>číslice</b> (rozšířený/základní/Perl)<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">[0-9]</div>
 <div class="radekzaklinadla">[0-9]</div>
 <div class="radekzaklinadla">\d</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1238364946"><span><a href="#z1238364946">⎜</a></span></span>jiný znak než desítková číslice (rozšířený/základní/Perl)<span class="cislo">#8 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc141d3a"><span><a href="#zxc141d3a">⢩</a></span></span>jiný znak než desítková číslice (rozšířený/základní/Perl)<span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla">[^0-9]</div>
 <div class="radekzaklinadla">[^0-9]</div>
 <div class="radekzaklinadla">\D</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1884462826"><span><a href="#z1884462826">≁</a></span></span>závorky „()[]{}“ (rozšířený/ základní)<span class="cislo">#9 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb836442"><span><a href="#zxb836442">⚚</a></span></span>závorky „()[]{}“ (rozšířený/ základní)<span class="cislo">#9 </span></div><div class="radky">
 <div class="radekzaklinadla">[(][)]\[\]\{\}</div>
 <div class="radekzaklinadla">[(][)]\[\]{}</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z252715867"><span><a href="#z252715867">♩</a></span></span>libovolný alfanumerický znak, i národní abecedy (rozšířený/základní/Perl)<span class="cislo">#10 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4015209"><span><a href="#zx4015209">䷨</a></span></span>libovolný alfanumerický znak, i národní abecedy (rozšířený/základní/Perl)<span class="cislo">#10 </span></div><div class="radky">
 <div class="radekzaklinadla">[[:alnum:]]</div>
 <div class="radekzaklinadla">[[:alnum:]]</div>
 <div class="radekzaklinadla">\w</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1041971797"><span><a href="#z1041971797">×</a></span></span>libovolný znak kromě alfanumerických (rozšířený/základní/Perl)<span class="cislo">#11 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0eadecd"><span><a href="#zx0eadecd">❉</a></span></span>libovolný znak kromě alfanumerických (rozšířený/základní/Perl)<span class="cislo">#11 </span></div><div class="radky">
 <div class="radekzaklinadla">[^[:alnum:]]</div>
 <div class="radekzaklinadla">[^[:alnum:]]</div>
 <div class="radekzaklinadla">\W</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z999884727"><span><a href="#z999884727">╞</a></span></span>libovolné písmeno, i národní abecedy<span class="cislo">#12 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc37f465"><span><a href="#zxc37f465">ᚌ</a></span></span>libovolné písmeno, i národní abecedy<span class="cislo">#12 </span></div><div class="radky">
 <div class="radekzaklinadla">[[:alpha:]]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1186625512"><span><a href="#z1186625512">✐</a></span></span>libovolné malé/velké písmeno, i národní abecedy<span class="cislo">#13 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0d8672b"><span><a href="#zx0d8672b">✻</a></span></span>libovolné malé/velké písmeno, i národní abecedy<span class="cislo">#13 </span></div><div class="radky">
 <div class="radekzaklinadla">[[:lower:]]</div>
 <div class="radekzaklinadla">[[:upper:]]</div>
 </div></div>
 
 <h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 14 (Regulární výrazy), sekce 3 (Zaklínadla: Regulární výrazy), podsekce 2 (Kvantifikátory (operátory opakování))"><sup>3/</sup>2 Kvantifikátory (operátory opakování)</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1476294323"><span><a href="#z1476294323">⨜</a></span></span><b>jednou nebo vůbec</b> (≤ 1)(rozšířený/základní)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2d65f78"><span><a href="#zx2d65f78">Ʌ</a></span></span><b>jednou nebo vůbec</b> (≤ 1)(rozšířený/základní)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">atom</i>?</div>
 <div class="radekzaklinadla"><i class="dopln">atom</i>\?</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1225416439"><span><a href="#z1225416439">⬟</a></span></span><b>libovolněkrát</b> (≥ 0)(rozšířený/základní)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx56f8f53"><span><a href="#zx56f8f53">⠰</a></span></span><b>libovolněkrát</b> (≥ 0)(rozšířený/základní)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">atom</i>*</div>
 <div class="radekzaklinadla"><i class="dopln">atom</i>*</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1995271898"><span><a href="#z1995271898">⠜</a></span></span><b>jednou nebo víckrát</b> (≥ 1)(rozšířený/základní)<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3293c49"><span><a href="#zx3293c49">ᔩ</a></span></span><b>jednou nebo víckrát</b> (≥ 1)(rozšířený/základní)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">atom</i>+</div>
 <div class="radekzaklinadla"><i class="dopln">atom</i>\+</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z276742327"><span><a href="#z276742327">⤋</a></span></span>přesně <b>N-krát</b> (= N)(rozšířený/základní)<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1558af3"><span><a href="#zx1558af3">⌉</a></span></span>přesně <b>N-krát</b> (= N)(rozšířený/základní)<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">atom</i>{<i class="dopln">N</i>}</div>
 <div class="radekzaklinadla"><i class="dopln">atom</i>\{<i class="dopln">N</i>\}</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1353918104"><span><a href="#z1353918104">⟹</a></span></span>M- až N-krát včetně (M ≤ počet ≤ N)(rozšířený/základní)<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7bc3930"><span><a href="#zx7bc3930">♫</a></span></span>M- až N-krát včetně (M ≤ počet ≤ N)(rozšířený/základní)<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">atom</i>{<i class="dopln">M</i>,<i class="dopln">N</i>}</div>
 <div class="radekzaklinadla"><i class="dopln">atom</i>\{<i class="dopln">M</i>,<i class="dopln">N</i>\}</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z835561199"><span><a href="#z835561199">⋁</a></span></span><b>minimálně</b> M-krát (≥ M)(rozšířený/základní)<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8f8a1eb"><span><a href="#zx8f8a1eb">ⵟ</a></span></span><b>minimálně</b> M-krát (≥ M)(rozšířený/základní)<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">atom</i>{<i class="dopln">M</i>,}</div>
 <div class="radekzaklinadla"><i class="dopln">atom</i>\{<i class="dopln">M</i>,\}</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z439438379"><span><a href="#z439438379">▴</a></span></span><b>maximálně</b> N-krát (≤ N)(rozšířený/základní)<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe5e5a47"><span><a href="#zxe5e5a47">ɸ</a></span></span><b>maximálně</b> N-krát (≤ N)(rozšířený/základní)<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">atom</i>{,<i class="dopln">N</i>}</div>
 <div class="radekzaklinadla"><i class="dopln">atom</i>\{,<i class="dopln">N</i>\}</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1548414141"><span><a href="#z1548414141">✲</a></span></span>snažit se opakovat co nejméně (<b>nehladové</b> prohledávání)(jen Perl)<span class="cislo">#8 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3b0218f"><span><a href="#zx3b0218f">⊷</a></span></span>snažit se opakovat co nejméně (<b>nehladové</b> prohledávání)(jen Perl)<span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">atom</i><i class="dopln">kvantifikátor</i>?</div>
 </div></div>
 
 <h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 14 (Regulární výrazy), sekce 3 (Zaklínadla: Regulární výrazy), podsekce 3 (Operátor „nebo“)"><sup>3/</sup>3 Operátor „nebo“</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z160317836"><span><a href="#z160317836">⢋</a></span></span>některý z podvýrazů (rozšířený/základní)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd4df658"><span><a href="#zxd4df658">◽</a></span></span>některý z podvýrazů (rozšířený/základní)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">výraz 1</i><span class="volznak">[</span>|<i class="dopln">další výraz</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla"><i class="dopln">výraz 1</i><span class="volznak">[</span>\|<i class="dopln">další výraz</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
 
 <h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 14 (Regulární výrazy), sekce 3 (Zaklínadla: Regulární výrazy), podsekce 4 (Kotvy a hranice (pozice))"><sup>3/</sup>4 Kotvy a hranice (pozice)</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1901707423"><span><a href="#z1901707423">ⵘ</a></span></span>začátek testovaného řetězce (rozšířený i základní/víceřádkový režim/Perl)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6db48bb"><span><a href="#zx6db48bb">⣜</a></span></span>začátek testovaného řetězce (rozšířený i základní/víceřádkový režim/Perl)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">^</div>
 <div class="radekzaklinadla">\`</div>
 <div class="radekzaklinadla">\A</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2042306143"><span><a href="#z2042306143">⠁</a></span></span>konec testovaného řetězce (rozšířený i základní/víceřádkový režim/Perl)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0ad44cd"><span><a href="#zx0ad44cd">⣊</a></span></span>konec testovaného řetězce (rozšířený i základní/víceřádkový režim/Perl)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">$</div>
 <div class="radekzaklinadla">\'</div>
 <div class="radekzaklinadla">\z</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2080863965"><span><a href="#z2080863965">↗</a></span></span>začátek slova (rozšířený a základní/Perl)<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxffb79a6"><span><a href="#zxffb79a6">䷷</a></span></span>začátek slova (rozšířený a základní/Perl)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">\&lt;</div>
 <div class="radekzaklinadla">\b(?=\w)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z433420561"><span><a href="#z433420561">≿</a></span></span>konec slova (rozšířený a základní/Perl)<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5b53f19"><span><a href="#zx5b53f19">❉</a></span></span>konec slova (rozšířený a základní/Perl)<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">\&gt;</div>
 <div class="radekzaklinadla">\b(?&lt;=\w)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z102348029"><span><a href="#z102348029">∎</a></span></span>začátek nebo konec slova (rozšířený/základní/Perl)<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6ce152b"><span><a href="#zx6ce152b">⪀</a></span></span>začátek nebo konec slova (rozšířený/základní/Perl)<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">(\&lt;|\&gt;)</div>
 <div class="radekzaklinadla">\(\&lt;\|\&gt;\)</div>
 <div class="radekzaklinadla">\b</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1513259945"><span><a href="#z1513259945">⌞</a></span></span>začátek/konec řádku<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx545477e"><span><a href="#zx545477e">←</a></span></span>začátek/konec řádku<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
 <h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 14 (Regulární výrazy), sekce 3 (Zaklínadla: Regulární výrazy), podsekce 5 (Seskupení)"><sup>3/</sup>5 Seskupení</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2039150421"><span><a href="#z2039150421">♀</a></span></span>seskupení (rozšířený/základní)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxaeefcdd"><span><a href="#zxaeefcdd">❳</a></span></span>seskupení (rozšířený/základní)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">(<i class="dopln">podvýraz</i>)</div>
 <div class="radekzaklinadla">\(<i class="dopln">podvýraz</i>\)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1384066149"><span><a href="#z1384066149">ᚙ</a></span></span>seskupení bez zapamatování (jen Perl)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf7c5ff0"><span><a href="#zxf7c5ff0">⠙</a></span></span>seskupení bez zapamatování (jen Perl)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">(?:<i class="dopln">podvýraz</i>)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z455031424"><span><a href="#z455031424">ᚐ</a></span></span>pojmenované seskupení (jen Perl)<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx22e0af0"><span><a href="#zx22e0af0">⚆</a></span></span>pojmenované seskupení (jen Perl)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">(?&lt;<i class="dopln">název</i>&gt;<i class="dopln">podvýraz</i>)</div>
 </div></div>
 
 <h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 14 (Regulární výrazy), sekce 3 (Zaklínadla: Regulární výrazy), podsekce 6 (Paměť (omezená podpora))"><sup>3/</sup>6 Paměť (omezená podpora)</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1266666139"><span><a href="#z1266666139">↹</a></span></span>původní podřetězec odpovídající celému regulárnímu výrazu (rozšířený a základní/Perl)<span class="cislo">#1 </span><sup><a href="#kapregularnivyrazyppc3" id="kapregularnivyrazyppcr3" title="Platí jen v rámci řetězce náhrady, ne v samotném regulárním výrazu.">(3)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxcd724d8"><span><a href="#zxcd724d8">⣱</a></span></span>původní podřetězec odpovídající celému regulárnímu výrazu (rozšířený a základní/Perl)<span class="cislo">#1 </span><sup><a href="#kapx6c8c3abppc4" id="kapx6c8c3abppcr4" title="Platí jen v rámci řetězce náhrady, ne v samotném regulárním výrazu.">(4)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">&amp;</div>
 <div class="radekzaklinadla">$&amp;</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1920668123"><span><a href="#z1920668123">⨁</a></span></span><b>záchyt</b> – podřetězec původního řetězce odpovídající seskupení (varianty)<span class="cislo">#2 </span><sup><a href="#kapregularnivyrazyppc4" id="kapregularnivyrazyppcr4" title="Zdvojení zpětného lomítka v GNU awk vyplývá ze skutečnosti, že ho (obvykle) zadáváte jako řetězec v programovacím jazyce. Pokud byste náhodou např. načítali řetězec náhrady ze souboru, bude tam zpětné lomítko patřit pouze jedno!">(4)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx51ce2f2"><span><a href="#zx51ce2f2">⡉</a></span></span><b>záchyt</b> – podřetězec původního řetězce odpovídající seskupení (varianty)<span class="cislo">#2 </span><sup><a href="#kapx6c8c3abppc5" id="kapx6c8c3abppcr5" title="Zdvojení zpětného lomítka v GNU awk vyplývá ze skutečnosti, že ho (obvykle) zadáváte jako řetězec v programovacím jazyce. Pokud byste náhodou např. načítali řetězec náhrady ze souboru, bude tam zpětné lomítko patřit pouze jedno!">(5)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">\<i class="dopln">pořadové-číslo-1-až-9</i><span class="prikladhodnoty">⊨ v reg. výrazu: GNU sed a Perl; v řetězci náhrady: GNU sed</span></div>
 <div class="radekzaklinadla">\\<i class="dopln">pořadové-číslo-1-až-9</i><span class="prikladhodnoty">⊨ v řetězci náhrady: GNU awk (jen funkce gensub())</span></div>
 <div class="radekzaklinadla">$<i class="dopln">pořadové-číslo-1-až-9</i><span class="prikladhodnoty">⊨ v řetězci náhrady: Perl</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1404093939"><span><a href="#z1404093939">⬗</a></span></span>totéž, ale první písmeno malé/velké<span class="cislo">#3 </span><sup><a href="#kapregularnivyrazyppc5" id="kapregularnivyrazyppcr5" title="Tuto variantu podporuje pravděpodobně jen Perl a sed a smí se vyskytnout pouze v řetězci pro náhradu, nikoliv přímo ve vlastním regulárním výrazu.">(5)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx48eadde"><span><a href="#zx48eadde">☋</a></span></span>totéž, ale první písmeno malé/velké<span class="cislo">#3 </span><sup><a href="#kapx6c8c3abppc6" id="kapx6c8c3abppcr6" title="Tuto variantu podporuje pravděpodobně jen Perl a sed a smí se vyskytnout pouze v řetězci pro náhradu, nikoliv přímo ve vlastním regulárním výrazu.">(6)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">\l\<i class="dopln">pořadové-číslo-1-až-9</i>\E</div>
 <div class="radekzaklinadla">\u\<i class="dopln">pořadové-číslo-1-až-9</i>\E</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1817761238"><span><a href="#z1817761238">☒</a></span></span>totéž, ale celý text malými/velkými písmeny<span class="cislo">#4 </span><sup><a href="#kapregularnivyrazyppc6" id="kapregularnivyrazyppcr6" title="Viz poznámku k předchozímu zaklínadlu.">(6)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxcbb76b3"><span><a href="#zxcbb76b3">⬔</a></span></span>totéž, ale celý text malými/velkými písmeny<span class="cislo">#4 </span><sup><a href="#kapx6c8c3abppc7" id="kapx6c8c3abppcr7" title="Viz poznámku k předchozímu zaklínadlu.">(7)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">\L\<i class="dopln">pořadové-číslo-1-až-9</i>\E</div>
 <div class="radekzaklinadla">\U\<i class="dopln">pořadové-číslo-1-až-9</i>\E</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z273382175"><span><a href="#z273382175">☀</a></span></span>záchyt v Perlu v rámci regulárního výrazu (číslovaný/pojmenovaný)<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx52fce0f"><span><a href="#zx52fce0f">⬠</a></span></span>záchyt v Perlu v rámci regulárního výrazu (číslovaný/pojmenovaný)<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">\g{<i class="dopln">pořadové-číslo</i>}</div>
 <div class="radekzaklinadla">\g{<i class="dopln">název</i>}</div>
 </div></div>
 
 <h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 14 (Regulární výrazy), sekce 3 (Zaklínadla: Regulární výrazy), podsekce 7 (Vyhlížení (jen Perl))"><sup>3/</sup>7 Vyhlížení (jen Perl)</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z582787748"><span><a href="#z582787748">⪯</a></span></span>ověřit, že za aktuální pozicí <b>následuje</b> shoda s daným regulárním podvýrazem<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx03327da"><span><a href="#zx03327da">┧</a></span></span>ověřit, že za aktuální pozicí <b>následuje</b> shoda s daným regulárním podvýrazem<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">(?=<i class="dopln">podvýraz</i>)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z586978471"><span><a href="#z586978471">❂</a></span></span>ověřit, že za aktuální pozicí <b>nenásleduje</b> shoda s daným regulárním podvýrazem<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx818cfec"><span><a href="#zx818cfec">ː</a></span></span>ověřit, že za aktuální pozicí <b>nenásleduje</b> shoda s daným regulárním podvýrazem<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">(?!<i class="dopln">podvýraz</i>)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1462851626"><span><a href="#z1462851626">䷼</a></span></span>ověřit, že aktuální pozici <b>předchází</b> shoda s daným regulárním podvýrazem<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8a8975d"><span><a href="#zx8a8975d">↳</a></span></span>ověřit, že aktuální pozici <b>předchází</b> shoda s daným regulárním podvýrazem<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">(?&lt;=<i class="dopln">podvýraz</i>)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1551987939"><span><a href="#z1551987939">⧫</a></span></span>ověřit, že aktuální pozici <b>nepředchází</b> shoda s daným regulárním podvýrazem<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9ced152"><span><a href="#zx9ced152">♓</a></span></span>ověřit, že aktuální pozici <b>nepředchází</b> shoda s daným regulárním podvýrazem<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">(?&lt;!<i class="dopln">podvýraz</i>)</div>
 </div></div>
 
 <h2 id="cast4" class="zaklinadla"><a href="#cast4"><span class="cislo">4.</span> Zaklínadla: Vzorky bashe</a></h2>
 
 <h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 14 (Regulární výrazy), sekce 4 (Zaklínadla: Vzorky bashe), podsekce 1 (Základní)"><sup>4/</sup>1 Základní</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1348571199x"><span><a href="#z1348571199x">ᚂ</a></span></span>konkrétní znak<span class="cislo">#1 </span><sup><a href="#kapregularnivyrazyppc7" id="kapregularnivyrazyppcr7" title="Znaky, které mají pro bash zvláštní význam, je nutno ve vzorku odzvláštnit, nejčastěji zpětným lomítkem.">(7)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx53c8501"><span><a href="#zx53c8501">꓾</a></span></span>konkrétní znak<span class="cislo">#1 </span><sup><a href="#kapx6c8c3abppc8" id="kapx6c8c3abppcr8" title="Znaky, které mají pro bash zvláštní význam, je nutno ve vzorku odzvláštnit, nejčastěji zpětným lomítkem.">(8)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">znak</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1971951562"><span><a href="#z1971951562">ᚈ</a></span></span>žádný či více libovolných znaků/jeden libovolný znak<span class="cislo">#2 </span><sup><a href="#kapregularnivyrazyppc8" id="kapregularnivyrazyppcr8" title="V bashi tyto znaky nepokrývají tečku jako první znak skrytých souborů a adresářů.">(8)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa3d0707"><span><a href="#zxa3d0707">╌</a></span></span>žádný či více libovolných znaků/jeden libovolný znak<span class="cislo">#2 </span><sup><a href="#kapx6c8c3abppc9" id="kapx6c8c3abppcr9" title="V bashi tyto znaky nepokrývají tečku jako první znak skrytých souborů a adresářů.">(9)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">*</div>
 <div class="radekzaklinadla">?</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z51248741"><span><a href="#z51248741">᚜</a></span></span>kterýkoliv z uvedených znaků<span class="cislo">#3 </span><sup><a href="#kapregularnivyrazyppc9" id="kapregularnivyrazyppcr9" title="Znaky „!“, „^“ a „-“ mají uvnitř těchto závorek zvláštní význam a při použití jako znaky je nutno je odzvláštnit! V bashi tato konstrukce nepokrývá tečku jako první znak skrytých souborů a adresářů.">(9)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb3d471b"><span><a href="#zxb3d471b">⠈</a></span></span>kterýkoliv z uvedených znaků<span class="cislo">#3 </span><sup><a href="#kapx6c8c3abppc10" id="kapx6c8c3abppcr10" title="Znaky „!“, „^“ a „-“ mají uvnitř těchto závorek zvláštní význam a při použití jako znaky je nutno je odzvláštnit! V bashi tato konstrukce nepokrývá tečku jako první znak skrytých souborů a adresářů.">(10)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">[<i class="dopln">znaky</i>]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1362604252"><span><a href="#z1362604252">≾</a></span></span>kterýkoliv kromě uvedených znaků<span class="cislo">#4 </span><sup><a href="#kapregularnivyrazyppc10" id="kapregularnivyrazyppcr10" title="Znaky „!“, „^“ a „-“ mají uvnitř těchto závorek zvláštní význam a při použití jako znaky je nutno je odzvláštnit! V bashi tato konstrukce nepokrývá tečku jako první znak skrytých souborů a adresářů.">(10)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2c6508e"><span><a href="#zx2c6508e">ʔ</a></span></span>kterýkoliv kromě uvedených znaků<span class="cislo">#4 </span><sup><a href="#kapx6c8c3abppc11" id="kapx6c8c3abppcr11" title="Znaky „!“, „^“ a „-“ mají uvnitř těchto závorek zvláštní význam a při použití jako znaky je nutno je odzvláštnit! V bashi tato konstrukce nepokrývá tečku jako první znak skrytých souborů a adresářů.">(11)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">[^<i class="dopln">znaky</i>]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2022931553x"><span><a href="#z2022931553x">⬢</a></span></span><b>bílý znak</b>/nebílý znak<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0c72009"><span><a href="#zx0c72009">∇</a></span></span><b>bílý znak</b>/nebílý znak<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">[[:space:]]</div>
 <div class="radekzaklinadla">[^[:space:]]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z511652274"><span><a href="#z511652274">⣂</a></span></span>desítková <b>číslice</b><span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3407cf3"><span><a href="#zx3407cf3">⠚</a></span></span>desítková <b>číslice</b><span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">[0-9]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1570333562"><span><a href="#z1570333562">╧</a></span></span>jiný znak než desítková číslice<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9e5049e"><span><a href="#zx9e5049e">۳</a></span></span>jiný znak než desítková číslice<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">[^0-9]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1333974232"><span><a href="#z1333974232">⊵</a></span></span>závorky „()[]{}“<span class="cislo">#8 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6e0ce01"><span><a href="#zx6e0ce01">⊑</a></span></span>závorky „()[]{}“<span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla">\(\)\[\]\{\}</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z154198603"><span><a href="#z154198603">▲</a></span></span>libovolný alfanumerický znak, i národní abecedy<span class="cislo">#9 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxcfe8d93"><span><a href="#zxcfe8d93">◎</a></span></span>libovolný alfanumerický znak, i národní abecedy<span class="cislo">#9 </span></div><div class="radky">
 <div class="radekzaklinadla">[[:alnum:]]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z220728449"><span><a href="#z220728449">▦</a></span></span>libovolný znak kromě alfanumerických<span class="cislo">#10 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb9d4b24"><span><a href="#zxb9d4b24">┥</a></span></span>libovolný znak kromě alfanumerických<span class="cislo">#10 </span></div><div class="radky">
 <div class="radekzaklinadla">[^[:alnum:]]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z999884727x"><span><a href="#z999884727x">╞</a></span></span>libovolné písmeno, i národní abecedy<span class="cislo">#11 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona L" id="zx1469f5b"><span><a href="#zx1469f5b">⏜</a></span></span>libovolné písmeno, i národní abecedy<span class="cislo">#11 </span></div><div class="radky">
 <div class="radekzaklinadla">[[:alpha:]]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1186625512x"><span><a href="#z1186625512x">✐</a></span></span>libovolné malé/velké písmeno, i národní abecedy<span class="cislo">#12 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx53011b4"><span><a href="#zx53011b4">❄</a></span></span>libovolné malé/velké písmeno, i národní abecedy<span class="cislo">#12 </span></div><div class="radky">
 <div class="radekzaklinadla">[[:lower:]]</div>
 <div class="radekzaklinadla">[[:upper:]]</div>
 </div></div>
@@ -299,36 +304,36 @@ GNU Bash je vyvíjen v rámci projektu GNU.
 <p class="ponadpisu">
 Podvzorek v následujících zaklínadlech je jakýkoliv vzorek, který by byl platný sám o sobě.
 </p>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1207281526"><span><a href="#z1207281526">⣍</a></span></span>některý z podvzorků<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8abe0ae"><span><a href="#zx8abe0ae">⢉</a></span></span>některý z podvzorků<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">// Vnořený operátor @() lze skombinovat s obklopujícím operátorem, takže např. místo „+(@(A|B))“ stačí napsat „+(A|B)“, což má tentýž význam.</div>
 <div class="radekzaklinadla">@(<i class="dopln">podvzorek</i><span class="volznak">[</span>|<i class="dopln">další-podvzorek</i><span class="volznak">]</span><span class="tritecky"></span>)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z8755985"><span><a href="#z8755985">↪</a></span></span>podvzorek <b>jednou nebo vůbec</b> (≤ 1)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxef2dd0b"><span><a href="#zxef2dd0b">⢈</a></span></span>podvzorek <b>jednou nebo vůbec</b> (≤ 1)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">?(<i class="dopln">podvzorek</i>)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z410342869"><span><a href="#z410342869">╽</a></span></span>podvzorek <b>libovolněkrát</b> (≥ 0)<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2d4fafd"><span><a href="#zx2d4fafd">⣞</a></span></span>podvzorek <b>libovolněkrát</b> (≥ 0)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">*(<i class="dopln">podvzorek</i>)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1352258668"><span><a href="#z1352258668">≻</a></span></span>podvzorek <b>jednou nebo víckrát</b> (≥ 1)<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx01b6854"><span><a href="#zx01b6854">໒</a></span></span>podvzorek <b>jednou nebo víckrát</b> (≥ 1)<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">+(<i class="dopln">podvzorek</i>)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1827607618"><span><a href="#z1827607618">➚</a></span></span>žádný z podvzorků (negovaný test)<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxccfff5d"><span><a href="#zxccfff5d">⣔</a></span></span>žádný z podvzorků (negovaný test)<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">!(<i class="dopln">podvzorek</i><span class="volznak">[</span>|<i class="dopln">další-podvzorek</i><span class="volznak">]</span><span class="tritecky"></span>)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z263127578x"><span><a href="#z263127578x">⟿</a></span></span>všechny znaky po první výskyt některého z uvedených/případně až do konce řetězce<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa625bb1"><span><a href="#zxa625bb1">≁</a></span></span>všechny znaky po první výskyt některého z uvedených/případně až do konce řetězce<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">*([^<i class="dopln">znaky</i>])[<i class="dopln">znaky</i>]</div>
 <div class="radekzaklinadla">*([^<i class="dopln">znaky</i>])</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z397823569"><span><a href="#z397823569">╔</a></span></span>přesně <b>N-krát</b> (= N)<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx299a1c3"><span><a href="#zx299a1c3">☊</a></span></span>přesně <b>N-krát</b> (= N)<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1215887842"><span><a href="#z1215887842">❳</a></span></span>M- až N-krát včetně (M ≤ počet ≤ N)<span class="cislo">#8 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx39f588c"><span><a href="#zx39f588c">‿</a></span></span>M- až N-krát včetně (M ≤ počet ≤ N)<span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1500284669"><span><a href="#z1500284669">⊭</a></span></span><b>minimálně</b> M-krát (≥ M)<span class="cislo">#9 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb5737a9"><span><a href="#zxb5737a9">⊳</a></span></span><b>minimálně</b> M-krát (≥ M)<span class="cislo">#9 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1383180225"><span><a href="#z1383180225">⇯</a></span></span><b>maximálně</b> N-krát (≤ N)<span class="cislo">#10 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb5a8fd2"><span><a href="#zxb5a8fd2">˥</a></span></span><b>maximálně</b> N-krát (≤ N)<span class="cislo">#10 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
@@ -338,14 +343,14 @@ Podvzorek v následujících zaklínadlech je jakýkoliv vzorek, který by byl 
 <div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla">[[ <i class="dopln">řetězec</i> =~ <i class="dopln">regulární-výraz</i> ]]</div>
 </div></div>
-<p>
+<p class="ponadpisu">
 <i>Poznámka:</i> Protože pravidla odzvláštňování regulárního výrazu v této konstrukci jsou neintuitivní a nepraktická,
 striktně doporučuji zadávat regulární výraz jako proměnnou, např. takto:
 </p>
 <div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla">if [[ &quot;$1/$2&quot; =~ $regex ]]</div>
 </div></div>
-<p>
+<p class="ponadpisu">
 <i>Pozor!</i> Proměnnou s regulárním výrazem v této konstrukci nikdy neuzavírejte do uvozovek!
 Pokud to uděláte, bash ji bude interpretovat jako obyčejný řetězec, ne jako regulární výraz!
 </p><p>
@@ -358,7 +363,7 @@ Ale v tomto případě nesmí regulární výraz končit znakem nového řádku
 <div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla">[[ <i class="dopln">řetězec</i> = <i class="dopln">vzorek</i> ]]</div>
 </div></div>
-<p>
+<p class="ponadpisu">
 Příklad:
 </p>
 <div class="zaklinadlo"><div class="radky">
@@ -448,7 +453,7 @@ schopný příkaz „awk“, který je základní součástí Ubuntu.
 <div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla">sudo apt-get install gawk</div>
 </div></div>
-<p>
+<p class="ponadpisu">
 Regulární výrazy jsou používány i v mnoha dalších programech.
 </p><p>
 Rozšířené vzorky bashe jsou ve výchozím nastavení zapnuty pouze v interaktivním režimu. Ve skriptech a jiných případech, kdy jsou vypnuty, je potřeba je zapnout příkazem:
@@ -497,25 +502,37 @@ Pro zmíněné programy:
 </li><li><a href="https://packages.ubuntu.com/focal/gawk">Balíček „gawk“</a> (anglicky)
 </li><li><a href="https://packages.ubuntu.com/focal/perl">Balíček „perl“</a> (anglicky)
 </li><li><a href="https://packages.ubuntu.com/focal/sed">Balíček „sed“</a> (anglicky)
-</li></ul><div class="ppc"><div id="kapregularnivyrazyppc1"><a href="#kapregularnivyrazyppcr1" class="cislopozn">1</a>&nbsp;Některé znaky musejí být v regulárních výrazech pro zbavení svého speciálního významu odzvláštněny zpětným lomítkem.</div>
+</li></ul>
+<h2 id="cast9"><a href="#cast9"><span class="cislo">9.</span> Zákulisí kapitoly</a></h2>
+<p class="ponadpisu">
+V této verzi kapitoly chybí:
+</p>
+<ul class="kompaktni"><li>nic
+</li></ul><p class="ponadpisu">
+Tato kapitola záměrně nepokrývá:
+</p>
+<ul class="kompaktni"><li>nic
+</li></ul><div class="ppc"><div id="kapx6c8c3abppc1"><a href="#kapx6c8c3abppcr1" class="cislopozn">1</a>&nbsp;Znaky „!“, „^“ a „-“ mají uvnitř těchto závorek zvláštní význam a při použití jako znaky je nutno je odzvláštnit! V bashi tato konstrukce nepokrývá tečku jako první znak skrytých souborů a adresářů.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapregularnivyrazyppc2"><a href="#kapregularnivyrazyppcr2" class="cislopozn">2</a>&nbsp;Uvnitř těchto hranatých závorek se speciální znaky neodzvláštňují zpětným lomítkem, ale uvedením na určitou pozici.</div>
+<div id="kapx6c8c3abppc2"><a href="#kapx6c8c3abppcr2" class="cislopozn">2</a>&nbsp;Některé znaky musejí být v regulárních výrazech pro zbavení svého speciálního významu odzvláštněny zpětným lomítkem.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapregularnivyrazyppc3"><a href="#kapregularnivyrazyppcr3" class="cislopozn">3</a>&nbsp;Platí jen v rámci řetězce náhrady, ne v samotném regulárním výrazu.</div>
+<div id="kapx6c8c3abppc3"><a href="#kapx6c8c3abppcr3" class="cislopozn">3</a>&nbsp;Uvnitř těchto hranatých závorek se speciální znaky neodzvláštňují zpětným lomítkem, ale uvedením na určitou pozici.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapregularnivyrazyppc4"><a href="#kapregularnivyrazyppcr4" class="cislopozn">4</a>&nbsp;Zdvojení zpětného lomítka v GNU awk vyplývá ze skutečnosti, že ho (obvykle) zadáváte jako řetězec v programovacím jazyce. Pokud byste náhodou např. načítali řetězec náhrady ze souboru, bude tam zpětné lomítko patřit pouze jedno!</div>
+<div id="kapx6c8c3abppc4"><a href="#kapx6c8c3abppcr4" class="cislopozn">4</a>&nbsp;Platí jen v rámci řetězce náhrady, ne v samotném regulárním výrazu.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapregularnivyrazyppc5"><a href="#kapregularnivyrazyppcr5" class="cislopozn">5</a>&nbsp;Tuto variantu podporuje pravděpodobně jen Perl a sed a smí se vyskytnout pouze v řetězci pro náhradu, nikoliv přímo ve vlastním regulárním výrazu.</div>
+<div id="kapx6c8c3abppc5"><a href="#kapx6c8c3abppcr5" class="cislopozn">5</a>&nbsp;Zdvojení zpětného lomítka v GNU awk vyplývá ze skutečnosti, že ho (obvykle) zadáváte jako řetězec v programovacím jazyce. Pokud byste náhodou např. načítali řetězec náhrady ze souboru, bude tam zpětné lomítko patřit pouze jedno!</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapregularnivyrazyppc6"><a href="#kapregularnivyrazyppcr6" class="cislopozn">6</a>&nbsp;Viz poznámku k předchozímu zaklínadlu.</div>
+<div id="kapx6c8c3abppc6"><a href="#kapx6c8c3abppcr6" class="cislopozn">6</a>&nbsp;Tuto variantu podporuje pravděpodobně jen Perl a sed a smí se vyskytnout pouze v řetězci pro náhradu, nikoliv přímo ve vlastním regulárním výrazu.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapregularnivyrazyppc7"><a href="#kapregularnivyrazyppcr7" class="cislopozn">7</a>&nbsp;Znaky, které mají pro bash zvláštní význam, je nutno ve vzorku odzvláštnit, nejčastěji zpětným lomítkem.</div>
+<div id="kapx6c8c3abppc7"><a href="#kapx6c8c3abppcr7" class="cislopozn">7</a>&nbsp;Viz poznámku k předchozímu zaklínadlu.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapregularnivyrazyppc8"><a href="#kapregularnivyrazyppcr8" class="cislopozn">8</a>&nbsp;V bashi tyto znaky nepokrývají tečku jako první znak skrytých souborů a adresářů.</div>
+<div id="kapx6c8c3abppc8"><a href="#kapx6c8c3abppcr8" class="cislopozn">8</a>&nbsp;Znaky, které mají pro bash zvláštní význam, je nutno ve vzorku odzvláštnit, nejčastěji zpětným lomítkem.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapregularnivyrazyppc9"><a href="#kapregularnivyrazyppcr9" class="cislopozn">9</a>&nbsp;Znaky „!“, „^“ a „-“ mají uvnitř těchto závorek zvláštní význam a při použití jako znaky je nutno je odzvláštnit! V bashi tato konstrukce nepokrývá tečku jako první znak skrytých souborů a adresářů.</div>
+<div id="kapx6c8c3abppc9"><a href="#kapx6c8c3abppcr9" class="cislopozn">9</a>&nbsp;V bashi tyto znaky nepokrývají tečku jako první znak skrytých souborů a adresářů.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapregularnivyrazyppc10"><a href="#kapregularnivyrazyppcr10" class="cislopozn">10</a>&nbsp;Znaky „!“, „^“ a „-“ mají uvnitř těchto závorek zvláštní význam a při použití jako znaky je nutno je odzvláštnit! V bashi tato konstrukce nepokrývá tečku jako první znak skrytých souborů a adresářů.</div>
+<div id="kapx6c8c3abppc10"><a href="#kapx6c8c3abppcr10" class="cislopozn">10</a>&nbsp;Znaky „!“, „^“ a „-“ mají uvnitř těchto závorek zvláštní význam a při použití jako znaky je nutno je odzvláštnit! V bashi tato konstrukce nepokrývá tečku jako první znak skrytých souborů a adresářů.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx6c8c3abppc11"><a href="#kapx6c8c3abppcr11" class="cislopozn">11</a>&nbsp;Znaky „!“, „^“ a „-“ mají uvnitř těchto závorek zvláštní význam a při použití jako znaky je nutno je odzvláštnit! V bashi tato konstrukce nepokrývá tečku jako první znak skrytých souborů a adresářů.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 </div>
 
@@ -523,14 +540,14 @@ Pro zmíněné programy:
 <nav class="spodni">
 <a href="index.htm" class="naindex">🗐&nbsp;Přehled&nbsp;kapitol</a>
 <div class="naslkap">
-<a href="sprava-balicku.htm" rel="next" title="14. Správa balíčků">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">14</span>
+<a href="sprava-balicku.htm" rel="next" title="15. Správa balíčků">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">15</span>
 <span class="nazev">Správa balíčků</span></a>
 </div>
 <!--<div><a href="index.htm">🗐&nbsp;Přehled&nbsp;kapitol</a></div>-->
 </nav>
 
 
-<div class="odkazydole"><div><a href="diskove-oddily.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly</a><a href="sprava-uzivatelskych-uctu.htm"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="" width="32" height="32">Správa uživatelských účtů</a><a href="perl-zaklady.htm"><img src="obrazky/ik/perl-zaklady.png" alt="" width="32" height="32">Perl: základy</a></div></div>
+<div class="odkazydole"><div><a href="sprava-uzivatelskych-uctu.htm"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="" width="32" height="32">Správa uživatelských účtů</a><a href="odkazy.htm"><img src="obrazky/ik/odkazy.png" alt="" width="32" height="32">Pevné a symbolické odkazy</a><a href="sprava-balicku.htm"><img src="obrazky/ik/sprava-balicku.png" alt="" width="32" height="32">Správa balíčků</a></div></div>
 <div class="reklamnipata">Líbí se vám tento projekt a chcete, aby byl ještě lepší? Můžete mi s tím pomoci. Zmiňte se o něm technicky zdatným přátelům, opravte překlepy a nahlašte nefunkční zaklínadla, aby mohla být opravena; poskytněte mi zpětnou vazbu nebo se zapojte do vývoje nových kapitol. Další informace na GitHubu v dokumentu <a href="https://github.com/singularis-mzf/linux-spellbook/blob/v%C3%BDvojov%C3%A1/JAK-SE-ZAPOJIT.md">Jak se zapojit</a>.</div>
 
 </article>
@@ -561,13 +578,13 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <a href="#cast3x1" class="podsekce">/1 Jednotlivé znaky</a>
 <a href="#cast3x2" class="podsekce">/2 Kvantifikátory (operátory opakování)</a>
 <a href="#cast3x3" class="podsekce">/3 Operátor „nebo“</a>
-<a href="#cast3x4" class="podsekce">/4 Kotvy a hranice (pozice)</a>
+<a href="#cast3x4" class="podsekce">/4 Kotvy a hranice (pozice)</a>
 <a href="#cast3x5" class="podsekce">/5 Seskupení</a>
 <a href="#cast3x6" class="podsekce">/6 Paměť (omezená podpora)</a>
 <a href="#cast3x7" class="podsekce">/7 Vyhlížení (jen Perl)</a>
 <a href="#cast4" class="sekce">4 Zaklínadla: Vzorky bashe</a>
 <a href="#cast4x1" class="podsekce">/1 Základní</a>
-<a href="#cast4x2" class="podsekce">/2 Rozšířené (s kvantifikací)</a>
+<a href="#cast4x2" class="podsekce">/2 Rozšířené (s kvantifikací)</a>
 <a href="#cast5" class="sekce">5 Parametry příkazů</a>
 <a href="#cast5x1" class="podsekce">/1 bash</a>
 <a href="#cast5x2" class="podsekce">/2 egrep</a>
@@ -575,8 +592,9 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <a href="#cast5x4" class="podsekce">/4 perl</a>
 <a href="#cast5x5" class="podsekce">/5 sed</a>
 <a href="#cast6" class="sekce">6 Instalace na Ubuntu</a>
-<a href="#cast7" class="sekce">7 Tipy a zkušenosti</a>
+<a href="#cast7" class="sekce">7 Tipy a zkušenosti</a>
 <a href="#cast8" class="sekce">8 Další zdroje informací</a>
+<a href="#cast9" class="sekce">9 Zákulisí kapitoly</a>
 </div></div>
 <a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
 </aside>
@@ -589,19 +607,20 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/diskove-oddily.png" alt="[]"></span><span class="fragodkazy"><a href="diskove-oddily.htm" class="odkaz"><span><span class="cislo">3</span>Diskové oddíly</span></a><span class="podkpodkazy"><a href="diskove-oddily-btrfs.htm" class="odkaz"><span><span class="cislo">4</span>Btrfs</span></a><a href="diskove-oddily-lvm.htm" class="odkaz"><span><span class="cislo">5</span>LVM</span></a><a href="diskove-oddily-softwarovy-raid.htm" class="odkaz"><span><span class="cislo">6</span>Softwarový RAID</span></a></span></span></div>
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/git.png" alt="[]"></span><span class="fragodkazy"><a href="git.htm" class="odkaz"><span><span class="cislo">7</span>Git</span></a></span></div>
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/hledani-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="hledani-souboru.htm" class="odkaz"><span><span class="cislo">8</span>Hledání souborů</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/nabidka-aplikaci.png" alt="[]"></span><span class="fragodkazy"><a href="nabidka-aplikaci.htm" class="odkaz"><span><span class="cislo">9</span>Nabídka aplikací</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/odkazy.png" alt="[]"></span><span class="fragodkazy"><a href="odkazy.htm" class="odkaz"><span><span class="cislo">10</span>Pevné a symbolické odkazy</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-zaklady.png" alt="[]"></span><span class="fragodkazy"><a href="perl-zaklady.htm" class="odkaz"><span><span class="cislo">11</span>Perl: základy</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="fragodkazy"><a href="prace-s-archivy.htm" class="odkaz"><span><span class="cislo">12</span>Práce s archivy</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="fragodkazy"><a href="regularni-vyrazy.htm" class="odkaz"><span><span class="cislo">13</span>Regulární výrazy</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-balicku.htm" class="odkaz"><span><span class="cislo">14</span>Správa balíčků</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-uzivatelskych-uctu.htm" class="odkaz"><span><span class="cislo">15</span>Správa uživatelských účtů</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="fragodkazy"><a href="system.htm" class="odkaz"><span><span class="cislo">16</span>Systém</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-textovych-souboru.htm" class="odkaz"><span><span class="cislo">17</span>Zpracování textových souborů</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-videa-a-zvuku.htm" class="odkaz"><span><span class="cislo">18</span>Zpracování videa a zvuku</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="fragodkazy"><a href="koncepce-projektu.htm" class="odkaz"><span><span class="cislo">19</span>Koncepce projektu Linux: Kniha kouzel</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/plan-vyvoje.png" alt="[]"></span><span class="fragodkazy"><a href="plan-vyvoje.htm" class="odkaz"><span><span class="cislo">20</span>Plán budoucího vývoje</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="fragodkazy"><a href="licence.htm" class="odkaz"><span><span class="cislo">21</span>Licence</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/metaprikazy.png" alt="[]"></span><span class="fragodkazy"><a href="metaprikazy.htm" class="odkaz"><span><span class="cislo">9</span>Metapříkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/nabidka-aplikaci.png" alt="[]"></span><span class="fragodkazy"><a href="nabidka-aplikaci.htm" class="odkaz"><span><span class="cislo">10</span>Nabídka aplikací</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/odkazy.png" alt="[]"></span><span class="fragodkazy"><a href="odkazy.htm" class="odkaz"><span><span class="cislo">11</span>Pevné a symbolické odkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-zaklady.png" alt="[]"></span><span class="fragodkazy"><a href="perl-zaklady.htm" class="odkaz"><span><span class="cislo">12</span>Perl: základy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="fragodkazy"><a href="prace-s-archivy.htm" class="odkaz"><span><span class="cislo">13</span>Práce s archivy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="fragodkazy"><a href="regularni-vyrazy.htm" class="odkaz"><span><span class="cislo">14</span>Regulární výrazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-balicku.htm" class="odkaz"><span><span class="cislo">15</span>Správa balíčků</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-uzivatelskych-uctu.htm" class="odkaz"><span><span class="cislo">16</span>Správa uživatelských účtů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="fragodkazy"><a href="system.htm" class="odkaz"><span><span class="cislo">17</span>Systém</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-textovych-souboru.htm" class="odkaz"><span><span class="cislo">18</span>Zpracování textových souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-videa-a-zvuku.htm" class="odkaz"><span><span class="cislo">19</span>Zpracování videa a zvuku</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="fragodkazy"><a href="koncepce-projektu.htm" class="odkaz"><span><span class="cislo">20</span>Koncepce projektu Linux: Kniha kouzel</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/plan-vyvoje.png" alt="[]"></span><span class="fragodkazy"><a href="plan-vyvoje.htm" class="odkaz"><span><span class="cislo">21</span>Plán budoucího vývoje</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="fragodkazy"><a href="licence.htm" class="odkaz"><span><span class="cislo">22</span>Licence</span></a></span></div>
 <div class="premiove"><strong>Prémiové kapitoly:</strong>
 <div>AWK</div>
 <div>Datum, čas a kalendář</div>
@@ -626,35 +645,35 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <a href="#menustitky" id="menustitky"><span class="prvnipismeno">Š</span>títky</a>
 <aside class="menustitky">
 <div><div class="nadpis">Štítky</div><div class="polozky">
-<a href="x-stitky.htm#sadresare">adresáře&nbsp;&nbsp;(2)</a>
-<a href="x-stitky.htm#saplikace">aplikace&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sapt">apt&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sbash">bash&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sdemoni">démoni&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sflatpak">Flatpak&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sgui">GUI&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#shledani">hledání&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sklavesnice">klávesnice&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#skomprese">komprese&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#slvm">LVM&nbsp;&nbsp;(2)</a>
-<a href="x-stitky.htm#sodkladaciprostor">odkládací prostor&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sperl">Perl&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sprogram">program&nbsp;&nbsp;(2)</a>
-<a href="x-stitky.htm#sprogramovani">programování&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#spristupovaprava">přístupová práva&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sraid">RAID&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sramdisk">ramdisk&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#ssnap">Snap&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#ssoubory">soubory&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sspravaverzi">správa verzí&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#ssyntaxe">syntaxe&nbsp;&nbsp;(3)</a>
-<a href="x-stitky.htm#ssystem">systém&nbsp;&nbsp;(7)</a>
-<a href="x-stitky.htm#ssystemsouboru">systém souborů&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#stematickyokruh">tematický okruh&nbsp;&nbsp;(13)</a>
-<a href="x-stitky.htm#svideo">video&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#szip">zip&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#szpracovanitextu">zpracování textu&nbsp;&nbsp;(3)</a>
-<a href="x-stitky.htm#szvuk">zvuk&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5208bbb">adresáře&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#xb0a5782">aplikace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x583f72a">apt&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xd574d4b">bash&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#xcd6caf8">démoni&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xb05338c">Flatpak&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x1e3042b">GUI&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x4e36c04">hledání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c8789a">klávesnice&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa473827">komprese&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x79108ba">LVM&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x2d47ed4">odkládací prostor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x0114ad0">Perl&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa9c449d">program&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#xc65388d">programování&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x43a526a">přístupová práva&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xcf91513">RAID&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5c5f44a">ramdisk&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9ad09a9">Snap&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x23be896">soubory&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x12e55d8">správa verzí&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9dcbb0b">syntaxe&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#xba98a3b">systém&nbsp;&nbsp;(7)</a>
+<a href="x-stitky.htm#x3972255">systém souborů&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c01147">tematický okruh&nbsp;&nbsp;(14)</a>
+<a href="x-stitky.htm#x421b47f">video&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xadcdbd7">zip&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x908961b">zpracování textu&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#x04b5cff">zvuk&nbsp;&nbsp;(1)</a>
 </div></div>
 <a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
 </aside>

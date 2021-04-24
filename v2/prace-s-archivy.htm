@@ -5,16 +5,13 @@
 
 <title>Práce s archivy − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20210326.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210326-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210326-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210326-svetly.css" title="Světlý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20210424.css">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body>
 <div id="nahore"><div id="okno">
 <header>
-<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.6, N. N. (26. března 2021)</span>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.7, O. O. (24. dubna 2021)</span>
 <span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -22,9 +19,9 @@
 <a href="#menukapitoly" class="menu"><span class="prvnipismeno">K</span>apitoly</a>
 <a href="#menustitky" class="menu"><span class="prvnipismeno">Š</span>títky</a>
 <a href="#menunapoveda" class="menu"><span class="prvnipismeno">N</span>ápověda</a>
-<a href="perl-zaklady.htm" rel="prev" title="11. Perl: základy" accesskey="p" class="predchozi">Předchozí&nbsp;kapitola</a>
+<a href="perl-zaklady.htm" rel="prev" title="12. Perl: základy" accesskey="p" class="predchozi">Předchozí&nbsp;kapitola</a>
 <a href="index.htm" class="prehled"><span class="prvnipismeno">P</span>řehled kapitol</a>
-<a href="regularni-vyrazy.htm" rel="next" title="13. Regulární výrazy" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
+<a href="regularni-vyrazy.htm" rel="next" title="14. Regulární výrazy" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
 </nav>
 
 <div class="slogan-veskera-moc">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
@@ -33,9 +30,9 @@
 <nav class="horni">
 <div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
 <span class="prev">
-<a href="perl-zaklady.htm" rel="prev" title="11. Perl: základy" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="perl-zaklady.htm" rel="prev" title="12. Perl: základy" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!- -
-- ->&nbsp;| <a href="regularni-vyrazy.htm" rel="next" title="13. Regulární výrazy" accesskey="n">Následující&nbsp;kapitola</a>
+- ->&nbsp;| <a href="regularni-vyrazy.htm" rel="next" title="14. Regulární výrazy" accesskey="n">Následující&nbsp;kapitola</a>
 </span>
 </nav>
 -->
@@ -43,11 +40,14 @@
 
 <article>
 
-<h1 class="kapitola">12. <img src="obrazky/ik/prace-s-archivy.png" alt="" width="64" height="64"> Práce s archivy</h1>
-<div class="stitky"><a href="x-stitky.htm#skomprese">komprese</a>
-<a href="x-stitky.htm#stematickyokruh">tematický okruh</a>
-<a href="x-stitky.htm#szip">zip</a>
-</div>
+<h1 class="kapitola">13. <img src="obrazky/ik/prace-s-archivy.png" alt="" width="64" height="64"> Práce s archivy</h1>
+<div class="stitky"><a href="x-stitky.htm#">komprese</a>
+<a href="x-stitky.htm#">tematický okruh</a>
+<a href="x-stitky.htm#">zip</a>
+</div><div class="zaklinadlo"><div class="zahlavi"><span class="ikona D"><span><a href="#zx1b325c8">⪝</a></span></span><b>rozbalit</b> archiv<span class="cislo">#1 </span><sup><a href="#kapx6044cf2ppc1" id="kapx6044cf2ppcr1" title="Nezadáte-li cílový adresář parametrem „-X“, pak záleží cílový adresář na obsahu archivu: 1) Pokud archiv obsahuje pouze jeden soubor, vybalí se do aktuálního adresáře. 2) Jinak se vytvoří nový adresář se jménem odvozeným od jména archivu a vybalené soubory se uloží do něj. 3) Pokud takový adresář existuje, vybalené soubory se uloží do adresáře s názvem ve tvaru „Unpack-XXXX“, kde X jsou náhodné číslice.">(1)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">aunpack <span class="volznak">[</span>-X <i class="dopln">cílová/cesta</i><span class="volznak">]</span> <i class="dopln">archiv.přípona</i></div>
+</div></div>
+
 <h2 id="cast1"><a href="#cast1"><span class="cislo">1.</span> Úvod</a></h2>
 <p class="ponadpisu">
 Tato kapitola uvádí univerzální nástroje pro balení a rozbalování archivů
@@ -59,10 +59,6 @@ místo toho pouze podle přípony rozpoznají jeho typ a zavolají
 odpovídající nástroj, je-li v systému nainstalovaný.
 Oproti tomu příkazy pro práci s určitým typem archivu (např. 7z, tar či zip)
 pracují s archivem samy.
-</p><p>
-Tato kapitola se nezabývá zálohováním ani správou verzí.
-Nepokrývá práci s obrazy souborových systémů ani různé typy softwarových balíčků
-(např. .deb či .rpm). Nezabývá se konverzí jednoho archivního formátu na jiný.
 </p><p>
 Poznámka: Použití „souborů se seznamem“ při psaní této kapitoly nebylo testováno.
 </p><p>
@@ -77,31 +73,31 @@ GNU Tar je vyvíjen v rámci projektu GNU.
 <h2 id="cast3" class="zaklinadla"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla</a></h2>
 
 <h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 13 (Práce s archivy), sekce 3 (Zaklínadla), podsekce 1 (Univerzální nástroje)"><sup>3/</sup>1 Univerzální nástroje</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z920561975"><span><a href="#z920561975">⋞</a></span></span><b>rozbalit</b> archiv<span class="cislo">#1 </span><sup><a href="#kappracesarchivyppc1" id="kappracesarchivyppcr1" title="Nezadáte-li cílový adresář parametrem „-X“, pak záleží cílový adresář na obsahu archivu: 1) Pokud archiv obsahuje pouze jeden soubor, vybalí se do aktuálního adresáře. 2) Jinak se vytvoří nový adresář se jménem odvozeným od jména archivu a vybalené soubory se uloží do něj. 3) Pokud takový adresář existuje, vybalené soubory se uloží do adresáře s názvem ve tvaru „Unpack-XXXX“, kde X jsou náhodné číslice.">(1)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1b325c8"><span><a href="#zx1b325c8">⪝</a></span></span><b>rozbalit</b> archiv<span class="cislo">#1 </span><sup><a href="#kapx6044cf2ppc2" id="kapx6044cf2ppcr2" title="Nezadáte-li cílový adresář parametrem „-X“, pak záleží cílový adresář na obsahu archivu: 1) Pokud archiv obsahuje pouze jeden soubor, vybalí se do aktuálního adresáře. 2) Jinak se vytvoří nový adresář se jménem odvozeným od jména archivu a vybalené soubory se uloží do něj. 3) Pokud takový adresář existuje, vybalené soubory se uloží do adresáře s názvem ve tvaru „Unpack-XXXX“, kde X jsou náhodné číslice.">(2)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">aunpack <span class="volznak">[</span>-X <i class="dopln">cílová/cesta</i><span class="volznak">]</span> <i class="dopln">archiv.přípona</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1660950661"><span><a href="#z1660950661">⎇</a></span></span><b>vybalit</b> soubor či adresář<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2c5f8bb"><span><a href="#zx2c5f8bb">∱</a></span></span><b>vybalit</b> soubor či adresář<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">aunpack <span class="volznak">[</span>-X <i class="dopln">cílová/cesta</i><span class="volznak">]</span> <i class="dopln">archiv.přípona</i> <i class="dopln">cesta/v/archivu</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z133008976"><span><a href="#z133008976">⠆</a></span></span><b>vytvořit</b> nový archiv a uložit do něj soubory a adresáře<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7e3f62b"><span><a href="#zx7e3f62b">⌑</a></span></span><b>vytvořit</b> nový archiv a uložit do něj soubory a adresáře<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">apack <i class="dopln">archiv.přípona</i> <i class="dopln">cesta</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z827698618"><span><a href="#z827698618">⠕</a></span></span><b>vypsat</b> soubory a adresáře v archivu (pro člověka)<span class="cislo">#4 </span><sup><a href="#kappracesarchivyppc2" id="kappracesarchivyppcr2" title="Formát výstupu je závislý na typu archivu.">(2)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2adc53a"><span><a href="#zx2adc53a">⢥</a></span></span><b>vypsat</b> soubory a adresáře v archivu (pro člověka)<span class="cislo">#4 </span><sup><a href="#kapx6044cf2ppc3" id="kapx6044cf2ppcr3" title="Formát výstupu je závislý na typu archivu.">(3)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">als <i class="dopln">archiv.přípona</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1210933814"><span><a href="#z1210933814">▴</a></span></span>vypsat soubory a adresáře (pro skript)<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxdf758c1"><span><a href="#zxdf758c1">⌡</a></span></span>vypsat soubory a adresáře (pro skript)<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1107001354"><span><a href="#z1107001354">┙</a></span></span>vybalit konkrétní soubor na standardní výstup<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd950a79"><span><a href="#zxd950a79">⊗</a></span></span>vybalit konkrétní soubor na standardní výstup<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">acat <i class="dopln">archiv.přípona</i> <i class="dopln">cesta/v/archivu</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1970884764"><span><a href="#z1970884764">┵</a></span></span>vypsat jen strukturu adresářů v archivu<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1dbb9ee"><span><a href="#zx1dbb9ee">⡩</a></span></span>vypsat jen strukturu adresářů v archivu<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1733211062"><span><a href="#z1733211062">∶</a></span></span>vytvořit nový archiv a uložit do něj soubory (vstup ve formátu find -print0)<span class="cislo">#8 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx84c7220"><span><a href="#zx84c7220">⊂</a></span></span>vytvořit nový archiv a uložit do něj soubory (vstup ve formátu find -print0)<span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">zdroj</i> | apack -0 <i class="dopln">archiv.přípona</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z718801487"><span><a href="#z718801487">ꜜ</a></span></span>porovnat obsahy odpovídajících souborů ve dvou archivech<span class="cislo">#9 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc832f67"><span><a href="#zxc832f67">⣚</a></span></span>porovnat obsahy odpovídajících souborů ve dvou archivech<span class="cislo">#9 </span></div><div class="radky">
 <div class="radekzaklinadla">adiff <i class="dopln">archiv.přípona</i> <i class="dopln">druhý-archiv.přípona</i></div>
 </div></div>
 
@@ -112,141 +108,141 @@ umí vytvořit také archivy formátů .bz2, .gz, .tar, .wim, .xz a .zip
 a rozbalit mnoho dalších formátů (ačkoliv na některé z nich volá
 externí programy).
 </p>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z920561975x"><span><a href="#z920561975x">⋞</a></span></span><b>rozbalit</b> archiv<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6efcb9c"><span><a href="#zx6efcb9c">┓</a></span></span><b>rozbalit</b> archiv<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">7z x <span class="volznak">[</span>-o<i class="dopln">cílový/adresář</i><span class="volznak">]</span> <i class="dopln">archiv.přípona</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z582223933"><span><a href="#z582223933">⊳</a></span></span><b>vybalit</b> soubor či adresář (alternativy)<span class="cislo">#2 </span><sup><a href="#kappracesarchivyppc3" id="kappracesarchivyppcr3" title="Volba -spd vypne intepretaci vzorků v cestách. Při zadávání cest mimo archiv je to žádoucí, protože zde vzorky obecně intepretuje už příkazový interpret a není žádoucí, aby je 7z interpretoval znovu, ale u cest v archivu je nutné je interpretovat na straně 7z, takže pokud nehodláte vybalovat soubory, které ve svých názvech obsahují otazníky, hvězdičky či hranaté závorky, je vhodnější tento parametr vynechat.">(3)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1a43a81"><span><a href="#zx1a43a81">⋿</a></span></span><b>vybalit</b> soubor či adresář (alternativy)<span class="cislo">#2 </span><sup><a href="#kapx6044cf2ppc4" id="kapx6044cf2ppcr4" title="Volba -spd vypne intepretaci vzorků v cestách. Při zadávání cest mimo archiv je to žádoucí, protože zde vzorky obecně intepretuje už příkazový interpret a není žádoucí, aby je 7z interpretoval znovu, ale u cest v archivu je nutné je interpretovat na straně 7z, takže pokud nehodláte vybalovat soubory, které ve svých názvech obsahují otazníky, hvězdičky či hranaté závorky, je vhodnější tento parametr vynechat.">(4)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">7z x <span class="volznak">[</span>-spd<span class="volznak">]</span> <span class="volznak">[</span>-o<i class="dopln">cílový/adresář</i><span class="volznak">]</span> <i class="dopln">archiv.přípona</i> <i class="dopln">vzorek/cesty/v/archivu</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">7z x <span class="volznak">[</span>-spd<span class="volznak">]</span> <span class="volznak">[</span>-o<i class="dopln">cílový/adresář</i><span class="volznak">]</span> <i class="dopln">archiv.přípona</i> @<i class="dopln">soubor-se-seznamem</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1767362785"><span><a href="#z1767362785">⊲</a></span></span><b>vybalit</b> konkrétní soubor na standardní výstup<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe557a69"><span><a href="#zxe557a69">▒</a></span></span><b>vybalit</b> konkrétní soubor na standardní výstup<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">7z x -so <span class="volznak">[</span>-spd<span class="volznak">]</span> <i class="dopln">archiv.přípona</i> <i class="dopln">cesta/v/archivu</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z203247517"><span><a href="#z203247517">⡨</a></span></span><b>vytvořit</b> archiv a uložit do něj soubory či adresáře (alternativy)<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxba018f1"><span><a href="#zxba018f1">↣</a></span></span><b>vytvořit</b> archiv a uložit do něj soubory či adresáře (alternativy)<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">7z a -spd <i class="dopln">archiv.přípona</i> <i class="dopln">cesta</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">7z a -spd <i class="dopln">archiv.přípona</i> @<i class="dopln">soubor-se-seznamem</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z827698618x"><span><a href="#z827698618x">⠕</a></span></span><b>vypsat</b> soubory a adresáře v archivu (pro člověka)<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0e3dfdd"><span><a href="#zx0e3dfdd">⊅</a></span></span><b>vypsat</b> soubory a adresáře v archivu (pro člověka)<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">7z l <i class="dopln">archiv.přípona</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1279772047"><span><a href="#z1279772047">⤊</a></span></span><b>přidat</b> soubory či adresáře do archivu<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa310692"><span><a href="#zxa310692">⢵</a></span></span><b>přidat</b> soubory či adresáře do archivu<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">7z a -spd <i class="dopln">archiv.přípona</i> <i class="dopln">cesta</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">7z a -spd <i class="dopln">archiv.přípona</i> @<i class="dopln">soubor-se-seznamem</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1965664124"><span><a href="#z1965664124">✮</a></span></span><b>smazat</b> soubory či adresáře z archivu (alternativy)<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5dcdffd"><span><a href="#zx5dcdffd">⋱</a></span></span><b>smazat</b> soubory či adresáře z archivu (alternativy)<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">7z d <span class="volznak">[</span>-spd<span class="volznak">]</span> <i class="dopln">archiv.přípona</i> <i class="dopln">cesta/v/archivu</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">7z d <span class="volznak">[</span>-spd<span class="volznak">]</span> <i class="dopln">archiv.přípona</i> <span class="volznak">[</span>@<i class="dopln">soubor-se-seznamem</i><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1926201610"><span><a href="#z1926201610">↻</a></span></span><b>vytvořit</b> archiv, uložit do něj soubory či adresáře a ochránit heslem<span class="cislo">#8 </span><sup><a href="#kappracesarchivyppc4" id="kappracesarchivyppcr4" title="Tato ochrana heslem by měla být kompatibilní s programy pro práci s formátem 7z v jiných operačních systémech.">(4)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx49d0b6f"><span><a href="#zx49d0b6f">⊋</a></span></span><b>vytvořit</b> archiv, uložit do něj soubory či adresáře a ochránit heslem<span class="cislo">#8 </span><sup><a href="#kapx6044cf2ppc5" id="kapx6044cf2ppcr5" title="Tato ochrana heslem by měla být kompatibilní s programy pro práci s formátem 7z v jiných operačních systémech.">(5)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">7z a -p -spd <span class="volznak">[</span>-mhe=on<span class="volznak">]</span> <i class="dopln">archiv.přípona</i> <i class="dopln">cesta</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">7z a -p -spd <span class="volznak">[</span>-mhe=on<span class="volznak">]</span> <i class="dopln">archiv.přípona</i> @<i class="dopln">soubor-se-seznamem</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1442648390"><span><a href="#z1442648390">ᕹ</a></span></span>otestovat integritu archivu<span class="cislo">#9 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx026b36a"><span><a href="#zx026b36a">ȸ</a></span></span>otestovat integritu archivu<span class="cislo">#9 </span></div><div class="radky">
 <div class="radekzaklinadla">7z t <i class="dopln">archiv.přípona</i></div>
 </div></div>
 
 <h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 13 (Práce s archivy), sekce 3 (Zaklínadla), podsekce 3 (TAR)"><sup>3/</sup>3 TAR</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z920561975xx"><span><a href="#z920561975xx">⋞</a></span></span><b>rozbalit</b> archiv<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxaeb0c00"><span><a href="#zxaeb0c00">╩</a></span></span><b>rozbalit</b> archiv<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">tar x<span class="volznak">[</span>v<span class="volznak">]</span>f <i class="dopln">archiv.tar</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1660950661x"><span><a href="#z1660950661x">⎇</a></span></span><b>vybalit</b> soubor či adresář<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2943340"><span><a href="#zx2943340">♥</a></span></span><b>vybalit</b> soubor či adresář<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">tar x<span class="volznak">[</span>v<span class="volznak">]</span>f <i class="dopln">archiv.tar</i> <i class="dopln">cesta/v/archivu</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1767362785x"><span><a href="#z1767362785x">⊲</a></span></span><b>vybalit</b> konkrétní soubor na standardní výstup<span class="cislo">#3 </span><sup><a href="#kappracesarchivyppc5" id="kappracesarchivyppcr5" title="Zadáte-li k rozbalení víc souborů, tar je vypíše v pořadí, v jakém jsou uloženy v archivu; ne v pořadí, v jakém jste je zadal/a.">(5)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxda2ed4c"><span><a href="#zxda2ed4c">ᚏ</a></span></span><b>vybalit</b> konkrétní soubor na standardní výstup<span class="cislo">#3 </span><sup><a href="#kapx6044cf2ppc6" id="kapx6044cf2ppcr6" title="Zadáte-li k rozbalení víc souborů, tar je vypíše v pořadí, v jakém jsou uloženy v archivu; ne v pořadí, v jakém jste je zadal/a.">(6)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">tar xOf <i class="dopln">archiv.tar</i> <i class="dopln">cesta/v/archivu</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z36984972"><span><a href="#z36984972">⁗</a></span></span><b>vytvořit</b> archiv a uložit do něj soubory a adresáře<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx30c5d60"><span><a href="#zx30c5d60">━</a></span></span><b>vytvořit</b> archiv a uložit do něj soubory a adresáře<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">tar c<span class="volznak">[</span>v<span class="volznak">]</span>f <i class="dopln">archiv.tar</i> <i class="dopln">cesta</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1449399518"><span><a href="#z1449399518">♘</a></span></span><b>vypsat</b> soubory a adresáře v archivu<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx81ae3f6"><span><a href="#zx81ae3f6">➴</a></span></span><b>vypsat</b> soubory a adresáře v archivu<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">tar tf <i class="dopln">archiv.tar</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1279772047x"><span><a href="#z1279772047x">⤊</a></span></span><b>přidat</b> soubory či adresáře do archivu<span class="cislo">#6 </span><sup><a href="#kappracesarchivyppc6" id="kappracesarchivyppcr6" title="Pozor, pokud soubory v archivu již existují, přidají se znovu, takže skončíte s archivem, ve kterém je několik souborů identifikovaných stejnou cestou. S takovým archivem se pak obtížně pracuje.">(6)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf2c7e01"><span><a href="#zxf2c7e01">⇑</a></span></span><b>přidat</b> soubory či adresáře do archivu<span class="cislo">#6 </span><sup><a href="#kapx6044cf2ppc7" id="kapx6044cf2ppcr7" title="Pozor, pokud soubory v archivu již existují, přidají se znovu, takže skončíte s archivem, ve kterém je několik souborů identifikovaných stejnou cestou. S takovým archivem se pak obtížně pracuje.">(7)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">tar r<span class="volznak">[</span>v<span class="volznak">]</span>f <i class="dopln">archiv.tar</i> <i class="dopln">cesta</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z455071980"><span><a href="#z455071980">►</a></span></span><b>smazat</b> soubory či adresáře z archivu<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa271b9e"><span><a href="#zxa271b9e">║</a></span></span><b>smazat</b> soubory či adresáře z archivu<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">tar --delete --file <i class="dopln">archiv.tar</i> <i class="dopln">cesta/v/archivu</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1442648390x"><span><a href="#z1442648390x">ᕹ</a></span></span>otestovat integritu archivu<span class="cislo">#8 </span><sup><a href="#kappracesarchivyppc7" id="kappracesarchivyppcr7" title="Poznámka: tar implementuje jen velmi slabou kontrolu, takže neodhalí náhodné porušení archivu. Dokáže ale odhalit, že archiv byl zkrácen nebo přepsán zcela nesmyslnými daty. V takovém případě vypíše hlášení na standardní chybový výstup a vrátí návratový kód 2.">(7)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1d839d4"><span><a href="#zx1d839d4">↚</a></span></span>otestovat integritu archivu<span class="cislo">#8 </span><sup><a href="#kapx6044cf2ppc8" id="kapx6044cf2ppcr8" title="Poznámka: tar implementuje jen velmi slabou kontrolu, takže neodhalí náhodné porušení archivu. Dokáže ale odhalit, že archiv byl zkrácen nebo přepsán zcela nesmyslnými daty. V takovém případě vypíše hlášení na standardní chybový výstup a vrátí návratový kód 2.">(8)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">tar tf <i class="dopln">archiv.tar</i> &gt;/dev/null</div>
 </div></div>
 
 <h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 13 (Práce s archivy), sekce 3 (Zaklínadla), podsekce 4 (GZIP)"><sup>3/</sup>4 GZIP</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2134033819"><span><a href="#z2134033819">≜</a></span></span><b>vybalit</b> soubor (archiv smazat/ponechat)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona L" id="zx8c987a8"><span><a href="#zx8c987a8">⨉</a></span></span><b>vybalit</b> soubor (archiv smazat/ponechat)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">gunzip <i class="dopln">soubor</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">gunzip -k <i class="dopln">soubor</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1402682576"><span><a href="#z1402682576">ⵆ</a></span></span><b>zabalit</b> soubor (původní soubor smazat/ponechat)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa5f6f60"><span><a href="#zxa5f6f60">⣧</a></span></span><b>zabalit</b> soubor (původní soubor smazat/ponechat)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">gzip <span class="volznak">[</span>-9<span class="volznak">]</span> <i class="dopln">soubor</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">gzip -k <span class="volznak">[</span>-9<span class="volznak">]</span> <i class="dopln">soubor</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z973690349"><span><a href="#z973690349">⌃</a></span></span>vybalit soubor na standardní výstup<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx38a3765"><span><a href="#zx38a3765">❉</a></span></span>vybalit soubor na standardní výstup<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">zcat <i class="dopln">archiv.gz</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1725516430"><span><a href="#z1725516430">⊊</a></span></span>zabalit soubor ze standardního vstupu<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx74ce754"><span><a href="#zx74ce754">≮</a></span></span>zabalit soubor ze standardního vstupu<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">zdroj</i> | gzip <span class="volznak">[</span>-9<span class="volznak">]</span> &gt; <i class="dopln">archiv.gz</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1812530129"><span><a href="#z1812530129">≝</a></span></span>použití v rouře (zabalit/vybalit)<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa804760"><span><a href="#zxa804760">⇆</a></span></span>použití v rouře (zabalit/vybalit)<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">zdroj</i> | gzip <span class="volznak">[</span>-9<span class="volznak">]</span> | <i class="dopln">cíl</i></div>
 <div class="radekzaklinadla"><i class="dopln">zdroj</i> | gunzip | <i class="dopln">cíl</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1442648390xx"><span><a href="#z1442648390xx">ᕹ</a></span></span>otestovat integritu archivu<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona L" id="zxad64369"><span><a href="#zxad64369">〗</a></span></span>otestovat integritu archivu<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">gzip -t <i class="dopln">archiv.gz</i></div>
 </div></div>
 
 <h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 13 (Práce s archivy), sekce 3 (Zaklínadla), podsekce 5 (TAR + GZIP)"><sup>3/</sup>5 TAR + GZIP</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z920561975xxx"><span><a href="#z920561975xxx">⋞</a></span></span><b>rozbalit</b> archiv<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx056c7b8"><span><a href="#zx056c7b8">▗</a></span></span><b>rozbalit</b> archiv<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">tar x<span class="volznak">[</span>v<span class="volznak">]</span>zf <i class="dopln">archiv.tar</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1660950661xx"><span><a href="#z1660950661xx">⎇</a></span></span><b>vybalit</b> soubor či adresář<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxba601af"><span><a href="#zxba601af">⡲</a></span></span><b>vybalit</b> soubor či adresář<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">tar x<span class="volznak">[</span>v<span class="volznak">]</span>zf <i class="dopln">archiv.tar</i> <i class="dopln">cesta/v/archivu</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z991691270"><span><a href="#z991691270">█</a></span></span><b>vybalit</b> soubor na standardní výstup<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe6b1904"><span><a href="#zxe6b1904">≖</a></span></span><b>vybalit</b> soubor na standardní výstup<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">tar xOzf <i class="dopln">archiv.tar.gz</i> <i class="dopln">cesta/v/archivu</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z133008976x"><span><a href="#z133008976x">⠆</a></span></span><b>vytvořit</b> nový archiv a uložit do něj soubory a adresáře<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb02d028"><span><a href="#zxb02d028">╡</a></span></span><b>vytvořit</b> nový archiv a uložit do něj soubory a adresáře<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">tar c<span class="volznak">[</span>v<span class="volznak">]</span>zf <i class="dopln">archiv.tar.gz</i> <i class="dopln">cesta</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z48087198"><span><a href="#z48087198">♘</a></span></span><b>vypsat</b> soubory a adresáře v archivu<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6bc3bd4"><span><a href="#zx6bc3bd4">䷿</a></span></span><b>vypsat</b> soubory a adresáře v archivu<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">tar tzf <i class="dopln">archiv.tar.gz</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1279772047xx"><span><a href="#z1279772047xx">⤊</a></span></span><b>přidat</b> soubory či adresáře do archivu<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3198b07"><span><a href="#zx3198b07">⪖</a></span></span><b>přidat</b> soubory či adresáře do archivu<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">gunzip <i class="dopln">archiv.tar.gz</i></div>
 <div class="radekzaklinadla">tar r<span class="volznak">[</span>v<span class="volznak">]</span>f <i class="dopln">archiv.tar</i> <i class="dopln">cesta</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">gzip <span class="volznak">[</span>-9<span class="volznak">]</span> <i class="dopln">archiv.tar</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z455071980x"><span><a href="#z455071980x">►</a></span></span><b>smazat</b> soubory či adresáře z archivu<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxedf23d2"><span><a href="#zxedf23d2">⣩</a></span></span><b>smazat</b> soubory či adresáře z archivu<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">cp <i class="dopln">archiv.tar.gz</i> <i class="dopln">archiv.tar.gz</i>.old</div>
 <div class="radekzaklinadla">zcat <i class="dopln">archiv.tar.gz</i>.old | tar --delete <i class="dopln">cesta/v/archivu</i> | gzip <span class="volznak">[</span>-9<span class="volznak">]</span> &gt; <i class="dopln">archiv.tar.gz</i></div>
 <div class="radekzaklinadla">rm <i class="dopln">archiv.tar.gz</i>.old</div>
 </div></div>
 
 <h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 13 (Práce s archivy), sekce 3 (Zaklínadla), podsekce 6 (ZIP)"><sup>3/</sup>6 ZIP</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z920561975xxxx"><span><a href="#z920561975xxxx">⋞</a></span></span><b>rozbalit</b> archiv<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx147b9a2"><span><a href="#zx147b9a2">ທ</a></span></span><b>rozbalit</b> archiv<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">unzip <span class="volznak">[</span>-d <i class="dopln">cílový/adresář</i><span class="volznak">]</span> <i class="dopln">archiv.zip</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1660950661xxx"><span><a href="#z1660950661xxx">⎇</a></span></span><b>vybalit</b> soubor či adresář<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1767fcd"><span><a href="#zx1767fcd">⟳</a></span></span><b>vybalit</b> soubor či adresář<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">unzip <span class="volznak">[</span>-d <i class="dopln">cílový/adresář</i><span class="volznak">]</span> <i class="dopln">archiv.zip</i> <i class="dopln">vzorek/cesty</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z991691270x"><span><a href="#z991691270x">█</a></span></span><b>vybalit</b> soubor na standardní výstup<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx60a25cb"><span><a href="#zx60a25cb">⠈</a></span></span><b>vybalit</b> soubor na standardní výstup<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">unzip -p <i class="dopln">archiv.zip</i> <i class="dopln">vzorek/cesty</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z133008976xx"><span><a href="#z133008976xx">⠆</a></span></span><b>vytvořit</b> nový archiv a uložit do něj soubory a adresáře<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa9e8349"><span><a href="#zxa9e8349">䷨</a></span></span><b>vytvořit</b> nový archiv a uložit do něj soubory a adresáře<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">zip -r <i class="dopln">archiv.zip</i> <i class="dopln">cesta</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z639272155"><span><a href="#z639272155">ᚕ</a></span></span><b>vytvořit</b> nový archiv, uložit do něj soubory a adresáře a ochránit heslem<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfd3a0fe"><span><a href="#zxfd3a0fe">ȸ</a></span></span><b>vytvořit</b> nový archiv, uložit do něj soubory a adresáře a ochránit heslem<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">zip -re <i class="dopln">archiv.zip</i> <i class="dopln">cesta</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1449399518x"><span><a href="#z1449399518x">♘</a></span></span><b>vypsat</b> soubory a adresáře v archivu<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb50984d"><span><a href="#zxb50984d">✱</a></span></span><b>vypsat</b> soubory a adresáře v archivu<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">unzip -l <i class="dopln">archiv.zip</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z500240163"><span><a href="#z500240163">⪏</a></span></span><b>přidat</b> další soubory či adresáře<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxedd2c4a"><span><a href="#zxedd2c4a">☇</a></span></span><b>přidat</b> další soubory či adresáře<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">zip -r <i class="dopln">archiv.zip</i> <i class="dopln">cesta</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z115340917"><span><a href="#z115340917">⣡</a></span></span><b>přidat</b> další soubory či adresáře a ochránit heslem<span class="cislo">#8 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd637fcb"><span><a href="#zxd637fcb">∧</a></span></span><b>přidat</b> další soubory či adresáře a ochránit heslem<span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla">zip -re <i class="dopln">archiv.zip</i> <i class="dopln">cesta</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1350974791"><span><a href="#z1350974791">ຄ</a></span></span><b>smazat</b> z archivu soubory a adresáře<span class="cislo">#9 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3c38b3d"><span><a href="#zx3c38b3d">✔</a></span></span><b>smazat</b> z archivu soubory a adresáře<span class="cislo">#9 </span></div><div class="radky">
 <div class="radekzaklinadla">zip -d <i class="dopln">archiv.zip</i> <i class="dopln">vzorek/cesty</i><span class="tritecky"></span></div>
 </div></div>
 
@@ -255,40 +251,40 @@ externí programy).
 Poznámka: Archiv typu SquashFS obsahuje vždy svůj kořenový adresář (zpravidla jménem
 „squashfs-root“). Veškerý obsah archivu je pak v podstromu pod tímto adresářem.
 </p>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z920561975xxxxx"><span><a href="#z920561975xxxxx">⋞</a></span></span><b>rozbalit</b> archiv<span class="cislo">#1 </span><sup><a href="#kappracesarchivyppc8" id="kappracesarchivyppcr8" title="Poznámka: cílový adresář nesmí existovat, bude vytvořen a vybalí se do něj obsah kořenového adresáře archivu.">(8)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4efc81c"><span><a href="#zx4efc81c">✟</a></span></span><b>rozbalit</b> archiv<span class="cislo">#1 </span><sup><a href="#kapx6044cf2ppc9" id="kapx6044cf2ppcr9" title="Poznámka: cílový adresář nesmí existovat, bude vytvořen a vybalí se do něj obsah kořenového adresáře archivu.">(9)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">unsquashfs -d <i class="dopln">cílový/adresář</i> <span class="volznak">[</span>-no-xattrs<span class="volznak">]</span> <span class="volznak">[</span>-info<span class="volznak">]</span> <i class="dopln">archiv.squashfs</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1660950661xxxx"><span><a href="#z1660950661xxxx">⎇</a></span></span><b>vybalit</b> soubor či adresář<span class="cislo">#2 </span><sup><a href="#kappracesarchivyppc9" id="kappracesarchivyppcr9" title="Poznámka: cílový adresář nesmí existovat, bude vytvořen. Cesty v archivu se zadávají relativně vůči kořenovému adresáři archivu a příkaz k nim pod cílovým adresářem vytvoří odpovídající adresářovou strukturu.">(9)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb797ba6"><span><a href="#zxb797ba6">┋</a></span></span><b>vybalit</b> soubor či adresář<span class="cislo">#2 </span><sup><a href="#kapx6044cf2ppc10" id="kapx6044cf2ppcr10" title="Poznámka: cílový adresář nesmí existovat, bude vytvořen. Cesty v archivu se zadávají relativně vůči kořenovému adresáři archivu a příkaz k nim pod cílovým adresářem vytvoří odpovídající adresářovou strukturu.">(10)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">unsquashfs -d <i class="dopln">cílový/adresář</i> <span class="volznak">[</span>-no-xattrs<span class="volznak">]</span> <span class="volznak">[</span>-info<span class="volznak">]</span> <i class="dopln">archiv.squashfs</i> <i class="dopln">cesta/v/archivu</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z991691270xx"><span><a href="#z991691270xx">█</a></span></span><b>vybalit</b> soubor na standardní výstup<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2c708d2"><span><a href="#zx2c708d2">⡝</a></span></span><b>vybalit</b> soubor na standardní výstup<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z133008976xxx"><span><a href="#z133008976xxx">⠆</a></span></span><b>vytvořit</b> nový archiv a uložit do něj soubory a adresáře<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2e729b3"><span><a href="#zx2e729b3">─</a></span></span><b>vytvořit</b> nový archiv a uložit do něj soubory a adresáře<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">mksquashfs <i class="dopln">cesta</i><span class="tritecky"></span> <i class="dopln">archiv.squashfs</i> -noappend <span class="volznak">[</span>-info<span class="volznak">]</span> <span class="volznak">[</span>-keep-as-directory<span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">-další-volby</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1392307533"><span><a href="#z1392307533">➺</a></span></span><b>vypsat</b> soubory a adresáře v archivu (pro člověka/pro skript)<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5344da8"><span><a href="#zx5344da8">꞉</a></span></span><b>vypsat</b> soubory a adresáře v archivu (pro člověka/pro skript)<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">unsquashfs -lln <i class="dopln">archiv.squashfs</i></div>
 <div class="radekzaklinadla">unsquashfs -l <i class="dopln">archiv.squashfs</i> | sed -E '0,/^$/d;/^squashfs-root$/s!$!/!;s/^squashfs-root//'</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z500240163x"><span><a href="#z500240163x">⪏</a></span></span><b>přidat</b> další soubory či adresáře<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxdfad37f"><span><a href="#zxdfad37f">⎔</a></span></span><b>přidat</b> další soubory či adresáře<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">mksquashfs <i class="dopln">cesta</i><span class="tritecky"></span> <i class="dopln">archiv.squashfs</i> <span class="volznak">[</span>-info<span class="volznak">]</span> <span class="volznak">[</span>-keep-as-directory<span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">-další-volby</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1350974791x"><span><a href="#z1350974791x">ຄ</a></span></span><b>smazat</b> z archivu soubory a adresáře<span class="cislo">#7 </span><sup><a href="#kappracesarchivyppc10" id="kappracesarchivyppcr10" title="Doporučený postup je archiv vybalit, odstranit soubory a adresáře a znovu zabalit.">(10)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxab390e6"><span><a href="#zxab390e6">▙</a></span></span><b>smazat</b> z archivu soubory a adresáře<span class="cislo">#7 </span><sup><a href="#kapx6044cf2ppc11" id="kapx6044cf2ppcr11" title="Doporučený postup je archiv vybalit, odstranit soubory a adresáře a znovu zabalit.">(11)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">unsquashfs -d <i class="dopln">dočasný/adresář</i> <i class="dopln">archiv.squashfs</i></div>
 <div class="radekzaklinadla">rm -Rf <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">dočasný/adresář</i>/<i class="dopln">cesta</i> <span class="volznak">[</span><i class="dopln">dočasný/adresář</i>/<i class="dopln">další/cesta</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">mksquashfs <i class="dopln">dočasný/adresář</i> <i class="dopln">archiv.squashfs</i> -noappend</div>
 <div class="radekzaklinadla">rm -Rf <i class="dopln">dočasný/adresář</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z662708196"><span><a href="#z662708196">⠔</a></span></span>přidat do archivu při vytváření/doplňování adresář<span class="cislo">#8 </span><sup><a href="#kappracesarchivyppc11" id="kappracesarchivyppcr11" title="V cestě v archivu musejí být odzvláštněny zpětným lomítkem všechny bílé znaky (např. mezera či tabulátor), znaky „\“ a „&quot;“ a možná ještě některé další. Takto vytvořenému adresáři nelze nastavit časové známky.">(11)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb3a4db5"><span><a href="#zxb3a4db5">⪊</a></span></span>přidat do archivu při vytváření/doplňování adresář<span class="cislo">#8 </span><sup><a href="#kapx6044cf2ppc12" id="kapx6044cf2ppcr12" title="V cestě v archivu musejí být odzvláštněny zpětným lomítkem všechny bílé znaky (např. mezera či tabulátor), znaky „\“ a „&quot;“ a možná ještě některé další. Takto vytvořenému adresáři nelze nastavit časové známky.">(12)</a></sup></div><div class="radky">
 <div class="radekzaklinadla akce">Na konec příkazu mksquashfs doplňte ještě tento parametr (lze použít opakovaně):</div>
 <div class="radekzaklinadla">-p &quot;<i class="dopln">cesta/v archivu</i> d <i class="dopln">mód</i> <i class="dopln">vlastník</i> <i class="dopln">skupina</i>&quot;</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z267223385"><span><a href="#z267223385">❲</a></span></span>přidat do archivu při vytváření/doplňování soubor<span class="cislo">#9 </span><sup><a href="#kappracesarchivyppc12" id="kappracesarchivyppcr12" title="V cestě v archivu musejí být odzvláštněny zpětným lomítkem všechny bílé znaky (např. mezera či tabulátor), znaky „\“ a „&quot;“ a možná ještě některé další. Generující příkaz je příkaz interpretu „sh“; mksquashfs v něm nevyžaduje žádné dodatečné odzvláštnění.">(12)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf3d8ef4"><span><a href="#zxf3d8ef4">䷵</a></span></span>přidat do archivu při vytváření/doplňování soubor<span class="cislo">#9 </span><sup><a href="#kapx6044cf2ppc13" id="kapx6044cf2ppcr13" title="V cestě v archivu musejí být odzvláštněny zpětným lomítkem všechny bílé znaky (např. mezera či tabulátor), znaky „\“ a „&quot;“ a možná ještě některé další. Generující příkaz je příkaz interpretu „sh“; mksquashfs v něm nevyžaduje žádné dodatečné odzvláštnění.">(13)</a></sup></div><div class="radky">
 <div class="radekzaklinadla akce">Na konec příkazu mksquashfs doplňte ještě tento parametr (lze použít opakovaně):</div>
 <div class="radekzaklinadla">-p &quot;<i class="dopln">cesta/v archivu</i> f <i class="dopln">mód</i> <i class="dopln">vlastník</i> <i class="dopln">skupina</i> <i class="dopln">generující příkaz</i>&quot;</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z41675696"><span><a href="#z41675696">▴</a></span></span>přidat do archivu při vytváření/doplňování symbolický odkaz<span class="cislo">#10 </span><sup><a href="#kappracesarchivyppc13" id="kappracesarchivyppcr13" title="V cestě v archivu musejí být odzvláštněny zpětným lomítkem všechny bílé znaky (např. mezera či tabulátor), znaky „\“ a „&quot;“ a možná ještě některé další. V obsahu odkazu se neodzvláštňují žádné znaky (ani případný konec řádky).">(13)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe92ef71"><span><a href="#zxe92ef71">⟽</a></span></span>přidat do archivu při vytváření/doplňování symbolický odkaz<span class="cislo">#10 </span><sup><a href="#kapx6044cf2ppc14" id="kapx6044cf2ppcr14" title="V cestě v archivu musejí být odzvláštněny zpětným lomítkem všechny bílé znaky (např. mezera či tabulátor), znaky „\“ a „&quot;“ a možná ještě některé další. V obsahu odkazu se neodzvláštňují žádné znaky (ani případný konec řádky).">(14)</a></sup></div><div class="radky">
 <div class="radekzaklinadla akce">Na konec příkazu mksquashfs doplňte ještě tento parametr (lze použít opakovaně):</div>
 <div class="radekzaklinadla">-p &quot;<i class="dopln">cesta/v archivu</i> s 777 <i class="dopln">vlastník</i> <i class="dopln">skupina</i> <i class="dopln">obsah-odkazu</i>&quot;</div>
 </div></div>
@@ -296,20 +292,20 @@ Poznámka: Archiv typu SquashFS obsahuje vždy svůj kořenový adresář (zprav
 <h2 id="cast4" class="zaklinadla"><a href="#cast4"><span class="cislo">4.</span> Zaklínadla: Připojení archivů do VFS</a></h2>
 
 <h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 13 (Práce s archivy), sekce 4 (Zaklínadla: Připojení archivů do VFS), podsekce 1 (SquashFS)"><sup>4/</sup>1 SquashFS</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1218521129"><span><a href="#z1218521129">╟</a></span></span><b>připojit</b> archiv (jako superuživatel/jako obyčejný uživatel)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd304a3e"><span><a href="#zxd304a3e">ꓻ</a></span></span><b>připojit</b> archiv (jako superuživatel/jako obyčejný uživatel)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo mount -t squashfs <span class="volznak">[</span>-o <i class="dopln">volby,připojení</i><span class="volznak">]</span> <i class="dopln">archiv.squashfs</i> <i class="dopln">prázdný/adresář</i></div>
 <div class="radekzaklinadla">squashfuse <span class="volznak">[</span>-o <i class="dopln">volby,připojení</i><span class="volznak">]</span> <i class="dopln">archiv.squashfs</i> <i class="dopln">prázdný/adresář</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1222039829"><span><a href="#z1222039829">⬙</a></span></span><b>odpojit</b> archiv (jako superuživatel/jako obyčejný uživatel)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx785f803"><span><a href="#zx785f803">╜</a></span></span><b>odpojit</b> archiv (jako superuživatel/jako obyčejný uživatel)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo umount <i class="dopln">přípojný/bod</i></div>
 <div class="radekzaklinadla">umount <i class="dopln">přípojný/bod</i></div>
 </div></div>
 
 <h3 id="cast4x2"><span><a href="#cast4x2" title="kapitola 13 (Práce s archivy), sekce 4 (Zaklínadla: Připojení archivů do VFS), podsekce 2 (ZIP, TAR, TAR + GZIP)"><sup>4/</sup>2 ZIP, TAR, TAR + GZIP</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z353462147"><span><a href="#z353462147">❪</a></span></span><b>připojit</b> archiv zip/tar/tar.gz<span class="cislo">#1 </span><sup><a href="#kappracesarchivyppc14" id="kappracesarchivyppcr14" title="Poznámka: uživatel musí mít k uvedenému adresáři právo zápisu a adresář nesmí mít nastaven příznak omezení smazání. Kontrola přístupových práv uvnitř připojeného archivu se chová velmi podivně – uživatel připojivší archiv má vždy práva čtení a zápisu a právo spouštění u adresářů; u souboru má právo spouštění, pokud je nastaveno u „u“, „g“ nebo „o“. Všem ostatním uživatelům včetně superuživatele je zakázán jakýkoliv přístup. Důrazně doporučuji zadat přinejmenším volbu „ro“ nebo zakázat zápis do archivu. Do připojeného archivu sice je možné zapisovat, ale není to efektivní.">(14)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona L" id="zx3110212"><span><a href="#zx3110212">⏝</a></span></span><b>připojit</b> archiv zip/tar/tar.gz<span class="cislo">#1 </span><sup><a href="#kapx6044cf2ppc15" id="kapx6044cf2ppcr15" title="Poznámka: uživatel musí mít k uvedenému adresáři právo zápisu a adresář nesmí mít nastaven příznak omezení smazání. Kontrola přístupových práv uvnitř připojeného archivu se chová velmi podivně – uživatel připojivší archiv má vždy práva čtení a zápisu a právo spouštění u adresářů; u souboru má právo spouštění, pokud je nastaveno u „u“, „g“ nebo „o“. Všem ostatním uživatelům včetně superuživatele je zakázán jakýkoliv přístup. Důrazně doporučuji zadat přinejmenším volbu „ro“ nebo zakázat zápis do archivu. Do připojeného archivu sice je možné zapisovat, ale není to efektivní.">(15)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">archivemount <span class="volznak">[</span>-o <span class="volznak">[</span>ro,<span class="volznak">]</span><i class="dopln">volby,připojení</i><span class="volznak">]</span> <i class="dopln">archiv.přípona</i> <i class="dopln">cesta/k/prázdnému/adresáři</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z392794731"><span><a href="#z392794731">❄</a></span></span><b>odpojit</b> archiv<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx076b464"><span><a href="#zx076b464">⊒</a></span></span><b>odpojit</b> archiv<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">umount <i class="dopln">cesta/k/adresáři</i></div>
 </div></div>
 
@@ -317,21 +313,21 @@ Poznámka: Archiv typu SquashFS obsahuje vždy svůj kořenový adresář (zprav
 <p class="ponadpisu">
 Nástroje tar, gzip a zip jsou již součástí minimální instalace Ubuntu. Nástroje apack, aunpack,7z a archivemount je nutno nainstalovat:
 </p>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z540361870"><span><a href="#z540361870">⟲</a></span></span>apack, aunpack apod., 7z<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6e81110"><span><a href="#zx6e81110">⚩</a></span></span>apack, aunpack apod., 7z<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-get install atool p7zip-full <span class="volznak">[</span>archivemount<span class="volznak">]</span></div>
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo apt-get install arc arj lzip lzop march rpm unace unalz<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1531404390"><span><a href="#z1531404390">↡</a></span></span>pro práci s archivy SquashFS (kromě připojování) jsou třeba balíčky:<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc204384"><span><a href="#zxc204384">⡗</a></span></span>pro práci s archivy SquashFS (kromě připojování) jsou třeba balíčky:<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-get install squashfs-tools squashfuse</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z422981162"><span><a href="#z422981162">⢯</a></span></span>pro plnou podporu formátu RAR (vyžaduje nesvobodný balíček!)<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx43c520c"><span><a href="#zx43c520c">⊸</a></span></span>pro plnou podporu formátu RAR (vyžaduje nesvobodný balíček!)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-get install rar</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z539433787"><span><a href="#z539433787">↰</a></span></span>pro svobodnou podporu formátu RAR (pouze vybalování a vypsání obsahu)<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx322e956"><span><a href="#zx322e956">ⵖ</a></span></span>pro svobodnou podporu formátu RAR (pouze vybalování a vypsání obsahu)<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-get install unrar-free</div>
 <div class="radekzaklinadla">sudo ln -fsT /etc/alternatives/unrar /usr/local/bin/rar</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z680796692"><span><a href="#z680796692">♼</a></span></span>pokud se později rozhodnete přejít na nesvobodný balíček<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc621b62"><span><a href="#zxc621b62">Ⴣ</a></span></span>pokud se později rozhodnete přejít na nesvobodný balíček<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo rm -f /usr/local/bin/rar</div>
 <div class="radekzaklinadla">sudo apt-get purge unrar-free</div>
 <div class="radekzaklinadla">sudo apt-get install rar</div>
@@ -379,33 +375,49 @@ Nástroje tar, gzip a zip jsou již součástí minimální instalace Ubuntu. N
 </li><li><a href="https://packages.ubuntu.com/focal/p7zip-full">Balíček „p7zip-full“</a> (anglicky)
 </li><li><a href="https://elinux.org/Squash_FS_Howto">SquashFS HowTo</a> (anglicky)
 </li><li><a href="https://github.com/plougher/squashfs-tools/blob/master/RELEASE-READMEs/pseudo-file.example">Pseudo file example</a> (anglicky)
-</li></ul><div class="ppc"><div id="kappracesarchivyppc1"><a href="#kappracesarchivyppcr1" class="cislopozn">1</a>&nbsp;Nezadáte-li cílový adresář parametrem „-X“, pak záleží cílový adresář na obsahu archivu: 1) Pokud archiv obsahuje pouze jeden soubor, vybalí se do aktuálního adresáře. 2) Jinak se vytvoří nový adresář se jménem odvozeným od jména archivu a vybalené soubory se uloží do něj. 3) Pokud takový adresář existuje, vybalené soubory se uloží do adresáře s názvem ve tvaru „Unpack-XXXX“, kde X jsou náhodné číslice.</div>
+</li></ul>
+<h2 id="cast9"><a href="#cast9"><span class="cislo">9.</span> Zákulisí kapitoly</a></h2>
+<p class="ponadpisu">
+V této verzi kapitoly chybí:
+</p>
+<ul class="kompaktni"><li>nic
+</li></ul><p class="ponadpisu">
+Tato kapitola záměrně nepokrývá:
+</p>
+<ul class="kompaktni"><li>zálohování
+</li><li>správu verzí
+</li><li>práci s obrazy souborových systémů
+</li><li>různé typy softwarových balíčků
+</li><li>konverze z jednoho archivního formátu na jiný (lze realizovat vybalením a zabalením)
+</li></ul><div class="ppc"><div id="kapx6044cf2ppc1"><a href="#kapx6044cf2ppcr1" class="cislopozn">1</a>&nbsp;Nezadáte-li cílový adresář parametrem „-X“, pak záleží cílový adresář na obsahu archivu: 1) Pokud archiv obsahuje pouze jeden soubor, vybalí se do aktuálního adresáře. 2) Jinak se vytvoří nový adresář se jménem odvozeným od jména archivu a vybalené soubory se uloží do něj. 3) Pokud takový adresář existuje, vybalené soubory se uloží do adresáře s názvem ve tvaru „Unpack-XXXX“, kde X jsou náhodné číslice.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kappracesarchivyppc2"><a href="#kappracesarchivyppcr2" class="cislopozn">2</a>&nbsp;Formát výstupu je závislý na typu archivu.</div>
+<div id="kapx6044cf2ppc2"><a href="#kapx6044cf2ppcr2" class="cislopozn">2</a>&nbsp;Nezadáte-li cílový adresář parametrem „-X“, pak záleží cílový adresář na obsahu archivu: 1) Pokud archiv obsahuje pouze jeden soubor, vybalí se do aktuálního adresáře. 2) Jinak se vytvoří nový adresář se jménem odvozeným od jména archivu a vybalené soubory se uloží do něj. 3) Pokud takový adresář existuje, vybalené soubory se uloží do adresáře s názvem ve tvaru „Unpack-XXXX“, kde X jsou náhodné číslice.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kappracesarchivyppc3"><a href="#kappracesarchivyppcr3" class="cislopozn">3</a>&nbsp;Volba -spd vypne intepretaci vzorků v cestách. Při zadávání cest mimo archiv je to žádoucí, protože zde vzorky obecně intepretuje už příkazový interpret a není žádoucí, aby je 7z interpretoval znovu, ale u cest v archivu je nutné je interpretovat na straně 7z, takže pokud nehodláte vybalovat soubory, které ve svých názvech obsahují otazníky, hvězdičky či hranaté závorky, je vhodnější tento parametr vynechat.</div>
+<div id="kapx6044cf2ppc3"><a href="#kapx6044cf2ppcr3" class="cislopozn">3</a>&nbsp;Formát výstupu je závislý na typu archivu.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kappracesarchivyppc4"><a href="#kappracesarchivyppcr4" class="cislopozn">4</a>&nbsp;Tato ochrana heslem by měla být kompatibilní s programy pro práci s formátem 7z v jiných operačních systémech.</div>
+<div id="kapx6044cf2ppc4"><a href="#kapx6044cf2ppcr4" class="cislopozn">4</a>&nbsp;Volba -spd vypne intepretaci vzorků v cestách. Při zadávání cest mimo archiv je to žádoucí, protože zde vzorky obecně intepretuje už příkazový interpret a není žádoucí, aby je 7z interpretoval znovu, ale u cest v archivu je nutné je interpretovat na straně 7z, takže pokud nehodláte vybalovat soubory, které ve svých názvech obsahují otazníky, hvězdičky či hranaté závorky, je vhodnější tento parametr vynechat.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kappracesarchivyppc5"><a href="#kappracesarchivyppcr5" class="cislopozn">5</a>&nbsp;Zadáte-li k rozbalení víc souborů, tar je vypíše v pořadí, v jakém jsou uloženy v archivu; ne v pořadí, v jakém jste je zadal/a.</div>
+<div id="kapx6044cf2ppc5"><a href="#kapx6044cf2ppcr5" class="cislopozn">5</a>&nbsp;Tato ochrana heslem by měla být kompatibilní s programy pro práci s formátem 7z v jiných operačních systémech.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kappracesarchivyppc6"><a href="#kappracesarchivyppcr6" class="cislopozn">6</a>&nbsp;Pozor, pokud soubory v archivu již existují, přidají se znovu, takže skončíte s archivem, ve kterém je několik souborů identifikovaných stejnou cestou. S takovým archivem se pak obtížně pracuje.</div>
+<div id="kapx6044cf2ppc6"><a href="#kapx6044cf2ppcr6" class="cislopozn">6</a>&nbsp;Zadáte-li k rozbalení víc souborů, tar je vypíše v pořadí, v jakém jsou uloženy v archivu; ne v pořadí, v jakém jste je zadal/a.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kappracesarchivyppc7"><a href="#kappracesarchivyppcr7" class="cislopozn">7</a>&nbsp;Poznámka: tar implementuje jen velmi slabou kontrolu, takže neodhalí náhodné porušení archivu. Dokáže ale odhalit, že archiv byl zkrácen nebo přepsán zcela nesmyslnými daty. V takovém případě vypíše hlášení na standardní chybový výstup a vrátí návratový kód 2.</div>
+<div id="kapx6044cf2ppc7"><a href="#kapx6044cf2ppcr7" class="cislopozn">7</a>&nbsp;Pozor, pokud soubory v archivu již existují, přidají se znovu, takže skončíte s archivem, ve kterém je několik souborů identifikovaných stejnou cestou. S takovým archivem se pak obtížně pracuje.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kappracesarchivyppc8"><a href="#kappracesarchivyppcr8" class="cislopozn">8</a>&nbsp;Poznámka: cílový adresář nesmí existovat, bude vytvořen a vybalí se do něj obsah kořenového adresáře archivu.</div>
+<div id="kapx6044cf2ppc8"><a href="#kapx6044cf2ppcr8" class="cislopozn">8</a>&nbsp;Poznámka: tar implementuje jen velmi slabou kontrolu, takže neodhalí náhodné porušení archivu. Dokáže ale odhalit, že archiv byl zkrácen nebo přepsán zcela nesmyslnými daty. V takovém případě vypíše hlášení na standardní chybový výstup a vrátí návratový kód 2.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kappracesarchivyppc9"><a href="#kappracesarchivyppcr9" class="cislopozn">9</a>&nbsp;Poznámka: cílový adresář nesmí existovat, bude vytvořen. Cesty v archivu se zadávají relativně vůči kořenovému adresáři archivu a příkaz k nim pod cílovým adresářem vytvoří odpovídající adresářovou strukturu.</div>
+<div id="kapx6044cf2ppc9"><a href="#kapx6044cf2ppcr9" class="cislopozn">9</a>&nbsp;Poznámka: cílový adresář nesmí existovat, bude vytvořen a vybalí se do něj obsah kořenového adresáře archivu.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kappracesarchivyppc10"><a href="#kappracesarchivyppcr10" class="cislopozn">10</a>&nbsp;Doporučený postup je archiv vybalit, odstranit soubory a adresáře a znovu zabalit.</div>
+<div id="kapx6044cf2ppc10"><a href="#kapx6044cf2ppcr10" class="cislopozn">10</a>&nbsp;Poznámka: cílový adresář nesmí existovat, bude vytvořen. Cesty v archivu se zadávají relativně vůči kořenovému adresáři archivu a příkaz k nim pod cílovým adresářem vytvoří odpovídající adresářovou strukturu.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kappracesarchivyppc11"><a href="#kappracesarchivyppcr11" class="cislopozn">11</a>&nbsp;V cestě v archivu musejí být odzvláštněny zpětným lomítkem všechny bílé znaky (např. mezera či tabulátor), znaky „\“ a „&quot;“ a možná ještě některé další. Takto vytvořenému adresáři nelze nastavit časové známky.</div>
+<div id="kapx6044cf2ppc11"><a href="#kapx6044cf2ppcr11" class="cislopozn">11</a>&nbsp;Doporučený postup je archiv vybalit, odstranit soubory a adresáře a znovu zabalit.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kappracesarchivyppc12"><a href="#kappracesarchivyppcr12" class="cislopozn">12</a>&nbsp;V cestě v archivu musejí být odzvláštněny zpětným lomítkem všechny bílé znaky (např. mezera či tabulátor), znaky „\“ a „&quot;“ a možná ještě některé další. Generující příkaz je příkaz interpretu „sh“; mksquashfs v něm nevyžaduje žádné dodatečné odzvláštnění.</div>
+<div id="kapx6044cf2ppc12"><a href="#kapx6044cf2ppcr12" class="cislopozn">12</a>&nbsp;V cestě v archivu musejí být odzvláštněny zpětným lomítkem všechny bílé znaky (např. mezera či tabulátor), znaky „\“ a „&quot;“ a možná ještě některé další. Takto vytvořenému adresáři nelze nastavit časové známky.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kappracesarchivyppc13"><a href="#kappracesarchivyppcr13" class="cislopozn">13</a>&nbsp;V cestě v archivu musejí být odzvláštněny zpětným lomítkem všechny bílé znaky (např. mezera či tabulátor), znaky „\“ a „&quot;“ a možná ještě některé další. V obsahu odkazu se neodzvláštňují žádné znaky (ani případný konec řádky).</div>
+<div id="kapx6044cf2ppc13"><a href="#kapx6044cf2ppcr13" class="cislopozn">13</a>&nbsp;V cestě v archivu musejí být odzvláštněny zpětným lomítkem všechny bílé znaky (např. mezera či tabulátor), znaky „\“ a „&quot;“ a možná ještě některé další. Generující příkaz je příkaz interpretu „sh“; mksquashfs v něm nevyžaduje žádné dodatečné odzvláštnění.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kappracesarchivyppc14"><a href="#kappracesarchivyppcr14" class="cislopozn">14</a>&nbsp;Poznámka: uživatel musí mít k uvedenému adresáři právo zápisu a adresář nesmí mít nastaven příznak omezení smazání. Kontrola přístupových práv uvnitř připojeného archivu se chová velmi podivně – uživatel připojivší archiv má vždy práva čtení a zápisu a právo spouštění u adresářů; u souboru má právo spouštění, pokud je nastaveno u „u“, „g“ nebo „o“. Všem ostatním uživatelům včetně superuživatele je zakázán jakýkoliv přístup. Důrazně doporučuji zadat přinejmenším volbu „ro“ nebo zakázat zápis do archivu. Do připojeného archivu sice je možné zapisovat, ale není to efektivní.</div>
+<div id="kapx6044cf2ppc14"><a href="#kapx6044cf2ppcr14" class="cislopozn">14</a>&nbsp;V cestě v archivu musejí být odzvláštněny zpětným lomítkem všechny bílé znaky (např. mezera či tabulátor), znaky „\“ a „&quot;“ a možná ještě některé další. V obsahu odkazu se neodzvláštňují žádné znaky (ani případný konec řádky).</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx6044cf2ppc15"><a href="#kapx6044cf2ppcr15" class="cislopozn">15</a>&nbsp;Poznámka: uživatel musí mít k uvedenému adresáři právo zápisu a adresář nesmí mít nastaven příznak omezení smazání. Kontrola přístupových práv uvnitř připojeného archivu se chová velmi podivně – uživatel připojivší archiv má vždy práva čtení a zápisu a právo spouštění u adresářů; u souboru má právo spouštění, pokud je nastaveno u „u“, „g“ nebo „o“. Všem ostatním uživatelům včetně superuživatele je zakázán jakýkoliv přístup. Důrazně doporučuji zadat přinejmenším volbu „ro“ nebo zakázat zápis do archivu. Do připojeného archivu sice je možné zapisovat, ale není to efektivní.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 </div>
 
@@ -413,14 +425,14 @@ Nástroje tar, gzip a zip jsou již součástí minimální instalace Ubuntu. N
 <nav class="spodni">
 <a href="index.htm" class="naindex">🗐&nbsp;Přehled&nbsp;kapitol</a>
 <div class="naslkap">
-<a href="regularni-vyrazy.htm" rel="next" title="13. Regulární výrazy">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">13</span>
+<a href="regularni-vyrazy.htm" rel="next" title="14. Regulární výrazy">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">14</span>
 <span class="nazev">Regulární výrazy</span></a>
 </div>
 <!--<div><a href="index.htm">🗐&nbsp;Přehled&nbsp;kapitol</a></div>-->
 </nav>
 
 
-<div class="odkazydole"><div><a href="odkazy.htm"><img src="obrazky/ik/odkazy.png" alt="" width="32" height="32">Pevné a symbolické odkazy</a><a href="diskove-oddily-btrfs.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly / Btrfs</a><a href="hledani-souboru.htm"><img src="obrazky/ik/hledani-souboru.png" alt="" width="32" height="32">Hledání souborů</a></div></div>
+<div class="odkazydole"><div><a href="perl-zaklady.htm"><img src="obrazky/ik/perl-zaklady.png" alt="" width="32" height="32">Perl: základy</a><a href="diskove-oddily-softwarovy-raid.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly / Softwarový RAID</a><a href="sprava-balicku.htm"><img src="obrazky/ik/sprava-balicku.png" alt="" width="32" height="32">Správa balíčků</a></div></div>
 <div class="reklamnipata">Líbí se vám tento projekt a chcete, aby byl ještě lepší? Můžete mi s tím pomoci. Zmiňte se o něm technicky zdatným přátelům, opravte překlepy a nahlašte nefunkční zaklínadla, aby mohla být opravena; poskytněte mi zpětnou vazbu nebo se zapojte do vývoje nových kapitol. Další informace na GitHubu v dokumentu <a href="https://github.com/singularis-mzf/linux-spellbook/blob/v%C3%BDvojov%C3%A1/JAK-SE-ZAPOJIT.md">Jak se zapojit</a>.</div>
 
 </article>
@@ -460,8 +472,9 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <a href="#cast4x2" class="podsekce">/2 ZIP, TAR, TAR + GZIP</a>
 <a href="#cast5" class="sekce">5 Instalace na Ubuntu</a>
 <a href="#cast6" class="sekce">6 Ukázka</a>
-<a href="#cast7" class="sekce">7 Tipy a zkušenosti</a>
+<a href="#cast7" class="sekce">7 Tipy a zkušenosti</a>
 <a href="#cast8" class="sekce">8 Další zdroje informací</a>
+<a href="#cast9" class="sekce">9 Zákulisí kapitoly</a>
 </div></div>
 <a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
 </aside>
@@ -474,19 +487,20 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/diskove-oddily.png" alt="[]"></span><span class="fragodkazy"><a href="diskove-oddily.htm" class="odkaz"><span><span class="cislo">3</span>Diskové oddíly</span></a><span class="podkpodkazy"><a href="diskove-oddily-btrfs.htm" class="odkaz"><span><span class="cislo">4</span>Btrfs</span></a><a href="diskove-oddily-lvm.htm" class="odkaz"><span><span class="cislo">5</span>LVM</span></a><a href="diskove-oddily-softwarovy-raid.htm" class="odkaz"><span><span class="cislo">6</span>Softwarový RAID</span></a></span></span></div>
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/git.png" alt="[]"></span><span class="fragodkazy"><a href="git.htm" class="odkaz"><span><span class="cislo">7</span>Git</span></a></span></div>
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/hledani-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="hledani-souboru.htm" class="odkaz"><span><span class="cislo">8</span>Hledání souborů</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/nabidka-aplikaci.png" alt="[]"></span><span class="fragodkazy"><a href="nabidka-aplikaci.htm" class="odkaz"><span><span class="cislo">9</span>Nabídka aplikací</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/odkazy.png" alt="[]"></span><span class="fragodkazy"><a href="odkazy.htm" class="odkaz"><span><span class="cislo">10</span>Pevné a symbolické odkazy</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-zaklady.png" alt="[]"></span><span class="fragodkazy"><a href="perl-zaklady.htm" class="odkaz"><span><span class="cislo">11</span>Perl: základy</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="fragodkazy"><a href="prace-s-archivy.htm" class="odkaz"><span><span class="cislo">12</span>Práce s archivy</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="fragodkazy"><a href="regularni-vyrazy.htm" class="odkaz"><span><span class="cislo">13</span>Regulární výrazy</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-balicku.htm" class="odkaz"><span><span class="cislo">14</span>Správa balíčků</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-uzivatelskych-uctu.htm" class="odkaz"><span><span class="cislo">15</span>Správa uživatelských účtů</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="fragodkazy"><a href="system.htm" class="odkaz"><span><span class="cislo">16</span>Systém</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-textovych-souboru.htm" class="odkaz"><span><span class="cislo">17</span>Zpracování textových souborů</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-videa-a-zvuku.htm" class="odkaz"><span><span class="cislo">18</span>Zpracování videa a zvuku</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="fragodkazy"><a href="koncepce-projektu.htm" class="odkaz"><span><span class="cislo">19</span>Koncepce projektu Linux: Kniha kouzel</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/plan-vyvoje.png" alt="[]"></span><span class="fragodkazy"><a href="plan-vyvoje.htm" class="odkaz"><span><span class="cislo">20</span>Plán budoucího vývoje</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="fragodkazy"><a href="licence.htm" class="odkaz"><span><span class="cislo">21</span>Licence</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/metaprikazy.png" alt="[]"></span><span class="fragodkazy"><a href="metaprikazy.htm" class="odkaz"><span><span class="cislo">9</span>Metapříkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/nabidka-aplikaci.png" alt="[]"></span><span class="fragodkazy"><a href="nabidka-aplikaci.htm" class="odkaz"><span><span class="cislo">10</span>Nabídka aplikací</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/odkazy.png" alt="[]"></span><span class="fragodkazy"><a href="odkazy.htm" class="odkaz"><span><span class="cislo">11</span>Pevné a symbolické odkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-zaklady.png" alt="[]"></span><span class="fragodkazy"><a href="perl-zaklady.htm" class="odkaz"><span><span class="cislo">12</span>Perl: základy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="fragodkazy"><a href="prace-s-archivy.htm" class="odkaz"><span><span class="cislo">13</span>Práce s archivy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="fragodkazy"><a href="regularni-vyrazy.htm" class="odkaz"><span><span class="cislo">14</span>Regulární výrazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-balicku.htm" class="odkaz"><span><span class="cislo">15</span>Správa balíčků</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-uzivatelskych-uctu.htm" class="odkaz"><span><span class="cislo">16</span>Správa uživatelských účtů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="fragodkazy"><a href="system.htm" class="odkaz"><span><span class="cislo">17</span>Systém</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-textovych-souboru.htm" class="odkaz"><span><span class="cislo">18</span>Zpracování textových souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-videa-a-zvuku.htm" class="odkaz"><span><span class="cislo">19</span>Zpracování videa a zvuku</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="fragodkazy"><a href="koncepce-projektu.htm" class="odkaz"><span><span class="cislo">20</span>Koncepce projektu Linux: Kniha kouzel</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/plan-vyvoje.png" alt="[]"></span><span class="fragodkazy"><a href="plan-vyvoje.htm" class="odkaz"><span><span class="cislo">21</span>Plán budoucího vývoje</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="fragodkazy"><a href="licence.htm" class="odkaz"><span><span class="cislo">22</span>Licence</span></a></span></div>
 <div class="premiove"><strong>Prémiové kapitoly:</strong>
 <div>AWK</div>
 <div>Datum, čas a kalendář</div>
@@ -511,35 +525,35 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <a href="#menustitky" id="menustitky"><span class="prvnipismeno">Š</span>títky</a>
 <aside class="menustitky">
 <div><div class="nadpis">Štítky</div><div class="polozky">
-<a href="x-stitky.htm#sadresare">adresáře&nbsp;&nbsp;(2)</a>
-<a href="x-stitky.htm#saplikace">aplikace&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sapt">apt&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sbash">bash&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sdemoni">démoni&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sflatpak">Flatpak&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sgui">GUI&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#shledani">hledání&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sklavesnice">klávesnice&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#skomprese">komprese&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#slvm">LVM&nbsp;&nbsp;(2)</a>
-<a href="x-stitky.htm#sodkladaciprostor">odkládací prostor&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sperl">Perl&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sprogram">program&nbsp;&nbsp;(2)</a>
-<a href="x-stitky.htm#sprogramovani">programování&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#spristupovaprava">přístupová práva&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sraid">RAID&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sramdisk">ramdisk&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#ssnap">Snap&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#ssoubory">soubory&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sspravaverzi">správa verzí&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#ssyntaxe">syntaxe&nbsp;&nbsp;(3)</a>
-<a href="x-stitky.htm#ssystem">systém&nbsp;&nbsp;(7)</a>
-<a href="x-stitky.htm#ssystemsouboru">systém souborů&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#stematickyokruh">tematický okruh&nbsp;&nbsp;(13)</a>
-<a href="x-stitky.htm#svideo">video&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#szip">zip&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#szpracovanitextu">zpracování textu&nbsp;&nbsp;(3)</a>
-<a href="x-stitky.htm#szvuk">zvuk&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5208bbb">adresáře&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#xb0a5782">aplikace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x583f72a">apt&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xd574d4b">bash&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#xcd6caf8">démoni&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xb05338c">Flatpak&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x1e3042b">GUI&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x4e36c04">hledání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c8789a">klávesnice&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa473827">komprese&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x79108ba">LVM&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x2d47ed4">odkládací prostor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x0114ad0">Perl&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa9c449d">program&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#xc65388d">programování&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x43a526a">přístupová práva&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xcf91513">RAID&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5c5f44a">ramdisk&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9ad09a9">Snap&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x23be896">soubory&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x12e55d8">správa verzí&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9dcbb0b">syntaxe&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#xba98a3b">systém&nbsp;&nbsp;(7)</a>
+<a href="x-stitky.htm#x3972255">systém souborů&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c01147">tematický okruh&nbsp;&nbsp;(14)</a>
+<a href="x-stitky.htm#x421b47f">video&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xadcdbd7">zip&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x908961b">zpracování textu&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#x04b5cff">zvuk&nbsp;&nbsp;(1)</a>
 </div></div>
 <a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
 </aside>

@@ -5,16 +5,13 @@
 
 <title>Diskové oddíly / Btrfs − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20210326.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210326-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210326-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210326-svetly.css" title="Světlý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20210424.css">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body>
 <div id="nahore"><div id="okno">
 <header>
-<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.6, N. N. (26. března 2021)</span>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.7, O. O. (24. dubna 2021)</span>
 <span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -44,9 +41,20 @@
 <article>
 
 <h1 class="kapitola">4. <img src="obrazky/ik/diskove-oddily.png" alt="" width="64" height="64"> <a href="diskove-oddily.htm">Diskové oddíly</a> / Btrfs</h1>
-<div class="stitky"><a href="x-stitky.htm#ssystem">systém</a>
-<a href="x-stitky.htm#stematickyokruh">tematický okruh</a>
-</div>
+<div class="stitky"><a href="x-stitky.htm#">systém</a>
+<a href="x-stitky.htm#">tematický okruh</a>
+</div><div class="zaklinadlo"><div class="zahlavi"><span class="ikona D"><span><a href="#zxa48dfd5">ງ</a></span></span>formátovat samostatný oddíl na <b>btrfs</b> (obecně/příklad)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">sudo mkfs.btrfs <span class="volznak">[</span>-f<span class="volznak">]</span> <span class="volznak">[</span>-L &quot;<i class="dopln">Jmenovka</i>&quot;<span class="volznak">]</span> <span class="volznak">[</span>-U <i class="dopln">UUID</i><span class="volznak">]</span> <i class="dopln">/dev/zařízení-nebo-oddíl</i></div>
+<div class="radekzaklinadla">sudo mkfs.btrfs -f -L &quot;Můj nový oddíl&quot; /dev/sda3</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D"><span><a href="#zx11ea64b">⋯</a></span></span>vytvořit <b>klon podstromu</b> adresářů<span class="cislo">#2 </span><sup><a href="#kapx33eeefeppc1" id="kapx33eeefeppcr1" title="Cíl („/cesta/pro/klon“) před vykonáním příkazu nesmí existovat. Poznámka: Naklonují se pouze soubory; adresáře se pro ně vytvoří nové, takže pokud je podstrom rozsáhlejší, bude to chvíli trvat.">(1)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>rm -Rf <i class="dopln">/cesta/pro/klon</i> &amp;&amp;<span class="volznak">]</span></div>
+<div class="radekzaklinadla">cp --reflink=always -R <span class="volznak">[</span>--preserve=all<span class="volznak">]</span> <span class="volznak">[</span>-v<span class="volznak">]</span> <i class="dopln">/cesta/k/adresáři</i> <i class="dopln">/cesta/pro/klon</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D"><span><a href="#zxb7df020">䷧</a></span></span>vytvořit klon <b>souboru</b><span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">cp --reflink=always <span class="volznak">[</span>--preserve=all<span class="volznak">]</span> <span class="volznak">[</span>-t<span class="volznak">]</span> <span class="volznak">[</span>-v<span class="volznak">]</span> <i class="dopln">/cesta/k/souboru</i> <i class="dopln">/cesta/pro/klon</i></div>
+</div></div>
+
 <h2 id="cast1"><a href="#cast1"><span class="cislo">1.</span> Úvod</a></h2>
 <p class="ponadpisu">
 Tato kapitola se zabývá prací se souborovým systémem typu Btrfs způsoby,
@@ -55,162 +63,162 @@ které nejsou dostupné u souborových systémů typu ext4.
 
 <h2 id="cast2"><a href="#cast2"><span class="cislo">2.</span> Definice</a></h2>
 
-<h3 id="cast2x1"><span><a href="#cast2x1" title="kapitola 5 (Diskové oddíly/Btrfs), sekce 2 (Definice), podsekce 1 (Btrfs)"><sup>2/</sup>1 Btrfs</a></span></h3>
+<h3 id="cast2x1"><span><a href="#cast2x1" title="kapitola 4 (Diskové oddíly/Btrfs), sekce 2 (Definice), podsekce 1 (Btrfs)"><sup>2/</sup>1 Btrfs</a></span></h3>
 <ul><li>Souborový systém typu btrfs se dělí na takzvané <b>pododdíly</b>. Každý pododdíl je reprezentován svým vlastním „kořenovým“ adresářem. Reprezentující adresář představuje jednoznačnou hranici mezi vnějším (obklopujícím) pododdílem a vnitřním (vnořeným) pododdílem. Pododdíly se vždy překrývají pouze tímto hraničním adresářem, jinak jsou oddělené. Operace prováděné s obklopujícím pododdílem (např. klonování) se vnořeného pododdílu netýkají. (V důsledku toho, když naklonujete pododdíl, hraniční adresáře v něm vnořených pododdílů budou v klonu prázdné.) Každý pododdíl má také svoje číselné „id“, ale jeho používání není příliš praktické.
 </li><li><b>Kořenový pododdíl</b> je pododdíl reprezentovaný kořenovým adresářem souborového systému. Nemá žádný obklopující pododdíl, má vždy id 5 a není možno ho (samostatně) odstranit ani přesunout.
 </li><li><b>Klon</b> (reflink/snapshot) je v btrfs virtuální kopie souboru nebo celého pododdílu, která se navenek chová jako zcela nezávislá kopie, ale vnitřně sdílí část datových či metadatových bloků s původním souborem či pododdílem, dokud se do nich nikdo nepokusí zapisovat (teprve poté se vytvoří skutečné kopie, ale jen bloků, u kterých je to potřeba). Díky tomu je vytváření klonů rychlé, nenáročné a klony zprvu zabírají jen velmi málo místa.
 </li><li>Pododdíl může být označený jako „<b>neměnný</b>“ (toto označení lze přidat či odebrat i dodatečně); neměnný pododdíl je chráněný proti změnám dat i metadat, bez ohledu na přístupová práva, může však být odstraněn jako celek. Nejčastěji se jako neměnné nastavují klony pododdílů.
 </li><li><b>Zrcadlené oddíly</b> jsou dva oddíly, kde každá změna je zapisována paralelně na oba, takže v případě poškození či ztráty jednoho z nich nedojde ke ztrátě dat.
-</li></ul><p>
+</li></ul><p class="ponadpisu">
 Poznámka k pevným odkazům: pevný odkaz v souborovém systému typu btrfs nemůže vést přes hranici pododdílu, místo toho však lze přes hranici pododdílů vytvořit klon souboru.
 </p>
 
 <h2 id="cast3" class="zaklinadla"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla</a></h2>
 
-<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 5 (Diskové oddíly/Btrfs), sekce 3 (Zaklínadla), podsekce 1 (Formátování)"><sup>3/</sup>1 Formátování</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z541585828"><span><a href="#z541585828">䷒</a></span></span>formátovat samostatný oddíl na <b>btrfs</b> (obecně/příklad)<span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 4 (Diskové oddíly/Btrfs), sekce 3 (Zaklínadla), podsekce 1 (Formátování)"><sup>3/</sup>1 Formátování</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa48dfd5"><span><a href="#zxa48dfd5">ງ</a></span></span>formátovat samostatný oddíl na <b>btrfs</b> (obecně/příklad)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo mkfs.btrfs <span class="volznak">[</span>-f<span class="volznak">]</span> <span class="volznak">[</span>-L &quot;<i class="dopln">Jmenovka</i>&quot;<span class="volznak">]</span> <span class="volznak">[</span>-U <i class="dopln">UUID</i><span class="volznak">]</span> <i class="dopln">/dev/zařízení-nebo-oddíl</i></div>
 <div class="radekzaklinadla">sudo mkfs.btrfs -f -L &quot;Můj nový oddíl&quot; /dev/sda3</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1857613688"><span><a href="#z1857613688">┮</a></span></span>formátovat zrcadlené oddíly na <b>btrfs</b> (obecně/příklad)<span class="cislo">#2 </span><sup><a href="#kapdiskoveoddilybtrppc1" id="kapdiskoveoddilybtrppcr1" title="Poznámka: zrcadlené oddíly jsem zatím nezkoušel/a.">(1)</a>,&nbsp;<a href="#kapdiskoveoddilybtrppc2" id="kapdiskoveoddilybtrppcr2" title="Zrcadlené oddíly by měly být stejně velké a nacházet se na dvou různých fyzických úložištích. Také se doporučuje, aby obě úložiště nabízela přibližně stejnou rychlost čtení i zápisu, jinak mohou nastat problémy s výkonem. Při připojování pak stačí připojit jen jeden z oddílů a systém automaticky najde a připojí i to druhé.">(2)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf219a5e"><span><a href="#zxf219a5e">⋦</a></span></span>formátovat zrcadlené oddíly na <b>btrfs</b> (obecně/příklad)<span class="cislo">#2 </span><sup><a href="#kapx33eeefeppc2" id="kapx33eeefeppcr2" title="Poznámka: zrcadlené oddíly jsem zatím nezkoušel/a.">(2)</a>,&nbsp;<a href="#kapx33eeefeppc3" id="kapx33eeefeppcr3" title="Zrcadlené oddíly by měly být stejně velké a nacházet se na dvou různých fyzických úložištích. Také se doporučuje, aby obě úložiště nabízela přibližně stejnou rychlost čtení i zápisu, jinak mohou nastat problémy s výkonem. Při připojování pak stačí připojit jen jeden z oddílů a systém automaticky najde a připojí i to druhé.">(3)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo mkfs.btrfs -d raid1 -m raid1 <span class="volznak">[</span>-f<span class="volznak">]</span> <span class="volznak">[</span>-L &quot;<i class="dopln">Jmenovka</i>&quot;<span class="volznak">]</span> <span class="volznak">[</span>-U <i class="dopln">UUID</i><span class="volznak">]</span> <i class="dopln">/dev/zařízení-nebo-oddíl-1</i> <i class="dopln">/dev/zařízení-nebo-oddíl-2</i></div>
 <div class="radekzaklinadla">sudo mkfs.btrfs -d raid1 -m raid1 -f -L &quot;Zrcadlo&quot; /dev/sda3 /dev/sdb1</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1150280061"><span><a href="#z1150280061">♮</a></span></span>změnit velikost souborového systému typu btrfs (na udanou velikost/na celý oddíl)<span class="cislo">#3 </span><sup><a href="#kapdiskoveoddilybtrppc3" id="kapdiskoveoddilybtrppcr3" title="Souborový systém musí být připojený, aby bylo možno změnit jeho velikost!">(3)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxdf7be58"><span><a href="#zxdf7be58">⇈</a></span></span>změnit velikost souborového systému typu btrfs (na udanou velikost/na celý oddíl)<span class="cislo">#3 </span><sup><a href="#kapx33eeefeppc4" id="kapx33eeefeppcr4" title="Souborový systém musí být připojený, aby bylo možno změnit jeho velikost!">(4)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo btrfs filesystem resize <i class="dopln">cílová-velikost-P</i> <i class="dopln">/přípojný/bod</i></div>
 <div class="radekzaklinadla">sudo btrfs filesystem resize max <i class="dopln">/přípojný/bod</i></div>
 </div></div>
 
-<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 5 (Diskové oddíly/Btrfs), sekce 3 (Zaklínadla), podsekce 2 (Jmenovka (nastavit))"><sup>3/</sup>2 Jmenovka (nastavit)</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z949557704"><span><a href="#z949557704">ᔼ</a></span></span>nastavit/smazat jmenovku <b>btrfs</b><span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilybtrppc4" id="kapdiskoveoddilybtrppcr4" title="„Specifikace oddílu“ je v případě nepřipojeného oddílu „/dev/oddíl“, v případě připojeného oddílu je nutno uvést jeho přípojný bod. Příkaz selže s chybou, pokud uvedete připojený oddíl označením ve tvaru /dev/oddíl! Jmenovka může mít pravděpodobně maximálně 256 bajtů a nesmí obsahovat znak konce řádku nebo nulový bajt.">(4)</a></sup></div><div class="radky">
+<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 4 (Diskové oddíly/Btrfs), sekce 3 (Zaklínadla), podsekce 2 (Jmenovka (nastavit))"><sup>3/</sup>2 Jmenovka (nastavit)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0db7feb"><span><a href="#zx0db7feb">⍽</a></span></span>nastavit/smazat jmenovku <b>btrfs</b><span class="cislo">#1 </span><sup><a href="#kapx33eeefeppc5" id="kapx33eeefeppcr5" title="„Specifikace oddílu“ je v případě nepřipojeného oddílu „/dev/oddíl“, v případě připojeného oddílu je nutno uvést jeho přípojný bod. Příkaz selže s chybou, pokud uvedete připojený oddíl označením ve tvaru /dev/oddíl! Jmenovka může mít pravděpodobně maximálně 256 bajtů a nesmí obsahovat znak konce řádku nebo nulový bajt.">(5)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo btrfs filesystem label <i class="dopln">specifikace/oddílu</i> &quot;<i class="dopln">Nová jmenovka</i>&quot;</div>
 <div class="radekzaklinadla">sudo btrfs filesystem label <i class="dopln">specifikace/oddílu</i> &quot;&quot;</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z754367965"><span><a href="#z754367965">⣨</a></span></span>zjistit jmenovku oddílu btrfs (připojeného/nepřipojeného)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0462f83"><span><a href="#zx0462f83">╚</a></span></span>zjistit jmenovku oddílu btrfs (připojeného/nepřipojeného)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo btrfs filesystem label <i class="dopln">/přípojný/bod</i></div>
 <div class="radekzaklinadla">sudo btrfs filesystem label <i class="dopln">/dev/oddíl</i></div>
 </div></div>
 
-<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 5 (Diskové oddíly/Btrfs), sekce 3 (Zaklínadla), podsekce 3 (Degrafmentace, kontrola, TRIM apod.)"><sup>3/</sup>3 Degrafmentace, kontrola, TRIM apod.</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1016368653"><span><a href="#z1016368653">ມ</a></span></span><b>zkontrolovat</b> a opravit souborový systém<span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 4 (Diskové oddíly/Btrfs), sekce 3 (Zaklínadla), podsekce 3 (Degrafmentace, kontrola, TRIM apod.)"><sup>3/</sup>3 Degrafmentace, kontrola, TRIM apod.</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxbcf8679"><span><a href="#zxbcf8679">≑</a></span></span><b>zkontrolovat</b> a opravit souborový systém<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1611667851"><span><a href="#z1611667851">▼</a></span></span>zkontrolovat souborový systém typu btrfs<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx62397f4"><span><a href="#zx62397f4">✥</a></span></span>zkontrolovat souborový systém typu btrfs<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo btrfs check --readonly <span class="volznak">[</span>--progress<span class="volznak">]</span> <i class="dopln">/dev/oddíl</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1223207653"><span><a href="#z1223207653">╮</a></span></span>vynulovat volné bloky<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe983c8e"><span><a href="#zxe983c8e">ⵅ</a></span></span>vynulovat volné bloky<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1707564970"><span><a href="#z1707564970">⢱</a></span></span>defragmentovat oddíl typu btrfs (pozor!)<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9e5bb23"><span><a href="#zx9e5bb23">➱</a></span></span>defragmentovat oddíl typu btrfs (pozor!)<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
-<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 5 (Diskové oddíly/Btrfs), sekce 3 (Zaklínadla), podsekce 4 (Správa pododdílů)"><sup>3/</sup>4 Správa pododdílů</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z178548669"><span><a href="#z178548669">┉</a></span></span><b>vytvořit</b> pododdíl (obecně/příklad)<span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilybtrppc5" id="kapdiskoveoddilybtrppcr5" title="Příklad vytvoří poddíl reprezentováný novým adresářem „test“ v aktuálním adresáři. (Nově vytvářený adresář nesmí předem existovat!)">(5)</a></sup></div><div class="radky">
+<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 4 (Diskové oddíly/Btrfs), sekce 3 (Zaklínadla), podsekce 4 (Správa pododdílů)"><sup>3/</sup>4 Správa pododdílů</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe125863"><span><a href="#zxe125863">ᚘ</a></span></span><b>vytvořit</b> pododdíl (obecně/příklad)<span class="cislo">#1 </span><sup><a href="#kapx33eeefeppc6" id="kapx33eeefeppcr6" title="Příklad vytvoří poddíl reprezentováný novým adresářem „test“ v aktuálním adresáři. (Nově vytvářený adresář nesmí předem existovat!)">(6)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">btrfs subvolume create <i class="dopln">cesta/k/novému/adresáři</i></div>
 <div class="radekzaklinadla">btrfs subvolume create test</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1742978214"><span><a href="#z1742978214">⣐</a></span></span><b>smazat</b> pododdíl<span class="cislo">#2 </span><sup><a href="#kapdiskoveoddilybtrppc6" id="kapdiskoveoddilybtrppcr6" title="Pokud souborový systém nebyl připojen s volbou „user_subvol_rm_allowed“, smí pododdíl smazat jen superuživatel. Jinak ho smí smazat i jeho vlastník (tzn. vlastník adresáře reprezentujícího pododdíl); pokud je však oddíl neměnný, musí mu tuto vlastnost nejprve odebrat. Vlastník také může pododdíl smazat jako obyčejný adresář příkazem „rm -R“, ale ten bývá pomalejší, protože nejprve projde a smaže všechny soubory a adresáře v daném pododdílu.">(6)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx760a3c1"><span><a href="#zx760a3c1">❣</a></span></span><b>smazat</b> pododdíl<span class="cislo">#2 </span><sup><a href="#kapx33eeefeppc7" id="kapx33eeefeppcr7" title="Pokud souborový systém nebyl připojen s volbou „user_subvol_rm_allowed“, smí pododdíl smazat jen superuživatel. Jinak ho smí smazat i jeho vlastník (tzn. vlastník adresáře reprezentujícího pododdíl); pokud je však oddíl neměnný, musí mu tuto vlastnost nejprve odebrat. Vlastník také může pododdíl smazat jako obyčejný adresář příkazem „rm -R“, ale ten bývá pomalejší, protože nejprve projde a smaže všechny soubory a adresáře v daném pododdílu.">(7)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>btrfs property set <i class="dopln">cesta/k/pododdílu</i> ro false<span class="volznak">]</span></div>
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> btrfs subvolume delete -c <i class="dopln">cesta/k/pododdílu</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z858860626"><span><a href="#z858860626">≽</a></span></span>vypsat <b>seznam</b> pododdílů (s právy superuživatele/bez nich)<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2dcc4b1"><span><a href="#zx2dcc4b1">⣄</a></span></span>vypsat <b>seznam</b> pododdílů (s právy superuživatele/bez nich)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">(cd  <i class="dopln">/bod/připojení/btrfs</i>  &amp;&amp; pwd &amp;&amp; sudo btrfs subvolume list . | sed -E 's/^(\S+\s+){7}path\s/'&quot;$(pwd | sed -E 's!/!\\/!g')&quot;'\//')</div>
 <div class="radekzaklinadla">find <i class="dopln">/abs/cesta/přípojného/bodu</i> -type d -inum -257 -print</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z464132344"><span><a href="#z464132344">⬗</a></span></span>přejmenovat či <b>přesunout</b> pododdíl (kromě neměnného)<span class="cislo">#4 </span><sup><a href="#kapdiskoveoddilybtrppc7" id="kapdiskoveoddilybtrppcr7" title="Nové umístění musí být v rámci téhož souborového systému btrfs, ale může to být i v jiném obklopujícím pododdílu. Poznámka: neměnný pododdíl nelze přejmenovat či přesunout.">(7)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx37089fe"><span><a href="#zx37089fe">≲</a></span></span>přejmenovat či <b>přesunout</b> pododdíl (kromě neměnného)<span class="cislo">#4 </span><sup><a href="#kapx33eeefeppc8" id="kapx33eeefeppcr8" title="Nové umístění musí být v rámci téhož souborového systému btrfs, ale může to být i v jiném obklopujícím pododdílu. Poznámka: neměnný pododdíl nelze přejmenovat či přesunout.">(8)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">mv -T <i class="dopln">cesta/pododdílu</i> <i class="dopln">nové/umístění</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1089429374"><span><a href="#z1089429374">ᚗ</a></span></span>přejmenovat či přesunout neměnný pododdíl<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxdcce0ac"><span><a href="#zxdcce0ac">☵</a></span></span>přejmenovat či přesunout neměnný pododdíl<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">btrfs property set <i class="dopln">původní/cesta</i> ro false</div>
 <div class="radekzaklinadla">mv <span class="volznak">[</span>-v<span class="volznak">]</span> <i class="dopln">původní/cesta</i> <i class="dopln">nová/cesta</i></div>
 <div class="radekzaklinadla">(rv=$?; for x in {<i>původní/cesta</i>} {<i>nová/cesta</i>}; do btrfs property set &quot;$x&quot; ro true 2&gt;/dev/null; done; exit $rv)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona L" id="z1574283043"><span><a href="#z1574283043">⟜</a></span></span>nastavení pododdílu jako <b>neměnného</b> (vypnout/zapnout)<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6cd403c"><span><a href="#zx6cd403c">❬</a></span></span>nastavení pododdílu jako <b>neměnného</b> (vypnout/zapnout)<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">btrfs property set <i class="dopln">cesta/k/pododdílu</i> ro false</div>
 <div class="radekzaklinadla">btrfs property set <i class="dopln">cesta/k/pododdílu</i> ro true</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1463323936"><span><a href="#z1463323936">໒</a></span></span><b>je</b> adresář pododdíl btrfs?<span class="cislo">#7 </span><sup><a href="#kapdiskoveoddilybtrppc8" id="kapdiskoveoddilybtrppcr8" title="Pokud víte s jistotou, že testovaný adresář leží na oddílu typu btrfs, můžete první test vynechat.">(8)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx018c514"><span><a href="#zx018c514">★</a></span></span><b>je</b> adresář pododdíl btrfs?<span class="cislo">#7 </span><sup><a href="#kapx33eeefeppc9" id="kapx33eeefeppcr9" title="Pokud víte s jistotou, že testovaný adresář leží na oddílu typu btrfs, můžete první test vynechat.">(9)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">adr=&quot;$(realpath &quot;<i class="dopln">cesta/k/adresáři</i>&quot;)&quot;</div>
 <div class="radekzaklinadla"><span class="volznak">[</span>test &quot;$(stat -fc %T &quot;$adr&quot;)&quot; = btrfs &amp;&amp;<span class="volznak">]</span> test &quot;$(stat -c %i &quot;$adr&quot;)&quot; -le 256</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1081600638"><span><a href="#z1081600638">╂</a></span></span>je pododdíl neměnný?<span class="cislo">#8 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8da2394"><span><a href="#zx8da2394">░</a></span></span>je pododdíl neměnný?<span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla">btrfs property get <i class="dopln">cesta/k/adresáři</i> ro | fgrep -qx ro=true</div>
 </div></div>
 
-<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 5 (Diskové oddíly/Btrfs), sekce 3 (Zaklínadla), podsekce 5 (Klonování)"><sup>3/</sup>5 Klonování</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z14486060"><span><a href="#z14486060">⋗</a></span></span>vytvořit <b>klon podstromu</b> adresářů<span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilybtrppc9" id="kapdiskoveoddilybtrppcr9" title="Cíl („/cesta/pro/klon“) před vykonáním příkazu nesmí existovat. Poznámka: Naklonují se pouze soubory; adresáře se pro ně vytvoří nové, takže pokud je podstrom rozsáhlejší, bude to chvíli trvat.">(9)</a></sup></div><div class="radky">
+<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 4 (Diskové oddíly/Btrfs), sekce 3 (Zaklínadla), podsekce 5 (Klonování)"><sup>3/</sup>5 Klonování</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx11ea64b"><span><a href="#zx11ea64b">⋯</a></span></span>vytvořit <b>klon podstromu</b> adresářů<span class="cislo">#1 </span><sup><a href="#kapx33eeefeppc10" id="kapx33eeefeppcr10" title="Cíl („/cesta/pro/klon“) před vykonáním příkazu nesmí existovat. Poznámka: Naklonují se pouze soubory; adresáře se pro ně vytvoří nové, takže pokud je podstrom rozsáhlejší, bude to chvíli trvat.">(10)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>rm -Rf <i class="dopln">/cesta/pro/klon</i> &amp;&amp;<span class="volznak">]</span></div>
 <div class="radekzaklinadla">cp --reflink=always -R <span class="volznak">[</span>--preserve=all<span class="volznak">]</span> <span class="volznak">[</span>-v<span class="volznak">]</span> <i class="dopln">/cesta/k/adresáři</i> <i class="dopln">/cesta/pro/klon</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z277215900"><span><a href="#z277215900">䷌</a></span></span>vytvořit klon <b>pododdílu</b> (normální/neměnný)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx79bf15d"><span><a href="#zx79bf15d">▔</a></span></span>vytvořit klon <b>pododdílu</b> (normální/neměnný)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">btrfs subvolume snapshot <i class="dopln">cesta/k/pododdílu</i> <i class="dopln">cesta/k/novému/pododdílu</i></div>
 <div class="radekzaklinadla">btrfs subvolume snapshot -r <i class="dopln">cesta/k/pododdílu</i> <i class="dopln">cesta/k/novému/pododdílu</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1022130027"><span><a href="#z1022130027">⁕</a></span></span>vytvořit klon <b>souboru</b><span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb7df020"><span><a href="#zxb7df020">䷧</a></span></span>vytvořit klon <b>souboru</b><span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">cp --reflink=always <span class="volznak">[</span>--preserve=all<span class="volznak">]</span> <span class="volznak">[</span>-t<span class="volznak">]</span> <span class="volznak">[</span>-v<span class="volznak">]</span> <i class="dopln">/cesta/k/souboru</i> <i class="dopln">/cesta/pro/klon</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1088935058"><span><a href="#z1088935058">ᚋ</a></span></span>osamostatnit klon souboru, aby nevyužíval sdílené datové bloky<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx01817a0"><span><a href="#zx01817a0">⇶</a></span></span>osamostatnit klon souboru, aby nevyužíval sdílené datové bloky<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">btrfs filesystem defragment <span class="volznak">[</span>-v<span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/k/souboru</i><span class="tritecky"></span></div>
 </div></div>
 
-<h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 5 (Diskové oddíly/Btrfs), sekce 3 (Zaklínadla), podsekce 6 (Práce s oddíly)"><sup>3/</sup>6 Práce s oddíly</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1109562644"><span><a href="#z1109562644">⇙</a></span></span><b>přesunout</b> souborový systém z jednoho oddílu na jiný<span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilybtrppc10" id="kapdiskoveoddilybtrppcr10" title="Cílový oddíl může být menší i větší než původní, musí se však na něj vejít všechna data a metadata.">(10)</a></sup></div><div class="radky">
+<h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 4 (Diskové oddíly/Btrfs), sekce 3 (Zaklínadla), podsekce 6 (Práce s oddíly)"><sup>3/</sup>6 Práce s oddíly</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4896cd0"><span><a href="#zx4896cd0">∘</a></span></span><b>přesunout</b> souborový systém z jednoho oddílu na jiný<span class="cislo">#1 </span><sup><a href="#kapx33eeefeppc11" id="kapx33eeefeppcr11" title="Cílový oddíl může být menší i větší než původní, musí se však na něj vejít všechna data a metadata.">(11)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo bash -c '</div>
 <div class="radekzaklinadla">btrfs device add /dev/<i class="dopln">nový-oddíl</i> <i class="dopln">/přípojný/bod</i> || exit $?</div>
 <div class="radekzaklinadla">btrfs device remove /dev/<i class="dopln">původní-oddíl</i> <i class="dopln">/přípojný/bod</i> ||</div>
 <div class="radekzaklinadla">(r=$?; btrfs device remove /dev/<i class="dopln">nový-oddíl</i> <i class="dopln">/přípojný/bod</i>; exit $r)</div>
 <div class="radekzaklinadla">'</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z423068869"><span><a href="#z423068869">⚀</a></span></span><b>vytvořit</b> dva zrcadlené oddíly z jednoho samostatného<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8918e43"><span><a href="#zx8918e43">▰</a></span></span><b>vytvořit</b> dva zrcadlené oddíly z jednoho samostatného<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z153138790"><span><a href="#z153138790">⊹</a></span></span><b>osamostatnit</b> oddíl ze zrcadlené dvojice<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxcfc1024"><span><a href="#zxcfc1024">░</a></span></span><b>osamostatnit</b> oddíl ze zrcadlené dvojice<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z849138838"><span><a href="#z849138838">∽</a></span></span>vyvořit N-tici prokládaných oddílů z neprokládaného jednooddílového btrfs<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxcfce4e4"><span><a href="#zxcfce4e4">◫</a></span></span>vyvořit N-tici prokládaných oddílů z neprokládaného jednooddílového btrfs<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1540932197"><span><a href="#z1540932197">┵</a></span></span>vytvořit jednoduchý oddíl BTRFS z prokládané N-tice<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb9ba321"><span><a href="#zxb9ba321">◮</a></span></span>vytvořit jednoduchý oddíl BTRFS z prokládané N-tice<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
-<h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 5 (Diskové oddíly/Btrfs), sekce 3 (Zaklínadla), podsekce 7 (Přenos neměnných pododdílů přes soubor)"><sup>3/</sup>7 Přenos neměnných pododdílů přes soubor</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z732024504"><span><a href="#z732024504">▬</a></span></span><b>uložit</b> neměnný pododdíl do souboru<span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilybtrppc11" id="kapdiskoveoddilybtrppcr11" title="Pokud ukládáte více pododdílů, jejich reprezentující adresáře se musejí lišit jménem, a to i v případě, že leží v různých podadresářích!">(11)</a></sup></div><div class="radky">
+<h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 4 (Diskové oddíly/Btrfs), sekce 3 (Zaklínadla), podsekce 7 (Přenos neměnných pododdílů přes soubor)"><sup>3/</sup>7 Přenos neměnných pododdílů přes soubor</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxcdb3129"><span><a href="#zxcdb3129">⊇</a></span></span><b>uložit</b> neměnný pododdíl do souboru<span class="cislo">#1 </span><sup><a href="#kapx33eeefeppc12" id="kapx33eeefeppcr12" title="Pokud ukládáte více pododdílů, jejich reprezentující adresáře se musejí lišit jménem, a to i v případě, že leží v různých podadresářích!">(12)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo btrfs send -e<span class="volznak">[</span>v<span class="volznak">]</span> <i class="dopln">/cesta/k/pododdílu</i><span class="tritecky"></span> | gzip &gt;<i class="dopln">cílový/soubor.gz</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z928863895"><span><a href="#z928863895">⣵</a></span></span><b>načíst</b> neměnné oddíly ze souboru<span class="cislo">#2 </span><sup><a href="#kapdiskoveoddilybtrppc12" id="kapdiskoveoddilybtrppcr12" title="Příkaz vytvoří ve výstupním adresáři pododdíly uložené v souboru pod jejich původními názvy a na konci operace je nastaví jako neměnné.">(12)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxcb89abd"><span><a href="#zxcb89abd">⡸</a></span></span><b>načíst</b> neměnné oddíly ze souboru<span class="cislo">#2 </span><sup><a href="#kapx33eeefeppc13" id="kapx33eeefeppcr13" title="Příkaz vytvoří ve výstupním adresáři pododdíly uložené v souboru pod jejich původními názvy a na konci operace je nastaví jako neměnné.">(13)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">zcat <i class="dopln">soubor.gz</i> | sudo btrfs receive -e<span class="volznak">[</span>v<span class="volznak">]</span> <i class="dopln">výstupní/adresář</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z637962492"><span><a href="#z637962492">⁌</a></span></span>zkontrolovat v souboru uložené neměnný oddíly<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb0991e7"><span><a href="#zxb0991e7">⠌</a></span></span>zkontrolovat v souboru uložené neměnný oddíly<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">zcat <i class="dopln">soubor.gz</i> | btrfs receive --dump</div>
 </div></div>
 
-<h3 id="cast3x8"><span><a href="#cast3x8" title="kapitola 5 (Diskové oddíly/Btrfs), sekce 3 (Zaklínadla), podsekce 8 (Ostatní)"><sup>3/</sup>8 Ostatní</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1636327436"><span><a href="#z1636327436">䷑</a></span></span>vypsat podrobné údaje o obsazení souborového systému<span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast3x8"><span><a href="#cast3x8" title="kapitola 4 (Diskové oddíly/Btrfs), sekce 3 (Zaklínadla), podsekce 8 (Ostatní)"><sup>3/</sup>8 Ostatní</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd88256d"><span><a href="#zxd88256d">◆</a></span></span>vypsat podrobné údaje o obsazení souborového systému<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> btrfs filesystem usage <i class="dopln">/přípojný/bod/btrfs</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1574818984"><span><a href="#z1574818984">⦃</a></span></span>ověřit kontrolní součty všech souborů<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8b1d23a"><span><a href="#zx8b1d23a">ƿ</a></span></span>ověřit kontrolní součty všech souborů<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo btrfs scrub start -B -d -r <i class="dopln">/přípojný/bod/btrfs</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1960128215"><span><a href="#z1960128215">╠</a></span></span>ověřit kontrolní součty některých souborů<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2156682"><span><a href="#zx2156682">ꜛ</a></span></span>ověřit kontrolní součty některých souborů<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z482344338"><span><a href="#z482344338">⊎</a></span></span>defragmentovat pododdíl<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd39243c"><span><a href="#zxd39243c">♥</a></span></span>defragmentovat pododdíl<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo btrfs filesystem defragment -r <i class="dopln">cesta/pododdílu</i></div>
 </div></div>
 
-<h3 id="cast3x9"><span><a href="#cast3x9" title="kapitola 5 (Diskové oddíly/Btrfs), sekce 3 (Zaklínadla), podsekce 9 (Přenos rozdílu klonů)"><sup>3/</sup>9 Přenos rozdílu klonů</a></span></h3>
+<h3 id="cast3x9"><span><a href="#cast3x9" title="kapitola 4 (Diskové oddíly/Btrfs), sekce 3 (Zaklínadla), podsekce 9 (Přenos rozdílu klonů)"><sup>3/</sup>9 Přenos rozdílu klonů</a></span></h3>
 <p class="ponadpisu">
 Pozor! Tyto operace slouží k přenosu změn z jednoho oddílu btrfs na jiný (obvykle na jiném počítači)
 a mají poměrně tvrdé požadavky na to, co musejí klony na jednom i druhém počítači splňovat.
 Před jejich použitím si musíte přečíst manuálové stránky vyvolané příkazem
 „man 8 btrfs-send btrfs-receive“.
 </p>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z486939737"><span><a href="#z486939737">❏</a></span></span>uložit do souboru rozdíl<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5bd0839"><span><a href="#zx5bd0839">♌</a></span></span>uložit do souboru rozdíl<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo btrfs send -e<span class="volznak">[</span>v<span class="volznak">]</span> -c <i class="dopln">/cesta/k/původnímu-klonu</i> <i class="dopln">/cesta/k/novému/klonu</i> | gzip &gt;<i class="dopln">cílový/soubor.gz</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1308902639"><span><a href="#z1308902639">↝</a></span></span>aplikovat rozdíl<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona L" id="zx3e7f30d"><span><a href="#zx3e7f30d">⨆</a></span></span>aplikovat rozdíl<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">zcat <i class="dopln">soubor.gz</i> | sudo btrfs receive -e<span class="volznak">[</span>v<span class="volznak">]</span> <i class="dopln">výstupní/adresář</i></div>
 </div></div>
 
@@ -260,29 +268,41 @@ Pro podporu Btrfs je nutno doinstalovat:
 </li><li><a href="https://btrfs.wiki.kernel.org/index.php/Main_Page">Kernel Btrfs Wiki</a> (anglicky)
 </li><li><a href="https://wiki.archlinux.org/index.php/Btrfs">Arch Wiki: Btrfs</a> (anglicky)
 </li><li><a href="http://manpages.ubuntu.com/manpages/focal/en/man8/btrfs-scrub.8.html">man 8 btrfs-scrub</a> (anglicky)
-</li></ul><div class="ppc"><div id="kapdiskoveoddilybtrppc1"><a href="#kapdiskoveoddilybtrppcr1" class="cislopozn">1</a>&nbsp;Poznámka: zrcadlené oddíly jsem zatím nezkoušel/a.</div>
+</li></ul>
+<h2 id="cast8"><a href="#cast8"><span class="cislo">8.</span> Zákulisí kapitoly</a></h2>
+<p class="ponadpisu">
+V této verzi kapitoly chybí:
+</p>
+<ul class="kompaktni"><li>nic
+</li></ul><p class="ponadpisu">
+Tato kapitola záměrně nepokrývá:
+</p>
+<ul class="kompaktni"><li>nic
+</li></ul><div class="ppc"><div id="kapx33eeefeppc1"><a href="#kapx33eeefeppcr1" class="cislopozn">1</a>&nbsp;Cíl („/cesta/pro/klon“) před vykonáním příkazu nesmí existovat. Poznámka: Naklonují se pouze soubory; adresáře se pro ně vytvoří nové, takže pokud je podstrom rozsáhlejší, bude to chvíli trvat.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilybtrppc2"><a href="#kapdiskoveoddilybtrppcr2" class="cislopozn">2</a>&nbsp;Zrcadlené oddíly by měly být stejně velké a nacházet se na dvou různých fyzických úložištích. Také se doporučuje, aby obě úložiště nabízela přibližně stejnou rychlost čtení i zápisu, jinak mohou nastat problémy s výkonem. Při připojování pak stačí připojit jen jeden z oddílů a systém automaticky najde a připojí i to druhé.</div>
+<div id="kapx33eeefeppc2"><a href="#kapx33eeefeppcr2" class="cislopozn">2</a>&nbsp;Poznámka: zrcadlené oddíly jsem zatím nezkoušel/a.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilybtrppc3"><a href="#kapdiskoveoddilybtrppcr3" class="cislopozn">3</a>&nbsp;Souborový systém musí být připojený, aby bylo možno změnit jeho velikost!</div>
+<div id="kapx33eeefeppc3"><a href="#kapx33eeefeppcr3" class="cislopozn">3</a>&nbsp;Zrcadlené oddíly by měly být stejně velké a nacházet se na dvou různých fyzických úložištích. Také se doporučuje, aby obě úložiště nabízela přibližně stejnou rychlost čtení i zápisu, jinak mohou nastat problémy s výkonem. Při připojování pak stačí připojit jen jeden z oddílů a systém automaticky najde a připojí i to druhé.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilybtrppc4"><a href="#kapdiskoveoddilybtrppcr4" class="cislopozn">4</a>&nbsp;„Specifikace oddílu“ je v případě nepřipojeného oddílu „/dev/oddíl“, v případě připojeného oddílu je nutno uvést jeho přípojný bod. Příkaz selže s chybou, pokud uvedete připojený oddíl označením ve tvaru /dev/oddíl! Jmenovka může mít pravděpodobně maximálně 256 bajtů a nesmí obsahovat znak konce řádku nebo nulový bajt.</div>
+<div id="kapx33eeefeppc4"><a href="#kapx33eeefeppcr4" class="cislopozn">4</a>&nbsp;Souborový systém musí být připojený, aby bylo možno změnit jeho velikost!</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilybtrppc5"><a href="#kapdiskoveoddilybtrppcr5" class="cislopozn">5</a>&nbsp;Příklad vytvoří poddíl reprezentováný novým adresářem „test“ v aktuálním adresáři. (Nově vytvářený adresář nesmí předem existovat!)</div>
+<div id="kapx33eeefeppc5"><a href="#kapx33eeefeppcr5" class="cislopozn">5</a>&nbsp;„Specifikace oddílu“ je v případě nepřipojeného oddílu „/dev/oddíl“, v případě připojeného oddílu je nutno uvést jeho přípojný bod. Příkaz selže s chybou, pokud uvedete připojený oddíl označením ve tvaru /dev/oddíl! Jmenovka může mít pravděpodobně maximálně 256 bajtů a nesmí obsahovat znak konce řádku nebo nulový bajt.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilybtrppc6"><a href="#kapdiskoveoddilybtrppcr6" class="cislopozn">6</a>&nbsp;Pokud souborový systém nebyl připojen s volbou „user_subvol_rm_allowed“, smí pododdíl smazat jen superuživatel. Jinak ho smí smazat i jeho vlastník (tzn. vlastník adresáře reprezentujícího pododdíl); pokud je však oddíl neměnný, musí mu tuto vlastnost nejprve odebrat. Vlastník také může pododdíl smazat jako obyčejný adresář příkazem „rm -R“, ale ten bývá pomalejší, protože nejprve projde a smaže všechny soubory a adresáře v daném pododdílu.</div>
+<div id="kapx33eeefeppc6"><a href="#kapx33eeefeppcr6" class="cislopozn">6</a>&nbsp;Příklad vytvoří poddíl reprezentováný novým adresářem „test“ v aktuálním adresáři. (Nově vytvářený adresář nesmí předem existovat!)</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilybtrppc7"><a href="#kapdiskoveoddilybtrppcr7" class="cislopozn">7</a>&nbsp;Nové umístění musí být v rámci téhož souborového systému btrfs, ale může to být i v jiném obklopujícím pododdílu. Poznámka: neměnný pododdíl nelze přejmenovat či přesunout.</div>
+<div id="kapx33eeefeppc7"><a href="#kapx33eeefeppcr7" class="cislopozn">7</a>&nbsp;Pokud souborový systém nebyl připojen s volbou „user_subvol_rm_allowed“, smí pododdíl smazat jen superuživatel. Jinak ho smí smazat i jeho vlastník (tzn. vlastník adresáře reprezentujícího pododdíl); pokud je však oddíl neměnný, musí mu tuto vlastnost nejprve odebrat. Vlastník také může pododdíl smazat jako obyčejný adresář příkazem „rm -R“, ale ten bývá pomalejší, protože nejprve projde a smaže všechny soubory a adresáře v daném pododdílu.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilybtrppc8"><a href="#kapdiskoveoddilybtrppcr8" class="cislopozn">8</a>&nbsp;Pokud víte s jistotou, že testovaný adresář leží na oddílu typu btrfs, můžete první test vynechat.</div>
+<div id="kapx33eeefeppc8"><a href="#kapx33eeefeppcr8" class="cislopozn">8</a>&nbsp;Nové umístění musí být v rámci téhož souborového systému btrfs, ale může to být i v jiném obklopujícím pododdílu. Poznámka: neměnný pododdíl nelze přejmenovat či přesunout.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilybtrppc9"><a href="#kapdiskoveoddilybtrppcr9" class="cislopozn">9</a>&nbsp;Cíl („/cesta/pro/klon“) před vykonáním příkazu nesmí existovat. Poznámka: Naklonují se pouze soubory; adresáře se pro ně vytvoří nové, takže pokud je podstrom rozsáhlejší, bude to chvíli trvat.</div>
+<div id="kapx33eeefeppc9"><a href="#kapx33eeefeppcr9" class="cislopozn">9</a>&nbsp;Pokud víte s jistotou, že testovaný adresář leží na oddílu typu btrfs, můžete první test vynechat.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilybtrppc10"><a href="#kapdiskoveoddilybtrppcr10" class="cislopozn">10</a>&nbsp;Cílový oddíl může být menší i větší než původní, musí se však na něj vejít všechna data a metadata.</div>
+<div id="kapx33eeefeppc10"><a href="#kapx33eeefeppcr10" class="cislopozn">10</a>&nbsp;Cíl („/cesta/pro/klon“) před vykonáním příkazu nesmí existovat. Poznámka: Naklonují se pouze soubory; adresáře se pro ně vytvoří nové, takže pokud je podstrom rozsáhlejší, bude to chvíli trvat.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilybtrppc11"><a href="#kapdiskoveoddilybtrppcr11" class="cislopozn">11</a>&nbsp;Pokud ukládáte více pododdílů, jejich reprezentující adresáře se musejí lišit jménem, a to i v případě, že leží v různých podadresářích!</div>
+<div id="kapx33eeefeppc11"><a href="#kapx33eeefeppcr11" class="cislopozn">11</a>&nbsp;Cílový oddíl může být menší i větší než původní, musí se však na něj vejít všechna data a metadata.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilybtrppc12"><a href="#kapdiskoveoddilybtrppcr12" class="cislopozn">12</a>&nbsp;Příkaz vytvoří ve výstupním adresáři pododdíly uložené v souboru pod jejich původními názvy a na konci operace je nastaví jako neměnné.</div>
+<div id="kapx33eeefeppc12"><a href="#kapx33eeefeppcr12" class="cislopozn">12</a>&nbsp;Pokud ukládáte více pododdílů, jejich reprezentující adresáře se musejí lišit jménem, a to i v případě, že leží v různých podadresářích!</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx33eeefeppc13"><a href="#kapx33eeefeppcr13" class="cislopozn">13</a>&nbsp;Příkaz vytvoří ve výstupním adresáři pododdíly uložené v souboru pod jejich původními názvy a na konci operace je nastaví jako neměnné.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 </div>
 
@@ -297,7 +317,7 @@ Pro podporu Btrfs je nutno doinstalovat:
 </nav>
 
 
-<div class="odkazydole"><div><a href="git.htm"><img src="obrazky/ik/git.png" alt="" width="32" height="32">Git</a><a href="diskove-oddily-lvm.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly / LVM</a><a href="diskove-oddily-softwarovy-raid.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly / Softwarový RAID</a></div></div>
+<div class="odkazydole"><div><a href="sprava-uzivatelskych-uctu.htm"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="" width="32" height="32">Správa uživatelských účtů</a><a href="git.htm"><img src="obrazky/ik/git.png" alt="" width="32" height="32">Git</a><a href="prace-s-archivy.htm"><img src="obrazky/ik/prace-s-archivy.png" alt="" width="32" height="32">Práce s archivy</a></div></div>
 <div class="reklamnipata">Líbí se vám tento projekt a chcete, aby byl ještě lepší? Můžete mi s tím pomoci. Zmiňte se o něm technicky zdatným přátelům, opravte překlepy a nahlašte nefunkční zaklínadla, aby mohla být opravena; poskytněte mi zpětnou vazbu nebo se zapojte do vývoje nových kapitol. Další informace na GitHubu v dokumentu <a href="https://github.com/singularis-mzf/linux-spellbook/blob/v%C3%BDvojov%C3%A1/JAK-SE-ZAPOJIT.md">Jak se zapojit</a>.</div>
 
 </article>
@@ -331,14 +351,15 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <a href="#cast3x3" class="podsekce">/3 Degrafmentace, kontrola, TRIM apod.</a>
 <a href="#cast3x4" class="podsekce">/4 Správa pododdílů</a>
 <a href="#cast3x5" class="podsekce">/5 Klonování</a>
-<a href="#cast3x6" class="podsekce">/6 Práce s oddíly</a>
+<a href="#cast3x6" class="podsekce">/6 Práce s oddíly</a>
 <a href="#cast3x7" class="podsekce">/7 Přenos neměnných pododdílů přes soubor</a>
 <a href="#cast3x8" class="podsekce">/8 Ostatní</a>
 <a href="#cast3x9" class="podsekce">/9 Přenos rozdílu klonů</a>
 <a href="#cast4" class="sekce">4 Nejdůležitější volby připojení (Btrfs)</a>
 <a href="#cast5" class="sekce">5 Instalace na Ubuntu</a>
-<a href="#cast6" class="sekce">6 Tipy a zkušenosti</a>
+<a href="#cast6" class="sekce">6 Tipy a zkušenosti</a>
 <a href="#cast7" class="sekce">7 Další zdroje informací</a>
+<a href="#cast8" class="sekce">8 Zákulisí kapitoly</a>
 </div></div>
 <a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
 </aside>
@@ -351,19 +372,20 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/diskove-oddily.png" alt="[]"></span><span class="fragodkazy"><a href="diskove-oddily.htm" class="odkaz"><span><span class="cislo">3</span>Diskové oddíly</span></a><span class="podkpodkazy"><a href="diskove-oddily-btrfs.htm" class="odkaz"><span><span class="cislo">4</span>Btrfs</span></a><a href="diskove-oddily-lvm.htm" class="odkaz"><span><span class="cislo">5</span>LVM</span></a><a href="diskove-oddily-softwarovy-raid.htm" class="odkaz"><span><span class="cislo">6</span>Softwarový RAID</span></a></span></span></div>
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/git.png" alt="[]"></span><span class="fragodkazy"><a href="git.htm" class="odkaz"><span><span class="cislo">7</span>Git</span></a></span></div>
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/hledani-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="hledani-souboru.htm" class="odkaz"><span><span class="cislo">8</span>Hledání souborů</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/nabidka-aplikaci.png" alt="[]"></span><span class="fragodkazy"><a href="nabidka-aplikaci.htm" class="odkaz"><span><span class="cislo">9</span>Nabídka aplikací</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/odkazy.png" alt="[]"></span><span class="fragodkazy"><a href="odkazy.htm" class="odkaz"><span><span class="cislo">10</span>Pevné a symbolické odkazy</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-zaklady.png" alt="[]"></span><span class="fragodkazy"><a href="perl-zaklady.htm" class="odkaz"><span><span class="cislo">11</span>Perl: základy</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="fragodkazy"><a href="prace-s-archivy.htm" class="odkaz"><span><span class="cislo">12</span>Práce s archivy</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="fragodkazy"><a href="regularni-vyrazy.htm" class="odkaz"><span><span class="cislo">13</span>Regulární výrazy</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-balicku.htm" class="odkaz"><span><span class="cislo">14</span>Správa balíčků</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-uzivatelskych-uctu.htm" class="odkaz"><span><span class="cislo">15</span>Správa uživatelských účtů</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="fragodkazy"><a href="system.htm" class="odkaz"><span><span class="cislo">16</span>Systém</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-textovych-souboru.htm" class="odkaz"><span><span class="cislo">17</span>Zpracování textových souborů</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-videa-a-zvuku.htm" class="odkaz"><span><span class="cislo">18</span>Zpracování videa a zvuku</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="fragodkazy"><a href="koncepce-projektu.htm" class="odkaz"><span><span class="cislo">19</span>Koncepce projektu Linux: Kniha kouzel</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/plan-vyvoje.png" alt="[]"></span><span class="fragodkazy"><a href="plan-vyvoje.htm" class="odkaz"><span><span class="cislo">20</span>Plán budoucího vývoje</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="fragodkazy"><a href="licence.htm" class="odkaz"><span><span class="cislo">21</span>Licence</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/metaprikazy.png" alt="[]"></span><span class="fragodkazy"><a href="metaprikazy.htm" class="odkaz"><span><span class="cislo">9</span>Metapříkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/nabidka-aplikaci.png" alt="[]"></span><span class="fragodkazy"><a href="nabidka-aplikaci.htm" class="odkaz"><span><span class="cislo">10</span>Nabídka aplikací</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/odkazy.png" alt="[]"></span><span class="fragodkazy"><a href="odkazy.htm" class="odkaz"><span><span class="cislo">11</span>Pevné a symbolické odkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-zaklady.png" alt="[]"></span><span class="fragodkazy"><a href="perl-zaklady.htm" class="odkaz"><span><span class="cislo">12</span>Perl: základy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="fragodkazy"><a href="prace-s-archivy.htm" class="odkaz"><span><span class="cislo">13</span>Práce s archivy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="fragodkazy"><a href="regularni-vyrazy.htm" class="odkaz"><span><span class="cislo">14</span>Regulární výrazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-balicku.htm" class="odkaz"><span><span class="cislo">15</span>Správa balíčků</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-uzivatelskych-uctu.htm" class="odkaz"><span><span class="cislo">16</span>Správa uživatelských účtů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="fragodkazy"><a href="system.htm" class="odkaz"><span><span class="cislo">17</span>Systém</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-textovych-souboru.htm" class="odkaz"><span><span class="cislo">18</span>Zpracování textových souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-videa-a-zvuku.htm" class="odkaz"><span><span class="cislo">19</span>Zpracování videa a zvuku</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="fragodkazy"><a href="koncepce-projektu.htm" class="odkaz"><span><span class="cislo">20</span>Koncepce projektu Linux: Kniha kouzel</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/plan-vyvoje.png" alt="[]"></span><span class="fragodkazy"><a href="plan-vyvoje.htm" class="odkaz"><span><span class="cislo">21</span>Plán budoucího vývoje</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="fragodkazy"><a href="licence.htm" class="odkaz"><span><span class="cislo">22</span>Licence</span></a></span></div>
 <div class="premiove"><strong>Prémiové kapitoly:</strong>
 <div>AWK</div>
 <div>Datum, čas a kalendář</div>
@@ -388,35 +410,35 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <a href="#menustitky" id="menustitky"><span class="prvnipismeno">Š</span>títky</a>
 <aside class="menustitky">
 <div><div class="nadpis">Štítky</div><div class="polozky">
-<a href="x-stitky.htm#sadresare">adresáře&nbsp;&nbsp;(2)</a>
-<a href="x-stitky.htm#saplikace">aplikace&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sapt">apt&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sbash">bash&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sdemoni">démoni&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sflatpak">Flatpak&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sgui">GUI&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#shledani">hledání&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sklavesnice">klávesnice&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#skomprese">komprese&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#slvm">LVM&nbsp;&nbsp;(2)</a>
-<a href="x-stitky.htm#sodkladaciprostor">odkládací prostor&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sperl">Perl&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sprogram">program&nbsp;&nbsp;(2)</a>
-<a href="x-stitky.htm#sprogramovani">programování&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#spristupovaprava">přístupová práva&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sraid">RAID&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sramdisk">ramdisk&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#ssnap">Snap&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#ssoubory">soubory&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sspravaverzi">správa verzí&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#ssyntaxe">syntaxe&nbsp;&nbsp;(3)</a>
-<a href="x-stitky.htm#ssystem">systém&nbsp;&nbsp;(7)</a>
-<a href="x-stitky.htm#ssystemsouboru">systém souborů&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#stematickyokruh">tematický okruh&nbsp;&nbsp;(13)</a>
-<a href="x-stitky.htm#svideo">video&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#szip">zip&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#szpracovanitextu">zpracování textu&nbsp;&nbsp;(3)</a>
-<a href="x-stitky.htm#szvuk">zvuk&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5208bbb">adresáře&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#xb0a5782">aplikace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x583f72a">apt&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xd574d4b">bash&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#xcd6caf8">démoni&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xb05338c">Flatpak&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x1e3042b">GUI&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x4e36c04">hledání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c8789a">klávesnice&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa473827">komprese&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x79108ba">LVM&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x2d47ed4">odkládací prostor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x0114ad0">Perl&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa9c449d">program&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#xc65388d">programování&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x43a526a">přístupová práva&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xcf91513">RAID&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5c5f44a">ramdisk&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9ad09a9">Snap&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x23be896">soubory&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x12e55d8">správa verzí&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9dcbb0b">syntaxe&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#xba98a3b">systém&nbsp;&nbsp;(7)</a>
+<a href="x-stitky.htm#x3972255">systém souborů&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c01147">tematický okruh&nbsp;&nbsp;(14)</a>
+<a href="x-stitky.htm#x421b47f">video&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xadcdbd7">zip&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x908961b">zpracování textu&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#x04b5cff">zvuk&nbsp;&nbsp;(1)</a>
 </div></div>
 <a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
 </aside>

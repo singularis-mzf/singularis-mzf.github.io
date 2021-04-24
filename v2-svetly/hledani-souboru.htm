@@ -5,16 +5,13 @@
 
 <title>Hledání souborů − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20210326.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210326-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210326-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210326-svetly.css" title="Světlý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20210424.css">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body>
 <div id="nahore"><div id="okno">
 <header>
-<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.6, N. N. (26. března 2021)</span>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.7, O. O. (24. dubna 2021)</span>
 <span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -24,7 +21,7 @@
 <a href="#menunapoveda" class="menu"><span class="prvnipismeno">N</span>ápověda</a>
 <a href="git.htm" rel="prev" title="7. Git" accesskey="p" class="predchozi">Předchozí&nbsp;kapitola</a>
 <a href="index.htm" class="prehled"><span class="prvnipismeno">P</span>řehled kapitol</a>
-<a href="nabidka-aplikaci.htm" rel="next" title="9. Nabídka aplikací" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
+<a href="metaprikazy.htm" rel="next" title="9. Metapříkazy" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
 </nav>
 
 <div class="slogan-veskera-moc">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
@@ -35,7 +32,7 @@
 <span class="prev">
 <a href="git.htm" rel="prev" title="7. Git" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!- -
-- ->&nbsp;| <a href="nabidka-aplikaci.htm" rel="next" title="9. Nabídka aplikací" accesskey="n">Následující&nbsp;kapitola</a>
+- ->&nbsp;| <a href="metaprikazy.htm" rel="next" title="9. Metapříkazy" accesskey="n">Následující&nbsp;kapitola</a>
 </span>
 </nav>
 -->
@@ -44,10 +41,18 @@
 <article>
 
 <h1 class="kapitola">8. <img src="obrazky/ik/hledani-souboru.png" alt="" width="64" height="64"> Hledání souborů</h1>
-<div class="stitky"><a href="x-stitky.htm#sadresare">adresáře</a>
-<a href="x-stitky.htm#shledani">hledání</a>
-<a href="x-stitky.htm#stematickyokruh">tematický okruh</a>
-</div>
+<div class="stitky"><a href="x-stitky.htm#">adresáře</a>
+<a href="x-stitky.htm#">hledání</a>
+<a href="x-stitky.htm#">tematický okruh</a>
+</div><div class="zaklinadlo"><div class="zahlavi"><span class="ikona D"><span><a href="#zx48fa601">⨏</a></span></span>neplatné symbolické odkazy<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">-type l -xtype l</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D"><span><a href="#zx071b53d">♰</a></span></span>název položky/cesta položky/cesta položky bez výchozího bodu<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">%f<span class="prikladhodnoty">⊨ test.txt</span></div>
+<div class="radekzaklinadla">%p<span class="prikladhodnoty">⊨ ./testdir/test.txt</span></div>
+<div class="radekzaklinadla">%P<span class="prikladhodnoty">⊨ testdir/test.txt</span></div>
+</div></div>
+
 <h2 id="cast1"><a href="#cast1"><span class="cislo">1.</span> Úvod</a></h2>
 <p class="ponadpisu">
 Tato kapitola se zabývá vyhledáváním adresářových položek (souborů a adresářů).
@@ -67,400 +72,399 @@ GNU Findutils, jejichž součástí je příkaz „find“, jsou vyvíjeny v r�
 </li></ul>
 <h2 id="cast3" class="zaklinadla"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla: find: testy</a></h2>
 
-<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 9 (Hledání souborů), sekce 3 (Zaklínadla: find: testy), podsekce 1 (Typ adresářové položky (soubor, adresář, odkaz...))"><sup>3/</sup>1 Typ adresářové položky (soubor, adresář, odkaz...)</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1034700401"><span><a href="#z1034700401">ˑ</a></span></span>obyčejný soubor<span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 8 (Hledání souborů), sekce 3 (Zaklínadla: find: testy), podsekce 1 (Typ adresářové položky (soubor, adresář, odkaz...))"><sup>3/</sup>1 Typ adresářové položky (soubor, adresář, odkaz...)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfe8b8e5"><span><a href="#zxfe8b8e5">↫</a></span></span>obyčejný soubor<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">-type f</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z110250217"><span><a href="#z110250217">▼</a></span></span>adresář<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx76a79ca"><span><a href="#zx76a79ca">⇌</a></span></span>adresář<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">-type d</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z323034790"><span><a href="#z323034790">˦</a></span></span>symbolický odkaz (jakýkoliv/na soubor/na adresář/absolutní/relativní)<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx70acf19"><span><a href="#zx70acf19">⟠</a></span></span>symbolický odkaz (jakýkoliv/na soubor/na adresář/absolutní/relativní)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">-type l</div>
 <div class="radekzaklinadla">-type l -xtype f</div>
 <div class="radekzaklinadla">-type l -xtype d</div>
 <div class="radekzaklinadla">-lname &quot;/*&quot;</div>
 <div class="radekzaklinadla">-type l !<span class="viditelnamezera">&nbsp;</span>-lname &quot;/*&quot;</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1777551310"><span><a href="#z1777551310">ˑ</a></span></span>speciální zařízení (blokové/znakové/jakékoliv)<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxff21dd6"><span><a href="#zxff21dd6">↶</a></span></span>speciální zařízení (blokové/znakové/jakékoliv)<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">-type b</div>
 <div class="radekzaklinadla">-type c</div>
 <div class="radekzaklinadla">-type b,c</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z164574482"><span><a href="#z164574482">♼</a></span></span>pojmenovaná roura<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxdb212a2"><span><a href="#zxdb212a2">⣳</a></span></span>pojmenovaná roura<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">-type p</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z635732358"><span><a href="#z635732358">⇾</a></span></span>soket<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe03dff2"><span><a href="#zxe03dff2">▅</a></span></span>soket<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">-type s</div>
 </div></div>
 
-<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 9 (Hledání souborů), sekce 3 (Zaklínadla: find: testy), podsekce 2 (Název položky a cesta)"><sup>3/</sup>2 Název položky a cesta</a></span></h3>
+<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 8 (Hledání souborů), sekce 3 (Zaklínadla: find: testy), podsekce 2 (Název položky a cesta)"><sup>3/</sup>2 Název položky a cesta</a></span></h3>
 <p class="ponadpisu">
 Poznámka: Písmeno „i“ v následujících parametrech vypne rozlišování mezi velkými a malými písmeny.
 </p>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1806324430"><span><a href="#z1806324430">ꓺ</a></span></span><b>název</b> položky<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx31ca451"><span><a href="#zx31ca451">☲</a></span></span><b>název</b> položky<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">-<span class="volznak">[</span>i<span class="volznak">]</span>name &quot;<i class="dopln">vzorek</i>&quot;</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1839082627"><span><a href="#z1839082627">⡹</a></span></span><b>cesta</b> položky<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1c13947"><span><a href="#zx1c13947">⬈</a></span></span><b>cesta</b> položky<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">-<span class="volznak">[</span>i<span class="volznak">]</span>path &quot;<i class="dopln">vzorek</i>&quot;</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1240679779"><span><a href="#z1240679779">⋼</a></span></span>cesta položky se shoduje s <b>regulárním výrazem</b><span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa0d7546"><span><a href="#zxa0d7546">˥</a></span></span>cesta položky se shoduje s <b>regulárním výrazem</b><span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>-regextype posix-extended<span class="volznak">]</span> -<span class="volznak">[</span>i<span class="volznak">]</span>regex '<i class="dopln">regulární výraz</i>'</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1692197575"><span><a href="#z1692197575">▪</a></span></span><b>vyloučit</b> z prohledávání podadresáře, jejichž cesta položky se shoduje s regulárním výrazem/odpovídá mu<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa5eabd5"><span><a href="#zxa5eabd5">▰</a></span></span><b>vyloučit</b> z prohledávání podadresáře, jejichž cesta položky se shoduje s regulárním výrazem/odpovídá mu<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">\( <span class="volznak">[</span>-regextype posix-extended<span class="volznak">]</span> ! -<span class="volznak">[</span>i<span class="volznak">]</span>regex '<i class="dopln">regulární výraz</i>' -o -prune -false \) <i class="dopln">zbytek testů</i></div>
 <div class="radekzaklinadla">\( -regextype posix-extended ! -<span class="volznak">[</span>i<span class="volznak">]</span>regex '.*(<i class="dopln">regulární výraz</i>).*' -o -prune -false \) <i class="dopln">zbytek testů</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z238972950"><span><a href="#z238972950">≒</a></span></span>hodnota symbolického odkazu<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx091df33"><span><a href="#zx091df33">⌏</a></span></span>hodnota symbolického odkazu<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">-<span class="volznak">[</span>i<span class="volznak">]</span>lname &quot;<i class="dopln">vzorek</i>&quot;</div>
 </div></div>
 
-<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 9 (Hledání souborů), sekce 3 (Zaklínadla: find: testy), podsekce 3 (Velikost souboru)"><sup>3/</sup>3 Velikost souboru</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1091323807"><span><a href="#z1091323807">꓾</a></span></span><b>M až N</b> gibibajtů/mebibajtů/kibibajtů/bajtů<span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 8 (Hledání souborů), sekce 3 (Zaklínadla: find: testy), podsekce 3 (Velikost souboru)"><sup>3/</sup>3 Velikost souboru</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7e09268"><span><a href="#zx7e09268">➴</a></span></span><b>M až N</b> gibibajtů/mebibajtů/kibibajtů/bajtů<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">-size +$((<i class="dopln">M</i>*2**30-1))c -size -$((<i class="dopln">N</i>*2**30+1))c</div>
 <div class="radekzaklinadla">-size +$((<i class="dopln">M</i>*2**20-1))c -size -$((<i class="dopln">N</i>*2**20+1))c</div>
 <div class="radekzaklinadla">-size +$((<i class="dopln">M</i>*2**10-1))c -size -$((<i class="dopln">N</i>*2**10+1))c</div>
 <div class="radekzaklinadla">-size +$((<i class="dopln">M</i>-1))c -size -$((<i class="dopln">N</i>+1))c</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2122944857"><span><a href="#z2122944857">ⵆ</a></span></span><b>M až N</b> gigabajtů/megabajtů/kilobajtů/bajtů<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc2101b3"><span><a href="#zxc2101b3">➦</a></span></span><b>M až N</b> gigabajtů/megabajtů/kilobajtů/bajtů<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">-size +$((<i class="dopln">M</i>*10**9-1))c -size -$((<i class="dopln">N</i>*10**9+1))c</div>
 <div class="radekzaklinadla">-size +$((<i class="dopln">M</i>*10**6-1))c -size -$((<i class="dopln">N</i>*10**6+1))c</div>
 <div class="radekzaklinadla">-size +$((<i class="dopln">M</i>*10**3-1))c -size -$((<i class="dopln">N</i>*10**3+1))c</div>
 <div class="radekzaklinadla">-size +$((<i class="dopln">M</i>-1))c -size -$((<i class="dopln">N</i>+1))c</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1077224605"><span><a href="#z1077224605">◒</a></span></span><b>minimálně</b> N gibibajtů/mebibajtů/kibibajtů/bajtů<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx08d20b5"><span><a href="#zx08d20b5">⊳</a></span></span><b>minimálně</b> N gibibajtů/mebibajtů/kibibajtů/bajtů<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">-size +$((<i class="dopln">N</i>*2**30-1))c</div>
 <div class="radekzaklinadla">-size +$((<i class="dopln">N</i>*2**20-1))c</div>
 <div class="radekzaklinadla">-size +$((<i class="dopln">N</i>*2**10-1))c</div>
 <div class="radekzaklinadla">-size +$((<i class="dopln">N</i>-1))c</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z830644155"><span><a href="#z830644155">❳</a></span></span><b>maximálně</b> N gibibajtů/mebibajtů/kibibajtů/bajtů<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx57d800e"><span><a href="#zx57d800e">⪰</a></span></span><b>maximálně</b> N gibibajtů/mebibajtů/kibibajtů/bajtů<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">-size -$((<i class="dopln">N</i>*2**30+1))c</div>
 <div class="radekzaklinadla">-size -$((<i class="dopln">N</i>*2**20+1))c</div>
 <div class="radekzaklinadla">-size -$((<i class="dopln">N</i>*2**10+1))c</div>
 <div class="radekzaklinadla">-size -$((<i class="dopln">N</i>+1))c</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z623283895"><span><a href="#z623283895">䷇</a></span></span><b>minimálně</b> N gigabajtů/megabajtů/kilobajtů<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7c21d68"><span><a href="#zx7c21d68">⬉</a></span></span><b>minimálně</b> N gigabajtů/megabajtů/kilobajtů<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">-size +$((<i class="dopln">N</i>*10**9-1))c</div>
 <div class="radekzaklinadla">-size +$((<i class="dopln">N</i>*10**6-1))c</div>
 <div class="radekzaklinadla">-size +$((<i class="dopln">N</i>*10**3-1))c</div>
 <div class="radekzaklinadla">-size +$((<i class="dopln">N</i>-1))c</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z18401705"><span><a href="#z18401705">⋌</a></span></span><b>maximálně</b> N gigabajtů/megabajtů/kilobajtů<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe6f4926"><span><a href="#zxe6f4926">⟺</a></span></span><b>maximálně</b> N gigabajtů/megabajtů/kilobajtů<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">-size -$((<i class="dopln">N</i>*10**9+1))c</div>
 <div class="radekzaklinadla">-size -$((<i class="dopln">N</i>*10**6+1))c</div>
 <div class="radekzaklinadla">-size -$((<i class="dopln">N</i>*10**3+1))c</div>
 <div class="radekzaklinadla">-size -$((<i class="dopln">N</i>+1))c</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1060575333"><span><a href="#z1060575333">⪞</a></span></span><b>přesně</b> N gibibajtů/mebibajtů/kibibajtů/bajtů<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxbdc6ec7"><span><a href="#zxbdc6ec7">◲</a></span></span><b>přesně</b> N gibibajtů/mebibajtů/kibibajtů/bajtů<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">-size $((<i class="dopln">N</i>*2**30))c</div>
 <div class="radekzaklinadla">-size $((<i class="dopln">N</i>*2**20))c</div>
 <div class="radekzaklinadla">-size $((<i class="dopln">N</i>*2**10))c</div>
 <div class="radekzaklinadla">-size <i class="dopln">N</i>c</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2092196387"><span><a href="#z2092196387">⪈</a></span></span><b>přesně</b> N gigabajtů/megabajtů/kilobajtů/bajtů<span class="cislo">#8 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0539346"><span><a href="#zx0539346">⟆</a></span></span><b>přesně</b> N gigabajtů/megabajtů/kilobajtů/bajtů<span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla">-size $((<i class="dopln">N</i>*10**9))c</div>
 <div class="radekzaklinadla">-size $((<i class="dopln">N</i>*10**6))c</div>
 <div class="radekzaklinadla">-size $((<i class="dopln">N</i>*10**3))c</div>
 <div class="radekzaklinadla">-size <i class="dopln">N</i>c</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z210453904"><span><a href="#z210453904">⠨</a></span></span><b>prázdný</b> soubor<span class="cislo">#9 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb37575e"><span><a href="#zxb37575e">໔</a></span></span><b>prázdný</b> soubor<span class="cislo">#9 </span></div><div class="radky">
 <div class="radekzaklinadla">-size 0</div>
 </div></div>
 
-<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 9 (Hledání souborů), sekce 3 (Zaklínadla: find: testy), podsekce 4 (Čas („změněno“, „čteno“))"><sup>3/</sup>4 Čas („změněno“, „čteno“)</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z393942705"><span><a href="#z393942705">‖</a></span></span>změněno/čteno během <b>posledních N minut</b><span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 8 (Hledání souborů), sekce 3 (Zaklínadla: find: testy), podsekce 4 (Čas („změněno“, „čteno“))"><sup>3/</sup>4 Čas („změněno“, „čteno“)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx57a4465"><span><a href="#zx57a4465">⢢</a></span></span>změněno/čteno během <b>posledních N minut</b><span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">-mmin -<i class="dopln">N</i></div>
 <div class="radekzaklinadla">-amin -<i class="dopln">N</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1144882780"><span><a href="#z1144882780">↽</a></span></span>změněno/čteno během posledních N <b>dnů</b> (počítaje i dnešek; N≥1)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa6af04a"><span><a href="#zxa6af04a">䷟</a></span></span>změněno/čteno během posledních N <b>dnů</b> (počítaje i dnešek; N≥1)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">-newermt &quot;$(date -d &quot;<i class="dopln">N</i> days ago&quot; +%F) 23:59:59.999999999&quot;</div>
 <div class="radekzaklinadla">-newerat &quot;$(date -d &quot;<i class="dopln">N</i> days ago&quot; +%F) 23:59:59.999999999&quot;</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z908864965"><span><a href="#z908864965">⠾</a></span></span>změněno/čteno <b>od určitého času</b><span class="cislo">#3 </span><sup><a href="#kaphledanisouboruppc1" id="kaphledanisouboruppcr1" title="Počítadlo nanosekund je v čase volitelné. Podmínkám vyhovují položky, jejichž čas modifikace či čtení je větší než hodnota uvedená v parametru!">(1)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9bc1cb3"><span><a href="#zx9bc1cb3">❁</a></span></span>změněno/čteno <b>od určitého času</b><span class="cislo">#3 </span><sup><a href="#kapx4ff09f6ppc1" id="kapx4ff09f6ppcr1" title="Počítadlo nanosekund je v čase volitelné. Podmínkám vyhovují položky, jejichž čas modifikace či čtení je větší než hodnota uvedená v parametru!">(1)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">-newermt &quot;<i class="dopln">čas</i>&quot;</div>
 <div class="radekzaklinadla">-newerat &quot;<i class="dopln">čas</i>&quot;</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1245375287"><span><a href="#z1245375287">ⵈ</a></span></span><b>změněno od</b> 1. ledna 2020 (příklad)<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxcf06cad"><span><a href="#zxcf06cad">⚏</a></span></span><b>změněno od</b> 1. ledna 2020 (příklad)<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">-newermt &quot;2019-12-31 23:59:59.999999999&quot;</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1813620332"><span><a href="#z1813620332">⪎</a></span></span>změněno/čteno v rozsahu dnů<span class="cislo">#5 </span><sup><a href="#kaphledanisouboruppc2" id="kaphledanisouboruppcr2" title="Dny zadejte ve formátu %F (YYYY-MM-DD).">(2)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5b413db"><span><a href="#zx5b413db">⢸</a></span></span>změněno/čteno v rozsahu dnů<span class="cislo">#5 </span><sup><a href="#kapx4ff09f6ppc2" id="kapx4ff09f6ppcr2" title="Dny zadejte ve formátu %F (YYYY-MM-DD).">(2)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">-newermt &quot;<i class="dopln">první-den-intervalu</i> 00:00:00&quot; ! -newermt &quot;<i class="dopln">poslední-den-intervalu</i> 23:59:59.999999999&quot;</div>
 <div class="radekzaklinadla">-newerat &quot;<i class="dopln">první-den-intervalu</i> 00:00:00&quot; ! -newerat &quot;<i class="dopln">poslední-den-intervalu</i> 23:59:59.999999999&quot;</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z832401346"><span><a href="#z832401346">⣩</a></span></span>čteno od poslední změny<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx58dcf1f"><span><a href="#zx58dcf1f">※</a></span></span>čteno od poslední změny<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
-<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 9 (Hledání souborů), sekce 3 (Zaklínadla: find: testy), podsekce 5 (Operátory testů)"><sup>3/</sup>5 Operátory testů</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1801674187"><span><a href="#z1801674187">♒</a></span></span>oba testy musejí být splněny (<b>a také</b>)<span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 8 (Hledání souborů), sekce 3 (Zaklínadla: find: testy), podsekce 5 (Operátory testů)"><sup>3/</sup>5 Operátory testů</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7ca5b08"><span><a href="#zx7ca5b08">⚫</a></span></span>oba testy musejí být splněny (<b>a také</b>)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">test1</i> <i class="dopln">test2</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z959083658"><span><a href="#z959083658">⠜</a></span></span>test nesmí být splněn (<b>ne-</b>)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa877b2b"><span><a href="#zxa877b2b">⊝</a></span></span>test nesmí být splněn (<b>ne-</b>)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">! <i class="dopln">test</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z467463383"><span><a href="#z467463383">∷</a></span></span>závorky (<b>seskupení</b> testů a akcí)<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd38c290"><span><a href="#zxd38c290">⋢</a></span></span>závorky (<b>seskupení</b> testů a akcí)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">\( <i class="dopln">testy a akce</i> \)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z708386017"><span><a href="#z708386017">⣖</a></span></span>některý z testů musí být splněn (<b>nebo</b>)<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx07b37b6"><span><a href="#zx07b37b6">⠟</a></span></span>některý z testů musí být splněn (<b>nebo</b>)<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">test1</i> -o <i class="dopln">test2</i></div>
 </div></div>
 
-<h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 9 (Hledání souborů), sekce 3 (Zaklínadla: find: testy), podsekce 6 (Vlastnictví a skupina položky)"><sup>3/</sup>6 Vlastnictví a skupina položky</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1779110275"><span><a href="#z1779110275">⌑</a></span></span>vlastník souboru (názvem/UID)<span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 8 (Hledání souborů), sekce 3 (Zaklínadla: find: testy), podsekce 6 (Vlastnictví a skupina položky)"><sup>3/</sup>6 Vlastnictví a skupina položky</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5959d0c"><span><a href="#zx5959d0c">⧒</a></span></span>vlastník souboru (názvem/UID)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">-user <i class="dopln">uživatel</i></div>
 <div class="radekzaklinadla">-uid <i class="dopln">UID</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1178936495"><span><a href="#z1178936495">╄</a></span></span>skupina (názvem/GID)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9c76009"><span><a href="#zx9c76009">◆</a></span></span>skupina (názvem/GID)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">-group <i class="dopln">skupina</i></div>
 <div class="radekzaklinadla">-gid <i class="dopln">GID</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1863793954"><span><a href="#z1863793954">⡅</a></span></span>vlastník nebo skupina souboru neexistuje<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe58fe43"><span><a href="#zxe58fe43">ⴲ</a></span></span>vlastník nebo skupina souboru neexistuje<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">\( -nogroup -o -nouser \)</div>
 </div></div>
 
-<h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 9 (Hledání souborů), sekce 3 (Zaklínadla: find: testy), podsekce 7 (Přístupová práva)"><sup>3/</sup>7 Přístupová práva</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2042509086"><span><a href="#z2042509086">ᔵ</a></span></span>soubor je přístupný pro <b>čtení</b><span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 8 (Hledání souborů), sekce 3 (Zaklínadla: find: testy), podsekce 7 (Přístupová práva)"><sup>3/</sup>7 Přístupová práva</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5199c70"><span><a href="#zx5199c70">☧</a></span></span>soubor je přístupný pro <b>čtení</b><span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">-readable</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z87281299"><span><a href="#z87281299">䷻</a></span></span>soubor je přístupný pro <b>zápis</b><span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2315d44"><span><a href="#zx2315d44">➸</a></span></span>soubor je přístupný pro <b>zápis</b><span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">-writable</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1143304970"><span><a href="#z1143304970">⇙</a></span></span>soubor je fakticky <b>spustitelný</b><span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx51c68eb"><span><a href="#zx51c68eb">ᚌ</a></span></span>soubor je fakticky <b>spustitelný</b><span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">-executable</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z21303523"><span><a href="#z21303523">☾</a></span></span>vlastník (u), skupina (g) či ostatní (o) mají právo (jedno z r, w, x)<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf1b71be"><span><a href="#zxf1b71be">∘</a></span></span>vlastník (u), skupina (g) či ostatní (o) mají právo (jedno z r, w, x)<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">-perm /<i class="dopln">kdo</i>=<i class="dopln">právo</i></div>
 <div class="radekzaklinadla">! -perm /<i class="dopln">kdo</i>=<i class="dopln">právo</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z342832078"><span><a href="#z342832078">↨</a></span></span>všichni mají určité právo<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfdd89d9"><span><a href="#zxfdd89d9">⊱</a></span></span>všichni mají určité právo<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">-perm -ugo=<i class="dopln">právo</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1695127403"><span><a href="#z1695127403">∮</a></span></span>vlastník (u), skupina (g) či ostatní (o) mají všechna práva<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx393380b"><span><a href="#zx393380b">Ø</a></span></span>vlastník (u), skupina (g) či ostatní (o) mají všechna práva<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">-perm -<i class="dopln">kdo</i>=rwx</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1220883411"><span><a href="#z1220883411">⚃</a></span></span>mód je přesně ABCD<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1d70717"><span><a href="#zx1d70717">└</a></span></span>mód je přesně ABCD<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">-perm <i class="dopln">ABCD</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z154108439"><span><a href="#z154108439">⠖</a></span></span>kdokoliv má určité právo<span class="cislo">#8 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb39fc60"><span><a href="#zxb39fc60">⠋</a></span></span>kdokoliv má určité právo<span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1687022849"><span><a href="#z1687022849">☼</a></span></span>nikdo nemá právo „w“<span class="cislo">#9 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxaa28c33"><span><a href="#zxaa28c33">⚅</a></span></span>nikdo nemá právo „w“<span class="cislo">#9 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
-<h3 id="cast3x8"><span><a href="#cast3x8" title="kapitola 9 (Hledání souborů), sekce 3 (Zaklínadla: find: testy), podsekce 8 (Obsah souboru)"><sup>3/</sup>8 Obsah souboru</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1916403107"><span><a href="#z1916403107">⌞</a></span></span>některý řádek obsahuje/žádný řádek neobsahuje shodu s regulárním výrazem<span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast3x8"><span><a href="#cast3x8" title="kapitola 8 (Hledání souborů), sekce 3 (Zaklínadla: find: testy), podsekce 8 (Obsah souboru)"><sup>3/</sup>8 Obsah souboru</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd4eba54"><span><a href="#zxd4eba54">᚛</a></span></span>některý řádek obsahuje/žádný řádek neobsahuje shodu s regulárním výrazem<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">! ( -type d -o ( -type l -xtype d ) ) -readable -exec egrep -q <span class="volznak">[</span>--<span class="volznak">]</span> '<i class="dopln">regulární výraz</i>' \;</div>
 <div class="radekzaklinadla">! ( -type d -o ( -type l -xtype d ) ) -readable ! -exec egrep -q <span class="volznak">[</span>--<span class="volznak">]</span> '<i class="dopln">regulární výraz</i>' \;</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z924777802"><span><a href="#z924777802">▜</a></span></span>některá řádka obsahuje/žádná řádka neobsahuje podřetězec<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4612b3c"><span><a href="#zx4612b3c">ᔦ</a></span></span>některá řádka obsahuje/žádná řádka neobsahuje podřetězec<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">! ( -type d -o ( -type l -xtype d ) ) -readable -exec fgrep -q <span class="volznak">[</span>--<span class="volznak">]</span> '<i class="dopln">podřetězec</i>' \;</div>
 <div class="radekzaklinadla">! ( -type d -o ( -type l -xtype d ) ) -readable ! -exec fgrep -q <span class="volznak">[</span>--<span class="volznak">]</span> '<i class="dopln">podřetězec</i>' \;</div>
 </div></div>
 
-<h3 id="cast3x9"><span><a href="#cast3x9" title="kapitola 9 (Hledání souborů), sekce 3 (Zaklínadla: find: testy), podsekce 9 (Zvláštní příznaky a datové položky)"><sup>3/</sup>9 Zvláštní příznaky a datové položky</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1044517838"><span><a href="#z1044517838">↖</a></span></span>má/nemá příznak „u+s“<span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast3x9"><span><a href="#cast3x9" title="kapitola 8 (Hledání souborů), sekce 3 (Zaklínadla: find: testy), podsekce 9 (Zvláštní příznaky a datové položky)"><sup>3/</sup>9 Zvláštní příznaky a datové položky</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb2086f9"><span><a href="#zxb2086f9">❅</a></span></span>má/nemá příznak „u+s“<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">-perm /u=s</div>
 <div class="radekzaklinadla">! -perm /u=s</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z233160505"><span><a href="#z233160505">▃</a></span></span>má příznak „g+s“<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf2ce42d"><span><a href="#zxf2ce42d">ᔱ</a></span></span>má příznak „g+s“<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">-perm /g=s</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1806931512"><span><a href="#z1806931512">≡</a></span></span>má příznak omezení smazání „+t“<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7ed355e"><span><a href="#zx7ed355e">䷻</a></span></span>má příznak omezení smazání „+t“<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">-perm /1000</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1664310813"><span><a href="#z1664310813">▞</a></span></span>ma určitý zvláštní příznak<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx78e8cfa"><span><a href="#zx78e8cfa">໔</a></span></span>ma určitý zvláštní příznak<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2064995319"><span><a href="#z2064995319">═</a></span></span>má alespoň jednu uživatelskou datovou položku<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxad25002"><span><a href="#zxad25002">≼</a></span></span>má alespoň jednu uživatelskou datovou položku<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2094730150"><span><a href="#z2094730150">⁜</a></span></span>má určitou uživatelskou datovou položku<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxeefd5be"><span><a href="#zxeefd5be">ⵓ</a></span></span>má určitou uživatelskou datovou položku<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
-<h3 id="cast3x10"><span><a href="#cast3x10" title="kapitola 9 (Hledání souborů), sekce 3 (Zaklínadla: find: testy), podsekce 10 (Velikost adresáře)"><sup>3/</sup>10 Velikost adresáře</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z915700054"><span><a href="#z915700054">≠</a></span></span>prázdný adresář<span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast3x10"><span><a href="#cast3x10" title="kapitola 8 (Hledání souborů), sekce 3 (Zaklínadla: find: testy), podsekce 10 (Velikost adresáře)"><sup>3/</sup>10 Velikost adresáře</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx736d9fe"><span><a href="#zx736d9fe">⋌</a></span></span>prázdný adresář<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">-type d -empty</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1340819860"><span><a href="#z1340819860">⡡</a></span></span>adresář s alespoň N položkami/právě N položkami/nejvýše N položkami<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx95cf79d"><span><a href="#zx95cf79d">➦</a></span></span>adresář s alespoň N položkami/právě N položkami/nejvýše N položkami<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">-type d -exec sh -c 'test $(ls -1AbU -- &quot;$1&quot; | wc -l) -ge <i class="dopln">N</i>' -- '{}' \; <span class="volznak">[</span>--print<span class="volznak">]</span></div>
 <div class="radekzaklinadla">-type d -exec sh -c 'test $(ls -1AbU -- &quot;$1&quot; | wc -l) -eq <i class="dopln">N</i>' -- '{}' \; <span class="volznak">[</span>--print<span class="volznak">]</span></div>
 <div class="radekzaklinadla">-type d -exec sh -c 'test $(ls -1AbU -- &quot;$1&quot; | wc -l) -le <i class="dopln">N</i>' -- '{}' \; <span class="volznak">[</span>--print<span class="volznak">]</span></div>
 </div></div>
 
-<h3 id="cast3x11"><span><a href="#cast3x11" title="kapitola 9 (Hledání souborů), sekce 3 (Zaklínadla: find: testy), podsekce 11 (Ostatní)"><sup>3/</sup>11 Ostatní</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1911659623"><span><a href="#z1911659623">↷</a></span></span>pevné odkazy konkrétního souboru<span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast3x11"><span><a href="#cast3x11" title="kapitola 8 (Hledání souborů), sekce 3 (Zaklínadla: find: testy), podsekce 11 (Ostatní)"><sup>3/</sup>11 Ostatní</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc611bb8"><span><a href="#zxc611bb8">⪗</a></span></span>pevné odkazy konkrétního souboru<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">-samefile <i class="dopln">soubor</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z18334863"><span><a href="#z18334863">✩</a></span></span>neplatné symbolické odkazy<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx48fa601"><span><a href="#zx48fa601">⨏</a></span></span>neplatné symbolické odkazy<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">-type l -xtype l</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1567054740"><span><a href="#z1567054740">⠊</a></span></span>počet pevných odkazů (přesně/minimálně/maximálně N)<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc8d71fb"><span><a href="#zxc8d71fb">⎞</a></span></span>počet pevných odkazů (přesně/minimálně/maximálně N)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">-links <i class="dopln">N</i></div>
 <div class="radekzaklinadla">-links +$((<i class="dopln">N</i>-1))</div>
 <div class="radekzaklinadla">-links -$((<i class="dopln">N</i>+1))</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1946465375"><span><a href="#z1946465375">⢗</a></span></span>test, který vždy uspěje/selže<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx26becad"><span><a href="#zx26becad">⟿</a></span></span>test, který vždy uspěje/selže<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">-true</div>
 <div class="radekzaklinadla">-false</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2056587462"><span><a href="#z2056587462">➩</a></span></span>typ souborového systému<span class="cislo">#5 </span><sup><a href="#kaphledanisouboruppc3" id="kaphledanisouboruppcr3" title="Např. „ext4“, „tmpfs“, „ntfs“, „vfat“.">(3)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8a771df"><span><a href="#zx8a771df">⋵</a></span></span>typ souborového systému<span class="cislo">#5 </span><sup><a href="#kapx4ff09f6ppc3" id="kapx4ff09f6ppcr3" title="Např. „ext4“, „tmpfs“, „ntfs“, „vfat“.">(3)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">-fstype <i class="dopln">typ</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z258655507"><span><a href="#z258655507">⚤</a></span></span>čislo <b>i-uzlu</b><span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc46b6bf"><span><a href="#zxc46b6bf">♜</a></span></span>čislo <b>i-uzlu</b><span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">-inum <i class="dopln">číslo</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1377116113"><span><a href="#z1377116113">⊉</a></span></span><b>hloubka</b> prohledávání (řešení 1/řešení 2; viz poznámku)<span class="cislo">#7 </span><sup><a href="#kaphledanisouboruppc4" id="kaphledanisouboruppcr4" title="Řešení 1 využívá globálních parametrů, které omezují celé prohledávání a nemohou být složitěji kombinovány s ostatními testy (např. parametr „-mindepth“ způsobí, že na položky s nižší hloubkou testy vůbec nebudou zavolány, což znamená, že se u nich např. neuplatní „-prune“). Řešení 2 pak není použitelné, pokud find prohledává více cílů, které ve své definici obsahují různý počet lomítek.">(4)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf34ed0e"><span><a href="#zxf34ed0e">⋂</a></span></span><b>hloubka</b> prohledávání (řešení 1/řešení 2; viz poznámku)<span class="cislo">#7 </span><sup><a href="#kapx4ff09f6ppc4" id="kapx4ff09f6ppcr4" title="Řešení 1 využívá globálních parametrů, které omezují celé prohledávání a nemohou být složitěji kombinovány s ostatními testy (např. parametr „-mindepth“ způsobí, že na položky s nižší hloubkou testy vůbec nebudou zavolány, což znamená, že se u nich např. neuplatní „-prune“). Řešení 2 pak není použitelné, pokud find prohledává více cílů, které ve své definici obsahují různý počet lomítek.">(4)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">-mindepth <i class="dopln">N</i> -maxdepth <i class="dopln">N</i></div>
 <div class="radekzaklinadla">-regextype posix-extended -regex &quot;[^/]*(/[^/]*){$((<i class="dopln">N</i>+<i class="dopln">počet-lomítek-v-cíli</i>))}&quot; <span class="volznak">[</span>-prune<span class="volznak">]</span></div>
 </div></div>
 
 <h2 id="cast4" class="zaklinadla"><a href="#cast4"><span class="cislo">4.</span> Zaklínadla: find: akce</a></h2>
 
-<h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 9 (Hledání souborů), sekce 4 (Zaklínadla: find: akce), podsekce 1 (Vypsat údaje)"><sup>4/</sup>1 Vypsat údaje</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z343354584"><span><a href="#z343354584">⚄</a></span></span>cestu položky na standardní výstup (txt/txtz)<span class="cislo">#1 </span><sup><a href="#kaphledanisouboruppc5" id="kaphledanisouboruppcr5" title="Znaky takto vypsané cesty nejsou nijak odzvláštněny, což vadí jen v případě, že použijete „-print“ a cesta obsahuje znak konce řádky. Pokud s takovým vzácným případem chcete počítat, použijte místo toho „-print0“.">(5)</a></sup></div><div class="radky">
+<h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 8 (Hledání souborů), sekce 4 (Zaklínadla: find: akce), podsekce 1 (Vypsat údaje)"><sup>4/</sup>1 Vypsat údaje</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa6e9f66"><span><a href="#zxa6e9f66">▹</a></span></span>cestu položky na standardní výstup (txt/txtz)<span class="cislo">#1 </span><sup><a href="#kapx4ff09f6ppc5" id="kapx4ff09f6ppcr5" title="Znaky takto vypsané cesty nejsou nijak odzvláštněny, což vadí jen v případě, že použijete „-print“ a cesta obsahuje znak konce řádky. Pokud s takovým vzácným případem chcete počítat, použijte místo toho „-print0“.">(5)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">-print</div>
 <div class="radekzaklinadla">-print0</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1416308702"><span><a href="#z1416308702">⋱</a></span></span>vypsat údaje podle formátu na standardní výstup/do souboru<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx744d592"><span><a href="#zx744d592">⪅</a></span></span>vypsat údaje podle formátu na standardní výstup/do souboru<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">-printf '<i class="dopln">formát</i>'</div>
 <div class="radekzaklinadla">-fprintf <i class="dopln">soubor</i> '<i class="dopln">formát</i>'</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z689647376"><span><a href="#z689647376">⣩</a></span></span>zapsat cestu položky jako záznam do souboru (txt/txtz)<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc3605aa"><span><a href="#zxc3605aa">⠫</a></span></span>zapsat cestu položky jako záznam do souboru (txt/txtz)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">-fprint <i class="dopln">soubor</i></div>
 <div class="radekzaklinadla">-fprint0 <i class="dopln">soubor</i></div>
 </div></div>
 
-<h3 id="cast4x2"><span><a href="#cast4x2" title="kapitola 9 (Hledání souborů), sekce 4 (Zaklínadla: find: akce), podsekce 2 (Ostatní akce)"><sup>4/</sup>2 Ostatní akce</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1580177646"><span><a href="#z1580177646">⇒</a></span></span><b>spustit</b> příkaz po dávkách (vždy uspěje)<span class="cislo">#1 </span><sup><a href="#kaphledanisouboruppc6" id="kaphledanisouboruppcr6" title="Tato varianta je prakticky pohodlnějším ekvivalentem volání příkazu xargs. Použije co největší dávky. Vždy uspěje.">(6)</a></sup></div><div class="radky">
+<h3 id="cast4x2"><span><a href="#cast4x2" title="kapitola 8 (Hledání souborů), sekce 4 (Zaklínadla: find: akce), podsekce 2 (Ostatní akce)"><sup>4/</sup>2 Ostatní akce</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc5e0ff3"><span><a href="#zxc5e0ff3">⢄</a></span></span><b>spustit</b> příkaz po dávkách (vždy uspěje)<span class="cislo">#1 </span><sup><a href="#kapx4ff09f6ppc6" id="kapx4ff09f6ppcr6" title="Tato varianta je prakticky pohodlnějším ekvivalentem volání příkazu xargs. Použije co největší dávky. Vždy uspěje.">(6)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">-exec <i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametry příkazu</i><span class="volznak">]</span> '{}' +</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1177657516"><span><a href="#z1177657516">⇗</a></span></span>spustit příkaz pro <b>každou</b> položku (s cestou/bez cesty)<span class="cislo">#2 </span><sup><a href="#kaphledanisouboruppc7" id="kaphledanisouboruppcr7" title="Každý výskyt řetězce „{}“ v parametrech příkazu bude při volání nahrazen: v případě první varianty cestou testované položky od výchozího bodu, v případě varianty bez cesty jen názvem souboru s cestou „./“ (příkaz bude spuštěn ve stejném adresáři, kde se položka nachází). Akce uspěje, pokud uspěje příkaz.">(7)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx40fd2c0"><span><a href="#zx40fd2c0">⟆</a></span></span>spustit příkaz pro <b>každou</b> položku (s cestou/bez cesty)<span class="cislo">#2 </span><sup><a href="#kapx4ff09f6ppc7" id="kapx4ff09f6ppcr7" title="Každý výskyt řetězce „{}“ v parametrech příkazu bude při volání nahrazen: v případě první varianty cestou testované položky od výchozího bodu, v případě varianty bez cesty jen názvem souboru s cestou „./“ (příkaz bude spuštěn ve stejném adresáři, kde se položka nachází). Akce uspěje, pokud uspěje příkaz.">(7)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">-exec <i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametry příkazu</i><span class="volznak">]</span> \;</div>
 <div class="radekzaklinadla">-execdir <i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametry příkazu</i><span class="volznak">]</span> \;</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z288870911"><span><a href="#z288870911">⋢</a></span></span><b>smazat</b> soubor či prázdný adresář<span class="cislo">#3 </span><sup><a href="#kaphledanisouboruppc8" id="kaphledanisouboruppcr8" title="Akce uspěje, pokud se soubor či adresář podaří smazat.">(8)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx927b721"><span><a href="#zx927b721">⣎</a></span></span><b>smazat</b> soubor či prázdný adresář<span class="cislo">#3 </span><sup><a href="#kapx4ff09f6ppc8" id="kapx4ff09f6ppcr8" title="Akce uspěje, pokud se soubor či adresář podaří smazat.">(8)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">-delete</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1737083466"><span><a href="#z1737083466">┿</a></span></span>je-li položka adresář, <b>nevstupovat</b> do něj a ignorovat jeho obsah<span class="cislo">#4 </span><sup><a href="#kaphledanisouboruppc9" id="kaphledanisouboruppcr9" title="Tato akce funguje jen při průchodu do šířky. Proto lze použít jen tehdy, pokud v celém příkazu není použity ani jeden z paramterů „-delete“ a „-depth“.">(9)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx21df726"><span><a href="#zx21df726">⠃</a></span></span>je-li položka adresář, <b>nevstupovat</b> do něj a ignorovat jeho obsah<span class="cislo">#4 </span><sup><a href="#kapx4ff09f6ppc9" id="kapx4ff09f6ppcr9" title="Tato akce funguje jen při průchodu do šířky. Proto lze použít jen tehdy, pokud v celém příkazu není použity ani jeden z paramterů „-delete“ a „-depth“.">(9)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">-prune</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1914892235"><span><a href="#z1914892235">˔</a></span></span>smazat soubor či jakýkoliv (i neprázdný) adresář<span class="cislo">#5 </span><sup><a href="#kaphledanisouboruppc10" id="kaphledanisouboruppcr10" title="Tato akce funguje jen při průchodu do šířky. Proto lze použít jen tehdy, pokud v celém příkazu není použity ani jeden z paramterů „-delete“ a „-depth“.">(10)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6cc35aa"><span><a href="#zx6cc35aa">⪛</a></span></span>smazat soubor či jakýkoliv (i neprázdný) adresář<span class="cislo">#5 </span><sup><a href="#kapx4ff09f6ppc10" id="kapx4ff09f6ppcr10" title="Tato akce funguje jen při průchodu do šířky. Proto lze použít jen tehdy, pokud v celém příkazu není použity ani jeden z paramterů „-delete“ a „-depth“.">(10)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">-exec rm -R<span class="volznak">[</span>v<span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> '{}' \; -prune</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z432380880"><span><a href="#z432380880">∳</a></span></span><b>ukončit</b> načítání dalších položek<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx26d0df2"><span><a href="#zx26d0df2">⡱</a></span></span><b>ukončit</b> načítání dalších položek<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">-quit</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1493259167"><span><a href="#z1493259167">⋿</a></span></span>spustit příkaz po dávkách po adresářích (vždy uspěje; nedoporučuji)<span class="cislo">#7 </span><sup><a href="#kaphledanisouboruppc11" id="kaphledanisouboruppcr11" title="Tato varianta vždy uspěje. Shromáždí položky z jednotlivého adresáře a po velkých dávkách (obvykle najednou) je předá ke zpracování uvedenému příkazu. Příkaz se spouští v adresáři, kde jsou vyhledané položky, a dostává pouze název položky s cestou „./“.">(11)</a>,&nbsp;<a href="#kaphledanisouboruppc12" id="kaphledanisouboruppcr12" title="Pozor! „-execdir“ skončí kritickou chybou, pokud proměnná prostředí PATH obsahuje aktuální adresář, relativní cestu nebo závěrečnou dvojtečku. Důvodem je, že by se v takovém případě mohl příkaz k vykonání vyhledat v různých adresářích různě.">(12)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0e2e2c7"><span><a href="#zx0e2e2c7">⋵</a></span></span>spustit příkaz po dávkách po adresářích (vždy uspěje; nedoporučuji)<span class="cislo">#7 </span><sup><a href="#kapx4ff09f6ppc11" id="kapx4ff09f6ppcr11" title="Tato varianta vždy uspěje. Shromáždí položky z jednotlivého adresáře a po velkých dávkách (obvykle najednou) je předá ke zpracování uvedenému příkazu. Příkaz se spouští v adresáři, kde jsou vyhledané položky, a dostává pouze název položky s cestou „./“.">(11)</a>,&nbsp;<a href="#kapx4ff09f6ppc12" id="kapx4ff09f6ppcr12" title="Pozor! „-execdir“ skončí kritickou chybou, pokud proměnná prostředí PATH obsahuje aktuální adresář, relativní cestu nebo závěrečnou dvojtečku. Důvodem je, že by se v takovém případě mohl příkaz k vykonání vyhledat v různých adresářích různě.">(12)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">-execdir <i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametry příkazu</i><span class="volznak">]</span> '{}' +</div>
 </div></div>
 
 <h2 id="cast5" class="zaklinadla"><a href="#cast5"><span class="cislo">5.</span> Zaklínadla: Akce -printf a -fprintf</a></h2>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z129072031"><span><a href="#z129072031">ˑ</a></span></span>název položky/cesta položky/cesta položky bez výchozího bodu<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx071b53d"><span><a href="#zx071b53d">♰</a></span></span>název položky/cesta položky/cesta položky bez výchozího bodu<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">%f<span class="prikladhodnoty">⊨ test.txt</span></div>
 <div class="radekzaklinadla">%p<span class="prikladhodnoty">⊨ ./testdir/test.txt</span></div>
 <div class="radekzaklinadla">%P<span class="prikladhodnoty">⊨ testdir/test.txt</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2055874584"><span><a href="#z2055874584">․</a></span></span>typ adresářové položky (písmeno)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf98ec12"><span><a href="#zxf98ec12">☙</a></span></span>typ adresářové položky (písmeno)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">%y<span class="prikladhodnoty">⊨ f</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona L" id="z1562995752"><span><a href="#z1562995752">⟞</a></span></span>cesta položky bez názvu<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0413062"><span><a href="#zx0413062">⧐</a></span></span>cesta položky bez názvu<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">%h<span class="prikladhodnoty">⊨ ./testdir</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z858176708"><span><a href="#z858176708">⩫</a></span></span>přístupová práva symbolicky/číselně<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1c055fb"><span><a href="#zx1c055fb">☘</a></span></span>přístupová práva symbolicky/číselně<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">%M<span class="prikladhodnoty">⊨ -rw-r--r--</span></div>
 <div class="radekzaklinadla">%#m<span class="prikladhodnoty">⊨ 0644</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z338017245"><span><a href="#z338017245">⊑</a></span></span>vlastník (jméno/UID)<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx17479fb"><span><a href="#zx17479fb">⁙</a></span></span>vlastník (jméno/UID)<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">%u<span class="prikladhodnoty">⊨ milada</span></div>
 <div class="radekzaklinadla">%U<span class="prikladhodnoty">⊨ 1000</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z811963214"><span><a href="#z811963214">◡</a></span></span>skupina (jméno/GID)<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7bdd8d7"><span><a href="#zx7bdd8d7">≙</a></span></span>skupina (jméno/GID)<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">%g<span class="prikladhodnoty">⊨ milada</span></div>
 <div class="radekzaklinadla">%G<span class="prikladhodnoty">⊨ 1000</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1402985723"><span><a href="#z1402985723">⢘</a></span></span>velikost souboru v bajtech<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx372e567"><span><a href="#zx372e567">⋯</a></span></span>velikost souboru v bajtech<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">%s<span class="prikladhodnoty">⊨ 3</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z854262861"><span><a href="#z854262861">⠰</a></span></span>čas „změněno“(normálně/časová známka Unixu)<span class="cislo">#8 </span><sup><a href="#kaphledanisouboruppc13" id="kaphledanisouboruppcr13" title="V obou případech se bohužel vypíše s desetinnou částí.">(13)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxce04fbd"><span><a href="#zxce04fbd">☼</a></span></span>čas „změněno“(normálně/časová známka Unixu)<span class="cislo">#8 </span><sup><a href="#kapx4ff09f6ppc13" id="kapx4ff09f6ppcr13" title="V obou případech se bohužel vypíše s desetinnou částí.">(13)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">%TY-%Tm-%Td %TT<span class="prikladhodnoty">⊨ 2020-03-13 22:03:00.9467889490</span></div>
 <div class="radekzaklinadla">%T@<span class="prikladhodnoty">⊨ 1584133380.9467889490</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z69210578"><span><a href="#z69210578">☵</a></span></span>čas posledního přístupu (normálně/časová známka Unixu)<span class="cislo">#9 </span><sup><a href="#kaphledanisouboruppc14" id="kaphledanisouboruppcr14" title="V obou případech se bohužel vypíše s desetinnou částí.">(14)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx22fe432"><span><a href="#zx22fe432">❐</a></span></span>čas posledního přístupu (normálně/časová známka Unixu)<span class="cislo">#9 </span><sup><a href="#kapx4ff09f6ppc14" id="kapx4ff09f6ppcr14" title="V obou případech se bohužel vypíše s desetinnou částí.">(14)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">%AY-%Am-%Ad %AT<span class="prikladhodnoty">⊨ 2020-03-13 22:03:00.9467889490</span></div>
 <div class="radekzaklinadla">%A@<span class="prikladhodnoty">⊨ 1584133380.9467889490</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z692800727"><span><a href="#z692800727">↛</a></span></span>počet pevných odkazů<span class="cislo">#10 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfff5c47"><span><a href="#zxfff5c47">⣤</a></span></span>počet pevných odkazů<span class="cislo">#10 </span></div><div class="radky">
 <div class="radekzaklinadla">%n<span class="prikladhodnoty">⊨ 1</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z275743987"><span><a href="#z275743987">┴</a></span></span>výchozí bod<span class="cislo">#11 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7e35638"><span><a href="#zx7e35638">⣕</a></span></span>výchozí bod<span class="cislo">#11 </span></div><div class="radky">
 <div class="radekzaklinadla">%H<span class="prikladhodnoty">⊨ .</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z686217577"><span><a href="#z686217577">⢞</a></span></span>hloubka prohledávání<span class="cislo">#12 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx090e78a"><span><a href="#zx090e78a">⇬</a></span></span>hloubka prohledávání<span class="cislo">#12 </span></div><div class="radky">
 <div class="radekzaklinadla">%d<span class="prikladhodnoty">⊨ 1</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2056587462x"><span><a href="#z2056587462x">➩</a></span></span>typ souborového systému<span class="cislo">#13 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc677802"><span><a href="#zxc677802">╏</a></span></span>typ souborového systému<span class="cislo">#13 </span></div><div class="radky">
 <div class="radekzaklinadla">%F<span class="prikladhodnoty">⊨ ext4</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z752074329"><span><a href="#z752074329">⢳</a></span></span>cíl (obsah) symbolického odkazu<span class="cislo">#14 </span><sup><a href="#kaphledanisouboruppc15" id="kaphledanisouboruppcr15" title="Pokud položka není symbolický odkaz, %l vypisuje prázdný řetězec.">(15)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe5d02cf"><span><a href="#zxe5d02cf">⠲</a></span></span>cíl (obsah) symbolického odkazu<span class="cislo">#14 </span><sup><a href="#kapx4ff09f6ppc15" id="kapx4ff09f6ppcr15" title="Pokud položka není symbolický odkaz, %l vypisuje prázdný řetězec.">(15)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">%l</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1399220339"><span><a href="#z1399220339">➞</a></span></span>číslo „inode“<span class="cislo">#15 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc811d28"><span><a href="#zxc811d28">⚱</a></span></span>číslo „inode“<span class="cislo">#15 </span></div><div class="radky">
 <div class="radekzaklinadla">%i<span class="prikladhodnoty">⊨ 2758499</span></div>
 </div></div>
 
 <h2 id="cast6" class="zaklinadla"><a href="#cast6"><span class="cislo">6.</span> Zaklínadla: Celé příkazy</a></h2>
 
-<h3 id="cast6x1"><span><a href="#cast6x1" title="kapitola 9 (Hledání souborů), sekce 6 (Zaklínadla: Celé příkazy), podsekce 1 (Hledání textových souborů podle obsahu)"><sup>6/</sup>1 Hledání textových souborů podle obsahu</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z560795170"><span><a href="#z560795170">❑</a></span></span>najít soubory, jejichž některá řádka obsahuje/žádný řádek neobsahuje shodu s regulárním výrazem<span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast6x1"><span><a href="#cast6x1" title="kapitola 8 (Hledání souborů), sekce 6 (Zaklínadla: Celé příkazy), podsekce 1 (Hledání textových souborů podle obsahu)"><sup>6/</sup>1 Hledání textových souborů podle obsahu</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3b59170"><span><a href="#zx3b59170">╽</a></span></span>najít soubory, jejichž některá řádka obsahuje/žádný řádek neobsahuje shodu s regulárním výrazem<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">find <i class="dopln">kde</i><span class="tritecky"></span> -type f -readable <span class="volznak">[</span><i class="dopln">další podmínky</i><span class="volznak">]</span><span class="tritecky"></span> -exec egrep -l '<i class="dopln">regulární výraz</i>' '{}' +</div>
 <div class="radekzaklinadla">find <i class="dopln">kde</i><span class="tritecky"></span> -type f -readable <span class="volznak">[</span><i class="dopln">další podmínky</i><span class="volznak">]</span><span class="tritecky"></span> -exec egrep -L '<i class="dopln">regulární výraz</i>' '{}' +</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1796931797"><span><a href="#z1796931797">⢹</a></span></span>najít soubory, jejichž některá řádka obsahuje/žádný řádek neobsahuje podřetězec<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx86f1bfa"><span><a href="#zx86f1bfa">╝</a></span></span>najít soubory, jejichž některá řádka obsahuje/žádný řádek neobsahuje podřetězec<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">find <i class="dopln">kde</i><span class="tritecky"></span> -type f -readable <span class="volznak">[</span><i class="dopln">další podmínky</i><span class="volznak">]</span><span class="tritecky"></span> -exec fgrep -l '<i class="dopln">regulární výraz</i>' '{}' +</div>
 <div class="radekzaklinadla">find <i class="dopln">kde</i><span class="tritecky"></span> -type f -readable <span class="volznak">[</span><i class="dopln">další podmínky</i><span class="volznak">]</span><span class="tritecky"></span> -exec fgrep -L '<i class="dopln">regulární výraz</i>' '{}' +</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z39596328"><span><a href="#z39596328">➹</a></span></span>najít symbolické <b>smyčky</b>, tzn. symbolické odkazy, které přímo či nepřímo odkazují samy na sebe<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxad66ef8"><span><a href="#zxad66ef8">≎</a></span></span>najít symbolické <b>smyčky</b>, tzn. symbolické odkazy, které přímo či nepřímo odkazují samy na sebe<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">find <i class="dopln">kde</i> -type l -printf '%Y%p\0' | sed -zE 's/^L//;t;d' <span class="volznak">[</span>| tr \\0 \\n<span class="volznak">]</span></div>
 </div></div>
 
-<h3 id="cast6x2"><span><a href="#cast6x2" title="kapitola 9 (Hledání souborů), sekce 6 (Zaklínadla: Celé příkazy), podsekce 2 (Hledání programů)"><sup>6/</sup>2 Hledání programů</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1634873418"><span><a href="#z1634873418">⡁</a></span></span>najít úplnou cestu podle názvu příkazu<span class="cislo">#1 </span><sup><a href="#kaphledanisouboruppc16" id="kaphledanisouboruppcr16" title="Poznámka: tento příkaz (pochopitelně) ignoruje vestavěné příkazy bashe, aliasy, funkce apod. Řídí se pouze proměnnou prostředí PATH.">(16)</a></sup></div><div class="radky">
+<h3 id="cast6x2"><span><a href="#cast6x2" title="kapitola 8 (Hledání souborů), sekce 6 (Zaklínadla: Celé příkazy), podsekce 2 (Hledání programů)"><sup>6/</sup>2 Hledání programů</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2760971"><span><a href="#zx2760971">♌</a></span></span>najít úplnou cestu podle názvu příkazu<span class="cislo">#1 </span><sup><a href="#kapx4ff09f6ppc16" id="kapx4ff09f6ppcr16" title="Poznámka: tento příkaz (pochopitelně) ignoruje vestavěné příkazy bashe, aliasy, funkce apod. Řídí se pouze proměnnou prostředí PATH.">(16)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">which <i class="dopln">název-příkazu</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1327691741"><span><a href="#z1327691741">∽</a></span></span>najít manuálové stránky (jako soubory/název a sekce)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxec61844"><span><a href="#zxec61844">≆</a></span></span>najít manuálové stránky (jako soubory/název a sekce)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">find -L /usr/share/man -type f -name '<i class="dopln">název</i>.*.gz' <span class="volznak">[</span>| sort<span class="volznak">]</span></div>
 <div class="radekzaklinadla">find -L /usr/share/man -type f -name '<i class="dopln">název</i>.*.gz' | sed -E 's/.*\/(.*)\.([^.]+)\.gz$/\1(\2)/' | sort -u</div>
 </div></div>
 
-<h3 id="cast6x3"><span><a href="#cast6x3" title="kapitola 9 (Hledání souborů), sekce 6 (Zaklínadla: Celé příkazy), podsekce 3 (Obecné hledání)"><sup>6/</sup>3 Obecné hledání</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1762979032"><span><a href="#z1762979032">⡔</a></span></span>najít a odstranit <b>prázdné</b> adresáře/soubory/soubory i adresáře<span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast6x3"><span><a href="#cast6x3" title="kapitola 8 (Hledání souborů), sekce 6 (Zaklínadla: Celé příkazy), podsekce 3 (Obecné hledání)"><sup>6/</sup>3 Obecné hledání</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxec38080"><span><a href="#zxec38080">⌬</a></span></span>najít a odstranit <b>prázdné</b> adresáře/soubory/soubory i adresáře<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">find <i class="dopln">kde</i><span class="tritecky"></span> -type d -empty -delete</div>
 <div class="radekzaklinadla">find <i class="dopln">kde</i><span class="tritecky"></span> -type f -empty -delete</div>
 <div class="radekzaklinadla">find <i class="dopln">kde</i><span class="tritecky"></span> -empty -delete</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z617218513"><span><a href="#z617218513">✥</a></span></span>najít <b>neplatné</b> symbolické odkazy (pro člověka/pro skript)<span class="cislo">#2 </span><sup><a href="#kaphledanisouboruppc17" id="kaphledanisouboruppcr17" title="Pozor! Příkaz nemůže správně určit, zda je symbolický odkaz neplatný, pokud nemá přístupová práva k adresáři, na který symbolický odkaz odkazuje! Příkaz „symlinks“ v takovém případě hlásí odkaz jako neplatný, uvedená podoba příkazu „find“ vypíše chybové hlášení „Permission denied“, ale odkaz do seznamu neplatných nezahrne.">(17)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa2eeb0a"><span><a href="#zxa2eeb0a">≎</a></span></span>najít <b>neplatné</b> symbolické odkazy (pro člověka/pro skript)<span class="cislo">#2 </span><sup><a href="#kapx4ff09f6ppc17" id="kapx4ff09f6ppcr17" title="Pozor! Příkaz nemůže správně určit, zda je symbolický odkaz neplatný, pokud nemá přístupová práva k adresáři, na který symbolický odkaz odkazuje! Příkaz „symlinks“ v takovém případě hlásí odkaz jako neplatný, uvedená podoba příkazu „find“ vypíše chybové hlášení „Permission denied“, ale odkaz do seznamu neplatných nezahrne.">(17)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> find <i class="dopln">kde</i><span class="tritecky"></span> -type d -exec symlinks '{}' + | egrep '^dangling:<span class="viditelnamezera">&nbsp;</span>'</div>
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> find <i class="dopln">kde</i><span class="tritecky"></span> -type l -xtype l <span class="volznak">[</span>-print0<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1237098835"><span><a href="#z1237098835">※</a></span></span>najít adresářové položky, jejichž název/celá cesta obsahují shodu s regulárním výrazem (pomoc databáze „mlocate“)<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx789cc1a"><span><a href="#zx789cc1a">▭</a></span></span>najít adresářové položky, jejichž název/celá cesta obsahují shodu s regulárním výrazem (pomoc databáze „mlocate“)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> locate --regex -b <span class="volznak">[</span>-e<span class="volznak">]</span> <span class="volznak">[</span>-i<span class="volznak">]</span> -r '<i class="dopln">regulární výraz pro název položky</i>'</div>
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> locate --regex <span class="volznak">[</span>-e<span class="volznak">]</span> <span class="volznak">[</span>-i<span class="volznak">]</span> -r '<i class="dopln">regulární výraz pro celou cestu</i>'</div>
 </div></div>
 
 <h2 id="cast7"><a href="#cast7"><span class="cislo">7.</span> Parametry příkazů</a></h2>
 
-<h3 id="cast7x1"><span><a href="#cast7x1" title="kapitola 9 (Hledání souborů), sekce 7 (Parametry příkazů), podsekce 1 (find)"><sup>7/</sup>1 find</a></span></h3>
+<h3 id="cast7x1"><span><a href="#cast7x1" title="kapitola 8 (Hledání souborů), sekce 7 (Parametry příkazů), podsekce 1 (find)"><sup>7/</sup>1 find</a></span></h3>
 <div class="zaklinadlo"><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> find <span class="volznak">[</span>-P<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span> <i class="dopln">globální parametry</i> <i class="dopln">testy-a-akce</i></div>
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> find -L <i class="dopln">cesta</i><span class="tritecky"></span> <i class="dopln">globální parametry</i> <i class="dopln">testy-a-akce</i></div>
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> find -H <i class="dopln">cesta</i><span class="tritecky"></span> <i class="dopln">globální parametry</i> <i class="dopln">testy-a-akce</i></div>
 </div></div>
-<p>
-Chování k symbolickým odkazům: <b>-P</b>: nikdy nenásledovat (interpretovat každý odkaz jen jako adresářovou položku); <b>-L</b>: vždy následovat (chovat se, jako by na místě symbolického odkazu byl odkazovaný soubor, adresář apod.; vstupovat do takových adresářů); <b>-H</b>: následovat jen symbolické odkazy, které jsou přímo uvedeny jako „cesta“ na příkazové řádce.
-</p>
 <p class="ponadpisu">
+Chování k symbolickým odkazům: <b>-P</b>: nikdy nenásledovat (interpretovat každý odkaz jen jako adresářovou položku); <b>-L</b>: vždy následovat (chovat se, jako by na místě symbolického odkazu byl odkazovaný soubor, adresář apod.; vstupovat do takových adresářů); <b>-H</b>: následovat jen symbolické odkazy, které jsou přímo uvedeny jako „cesta“ na příkazové řádce.
+</p><p>
 Globální parametry:
 </p>
 <table class="parametryprikazu"><tbody><tr><td>☐ -xdev</td><td>Po každou „cestu“ na příkazové řádce omezí prohledávání jen na jeden souborový systém.</td></tr>
@@ -500,39 +504,49 @@ Většina uvedených příkazů je základními součástmi Ubuntu. Pouze přík
 </li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/common/find.md">TL;DR: find</a> (anglicky)
 </li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/linux/locate.md">TL;DR: locate</a> (anglicky)
 </li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/common/which.md">TL;DR: which</a> (anglicky)
-</li></ul><div class="ppc"><div id="kaphledanisouboruppc1"><a href="#kaphledanisouboruppcr1" class="cislopozn">1</a>&nbsp;Počítadlo nanosekund je v čase volitelné. Podmínkám vyhovují položky, jejichž čas modifikace či čtení je větší než hodnota uvedená v parametru!</div>
+</li></ul>
+<h2 id="cast11"><a href="#cast11"><span class="cislo">11.</span> Zákulisí kapitoly</a></h2>
+<p class="ponadpisu">
+V této verzi kapitoly chybí:
+</p>
+<ul class="kompaktni"><li>nic
+</li></ul><p class="ponadpisu">
+Tato kapitola záměrně nepokrývá:
+</p>
+<ul class="kompaktni"><li>nic
+</li></ul><div class="ppc"><div id="kapx4ff09f6ppc1"><a href="#kapx4ff09f6ppcr1" class="cislopozn">1</a>&nbsp;Počítadlo nanosekund je v čase volitelné. Podmínkám vyhovují položky, jejichž čas modifikace či čtení je větší než hodnota uvedená v parametru!</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kaphledanisouboruppc2"><a href="#kaphledanisouboruppcr2" class="cislopozn">2</a>&nbsp;Dny zadejte ve formátu %F (YYYY-MM-DD).</div>
+<div id="kapx4ff09f6ppc2"><a href="#kapx4ff09f6ppcr2" class="cislopozn">2</a>&nbsp;Dny zadejte ve formátu %F (YYYY-MM-DD).</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kaphledanisouboruppc3"><a href="#kaphledanisouboruppcr3" class="cislopozn">3</a>&nbsp;Např. „ext4“, „tmpfs“, „ntfs“, „vfat“.</div>
+<div id="kapx4ff09f6ppc3"><a href="#kapx4ff09f6ppcr3" class="cislopozn">3</a>&nbsp;Např. „ext4“, „tmpfs“, „ntfs“, „vfat“.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kaphledanisouboruppc4"><a href="#kaphledanisouboruppcr4" class="cislopozn">4</a>&nbsp;Řešení 1 využívá globálních parametrů, které omezují celé prohledávání a nemohou být složitěji kombinovány s ostatními testy (např. parametr „-mindepth“ způsobí, že na položky s nižší hloubkou testy vůbec nebudou zavolány, což znamená, že se u nich např. neuplatní „-prune“). Řešení 2 pak není použitelné, pokud find prohledává více cílů, které ve své definici obsahují různý počet lomítek.</div>
+<div id="kapx4ff09f6ppc4"><a href="#kapx4ff09f6ppcr4" class="cislopozn">4</a>&nbsp;Řešení 1 využívá globálních parametrů, které omezují celé prohledávání a nemohou být složitěji kombinovány s ostatními testy (např. parametr „-mindepth“ způsobí, že na položky s nižší hloubkou testy vůbec nebudou zavolány, což znamená, že se u nich např. neuplatní „-prune“). Řešení 2 pak není použitelné, pokud find prohledává více cílů, které ve své definici obsahují různý počet lomítek.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kaphledanisouboruppc5"><a href="#kaphledanisouboruppcr5" class="cislopozn">5</a>&nbsp;Znaky takto vypsané cesty nejsou nijak odzvláštněny, což vadí jen v případě, že použijete „-print“ a cesta obsahuje znak konce řádky. Pokud s takovým vzácným případem chcete počítat, použijte místo toho „-print0“.</div>
+<div id="kapx4ff09f6ppc5"><a href="#kapx4ff09f6ppcr5" class="cislopozn">5</a>&nbsp;Znaky takto vypsané cesty nejsou nijak odzvláštněny, což vadí jen v případě, že použijete „-print“ a cesta obsahuje znak konce řádky. Pokud s takovým vzácným případem chcete počítat, použijte místo toho „-print0“.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kaphledanisouboruppc6"><a href="#kaphledanisouboruppcr6" class="cislopozn">6</a>&nbsp;Tato varianta je prakticky pohodlnějším ekvivalentem volání příkazu xargs. Použije co největší dávky. Vždy uspěje.</div>
+<div id="kapx4ff09f6ppc6"><a href="#kapx4ff09f6ppcr6" class="cislopozn">6</a>&nbsp;Tato varianta je prakticky pohodlnějším ekvivalentem volání příkazu xargs. Použije co největší dávky. Vždy uspěje.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kaphledanisouboruppc7"><a href="#kaphledanisouboruppcr7" class="cislopozn">7</a>&nbsp;Každý výskyt řetězce „{}“ v parametrech příkazu bude při volání nahrazen: v případě první varianty cestou testované položky od výchozího bodu, v případě varianty bez cesty jen názvem souboru s cestou „./“ (příkaz bude spuštěn ve stejném adresáři, kde se položka nachází). Akce uspěje, pokud uspěje příkaz.</div>
+<div id="kapx4ff09f6ppc7"><a href="#kapx4ff09f6ppcr7" class="cislopozn">7</a>&nbsp;Každý výskyt řetězce „{}“ v parametrech příkazu bude při volání nahrazen: v případě první varianty cestou testované položky od výchozího bodu, v případě varianty bez cesty jen názvem souboru s cestou „./“ (příkaz bude spuštěn ve stejném adresáři, kde se položka nachází). Akce uspěje, pokud uspěje příkaz.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kaphledanisouboruppc8"><a href="#kaphledanisouboruppcr8" class="cislopozn">8</a>&nbsp;Akce uspěje, pokud se soubor či adresář podaří smazat.</div>
+<div id="kapx4ff09f6ppc8"><a href="#kapx4ff09f6ppcr8" class="cislopozn">8</a>&nbsp;Akce uspěje, pokud se soubor či adresář podaří smazat.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kaphledanisouboruppc9"><a href="#kaphledanisouboruppcr9" class="cislopozn">9</a>&nbsp;Tato akce funguje jen při průchodu do šířky. Proto lze použít jen tehdy, pokud v celém příkazu není použity ani jeden z paramterů „-delete“ a „-depth“.</div>
+<div id="kapx4ff09f6ppc9"><a href="#kapx4ff09f6ppcr9" class="cislopozn">9</a>&nbsp;Tato akce funguje jen při průchodu do šířky. Proto lze použít jen tehdy, pokud v celém příkazu není použity ani jeden z paramterů „-delete“ a „-depth“.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kaphledanisouboruppc10"><a href="#kaphledanisouboruppcr10" class="cislopozn">10</a>&nbsp;Tato akce funguje jen při průchodu do šířky. Proto lze použít jen tehdy, pokud v celém příkazu není použity ani jeden z paramterů „-delete“ a „-depth“.</div>
+<div id="kapx4ff09f6ppc10"><a href="#kapx4ff09f6ppcr10" class="cislopozn">10</a>&nbsp;Tato akce funguje jen při průchodu do šířky. Proto lze použít jen tehdy, pokud v celém příkazu není použity ani jeden z paramterů „-delete“ a „-depth“.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kaphledanisouboruppc11"><a href="#kaphledanisouboruppcr11" class="cislopozn">11</a>&nbsp;Tato varianta vždy uspěje. Shromáždí položky z jednotlivého adresáře a po velkých dávkách (obvykle najednou) je předá ke zpracování uvedenému příkazu. Příkaz se spouští v adresáři, kde jsou vyhledané položky, a dostává pouze název položky s cestou „./“.</div>
+<div id="kapx4ff09f6ppc11"><a href="#kapx4ff09f6ppcr11" class="cislopozn">11</a>&nbsp;Tato varianta vždy uspěje. Shromáždí položky z jednotlivého adresáře a po velkých dávkách (obvykle najednou) je předá ke zpracování uvedenému příkazu. Příkaz se spouští v adresáři, kde jsou vyhledané položky, a dostává pouze název položky s cestou „./“.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kaphledanisouboruppc12"><a href="#kaphledanisouboruppcr12" class="cislopozn">12</a>&nbsp;Pozor! „-execdir“ skončí kritickou chybou, pokud proměnná prostředí PATH obsahuje aktuální adresář, relativní cestu nebo závěrečnou dvojtečku. Důvodem je, že by se v takovém případě mohl příkaz k vykonání vyhledat v různých adresářích různě.</div>
+<div id="kapx4ff09f6ppc12"><a href="#kapx4ff09f6ppcr12" class="cislopozn">12</a>&nbsp;Pozor! „-execdir“ skončí kritickou chybou, pokud proměnná prostředí PATH obsahuje aktuální adresář, relativní cestu nebo závěrečnou dvojtečku. Důvodem je, že by se v takovém případě mohl příkaz k vykonání vyhledat v různých adresářích různě.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kaphledanisouboruppc13"><a href="#kaphledanisouboruppcr13" class="cislopozn">13</a>&nbsp;V obou případech se bohužel vypíše s desetinnou částí.</div>
+<div id="kapx4ff09f6ppc13"><a href="#kapx4ff09f6ppcr13" class="cislopozn">13</a>&nbsp;V obou případech se bohužel vypíše s desetinnou částí.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kaphledanisouboruppc14"><a href="#kaphledanisouboruppcr14" class="cislopozn">14</a>&nbsp;V obou případech se bohužel vypíše s desetinnou částí.</div>
+<div id="kapx4ff09f6ppc14"><a href="#kapx4ff09f6ppcr14" class="cislopozn">14</a>&nbsp;V obou případech se bohužel vypíše s desetinnou částí.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kaphledanisouboruppc15"><a href="#kaphledanisouboruppcr15" class="cislopozn">15</a>&nbsp;Pokud položka není symbolický odkaz, %l vypisuje prázdný řetězec.</div>
+<div id="kapx4ff09f6ppc15"><a href="#kapx4ff09f6ppcr15" class="cislopozn">15</a>&nbsp;Pokud položka není symbolický odkaz, %l vypisuje prázdný řetězec.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kaphledanisouboruppc16"><a href="#kaphledanisouboruppcr16" class="cislopozn">16</a>&nbsp;Poznámka: tento příkaz (pochopitelně) ignoruje vestavěné příkazy bashe, aliasy, funkce apod. Řídí se pouze proměnnou prostředí PATH.</div>
+<div id="kapx4ff09f6ppc16"><a href="#kapx4ff09f6ppcr16" class="cislopozn">16</a>&nbsp;Poznámka: tento příkaz (pochopitelně) ignoruje vestavěné příkazy bashe, aliasy, funkce apod. Řídí se pouze proměnnou prostředí PATH.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kaphledanisouboruppc17"><a href="#kaphledanisouboruppcr17" class="cislopozn">17</a>&nbsp;Pozor! Příkaz nemůže správně určit, zda je symbolický odkaz neplatný, pokud nemá přístupová práva k adresáři, na který symbolický odkaz odkazuje! Příkaz „symlinks“ v takovém případě hlásí odkaz jako neplatný, uvedená podoba příkazu „find“ vypíše chybové hlášení „Permission denied“, ale odkaz do seznamu neplatných nezahrne.</div>
+<div id="kapx4ff09f6ppc17"><a href="#kapx4ff09f6ppcr17" class="cislopozn">17</a>&nbsp;Pozor! Příkaz nemůže správně určit, zda je symbolický odkaz neplatný, pokud nemá přístupová práva k adresáři, na který symbolický odkaz odkazuje! Příkaz „symlinks“ v takovém případě hlásí odkaz jako neplatný, uvedená podoba příkazu „find“ vypíše chybové hlášení „Permission denied“, ale odkaz do seznamu neplatných nezahrne.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 </div>
 
@@ -540,14 +554,14 @@ Většina uvedených příkazů je základními součástmi Ubuntu. Pouze přík
 <nav class="spodni">
 <a href="index.htm" class="naindex">🗐&nbsp;Přehled&nbsp;kapitol</a>
 <div class="naslkap">
-<a href="nabidka-aplikaci.htm" rel="next" title="9. Nabídka aplikací">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">9</span>
-<span class="nazev">Nabídka aplikací</span></a>
+<a href="metaprikazy.htm" rel="next" title="9. Metapříkazy">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">9</span>
+<span class="nazev">Metapříkazy</span></a>
 </div>
 <!--<div><a href="index.htm">🗐&nbsp;Přehled&nbsp;kapitol</a></div>-->
 </nav>
 
 
-<div class="odkazydole"><div><a href="sprava-balicku.htm"><img src="obrazky/ik/sprava-balicku.png" alt="" width="32" height="32">Správa balíčků</a><a href="diskove-oddily-btrfs.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly / Btrfs</a><a href="zpracovani-videa-a-zvuku.htm"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="" width="32" height="32">Zpracování videa a zvuku</a></div></div>
+<div class="odkazydole"><div><a href="zpracovani-textovych-souboru.htm"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="" width="32" height="32">Zpracování textových souborů</a><a href="regularni-vyrazy.htm"><img src="obrazky/ik/regularni-vyrazy.png" alt="" width="32" height="32">Regulární výrazy</a><a href="git.htm"><img src="obrazky/ik/git.png" alt="" width="32" height="32">Git</a></div></div>
 <div class="reklamnipata">Líbí se vám tento projekt a chcete, aby byl ještě lepší? Můžete mi s tím pomoci. Zmiňte se o něm technicky zdatným přátelům, opravte překlepy a nahlašte nefunkční zaklínadla, aby mohla být opravena; poskytněte mi zpětnou vazbu nebo se zapojte do vývoje nových kapitol. Další informace na GitHubu v dokumentu <a href="https://github.com/singularis-mzf/linux-spellbook/blob/v%C3%BDvojov%C3%A1/JAK-SE-ZAPOJIT.md">Jak se zapojit</a>.</div>
 
 </article>
@@ -576,20 +590,20 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <a href="#cast2" class="sekce">2 Definice</a>
 <a href="#cast3" class="sekce">3 Zaklínadla: find: testy</a>
 <a href="#cast3x1" class="podsekce">/1 Typ adresářové položky (soubor, adresář, odkaz...)</a>
-<a href="#cast3x2" class="podsekce">/2 Název položky a cesta</a>
+<a href="#cast3x2" class="podsekce">/2 Název položky a cesta</a>
 <a href="#cast3x3" class="podsekce">/3 Velikost souboru</a>
 <a href="#cast3x4" class="podsekce">/4 Čas („změněno“, „čteno“)</a>
 <a href="#cast3x5" class="podsekce">/5 Operátory testů</a>
-<a href="#cast3x6" class="podsekce">/6 Vlastnictví a skupina položky</a>
+<a href="#cast3x6" class="podsekce">/6 Vlastnictví a skupina položky</a>
 <a href="#cast3x7" class="podsekce">/7 Přístupová práva</a>
 <a href="#cast3x8" class="podsekce">/8 Obsah souboru</a>
-<a href="#cast3x9" class="podsekce">/9 Zvláštní příznaky a datové položky</a>
+<a href="#cast3x9" class="podsekce">/9 Zvláštní příznaky a datové položky</a>
 <a href="#cast3x10" class="podsekce">/10 Velikost adresáře</a>
 <a href="#cast3x11" class="podsekce">/11 Ostatní</a>
 <a href="#cast4" class="sekce">4 Zaklínadla: find: akce</a>
 <a href="#cast4x1" class="podsekce">/1 Vypsat údaje</a>
 <a href="#cast4x2" class="podsekce">/2 Ostatní akce</a>
-<a href="#cast5" class="sekce">5 Zaklínadla: Akce -printf a -fprintf</a>
+<a href="#cast5" class="sekce">5 Zaklínadla: Akce -printf a -fprintf</a>
 <a href="#cast6" class="sekce">6 Zaklínadla: Celé příkazy</a>
 <a href="#cast6x1" class="podsekce">/1 Hledání textových souborů podle obsahu</a>
 <a href="#cast6x2" class="podsekce">/2 Hledání programů</a>
@@ -597,8 +611,9 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <a href="#cast7" class="sekce">7 Parametry příkazů</a>
 <a href="#cast7x1" class="podsekce">/1 find</a>
 <a href="#cast8" class="sekce">8 Instalace na Ubuntu</a>
-<a href="#cast9" class="sekce">9 Tipy a zkušenosti</a>
+<a href="#cast9" class="sekce">9 Tipy a zkušenosti</a>
 <a href="#cast10" class="sekce">10 Další zdroje informací</a>
+<a href="#cast11" class="sekce">11 Zákulisí kapitoly</a>
 </div></div>
 <a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
 </aside>
@@ -611,19 +626,20 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/diskove-oddily.png" alt="[]"></span><span class="fragodkazy"><a href="diskove-oddily.htm" class="odkaz"><span><span class="cislo">3</span>Diskové oddíly</span></a><span class="podkpodkazy"><a href="diskove-oddily-btrfs.htm" class="odkaz"><span><span class="cislo">4</span>Btrfs</span></a><a href="diskove-oddily-lvm.htm" class="odkaz"><span><span class="cislo">5</span>LVM</span></a><a href="diskove-oddily-softwarovy-raid.htm" class="odkaz"><span><span class="cislo">6</span>Softwarový RAID</span></a></span></span></div>
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/git.png" alt="[]"></span><span class="fragodkazy"><a href="git.htm" class="odkaz"><span><span class="cislo">7</span>Git</span></a></span></div>
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/hledani-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="hledani-souboru.htm" class="odkaz"><span><span class="cislo">8</span>Hledání souborů</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/nabidka-aplikaci.png" alt="[]"></span><span class="fragodkazy"><a href="nabidka-aplikaci.htm" class="odkaz"><span><span class="cislo">9</span>Nabídka aplikací</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/odkazy.png" alt="[]"></span><span class="fragodkazy"><a href="odkazy.htm" class="odkaz"><span><span class="cislo">10</span>Pevné a symbolické odkazy</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-zaklady.png" alt="[]"></span><span class="fragodkazy"><a href="perl-zaklady.htm" class="odkaz"><span><span class="cislo">11</span>Perl: základy</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="fragodkazy"><a href="prace-s-archivy.htm" class="odkaz"><span><span class="cislo">12</span>Práce s archivy</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="fragodkazy"><a href="regularni-vyrazy.htm" class="odkaz"><span><span class="cislo">13</span>Regulární výrazy</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-balicku.htm" class="odkaz"><span><span class="cislo">14</span>Správa balíčků</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-uzivatelskych-uctu.htm" class="odkaz"><span><span class="cislo">15</span>Správa uživatelských účtů</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="fragodkazy"><a href="system.htm" class="odkaz"><span><span class="cislo">16</span>Systém</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-textovych-souboru.htm" class="odkaz"><span><span class="cislo">17</span>Zpracování textových souborů</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-videa-a-zvuku.htm" class="odkaz"><span><span class="cislo">18</span>Zpracování videa a zvuku</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="fragodkazy"><a href="koncepce-projektu.htm" class="odkaz"><span><span class="cislo">19</span>Koncepce projektu Linux: Kniha kouzel</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/plan-vyvoje.png" alt="[]"></span><span class="fragodkazy"><a href="plan-vyvoje.htm" class="odkaz"><span><span class="cislo">20</span>Plán budoucího vývoje</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="fragodkazy"><a href="licence.htm" class="odkaz"><span><span class="cislo">21</span>Licence</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/metaprikazy.png" alt="[]"></span><span class="fragodkazy"><a href="metaprikazy.htm" class="odkaz"><span><span class="cislo">9</span>Metapříkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/nabidka-aplikaci.png" alt="[]"></span><span class="fragodkazy"><a href="nabidka-aplikaci.htm" class="odkaz"><span><span class="cislo">10</span>Nabídka aplikací</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/odkazy.png" alt="[]"></span><span class="fragodkazy"><a href="odkazy.htm" class="odkaz"><span><span class="cislo">11</span>Pevné a symbolické odkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-zaklady.png" alt="[]"></span><span class="fragodkazy"><a href="perl-zaklady.htm" class="odkaz"><span><span class="cislo">12</span>Perl: základy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="fragodkazy"><a href="prace-s-archivy.htm" class="odkaz"><span><span class="cislo">13</span>Práce s archivy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="fragodkazy"><a href="regularni-vyrazy.htm" class="odkaz"><span><span class="cislo">14</span>Regulární výrazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-balicku.htm" class="odkaz"><span><span class="cislo">15</span>Správa balíčků</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-uzivatelskych-uctu.htm" class="odkaz"><span><span class="cislo">16</span>Správa uživatelských účtů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="fragodkazy"><a href="system.htm" class="odkaz"><span><span class="cislo">17</span>Systém</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-textovych-souboru.htm" class="odkaz"><span><span class="cislo">18</span>Zpracování textových souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-videa-a-zvuku.htm" class="odkaz"><span><span class="cislo">19</span>Zpracování videa a zvuku</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="fragodkazy"><a href="koncepce-projektu.htm" class="odkaz"><span><span class="cislo">20</span>Koncepce projektu Linux: Kniha kouzel</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/plan-vyvoje.png" alt="[]"></span><span class="fragodkazy"><a href="plan-vyvoje.htm" class="odkaz"><span><span class="cislo">21</span>Plán budoucího vývoje</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="fragodkazy"><a href="licence.htm" class="odkaz"><span><span class="cislo">22</span>Licence</span></a></span></div>
 <div class="premiove"><strong>Prémiové kapitoly:</strong>
 <div>AWK</div>
 <div>Datum, čas a kalendář</div>
@@ -648,35 +664,35 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <a href="#menustitky" id="menustitky"><span class="prvnipismeno">Š</span>títky</a>
 <aside class="menustitky">
 <div><div class="nadpis">Štítky</div><div class="polozky">
-<a href="x-stitky.htm#sadresare">adresáře&nbsp;&nbsp;(2)</a>
-<a href="x-stitky.htm#saplikace">aplikace&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sapt">apt&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sbash">bash&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sdemoni">démoni&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sflatpak">Flatpak&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sgui">GUI&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#shledani">hledání&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sklavesnice">klávesnice&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#skomprese">komprese&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#slvm">LVM&nbsp;&nbsp;(2)</a>
-<a href="x-stitky.htm#sodkladaciprostor">odkládací prostor&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sperl">Perl&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sprogram">program&nbsp;&nbsp;(2)</a>
-<a href="x-stitky.htm#sprogramovani">programování&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#spristupovaprava">přístupová práva&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sraid">RAID&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sramdisk">ramdisk&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#ssnap">Snap&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#ssoubory">soubory&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sspravaverzi">správa verzí&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#ssyntaxe">syntaxe&nbsp;&nbsp;(3)</a>
-<a href="x-stitky.htm#ssystem">systém&nbsp;&nbsp;(7)</a>
-<a href="x-stitky.htm#ssystemsouboru">systém souborů&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#stematickyokruh">tematický okruh&nbsp;&nbsp;(13)</a>
-<a href="x-stitky.htm#svideo">video&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#szip">zip&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#szpracovanitextu">zpracování textu&nbsp;&nbsp;(3)</a>
-<a href="x-stitky.htm#szvuk">zvuk&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5208bbb">adresáře&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#xb0a5782">aplikace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x583f72a">apt&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xd574d4b">bash&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#xcd6caf8">démoni&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xb05338c">Flatpak&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x1e3042b">GUI&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x4e36c04">hledání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c8789a">klávesnice&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa473827">komprese&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x79108ba">LVM&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x2d47ed4">odkládací prostor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x0114ad0">Perl&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa9c449d">program&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#xc65388d">programování&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x43a526a">přístupová práva&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xcf91513">RAID&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5c5f44a">ramdisk&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9ad09a9">Snap&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x23be896">soubory&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x12e55d8">správa verzí&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9dcbb0b">syntaxe&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#xba98a3b">systém&nbsp;&nbsp;(7)</a>
+<a href="x-stitky.htm#x3972255">systém souborů&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c01147">tematický okruh&nbsp;&nbsp;(14)</a>
+<a href="x-stitky.htm#x421b47f">video&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xadcdbd7">zip&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x908961b">zpracování textu&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#x04b5cff">zvuk&nbsp;&nbsp;(1)</a>
 </div></div>
 <a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
 </aside>

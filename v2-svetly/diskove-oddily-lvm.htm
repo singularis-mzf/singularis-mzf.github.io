@@ -5,16 +5,13 @@
 
 <title>Diskové oddíly / LVM − Linux: Kniha kouzel</title>
 
-<link rel="stylesheet" type="text/css" href="lkk-20210326.css">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210326-vk-svetly.css" title="Vysoký kontrast: světlá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210326-vk-tmavy.css" title="Vysoký kontrast: tmavá varianta">
-<link rel="alternate stylesheet" type="text/css" href="lkk-20210326-svetly.css" title="Světlý motiv">
+<link rel="stylesheet" type="text/css" href="lkk-20210424.css">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body>
 <div id="nahore"><div id="okno">
 <header>
-<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.6, N. N. (26. března 2021)</span>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.7, O. O. (24. dubna 2021)</span>
 <span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -44,10 +41,19 @@
 <article>
 
 <h1 class="kapitola">5. <img src="obrazky/ik/diskove-oddily.png" alt="" width="64" height="64"> <a href="diskove-oddily.htm">Diskové oddíly</a> / LVM</h1>
-<div class="stitky"><a href="x-stitky.htm#slvm">LVM</a>
-<a href="x-stitky.htm#ssystem">systém</a>
-<a href="x-stitky.htm#stematickyokruh">tematický okruh</a>
-</div>
+<div class="stitky"><a href="x-stitky.htm#">LVM</a>
+<a href="x-stitky.htm#">systém</a>
+<a href="x-stitky.htm#">tematický okruh</a>
+</div><div class="zaklinadlo"><div class="zahlavi"><span class="ikona D"><span><a href="#zx92574d2">⚊</a></span></span><b>deaktivovat</b> skupinu<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">sudo vgchange --verbose --activate n <i class="dopln">nazev-skupiny</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D"><span><a href="#zxae4fdd3">⇋</a></span></span><b>vytvořit</b> (velikost zadat: absolutně/v procentech velikosti skupiny/v procentech velikosti volného místa/všechno volné místo)<span class="cislo">#2 </span><sup><a href="#kapxa99b165ppc1" id="kapxa99b165ppcr1" title="Pro přesnější určení rozměru můžete zadat velikost oddílu v mebibajtech místo gibibajtů (místo přípony „G“ uveďte příponu „M“), ale v takovém případě počítejte s možností, že příkaz zadanout hodnotu může zaokrouhlit o několik mebibajtů nahoru.">(1)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">sudo lvcreate <i class="dopln">nazev-skupiny</i> --name <i class="dopln">nazev-oddilu</i> --size <i class="dopln">gibibajtů</i>G <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">/dev/fyzický-svazek</i><span class="volznak">]</span><span class="tritecky"></span></div>
+<div class="radekzaklinadla">sudo lvcreate <i class="dopln">nazev-skupiny</i> --name <i class="dopln">nazev-oddilu</i> --extents <i class="dopln">procenta</i>%VG <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
+<div class="radekzaklinadla">sudo lvcreate <i class="dopln">nazev-skupiny</i> --name <i class="dopln">nazev-oddilu</i> --extents <i class="dopln">procenta</i>%FREE <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
+<div class="radekzaklinadla">sudo lvcreate <i class="dopln">nazev-skupiny</i> --name <i class="dopln">nazev-oddilu</i> --extents 100%FREE <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
+</div></div>
+
 <h2 id="cast1"><a href="#cast1"><span class="cislo">1.</span> Úvod</a></h2>
 <p class="ponadpisu">
 Tato podkapitola se zabývá prací s LVM.
@@ -60,7 +66,7 @@ několik fyzických disků nebo snadné přemísťování oddílů a změnu jej
 
 <h2 id="cast2"><a href="#cast2"><span class="cislo">2.</span> Definice</a></h2>
 
-<h3 id="cast2x1"><span><a href="#cast2x1" title="kapitola 6 (Diskové oddíly/LVM), sekce 2 (Definice), podsekce 1 (Obecné definice)"><sup>2/</sup>1 Obecné definice</a></span></h3>
+<h3 id="cast2x1"><span><a href="#cast2x1" title="kapitola 5 (Diskové oddíly/LVM), sekce 2 (Definice), podsekce 1 (Obecné definice)"><sup>2/</sup>1 Obecné definice</a></span></h3>
 <ul><li><b>Logický oddíl</b> je v LVM obdoba běžného diskového oddílu (tzn. je možno ho naformátovat a používat k ukládání dat); na rozdíl od něj ale nemá pevné fyzické umístění na disku, jeho fyzické umístění je vymezené skupinou svazků, ve které je vytvořen. Logický oddíl LVM je dostupný pod cestou „/dev/<i class="dopln">skupina-svazků</i>/<i class="dopln">název-oddílu</i>“.
 </li><li><b>Skupina svazků</b> je v LVM neprázdná pojmenovaná skupina fyzických svazků k vytváření logických oddílů. Data každého logického oddílu se fyzicky nacházejí pouze na fyzických svazcích příslušných do dané skupiny.
 </li><li><b>Fyzický svazek</b> je v LVM blokové zařízení (celý disk nebo jeho oddíl), které je nastavené a naformátované k ukládání dat logických oddílů. Nemůže to být logický oddíl LVM.
@@ -69,88 +75,88 @@ několik fyzických disků nebo snadné přemísťování oddílů a změnu jej
 </li></ul>
 <h2 id="cast3" class="zaklinadla"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla</a></h2>
 
-<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 6 (Diskové oddíly/LVM), sekce 3 (Zaklínadla), podsekce 1 (Fyzické svazky)"><sup>3/</sup>1 Fyzické svazky</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z393235610"><span><a href="#z393235610">⊍</a></span></span><b>vytvořit</b> z celého zařízení<span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 5 (Diskové oddíly/LVM), sekce 3 (Zaklínadla), podsekce 1 (Fyzické svazky)"><sup>3/</sup>1 Fyzické svazky</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxcd8132e"><span><a href="#zxcd8132e">ⵘ</a></span></span><b>vytvořit</b> z celého zařízení<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo wipefs -a <i class="dopln">/dev/zařízení</i></div>
 <div class="radekzaklinadla">sudo pvcreate <i class="dopln">/dev/zařízení</i> <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z300681751"><span><a href="#z300681751">⪙</a></span></span><b>vytvořit</b> z oddílu<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe73144d"><span><a href="#zxe73144d">▢</a></span></span><b>vytvořit</b> z oddílu<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo wipefs -a <i class="dopln">/dev/oddíl</i></div>
 <div class="radekzaklinadla">sudo pvcreate <i class="dopln">/dev/oddíl</i> <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1140116989"><span><a href="#z1140116989">⇔</a></span></span><b>smazat</b><span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6f36e82"><span><a href="#zx6f36e82">≢</a></span></span><b>smazat</b><span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo pvremove <i class="dopln">/dev/zařízení-nebo-oddíl</i> <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z439129064"><span><a href="#z439129064">⌇</a></span></span><b>zkontrolovat</b><span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe38773e"><span><a href="#zxe38773e">╿</a></span></span><b>zkontrolovat</b><span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo pvck <i class="dopln">/dev/zařízení-nebo-oddíl</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z303772227"><span><a href="#z303772227">⎛</a></span></span><b>vypsat</b> (pro člověka/pro skript)<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx34770cf"><span><a href="#zx34770cf">❥</a></span></span><b>vypsat</b> (pro člověka/pro skript)<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo pvs</div>
 <div class="radekzaklinadla">sudo pvs --noheadings | sed -E 's/^\s*(\S+)\s.*$/\1/'</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1986402032"><span><a href="#z1986402032">≊</a></span></span>uvolnit všechno místo na fyzickém svazku<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx104bfd6"><span><a href="#zx104bfd6">⚔</a></span></span>uvolnit všechno místo na fyzickém svazku<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo pvmove <i class="dopln">/dev/zařízení-nebo-oddíl</i></div>
 </div></div>
 
-<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 6 (Diskové oddíly/LVM), sekce 3 (Zaklínadla), podsekce 2 (Skupiny svazků)"><sup>3/</sup>2 Skupiny svazků</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z826910072"><span><a href="#z826910072">≅</a></span></span><b>vytvořit</b><span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilylvmppc1" id="kapdiskoveoddilylvmppcr1" title="Skupiny tvořené fyzickými svazky na více fyzických discích zvyšují pravděpodobnost ztráty dat, protože když havaruje kterýkoliv zúčastněný disk, přijdete o všechna data v celé skupině svazků. Proto pokud nepotřebujete slučovat úložný prostor na více fyzických discích, preferujte vytváření samostatné skupiny svazků pro fyzické svazky na každém fyzickém disku.">(1)</a></sup></div><div class="radky">
+<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 5 (Diskové oddíly/LVM), sekce 3 (Zaklínadla), podsekce 2 (Skupiny svazků)"><sup>3/</sup>2 Skupiny svazků</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5b38199"><span><a href="#zx5b38199">✢</a></span></span><b>vytvořit</b><span class="cislo">#1 </span><sup><a href="#kapxa99b165ppc2" id="kapxa99b165ppcr2" title="Skupiny tvořené fyzickými svazky na více fyzických discích zvyšují pravděpodobnost ztráty dat, protože když havaruje kterýkoliv zúčastněný disk, přijdete o všechna data v celé skupině svazků. Proto pokud nepotřebujete slučovat úložný prostor na více fyzických discích, preferujte vytváření samostatné skupiny svazků pro fyzické svazky na každém fyzickém disku.">(2)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo vgcreate <i class="dopln">nazev-skupiny</i> <i class="dopln">/dev/fyzický-svazek</i><span class="tritecky"></span> <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1383878044"><span><a href="#z1383878044">⊱</a></span></span><b>deaktivovat</b> skupinu<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx92574d2"><span><a href="#zx92574d2">⚊</a></span></span><b>deaktivovat</b> skupinu<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo vgchange --verbose --activate n <i class="dopln">nazev-skupiny</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1545174120"><span><a href="#z1545174120">⢦</a></span></span><b>přidat</b> fyzický svazek do skupiny<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx90d3970"><span><a href="#zx90d3970">⇦</a></span></span><b>přidat</b> fyzický svazek do skupiny<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo vgextend <i class="dopln">nazev-skupiny</i> <i class="dopln">/dev/fyzický-svazek</i><span class="tritecky"></span> <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1679290219"><span><a href="#z1679290219">⇎</a></span></span><b>odebrat</b> fyzický svazek ze skupiny<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9227bfe"><span><a href="#zx9227bfe">☵</a></span></span><b>odebrat</b> fyzický svazek ze skupiny<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo pvmove <i class="dopln">/dev/fyzický-svazek</i></div>
 <div class="radekzaklinadla">sudo vgreduce <i class="dopln">nazev-skupiny</i> <i class="dopln">/dev/fyzický-svazek</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1432048416"><span><a href="#z1432048416">⠂</a></span></span><b>přejmenovat</b><span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxeaf61b3"><span><a href="#zxeaf61b3">♽</a></span></span><b>přejmenovat</b><span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo vgrename <i class="dopln">nazev-skupiny</i> <i class="dopln">novy-nazev-skupiny</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z303772227x"><span><a href="#z303772227x">⎛</a></span></span><b>vypsat</b> (pro člověka/pro skript)<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe6f1654"><span><a href="#zxe6f1654">⋈</a></span></span><b>vypsat</b> (pro člověka/pro skript)<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo vgs</div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1140116989x"><span><a href="#z1140116989x">⇔</a></span></span><b>smazat</b><span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx11e10bf"><span><a href="#zx11e10bf">◢</a></span></span><b>smazat</b><span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo lvremove <i class="dopln">nazev-skupiny</i></div>
 <div class="radekzaklinadla">sudo vgremove <i class="dopln">nazev-skupiny</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1900554392"><span><a href="#z1900554392">╧</a></span></span>aktivovat deaktivovanou skupinu<span class="cislo">#8 </span><sup><a href="#kapdiskoveoddilylvmppc2" id="kapdiskoveoddilylvmppcr2" title="Tento příkaz obvykle není potřeba, protože po připojení zařízení nebo startu systému se nalezené skupiny obvykle aktivují automaticky.">(2)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1b0f950"><span><a href="#zx1b0f950">☹</a></span></span>aktivovat deaktivovanou skupinu<span class="cislo">#8 </span><sup><a href="#kapxa99b165ppc3" id="kapxa99b165ppcr3" title="Tento příkaz obvykle není potřeba, protože po připojení zařízení nebo startu systému se nalezené skupiny obvykle aktivují automaticky.">(3)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo vgchange --verbose --activate y <i class="dopln">nazev-skupiny</i></div>
 </div></div>
 
-<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 6 (Diskové oddíly/LVM), sekce 3 (Zaklínadla), podsekce 3 (Logické oddíly)"><sup>3/</sup>3 Logické oddíly</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z429491941"><span><a href="#z429491941">⨒</a></span></span><b>vytvořit</b> (velikost zadat: absolutně/v procentech velikosti skupiny/v procentech velikosti volného místa/všechno volné místo)<span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilylvmppc3" id="kapdiskoveoddilylvmppcr3" title="Pro přesnější určení rozměru můžete zadat velikost oddílu v mebibajtech místo gibibajtů (místo přípony „G“ uveďte příponu „M“), ale v takovém případě počítejte s možností, že příkaz zadanout hodnotu může zaokrouhlit o několik mebibajtů nahoru.">(3)</a></sup></div><div class="radky">
+<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 5 (Diskové oddíly/LVM), sekce 3 (Zaklínadla), podsekce 3 (Logické oddíly)"><sup>3/</sup>3 Logické oddíly</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxae4fdd3"><span><a href="#zxae4fdd3">⇋</a></span></span><b>vytvořit</b> (velikost zadat: absolutně/v procentech velikosti skupiny/v procentech velikosti volného místa/všechno volné místo)<span class="cislo">#1 </span><sup><a href="#kapxa99b165ppc4" id="kapxa99b165ppcr4" title="Pro přesnější určení rozměru můžete zadat velikost oddílu v mebibajtech místo gibibajtů (místo přípony „G“ uveďte příponu „M“), ale v takovém případě počítejte s možností, že příkaz zadanout hodnotu může zaokrouhlit o několik mebibajtů nahoru.">(4)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo lvcreate <i class="dopln">nazev-skupiny</i> --name <i class="dopln">nazev-oddilu</i> --size <i class="dopln">gibibajtů</i>G <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">/dev/fyzický-svazek</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sudo lvcreate <i class="dopln">nazev-skupiny</i> --name <i class="dopln">nazev-oddilu</i> --extents <i class="dopln">procenta</i>%VG <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 <div class="radekzaklinadla">sudo lvcreate <i class="dopln">nazev-skupiny</i> --name <i class="dopln">nazev-oddilu</i> --extents <i class="dopln">procenta</i>%FREE <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 <div class="radekzaklinadla">sudo lvcreate <i class="dopln">nazev-skupiny</i> --name <i class="dopln">nazev-oddilu</i> --extents 100%FREE <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z2079405821"><span><a href="#z2079405821">☈</a></span></span>vytvořit prokládaný logický oddíl<span class="cislo">#2 </span><sup><a href="#kapdiskoveoddilylvmppc4" id="kapdiskoveoddilylvmppcr4" title="Nechť N je uvedený „počet-zařízení“. Velikost prokládaného oddílu se rozdělí na N stejných dílů a každý se umístí na jeden fyzický svazek ze zadané skupiny svazků. Pokud se některý z dílů na svůj fyzický svazek nevejde, všechny díly budou zmenšeny společně, aby se tam vešel. Kapacita vytvořeného oddílu bude cca 90% součtu místa zabraného všemi díly prokládaného oddílu (prokládání má zřejmě svoji režii). Příklad: máte ve skupině dva fyzické svazky 2G a jeden 1G a pokusíte se vytvořit prokládaný svazek o velikosti 5G; příkaz ho rozdělí na tři díly o velikosti 1,66G; jenže na třetí fyzický svazek se díl nevejde, tak se všechny zmenší na 1G. Výsledný oddíl tedy zabere 3G (na prvním i druhém svazku zůstane 1G volný) a kapacita nově vzniklého oddílu bude cca 2765M.">(4)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxdbcc0bb"><span><a href="#zxdbcc0bb">ຝ</a></span></span>vytvořit prokládaný logický oddíl<span class="cislo">#2 </span><sup><a href="#kapxa99b165ppc5" id="kapxa99b165ppcr5" title="Nechť N je uvedený „počet-zařízení“. Velikost prokládaného oddílu se rozdělí na N stejných dílů a každý se umístí na jeden fyzický svazek ze zadané skupiny svazků. Pokud se některý z dílů na svůj fyzický svazek nevejde, všechny díly budou zmenšeny společně, aby se tam vešel. Kapacita vytvořeného oddílu bude cca 90% součtu místa zabraného všemi díly prokládaného oddílu (prokládání má zřejmě svoji režii). Příklad: máte ve skupině dva fyzické svazky 2G a jeden 1G a pokusíte se vytvořit prokládaný svazek o velikosti 5G; příkaz ho rozdělí na tři díly o velikosti 1,66G; jenže na třetí fyzický svazek se díl nevejde, tak se všechny zmenší na 1G. Výsledný oddíl tedy zabere 3G (na prvním i druhém svazku zůstane 1G volný) a kapacita nově vzniklého oddílu bude cca 2765M.">(5)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo lvcreate <i class="dopln">nazev-skupiny</i> --name <i class="dopln">nazev-oddilu</i> <i class="dopln">parametr --size nebo --extents</i> --stripes <i class="dopln">počet-zařízení</i> --stripesize 64 <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z303772227xx"><span><a href="#z303772227xx">⎛</a></span></span><b>vypsat</b> (pro člověka/pro skript)<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0e074b5"><span><a href="#zx0e074b5">☤</a></span></span><b>vypsat</b> (pro člověka/pro skript)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo lvs</div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z827537278"><span><a href="#z827537278">ⱶ</a></span></span><b>zvětšit</b> (na velikost/relativně)<span class="cislo">#4 </span><sup><a href="#kapdiskoveoddilylvmppc5" id="kapdiskoveoddilylvmppcr5" title="Volba --resizefs je podporována pouze pro některé typy systému souborů, zejména pro ext4.">(5)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa8b13d8"><span><a href="#zxa8b13d8">❄</a></span></span><b>zvětšit</b> (na velikost/relativně)<span class="cislo">#4 </span><sup><a href="#kapxa99b165ppc6" id="kapxa99b165ppcr6" title="Volba --resizefs je podporována pouze pro některé typy systému souborů, zejména pro ext4.">(6)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo lvextend <i class="dopln">nazev-skupiny</i>/<i class="dopln">nazev-oddilu</i> --size <i class="dopln">gibibajtů</i>G <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 <div class="radekzaklinadla">sudo lvextend <i class="dopln">nazev-skupiny</i>/<i class="dopln">nazev-oddilu</i> --size +<i class="dopln">gibibajtů</i>G <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span> <span class="volznak">[</span>--resizefs<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z119416888"><span><a href="#z119416888">❉</a></span></span><b>zmenšit</b> (na velikost/relativně)<span class="cislo">#5 </span><sup><a href="#kapdiskoveoddilylvmppc6" id="kapdiskoveoddilylvmppcr6" title="Pozor! Pokud je na zmenšovaném oddíle souborový systém, musíte ho před zmenšením oddílu zmenšit na odpovídající velikost, jinak dojde ke ztrátě dat! To neplatí, použijete-li zde parametr --resizefs.">(6)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6afdfa4"><span><a href="#zx6afdfa4">¶</a></span></span><b>zmenšit</b> (na velikost/relativně)<span class="cislo">#5 </span><sup><a href="#kapxa99b165ppc7" id="kapxa99b165ppcr7" title="Pozor! Pokud je na zmenšovaném oddíle souborový systém, musíte ho před zmenšením oddílu zmenšit na odpovídající velikost, jinak dojde ke ztrátě dat! To neplatí, použijete-li zde parametr --resizefs.">(7)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo lvreduce <i class="dopln">nazev-skupiny</i>/<i class="dopln">nazev-oddilu</i> --size <i class="dopln">gibibajtů</i>G <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 <div class="radekzaklinadla">sudo lvreduce <i class="dopln">nazev-skupiny</i>/<i class="dopln">nazev-oddilu</i> --size +<i class="dopln">gibibajtů</i>G <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span> <span class="volznak">[</span>--resizefs<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z182782088"><span><a href="#z182782088">⡺</a></span></span><b>přejmenovat</b> oddíl<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7cfe66c"><span><a href="#zx7cfe66c">⪴</a></span></span><b>přejmenovat</b> oddíl<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo lvrename <i class="dopln">nazev-skupiny</i>/<i class="dopln">nazev-oddilu</i> <i class="dopln">nové-id-oddílu</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z686943150"><span><a href="#z686943150">≾</a></span></span><b>smazat</b> oddíl/všechny oddíly ve skupině<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7371c87"><span><a href="#zx7371c87">⣲</a></span></span><b>smazat</b> oddíl/všechny oddíly ve skupině<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo lvremove <i class="dopln">nazev-skupiny</i>/<i class="dopln">nazev-oddilu</i> <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 <div class="radekzaklinadla">sudo lvremove <i class="dopln">nazev-skupiny</i> <span class="volznak">[</span>-v<span class="volznak">[</span>v<span class="volznak">]</span><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z588421104"><span><a href="#z588421104">☁</a></span></span>přesunout do jiné skupiny svazků<span class="cislo">#8 </span><sup><a href="#kapdiskoveoddilylvmppc7" id="kapdiskoveoddilylvmppcr7" title="Přesouvaný oddíl nesmí být připojený a v aktuálním adresáři si toto zaklínadlo potřebuje vytvořit dočasný soubor „temp.dat“. Pokud vám tento název nevyhovuje, můžete použít jiný.">(7)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8297b6c"><span><a href="#zx8297b6c">⠗</a></span></span>přesunout do jiné skupiny svazků<span class="cislo">#8 </span><sup><a href="#kapxa99b165ppc8" id="kapxa99b165ppcr8" title="Přesouvaný oddíl nesmí být připojený a v aktuálním adresáři si toto zaklínadlo potřebuje vytvořit dočasný soubor „temp.dat“. Pokud vám tento název nevyhovuje, můžete použít jiný.">(8)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo lvcreate <i class="dopln">cíl-skupina</i> --name <i class="dopln">cíl-název</i> --size $(sudo lvs /dev/<i class="dopln">pův-skupina</i>/<i class="dopln">pův-název</i> --noheadings --nosuffix --units b -o size | sed -E 's/^\s*(\S+)\s*$/\1b/') <span class="volznak">[</span>-v<span class="volznak">]</span> &amp;&amp;</div>
 <div class="radekzaklinadla">sudo dd if=/dev/<i class="dopln">pův-skupina</i>/<i class="dopln">pův-název</i> iflag=fullblock,skip_bytes of=/dev/<i class="dopln">cíl-skupina</i>/<i class="dopln">cíl-název</i> oflag=seek_bytes conv=nocreat,notrunc seek=1M skip=1M <span class="volznak">[</span>status=progress<span class="volznak">]</span> &amp;&amp;</div>
 <div class="radekzaklinadla">sudo dd if=/dev/<i class="dopln">pův-skupina</i>/<i class="dopln">pův-název</i> iflag=fullblock,count_bytes count=1M of=temp.dat <span class="volznak">[</span>status=progress<span class="volznak">]</span> &amp;&amp;</div>
@@ -159,26 +165,26 @@ několik fyzických disků nebo snadné přemísťování oddílů a změnu jej
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo rm -v temp.dat &amp;&amp;<span class="volznak">]</span></div>
 </div></div>
 
-<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 6 (Diskové oddíly/LVM), sekce 3 (Zaklínadla), podsekce 4 (Logické snímky)"><sup>3/</sup>4 Logické snímky</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1917549237"><span><a href="#z1917549237">⚢</a></span></span>vytvořit<span class="cislo">#1 </span><sup><a href="#kapdiskoveoddilylvmppc8" id="kapdiskoveoddilylvmppcr8" title="„velikost-P“ je velikost nově přiděleného prostoru pro alokaci kopií dat vzniklých při zápisu do původního oddílu nebo do logického snímku.">(8)</a></sup></div><div class="radky">
+<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 5 (Diskové oddíly/LVM), sekce 3 (Zaklínadla), podsekce 4 (Logické snímky)"><sup>3/</sup>4 Logické snímky</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx105c847"><span><a href="#zx105c847">⇣</a></span></span>vytvořit<span class="cislo">#1 </span><sup><a href="#kapxa99b165ppc9" id="kapxa99b165ppcr9" title="„velikost-P“ je velikost nově přiděleného prostoru pro alokaci kopií dat vzniklých při zápisu do původního oddílu nebo do logického snímku.">(9)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo lvcreate --snapshot --type snapshot --name <i class="dopln">id-snimku</i> --size <i class="dopln">velikost-P</i> <span class="volznak">[</span>-v<span class="volznak">]</span> /dev/<i class="dopln">skupina-svazků</i>/<i class="dopln">puvodni-oddil</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1572903658"><span><a href="#z1572903658">▂</a></span></span>zrušit (bez kopírování)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx578f92a"><span><a href="#zx578f92a">✑</a></span></span>zrušit (bez kopírování)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo lvremove /dev/<i class="dopln">skupina-svazků</i>/<i class="dopln">id-snimku</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z333018929"><span><a href="#z333018929">⇘</a></span></span>přepsat původní oddíl snímkem a snímek odstranit (nutné kopírování)<span class="cislo">#3 </span><sup><a href="#kapdiskoveoddilylvmppc9" id="kapdiskoveoddilylvmppcr9" title="Pokud je původní oddíl připojený nebo jinak využívaný, nedojde k nakopírování a sloučení ihned, ale až při příští aktivaci logického oddílu (tzn. zpravidla po restartu systému).">(9)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx431ff4b"><span><a href="#zx431ff4b">♮</a></span></span>přepsat původní oddíl snímkem a snímek odstranit (nutné kopírování)<span class="cislo">#3 </span><sup><a href="#kapxa99b165ppc10" id="kapxa99b165ppcr10" title="Pokud je původní oddíl připojený nebo jinak využívaný, nedojde k nakopírování a sloučení ihned, ale až při příští aktivaci logického oddílu (tzn. zpravidla po restartu systému).">(10)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo lvconvert --merge /dev/<i class="dopln">skupina-svazků</i>/<i class="dopln">id-snimku</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z534030689"><span><a href="#z534030689">⎮</a></span></span>zvětšit prostor pro logický snímek<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx69b46da"><span><a href="#zx69b46da">▍</a></span></span>zvětšit prostor pro logický snímek<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo lvextend <span class="volznak">[</span>-v<span class="volznak">]</span> --size <i class="dopln">nová-velikost-P</i> /dev/<i class="dopln">skupina-svazků</i>/<i class="dopln">id-snimku</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z956280312"><span><a href="#z956280312">⁆</a></span></span>kolik místa z logického snímku je již obsazeno? (pro člověka)<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx63d7e68"><span><a href="#zx63d7e68">⏎</a></span></span>kolik místa z logického snímku je již obsazeno? (pro člověka)<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo lvs <span class="volznak">[</span>/dev/<i class="dopln">skupina-svazku</i>/<i class="dopln">nazev-snimku</i><span class="volznak">]</span></div>
 <div class="radekzaklinadla akce">Údaj ve sloupci „Data%“ uvádí, kolik procent prostoru je již obsazeno.</div>
 </div></div>
 
-<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 6 (Diskové oddíly/LVM), sekce 3 (Zaklínadla), podsekce 5 (Ostatní)"><sup>3/</sup>5 Ostatní</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="z1217005040"><span><a href="#z1217005040">⋈</a></span></span>aktualizovat systémový přehled LVM podle připojených zařízení<span class="cislo">#1 </span></div><div class="radky">
+<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 5 (Diskové oddíly/LVM), sekce 3 (Zaklínadla), podsekce 5 (Ostatní)"><sup>3/</sup>5 Ostatní</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb6a391d"><span><a href="#zxb6a391d">∙</a></span></span>aktualizovat systémový přehled LVM podle připojených zařízení<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo lvscan --mknodes</div>
 </div></div>
 
@@ -208,23 +214,35 @@ Pokud chcete používat LVM, musíte doinstalovat:
 </li><li><a href="https://www.youtube.com/watch?v=m9SNN6IWyZo">YouTube: Lesson 20 Managing LVM</a> (anglicky)
 </li><li><a href="https://www.youtube.com/watch?v=scMkYQxBtJ4">YouTube: Combining Drives Together</a> (anglicky)
 </li><li><a href="https://www.youtube.com/watch?v=N8rUlYL2O_g">YouTube: LVM snapshots</a> (anglicky)
-</li></ul><div class="ppc"><div id="kapdiskoveoddilylvmppc1"><a href="#kapdiskoveoddilylvmppcr1" class="cislopozn">1</a>&nbsp;Skupiny tvořené fyzickými svazky na více fyzických discích zvyšují pravděpodobnost ztráty dat, protože když havaruje kterýkoliv zúčastněný disk, přijdete o všechna data v celé skupině svazků. Proto pokud nepotřebujete slučovat úložný prostor na více fyzických discích, preferujte vytváření samostatné skupiny svazků pro fyzické svazky na každém fyzickém disku.</div>
+</li></ul>
+<h2 id="cast7"><a href="#cast7"><span class="cislo">7.</span> Zákulisí kapitoly</a></h2>
+<p class="ponadpisu">
+V této verzi kapitoly chybí:
+</p>
+<ul class="kompaktni"><li>nic
+</li></ul><p class="ponadpisu">
+Tato kapitola záměrně nepokrývá:
+</p>
+<ul class="kompaktni"><li>nic
+</li></ul><div class="ppc"><div id="kapxa99b165ppc1"><a href="#kapxa99b165ppcr1" class="cislopozn">1</a>&nbsp;Pro přesnější určení rozměru můžete zadat velikost oddílu v mebibajtech místo gibibajtů (místo přípony „G“ uveďte příponu „M“), ale v takovém případě počítejte s možností, že příkaz zadanout hodnotu může zaokrouhlit o několik mebibajtů nahoru.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilylvmppc2"><a href="#kapdiskoveoddilylvmppcr2" class="cislopozn">2</a>&nbsp;Tento příkaz obvykle není potřeba, protože po připojení zařízení nebo startu systému se nalezené skupiny obvykle aktivují automaticky.</div>
+<div id="kapxa99b165ppc2"><a href="#kapxa99b165ppcr2" class="cislopozn">2</a>&nbsp;Skupiny tvořené fyzickými svazky na více fyzických discích zvyšují pravděpodobnost ztráty dat, protože když havaruje kterýkoliv zúčastněný disk, přijdete o všechna data v celé skupině svazků. Proto pokud nepotřebujete slučovat úložný prostor na více fyzických discích, preferujte vytváření samostatné skupiny svazků pro fyzické svazky na každém fyzickém disku.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilylvmppc3"><a href="#kapdiskoveoddilylvmppcr3" class="cislopozn">3</a>&nbsp;Pro přesnější určení rozměru můžete zadat velikost oddílu v mebibajtech místo gibibajtů (místo přípony „G“ uveďte příponu „M“), ale v takovém případě počítejte s možností, že příkaz zadanout hodnotu může zaokrouhlit o několik mebibajtů nahoru.</div>
+<div id="kapxa99b165ppc3"><a href="#kapxa99b165ppcr3" class="cislopozn">3</a>&nbsp;Tento příkaz obvykle není potřeba, protože po připojení zařízení nebo startu systému se nalezené skupiny obvykle aktivují automaticky.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilylvmppc4"><a href="#kapdiskoveoddilylvmppcr4" class="cislopozn">4</a>&nbsp;Nechť N je uvedený „počet-zařízení“. Velikost prokládaného oddílu se rozdělí na N stejných dílů a každý se umístí na jeden fyzický svazek ze zadané skupiny svazků. Pokud se některý z dílů na svůj fyzický svazek nevejde, všechny díly budou zmenšeny společně, aby se tam vešel. Kapacita vytvořeného oddílu bude cca 90% součtu místa zabraného všemi díly prokládaného oddílu (prokládání má zřejmě svoji režii). Příklad: máte ve skupině dva fyzické svazky 2G a jeden 1G a pokusíte se vytvořit prokládaný svazek o velikosti 5G; příkaz ho rozdělí na tři díly o velikosti 1,66G; jenže na třetí fyzický svazek se díl nevejde, tak se všechny zmenší na 1G. Výsledný oddíl tedy zabere 3G (na prvním i druhém svazku zůstane 1G volný) a kapacita nově vzniklého oddílu bude cca 2765M.</div>
+<div id="kapxa99b165ppc4"><a href="#kapxa99b165ppcr4" class="cislopozn">4</a>&nbsp;Pro přesnější určení rozměru můžete zadat velikost oddílu v mebibajtech místo gibibajtů (místo přípony „G“ uveďte příponu „M“), ale v takovém případě počítejte s možností, že příkaz zadanout hodnotu může zaokrouhlit o několik mebibajtů nahoru.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilylvmppc5"><a href="#kapdiskoveoddilylvmppcr5" class="cislopozn">5</a>&nbsp;Volba --resizefs je podporována pouze pro některé typy systému souborů, zejména pro ext4.</div>
+<div id="kapxa99b165ppc5"><a href="#kapxa99b165ppcr5" class="cislopozn">5</a>&nbsp;Nechť N je uvedený „počet-zařízení“. Velikost prokládaného oddílu se rozdělí na N stejných dílů a každý se umístí na jeden fyzický svazek ze zadané skupiny svazků. Pokud se některý z dílů na svůj fyzický svazek nevejde, všechny díly budou zmenšeny společně, aby se tam vešel. Kapacita vytvořeného oddílu bude cca 90% součtu místa zabraného všemi díly prokládaného oddílu (prokládání má zřejmě svoji režii). Příklad: máte ve skupině dva fyzické svazky 2G a jeden 1G a pokusíte se vytvořit prokládaný svazek o velikosti 5G; příkaz ho rozdělí na tři díly o velikosti 1,66G; jenže na třetí fyzický svazek se díl nevejde, tak se všechny zmenší na 1G. Výsledný oddíl tedy zabere 3G (na prvním i druhém svazku zůstane 1G volný) a kapacita nově vzniklého oddílu bude cca 2765M.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilylvmppc6"><a href="#kapdiskoveoddilylvmppcr6" class="cislopozn">6</a>&nbsp;Pozor! Pokud je na zmenšovaném oddíle souborový systém, musíte ho před zmenšením oddílu zmenšit na odpovídající velikost, jinak dojde ke ztrátě dat! To neplatí, použijete-li zde parametr --resizefs.</div>
+<div id="kapxa99b165ppc6"><a href="#kapxa99b165ppcr6" class="cislopozn">6</a>&nbsp;Volba --resizefs je podporována pouze pro některé typy systému souborů, zejména pro ext4.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilylvmppc7"><a href="#kapdiskoveoddilylvmppcr7" class="cislopozn">7</a>&nbsp;Přesouvaný oddíl nesmí být připojený a v aktuálním adresáři si toto zaklínadlo potřebuje vytvořit dočasný soubor „temp.dat“. Pokud vám tento název nevyhovuje, můžete použít jiný.</div>
+<div id="kapxa99b165ppc7"><a href="#kapxa99b165ppcr7" class="cislopozn">7</a>&nbsp;Pozor! Pokud je na zmenšovaném oddíle souborový systém, musíte ho před zmenšením oddílu zmenšit na odpovídající velikost, jinak dojde ke ztrátě dat! To neplatí, použijete-li zde parametr --resizefs.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilylvmppc8"><a href="#kapdiskoveoddilylvmppcr8" class="cislopozn">8</a>&nbsp;„velikost-P“ je velikost nově přiděleného prostoru pro alokaci kopií dat vzniklých při zápisu do původního oddílu nebo do logického snímku.</div>
+<div id="kapxa99b165ppc8"><a href="#kapxa99b165ppcr8" class="cislopozn">8</a>&nbsp;Přesouvaný oddíl nesmí být připojený a v aktuálním adresáři si toto zaklínadlo potřebuje vytvořit dočasný soubor „temp.dat“. Pokud vám tento název nevyhovuje, můžete použít jiný.</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
-<div id="kapdiskoveoddilylvmppc9"><a href="#kapdiskoveoddilylvmppcr9" class="cislopozn">9</a>&nbsp;Pokud je původní oddíl připojený nebo jinak využívaný, nedojde k nakopírování a sloučení ihned, ale až při příští aktivaci logického oddílu (tzn. zpravidla po restartu systému).</div>
+<div id="kapxa99b165ppc9"><a href="#kapxa99b165ppcr9" class="cislopozn">9</a>&nbsp;„velikost-P“ je velikost nově přiděleného prostoru pro alokaci kopií dat vzniklých při zápisu do původního oddílu nebo do logického snímku.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxa99b165ppc10"><a href="#kapxa99b165ppcr10" class="cislopozn">10</a>&nbsp;Pokud je původní oddíl připojený nebo jinak využívaný, nedojde k nakopírování a sloučení ihned, ale až při příští aktivaci logického oddílu (tzn. zpravidla po restartu systému).</div>
 <script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
 </div>
 
@@ -239,7 +257,7 @@ Pokud chcete používat LVM, musíte doinstalovat:
 </nav>
 
 
-<div class="odkazydole"><div><a href="odkazy.htm"><img src="obrazky/ik/odkazy.png" alt="" width="32" height="32">Pevné a symbolické odkazy</a><a href="system.htm"><img src="obrazky/ik/system.png" alt="" width="32" height="32">Systém</a><a href="zpracovani-videa-a-zvuku.htm"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="" width="32" height="32">Zpracování videa a zvuku</a></div></div>
+<div class="odkazydole"><div><a href="diskove-oddily-softwarovy-raid.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly / Softwarový RAID</a><a href="prace-s-archivy.htm"><img src="obrazky/ik/prace-s-archivy.png" alt="" width="32" height="32">Práce s archivy</a><a href="diskove-oddily.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly</a></div></div>
 <div class="reklamnipata">Líbí se vám tento projekt a chcete, aby byl ještě lepší? Můžete mi s tím pomoci. Zmiňte se o něm technicky zdatným přátelům, opravte překlepy a nahlašte nefunkční zaklínadla, aby mohla být opravena; poskytněte mi zpětnou vazbu nebo se zapojte do vývoje nových kapitol. Další informace na GitHubu v dokumentu <a href="https://github.com/singularis-mzf/linux-spellbook/blob/v%C3%BDvojov%C3%A1/JAK-SE-ZAPOJIT.md">Jak se zapojit</a>.</div>
 
 </article>
@@ -274,8 +292,9 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <a href="#cast3x4" class="podsekce">/4 Logické snímky</a>
 <a href="#cast3x5" class="podsekce">/5 Ostatní</a>
 <a href="#cast4" class="sekce">4 Instalace na Ubuntu</a>
-<a href="#cast5" class="sekce">5 Tipy a zkušenosti</a>
+<a href="#cast5" class="sekce">5 Tipy a zkušenosti</a>
 <a href="#cast6" class="sekce">6 Další zdroje informací</a>
+<a href="#cast7" class="sekce">7 Zákulisí kapitoly</a>
 </div></div>
 <a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
 </aside>
@@ -288,19 +307,20 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/diskove-oddily.png" alt="[]"></span><span class="fragodkazy"><a href="diskove-oddily.htm" class="odkaz"><span><span class="cislo">3</span>Diskové oddíly</span></a><span class="podkpodkazy"><a href="diskove-oddily-btrfs.htm" class="odkaz"><span><span class="cislo">4</span>Btrfs</span></a><a href="diskove-oddily-lvm.htm" class="odkaz"><span><span class="cislo">5</span>LVM</span></a><a href="diskove-oddily-softwarovy-raid.htm" class="odkaz"><span><span class="cislo">6</span>Softwarový RAID</span></a></span></span></div>
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/git.png" alt="[]"></span><span class="fragodkazy"><a href="git.htm" class="odkaz"><span><span class="cislo">7</span>Git</span></a></span></div>
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/hledani-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="hledani-souboru.htm" class="odkaz"><span><span class="cislo">8</span>Hledání souborů</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/nabidka-aplikaci.png" alt="[]"></span><span class="fragodkazy"><a href="nabidka-aplikaci.htm" class="odkaz"><span><span class="cislo">9</span>Nabídka aplikací</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/odkazy.png" alt="[]"></span><span class="fragodkazy"><a href="odkazy.htm" class="odkaz"><span><span class="cislo">10</span>Pevné a symbolické odkazy</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-zaklady.png" alt="[]"></span><span class="fragodkazy"><a href="perl-zaklady.htm" class="odkaz"><span><span class="cislo">11</span>Perl: základy</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="fragodkazy"><a href="prace-s-archivy.htm" class="odkaz"><span><span class="cislo">12</span>Práce s archivy</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="fragodkazy"><a href="regularni-vyrazy.htm" class="odkaz"><span><span class="cislo">13</span>Regulární výrazy</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-balicku.htm" class="odkaz"><span><span class="cislo">14</span>Správa balíčků</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-uzivatelskych-uctu.htm" class="odkaz"><span><span class="cislo">15</span>Správa uživatelských účtů</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="fragodkazy"><a href="system.htm" class="odkaz"><span><span class="cislo">16</span>Systém</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-textovych-souboru.htm" class="odkaz"><span><span class="cislo">17</span>Zpracování textových souborů</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-videa-a-zvuku.htm" class="odkaz"><span><span class="cislo">18</span>Zpracování videa a zvuku</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="fragodkazy"><a href="koncepce-projektu.htm" class="odkaz"><span><span class="cislo">19</span>Koncepce projektu Linux: Kniha kouzel</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/plan-vyvoje.png" alt="[]"></span><span class="fragodkazy"><a href="plan-vyvoje.htm" class="odkaz"><span><span class="cislo">20</span>Plán budoucího vývoje</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="fragodkazy"><a href="licence.htm" class="odkaz"><span><span class="cislo">21</span>Licence</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/metaprikazy.png" alt="[]"></span><span class="fragodkazy"><a href="metaprikazy.htm" class="odkaz"><span><span class="cislo">9</span>Metapříkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/nabidka-aplikaci.png" alt="[]"></span><span class="fragodkazy"><a href="nabidka-aplikaci.htm" class="odkaz"><span><span class="cislo">10</span>Nabídka aplikací</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/odkazy.png" alt="[]"></span><span class="fragodkazy"><a href="odkazy.htm" class="odkaz"><span><span class="cislo">11</span>Pevné a symbolické odkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-zaklady.png" alt="[]"></span><span class="fragodkazy"><a href="perl-zaklady.htm" class="odkaz"><span><span class="cislo">12</span>Perl: základy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="fragodkazy"><a href="prace-s-archivy.htm" class="odkaz"><span><span class="cislo">13</span>Práce s archivy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="fragodkazy"><a href="regularni-vyrazy.htm" class="odkaz"><span><span class="cislo">14</span>Regulární výrazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-balicku.htm" class="odkaz"><span><span class="cislo">15</span>Správa balíčků</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-uzivatelskych-uctu.htm" class="odkaz"><span><span class="cislo">16</span>Správa uživatelských účtů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="fragodkazy"><a href="system.htm" class="odkaz"><span><span class="cislo">17</span>Systém</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-textovych-souboru.htm" class="odkaz"><span><span class="cislo">18</span>Zpracování textových souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-videa-a-zvuku.htm" class="odkaz"><span><span class="cislo">19</span>Zpracování videa a zvuku</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="fragodkazy"><a href="koncepce-projektu.htm" class="odkaz"><span><span class="cislo">20</span>Koncepce projektu Linux: Kniha kouzel</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/plan-vyvoje.png" alt="[]"></span><span class="fragodkazy"><a href="plan-vyvoje.htm" class="odkaz"><span><span class="cislo">21</span>Plán budoucího vývoje</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="fragodkazy"><a href="licence.htm" class="odkaz"><span><span class="cislo">22</span>Licence</span></a></span></div>
 <div class="premiove"><strong>Prémiové kapitoly:</strong>
 <div>AWK</div>
 <div>Datum, čas a kalendář</div>
@@ -325,35 +345,35 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <a href="#menustitky" id="menustitky"><span class="prvnipismeno">Š</span>títky</a>
 <aside class="menustitky">
 <div><div class="nadpis">Štítky</div><div class="polozky">
-<a href="x-stitky.htm#sadresare">adresáře&nbsp;&nbsp;(2)</a>
-<a href="x-stitky.htm#saplikace">aplikace&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sapt">apt&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sbash">bash&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sdemoni">démoni&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sflatpak">Flatpak&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sgui">GUI&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#shledani">hledání&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sklavesnice">klávesnice&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#skomprese">komprese&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#slvm">LVM&nbsp;&nbsp;(2)</a>
-<a href="x-stitky.htm#sodkladaciprostor">odkládací prostor&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sperl">Perl&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sprogram">program&nbsp;&nbsp;(2)</a>
-<a href="x-stitky.htm#sprogramovani">programování&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#spristupovaprava">přístupová práva&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sraid">RAID&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sramdisk">ramdisk&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#ssnap">Snap&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#ssoubory">soubory&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#sspravaverzi">správa verzí&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#ssyntaxe">syntaxe&nbsp;&nbsp;(3)</a>
-<a href="x-stitky.htm#ssystem">systém&nbsp;&nbsp;(7)</a>
-<a href="x-stitky.htm#ssystemsouboru">systém souborů&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#stematickyokruh">tematický okruh&nbsp;&nbsp;(13)</a>
-<a href="x-stitky.htm#svideo">video&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#szip">zip&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#szpracovanitextu">zpracování textu&nbsp;&nbsp;(3)</a>
-<a href="x-stitky.htm#szvuk">zvuk&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5208bbb">adresáře&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#xb0a5782">aplikace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x583f72a">apt&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xd574d4b">bash&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#xcd6caf8">démoni&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xb05338c">Flatpak&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x1e3042b">GUI&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x4e36c04">hledání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c8789a">klávesnice&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa473827">komprese&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x79108ba">LVM&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x2d47ed4">odkládací prostor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x0114ad0">Perl&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa9c449d">program&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#xc65388d">programování&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x43a526a">přístupová práva&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xcf91513">RAID&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5c5f44a">ramdisk&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9ad09a9">Snap&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x23be896">soubory&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x12e55d8">správa verzí&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9dcbb0b">syntaxe&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#xba98a3b">systém&nbsp;&nbsp;(7)</a>
+<a href="x-stitky.htm#x3972255">systém souborů&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c01147">tematický okruh&nbsp;&nbsp;(14)</a>
+<a href="x-stitky.htm#x421b47f">video&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xadcdbd7">zip&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x908961b">zpracování textu&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#x04b5cff">zvuk&nbsp;&nbsp;(1)</a>
 </div></div>
 <a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
 </aside>

@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="cs">
+<head profile="http://www.w3.org/2005/10/profile">
+<meta charset="UTF-8">
+
+<title>Bash / Interaktivní režim − Linux: Kniha kouzel</title>
+
+<link rel="stylesheet" type="text/css" href="lkk-20210620.css">
+<link rel="icon" type="image/png" href="obrazky/favicon.png">
+</head>
+<body>
+<div id="nahore"><div id="okno">
+<header>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.8, P. P. (20. června 2021)</span>
+<span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
+</header>
+<nav class="menuokna">
+<a href="#menuosnova" class="menu"><span class="prvnipismeno">O</span>snova</a>
+<a href="#menukapitoly" class="menu"><span class="prvnipismeno">K</span>apitoly</a>
+<a href="#menustitky" class="menu"><span class="prvnipismeno">Š</span>títky</a>
+<a href="#menunapoveda" class="menu"><span class="prvnipismeno">N</span>ápověda</a>
+<a href="bash-funkce-a-skripty.htm" rel="prev" title="4. Bash / Funkce a skripty" accesskey="p" class="predchozi">Předchozí&nbsp;kapitola</a>
+<a href="index.htm" class="prehled"><span class="prvnipismeno">P</span>řehled kapitol</a>
+<a href="diskove-oddily.htm" rel="next" title="6. Diskové oddíly" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
+</nav>
+
+<div class="slogan-veskera-moc">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+
+<!--
+<nav class="horni">
+<div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+<span class="prev">
+<a href="bash-funkce-a-skripty.htm" rel="prev" title="4. Bash / Funkce a skripty" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+</span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!- -
+- ->&nbsp;| <a href="diskove-oddily.htm" rel="next" title="6. Diskové oddíly" accesskey="n">Následující&nbsp;kapitola</a>
+</span>
+</nav>
+-->
+
+
+<article>
+
+<h1 class="kapitola">5. <img src="obrazky/ik/bash.png" alt="" width="64" height="64"> <a href="bash.htm">Bash</a> / Interaktivní režim</h1>
+<div class="stitky"><a href="x-stitky.htm#">bash</a>
+<a href="x-stitky.htm#">program</a>
+</div>
+<h2 id="cast1"><a href="#cast1"><span class="cislo">1.</span> Úvod</a></h2>
+<p class="ponadpisu">
+Tato kapitola se věnuje využití vlastností interpretu Bash
+specifických pro jeho interaktivní režim, tedy režim, kdy interpret
+přijímá příkazy přímo od uživatele (na rozdíl od vykonávání skriptů).
+</p><p>
+Interpret Bash je vyvíjen v rámci projektu GNU.
+</p>
+
+<h2 id="cast2"><a href="#cast2"><span class="cislo">2.</span> Definice</a></h2>
+<ul><li><b>Alias</b> je pokyn intepretu, aby kdykoliv na místě názvu příkazu narazí na určitý název, nahradil tento název předem nastaveným textem (text náhrady obvykle obsahuje příkaz s parametry, ale může to být jakýkoliv text).
+</li><li><b>Historie</b> je číslovaný seznam textových řetězců, kam Bash ukládá příkazové řádky zadané v interaktivním režimu, aby je uživatel mohl později snadno opakovaně vyvolat nebo v nich vyhledávat.
+</li></ul>
+<h2 id="cast3" class="zaklinadla"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla</a></h2>
+
+<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 5 (Bash/Interaktivní režim), sekce 3 (Zaklínadla), podsekce 1 (Ovládání: editace příkazové řádky)"><sup>3/</sup>1 Ovládání: editace příkazové řádky</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2c8009d"><span><a href="#zx2c8009d">ᔷ</a></span></span>„<b>zpět</b>“: vrátit poslední provedenou úpravu příkazového řádku<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><kbd>Ctrl</kbd>+<kbd>X</kbd><kbd>U</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4c2b126"><span><a href="#zx4c2b126">⡁</a></span></span>vyjmout text <b>od začátku</b> řádku/slova před aktuální znak<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><kbd>Ctrl</kbd>+<kbd>U</kbd></div>
+<div class="radekzaklinadla"><kbd>Ctrl</kbd>+<kbd>W</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0277a30"><span><a href="#zx0277a30">˥</a></span></span><b>vložit</b> naposledy vyjmutý text<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><kbd>Ctrl</kbd>+<kbd>Y</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxec4b310"><span><a href="#zxec4b310">ᔶ</a></span></span>vyjmout text od aktuálního znaku <b>do konce</b> řádky/slova<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla"><kbd>Ctrl</kbd>+<kbd>K</kbd></div>
+<div class="radekzaklinadla"><kbd>Alt</kbd>+<kbd>K</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx96e9fad"><span><a href="#zx96e9fad">┲</a></span></span>přejít na začátek/konec příkazové řádky<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla"><kbd>Home</kbd></div>
+<div class="radekzaklinadla"><kbd>End</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx730c31f"><span><a href="#zx730c31f">⬤</a></span></span>otevřít zadávaný příkaz v editoru jako skript a po uzavření editoru vykonat<span class="cislo">#6 </span><sup><a href="#kapxdd0b3b0ppc1" id="kapxdd0b3b0ppcr1" title="Použitý editor je určený proměnnou prostředí EDITOR; ve výchozím nastavení je to na Ubuntu „nano“.">(1)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><kbd>Ctrl</kbd>+<kbd>X</kbd><kbd>E</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc7d430a"><span><a href="#zxc7d430a">➧</a></span></span>vložit na příkazový řádek <b>tabulátor</b><span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla"><kbd>Ctrl</kbd>+<kbd>V</kbd></div>
+<div class="radekzaklinadla"><kbd>Tab</kbd></div>
+</div></div>
+
+<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 5 (Bash/Interaktivní režim), sekce 3 (Zaklínadla), podsekce 2 (Ovládání: práce s historií)"><sup>3/</sup>2 Ovládání: práce s historií</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4660573"><span><a href="#zx4660573">┦</a></span></span>zopakovat poslední příkaz<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><kbd>↑</kbd></div>
+<div class="radekzaklinadla"><kbd>Enter</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf5e93ef"><span><a href="#zxf5e93ef">♞</a></span></span>posouvat se v historii po jednotlivých příkazech zpět/vpřed<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><kbd>↑</kbd></div>
+<div class="radekzaklinadla"><kbd>↓</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc7dbc8a"><span><a href="#zxc7dbc8a">╗</a></span></span>vyhledávat v historii směrem zpět<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><kbd>Ctrl</kbd>+<kbd>R</kbd></div>
+<div class="radekzaklinadla akce">Zadat vyhledávaný podřetězec. Další ovládání: <kbd>Enter</kbd>, <kbd>Esc</kbd>, <kbd>↑</kbd>, <kbd>↓</kbd>, <kbd>Shift</kbd><b>+</b><kbd>Alt</kbd><b>+</b><kbd>.</kbd>.</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa3bbc90"><span><a href="#zxa3bbc90">⇐</a></span></span>návrat na konec historie (zpravidla po nepovedeném vyhledávání)<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla"><kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>.</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6096a89"><span><a href="#zx6096a89">♀</a></span></span>vrátit řádek načtený z historie do původního stavu<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla"><kbd>Alt</kbd>+<kbd>R</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx513851e"><span><a href="#zx513851e">⢁</a></span></span>vložit poslední slovo z poslední řádky v historii<span class="cislo">#6 </span><sup><a href="#kapxdd0b3b0ppc2" id="kapxdd0b3b0ppcr2" title="Opakovaným stiskem lze vložit poslední slovo z předposlední řádky, před-předposlední atd.">(2)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><kbd>Alt</kbd>+<kbd>.</kbd></div>
+</div></div>
+
+<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 5 (Bash/Interaktivní režim), sekce 3 (Zaklínadla), podsekce 3 (Ovládání: ostatní)"><sup>3/</sup>3 Ovládání: ostatní</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1db6691"><span><a href="#zx1db6691">⪳</a></span></span>pokusit se doplnit parametr nalevo od kurzoru<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><kbd>Tab</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd4339f3"><span><a href="#zxd4339f3">┒</a></span></span>smazat terminál (ponechat aktuální řádku)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><kbd>Ctrl</kbd>+<kbd>L</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb4a718a"><span><a href="#zxb4a718a">ⵢ</a></span></span>posun terminálu o stránku nahoru/dolu<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><kbd>Shift</kbd>+<kbd>PageUp</kbd></div>
+<div class="radekzaklinadla"><kbd>Shift</kbd>+<kbd>PageDown</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx569a17e"><span><a href="#zx569a17e">┉</a></span></span>pozastavit výpis na terminál/pokračovat<span class="cislo">#4 </span><sup><a href="#kapxdd0b3b0ppc3" id="kapxdd0b3b0ppcr3" title="Tyto klávesové zkratky lze (velmi výhodně) použít i tehdy, když Bash není na popředí! Program vypisující na terminál dál poběží (pokud ho chcete přerušit, použijte Ctrl+Z).">(3)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><kbd>Ctrl</kbd>+<kbd>S</kbd></div>
+<div class="radekzaklinadla"><kbd>Ctrl</kbd>+<kbd>Q</kbd></div>
+</div></div>
+
+<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 5 (Bash/Interaktivní režim), sekce 3 (Zaklínadla), podsekce 4 (Aliasy (včetně zapnutí/vypnutí))"><sup>3/</sup>4 Aliasy (včetně zapnutí/vypnutí)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxda0eba7"><span><a href="#zxda0eba7">₸</a></span></span>vypsat přehled aliasů<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">alias</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe557a06"><span><a href="#zxe557a06">┯</a></span></span>nastavit alias (obecně/příklad)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">alias <i class="dopln">identifikator</i>=<i class="dopln">&quot;text&quot;</i> <span class="volznak">[</span><i class="dopln">dalsiidentifikator</i>=<i class="dopln">&quot;text&quot;</i><span class="volznak">]</span><span class="tritecky"></span></div>
+<div class="radekzaklinadla">alias ls='printf %s\n &quot;Výpis souborů:&quot;; ls -l'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe09c168"><span><a href="#zxe09c168">↾</a></span></span>smazat alias<span class="cislo">#3 </span><sup><a href="#kapxdd0b3b0ppc4" id="kapxdd0b3b0ppcr4" title="Pozor na rozdíl oproti příkazu „unset“ — mazaný alias musí existovat, jinak příkaz „unalias“ selže.">(4)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">unalias <i class="dopln">identifikator</i> <span class="volznak">[</span>2&gt;/dev/null || true<span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6729734"><span><a href="#zx6729734">⊀</a></span></span>test: je identifikátor alias?<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">alias <i class="dopln">identifikator</i> &amp;&gt;/dev/null</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3d599b5"><span><a href="#zx3d599b5">⊩</a></span></span>vypnout/zapnout aliasy<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">shopt -u expand_aliases</div>
+<div class="radekzaklinadla">shopt -s expand_aliases</div>
+</div></div>
+
+<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 5 (Bash/Interaktivní režim), sekce 3 (Zaklínadla), podsekce 5 (Nápověda k příkazům)"><sup>3/</sup>5 Nápověda k příkazům</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxcb53149"><span><a href="#zxcb53149">▦</a></span></span>vypsat nápovědu pro vestavěný příkaz/všechny vestavěné příkazy<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">help <span class="volznak">[</span>-m<span class="volznak">]</span> <i class="dopln">příkaz</i></div>
+<div class="radekzaklinadla">help <span class="volznak">[</span>-m<span class="volznak">]</span> &quot;*&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxade28e3"><span><a href="#zxade28e3">⡄</a></span></span>určit typ příkazu<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">type <span class="volznak">[</span>-t<span class="volznak">]</span> <i class="dopln">název_příkazu</i></div>
+</div></div>
+
+<h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 5 (Bash/Interaktivní režim), sekce 3 (Zaklínadla), podsekce 6 (Nastavení historie)"><sup>3/</sup>6 Nastavení historie</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxff4548d"><span><a href="#zxff4548d">⠂</a></span></span><b>vypnout rozvoj</b> historie (doporučuji)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">set +H</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0eba574"><span><a href="#zx0eba574">✾</a></span></span><b>maximální počet</b> záznamů v historii v paměti/na disku<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">HISTSIZE=<i class="dopln">počet</i></div>
+<div class="radekzaklinadla">HISTFILESIZE=<i class="dopln">počet</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1e1b55f"><span><a href="#zx1e1b55f">▖</a></span></span>byl-li proveden rozvoj historie, zobrazit příkaz před provedením ke kontrole<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">shopt -s histverify</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb3a8932"><span><a href="#zxb3a8932">╷</a></span></span>vypnout historii příkazů úplně/zapnout ji<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">set +o history; history -c</div>
+<div class="radekzaklinadla">set -o history</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx469aa80"><span><a href="#zx469aa80">♣</a></span></span>nastavit, kam se ukládá historie (obecně/příklad)<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">HISTFILE=&quot;<i class="dopln">/absolutní/cesta-k-souboru</i>&quot;</div>
+<div class="radekzaklinadla">HISTFILE=&quot;/home/aneta/.bash_history&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8d16e6c"><span><a href="#zx8d16e6c">ᕹ</a></span></span>víceřádkové příkazy ukládat do historie: najednou/po řádcích<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">shopt -s cmdhist</div>
+<div class="radekzaklinadla">shopt -u cmdhist</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx03d317e"><span><a href="#zx03d317e">╵</a></span></span>nastavit způsob ukládání řádek do historie (obecně/příklad)<span class="cislo">#7 </span><sup><a href="#kapxdd0b3b0ppc5" id="kapxdd0b3b0ppcr5" title="Rozeznávané volby jsou: „ignorespace“ (neukládat řádky začínající bílým znakem), „ignoredups“ (neukládat stejný řádek znovu) a „erasedups“ (před uložením řádky smazat všechny stejné řádky z celé historie – pozor, tato volba mění pořadová čísla řádek v historii). Volba „ignoreboth“ (což je v Ubuntu výchozí chování) je synonymum pro „ignorespace:ignoredups“.">(5)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">HISTCONTROL=&quot;<span class="volznak">[</span><i class="dopln">volba</i><span class="volznak">[</span>:<i class="dopln">další-volba</i><span class="volznak">]</span><span class="tritecky"></span><span class="volznak">]</span>&quot;</div>
+<div class="radekzaklinadla">HISTCONTROL=&quot;ignorespace:erasedups&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx978afaf"><span><a href="#zx978afaf">┄</a></span></span>neukládat do historie příkazy začínající určitými řetězci/obsahující určité řetězce na první řádce<span class="cislo">#8 </span><sup><a href="#kapxdd0b3b0ppc6" id="kapxdd0b3b0ppcr6" title="Pozor: řetězce jsou zde ve skutečnosti vzorky, takže se vyvarujte jakýchkoliv zvláštních znaků, nebo si nastudujte v manuálové stránce bashe, jak proměnná HISTIGNORE ve skutečnosti funguje.">(6)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">HISTIGNORE=&quot;<i class="dopln">řetězec</i>*<span class="volznak">[</span>:<i class="dopln">další řetězec</i>*<span class="volznak">]</span><span class="tritecky"></span>&quot;</div>
+<div class="radekzaklinadla">HISTIGNORE=&quot;*<i class="dopln">řetězec</i>*<span class="volznak">[</span>:*<i class="dopln">další řetězec</i>*<span class="volznak">]</span><span class="tritecky"></span>&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx447f924"><span><a href="#zx447f924">➡</a></span></span>ukládání historie při ukončení bashe: připojit na konec/přepsat soubor<span class="cislo">#9 </span></div><div class="radky">
+<div class="radekzaklinadla">shopt -s histappend</div>
+<div class="radekzaklinadla">shopt -u histappend</div>
+</div></div>
+
+<h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 5 (Bash/Interaktivní režim), sekce 3 (Zaklínadla), podsekce 7 (Historie (kromě nastavení))"><sup>3/</sup>7 Historie (kromě nastavení)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6fce2a2"><span><a href="#zx6fce2a2">▯</a></span></span>vypsat posledních N záznamů<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">history <i class="dopln">N</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf45e77f"><span><a href="#zxf45e77f">❭</a></span></span>ručně přidat do historie příkaz<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">history -s '<i class="dopln">příkaz s parametry</i>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb937943"><span><a href="#zxb937943">◊</a></span></span>smazat z historie poslední záznam (viz poznámku)<span class="cislo">#3 </span><sup><a href="#kapxdd0b3b0ppc7" id="kapxdd0b3b0ppcr7" title="Pozor! Tento příkaz bude fungovat, pokud ">(7)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">history -d -1</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf68b9e1"><span><a href="#zxf68b9e1">⨛</a></span></span>smazat z historie poslední záznam/konkrétní záznam/všechny záznamy<span class="cislo">#4 </span><sup><a href="#kapxdd0b3b0ppc8" id="kapxdd0b3b0ppcr8" title="Poznámka k příkazu „history -d -2“: tento příkaz ve skutečnosti maže předposlední záznam, ale když takový příkaz zadáte, vámi zadaný řádek se uloží do historie ještě před smazáním předpokládá, že se vámi zadaný příkazový řádek do historie před provedením uloží. (Příkaz „history -d -1“ by totiž v takovém případě smazal právě ten nově uložený řádek, namísto řádky, která už v historii byla. )">(8)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">history -d -1</div>
+<div class="radekzaklinadla">history -d <i class="dopln">číslo-záznamu</i></div>
+<div class="radekzaklinadla">history -c</div>
+</div></div>
+
+<h3 id="cast3x8"><span><a href="#cast3x8" title="kapitola 5 (Bash/Interaktivní režim), sekce 3 (Zaklínadla), podsekce 8 (Nastavení (kromě historie a aliasů))"><sup>3/</sup>8 Nastavení (kromě historie a aliasů)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx96ba960"><span><a href="#zx96ba960">⟾</a></span></span>nastavit/zrušit <b>časový limit</b> na zadání příkazu <span class="cislo">#1 </span><sup><a href="#kapxdd0b3b0ppc9" id="kapxdd0b3b0ppcr9" title="Pozor, limit se počítá od zobrazení výzvy a když doběhne, intepret se ukončí, a to i v případě, že příkaz teprve zadáváte. Poznámka: Uvedená hodnota se prý aplikuje také na vestavěný příkaz „read“, pokud ten nemá zadán vlastní časový limit.">(9)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">TMOUT=<i class="dopln">N</i></div>
+<div class="radekzaklinadla">unset TMOUT</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx02787ca"><span><a href="#zx02787ca">ƿ</a></span></span>snažit se opravit překlepy v parametru příkazu „cd“ (zapnout/vypnout)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">shopt -s cdspell</div>
+<div class="radekzaklinadla">shopt -u cdspell</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxddafcfc"><span><a href="#zxddafcfc">⪲</a></span></span>nerozlišovat velká a malá písmena ve většině kontextů (zapnout/vypnout)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">shopt -s nocasematch</div>
+<div class="radekzaklinadla">shopt -u nocasematch</div>
+</div></div>
+
+<h2 id="cast4"><a href="#cast4"><span class="cislo">4.</span> Instalace na Ubuntu</a></h2>
+<p class="ponadpisu">
+GNU Bash a všechny příkazy použité v této kapitole jsou základními součástmi
+Ubuntu přítomnými i v minimální instalaci.
+</p>
+
+<h2 id="cast5"><a href="#cast5"><span class="cislo">5.</span> Tipy a zkušenosti</a></h2>
+<ul><li>Bash se o rozvoj aliasů snaží opakovaně, ale s ochranou proti nekonečné rekurzi — u každého názvu příkazu si pamatuje, z rozvoje jakých aliasů vznikl a ty už znovu nerozvine. Proto je bezpečné nastavit např. „alias ls='ls -R'“.
+</li><li>Častá začátečnická chyba je „alias ls=ls -l“; název a text aliasu je nutno předat v jednom parametru a všechny zvláštní znaky je třeba odzvláštnit, jinak se vyhodnotí okamžitě a ne až po rozvinutí aliasu.
+</li><li>Doporučuji všem uživatelům vypnout v souboru „.bashrc“ rozvoj historie příkazem „set +H“. Ovládání pomocí klávesových šipek, Ctrl+R, příkazu „fc“ apod. je pro přístup do historie mnohem praktičtější a vypnutí rozvoje historie vám umožní používat znaky „!“ a „^“ v interaktivním režimu bez nutnosti odzvláštnění (stejně jako ve skriptech).
+</li><li>Rozvoj aliasů se provádí ještě před jakýmkoliv dalším zpracováním příkazového řádku; dokonce můžete nastavit „alias x=&quot;echo '&quot; a pak zadat „x Proměnná $PATH'“ a bude to fungovat — $PATH se nerozvine!
+</li><li>Vyhledávání Ctrl+R má nevýhodnou vlastnost, že v případě překlepu můžete přesáhnout za hledanou pozici a zpět se nemůžete vrátit bez smazání již zadaných písmen. Bash sice nabízí i funkci pro vyhledávání bez této nepříjemné vlastnosti, ale nepodařilo se mi ho zprovoznit.
+</li><li>Klávesovou zkratku Ctrl+XE můžete využít pro zadání komplikovanějšího příkazu i v momentě, kdy je příkazová řádka ještě prázdná.
+</li></ul>
+<h2 id="cast6"><a href="#cast6"><span class="cislo">6.</span> Další zdroje informací</a></h2>
+<ul class="kompaktni"><li>BRANDEJS, Michal. <i>Linux: Praktický průvodce.</i> Brno: Konvoj, 2003. 2. vyd. (v Konvoji 1.) ISBN 80-7302-050-5. Kapitola 4.
+</li><li><a href="https://www.gnu.org/software/bash/manual/html_node/Bash-History-Builtins.html">Bash History Builtins</a> (anglicky)
+</li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/common/history.md">TL;DR: history</a> (anglicky)
+</li></ul>
+<h2 id="cast7"><a href="#cast7"><span class="cislo">7.</span> Zákulisí kapitoly</a></h2>
+<p class="ponadpisu">
+V této verzi kapitoly chybí:
+</p>
+<ul class="kompaktni"><li>bind (mapování kláves)
+</li><li>fc (vykonání příkazu z historie)
+</li></ul><p class="ponadpisu">
+Tato kapitola záměrně nepokrývá:
+</p>
+<ul class="kompaktni"><li>Nastavení terminálu a výzvy (viz kapitolu Terminál)
+</li></ul><div class="ppc"><div id="kapxdd0b3b0ppc1"><a href="#kapxdd0b3b0ppcr1" class="cislopozn">1</a>&nbsp;Použitý editor je určený proměnnou prostředí EDITOR; ve výchozím nastavení je to na Ubuntu „nano“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxdd0b3b0ppc2"><a href="#kapxdd0b3b0ppcr2" class="cislopozn">2</a>&nbsp;Opakovaným stiskem lze vložit poslední slovo z předposlední řádky, před-předposlední atd.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxdd0b3b0ppc3"><a href="#kapxdd0b3b0ppcr3" class="cislopozn">3</a>&nbsp;Tyto klávesové zkratky lze (velmi výhodně) použít i tehdy, když Bash není na popředí! Program vypisující na terminál dál poběží (pokud ho chcete přerušit, použijte Ctrl+Z).</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxdd0b3b0ppc4"><a href="#kapxdd0b3b0ppcr4" class="cislopozn">4</a>&nbsp;Pozor na rozdíl oproti příkazu „unset“ — mazaný alias musí existovat, jinak příkaz „unalias“ selže.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxdd0b3b0ppc5"><a href="#kapxdd0b3b0ppcr5" class="cislopozn">5</a>&nbsp;Rozeznávané volby jsou: „ignorespace“ (neukládat řádky začínající bílým znakem), „ignoredups“ (neukládat stejný řádek znovu) a „erasedups“ (před uložením řádky smazat všechny stejné řádky z celé historie – pozor, tato volba mění pořadová čísla řádek v historii). Volba „ignoreboth“ (což je v Ubuntu výchozí chování) je synonymum pro „ignorespace:ignoredups“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxdd0b3b0ppc6"><a href="#kapxdd0b3b0ppcr6" class="cislopozn">6</a>&nbsp;Pozor: řetězce jsou zde ve skutečnosti vzorky, takže se vyvarujte jakýchkoliv zvláštních znaků, nebo si nastudujte v manuálové stránce bashe, jak proměnná HISTIGNORE ve skutečnosti funguje.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxdd0b3b0ppc7"><a href="#kapxdd0b3b0ppcr7" class="cislopozn">7</a>&nbsp;Pozor! Tento příkaz bude fungovat, pokud </div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxdd0b3b0ppc8"><a href="#kapxdd0b3b0ppcr8" class="cislopozn">8</a>&nbsp;Poznámka k příkazu „history -d -2“: tento příkaz ve skutečnosti maže předposlední záznam, ale když takový příkaz zadáte, vámi zadaný řádek se uloží do historie ještě před smazáním předpokládá, že se vámi zadaný příkazový řádek do historie před provedením uloží. (Příkaz „history -d -1“ by totiž v takovém případě smazal právě ten nově uložený řádek, namísto řádky, která už v historii byla. )</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxdd0b3b0ppc9"><a href="#kapxdd0b3b0ppcr9" class="cislopozn">9</a>&nbsp;Pozor, limit se počítá od zobrazení výzvy a když doběhne, intepret se ukončí, a to i v případě, že příkaz teprve zadáváte. Poznámka: Uvedená hodnota se prý aplikuje také na vestavěný příkaz „read“, pokud ten nemá zadán vlastní časový limit.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+</div>
+
+
+<nav class="spodni">
+<a href="index.htm" class="naindex">🗐&nbsp;Přehled&nbsp;kapitol</a>
+<div class="naslkap">
+<a href="diskove-oddily.htm" rel="next" title="6. Diskové oddíly">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">6</span>
+<span class="nazev">Diskové oddíly</span></a>
+</div>
+<!--<div><a href="index.htm">🗐&nbsp;Přehled&nbsp;kapitol</a></div>-->
+</nav>
+
+
+<div class="odkazydole"><div><a href="sprava-uzivatelskych-uctu.htm"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="" width="32" height="32">Správa uživatelských účtů</a><a href="odkazy.htm"><img src="obrazky/ik/odkazy.png" alt="" width="32" height="32">Pevné a symbolické odkazy</a><a href="system.htm"><img src="obrazky/ik/system.png" alt="" width="32" height="32">Systém</a></div></div>
+<div class="reklamnipata">Líbí se vám tento projekt a chcete, aby byl ještě lepší? Můžete mi s tím pomoci. Zmiňte se o něm technicky zdatným přátelům, opravte překlepy a nahlašte nefunkční zaklínadla, aby mohla být opravena; poskytněte mi zpětnou vazbu nebo se zapojte do vývoje nových kapitol. Další informace na GitHubu v dokumentu <a href="https://github.com/singularis-mzf/linux-spellbook/blob/v%C3%BDvojov%C3%A1/JAK-SE-ZAPOJIT.md">Jak se zapojit</a>.</div>
+
+</article>
+<!-- *** -->
+<footer id="dole">
+<img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
+<p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
+<a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
+Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
+či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
+na stránce „<a href="x-autori.htm">Přehled autorů</a>“.
+Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
+licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
+Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód
+a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
+<a href="https://github.com/singularis-mzf/linux-spellbook">repozitář na GitHubu</a>.
+</footer>
+</div>
+
+<nav class="menu">
+<!-- MENU OSNOVA -->
+<a href="#menuosnova" id="menuosnova"><span class="prvnipismeno">O</span>snova</a>
+<aside class="menuosnova">
+<div><div class="nadpis">Osnova</div><div class="polozky">
+<a href="#cast1" class="sekce">1 Úvod</a>
+<a href="#cast2" class="sekce">2 Definice</a>
+<a href="#cast3" class="sekce">3 Zaklínadla</a>
+<a href="#cast3x1" class="podsekce">/1 Ovládání: editace příkazové řádky</a>
+<a href="#cast3x2" class="podsekce">/2 Ovládání: práce s historií</a>
+<a href="#cast3x3" class="podsekce">/3 Ovládání: ostatní</a>
+<a href="#cast3x4" class="podsekce">/4 Aliasy (včetně zapnutí/vypnutí)</a>
+<a href="#cast3x5" class="podsekce">/5 Nápověda k příkazům</a>
+<a href="#cast3x6" class="podsekce">/6 Nastavení historie</a>
+<a href="#cast3x7" class="podsekce">/7 Historie (kromě nastavení)</a>
+<a href="#cast3x8" class="podsekce">/8 Nastavení (kromě historie a aliasů)</a>
+<a href="#cast4" class="sekce">4 Instalace na Ubuntu</a>
+<a href="#cast5" class="sekce">5 Tipy a zkušenosti</a>
+<a href="#cast6" class="sekce">6 Další zdroje informací</a>
+<a href="#cast7" class="sekce">7 Zákulisí kapitoly</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU KAPITOLY -->
+<a href="#menukapitoly" id="menukapitoly"><span class="prvnipismeno">K</span>apitoly</a>
+<aside class="menukapitoly">
+<div><div class="nadpis">Kapitoly</div><div class="polozky">
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/predmluva.png" alt="[]"></span><span class="fragodkazy"><a href="predmluva.htm" class="odkaz"><span><span class="cislo">1</span>Předmluva</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zakladni-znalosti.png" alt="[]"></span><span class="fragodkazy"><a href="zakladni-znalosti.htm" class="odkaz"><span><span class="cislo">2</span>Základní znalosti</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/bash.png" alt="[]"></span><span class="fragodkazy"><a href="bash.htm" class="odkaz"><span><span class="cislo">3</span>Bash</span></a><span class="podkpodkazy"><a href="bash-funkce-a-skripty.htm" class="odkaz"><span><span class="cislo">4</span>Funkce a skripty</span></a><a href="bash-interaktivni-rezim.htm" class="odkaz"><span><span class="cislo">5</span>Interaktivní režim</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/diskove-oddily.png" alt="[]"></span><span class="fragodkazy"><a href="diskove-oddily.htm" class="odkaz"><span><span class="cislo">6</span>Diskové oddíly</span></a><span class="podkpodkazy"><a href="diskove-oddily-btrfs.htm" class="odkaz"><span><span class="cislo">7</span>Btrfs</span></a><a href="diskove-oddily-lvm.htm" class="odkaz"><span><span class="cislo">8</span>LVM</span></a><a href="diskove-oddily-softwarovy-raid.htm" class="odkaz"><span><span class="cislo">9</span>Softwarový RAID</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/git.png" alt="[]"></span><span class="fragodkazy"><a href="git.htm" class="odkaz"><span><span class="cislo">10</span>Git</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/hledani-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="hledani-souboru.htm" class="odkaz"><span><span class="cislo">11</span>Hledání souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/metaprikazy.png" alt="[]"></span><span class="fragodkazy"><a href="metaprikazy.htm" class="odkaz"><span><span class="cislo">12</span>Metapříkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/nabidka-aplikaci.png" alt="[]"></span><span class="fragodkazy"><a href="nabidka-aplikaci.htm" class="odkaz"><span><span class="cislo">13</span>Nabídka aplikací</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/odkazy.png" alt="[]"></span><span class="fragodkazy"><a href="odkazy.htm" class="odkaz"><span><span class="cislo">14</span>Pevné a symbolické odkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-zaklady.png" alt="[]"></span><span class="fragodkazy"><a href="perl-zaklady.htm" class="odkaz"><span><span class="cislo">15</span>Perl: základy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="fragodkazy"><a href="prace-s-archivy.htm" class="odkaz"><span><span class="cislo">16</span>Práce s archivy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="fragodkazy"><a href="regularni-vyrazy.htm" class="odkaz"><span><span class="cislo">17</span>Regulární výrazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-balicku.htm" class="odkaz"><span><span class="cislo">18</span>Správa balíčků</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-uzivatelskych-uctu.htm" class="odkaz"><span><span class="cislo">19</span>Správa uživatelských účtů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="fragodkazy"><a href="system.htm" class="odkaz"><span><span class="cislo">20</span>Systém</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-textovych-souboru.htm" class="odkaz"><span><span class="cislo">21</span>Zpracování textových souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-videa-a-zvuku.htm" class="odkaz"><span><span class="cislo">22</span>Zpracování videa a zvuku</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="fragodkazy"><a href="koncepce-projektu.htm" class="odkaz"><span><span class="cislo">23</span>Koncepce projektu Linux: Kniha kouzel</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/plan-vyvoje.png" alt="[]"></span><span class="fragodkazy"><a href="plan-vyvoje.htm" class="odkaz"><span><span class="cislo">24</span>Plán budoucího vývoje</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="fragodkazy"><a href="licence.htm" class="odkaz"><span><span class="cislo">25</span>Licence</span></a></span></div>
+<div class="premiove"><strong>Prémiové kapitoly:</strong>
+<div>AWK</div>
+<div>Bash / Vstup, výstup a přesměrování</div>
+<div>Datum, čas a kalendář</div>
+<div>Make</div>
+<div>Manuálové stránky</div>
+<div>Markdown</div>
+<div>Perl: moduly a objekty</div>
+<div>Proměnné prostředí a interpretu</div>
+<div>Sed</div>
+<div>Soubory a adresáře</div>
+<div>Správa procesů</div>
+<div>Stahování videí</div>
+<div>Terminál</div>
+<div>Terminál / Emodži</div>
+<div>Vim</div>
+<div>Zpracování binárních souborů</div>
+</div><p>Tyto kapitoly můžete získat jako odměnu za překlad ze zdrojového kódu. Podrobnější informace <a href="https://github.com/singularis-mzf/linux-spellbook/blob/stabiln%C3%AD/dokumentace/odm%C4%9Bna-za-sestaven%C3%AD.md">na GitHubu</a>.</p>
+</div></div>
+<a href="#zavritmenu" id="zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU ŠTÍTKY -->
+<a href="#menustitky" id="menustitky"><span class="prvnipismeno">Š</span>títky</a>
+<aside class="menustitky">
+<div><div class="nadpis">Štítky</div><div class="polozky">
+<a href="x-stitky.htm#x5208bbb">adresáře&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#xb0a5782">aplikace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x583f72a">apt&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa619ea3">automatizace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xd574d4b">bash&nbsp;&nbsp;(5)</a>
+<a href="x-stitky.htm#xcd6caf8">démoni&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xb05338c">Flatpak&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x1e3042b">GUI&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x4e36c04">hledání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c8789a">klávesnice&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa473827">komprese&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x79108ba">LVM&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x2d47ed4">odkládací prostor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x0114ad0">Perl&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa9c449d">program&nbsp;&nbsp;(5)</a>
+<a href="x-stitky.htm#xc65388d">programování&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x43a526a">přístupová práva&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xcf91513">RAID&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5c5f44a">ramdisk&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9ad09a9">Snap&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x23be896">soubory&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x12e55d8">správa verzí&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9dcbb0b">syntaxe&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#xba98a3b">systém&nbsp;&nbsp;(7)</a>
+<a href="x-stitky.htm#x3972255">systém souborů&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c01147">tematický okruh&nbsp;&nbsp;(14)</a>
+<a href="x-stitky.htm#x421b47f">video&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xadcdbd7">zip&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x908961b">zpracování textu&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#x04b5cff">zvuk&nbsp;&nbsp;(1)</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU NÁPOVĚDA -->
+<a href="#menunapoveda" id="menunapoveda"><span class="prvnipismeno">N</span>ápověda</a>
+<aside class="menunapoveda">
+<div><div class="nadpis">Nápověda</div><div class="polozky">
+<a href="predmluva.htm">Předmluva</a>
+<a href="koncepce-projektu.htm">Koncepce projektu Linux: Kniha kouzel</a>
+<a href="https://singularis-mzf.github.io/">Ostatní verze knihy</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook">Repozitář na GitHubu</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook/blob/stabiln%C3%AD/dokumentace/odm%C4%9Bna-za-sestaven%C3%AD.md">Odměna za sestavení (prémiové kapitoly)</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+</nav>
+
+<a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
+<a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
+
+</div>
+</body>
+</html>

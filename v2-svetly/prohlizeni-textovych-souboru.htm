@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="cs">
+<head profile="http://www.w3.org/2005/10/profile">
+<meta charset="UTF-8">
+
+<title>Prohlížení textových souborů − Linux: Kniha kouzel</title>
+<meta name="viewport" content="width=1000, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="lkk-20211008.css">
+<link rel="icon" type="image/png" href="obrazky/favicon.png">
+</head>
+<body class="jeukazka">
+<div id="nahore"><div id="okno">
+<header>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.10, Ř. Ř. (8. října 2021)</span>
+<span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
+</header>
+<nav class="menuokna">
+<a href="#menuosnova" class="menu"><span class="prvnipismeno">O</span>snova</a>
+<a href="#menukapitoly" class="menu"><span class="prvnipismeno">K</span>apitoly</a>
+<a href="#menustitky" class="menu"><span class="prvnipismeno">Š</span>títky</a>
+<a href="#menunapoveda" class="menu"><span class="prvnipismeno">N</span>ápověda</a>
+<a href="prace-s-archivy.htm" rel="prev" title="11. Práce s archivy" accesskey="p" class="predchozi">Předchozí&nbsp;kapitola</a>
+<a href="index.htm" class="prehled"><span class="prvnipismeno">P</span>řehled kapitol</a>
+<a href="regularni-vyrazy.htm" rel="next" title="13. Regulární výrazy" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
+</nav>
+
+<div class="slogan-veskera-moc">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+
+<!--
+<nav class="horni">
+<div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+<span class="prev">
+<a href="prace-s-archivy.htm" rel="prev" title="11. Práce s archivy" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+</span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!- -
+- ->&nbsp;| <a href="regularni-vyrazy.htm" rel="next" title="13. Regulární výrazy" accesskey="n">Následující&nbsp;kapitola</a>
+</span>
+</nav>
+-->
+
+
+<article>
+
+<h1 class="kapitola">12. <img src="obrazky/ik/prohlizeni-textovych-souboru.png" alt="" width="64" height="64"> Prohlížení textových souborů</h1>
+<div class="stitky"><a href="x-stitky.htm#">tematický okruh</a>
+<a href="x-stitky.htm#">textové soubory</a>
+</div>
+<h2 id="cast1"><a href="#cast1"><span class="cislo">1.</span> Úvod</a></h2>
+<p class="ponadpisu">
+Tato kapitola se specializuje na prohlížení
+textových souborů (např. systémových záznamů), tedy zobrazování jejich obsahu
+uživateli bez možnosti tento obsah měnit, ale s možností ho prohledávat
+a filtrovat.
+</p><p>
+Pokud máte na práci se soubory větší požadavky, než co vám nabízejí
+nástroje popsané v této kapitole, měli byste použít plnohodnotný editor,
+např. vim.
+</p><p>
+Příkaz „less“ je vyvíjen v rámci projektu GNU, příkaz „more“ nikoliv.
+</p>
+
+<h2 id="cast2"><a href="#cast2"><span class="cislo">2.</span> Definice</a></h2>
+<ul><li><b>Řádek souboru</b> (resp. řádka souboru) je řádek, jak se nachází v prohlíženém souboru (tedy posloupnost znaků oddělená od ostatních řádků ukončovačem řádky).
+</li><li><b>Řádka obrazovky</b> (resp. řádek obrazovky) je řádka, jak je prohlížecím programem zobrazena na terminálu. Jeden řádek souboru se může zalomit na více řádek obrazovky.
+</li></ul>
+<h2 id="cast3" class="zaklinadla"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla</a></h2>
+
+<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 17 (Prohlížení textových souborů), sekce 3 (Zaklínadla), podsekce 1 (Prohlížení a sledování souborů)"><sup>3/</sup>1 Prohlížení a sledování souborů</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxde58369"><span><a href="#zxde58369">Ɣ</a></span></span>otevřít textový soubor v programu <b>less</b>/programu more<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">less <span class="volznak">[</span><i class="dopln">volby</i><span class="volznak">]</span><span class="tritecky"></span> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/k/souboru</i></div>
+<div class="radekzaklinadla">more <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/k/souboru</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3e84717"><span><a href="#zx3e84717">⁛</a></span></span>sledovat obsah <b>přibývající</b> na konci souboru (alternativy)<span class="cislo">#2 </span><sup><a href="#kapxf8ad2e5ppc1" id="kapxf8ad2e5ppcr1" title="Příkaz „tail“ vypisuje nové řádky okamžitě, příkaz „less“ se zpožděním. Sledování v obou případech ukončíte Ctrl+C; příkaz „less“ pak musíte ještě navíc uzavřít klávesou „q“. less -N zobrazí čísla řádek.">(1)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">tail -f <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">soubor</i></div>
+<div class="radekzaklinadla">less <span class="volznak">[</span>-N<span class="volznak">]</span> +F <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">soubor</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb99d48c"><span><a href="#zxb99d48c">⣅</a></span></span>otevřít textový soubor v režimu pro čtení editoru „<b>vim</b>“<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">view <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/k/souboru</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1a60461"><span><a href="#zx1a60461">↯</a></span></span>sledovat <b>měnící</b> se obsah krátkého souboru<span class="cislo">#4 </span><sup><a href="#kapxf8ad2e5ppc2" id="kapxf8ad2e5ppcr2" title="Sledování ukončíte klávesovou zkratkou Ctrl+C. Náhradou příkazu „cat“ za „sed“ či „egrep“ můžete soubor před sledováním přefiltrovat.">(2)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">watch -d -n <i class="dopln">interval-sekund</i> &quot;cat <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">soubor</i><span class="tritecky"></span>&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8f75ef9"><span><a href="#zx8f75ef9">❩</a></span></span>prohlížet text získaný přes rouru<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">zdroj</i> | less <span class="volznak">[</span>-N<span class="volznak">]</span> <span class="volznak">[</span>-R<span class="volznak">]</span> -</div>
+</div></div>
+
+<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 17 (Prohlížení textových souborů), sekce 3 (Zaklínadla), podsekce 2 (Volby příkazu less)"><sup>3/</sup>2 Volby příkazu less</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx79e4d36"><span><a href="#zx79e4d36">⚄</a></span></span>zachovat terminálové formátování vstupu (escape-sekvence)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">-R</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc789454"><span><a href="#zxc789454">⧔</a></span></span>zobrazit řádek č. N/konec souboru<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">+<i class="dopln">N</i></div>
+<div class="radekzaklinadla">+G</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx285726a"><span><a href="#zx285726a">⌂</a></span></span>po spuštění vyhledat první shodu s regulárním výrazem<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">'+/<i class="dopln">reg. výraz</i>'</div>
+</div></div>
+
+<h2 id="cast4" class="zaklinadla"><a href="#cast4"><span class="cislo">4.</span> Zaklínadla: less (ovládání)</a></h2>
+
+<h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 17 (Prohlížení textových souborů), sekce 4 (Zaklínadla: less (ovládání)), podsekce 1 (Základní ovládání)"><sup>4/</sup>1 Základní ovládání</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa2fff75"><span><a href="#zxa2fff75">♰</a></span></span><b>ukončit</b> less<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">q</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx067af45"><span><a href="#zx067af45">ຯ</a></span></span>skok o <b>stránku</b> vpřed/vzad<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><kbd>PageDown</kbd></div>
+<div class="radekzaklinadla"><kbd>PageUp</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4b9139e"><span><a href="#zx4b9139e">✺</a></span></span>skok o <b>řádku</b> obrazovky vpřed/vzad<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><kbd>↓</kbd></div>
+<div class="radekzaklinadla"><kbd>↑</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3a1020a"><span><a href="#zx3a1020a">≐</a></span></span>skok o řádku souboru vpřed/vzad<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">/^<kbd>Enter</kbd>n</div>
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa1c86eb"><span><a href="#zxa1c86eb">໗</a></span></span>skok na <b>začátek</b>/na <b>konec</b>/doprostřed souboru<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla"><kbd>Home</kbd></div>
+<div class="radekzaklinadla"><kbd>End</kbd></div>
+<div class="radekzaklinadla">50p</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb2e9a3a"><span><a href="#zxb2e9a3a">♋</a></span></span>zobrazit vestavěnou nápovědu<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">h</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0692792"><span><a href="#zx0692792">⣉</a></span></span><b>skok</b> na řádek č. N<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">N</i>g</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx147f050"><span><a href="#zx147f050">˒</a></span></span>znovunačíst obsah souboru<span class="cislo">#8 </span></div><div class="radky">
+<div class="radekzaklinadla"><kbd>Shift</kbd>+<kbd>R</kbd></div>
+</div></div>
+
+<h3 id="cast4x2"><span><a href="#cast4x2" title="kapitola 17 (Prohlížení textových souborů), sekce 4 (Zaklínadla: less (ovládání)), podsekce 2 (Vyhledávání)"><sup>4/</sup>2 Vyhledávání</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx57cba82"><span><a href="#zx57cba82">⡧</a></span></span><b>skákat</b> po řádcích obrazovky odpovídajících poslednímu hledání vpřed/zpět<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">kolikrát</i><span class="volznak">]</span>n</div>
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">kolikrát</i><span class="volznak">]</span>N</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfb0130a"><span><a href="#zxfb0130a">♾</a></span></span>vyhledat vpřed řádku <b>obsahující</b> shodu s reg. výrazem<span class="cislo">#2 </span><sup><a href="#kapxf8ad2e5ppc3" id="kapxf8ad2e5ppcr3" title="Vykřičník jako první znak má v tomto případě zvláštní význam, takže pokud jím začíná váš regulární výraz, musíte ho odzvláštnit zpětným lomítkem.">(3)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><kbd>/</kbd></div>
+<div class="radekzaklinadla"><i class="dopln">regulární výraz</i></div>
+<div class="radekzaklinadla"><kbd>Enter</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx21e3b29"><span><a href="#zx21e3b29">ⵥ</a></span></span>vyhledat vpřed řádku <b>neobsahující</b> shodu s reg. výrazem<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><kbd>/</kbd></div>
+<div class="radekzaklinadla"><kbd>Ctrl</kbd>+<kbd>N</kbd></div>
+<div class="radekzaklinadla"><i class="dopln">regulární výraz</i></div>
+<div class="radekzaklinadla"><kbd>Enter</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8b19d18"><span><a href="#zx8b19d18">⊒</a></span></span><b>zvýraznit</b> podřetězce odpovídající regulárnímu výrazu<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla"><kbd>/</kbd></div>
+<div class="radekzaklinadla"><kbd>Ctrl</kbd>+<kbd>K</kbd></div>
+<div class="radekzaklinadla"><i class="dopln">regulární výraz</i></div>
+<div class="radekzaklinadla"><kbd>Enter</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4ef519c"><span><a href="#zx4ef519c">⌈</a></span></span>přepnout (vypnout či zapnout) zvýraznění shod s r.v.<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla"><kbd>Esc</kbd></div>
+<div class="radekzaklinadla"><kbd>U</kbd></div>
+</div></div>
+
+<h3 id="cast4x3"><span><a href="#cast4x3" title="kapitola 17 (Prohlížení textových souborů), sekce 4 (Zaklínadla: less (ovládání)), podsekce 3 (Filtrování)"><sup>4/</sup>3 Filtrování</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx68d871e"><span><a href="#zx68d871e">⨎</a></span></span>zobrazit jen řádky obsahující/neobsahující shodu s reg. výrazem<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">&amp;<i class="dopln">regulární výraz</i><kbd>Enter</kbd></div>
+<div class="radekzaklinadla">&amp; <kbd>Ctrl</kbd>+<kbd>N</kbd> <i class="dopln">regulární výraz</i><kbd>Enter</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1afbba3"><span><a href="#zx1afbba3">⇓</a></span></span>vypnout filtrování<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">&amp;<kbd>Enter</kbd></div>
+</div></div>
+
+<h3 id="cast4x4"><span><a href="#cast4x4" title="kapitola 17 (Prohlížení textových souborů), sekce 4 (Zaklínadla: less (ovládání)), podsekce 4 (Pojmenované pozice)"><sup>4/</sup>4 Pojmenované pozice</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe4e336c"><span><a href="#zxe4e336c">☵</a></span></span>přepnout zobrazení sloupce s pojmenovanými pozicemi<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">-J<kbd>Enter</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf94ece2"><span><a href="#zxf94ece2">⇦</a></span></span><b>pojmenovat</b> pozici<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">m<i class="dopln">pismeno</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf2cd30d"><span><a href="#zxf2cd30d">⚑</a></span></span><b>skok</b> na pozici<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">'<i class="dopln">pismeno</i></div>
+</div></div>
+
+<h3 id="cast4x5"><span><a href="#cast4x5" title="kapitola 17 (Prohlížení textových souborů), sekce 4 (Zaklínadla: less (ovládání)), podsekce 5 (Ostatní příkazy)"><sup>4/</sup>5 Ostatní příkazy</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxdfde51a"><span><a href="#zxdfde51a">⣱</a></span></span>přepnout (vyp:zap) sloupec s čísly řádků<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">-N<kbd>Enter</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2eaea9f"><span><a href="#zx2eaea9f">⛃</a></span></span>nezalamovat řádky a umožnit pohyb doprava a doleva pomocí klávesových šipek<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">--shift<kbd>Enter</kbd>1<kbd>Enter</kbd>-S<kbd>Enter</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1088089"><span><a href="#zx1088089">䷆</a></span></span>zobrazit ve stavové řádce pozici v souboru (dočasně/do ukončení)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><kbd>Ctrl</kbd>+<kbd>G</kbd></div>
+<div class="radekzaklinadla">-M<kbd>Enter</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9ce8191"><span><a href="#zx9ce8191">⡎</a></span></span>překreslit obsah terminálu<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla"><kbd>Ctrl</kbd>+<kbd>L</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx393a010"><span><a href="#zx393a010">∘</a></span></span>spustit Bash<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">!bash<kbd>Enter</kbd></div>
+</div></div>
+
+<h2 id="cast5" class="zaklinadla"><a href="#cast5"><span class="cislo">5.</span> Zaklínadla: more</a></h2>
+
+<h3 id="cast5x1"><span><a href="#cast5x1" title="kapitola 17 (Prohlížení textových souborů), sekce 5 (Zaklínadla: more), podsekce 1 (Ovládání „more“)"><sup>5/</sup>1 Ovládání „more“</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx03f65e0"><span><a href="#zx03f65e0">䷁</a></span></span><b>ukončit</b> more<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">q</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9d79c19"><span><a href="#zx9d79c19">ສ</a></span></span>skok o stránku vpřed<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><kbd>Space</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx972cf33"><span><a href="#zx972cf33">ⴴ</a></span></span>skok o řádku obrazovky vpřed<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><kbd>Enter</kbd></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx383c296"><span><a href="#zx383c296">╥</a></span></span>skok o řádku souboru vpřed<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0fb719b"><span><a href="#zx0fb719b">⠮</a></span></span>zobrazit vestavěnou nápovědu<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">h</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5976d53"><span><a href="#zx5976d53">◘</a></span></span>zobrazit číslo aktuální řádky (souboru, nebo obrazovky?)<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">=</div>
+</div></div>
+
+<h2 id="cast6"><a href="#cast6"><span class="cislo">6.</span> Instalace na Ubuntu</a></h2>
+<p class="ponadpisu">
+Všechny použité příkazy jsou základními součástmi Ubuntu,
+přítomnými i v minimální instalaci, jen není-li nainstalovaný „vim“,
+použije se místo něj podobný editor „vi“.
+</p>
+
+<h2 id="cast7"><a href="#cast7"><span class="cislo">7.</span> Tipy a zkušenosti</a></h2>
+<ul><li>Program „less“ se hodí na jednoduché prohlížení, pro komplikovanější úlohy použijte editor „vim“ nebo jiný textový editor, případně s předzpracováním prohlíženého souboru vhodným nástrojem pro zpracování textu.
+</li><li>Prohlížíte-li si programem „less“ text z roury, jejíž zdrojový příkaz ještě nedoběhl, a pokusíte-li se přitom přejít za konec dosud načteného vstupu, program „less“ se zastaví a bude čekat na další vstup; z tohoto stavu ho můžete probrat zkratkou Ctrl+C.
+</li></ul>
+<h2 id="cast8"><a href="#cast8"><span class="cislo">8.</span> Další zdroje informací</a></h2>
+<ul class="kompaktni"><li><a href="https://cs.wikipedia.org/wiki/Less_(Unix)">Wikipedie: less</a>
+</li><li><a href="https://manpages.ubuntu.com/manpages/focal/en/man1/less.1.html">man less</a> (anglicky)
+</li><li><a href="https://www.greenwoodsoftware.com/less/">Oficiální stránka programu less</a> (anglicky)
+</li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/common/less.md">TL;DR: less</a> (anglicky)
+</li><li><a href="https://packages.ubuntu.com/focal/less">balíček less</a> (anglicky)
+</li><li><a href="https://www.youtube.com/watch?v=hxvAEr9Q2A4">YouTube: less for beginners</a> (anglicky)
+</li></ul>
+<h2 id="cast9"><a href="#cast9"><span class="cislo">9.</span> Zákulisí kapitoly</a></h2>
+<p class="ponadpisu">
+V této verzi kapitoly chybí:
+</p>
+<ul class="kompaktni"><li>nastavení velikosti tabulátoru (less -x)
+</li></ul><p class="ponadpisu">
+Tato kapitola záměrně nepokrývá:
+</p>
+<ul class="kompaktni"><li>nic
+</li></ul><div class="ppc"><div id="kapxf8ad2e5ppc1"><a href="#kapxf8ad2e5ppcr1" class="cislopozn">1</a>&nbsp;Příkaz „tail“ vypisuje nové řádky okamžitě, příkaz „less“ se zpožděním. Sledování v obou případech ukončíte Ctrl+C; příkaz „less“ pak musíte ještě navíc uzavřít klávesou „q“. less -N zobrazí čísla řádek.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxf8ad2e5ppc2"><a href="#kapxf8ad2e5ppcr2" class="cislopozn">2</a>&nbsp;Sledování ukončíte klávesovou zkratkou Ctrl+C. Náhradou příkazu „cat“ za „sed“ či „egrep“ můžete soubor před sledováním přefiltrovat.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxf8ad2e5ppc3"><a href="#kapxf8ad2e5ppcr3" class="cislopozn">3</a>&nbsp;Vykřičník jako první znak má v tomto případě zvláštní význam, takže pokud jím začíná váš regulární výraz, musíte ho odzvláštnit zpětným lomítkem.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+</div>
+
+
+<nav class="spodni">
+<a href="index.htm" class="naindex">🗐&nbsp;Přehled&nbsp;kapitol</a>
+<div class="naslkap">
+<a href="regularni-vyrazy.htm" rel="next" title="13. Regulární výrazy">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">13</span>
+<span class="nazev">Regulární výrazy</span></a>
+</div>
+<!--<div><a href="index.htm">🗐&nbsp;Přehled&nbsp;kapitol</a></div>-->
+</nav>
+
+
+<div class="odkazydole"><div><a href="metaprikazy.htm"><img src="obrazky/ik/metaprikazy.png" alt="" width="32" height="32">Metapříkazy</a><a href="regularni-vyrazy.htm"><img src="obrazky/ik/regularni-vyrazy.png" alt="" width="32" height="32">Regulární výrazy</a><a href="diskove-oddily-btrfs.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly / Btrfs</a></div></div>
+<div class="reklamnipata">Líbí se vám tento projekt a chcete, aby byl ještě lepší? Můžete mi s tím pomoci. Zmiňte se o něm technicky zdatným přátelům, opravte překlepy a nahlašte nefunkční zaklínadla, aby mohla být opravena; poskytněte mi zpětnou vazbu nebo se zapojte do vývoje nových kapitol. Další informace na GitHubu v dokumentu <a href="https://github.com/singularis-mzf/linux-spellbook/blob/v%C3%BDvojov%C3%A1/JAK-SE-ZAPOJIT.md">Jak se zapojit</a>.</div>
+
+</article>
+<!-- *** -->
+<footer id="dole">
+<img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
+<p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
+<a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
+Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
+či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
+na stránce „<a href="x-autori.htm">Přehled autorů</a>“.
+Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
+licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
+Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód
+a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
+<a href="https://github.com/singularis-mzf/linux-spellbook">repozitář na GitHubu</a>.
+</footer>
+</div>
+
+<nav class="menu">
+<!-- MENU OSNOVA -->
+<a href="#menuosnova" id="menuosnova"><span class="prvnipismeno">O</span>snova</a>
+<aside class="menuosnova">
+<div><div class="nadpis">Osnova</div><div class="polozky">
+<a href="#cast1" class="sekce">1 Úvod</a>
+<a href="#cast2" class="sekce">2 Definice</a>
+<a href="#cast3" class="sekce">3 Zaklínadla</a>
+<a href="#cast3x1" class="podsekce">/1 Prohlížení a sledování souborů</a>
+<a href="#cast3x2" class="podsekce">/2 Volby příkazu less</a>
+<a href="#cast4" class="sekce">4 Zaklínadla: less (ovládání)</a>
+<a href="#cast4x1" class="podsekce">/1 Základní ovládání</a>
+<a href="#cast4x2" class="podsekce">/2 Vyhledávání</a>
+<a href="#cast4x3" class="podsekce">/3 Filtrování</a>
+<a href="#cast4x4" class="podsekce">/4 Pojmenované pozice</a>
+<a href="#cast4x5" class="podsekce">/5 Ostatní příkazy</a>
+<a href="#cast5" class="sekce">5 Zaklínadla: more</a>
+<a href="#cast5x1" class="podsekce">/1 Ovládání „more“</a>
+<a href="#cast6" class="sekce">6 Instalace na Ubuntu</a>
+<a href="#cast7" class="sekce">7 Tipy a zkušenosti</a>
+<a href="#cast8" class="sekce">8 Další zdroje informací</a>
+<a href="#cast9" class="sekce">9 Zákulisí kapitoly</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU KAPITOLY -->
+<a href="#menukapitoly" id="menukapitoly"><span class="prvnipismeno">K</span>apitoly</a>
+<aside class="menukapitoly">
+<div><div class="nadpis">Kapitoly</div><div class="polozky">
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/predmluva.png" alt="[]"></span><span class="fragodkazy"><a href="predmluva.htm" class="odkaz"><span><span class="cislo">1</span>Předmluva</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zakladni-znalosti.png" alt="[]"></span><span class="fragodkazy"><a href="zakladni-znalosti.htm" class="odkaz"><span><span class="cislo">2</span>Základní znalosti</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/bash.png" alt="[]"></span><span class="fragodkazy"><a href="bash.htm" class="odkaz"><span><span class="cislo">3</span>Bash</span></a><span class="podkpodkazy"><a href="bash-funkce-a-skripty.htm" class="odkaz"><span><span class="cislo">3.1</span>Funkce a skripty</span></a><a href="bash-interaktivni-rezim.htm" class="odkaz"><span><span class="cislo">3.2</span>Interaktivní režim</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/diskove-oddily.png" alt="[]"></span><span class="fragodkazy"><a href="diskove-oddily.htm" class="odkaz"><span><span class="cislo">4</span>Diskové oddíly</span></a><span class="podkpodkazy"><a href="diskove-oddily-btrfs.htm" class="odkaz"><span><span class="cislo">4.1</span>Btrfs</span></a><a href="diskove-oddily-lvm.htm" class="odkaz"><span><span class="cislo">4.2</span>LVM</span></a><a href="diskove-oddily-softwarovy-raid.htm" class="odkaz"><span><span class="cislo">4.3</span>Softwarový RAID</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/git.png" alt="[]"></span><span class="fragodkazy"><a href="git.htm" class="odkaz"><span><span class="cislo">5</span>Git</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/hledani-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="hledani-souboru.htm" class="odkaz"><span><span class="cislo">6</span>Hledání souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/metaprikazy.png" alt="[]"></span><span class="fragodkazy"><a href="metaprikazy.htm" class="odkaz"><span><span class="cislo">7</span>Metapříkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/nabidka-aplikaci.png" alt="[]"></span><span class="fragodkazy"><a href="nabidka-aplikaci.htm" class="odkaz"><span><span class="cislo">8</span>Nabídka aplikací</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/odkazy.png" alt="[]"></span><span class="fragodkazy"><a href="odkazy.htm" class="odkaz"><span><span class="cislo">9</span>Pevné a symbolické odkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-zaklady.png" alt="[]"></span><span class="fragodkazy"><a href="perl-zaklady.htm" class="odkaz"><span><span class="cislo">10</span>Perl: základy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="fragodkazy"><a href="prace-s-archivy.htm" class="odkaz"><span><span class="cislo">11</span>Práce s archivy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prohlizeni-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="prohlizeni-textovych-souboru.htm" class="odkaz"><span><span class="cislo">12</span>Prohlížení textových souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="fragodkazy"><a href="regularni-vyrazy.htm" class="odkaz"><span><span class="cislo">13</span>Regulární výrazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-balicku.htm" class="odkaz"><span><span class="cislo">14</span>Správa balíčků</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-uzivatelskych-uctu.htm" class="odkaz"><span><span class="cislo">15</span>Správa uživatelských účtů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="fragodkazy"><a href="system.htm" class="odkaz"><span><span class="cislo">16</span>Systém</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-textovych-souboru.htm" class="odkaz"><span><span class="cislo">17</span>Zpracování textových souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-videa-a-zvuku.htm" class="odkaz"><span><span class="cislo">18</span>Zpracování videa a zvuku</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="fragodkazy"><a href="koncepce-projektu.htm" class="odkaz"><span><span class="cislo">19</span>Koncepce projektu Linux: Kniha kouzel</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/plan-vyvoje.png" alt="[]"></span><span class="fragodkazy"><a href="plan-vyvoje.htm" class="odkaz"><span><span class="cislo">20</span>Plán budoucího vývoje</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="fragodkazy"><a href="licence.htm" class="odkaz"><span><span class="cislo">21</span>Licence</span></a></span></div>
+<div class="premiove"><strong>Prémiové kapitoly:</strong>
+<div>AWK</div>
+<div>Bash / Vstup, výstup a přesměrování</div>
+<div>Datum, čas a kalendář</div>
+<div>Make</div>
+<div>Manuálové stránky</div>
+<div>Markdown</div>
+<div>Perl: moduly a objekty</div>
+<div>Proměnné prostředí a interpretu</div>
+<div>Sed</div>
+<div>Soubory a adresáře</div>
+<div>Správa procesů</div>
+<div>Stahování videí</div>
+<div>Terminál</div>
+<div>Terminál / Emodži</div>
+<div>Vim</div>
+<div>Zpracování binárních souborů</div>
+</div><p>Tyto kapitoly můžete získat jako odměnu za překlad ze zdrojového kódu. Podrobnější informace <a href="https://github.com/singularis-mzf/linux-spellbook/blob/stabiln%C3%AD/dokumentace/odm%C4%9Bna-za-sestaven%C3%AD.md">na GitHubu</a>.</p>
+</div></div>
+<a href="#zavritmenu" id="zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU ŠTÍTKY -->
+<a href="#menustitky" id="menustitky"><span class="prvnipismeno">Š</span>títky</a>
+<aside class="menustitky">
+<div><div class="nadpis">Štítky</div><div class="polozky">
+<a href="x-stitky.htm#x5208bbb">adresáře&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#xb0a5782">aplikace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x583f72a">apt&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa619ea3">automatizace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xd574d4b">bash&nbsp;&nbsp;(5)</a>
+<a href="x-stitky.htm#xcd6caf8">démoni&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xb05338c">Flatpak&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x1e3042b">GUI&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x4e36c04">hledání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c8789a">klávesnice&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa473827">komprese&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x79108ba">LVM&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x2d47ed4">odkládací prostor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x0114ad0">Perl&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa9c449d">program&nbsp;&nbsp;(5)</a>
+<a href="x-stitky.htm#xc65388d">programování&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x43a526a">přístupová práva&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xcf91513">RAID&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5c5f44a">ramdisk&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9ad09a9">Snap&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x23be896">soubory&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x12e55d8">správa verzí&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9dcbb0b">syntaxe&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#xba98a3b">systém&nbsp;&nbsp;(7)</a>
+<a href="x-stitky.htm#x3972255">systém souborů&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c01147">tematický okruh&nbsp;&nbsp;(15)</a>
+<a href="x-stitky.htm#xf54f028">textové soubory&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x421b47f">video&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xadcdbd7">zip&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x908961b">zpracování textu&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#x04b5cff">zvuk&nbsp;&nbsp;(1)</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU NÁPOVĚDA -->
+<a href="#menunapoveda" id="menunapoveda"><span class="prvnipismeno">N</span>ápověda</a>
+<aside class="menunapoveda">
+<div><div class="nadpis">Nápověda</div><div class="polozky">
+<a href="predmluva.htm">Předmluva</a>
+<a href="koncepce-projektu.htm">Koncepce projektu Linux: Kniha kouzel</a>
+<a href="https://singularis-mzf.github.io/">Ostatní verze knihy</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook">Repozitář na GitHubu</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook/blob/stabiln%C3%AD/dokumentace/odm%C4%9Bna-za-sestaven%C3%AD.md">Odměna za sestavení (prémiové kapitoly)</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+</nav>
+
+<a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
+<a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
+
+</div>
+</body>
+</html>

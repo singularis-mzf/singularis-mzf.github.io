@@ -5,13 +5,13 @@
 
 <title>Správa uživatelských účtů − Linux: Kniha kouzel</title>
 <meta name="viewport" content="width=1000, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="lkk-20211008.css">
+<link rel="stylesheet" type="text/css" href="lkk-20211115.css">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body class="jeukazka">
 <div id="nahore"><div id="okno">
 <header>
-<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.10, Ř. Ř. (8. října 2021)</span>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.11, S. S. (15. listopadu 2021)</span>
 <span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -78,135 +78,135 @@ Existují tři stavy zabezpečení uživatelského účtu:
 <h2 id="cast3" class="zaklinadla"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla: Správa uživatelů</a></h2>
 
 <h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 20 (Správa uživatelských účtů), sekce 3 (Zaklínadla: Správa uživatelů), podsekce 1 (Vytvořit/vypsat/smazat uživatele)"><sup>3/</sup>1 Vytvořit/vypsat/smazat uživatele</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxef29508"><span><a href="#zxef29508">▅</a></span></span><b>vytvořit</b> nový běžný uživatelský účet (jen interaktivně)<span class="cislo">#1 </span><sup><a href="#kapxf43ffd6ppc1" id="kapxf43ffd6ppcr1" title="Pozor! Celé jméno uživatele nesmí obsahovat znaky čárka a rovná se (, a =), nemělo by obsahovat ani znak dvojtečka. Při použití ne-ASCII znaků program vypíše varování, což je ale na dnešních systémech dost absurdní; doporučuji toto varování ignorovat.">(1)</a>,&nbsp;<a href="#kapxf43ffd6ppc2" id="kapxf43ffd6ppcr2" title="Pokud nezadáte parametr „--ingroup“, s vytvořením nového uživatele se pro něj rovněž vytvoří nová, stejnojmenná výchozí skupina.">(2)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxef29508"><span><a href="#zxef29508">@</a></span></span><b>vytvořit</b> nový běžný uživatelský účet (jen interaktivně)<span class="cislo">#1 </span><sup><a href="#kapxf43ffd6ppc1" id="kapxf43ffd6ppcr1" title="Pozor! Celé jméno uživatele nesmí obsahovat znaky čárka a rovná se (, a =), nemělo by obsahovat ani znak dvojtečka. Při použití ne-ASCII znaků program vypíše varování, což je ale na dnešních systémech dost absurdní; doporučuji toto varování ignorovat.">(1)</a>,&nbsp;<a href="#kapxf43ffd6ppc2" id="kapxf43ffd6ppcr2" title="Pokud nezadáte parametr „--ingroup“, s vytvořením nového uživatele se pro něj rovněž vytvoří nová, stejnojmenná výchozí skupina.">(2)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo adduser --gecos &quot;<i class="dopln">Celé jméno</i>&quot; <span class="volznak">[</span>--debug<span class="volznak">]</span> <span class="volznak">[</span>--shell <i class="dopln">shell</i><span class="volznak">]</span> <span class="volznak">[</span>--ingroup <i class="dopln">název-výchozí-skupiny</i><span class="volznak">]</span> <span class="volznak">[</span>--uid <i class="dopln">konkrétní-UID</i><span class="volznak">]</span> <i class="dopln">nové-přihlašovací-jméno</i></div>
 <div class="radekzaklinadla akce">Zadejte heslo pro nového uživatele. Potvrďte klávesou Enter.</div>
 <div class="radekzaklinadla akce">Znovu zadejte totéž heslo a znovu potvrďte.</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa43a23e"><span><a href="#zxa43a23e">≦</a></span></span><b>vytvořit</b> nový zamknutý běžný uživatelský účet (lze i ze skriptu)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa43a23e"><span><a href="#zxa43a23e">@</a></span></span><b>vytvořit</b> nový zamknutý běžný uživatelský účet (lze i ze skriptu)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo adduser --gecos &quot;<i class="dopln">Celé jméno</i>&quot; --disabled-password <span class="volznak">[</span>--debug<span class="volznak">]</span> <span class="volznak">[</span>--shell <i class="dopln">shell</i><span class="volznak">]</span> <span class="volznak">[</span>--ingroup <i class="dopln">název-výchozí-skupiny</i><span class="volznak">]</span> <span class="volznak">[</span>--uid <i class="dopln">konkrétní-UID</i><span class="volznak">]</span> <i class="dopln">nové-přihlašovací-jméno</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2db8ace"><span><a href="#zx2db8ace">⇊</a></span></span><b>smazat</b> uživatelský účet<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2db8ace"><span><a href="#zx2db8ace">@</a></span></span><b>smazat</b> uživatelský účet<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo deluser <span class="volznak">[</span>--remove-home<span class="volznak">]</span> <i class="dopln">uživatelské-jméno</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx29bf0eb"><span><a href="#zx29bf0eb">ⵙ</a></span></span><b>existuje</b> uživatelský účet? (uspěje, pokud ano)<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx29bf0eb"><span><a href="#zx29bf0eb">@</a></span></span><b>existuje</b> uživatelský účet? (uspěje, pokud ano)<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">getent passwd <i class="dopln">uživatel</i> &gt;/dev/null</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx554825f"><span><a href="#zx554825f">⇧</a></span></span><b>vypsat</b> všechny uživatelské účty kromě systémových/úplně všechny<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx554825f"><span><a href="#zx554825f">@</a></span></span><b>vypsat</b> všechny uživatelské účty kromě systémových/úplně všechny<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">getent passwd | sed -E '/^([^:]*:){2}(0|[0-9]{4,}):/!d;s/:.*//' <span class="volznak">[</span>| LC_ALL=C.UTF-8 sort<span class="volznak">]</span></div>
 <div class="radekzaklinadla">getent passwd | cut -d : -f 1 <span class="volznak">[</span>| LC_ALL=C.UTF-8 sort<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf181a01"><span><a href="#zxf181a01">⋗</a></span></span>vypsat uživatele, kteří jsou právě přihlášeni k systému (pro člověka/pro skript)<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf181a01"><span><a href="#zxf181a01">@</a></span></span>vypsat uživatele, kteří jsou právě přihlášeni k systému (pro člověka/pro skript)<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">who</div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4817b26"><span><a href="#zx4817b26">┥</a></span></span>vytvořit nový <b>systémový</b> uživatelský účet<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4817b26"><span><a href="#zx4817b26">@</a></span></span>vytvořit nový <b>systémový</b> uživatelský účet<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo adduser --system <span class="volznak">[</span>--gid <i class="dopln">GID-skupiny</i><span class="volznak">]</span> <span class="volznak">[</span>--uid <i class="dopln">konkrétní-UID</i><span class="volznak">]</span> <i class="dopln">nové-přihlašovací-jméno</i></div>
 </div></div>
 
 <h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 20 (Správa uživatelských účtů), sekce 3 (Zaklínadla: Správa uživatelů), podsekce 2 (Heslo uživatele)"><sup>3/</sup>2 Heslo uživatele</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx45d1d45"><span><a href="#zx45d1d45">⚑</a></span></span><b>nastavit</b> heslo (pro člověka)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx45d1d45"><span><a href="#zx45d1d45">@</a></span></span><b>nastavit</b> heslo (pro člověka)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo passwd <i class="dopln">uživatelské-jméno</i></div>
 <div class="radekzaklinadla akce">Dvakrát zadat nové heslo. Pokaždé potvrdit Enter.</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxad2bbde"><span><a href="#zxad2bbde">⣝</a></span></span>nastavit heslo (pro skript)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxad2bbde"><span><a href="#zxad2bbde">@</a></span></span>nastavit heslo (pro skript)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">printf %s\n &quot;<i class="dopln">uživatelské-jméno</i>:<i class="dopln">heslo</i>&quot; [&quot;<i class="dopln">další-uživatelské-jméno</i>:<i class="dopln">další-heslo</i>&quot;<span class="volznak">]</span><span class="tritecky"></span> | sudo chpasswd</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3b99297"><span><a href="#zx3b99297">ຝ</a></span></span><b>zamknout</b> uživatelský účet<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3b99297"><span><a href="#zx3b99297">@</a></span></span><b>zamknout</b> uživatelský účet<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo passwd -l <i class="dopln">uživatelské-jméno</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4ab9240"><span><a href="#zx4ab9240">ʡ</a></span></span><b>odemknout</b> uživatelský účet (alternativy)<span class="cislo">#4 </span><sup><a href="#kapxf43ffd6ppc3" id="kapxf43ffd6ppcr3" title="Poznámka: Ve většině případů je správným postupem odemknutí hesla jeho nové nastavení. Příkaz „sudo passwd -u“ je možno použít pouze u účtů, které byly zamknuty příkazem „sudo passwd -l“, v případech, kdy chceme zachovat původní heslo.">(3)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4ab9240"><span><a href="#zx4ab9240">@</a></span></span><b>odemknout</b> uživatelský účet (alternativy)<span class="cislo">#4 </span><sup><a href="#kapxf43ffd6ppc3" id="kapxf43ffd6ppcr3" title="Poznámka: Ve většině případů je správným postupem odemknutí hesla jeho nové nastavení. Příkaz „sudo passwd -u“ je možno použít pouze u účtů, které byly zamknuty příkazem „sudo passwd -l“, v případech, kdy chceme zachovat původní heslo.">(3)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">printf %s\n &quot;<i class="dopln">uživatelské-jméno</i>:<i class="dopln">nové-heslo</i>&quot; | sudo chpasswd</div>
 <div class="radekzaklinadla">sudo passwd -u <i class="dopln">uživatelské-jméno</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxccc80da"><span><a href="#zxccc80da">▁</a></span></span>nastavit <b>vypršení</b> hesla/okamžitě vypršet (nezkoušeno)<span class="cislo">#5 </span><sup><a href="#kapxf43ffd6ppc4" id="kapxf43ffd6ppcr4" title="Vyprší-li platnost hesla, uživatel bude po příštím přihlášení donucen si heslo změnit. Poznámka: vypršení hesla jsem podrobně nezkoušel/a.">(4)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxccc80da"><span><a href="#zxccc80da">@</a></span></span>nastavit <b>vypršení</b> hesla/okamžitě vypršet (nezkoušeno)<span class="cislo">#5 </span><sup><a href="#kapxf43ffd6ppc4" id="kapxf43ffd6ppcr4" title="Vyprší-li platnost hesla, uživatel bude po příštím přihlášení donucen si heslo změnit. Poznámka: vypršení hesla jsem podrobně nezkoušel/a.">(4)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo passwd -x <i class="dopln">dnů-platnosti</i> <span class="volznak">[</span>-w <i class="dopln">kolik-dnů-předem-varovat</i><span class="volznak">]</span> <i class="dopln">uživatelské-jméno</i></div>
 <div class="radekzaklinadla">sudo passwd -e <i class="dopln">uživatelské-jméno</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx699a083"><span><a href="#zx699a083">䷀</a></span></span>vypnout zabezpečení heslem (umožní přihlášení <b>bez hesla</b>)<span class="cislo">#6 </span><sup><a href="#kapxf43ffd6ppc5" id="kapxf43ffd6ppcr5" title="Varování: Než použijete tento příkaz, dobře si rozmyslete, co děláte. Uživatelský účet bez hesla může představovat závažnou bezpečnostní díru ve vašem systému. Nepoužívejte tuto možnost, pokud vám stačí automatické přihlášení („autologin“).">(5)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx699a083"><span><a href="#zx699a083">@</a></span></span>vypnout zabezpečení heslem (umožní přihlášení <b>bez hesla</b>)<span class="cislo">#6 </span><sup><a href="#kapxf43ffd6ppc5" id="kapxf43ffd6ppcr5" title="Varování: Než použijete tento příkaz, dobře si rozmyslete, co děláte. Uživatelský účet bez hesla může představovat závažnou bezpečnostní díru ve vašem systému. Nepoužívejte tuto možnost, pokud vám stačí automatické přihlášení („autologin“).">(5)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo passwd -d <i class="dopln">uživatelské-jméno</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1b72282"><span><a href="#zx1b72282">⨘</a></span></span>test na typ zabezpečení uživatele: vyžaduje heslo?/je zamčený?/umožňuje přihlášení bez hesla?<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1b72282"><span><a href="#zx1b72282">@</a></span></span>test na typ zabezpečení uživatele: vyžaduje heslo?/je zamčený?/umožňuje přihlášení bez hesla?<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
 <h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 20 (Správa uživatelských účtů), sekce 3 (Zaklínadla: Správa uživatelů), podsekce 3 (Vypsat nastavení uživatelského účtu (kromě hesla))"><sup>3/</sup>3 Vypsat nastavení uživatelského účtu (kromě hesla)</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfc5a956"><span><a href="#zxfc5a956">↨</a></span></span>vypsat <b>skupiny</b>, ve kterých je účet členem (pro člověka/pro skript)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfc5a956"><span><a href="#zxfc5a956">@</a></span></span>vypsat <b>skupiny</b>, ve kterých je účet členem (pro člověka/pro skript)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">groups <i class="dopln">uživatel</i></div>
 <div class="radekzaklinadla">id -Gn <i class="dopln">uživatel</i> | tr &quot;<span class="viditelnamezera">&nbsp;</span>&quot; \\n | <span class="volznak">[</span>LC_ALL=C.UTF-8<span class="volznak">]</span> sort</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx55bc679"><span><a href="#zx55bc679">➜</a></span></span><b>UID</b><span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx55bc679"><span><a href="#zx55bc679">@</a></span></span><b>UID</b><span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">id -u <i class="dopln">uživatelské-jméno</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3508bcb"><span><a href="#zx3508bcb">⠂</a></span></span><b>celé jméno</b><span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3508bcb"><span><a href="#zx3508bcb">@</a></span></span><b>celé jméno</b><span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">getent passwd <i class="dopln">uživatel</i> | cut -d : -f 5 | cut -d , -f 1</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe91e9b9"><span><a href="#zxe91e9b9">☎</a></span></span><b>domovský adresář</b><span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe91e9b9"><span><a href="#zxe91e9b9">@</a></span></span><b>domovský adresář</b><span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">getent passwd <i class="dopln">uživatel</i> | cut -d : -f 6</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx65cc724"><span><a href="#zx65cc724">≶</a></span></span>uživatelské <b>jméno</b> (podle UID)<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx65cc724"><span><a href="#zx65cc724">@</a></span></span>uživatelské <b>jméno</b> (podle UID)<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">id -un <i class="dopln">UID</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc1a61af"><span><a href="#zxc1a61af">↗</a></span></span>získat <b>avatar</b><span class="cislo">#6 </span><sup><a href="#kapxf43ffd6ppc6" id="kapxf43ffd6ppcr6" title="Avatar čtvercový obrázek je ve formátu PNG. Počet pixelů tvořících stranu čtverce může být různý.">(6)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc1a61af"><span><a href="#zxc1a61af">@</a></span></span>získat <b>avatar</b><span class="cislo">#6 </span><sup><a href="#kapxf43ffd6ppc6" id="kapxf43ffd6ppcr6" title="Avatar čtvercový obrázek je ve formátu PNG. Počet pixelů tvořících stranu čtverce může být různý.">(6)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> cp ~<i class="dopln">uživatelské jméno</i>/.face <i class="dopln">cíl.png</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx14a0699"><span><a href="#zx14a0699">⣼</a></span></span>vypsat uživatelovu <b>výchozí skupinu</b> (názvem/GID)<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx14a0699"><span><a href="#zx14a0699">@</a></span></span>vypsat uživatelovu <b>výchozí skupinu</b> (názvem/GID)<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">id -Gn <i class="dopln">uživatel</i> | sed -E 's/\s.*//'</div>
 <div class="radekzaklinadla">id -G <i class="dopln">uživatel</i> | sed -E 's/\s.*//'</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx728835b"><span><a href="#zx728835b">♜</a></span></span><b>příkazový interpret</b><span class="cislo">#8 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx728835b"><span><a href="#zx728835b">@</a></span></span><b>příkazový interpret</b><span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla">getent passwd <i class="dopln">uživatel</i> | cut -d : -f 7</div>
 </div></div>
 
 <h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 20 (Správa uživatelských účtů), sekce 3 (Zaklínadla: Správa uživatelů), podsekce 4 (Změnit nastavení uživatelského účtu (kromě hesla))"><sup>3/</sup>4 Změnit nastavení uživatelského účtu (kromě hesla)</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd358464"><span><a href="#zxd358464">↞</a></span></span><b>celé jméno</b> (pozor – neplést si s uživatelským jménem!)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd358464"><span><a href="#zxd358464">@</a></span></span><b>celé jméno</b> (pozor – neplést si s uživatelským jménem!)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo chfn -f &quot;<i class="dopln">nové jméno</i>&quot; <i class="dopln">uživatelské-jméno</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx02e00d9"><span><a href="#zx02e00d9">⠄</a></span></span><b>domovský adresář</b> (bez přesunu/přesunout)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx02e00d9"><span><a href="#zx02e00d9">@</a></span></span><b>domovský adresář</b> (bez přesunu/přesunout)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo usermod -d <i class="dopln">/nový/adresář</i> <i class="dopln">uživatelské-jméno</i></div>
 <div class="radekzaklinadla">sudo usermod -m -d <i class="dopln">/nový/adresář</i> <i class="dopln">uživatelské-jméno</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb71d08c"><span><a href="#zxb71d08c">꜓</a></span></span><b>avatar</b><span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb71d08c"><span><a href="#zxb71d08c">@</a></span></span><b>avatar</b><span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">convert <i class="dopln">obrázek</i> -gravity center -crop &quot;$(identify -format &quot;%[fx:min(w,h)]x%[fx:min(w,h)]&quot; <i class="dopln">obrázek</i>)&quot; +repage -delete -1 png24:- | <span class="volznak">[</span>sudo<span class="volznak">]</span> tee ~<i class="dopln">uživatelské-jméno</i>/.face</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxbc3838c"><span><a href="#zxbc3838c">▅</a></span></span><b>příkazový interpret</b> (shell)<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxbc3838c"><span><a href="#zxbc3838c">@</a></span></span><b>příkazový interpret</b> (shell)<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo chsh <span class="volznak">[</span>-s <i class="dopln">/cesta/k/novému/shellu</i><span class="volznak">]</span> <i class="dopln">uživatelské-jméno</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc921952"><span><a href="#zxc921952">≎</a></span></span>změnit UID<span class="cislo">#5 </span><sup><a href="#kapxf43ffd6ppc7" id="kapxf43ffd6ppcr7" title="Tento příkaz také rekurzivně projde domovský adresář uživatele a všechny adresářové položky, jejichž je daný uživatel vlastníkem, přepíše na nové UID, aby uživatel jejich vlastníkem zůstal.">(7)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc921952"><span><a href="#zxc921952">@</a></span></span>změnit UID<span class="cislo">#5 </span><sup><a href="#kapxf43ffd6ppc7" id="kapxf43ffd6ppcr7" title="Tento příkaz také rekurzivně projde domovský adresář uživatele a všechny adresářové položky, jejichž je daný uživatel vlastníkem, přepíše na nové UID, aby uživatel jejich vlastníkem zůstal.">(7)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo usermod -u <i class="dopln">nové-UID</i> <i class="dopln">uživatelské-jméno</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0f308cb"><span><a href="#zx0f308cb">➻</a></span></span>změnit výchozí skupinu<span class="cislo">#6 </span><sup><a href="#kapxf43ffd6ppc8" id="kapxf43ffd6ppcr8" title="Tento příkaz také rekurzivně projde domovský adresář uživatele a všechny adresářové položky příslušné k původní výchozí skupině přepíše na novou výchozí skupinu.">(8)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0f308cb"><span><a href="#zx0f308cb">@</a></span></span>změnit výchozí skupinu<span class="cislo">#6 </span><sup><a href="#kapxf43ffd6ppc8" id="kapxf43ffd6ppcr8" title="Tento příkaz také rekurzivně projde domovský adresář uživatele a všechny adresářové položky příslušné k původní výchozí skupině přepíše na novou výchozí skupinu.">(8)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo usermod -g <i class="dopln">název-nové-vých-skup</i> -G &quot;$(id -Gn <i class="dopln">uživatelské-jméno</i> | tr '<span class="viditelnamezera">&nbsp;</span>' ,)&quot; <i class="dopln">uživatelské-jméno</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx80bbd57"><span><a href="#zx80bbd57">⚛</a></span></span>změnit uživatelské jméno<span class="cislo">#7 </span><sup><a href="#kapxf43ffd6ppc9" id="kapxf43ffd6ppcr9" title="Tento příkaz nepřejmenuje domovský adresář uživatele!">(9)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx80bbd57"><span><a href="#zx80bbd57">@</a></span></span>změnit uživatelské jméno<span class="cislo">#7 </span><sup><a href="#kapxf43ffd6ppc9" id="kapxf43ffd6ppcr9" title="Tento příkaz nepřejmenuje domovský adresář uživatele!">(9)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo usermod -l <i class="dopln">nové-už-jméno</i> <i class="dopln">původní-už-jméno</i></div>
 </div></div>
 
 <h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 20 (Správa uživatelských účtů), sekce 3 (Zaklínadla: Správa uživatelů), podsekce 5 (Automatické přihlašování)"><sup>3/</sup>5 Automatické přihlašování</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx95d7e55"><span><a href="#zx95d7e55">⌟</a></span></span><b>zapnout</b> (lightdm — jen Lubuntu, Ubuntu Budgie, Ubuntu MATE, Ubuntu Studio, Xubuntu)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx95d7e55"><span><a href="#zx95d7e55">@</a></span></span><b>zapnout</b> (lightdm — jen Lubuntu, Ubuntu Budgie, Ubuntu MATE, Ubuntu Studio, Xubuntu)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla akce">V souboru „/etc/lightdm/lightdm.conf“ v sekci „[Seat:*]“ nastavte:</div>
 <div class="radekzaklinadla">autologin-user=<i class="dopln">uživatelské-jméno</i></div>
 <div class="radekzaklinadla">autologin-user-timeout=0</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa78e55b"><span><a href="#zxa78e55b">⋫</a></span></span>zapnout (sddm — jen Kubuntu)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa78e55b"><span><a href="#zxa78e55b">@</a></span></span>zapnout (sddm — jen Kubuntu)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla akce">V souboru „/etc/sddm.conf“ v sekci „[Autologin]“ nastavte:</div>
 <div class="radekzaklinadla">User=<i class="dopln">uživatelské-jméno</i></div>
 <div class="radekzaklinadla">Session=plasma.desktop</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxcfc2a2b"><span><a href="#zxcfc2a2b">≩</a></span></span>zapnout (gdm — jen Ubuntu)<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxcfc2a2b"><span><a href="#zxcfc2a2b">@</a></span></span>zapnout (gdm — jen Ubuntu)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla akce">V souboru „/etc/gdm3/custom.conf“ v sekci „[daemon]“ nastavte:</div>
 <div class="radekzaklinadla">AutomaticLoginEnable=true</div>
 <div class="radekzaklinadla">AutomaticLogin=<i class="dopln">uživatelské-jméno</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx272e7e7"><span><a href="#zx272e7e7">♤</a></span></span><b>vypnout</b> (lightdm — jen Lubuntu, Ubuntu Budgie, Ubuntu MATE, Ubuntu Studio, Xubuntu)<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx272e7e7"><span><a href="#zx272e7e7">@</a></span></span><b>vypnout</b> (lightdm — jen Lubuntu, Ubuntu Budgie, Ubuntu MATE, Ubuntu Studio, Xubuntu)<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla akce">V souboru „/etc/lightdm/lightdm.conf“ v sekci „[Seat:*]“ smažte klíče „autologin-user“ a „autologin-user-timeout“.</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx49767a9"><span><a href="#zx49767a9">☺</a></span></span>vypnout (sddm — jen Kubuntu)<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx49767a9"><span><a href="#zx49767a9">@</a></span></span>vypnout (sddm — jen Kubuntu)<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla akce">V souboru „/etc/sddm.conf“ v sekci „[Autologin]“ smažte klíče „User“ a „Session“.</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx36f4eee"><span><a href="#zx36f4eee">⊎</a></span></span>vypnout (gdm — jen Ubuntu)<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx36f4eee"><span><a href="#zx36f4eee">@</a></span></span>vypnout (gdm — jen Ubuntu)<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla akce">V souboru „/etc/gdm3/custom.conf“ v sekci „[daemon]“ nastavte:</div>
 <div class="radekzaklinadla">AutomaticLoginEnable=false</div>
 <div class="radekzaklinadla">AutomaticLogin=</div>
@@ -215,51 +215,51 @@ Existují tři stavy zabezpečení uživatelského účtu:
 <h2 id="cast4" class="zaklinadla"><a href="#cast4"><span class="cislo">4.</span> Zaklínadla: Samospráva uživatele</a></h2>
 
 <h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 20 (Správa uživatelských účtů), sekce 4 (Zaklínadla: Samospráva uživatele), podsekce 1 (Vypsat nastavení)"><sup>4/</sup>1 Vypsat nastavení</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxab3f737"><span><a href="#zxab3f737">┤</a></span></span>skupiny, ve kterých je členem (pro člověka/pro skript)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxab3f737"><span><a href="#zxab3f737">@</a></span></span>skupiny, ve kterých je členem (pro člověka/pro skript)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">groups</div>
 <div class="radekzaklinadla">id -Gn | tr &quot;<span class="viditelnamezera">&nbsp;</span>&quot; \\n | <span class="volznak">[</span>LC_ALL=C.UTF-8<span class="volznak">]</span> sort</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx34ea6d2"><span><a href="#zx34ea6d2">ᔶ</a></span></span>domovský adresář (doporučená varianta/spolehlivá varianta)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx34ea6d2"><span><a href="#zx34ea6d2">@</a></span></span>domovský adresář (doporučená varianta/spolehlivá varianta)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">printf %s\\n &quot;$HOME&quot;</div>
 <div class="radekzaklinadla">getent passwd $(whoami) | cut -d : -f 6</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd406dc5"><span><a href="#zxd406dc5">Ꙩ</a></span></span><b>uživatelské jméno</b>/UID<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd406dc5"><span><a href="#zxd406dc5">@</a></span></span><b>uživatelské jméno</b>/UID<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">whoami</div>
 <div class="radekzaklinadla">id -u</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9b21284"><span><a href="#zx9b21284">☙</a></span></span><b>celé jméno</b><span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9b21284"><span><a href="#zx9b21284">@</a></span></span><b>celé jméno</b><span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">getent passwd $(whoami) | cut -d : -f 5 | cut -d , -f 1</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxab9a637"><span><a href="#zxab9a637">⪂</a></span></span>získat <b>avatar</b><span class="cislo">#5 </span><sup><a href="#kapxf43ffd6ppc10" id="kapxf43ffd6ppcr10" title="Avatar čtvercový obrázek je ve formátu PNG. Počet pixelů tvořících stranu čtverce může být různý.">(10)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxab9a637"><span><a href="#zxab9a637">@</a></span></span>získat <b>avatar</b><span class="cislo">#5 </span><sup><a href="#kapxf43ffd6ppc10" id="kapxf43ffd6ppcr10" title="Avatar čtvercový obrázek je ve formátu PNG. Počet pixelů tvořících stranu čtverce může být různý.">(10)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">cp ~/.face <i class="dopln">cíl.png</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0931d5c"><span><a href="#zx0931d5c">⬗</a></span></span><b>příkazový interpret</b><span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0931d5c"><span><a href="#zx0931d5c">@</a></span></span><b>příkazový interpret</b><span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">getent passwd &quot;$(whoami)&quot; | cut -d : -f 7</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf402418"><span><a href="#zxf402418">⋾</a></span></span><b>výchozí skupina</b> (názvem/GID)<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf402418"><span><a href="#zxf402418">@</a></span></span><b>výchozí skupina</b> (názvem/GID)<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">id -Gn | sed -E 's/\s.*//'</div>
 <div class="radekzaklinadla">id -G | sed -E 's/\s.*//'</div>
 </div></div>
 
 <h3 id="cast4x2"><span><a href="#cast4x2" title="kapitola 20 (Správa uživatelských účtů), sekce 4 (Zaklínadla: Samospráva uživatele), podsekce 2 (Změnit nastavení)"><sup>4/</sup>2 Změnit nastavení</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3f1f469"><span><a href="#zx3f1f469">⟠</a></span></span><b>heslo</b> (pro člověka)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3f1f469"><span><a href="#zx3f1f469">@</a></span></span><b>heslo</b> (pro člověka)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">passwd</div>
 <div class="radekzaklinadla akce">Na výzvu zadejte původní heslo. Potvrďte klávesou Enter.</div>
 <div class="radekzaklinadla akce">Dvakrát zadejte nové heslo. Každé potvrďte klávesou Enter.</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2eb15c7"><span><a href="#zx2eb15c7">⡄</a></span></span>změnit <b>avatar</b><span class="cislo">#2 </span><sup><a href="#kapxf43ffd6ppc11" id="kapxf43ffd6ppcr11" title="Pozor, pokud konverze obrázku selže, uvedený příkaz smaže váš současný avatar bez náhrady.">(11)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2eb15c7"><span><a href="#zx2eb15c7">@</a></span></span>změnit <b>avatar</b><span class="cislo">#2 </span><sup><a href="#kapxf43ffd6ppc11" id="kapxf43ffd6ppcr11" title="Pozor, pokud konverze obrázku selže, uvedený příkaz smaže váš současný avatar bez náhrady.">(11)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">convert <i class="dopln">obrázek</i> -gravity center -crop &quot;$(identify -format &quot;%[fx:min(w,h)]x%[fx:min(w,h)]&quot; <i class="dopln">obrázek</i>)&quot; +repage -delete -1 png24:- &gt;~/.face</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx55510d0"><span><a href="#zx55510d0">⢹</a></span></span>příkazový <b>interpret</b> (pro člověka)<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx55510d0"><span><a href="#zx55510d0">@</a></span></span>příkazový <b>interpret</b> (pro člověka)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">chsh <span class="volznak">[</span>-s <i class="dopln">/cesta/k/novému/interpretu</i><span class="volznak">]</span></div>
 <div class="radekzaklinadla akce">Na výzvu zadejte svoje heslo a potvrďte klávesou Enter.</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd21ef40"><span><a href="#zxd21ef40">▷</a></span></span>změnit <b>celé jméno</b> (musí povolit správce)<span class="cislo">#4 </span><sup><a href="#kapxf43ffd6ppc12" id="kapxf43ffd6ppcr12" title="Ve výchozím nastavení Ubuntu je tento příkaz běžným uživatelům zakázaný. Uživatelé však mohou svoje celé jméno změnit pomocí sběrnice DBUS nebo v GUI programem „mugshot“ ze stejnojmenného balíčku. Změna pomocí „chfn“ se povolí tak, že v souboru „/etc/login.defs“ do konfigurační volby „CHFN_RESTRICT“ doplníte písmeno „f“ nebo ji nastavíte na hodnotu „no“.">(12)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd21ef40"><span><a href="#zxd21ef40">@</a></span></span>změnit <b>celé jméno</b> (musí povolit správce)<span class="cislo">#4 </span><sup><a href="#kapxf43ffd6ppc12" id="kapxf43ffd6ppcr12" title="Ve výchozím nastavení Ubuntu je tento příkaz běžným uživatelům zakázaný. Uživatelé však mohou svoje celé jméno změnit pomocí sběrnice DBUS nebo v GUI programem „mugshot“ ze stejnojmenného balíčku. Změna pomocí „chfn“ se povolí tak, že v souboru „/etc/login.defs“ do konfigurační volby „CHFN_RESTRICT“ doplníte písmeno „f“ nebo ji nastavíte na hodnotu „no“.">(12)</a></sup></div><div class="radky">
 <div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>sudo sed -iE '/^CHFN_RESTRICT/s/\&lt;rwh\&gt;/f&amp;/' /etc/login.defs</div>
 <div class="radekzaklinadla">chfn -f &quot;<i class="dopln">Nové celé jméno</i>&quot;</div>
 <div class="radekzaklinadla akce">Na výzvu zadejte svoje heslo a potvrďte klávesou Enter.</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx979c656"><span><a href="#zx979c656">˒</a></span></span>změnit <b>celé jméno</b> pomocí sběrnice DBUS<span class="cislo">#5 </span><sup><a href="#kapxf43ffd6ppc13" id="kapxf43ffd6ppcr13" title="Tato metoda sice také určité oprávnění požaduje, ale ve výchozím nastavení v Ubuntu všichni uživatelé toto oprávnění mají, takže si svoje celé jméno mohou změnit. Navíc nevyžaduje zadání hesla.">(13)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx979c656"><span><a href="#zx979c656">@</a></span></span>změnit <b>celé jméno</b> pomocí sběrnice DBUS<span class="cislo">#5 </span><sup><a href="#kapxf43ffd6ppc13" id="kapxf43ffd6ppcr13" title="Tato metoda sice také určité oprávnění požaduje, ale ve výchozím nastavení v Ubuntu všichni uživatelé toto oprávnění mají, takže si svoje celé jméno mohou změnit. Navíc nevyžaduje zadání hesla.">(13)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">ofa=org.freedesktop.Accounts</div>
 <div class="radekzaklinadla">ofacesta=&quot;$(dbus-send --system --dest=$ofa --type=method_call --print-reply=literal /${ofa//./\/} ${ofa}.FindUserByName &quot;string:$(whoami)&quot; | tr -d &quot;<span class="viditelnamezera">&nbsp;</span>&quot;)&quot;</div>
 <div class="radekzaklinadla">novejmeno=&quot;<i class="dopln">Nové celé jméno</i>&quot;</div>
@@ -269,77 +269,77 @@ Existují tři stavy zabezpečení uživatelského účtu:
 <h2 id="cast5" class="zaklinadla"><a href="#cast5"><span class="cislo">5.</span> Zaklínadla: Správa skupin</a></h2>
 
 <h3 id="cast5x1"><span><a href="#cast5x1" title="kapitola 20 (Správa uživatelských účtů), sekce 5 (Zaklínadla: Správa skupin), podsekce 1 (Vytvořit/vypsat/zrušit)"><sup>5/</sup>1 Vytvořit/vypsat/zrušit</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5ab61cb"><span><a href="#zx5ab61cb">∇</a></span></span>vytvořit <b>skupinu</b> (běžnou/systémovou)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5ab61cb"><span><a href="#zx5ab61cb">@</a></span></span>vytvořit <b>skupinu</b> (běžnou/systémovou)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo addgroup <span class="volznak">[</span>--gid <i class="dopln">konkrétní-GID</i><span class="volznak">]</span> <i class="dopln">název-nové-skupiny</i></div>
 <div class="radekzaklinadla">sudo addgroup --system <span class="volznak">[</span>--gid <i class="dopln">konkrétní-GID</i><span class="volznak">]</span> <i class="dopln">název-nové-skupiny</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf0e9b37"><span><a href="#zxf0e9b37">☞</a></span></span><b>smazat</b> skupinu<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf0e9b37"><span><a href="#zxf0e9b37">@</a></span></span><b>smazat</b> skupinu<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo delgroup <span class="volznak">[</span>--only-if-empty<span class="volznak">]</span> <i class="dopln">skupina</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6321296"><span><a href="#zx6321296">✕</a></span></span><b>vypsat</b> všechny skupiny kromě systémových/úplně všechny<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6321296"><span><a href="#zx6321296">@</a></span></span><b>vypsat</b> všechny skupiny kromě systémových/úplně všechny<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">getent group | sed -E '/^([^:]*:){2}(0|[0-9]{4,}):/!d;s/:.*//' <span class="volznak">[</span>| LC_ALL=C.UTF-8 sort<span class="volznak">]</span></div>
 <div class="radekzaklinadla">getent group | cut -d : -f 1 <span class="volznak">[</span>| LC_ALL=C.UTF-8 sort<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx072a97b"><span><a href="#zx072a97b">∿</a></span></span>vypsat GID skupiny podle názvu/název podle GID<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx072a97b"><span><a href="#zx072a97b">@</a></span></span>vypsat GID skupiny podle názvu/název podle GID<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">getent group <i class="dopln">název-skupiny</i> | cut -d : -f 3</div>
 <div class="radekzaklinadla">getent group <i class="dopln">GID</i> | cut -d : -f 1</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx00a0051"><span><a href="#zx00a0051">⬐</a></span></span><b>existuje</b> skupina?<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx00a0051"><span><a href="#zx00a0051">@</a></span></span><b>existuje</b> skupina?<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">getent group <i class="dopln">skupina</i> &gt;/dev/null</div>
 </div></div>
 
 <h3 id="cast5x2"><span><a href="#cast5x2" title="kapitola 20 (Správa uživatelských účtů), sekce 5 (Zaklínadla: Správa skupin), podsekce 2 (Přidat/vypsat/odebrat účty)"><sup>5/</sup>2 Přidat/vypsat/odebrat účty</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx45e9964"><span><a href="#zx45e9964">໔</a></span></span><b>přidat</b> účet do skupiny (alternativy)<span class="cislo">#1 </span><sup><a href="#kapxf43ffd6ppc14" id="kapxf43ffd6ppcr14" title="Použít „gpasswd“ bez sudo je oprávněn pouze správce skupiny.">(14)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx45e9964"><span><a href="#zx45e9964">@</a></span></span><b>přidat</b> účet do skupiny (alternativy)<span class="cislo">#1 </span><sup><a href="#kapxf43ffd6ppc14" id="kapxf43ffd6ppcr14" title="Použít „gpasswd“ bez sudo je oprávněn pouze správce skupiny.">(14)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> gpasswd -a <i class="dopln">uživatel</i> <i class="dopln">skupina</i></div>
 <div class="radekzaklinadla">sudo adduser <i class="dopln">uživatel</i> <i class="dopln">skupina</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6fab470"><span><a href="#zx6fab470">⣕</a></span></span><b>odebrat</b> účet ze skupiny (alternativy)<span class="cislo">#2 </span><sup><a href="#kapxf43ffd6ppc15" id="kapxf43ffd6ppcr15" title="Použít „gpasswd“ bez sudo je oprávněn pouze správce skupiny.">(15)</a>,&nbsp;<a href="#kapxf43ffd6ppc16" id="kapxf43ffd6ppcr16" title="Uživatele nelze odebrat z jeho výchozí skupiny. Pokud to chcete udělat, musíte mu nejprve nastavit jinou výchozí skupinu.">(16)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6fab470"><span><a href="#zx6fab470">@</a></span></span><b>odebrat</b> účet ze skupiny (alternativy)<span class="cislo">#2 </span><sup><a href="#kapxf43ffd6ppc15" id="kapxf43ffd6ppcr15" title="Použít „gpasswd“ bez sudo je oprávněn pouze správce skupiny.">(15)</a>,&nbsp;<a href="#kapxf43ffd6ppc16" id="kapxf43ffd6ppcr16" title="Uživatele nelze odebrat z jeho výchozí skupiny. Pokud to chcete udělat, musíte mu nejprve nastavit jinou výchozí skupinu.">(16)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> gpasswd -d <i class="dopln">uživatel</i> <i class="dopln">skupina</i></div>
 <div class="radekzaklinadla">sudo deluser <i class="dopln">uživatel</i> <i class="dopln">skupina</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx78fe95c"><span><a href="#zx78fe95c">⡋</a></span></span><b>vypsat</b> účty ve skupině (po řádcích)<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx78fe95c"><span><a href="#zx78fe95c">@</a></span></span><b>vypsat</b> účty ve skupině (po řádcích)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">lkk veskupine <i class="dopln">skupina</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx58866eb"><span><a href="#zx58866eb">ᕸ</a></span></span>je účet členem skupiny? (podle názvu/podle GID)(uspěje, pokud ano)<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx58866eb"><span><a href="#zx58866eb">@</a></span></span>je účet členem skupiny? (podle názvu/podle GID)(uspěje, pokud ano)<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">id -Gn <i class="dopln">uživatel</i> | fgrep -qw <i class="dopln">název_skupiny</i></div>
 <div class="radekzaklinadla">id -G <i class="dopln">uživatel</i> | fgrep -qw <i class="dopln">GID</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf898ca0"><span><a href="#zxf898ca0">₰</a></span></span><b>vyprázdnit</b> skupinu (odebrat všechny účty)<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf898ca0"><span><a href="#zxf898ca0">@</a></span></span><b>vyprázdnit</b> skupinu (odebrat všechny účty)<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo gpasswd -M '' <i class="dopln">skupina</i></div>
 </div></div>
 
 <h3 id="cast5x3"><span><a href="#cast5x3" title="kapitola 20 (Správa uživatelských účtů), sekce 5 (Zaklínadla: Správa skupin), podsekce 3 (Nastavení skupiny (včetně hesla))"><sup>5/</sup>3 Nastavení skupiny (včetně hesla)</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx247dc2d"><span><a href="#zx247dc2d">∳</a></span></span>změnit název skupiny<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx247dc2d"><span><a href="#zx247dc2d">@</a></span></span>změnit název skupiny<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo groupmod -n <i class="dopln">nový-název</i> <i class="dopln">původní-název</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc49af5c"><span><a href="#zxc49af5c">♺</a></span></span>změnit GID skupiny<span class="cislo">#2 </span><sup><a href="#kapxf43ffd6ppc17" id="kapxf43ffd6ppcr17" title="Poznámka: příslušnost souborů na disku ke skupinám se ukládá ve formě GID a tímto příkazem se nezmění, takže se ztratí příslušnost těchto souborů ke skupině (soubory budou odkazovat na původní GID, ale skupina již bude identifikována jiným).">(17)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc49af5c"><span><a href="#zxc49af5c">@</a></span></span>změnit GID skupiny<span class="cislo">#2 </span><sup><a href="#kapxf43ffd6ppc17" id="kapxf43ffd6ppcr17" title="Poznámka: příslušnost souborů na disku ke skupinám se ukládá ve formě GID a tímto příkazem se nezmění, takže se ztratí příslušnost těchto souborů ke skupině (soubory budou odkazovat na původní GID, ale skupina již bude identifikována jiným).">(17)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo groupmod -g <i class="dopln">nové-GID</i> <i class="dopln">skupina</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9d906e4"><span><a href="#zx9d906e4">⣷</a></span></span>nastavit/zrušit <b>správce</b> skupiny<span class="cislo">#3 </span><sup><a href="#kapxf43ffd6ppc18" id="kapxf43ffd6ppcr18" title="Správce skupiny může přidávat do skupiny a odebírat ze skupiny odstatní uživatele a nastavovat skupině heslo, ale to vše pouze s pomocí příkazu „gpasswd“.">(18)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9d906e4"><span><a href="#zx9d906e4">@</a></span></span>nastavit/zrušit <b>správce</b> skupiny<span class="cislo">#3 </span><sup><a href="#kapxf43ffd6ppc18" id="kapxf43ffd6ppcr18" title="Správce skupiny může přidávat do skupiny a odebírat ze skupiny odstatní uživatele a nastavovat skupině heslo, ale to vše pouze s pomocí příkazu „gpasswd“.">(18)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo gpasswd -A <i class="dopln">uživatelské-jméno</i><span class="volznak">[</span>,<i class="dopln">další-správce</i><span class="volznak">]</span><span class="tritecky"></span> <i class="dopln">název_skupiny</i></div>
 <div class="radekzaklinadla">sudo gpasswd -A &quot;&quot; <i class="dopln">název_skupiny</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfd0a39d"><span><a href="#zxfd0a39d">⋭</a></span></span>nastavit <b>heslo</b> skupiny (pro člověka)<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfd0a39d"><span><a href="#zxfd0a39d">@</a></span></span>nastavit <b>heslo</b> skupiny (pro člověka)<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo gpasswd <i class="dopln">skupina</i></div>
 <div class="radekzaklinadla akce">Dvakrát zadat nové heslo. Pokaždé potvrdit Enter.</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1362e0a"><span><a href="#zx1362e0a">◫</a></span></span>nastavit heslo skupiny (pro skript)<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1362e0a"><span><a href="#zx1362e0a">@</a></span></span>nastavit heslo skupiny (pro skript)<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe16d42c"><span><a href="#zxe16d42c">✥</a></span></span>zrušit heslo skupiny<span class="cislo">#6 </span><sup><a href="#kapxf43ffd6ppc19" id="kapxf43ffd6ppcr19" title="Použít „gpasswd“ bez sudo je oprávněn pouze správce skupiny.">(19)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe16d42c"><span><a href="#zxe16d42c">@</a></span></span>zrušit heslo skupiny<span class="cislo">#6 </span><sup><a href="#kapxf43ffd6ppc19" id="kapxf43ffd6ppcr19" title="Použít „gpasswd“ bez sudo je oprávněn pouze správce skupiny.">(19)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> gpasswd -r <i class="dopln">skupina</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2d3d21b"><span><a href="#zx2d3d21b">❱</a></span></span>je skupina chráněná heslem?<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2d3d21b"><span><a href="#zx2d3d21b">@</a></span></span>je skupina chráněná heslem?<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
 <h2 id="cast6" class="zaklinadla"><a href="#cast6"><span class="cislo">6.</span> Zaklínadla: Ostatní</a></h2>
 
 <h3 id="cast6x1"><span><a href="#cast6x1" title="kapitola 20 (Správa uživatelských účtů), sekce 6 (Zaklínadla: Ostatní), podsekce 1 (Formáty souborů)"><sup>6/</sup>1 Formáty souborů</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfe80331"><span><a href="#zxfe80331">✩</a></span></span>formát /etc/passwd<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfe80331"><span><a href="#zxfe80331">@</a></span></span>formát /etc/passwd<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">přihlašovací-jméno</i>:x:<i class="dopln">UID</i>:<i class="dopln">GID-výchozí-skupiny</i>:<i class="dopln">celé jméno</i>[,<i class="dopln">další údaje</i><span class="volznak">]</span>:<i class="dopln">/domovský/adresář</i><span class="volznak">[</span>:<i class="dopln">/výchozí/shell</i><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx59b6748"><span><a href="#zx59b6748">ມ</a></span></span>formát /etc/group<span class="cislo">#2 </span><sup><a href="#kapxf43ffd6ppc20" id="kapxf43ffd6ppcr20" title="Výchozí skupina uživatele nemusí být v souboru /etc/group uvedena. Uživatelský účet je jejím členem i v případě, že zde uvedena není!">(20)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx59b6748"><span><a href="#zx59b6748">@</a></span></span>formát /etc/group<span class="cislo">#2 </span><sup><a href="#kapxf43ffd6ppc20" id="kapxf43ffd6ppcr20" title="Výchozí skupina uživatele nemusí být v souboru /etc/group uvedena. Uživatelský účet je jejím členem i v případě, že zde uvedena není!">(20)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><i class="dopln">název-skupiny</i>:x:<i class="dopln">GID</i>:<span class="volznak">[</span><i class="dopln">první-člen</i><span class="volznak">[</span>,<i class="dopln">další-člen</i><span class="volznak">]</span><span class="tritecky"></span><span class="volznak">]</span></div>
 </div></div>
 
@@ -369,7 +369,7 @@ s výjimkou příkazů „convert“ a „identify“, které je potřeba doin
 </li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/linux/adduser.md">TL;DR stránka „adduser“</a> (anglicky)
 </li></ul>
 <h2 id="cast10"><a href="#cast10"><span class="cislo">10.</span> Pomocné skripty a funkce</a></h2>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx255f979"><span><a href="#zx255f979">⚇</a></span></span>lkk veskupine – vypíše seznam uživatelských účtů, které jsou v některé z uvedených skupin<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx255f979"><span><a href="#zx255f979">@</a></span></span>lkk veskupine – vypíše seznam uživatelských účtů, které jsou v některé z uvedených skupin<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">#!/bin/bash</div>
 <div class="radekzaklinadla">set -e; for x in &quot;$@&quot;; do getent group &quot;$x&quot;; done &gt;/dev/null; set +e</div>
 <div class="radekzaklinadla">for x in &quot;$@&quot;</div>
@@ -442,7 +442,7 @@ Tato kapitola záměrně nepokrývá:
 </nav>
 
 
-<div class="odkazydole"><div><a href="perl-zaklady.htm"><img src="obrazky/ik/perl-zaklady.png" alt="" width="32" height="32">Perl: základy</a><a href="system.htm"><img src="obrazky/ik/system.png" alt="" width="32" height="32">Systém</a><a href="bash-funkce-a-skripty.htm"><img src="obrazky/ik/bash.png" alt="" width="32" height="32">Bash / Funkce a skripty</a></div></div>
+<div class="odkazydole"><div><a href="bash-funkce-a-skripty.htm"><img src="obrazky/ik/bash.png" alt="" width="32" height="32">Bash / Funkce a skripty</a><a href="regularni-vyrazy.htm"><img src="obrazky/ik/regularni-vyrazy.png" alt="" width="32" height="32">Regulární výrazy</a><a href="diskove-oddily-lvm.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly / LVM</a></div></div>
 <div class="reklamnipata">Líbí se vám tento projekt a chcete, aby byl ještě lepší? Můžete mi s tím pomoci. Zmiňte se o něm technicky zdatným přátelům, opravte překlepy a nahlašte nefunkční zaklínadla, aby mohla být opravena; poskytněte mi zpětnou vazbu nebo se zapojte do vývoje nových kapitol. Další informace na GitHubu v dokumentu <a href="https://github.com/singularis-mzf/linux-spellbook/blob/v%C3%BDvojov%C3%A1/JAK-SE-ZAPOJIT.md">Jak se zapojit</a>.</div>
 
 </article>
@@ -518,6 +518,7 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="fragodkazy"><a href="koncepce-projektu.htm" class="odkaz"><span><span class="cislo">19</span>Koncepce projektu Linux: Kniha kouzel</span></a></span></div>
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/plan-vyvoje.png" alt="[]"></span><span class="fragodkazy"><a href="plan-vyvoje.htm" class="odkaz"><span><span class="cislo">20</span>Plán budoucího vývoje</span></a></span></div>
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="fragodkazy"><a href="licence.htm" class="odkaz"><span><span class="cislo">21</span>Licence</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/rejstrik.png" alt="[]"></span><span class="fragodkazy"><a href="rejstrik.htm" class="odkaz"><span><span class="cislo">22</span>Rejstřík podle klasických příkazů</span></a></span></div>
 <div class="premiove"><strong>Prémiové kapitoly:</strong>
 <div>AWK</div>
 <div>Bash / Vstup, výstup a přesměrování</div>

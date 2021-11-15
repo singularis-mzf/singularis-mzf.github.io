@@ -5,13 +5,13 @@
 
 <title>Správa balíčků − Linux: Kniha kouzel</title>
 <meta name="viewport" content="width=1000, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="lkk-20211008.css">
+<link rel="stylesheet" type="text/css" href="lkk-20211115.css">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body class="jeukazka">
 <div id="nahore"><div id="okno">
 <header>
-<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.10, Ř. Ř. (8. října 2021)</span>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.11, S. S. (15. listopadu 2021)</span>
 <span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -97,170 +97,170 @@ např. celé komponenty repozitářů.
 <h2 id="cast3" class="zaklinadla"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla: DPKG a APT</a></h2>
 
 <h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 19 (Správa balíčků), sekce 3 (Zaklínadla: DPKG a APT), podsekce 1 (Aktualizace)"><sup>3/</sup>1 Aktualizace</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7fa564a"><span><a href="#zx7fa564a">┋</a></span></span>aktualizovat informace o <b>dostupných</b> balíčcích (alternativy)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7fa564a"><span><a href="#zx7fa564a">@</a></span></span>aktualizovat informace o <b>dostupných</b> balíčcích (alternativy)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo aptitude update</div>
 <div class="radekzaklinadla">sudo apt-get update</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxccb7cea"><span><a href="#zxccb7cea">◭</a></span></span><b>aktualizovat</b> všechny aktualizovatelné balíčky (alternativy)<span class="cislo">#2 </span><sup><a href="#kapx12af422ppc1" id="kapx12af422ppcr1" title="Tyto příkazy při aktualizaci vynechají balíčky, které by svou aktualizací způsobily odstranění jiných balíčků. Pokud chcete aktualizovat i takové balíčky, použijte „drastickou aktualizaci“.">(1)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxccb7cea"><span><a href="#zxccb7cea">@</a></span></span><b>aktualizovat</b> všechny aktualizovatelné balíčky (alternativy)<span class="cislo">#2 </span><sup><a href="#kapx12af422ppc1" id="kapx12af422ppcr1" title="Tyto příkazy při aktualizaci vynechají balíčky, které by svou aktualizací způsobily odstranění jiných balíčků. Pokud chcete aktualizovat i takové balíčky, použijte „drastickou aktualizaci“.">(1)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-get upgrade <span class="volznak">[</span>-y<span class="volznak">]</span> <span class="volznak">[</span>--autoremove <span class="volznak">[</span>--purge<span class="volznak">]</span><span class="volznak">]</span></div>
 <div class="radekzaklinadla">sudo aptitude <span class="volznak">[</span>-y<span class="volznak">]</span> <span class="volznak">[</span>--no-new-installs<span class="volznak">]</span> safe-upgrade</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe6e835b"><span><a href="#zxe6e835b">Ꙩ</a></span></span>drasticky <b>aktualizovat</b> všechny aktualizovatelné balíčky (alternativy)<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe6e835b"><span><a href="#zxe6e835b">@</a></span></span>drasticky <b>aktualizovat</b> všechny aktualizovatelné balíčky (alternativy)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-get dist-upgrade <span class="volznak">[</span>-y<span class="volznak">]</span> <span class="volznak">[</span>--autoremove <span class="volznak">[</span>--purge<span class="volznak">]</span><span class="volznak">]</span></div>
 <div class="radekzaklinadla">sudo aptitude <span class="volznak">[</span>-y<span class="volznak">]</span> full-upgrade</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4b363f7"><span><a href="#zx4b363f7">⇧</a></span></span>aktualizovat jen konkrétní balíčky a jejich závislosti<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4b363f7"><span><a href="#zx4b363f7">@</a></span></span>aktualizovat jen konkrétní balíčky a jejich závislosti<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-get install --only-upgrade <i class="dopln">balíček</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx76a431b"><span><a href="#zx76a431b">⇭</a></span></span>pokusit se napravit poškozené závislosti<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx76a431b"><span><a href="#zx76a431b">@</a></span></span>pokusit se napravit poškozené závislosti<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-get install --fix-broken</div>
 </div></div>
 
 <h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 19 (Správa balíčků), sekce 3 (Zaklínadla: DPKG a APT), podsekce 2 (Instalace a odinstalace)"><sup>3/</sup>2 Instalace a odinstalace</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona L" id="zxddd4af4"><span><a href="#zxddd4af4">〖</a></span></span><b>nainstalovat</b> nový balíček včetně závislostí (vzdálený balíček/lokální soubor)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxddd4af4"><span><a href="#zxddd4af4">@</a></span></span><b>nainstalovat</b> nový balíček včetně závislostí (vzdálený balíček/lokální soubor)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-get install <span class="volznak">[</span>-y<span class="volznak">]</span> <span class="volznak">[</span>--no-install-recommends<span class="volznak">]</span> <span class="volznak">[</span>--install-suggests<span class="volznak">]</span> <span class="volznak">[</span>-V<span class="volznak">]</span> <i class="dopln">balíček</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sudo apt-get install <span class="volznak">[</span>-y<span class="volznak">]</span> <span class="volznak">[</span>--no-install-recommends<span class="volznak">]</span> <span class="volznak">[</span>--install-suggests<span class="volznak">]</span> <span class="volznak">[</span>-V<span class="volznak">]</span> ./<i class="dopln">balíček.deb</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona L" id="zx29f5780"><span><a href="#zx29f5780">⏡</a></span></span><b>odinstalovat</b> balíček (celosystémové konfigurační soubory smazat/ponechat)<span class="cislo">#2 </span><sup><a href="#kapx12af422ppc2" id="kapx12af422ppcr2" title="Ponechat celosystémové konfigurační soubory má smysl v případě, že chcete zachovat konfiguraci balíčku pro případ, že byste ho v budoucnu znovu nainstaloval/a. Uživatelskou konfiguraci programů (uloženou v domovských adresářích) APT ani DPKG odstranit neumí.">(2)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx29f5780"><span><a href="#zx29f5780">@</a></span></span><b>odinstalovat</b> balíček (celosystémové konfigurační soubory smazat/ponechat)<span class="cislo">#2 </span><sup><a href="#kapx12af422ppc2" id="kapx12af422ppcr2" title="Ponechat celosystémové konfigurační soubory má smysl v případě, že chcete zachovat konfiguraci balíčku pro případ, že byste ho v budoucnu znovu nainstaloval/a. Uživatelskou konfiguraci programů (uloženou v domovských adresářích) APT ani DPKG odstranit neumí.">(2)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-get purge <span class="volznak">[</span>--autoremove<span class="volznak">]</span> <i class="dopln">balíček</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sudo apt-get remove <span class="volznak">[</span>--autoremove<span class="volznak">]</span> <i class="dopln">balíček</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx805df4a"><span><a href="#zx805df4a">┅</a></span></span>přeinstalovat (<b>opravit</b>) již nainstalovaný balíček<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx805df4a"><span><a href="#zx805df4a">@</a></span></span>přeinstalovat (<b>opravit</b>) již nainstalovaný balíček<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-get reinstall <i class="dopln">balíček</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4e8b74f"><span><a href="#zx4e8b74f">✢</a></span></span>nainstalovat či aktualizovat zvolené balíčky a současně aktualizovat ostatní<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4e8b74f"><span><a href="#zx4e8b74f">@</a></span></span>nainstalovat či aktualizovat zvolené balíčky a současně aktualizovat ostatní<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-get upgrade <span class="volznak">[</span>-y<span class="volznak">]</span> &amp;&amp; sudo apt-get install <span class="volznak">[</span>-y<span class="volznak">]</span> <span class="volznak">[</span>--autoremove <span class="volznak">[</span>--purge<span class="volznak">]</span><span class="volznak">]</span> <i class="dopln">balíček</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx73a1998"><span><a href="#zx73a1998">➛</a></span></span><b>stáhnout</b> balíčky do lokálních souborů .deb (bez závislostí/se závislostmi)<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx73a1998"><span><a href="#zx73a1998">@</a></span></span><b>stáhnout</b> balíčky do lokálních souborů .deb (bez závislostí/se závislostmi)<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">apt-get download <i class="dopln">balíček</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
 <h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 19 (Správa balíčků), sekce 3 (Zaklínadla: DPKG a APT), podsekce 3 (Seznamy balíčků)"><sup>3/</sup>3 Seznamy balíčků</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx04dba32"><span><a href="#zx04dba32">∘</a></span></span>vypsat <b>známé</b> balíčky (pro člověka)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx04dba32"><span><a href="#zx04dba32">@</a></span></span>vypsat <b>známé</b> balíčky (pro člověka)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">apt list</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx884fd97"><span><a href="#zx884fd97">⣄</a></span></span>vypsat všechny známé balíčky pro všechny architektury<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx884fd97"><span><a href="#zx884fd97">@</a></span></span>vypsat všechny známé balíčky pro všechny architektury<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">aptitude search '?true'</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd666d86"><span><a href="#zxd666d86">✥</a></span></span>vypsat známé balíčky, filtrovat na základě kritérií<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd666d86"><span><a href="#zxd666d86">@</a></span></span>vypsat známé balíčky, filtrovat na základě kritérií<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">aptitude <span class="volznak">[</span>-F <i class="dopln">formát</i><span class="volznak">]</span> search '<i class="dopln">vyhledávací podmínka</i>' <span class="volznak">[</span>'<i class="dopln">další vyhledávací podmínka</i>'<span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6e6d282"><span><a href="#zx6e6d282">ᚓ</a></span></span>vypsat <b>všechny dostupné balíčky</b> (včetně dostupných verzí, pouze pro hlavní architekturu)<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6e6d282"><span><a href="#zx6e6d282">@</a></span></span>vypsat <b>všechny dostupné balíčky</b> (včetně dostupných verzí, pouze pro hlavní architekturu)<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">aptitude search --disable-columns -F $'%p\t%V' '?true' | egrep -v $'[^\t]*:[^\t]|[^\t]*\t&lt;[^\t]*&gt;(\t|$)'</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4b43c32"><span><a href="#zx4b43c32">⪇</a></span></span>vypsat seznam <b>nainstalovaných balíčků</b> včetně verzí (pro člověka – alternativy)<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4b43c32"><span><a href="#zx4b43c32">@</a></span></span>vypsat seznam <b>nainstalovaných balíčků</b> včetně verzí (pro člověka – alternativy)<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">apt list --installed</div>
 <div class="radekzaklinadla">dpkg-query -l <span class="volznak">[</span>| less<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfd8312e"><span><a href="#zxfd8312e">☝</a></span></span>vypsat seznam <b>nainstalovaných balíčků</b> (pro skript – alternativy)<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfd8312e"><span><a href="#zxfd8312e">@</a></span></span>vypsat seznam <b>nainstalovaných balíčků</b> (pro skript – alternativy)<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">dpkg-query -Wf '${Package}:${Architecture}/${Version}/${db:Status-Status}\n' <span class="volznak">[</span>'<i class="dopln">vzorek</i>'<span class="volznak">]</span> | egrep '/installed$'</div>
 <div class="radekzaklinadla">(apt-mark showauto; apt-mark showmanual) | LC_ALL=C sort -u</div>
 <div class="radekzaklinadla">aptitude --disable-columns -F <i class="dopln">formát</i> search '?installed'</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6611ffb"><span><a href="#zx6611ffb">➜</a></span></span>vypsat seznam nainstalovaných balíčků podle místa zabraného na disku; od největšího po nejmenší (pro člověka)<span class="cislo">#7 </span><sup><a href="#kapx12af422ppc3" id="kapx12af422ppcr3" title="Velikosti jsou uvedeny v kilobajtech.">(3)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6611ffb"><span><a href="#zx6611ffb">@</a></span></span>vypsat seznam nainstalovaných balíčků podle místa zabraného na disku; od největšího po nejmenší (pro člověka)<span class="cislo">#7 </span><sup><a href="#kapx12af422ppc3" id="kapx12af422ppcr3" title="Velikosti jsou uvedeny v kilobajtech.">(3)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">dpkg-query -Wf '${Installed-Size}\t${Package}:${Architecture}\n' | sort -nr | less</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx95dfe60"><span><a href="#zx95dfe60">ɷ</a></span></span>vypsat balíčky, pro které je dostupný upgrade (pro člověka/pro skript)<span class="cislo">#8 </span><sup><a href="#kapx12af422ppc4" id="kapx12af422ppcr4" title="Poznámka: vypíše i balíčky, jejichž upgrade není možný např. kvůli konfliktu s jiným balíčkem.">(4)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx95dfe60"><span><a href="#zx95dfe60">@</a></span></span>vypsat balíčky, pro které je dostupný upgrade (pro člověka/pro skript)<span class="cislo">#8 </span><sup><a href="#kapx12af422ppc4" id="kapx12af422ppcr4" title="Poznámka: vypíše i balíčky, jejichž upgrade není možný např. kvůli konfliktu s jiným balíčkem.">(4)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">apt list --upgradable</div>
 <div class="radekzaklinadla">aptitude search --disable-columns -F %p &quot;?upgradable&quot;</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx000a514"><span><a href="#zx000a514">᚛</a></span></span>vypsat balíčky, které by se skutečně upgradovaly<span class="cislo">#9 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx000a514"><span><a href="#zx000a514">@</a></span></span>vypsat balíčky, které by se skutečně upgradovaly<span class="cislo">#9 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-get upgrade --simulate | egrep &quot;^Inst<span class="viditelnamezera">&nbsp;</span>&quot;</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc5ab864"><span><a href="#zxc5ab864">ᐖ</a></span></span>vypsat nainstalovaný balíček vlastnící určitý příkaz<span class="cislo">#10 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc5ab864"><span><a href="#zxc5ab864">@</a></span></span>vypsat nainstalovaný balíček vlastnící určitý příkaz<span class="cislo">#10 </span></div><div class="radky">
 <div class="radekzaklinadla">test -e &quot;$(which <i class="dopln">příkaz</i>)&quot; &amp;&amp; (dpkg-query -S &quot;$(which <i class="dopln">příkaz</i>)&quot; | cut -d : -f 1)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx000dcf9"><span><a href="#zx000dcf9">⊕</a></span></span>vypsat seznam balíčků (nainstalovaných/dostupných), kterým přísluší určitý soubor<span class="cislo">#11 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx000dcf9"><span><a href="#zx000dcf9">@</a></span></span>vypsat seznam balíčků (nainstalovaných/dostupných), kterým přísluší určitý soubor<span class="cislo">#11 </span></div><div class="radky">
 <div class="radekzaklinadla">dpkg-query -S <i class="dopln">vzorek</i></div>
 <div class="radekzaklinadla">apt-file search -F &quot;<i class="dopln">/celá/cesta</i>&quot;</div>
 </div></div>
 
 <h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 19 (Správa balíčků), sekce 3 (Zaklínadla: DPKG a APT), podsekce 4 (Podrobné informace o balíčku)"><sup>3/</sup>4 Podrobné informace o balíčku</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd10cfbb"><span><a href="#zxd10cfbb">➮</a></span></span>vypsat podrobné informace o balíčku (dostupném/staženém)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd10cfbb"><span><a href="#zxd10cfbb">@</a></span></span>vypsat podrobné informace o balíčku (dostupném/staženém)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">apt-cache show <i class="dopln">balíček</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">dpkg-deb --info <i class="dopln">cesta/balíček.deb</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4444486"><span><a href="#zx4444486">≄</a></span></span>vybalit z balíčku soubory/řídicí soubory<span class="cislo">#2 </span><sup><a href="#kapx12af422ppc5" id="kapx12af422ppcr5" title="Tip: k manipulaci se soubory v balíčku můžete také použít parametr --fsys-tarfile, který na standardní výstup příkazu vypíše soubory balíčku ve formátu „tar“, který můžete předat rourou příkazu „tar“.">(5)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4444486"><span><a href="#zx4444486">@</a></span></span>vybalit z balíčku soubory/řídicí soubory<span class="cislo">#2 </span><sup><a href="#kapx12af422ppc5" id="kapx12af422ppcr5" title="Tip: k manipulaci se soubory v balíčku můžete také použít parametr --fsys-tarfile, který na standardní výstup příkazu vypíše soubory balíčku ve formátu „tar“, který můžete předat rourou příkazu „tar“.">(5)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">dpkg-deb -x <i class="dopln">cesta/balíček.deb</i> <i class="dopln">adresář/k/vytvoření</i></div>
 <div class="radekzaklinadla">dpkg-deb -e <i class="dopln">cesta/balíček.deb</i> <i class="dopln">adresář/k/vytvoření</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6d31751"><span><a href="#zx6d31751">⠆</a></span></span>kolik místa na disku zabírá balíček? (pro člověka)<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6d31751"><span><a href="#zx6d31751">@</a></span></span>kolik místa na disku zabírá balíček? (pro člověka)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">aptitude search -F %I '?name(<i class="dopln">balíček</i>)' | head -n1</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb9f9058"><span><a href="#zxb9f9058">∰</a></span></span>vypsat seznam souborů a adresářů v systému, které kontroluje daný (nainstalovaný/dostupný/stažený) balíček<span class="cislo">#4 </span><sup><a href="#kapx12af422ppc6" id="kapx12af422ppcr6" title="Poznámka: Ve výpisu „dpkg-query -L“ se typicky objevují také společné adresáře jako /etc či /usr; není příliš spolehnutí na to, že jde pouze o soubory příslušné danému balíčku.">(6)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb9f9058"><span><a href="#zxb9f9058">@</a></span></span>vypsat seznam souborů a adresářů v systému, které kontroluje daný (nainstalovaný/dostupný/stažený) balíček<span class="cislo">#4 </span><sup><a href="#kapx12af422ppc6" id="kapx12af422ppcr6" title="Poznámka: Ve výpisu „dpkg-query -L“ se typicky objevují také společné adresáře jako /etc či /usr; není příliš spolehnutí na to, že jde pouze o soubory příslušné danému balíčku.">(6)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">dpkg-query -L <i class="dopln">balíček</i></div>
 <div class="radekzaklinadla">apt-file list <i class="dopln">balíček</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">dpkg-deb -c <i class="dopln">cesta/balíček.deb</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxdf81f6a"><span><a href="#zxdf81f6a">⌐</a></span></span>vypsat závislosti balíčku<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxdf81f6a"><span><a href="#zxdf81f6a">@</a></span></span>vypsat závislosti balíčku<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">apt-cache depends <i class="dopln">balíček</i><span class="tritecky"></span></div>
 </div></div>
 
 <h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 19 (Správa balíčků), sekce 3 (Zaklínadla: DPKG a APT), podsekce 5 (Zákaz aktualizace a označení „automaticky“)"><sup>3/</sup>5 Zákaz aktualizace a označení „automaticky“</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc653f38"><span><a href="#zxc653f38">┳</a></span></span>vypsat zákazy instalace či aktualizace balíčku<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc653f38"><span><a href="#zxc653f38">@</a></span></span>vypsat zákazy instalace či aktualizace balíčku<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">apt-mark showhold</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona L" id="zx390b2ea"><span><a href="#zx390b2ea">⟜</a></span></span>vypsat balíčky předinstalované nebo instalované ručně<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx390b2ea"><span><a href="#zx390b2ea">@</a></span></span>vypsat balíčky předinstalované nebo instalované ručně<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">apt-mark showmanual</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx47a8459"><span><a href="#zx47a8459">⇛</a></span></span>vypsat balíčky instalované jen jako závislosti jiných balíčků<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx47a8459"><span><a href="#zx47a8459">@</a></span></span>vypsat balíčky instalované jen jako závislosti jiných balíčků<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">apt-mark showauto</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx339ac86"><span><a href="#zx339ac86">⊮</a></span></span>zakázat instalaci či aktualizaci balíčku/zrušit tento zákaz<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx339ac86"><span><a href="#zx339ac86">@</a></span></span>zakázat instalaci či aktualizaci balíčku/zrušit tento zákaz<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-mark hold <i class="dopln">balíček</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sudo apt-mark unhold <i class="dopln">balíček</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxba090a6"><span><a href="#zxba090a6">✑</a></span></span>označit balíček jako instalovaný ručně/automaticky<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxba090a6"><span><a href="#zxba090a6">@</a></span></span>označit balíček jako instalovaný ručně/automaticky<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-mark manual <i class="dopln">balíček</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sudo apt-mark auto <i class="dopln">balíček</i><span class="tritecky"></span></div>
 </div></div>
 
 <h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 19 (Správa balíčků), sekce 3 (Zaklínadla: DPKG a APT), podsekce 6 (PPA)"><sup>3/</sup>6 PPA</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx659229d"><span><a href="#zx659229d">↡</a></span></span><b>přidat</b> do zdrojů nové PPA/odebrat PPA<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx659229d"><span><a href="#zx659229d">@</a></span></span><b>přidat</b> do zdrojů nové PPA/odebrat PPA<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo add-apt-repository <span class="volznak">[</span>-y<span class="volznak">]</span> ppa:<i class="dopln">id-vývojáře</i>/<i class="dopln">id-repozitáře</i></div>
 <div class="radekzaklinadla">sudo add-apt-repository -r <span class="volznak">[</span>-y<span class="volznak">]</span> ppa:<i class="dopln">id-vývojáře</i>/<i class="dopln">id-repozitáře</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx781668d"><span><a href="#zx781668d">⨍</a></span></span><b>vypsat</b> seznam aktivních PPA<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx781668d"><span><a href="#zx781668d">@</a></span></span><b>vypsat</b> seznam aktivních PPA<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">egrep -shx '\s*deb(\[[^]]*\])?\s*http://ppa.launchpad.net/.*' /etc/apt/sources.list /etc/apt/sources.list.d/*.list | cut -d / -f 4,5 | sed -E 's/.*/ppa:&amp;/' | LC_ALL=C sort -u</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx66bb24b"><span><a href="#zx66bb24b">❭</a></span></span>vypsat seznam balíčků dostupných z určitého PPA<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx66bb24b"><span><a href="#zx66bb24b">@</a></span></span>vypsat seznam balíčků dostupných z určitého PPA<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
 <h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 19 (Správa balíčků), sekce 3 (Zaklínadla: DPKG a APT), podsekce 7 (Jádra)"><sup>3/</sup>7 Jádra</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf2c4de2"><span><a href="#zxf2c4de2">↨</a></span></span>vypsat seznam <b>nainstalovaných</b> jader<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf2c4de2"><span><a href="#zxf2c4de2">@</a></span></span>vypsat seznam <b>nainstalovaných</b> jader<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">linux-version list</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6b6aa30"><span><a href="#zx6b6aa30">⪰</a></span></span>vypsat seznam dostupných jader<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6b6aa30"><span><a href="#zx6b6aa30">@</a></span></span>vypsat seznam dostupných jader<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
 <h3 id="cast3x8"><span><a href="#cast3x8" title="kapitola 19 (Správa balíčků), sekce 3 (Zaklínadla: DPKG a APT), podsekce 8 (Správa důvěryhodných klíčů)"><sup>3/</sup>8 Správa důvěryhodných klíčů</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx31937e8"><span><a href="#zx31937e8">✗</a></span></span><b>přidat</b> klíč jako důvěryhodný (ze souboru/ze standardního vstupu)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx31937e8"><span><a href="#zx31937e8">@</a></span></span><b>přidat</b> klíč jako důvěryhodný (ze souboru/ze standardního vstupu)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-key add <i class="dopln">soubor</i></div>
 <div class="radekzaklinadla">sudo apt-key add -</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa2db867"><span><a href="#zxa2db867">◄</a></span></span><b>odstranit</b> klíč ze seznamu důvěryhodných<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa2db867"><span><a href="#zxa2db867">@</a></span></span><b>odstranit</b> klíč ze seznamu důvěryhodných<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-key del <i class="dopln">id-klíče</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc86d764"><span><a href="#zxc86d764">⚱</a></span></span><b>vypsat</b> seznam důvěryhodných klíčů (pro člověka, ne pro skript)<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc86d764"><span><a href="#zxc86d764">@</a></span></span><b>vypsat</b> seznam důvěryhodných klíčů (pro člověka, ne pro skript)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">apt-key list</div>
 </div></div>
 
 <h3 id="cast3x9"><span><a href="#cast3x9" title="kapitola 19 (Správa balíčků), sekce 3 (Zaklínadla: DPKG a APT), podsekce 9 (Offline provoz APT)"><sup>3/</sup>9 Offline provoz APT</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc43f600"><span><a href="#zxc43f600">⬑</a></span></span>aktualizovat údaje o dostupných balíčcích (poprvé)<span class="cislo">#1 </span><sup><a href="#kapx12af422ppc7" id="kapx12af422ppcr7" title="Příkazy „get“ se provádějí na online počítači a stáhnout vše, co je potřeba, do uvedeného archivu typu zip, příkazy „set“ a „install“ se spouštějí na offline počítači.">(7)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc43f600"><span><a href="#zxc43f600">@</a></span></span>aktualizovat údaje o dostupných balíčcích (poprvé)<span class="cislo">#1 </span><sup><a href="#kapx12af422ppc7" id="kapx12af422ppcr7" title="Příkazy „get“ se provádějí na online počítači a stáhnout vše, co je potřeba, do uvedeného archivu typu zip, příkazy „set“ a „install“ se spouštějí na offline počítači.">(7)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-offline set pozadavek.sig --update</div>
 <div class="radekzaklinadla">sudo apt-offline get pozadavek.sig --generate-changelog --bundle pozadavek.zip</div>
 <div class="radekzaklinadla">sudo apt-offline install pozadavek.zip</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3a9e161"><span><a href="#zx3a9e161">⨙</a></span></span><b>aktualizovat</b> všechny balíčky<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3a9e161"><span><a href="#zx3a9e161">@</a></span></span><b>aktualizovat</b> všechny balíčky<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-offline set pozadavek.sig</div>
 <div class="radekzaklinadla">sudo apt-offline get pozadavek.sig --generate-changelog --bundle pozadavek.zip</div>
 <div class="radekzaklinadla">sudo apt-offline install pozadavek.zip</div>
 <div class="radekzaklinadla">sudo apt-get upgrade <span class="volznak">[</span>-y<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7dbc26d"><span><a href="#zx7dbc26d">⠈</a></span></span><b>nainstalovat</b> nové balíčky<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7dbc26d"><span><a href="#zx7dbc26d">@</a></span></span><b>nainstalovat</b> nové balíčky<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-offline set pozadavek.sig --install-packages <i class="dopln">balíček</i> <span class="volznak">[</span><i class="dopln">další-balíček</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sudo apt-offline get pozadavek.sig --generate-changelog --bundle pozadavek.zip</div>
 <div class="radekzaklinadla">sudo apt-offline install pozadavek.zip</div>
@@ -268,16 +268,16 @@ např. celé komponenty repozitářů.
 </div></div>
 
 <h3 id="cast3x10"><span><a href="#cast3x10" title="kapitola 19 (Správa balíčků), sekce 3 (Zaklínadla: DPKG a APT), podsekce 10 (Odklonění)"><sup>3/</sup>10 Odklonění</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc3c7a74"><span><a href="#zxc3c7a74">⁆</a></span></span><b>odklonit</b> soubor do nového umístění<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc3c7a74"><span><a href="#zxc3c7a74">@</a></span></span><b>odklonit</b> soubor do nového umístění<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo dpkg-divert --local <span class="volznak">[</span>--rename<span class="volznak">]</span> --divert <i class="dopln">/nové/umístění</i> <i class="dopln">/původní/umístění</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxaddfd03"><span><a href="#zxaddfd03">◼</a></span></span><b>zrušit</b> odklon souboru<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxaddfd03"><span><a href="#zxaddfd03">@</a></span></span><b>zrušit</b> odklon souboru<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo dpkg-divert --remove <i class="dopln">/původní/umístění</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx14edf95"><span><a href="#zx14edf95">↓</a></span></span><b>vypsat</b> seznam odklonů<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx14edf95"><span><a href="#zx14edf95">@</a></span></span><b>vypsat</b> seznam odklonů<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">dpkg-divert --list \*</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2728d60"><span><a href="#zx2728d60">⎣</a></span></span>odklonit soubor pro všechny balíčky kromě zadaného<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2728d60"><span><a href="#zx2728d60">@</a></span></span>odklonit soubor pro všechny balíčky kromě zadaného<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo dpkg-divert --package <i class="dopln">balíček</i> <span class="volznak">[</span>--rename<span class="volznak">]</span> --divert <i class="dopln">/nové/umístění</i> <i class="dopln">/původní/umístění</i></div>
 </div></div>
 
@@ -288,108 +288,108 @@ V poli Package lze navíc použít také regulární výraz v lomíkách, nap�
 </p><p>
 <b>Použití:</b> Vytvořte soubor v adresáři /etc/apt/preferences.d a zadejte do něj níže uvedené záznamy. Za každým záznamem musí být jedna či více prázdných řádek.
 </p>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5ab5196"><span><a href="#zx5ab5196">⟸</a></span></span>vypsat priority repozitářů a balíčků (pro člověka; příkaz – zadejte do bashe)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5ab5196"><span><a href="#zx5ab5196">@</a></span></span>vypsat priority repozitářů a balíčků (pro člověka; příkaz – zadejte do bashe)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">apt-cache policy</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd7b791a"><span><a href="#zxd7b791a">⢛</a></span></span>obecné nastavení priority balíčkům z určité <b>domény</b><span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd7b791a"><span><a href="#zxd7b791a">@</a></span></span>obecné nastavení priority balíčkům z určité <b>domény</b><span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">Package: *</div>
 <div class="radekzaklinadla">Pin: origin &quot;<i class="dopln">doména</i>&quot;</div>
 <div class="radekzaklinadla">Pin-Priority: <i class="dopln">celé-číslo</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc1ec80f"><span><a href="#zxc1ec80f">☴</a></span></span>obecné nastavení priority podle dalších <b>kritérií</b><span class="cislo">#3 </span><sup><a href="#kapx12af422ppc8" id="kapx12af422ppcr8" title="Na řádce „Pin“ musí být uvedena alespoň jedna podmínka. Podmínky se oddělují čárkou. Nastavení se uplatní u komponent archivů, které splní všechny uvedené podmínky.">(8)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc1ec80f"><span><a href="#zxc1ec80f">@</a></span></span>obecné nastavení priority podle dalších <b>kritérií</b><span class="cislo">#3 </span><sup><a href="#kapx12af422ppc8" id="kapx12af422ppcr8" title="Na řádce „Pin“ musí být uvedena alespoň jedna podmínka. Podmínky se oddělují čárkou. Nastavení se uplatní u komponent archivů, které splní všechny uvedené podmínky.">(8)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">Package: *</div>
 <div class="radekzaklinadla">Pin: release <span class="volznak">[</span>a=<i class="dopln">archiv</i>,<span class="volznak">]</span><span class="volznak">[</span>c=<i class="dopln">komponenta</i>,<span class="volznak">]</span><span class="volznak">[</span>b=<i class="dopln">architektura</i>,<span class="volznak">]</span><span class="volznak">[</span>v=<i class="dopln">verze.Ubuntu</i><span class="volznak">]</span></div>
 <div class="radekzaklinadla">Pin-Priority: <i class="dopln">celé-číslo</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx80eae20"><span><a href="#zx80eae20">▱</a></span></span><b>konkrétní</b> nastavení priority<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx80eae20"><span><a href="#zx80eae20">@</a></span></span><b>konkrétní</b> nastavení priority<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">Package: <i class="dopln">vzorek-názvu-balíčku</i> <span class="volznak">[</span><i class="dopln">další-vzorek</i><span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">Pin: release <span class="volznak">[</span>a=<i class="dopln">vzorek-archiv</i>,<span class="volznak">]</span><span class="volznak">[</span>c=<i class="dopln">vzorek-komponenta</i>,<span class="volznak">]</span><span class="volznak">[</span>b=<i class="dopln">vzorek-architektura</i>,<span class="volznak">]</span><span class="volznak">[</span>v=<i class="dopln">vzorek.verze.Ubuntu</i><span class="volznak">]</span></div>
 <div class="radekzaklinadla">Pin-Priority: <i class="dopln">celé-číslo</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe7d27ac"><span><a href="#zxe7d27ac">⡕</a></span></span>pro konkrétní <b>balíček</b> kdekoliv<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe7d27ac"><span><a href="#zxe7d27ac">@</a></span></span>pro konkrétní <b>balíček</b> kdekoliv<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">Package: <i class="dopln">název-balíčku</i></div>
 <div class="radekzaklinadla">Pin: release a=*</div>
 <div class="radekzaklinadla">Pin-Priority: <i class="dopln">celé-číslo</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx38ff612"><span><a href="#zx38ff612">⋎</a></span></span>pro konkrétní <b>verzi</b> konkrétního balíčku<span class="cislo">#6 </span><sup><a href="#kapx12af422ppc9" id="kapx12af422ppcr9" title="Pozor, verze balíčku je zde verze, jak ji registruje DPKG, tedy např. „2.10.18-1build2“, není to pouhé číslo verze, jak ho intuitivně chápou uživatelé. Pravděpodobně budete chtít použít vzorek namísto zcela konkrétního řetězce.">(9)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx38ff612"><span><a href="#zx38ff612">@</a></span></span>pro konkrétní <b>verzi</b> konkrétního balíčku<span class="cislo">#6 </span><sup><a href="#kapx12af422ppc9" id="kapx12af422ppcr9" title="Pozor, verze balíčku je zde verze, jak ji registruje DPKG, tedy např. „2.10.18-1build2“, není to pouhé číslo verze, jak ho intuitivně chápou uživatelé. Pravděpodobně budete chtít použít vzorek namísto zcela konkrétního řetězce.">(9)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">Package: <i class="dopln">název-balíčku</i></div>
 <div class="radekzaklinadla">Pin: version <i class="dopln">verze-balíčku</i></div>
 <div class="radekzaklinadla">Pin-Priority: <i class="dopln">celé-číslo</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxad162f5"><span><a href="#zxad162f5">❙</a></span></span>příklad obecného nastavení priority podle dalších kritérií<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxad162f5"><span><a href="#zxad162f5">@</a></span></span>příklad obecného nastavení priority podle dalších kritérií<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">Package: *</div>
 <div class="radekzaklinadla">Pin: release a=focal-*,c=universe</div>
 <div class="radekzaklinadla">Pin-Priority: 50</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8f7ba04"><span><a href="#zx8f7ba04">⢋</a></span></span>příklad: nastavit prioritu 99 balíčkům z archivů začínajících „xenial“ (např. xenial, xenial-updates atd.)<span class="cislo">#8 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8f7ba04"><span><a href="#zx8f7ba04">@</a></span></span>příklad: nastavit prioritu 99 balíčkům z archivů začínajících „xenial“ (např. xenial, xenial-updates atd.)<span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla">Package: *</div>
 <div class="radekzaklinadla">Pin: release a=xenial*</div>
 <div class="radekzaklinadla">Pin-Priority: 99</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf83bf5e"><span><a href="#zxf83bf5e">⏎</a></span></span>příklad: nastavit prioritu -1 balíčkům ze všech poddomén (něco).ubuntu.com<span class="cislo">#9 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf83bf5e"><span><a href="#zxf83bf5e">@</a></span></span>příklad: nastavit prioritu -1 balíčkům ze všech poddomén (něco).ubuntu.com<span class="cislo">#9 </span></div><div class="radky">
 <div class="radekzaklinadla">Package: *</div>
 <div class="radekzaklinadla">Pin: origin &quot;*.ubuntu.com&quot;</div>
 <div class="radekzaklinadla">Pin-Priority: -1</div>
 </div></div>
 
 <h3 id="cast3x12"><span><a href="#cast3x12" title="kapitola 19 (Správa balíčků), sekce 3 (Zaklínadla: DPKG a APT), podsekce 12 (Ostatní)"><sup>3/</sup>12 Ostatní</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx45b8879"><span><a href="#zx45b8879">◼</a></span></span>vybalit z balíčku DEB soubory programu/řídicí soubory<span class="cislo">#1 </span><sup><a href="#kapx12af422ppc10" id="kapx12af422ppcr10" title="Pokud zadaný adresář neexistuje, bude vytvořen.">(10)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx45b8879"><span><a href="#zx45b8879">@</a></span></span>vybalit z balíčku DEB soubory programu/řídicí soubory<span class="cislo">#1 </span><sup><a href="#kapx12af422ppc10" id="kapx12af422ppcr10" title="Pokud zadaný adresář neexistuje, bude vytvořen.">(10)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">dpkg-deb -x <i class="dopln">balíček.deb</i> <i class="dopln">cílový-adresář</i></div>
 <div class="radekzaklinadla">dpkg-deb -e <i class="dopln">balíček.deb</i> <i class="dopln">cílový-adresář</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8ef68f4"><span><a href="#zx8ef68f4">∬</a></span></span>přidat do zdrojů nový repozitář/odebrat repozitář<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8ef68f4"><span><a href="#zx8ef68f4">@</a></span></span>přidat do zdrojů nový repozitář/odebrat repozitář<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo add-apt-repository '<i class="dopln">řádek sources.list</i>'</div>
 <div class="radekzaklinadla">sudo add-apt-repository -r '<i class="dopln">řádek sources.list</i>'</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfdfa6f0"><span><a href="#zxfdfa6f0">⊂</a></span></span>zjistit hodnotu konfigurační volby APT<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfdfa6f0"><span><a href="#zxfdfa6f0">@</a></span></span>zjistit hodnotu konfigurační volby APT<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">apt-config dump <i class="dopln">volba</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxadf4169"><span><a href="#zxadf4169">ꜜ</a></span></span>„velikonoční vajíčko“ v APT<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxadf4169"><span><a href="#zxadf4169">@</a></span></span>„velikonoční vajíčko“ v APT<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">apt-get moo</div>
 </div></div>
 
 <h2 id="cast4" class="zaklinadla"><a href="#cast4"><span class="cislo">4.</span> Zaklínadla (aptitude)</a></h2>
 
 <h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 19 (Správa balíčků), sekce 4 (Zaklínadla (aptitude)), podsekce 1 (Vyhledávací podmínky)"><sup>4/</sup>1 Vyhledávací podmínky</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona L" id="zx6b546a3"><span><a href="#zx6b546a3">⨿</a></span></span>hledání podle jména balíčku (alternativy)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6b546a3"><span><a href="#zx6b546a3">@</a></span></span>hledání podle jména balíčku (alternativy)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">?name(&quot;<i class="dopln">regulární-výraz</i>&quot;)</div>
 <div class="radekzaklinadla">?exact-name(<i class="dopln">přesné-jméno</i>)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx982d464"><span><a href="#zx982d464">⏎</a></span></span>hledání podle krátkého popisu balíčku<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx982d464"><span><a href="#zx982d464">@</a></span></span>hledání podle krátkého popisu balíčku<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">?description(&quot;<i class="dopln">regulární výraz</i>&quot;)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx228a7d6"><span><a href="#zx228a7d6">⋌</a></span></span>hledání podle <b>architektury</b><span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx228a7d6"><span><a href="#zx228a7d6">@</a></span></span>hledání podle <b>architektury</b><span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">?architecture(<i class="dopln">architektura</i>)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf0d6da4"><span><a href="#zxf0d6da4">☃</a></span></span>hledání podle archivu balíčku v repozitáři<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf0d6da4"><span><a href="#zxf0d6da4">@</a></span></span>hledání podle archivu balíčku v repozitáři<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">?archive(&quot;<i class="dopln">regulární-výraz</i>&quot;)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona L" id="zx2745506"><span><a href="#zx2745506">⏝</a></span></span>hledání podle komponenty a sekce v repozitáři<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2745506"><span><a href="#zx2745506">@</a></span></span>hledání podle komponenty a sekce v repozitáři<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">?section(&quot;<i class="dopln">regulární-výraz</i>&quot;)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc1c4fd7"><span><a href="#zxc1c4fd7">⊍</a></span></span>jen balíčky instalované ručně/automaticky<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc1c4fd7"><span><a href="#zxc1c4fd7">@</a></span></span>jen balíčky instalované ručně/automaticky<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">?and(?installed,?not(?automatic))</div>
 <div class="radekzaklinadla">?automatic</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx53d8f10"><span><a href="#zx53d8f10">➝</a></span></span>jen nainstalované balíčky<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx53d8f10"><span><a href="#zx53d8f10">@</a></span></span>jen nainstalované balíčky<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">?installed</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd8c346c"><span><a href="#zxd8c346c">‣</a></span></span>logické operace mezi vzorky<span class="cislo">#8 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd8c346c"><span><a href="#zxd8c346c">@</a></span></span>logické operace mezi vzorky<span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla">?and(<i class="dopln">vzorek1</i>,<i class="dopln">vzorek2</i>)</div>
 <div class="radekzaklinadla">?or(<i class="dopln">vzorek1</i>,<i class="dopln">vzorek2</i>)</div>
 <div class="radekzaklinadla">?not(<i class="dopln">vzorek</i>)</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx41d031c"><span><a href="#zx41d031c">◟</a></span></span>balíčky, které by byly odstraněny operací „autoremove“<span class="cislo">#9 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx41d031c"><span><a href="#zx41d031c">@</a></span></span>balíčky, které by byly odstraněny operací „autoremove“<span class="cislo">#9 </span></div><div class="radky">
 <div class="radekzaklinadla">~g</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx88603f1"><span><a href="#zx88603f1">⊝</a></span></span>balíčky, pro které je dostupná novější verze/které mohou být upgradovány<span class="cislo">#10 </span><sup><a href="#kapx12af422ppc11" id="kapx12af422ppcr11" title="Pozor! Tento filtr zahrne i balíčky, které nemohou být aktualizovány, protože tomu brání konflikt mezi balíčky nebo zákaz jejich instalace! Naopak nezahrnuje balíčky, které budou nově instalovány pouze pro splnění nově vzniklých závislostí. Proto tento filtr není tak praktický, jak by se mohl zdát.">(11)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx88603f1"><span><a href="#zx88603f1">@</a></span></span>balíčky, pro které je dostupná novější verze/které mohou být upgradovány<span class="cislo">#10 </span><sup><a href="#kapx12af422ppc11" id="kapx12af422ppcr11" title="Pozor! Tento filtr zahrne i balíčky, které nemohou být aktualizovány, protože tomu brání konflikt mezi balíčky nebo zákaz jejich instalace! Naopak nezahrnuje balíčky, které budou nově instalovány pouze pro splnění nově vzniklých závislostí. Proto tento filtr není tak praktický, jak by se mohl zdát.">(11)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">?upgradable</div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8203596"><span><a href="#zx8203596">╡</a></span></span>jen „nové“ balíčky<span class="cislo">#11 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8203596"><span><a href="#zx8203596">@</a></span></span>jen „nové“ balíčky<span class="cislo">#11 </span></div><div class="radky">
 <div class="radekzaklinadla">?new</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9409e80"><span><a href="#zx9409e80">◛</a></span></span>jen „virtuální“ balíčky<span class="cislo">#12 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9409e80"><span><a href="#zx9409e80">@</a></span></span>jen „virtuální“ balíčky<span class="cislo">#12 </span></div><div class="radky">
 <div class="radekzaklinadla">?virtual</div>
 </div></div>
 
@@ -397,33 +397,33 @@ V poli Package lze navíc použít také regulární výraz v lomíkách, nap�
 <p class="ponadpisu">
 Za znakem „=“ následuje příklad hodnoty pro balíček „gimp“.
 </p>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf6d645f"><span><a href="#zxf6d645f">ᐷ</a></span></span><b>název</b> balíčku<span class="cislo">#1 </span><sup><a href="#kapx12af422ppc12" id="kapx12af422ppcr12" title="Název balíčku jiné než výchozí architektury bude doplněn o architekturu, např. „gimp:i386“.">(12)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf6d645f"><span><a href="#zxf6d645f">@</a></span></span><b>název</b> balíčku<span class="cislo">#1 </span><sup><a href="#kapx12af422ppc12" id="kapx12af422ppcr12" title="Název balíčku jiné než výchozí architektury bude doplněn o architekturu, např. „gimp:i386“.">(12)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">%p = gimp</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx85574f2"><span><a href="#zx85574f2">⡿</a></span></span>krátký <b>popis</b> balíčku<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx85574f2"><span><a href="#zx85574f2">@</a></span></span>krátký <b>popis</b> balíčku<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">%d = GNU Image Manipulation Program</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb619ded"><span><a href="#zxb619ded">✹</a></span></span><b>architektura</b><span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb619ded"><span><a href="#zxb619ded">@</a></span></span><b>architektura</b><span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">%E = amd64</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf18f3e5"><span><a href="#zxf18f3e5">ᚒ</a></span></span><b>verze</b> (instalovaná/dostupná)<span class="cislo">#4 </span><sup><a href="#kapx12af422ppc13" id="kapx12af422ppcr13" title="Je-li dostupných víc verzí balíčku, parametr %V vybere tu, která by se nejspíš instalovala.">(13)</a>,&nbsp;<a href="#kapx12af422ppc14" id="kapx12af422ppcr14" title="Není-li instalovaná, resp. dostupná žádná verze, tyto parametry vypíšou „&lt;žádná&gt;“ a ignorují snahu o změnu lokalizace. Pro přenositelnost je proto doporučuji ve skriptech testovat proti regulárnímu výrazu „&lt;.*&gt;“ místo porovnání s konkrétní hodnotou.">(14)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf18f3e5"><span><a href="#zxf18f3e5">@</a></span></span><b>verze</b> (instalovaná/dostupná)<span class="cislo">#4 </span><sup><a href="#kapx12af422ppc13" id="kapx12af422ppcr13" title="Je-li dostupných víc verzí balíčku, parametr %V vybere tu, která by se nejspíš instalovala.">(13)</a>,&nbsp;<a href="#kapx12af422ppc14" id="kapx12af422ppcr14" title="Není-li instalovaná, resp. dostupná žádná verze, tyto parametry vypíšou „&lt;žádná&gt;“ a ignorují snahu o změnu lokalizace. Pro přenositelnost je proto doporučuji ve skriptech testovat proti regulárnímu výrazu „&lt;.*&gt;“ místo porovnání s konkrétní hodnotou.">(14)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">%v = 2.10.18-1</div>
 <div class="radekzaklinadla">%V = 2.10.18-1</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2b85bda"><span><a href="#zx2b85bda">⚐</a></span></span><b>archiv</b> balíčku v repozitáři<span class="cislo">#5 </span><sup><a href="#kapx12af422ppc15" id="kapx12af422ppcr15" title="Je-li dostupných víc verzí balíčku, tento parametr zohledňuje pouze nejnovější verzi. Je-li dostupná ve více archivech, vypíše parametr %t všechny dané archivy oddělené čárkou, typicky např. „focal-security,focal-updates“.">(15)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2b85bda"><span><a href="#zx2b85bda">@</a></span></span><b>archiv</b> balíčku v repozitáři<span class="cislo">#5 </span><sup><a href="#kapx12af422ppc15" id="kapx12af422ppcr15" title="Je-li dostupných víc verzí balíčku, tento parametr zohledňuje pouze nejnovější verzi. Je-li dostupná ve více archivech, vypíše parametr %t všechny dané archivy oddělené čárkou, typicky např. „focal-security,focal-updates“.">(15)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">%t = focal</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3cd84c3"><span><a href="#zx3cd84c3">⋧</a></span></span><b>komponenta a sekce</b> balíčku<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3cd84c3"><span><a href="#zx3cd84c3">@</a></span></span><b>komponenta a sekce</b> balíčku<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">%s = universe/graphics</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7cd7b87"><span><a href="#zx7cd7b87">▀</a></span></span>velikost balíčku/velikost instalovaných souborů<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7cd7b87"><span><a href="#zx7cd7b87">@</a></span></span>velikost balíčku/velikost instalovaných souborů<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">%D = 4 286 kB</div>
 <div class="radekzaklinadla">%I = 20,1 MB</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx54c2f7d"><span><a href="#zx54c2f7d">⇛</a></span></span>popis původu balíčku<span class="cislo">#8 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx54c2f7d"><span><a href="#zx54c2f7d">@</a></span></span>popis původu balíčku<span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla">%O = Ubuntu:20.04/focal [amd64]</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx36e7a81"><span><a href="#zx36e7a81">⊇</a></span></span>příznak automatické instalace<span class="cislo">#9 </span><sup><a href="#kapx12af422ppc16" id="kapx12af422ppcr16" title="Pro balíčky instalované jen pro splnění závislosti jiného balíčku vypíše „A“, jinak vypíše prázdný řetězec.">(16)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx36e7a81"><span><a href="#zx36e7a81">@</a></span></span>příznak automatické instalace<span class="cislo">#9 </span><sup><a href="#kapx12af422ppc16" id="kapx12af422ppcr16" title="Pro balíčky instalované jen pro splnění závislosti jiného balíčku vypíše „A“, jinak vypíše prázdný řetězec.">(16)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">%M =</div>
 </div></div>
 
@@ -433,132 +433,132 @@ Za znakem „=“ následuje příklad hodnoty pro balíček „gimp“.
 <p class="ponadpisu">
 Poznámka: „server“ je v uvedených příkazech zpravidla „flathub“.
 </p>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd1ef460"><span><a href="#zxd1ef460">⁆</a></span></span><b>spustit</b> program z balíčku<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd1ef460"><span><a href="#zxd1ef460">@</a></span></span><b>spustit</b> program z balíčku<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">flatpak run <i class="dopln">balíček</i> <i class="dopln">parametry</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2ce4659"><span><a href="#zx2ce4659">▚</a></span></span><b>aktualizovat</b> všechny nainstalované balíčky/jen konkrétní<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2ce4659"><span><a href="#zx2ce4659">@</a></span></span><b>aktualizovat</b> všechny nainstalované balíčky/jen konkrétní<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">flatpak update</div>
 <div class="radekzaklinadla">flatpak update <i class="dopln">balíček</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6e57f7a"><span><a href="#zx6e57f7a">✙</a></span></span><b>instalovat</b> balíček<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6e57f7a"><span><a href="#zx6e57f7a">@</a></span></span><b>instalovat</b> balíček<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">flatpak install <span class="volznak">[</span><i class="dopln">server</i><span class="volznak">]</span> <i class="dopln">balíček</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8d29ed9"><span><a href="#zx8d29ed9">☠</a></span></span><b>odinstalovat</b> balíček<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8d29ed9"><span><a href="#zx8d29ed9">@</a></span></span><b>odinstalovat</b> balíček<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">flatpak uninstall <i class="dopln">balíček</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfeb2fd5"><span><a href="#zxfeb2fd5">≡</a></span></span><b>vypsat</b> nainstalované balíčky<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfeb2fd5"><span><a href="#zxfeb2fd5">@</a></span></span><b>vypsat</b> nainstalované balíčky<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">flatpak list</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd424b1b"><span><a href="#zxd424b1b">☈</a></span></span><b>hledat</b> dostupné balíčky podle podřetězce<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd424b1b"><span><a href="#zxd424b1b">@</a></span></span><b>hledat</b> dostupné balíčky podle podřetězce<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">flatpak search <i class="dopln">podřetězec</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx749b716"><span><a href="#zx749b716">–</a></span></span>vypsat výchozí práva aplikace<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx749b716"><span><a href="#zx749b716">@</a></span></span>vypsat výchozí práva aplikace<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">flatpak info --show-permissions <i class="dopln">balíček</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa68ddeb"><span><a href="#zxa68ddeb">╔</a></span></span>vypsat podrobnější informace o balíčku (nainstalovaném/dostupném)<span class="cislo">#8 </span><sup><a href="#kapx12af422ppc17" id="kapx12af422ppcr17" title="Uvedení verze k balíčku je povinné, pokud je v repozitáři víc verzí téhož balíčku. Bez něj v takovém případě příkaz „flathub remote-info“ selže a vypíše dostupné verze.">(17)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa68ddeb"><span><a href="#zxa68ddeb">@</a></span></span>vypsat podrobnější informace o balíčku (nainstalovaném/dostupném)<span class="cislo">#8 </span><sup><a href="#kapx12af422ppc17" id="kapx12af422ppcr17" title="Uvedení verze k balíčku je povinné, pokud je v repozitáři víc verzí téhož balíčku. Bez něj v takovém případě příkaz „flathub remote-info“ selže a vypíše dostupné verze.">(17)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">flatpak info <i class="dopln">balíček</i></div>
 <div class="radekzaklinadla">flatpak remote-info <i class="dopln">server</i> <i class="dopln">balíček</i><span class="volznak">[</span>//<i class="dopln">verze</i><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3e96dd6"><span><a href="#zx3e96dd6">↪</a></span></span>vypsat všechny dostupné balíčky aplikací/úplně všechny dostupné balíčky<span class="cislo">#9 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3e96dd6"><span><a href="#zx3e96dd6">@</a></span></span>vypsat všechny dostupné balíčky aplikací/úplně všechny dostupné balíčky<span class="cislo">#9 </span></div><div class="radky">
 <div class="radekzaklinadla">flatpak remote-ls --app flathub</div>
 <div class="radekzaklinadla">flatpak remote-ls --all flathub</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2b0b607"><span><a href="#zx2b0b607">ꓸ</a></span></span>spustit program z balíčku bez přístupu k síti<span class="cislo">#10 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2b0b607"><span><a href="#zx2b0b607">@</a></span></span>spustit program z balíčku bez přístupu k síti<span class="cislo">#10 </span></div><div class="radky">
 <div class="radekzaklinadla">flatpak run --unshare=network <i class="dopln">balíček</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe7904ca"><span><a href="#zxe7904ca">┓</a></span></span>spustit GIMP s přístupem jen ke čtení k většině systému souborů<span class="cislo">#11 </span><sup><a href="#kapx12af422ppc18" id="kapx12af422ppcr18" title="K provedení tohoto příkazu musíte mít daný balíček nainstalovaný.">(18)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe7904ca"><span><a href="#zxe7904ca">@</a></span></span>spustit GIMP s přístupem jen ke čtení k většině systému souborů<span class="cislo">#11 </span><sup><a href="#kapx12af422ppc18" id="kapx12af422ppcr18" title="K provedení tohoto příkazu musíte mít daný balíček nainstalovaný.">(18)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">flatpak run --nofilesystem=host --filesystem=host:ro org.gimp.GIMP</div>
 </div></div>
 
 <h3 id="cast5x2"><span><a href="#cast5x2" title="kapitola 19 (Správa balíčků), sekce 5 (Zaklínadla: Flatpak), podsekce 2 (Správa vzdálených repozitářů)"><sup>5/</sup>2 Správa vzdálených repozitářů</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx15e6818"><span><a href="#zx15e6818">☓</a></span></span>přidat <b>FlatHub</b><span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx15e6818"><span><a href="#zx15e6818">@</a></span></span>přidat <b>FlatHub</b><span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx751a26e"><span><a href="#zx751a26e">⣳</a></span></span><b>přidat</b> repozitář<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx751a26e"><span><a href="#zx751a26e">@</a></span></span><b>přidat</b> repozitář<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">flatpak remote-add <span class="volznak">[</span>--if-not-exists<span class="volznak">]</span> <i class="dopln">id-pro-repozitář</i> <i class="dopln">URL</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx96eb44a"><span><a href="#zx96eb44a">╁</a></span></span><b>odebrat</b> repozitář<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx96eb44a"><span><a href="#zx96eb44a">@</a></span></span><b>odebrat</b> repozitář<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">flatpak remote-delete <i class="dopln">id-repozitáře</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf9a40fc"><span><a href="#zxf9a40fc">⊨</a></span></span><b>vypsat</b> seznam repozitářů<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf9a40fc"><span><a href="#zxf9a40fc">@</a></span></span><b>vypsat</b> seznam repozitářů<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">flatpak remotes</div>
 </div></div>
 
 <h3 id="cast5x3"><span><a href="#cast5x3" title="kapitola 19 (Správa balíčků), sekce 5 (Zaklínadla: Flatpak), podsekce 3 (Offline instalace)"><sup>5/</sup>3 Offline instalace</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxce4c1a2"><span><a href="#zxce4c1a2">✓</a></span></span>příprava (na online počítači)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxce4c1a2"><span><a href="#zxce4c1a2">@</a></span></span>příprava (na online počítači)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx600254c"><span><a href="#zx600254c">⇂</a></span></span>instalace (na offline počítači)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx600254c"><span><a href="#zx600254c">@</a></span></span>instalace (na offline počítači)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
 <h2 id="cast6" class="zaklinadla"><a href="#cast6"><span class="cislo">6.</span> Zaklínadla: Snap</a></h2>
 
 <h3 id="cast6x1"><span><a href="#cast6x1" title="kapitola 19 (Správa balíčků), sekce 6 (Zaklínadla: Snap), podsekce 1 (Instalace, spuštění a odinstalace)"><sup>6/</sup>1 Instalace, spuštění a odinstalace</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa2b4db1"><span><a href="#zxa2b4db1">⇍</a></span></span><b>spustit</b> program z balíčku<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa2b4db1"><span><a href="#zxa2b4db1">@</a></span></span><b>spustit</b> program z balíčku<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">snap run <i class="dopln">balíček</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd79807d"><span><a href="#zxd79807d">⋡</a></span></span><b>instalovat</b> balíček<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd79807d"><span><a href="#zxd79807d">@</a></span></span><b>instalovat</b> balíček<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo snap install <span class="volznak">[</span>--<i class="dopln">kanál</i><span class="volznak">]</span> <i class="dopln">balíček</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona L" id="zx99ffd26"><span><a href="#zx99ffd26">⏟</a></span></span><b>odinstalovat</b> balíček<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx99ffd26"><span><a href="#zx99ffd26">@</a></span></span><b>odinstalovat</b> balíček<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo snap remove <i class="dopln">balíček</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa5c5b21"><span><a href="#zxa5c5b21">⢖</a></span></span>vrátit balíček do stavu před posledním upgradem na novou verzi (neověřeno)<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa5c5b21"><span><a href="#zxa5c5b21">@</a></span></span>vrátit balíček do stavu před posledním upgradem na novou verzi (neověřeno)<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo snap revert <i class="dopln">balíček</i></div>
 </div></div>
 
 <h3 id="cast6x2"><span><a href="#cast6x2" title="kapitola 19 (Správa balíčků), sekce 6 (Zaklínadla: Snap), podsekce 2 (Vypsat balíčky a informace o nich)"><sup>6/</sup>2 Vypsat balíčky a informace o nich</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd519981"><span><a href="#zxd519981">╖</a></span></span><b>vypsat</b> nainstalované balíčky<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd519981"><span><a href="#zxd519981">@</a></span></span><b>vypsat</b> nainstalované balíčky<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">snap list</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7db9548"><span><a href="#zx7db9548">⊸</a></span></span>vypsat seznam všech <b>dostupných</b> balíčků<span class="cislo">#2 </span><sup><a href="#kapx12af422ppc19" id="kapx12af422ppcr19" title="Poznámka: provedení tohoto příkazu může trvat i několik minut a vzhledem k velkému rozsahu vypsaných informací doporučuji výstup přesměrovat do souboru.">(19)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7db9548"><span><a href="#zx7db9548">@</a></span></span>vypsat seznam všech <b>dostupných</b> balíčků<span class="cislo">#2 </span><sup><a href="#kapx12af422ppc19" id="kapx12af422ppcr19" title="Poznámka: provedení tohoto příkazu může trvat i několik minut a vzhledem k velkému rozsahu vypsaných informací doporučuji výstup přesměrovat do souboru.">(19)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">for x in {a..z} {0..9}; do snap find <span class="volznak">[</span>--narrow<span class="volznak">]</span> $X | sed 1d; done | tr -s &quot;<span class="viditelnamezera">&nbsp;</span>&quot; | sort -iu | sed &quot;$(printf '%s/<span class="viditelnamezera">&nbsp;</span>/\\|/\n' s s s)&quot; | column -nt -s $'\t' <span class="volznak">[</span>&gt; <i class="dopln">soubor</i><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf72a4fb"><span><a href="#zxf72a4fb">⋻</a></span></span>vypsat podrobnější <b>informace</b> o balíčku<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf72a4fb"><span><a href="#zxf72a4fb">@</a></span></span>vypsat podrobnější <b>informace</b> o balíčku<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">snap info <i class="dopln">balíček</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb1de46a"><span><a href="#zxb1de46a">⇶</a></span></span>vypsat spojení konektorů a slotů (všech/jen spojených)<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb1de46a"><span><a href="#zxb1de46a">@</a></span></span>vypsat spojení konektorů a slotů (všech/jen spojených)<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">snap connections --all</div>
 <div class="radekzaklinadla">snap connections</div>
 </div></div>
 
 <h3 id="cast6x3"><span><a href="#cast6x3" title="kapitola 19 (Správa balíčků), sekce 6 (Zaklínadla: Snap), podsekce 3 (Ostatní)"><sup>6/</sup>3 Ostatní</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx828d86a"><span><a href="#zx828d86a">ᔼ</a></span></span><b>deaktivovat</b> balíček/znovu ho <b>aktivovat</b><span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx828d86a"><span><a href="#zx828d86a">@</a></span></span><b>deaktivovat</b> balíček/znovu ho <b>aktivovat</b><span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo snap disable <i class="dopln">balíček</i></div>
 <div class="radekzaklinadla">sudo snap enable <i class="dopln">balíček</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4cf7e3b"><span><a href="#zx4cf7e3b">∥</a></span></span>ručně připojit konektor balíčku do slotu jiného balíčku/rozpojit spojení<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4cf7e3b"><span><a href="#zx4cf7e3b">@</a></span></span>ručně připojit konektor balíčku do slotu jiného balíčku/rozpojit spojení<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo snap connect <i class="dopln">balíček</i>:<i class="dopln">jeho-konektor</i> <i class="dopln">jiný-balíček</i>:<i class="dopln">jeho-slot</i></div>
 <div class="radekzaklinadla">sudo snap disconnect <i class="dopln">balíček</i>:<i class="dopln">konektor-nebo-slot</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9b3bc63"><span><a href="#zx9b3bc63">➨</a></span></span>stáhnout balíček k offline instalaci<span class="cislo">#3 </span><sup><a href="#kapx12af422ppc20" id="kapx12af422ppcr20" title="Kanál může být: edge, beta, candidate nebo stable.">(20)</a>,&nbsp;<a href="#kapx12af422ppc21" id="kapx12af422ppcr21" title="Poznámka: tento příkaz stáhne pouze uvedený balíček, ne však jeho závislosti.">(21)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9b3bc63"><span><a href="#zx9b3bc63">@</a></span></span>stáhnout balíček k offline instalaci<span class="cislo">#3 </span><sup><a href="#kapx12af422ppc20" id="kapx12af422ppcr20" title="Kanál může být: edge, beta, candidate nebo stable.">(20)</a>,&nbsp;<a href="#kapx12af422ppc21" id="kapx12af422ppcr21" title="Poznámka: tento příkaz stáhne pouze uvedený balíček, ne však jeho závislosti.">(21)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">snap download <span class="volznak">[</span>--<i class="dopln">kanál</i><span class="volznak">]</span> <i class="dopln">balíček</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd49118e"><span><a href="#zxd49118e">❤</a></span></span>nainstalovat balíček offline<span class="cislo">#4 </span><sup><a href="#kapx12af422ppc22" id="kapx12af422ppcr22" title="Pokud má balíček závislosti na dalších balíčcích, je potřeba nejprve nainstalovat je, jinak se je bude se snap-démon nainstalovat online.">(22)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd49118e"><span><a href="#zxd49118e">@</a></span></span>nainstalovat balíček offline<span class="cislo">#4 </span><sup><a href="#kapx12af422ppc22" id="kapx12af422ppcr22" title="Pokud má balíček závislosti na dalších balíčcích, je potřeba nejprve nainstalovat je, jinak se je bude se snap-démon nainstalovat online.">(22)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo snap ack <i class="dopln">soubor_s_balíčkem.assert</i></div>
 <div class="radekzaklinadla">sudo snap install <i class="dopln">soubor_s_balíčkem.snap</i></div>
 </div></div>
 
 <h2 id="cast7"><a href="#cast7"><span class="cislo">7.</span> Instalace na Ubuntu</a></h2>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx490c7ab"><span><a href="#zx490c7ab">⣰</a></span></span>Příkaz „aptitude“ (doporučuji)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx490c7ab"><span><a href="#zx490c7ab">@</a></span></span>Příkaz „aptitude“ (doporučuji)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-get install aptitude</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx969af80"><span><a href="#zx969af80">⠓</a></span></span>Příkaz „apt-file“<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx969af80"><span><a href="#zx969af80">@</a></span></span>Příkaz „apt-file“<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-get install apt-file &amp;&amp;sudo apt-file update</div>
 </div></div>
 <p class="ponadpisu">
 Poznámka: Neinstalujte balíček apt-file, pokud ho nevyužijete. Výrazně zvyšuje objem dat přednášených při každé aktualizaci (při každém „sudo apt-get update“)!
 </p>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3575780"><span><a href="#zx3575780">ⴿ</a></span></span>Příkaz „apt-offline“<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3575780"><span><a href="#zx3575780">@</a></span></span>Příkaz „apt-offline“<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-get install apt-offline</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxba4ee70"><span><a href="#zxba4ee70">⪲</a></span></span>Flatpak<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxba4ee70"><span><a href="#zxba4ee70">@</a></span></span>Flatpak<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo apt-get install flatpak <span class="volznak">[</span>gnome-software-plugin-flatpak<span class="volznak">]</span></div>
 <div class="radekzaklinadla">sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo</div>
 <div class="radekzaklinadla akce">Restartujte operační systém.</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx128a66a"><span><a href="#zx128a66a">⢳</a></span></span>Pro umožnění uživatelské instalace (parametr --user) spusťte z účtu příslušného uživatele navíc:<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx128a66a"><span><a href="#zx128a66a">@</a></span></span>Pro umožnění uživatelské instalace (parametr --user) spusťte z účtu příslušného uživatele navíc:<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo</div>
 </div></div>
 <p class="ponadpisu">
@@ -718,7 +718,7 @@ Tato kapitola záměrně nepokrývá:
 </nav>
 
 
-<div class="odkazydole"><div><a href="zpracovani-videa-a-zvuku.htm"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="" width="32" height="32">Zpracování videa a zvuku</a><a href="perl-zaklady.htm"><img src="obrazky/ik/perl-zaklady.png" alt="" width="32" height="32">Perl: základy</a><a href="diskove-oddily-lvm.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly / LVM</a></div></div>
+<div class="odkazydole"><div><a href="prohlizeni-textovych-souboru.htm"><img src="obrazky/ik/prohlizeni-textovych-souboru.png" alt="" width="32" height="32">Prohlížení textových souborů</a><a href="bash-interaktivni-rezim.htm"><img src="obrazky/ik/bash.png" alt="" width="32" height="32">Bash / Interaktivní režim</a><a href="diskove-oddily-softwarovy-raid.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly / Softwarový RAID</a></div></div>
 <div class="reklamnipata">Líbí se vám tento projekt a chcete, aby byl ještě lepší? Můžete mi s tím pomoci. Zmiňte se o něm technicky zdatným přátelům, opravte překlepy a nahlašte nefunkční zaklínadla, aby mohla být opravena; poskytněte mi zpětnou vazbu nebo se zapojte do vývoje nových kapitol. Další informace na GitHubu v dokumentu <a href="https://github.com/singularis-mzf/linux-spellbook/blob/v%C3%BDvojov%C3%A1/JAK-SE-ZAPOJIT.md">Jak se zapojit</a>.</div>
 
 </article>
@@ -804,6 +804,7 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="fragodkazy"><a href="koncepce-projektu.htm" class="odkaz"><span><span class="cislo">19</span>Koncepce projektu Linux: Kniha kouzel</span></a></span></div>
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/plan-vyvoje.png" alt="[]"></span><span class="fragodkazy"><a href="plan-vyvoje.htm" class="odkaz"><span><span class="cislo">20</span>Plán budoucího vývoje</span></a></span></div>
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="fragodkazy"><a href="licence.htm" class="odkaz"><span><span class="cislo">21</span>Licence</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/rejstrik.png" alt="[]"></span><span class="fragodkazy"><a href="rejstrik.htm" class="odkaz"><span><span class="cislo">22</span>Rejstřík podle klasických příkazů</span></a></span></div>
 <div class="premiove"><strong>Prémiové kapitoly:</strong>
 <div>AWK</div>
 <div>Bash / Vstup, výstup a přesměrování</div>

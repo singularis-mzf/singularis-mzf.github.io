@@ -5,13 +5,13 @@
 
 <title>Systém − Linux: Kniha kouzel</title>
 <meta name="viewport" content="width=1000, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="lkk-20211008.css">
+<link rel="stylesheet" type="text/css" href="lkk-20211115.css">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body class="jeukazka">
 <div id="nahore"><div id="okno">
 <header>
-<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.10, Ř. Ř. (8. října 2021)</span>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.11, S. S. (15. listopadu 2021)</span>
 <span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -71,233 +71,233 @@ GNU GRUB je vyvíjen v rámci projektu GNU.
 <h2 id="cast3" class="zaklinadla"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla</a></h2>
 
 <h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 21 (Systém), sekce 3 (Zaklínadla), podsekce 1 (Informace o systému (zjistit))"><sup>3/</sup>1 Informace o systému (zjistit)</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe49b1ca"><span><a href="#zxe49b1ca">↾</a></span></span>obecné informace (pro člověka)(alternativy)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe49b1ca"><span><a href="#zxe49b1ca">@</a></span></span>obecné informace (pro člověka)(alternativy)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">neofetch</div>
 <div class="radekzaklinadla">inxi</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc71a2c3"><span><a href="#zxc71a2c3">⊱</a></span></span>verze a varianta <b>jádra</b><span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc71a2c3"><span><a href="#zxc71a2c3">@</a></span></span>verze a varianta <b>jádra</b><span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">uname -r<span class="prikladhodnoty">⊨ 5.4.0-47-generic</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf2854db"><span><a href="#zxf2854db">⟻</a></span></span>čas od spuštění systému (<b>uptime</b>)<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf2854db"><span><a href="#zxf2854db">@</a></span></span>čas od spuštění systému (<b>uptime</b>)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">uptime -p</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx62b0645"><span><a href="#zx62b0645">⊥</a></span></span>kompletní informace o <b>hardware</b> (textově/s prohlížečem)<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx62b0645"><span><a href="#zx62b0645">@</a></span></span>kompletní informace o <b>hardware</b> (textově/s prohlížečem)<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo lshw</div>
 <div class="radekzaklinadla">sudo lshw -html &gt;/tmp/lshw.htm &amp;&amp; sensible-browser /tmp/lshw.htm</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1638125"><span><a href="#zx1638125">⣘</a></span></span>počet logických procesorů/fyzických jader<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1638125"><span><a href="#zx1638125">@</a></span></span>počet logických procesorů/fyzických jader<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">nproc --all</div>
 <div class="radekzaklinadla">lscpu -p=CORE,SOCKET | egrep -v '^#' | sort -u | wc -l</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxee243bc"><span><a href="#zxee243bc">⪓</a></span></span>jméno procesoru<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxee243bc"><span><a href="#zxee243bc">@</a></span></span>jméno procesoru<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">LC_ALL=C lscpu | egrep '^Model name:' | sed -E 's/^[^:]*:\s*//'</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfbde7d0"><span><a href="#zxfbde7d0">⏎</a></span></span>informace o <b>frekvenci procesoru</b> (pro člověka)<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfbde7d0"><span><a href="#zxfbde7d0">@</a></span></span>informace o <b>frekvenci procesoru</b> (pro člověka)<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">LC_ALL=C lscpu | egrep '^CPU[^:]+MHz:'</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx588139f"><span><a href="#zx588139f">⡴</a></span></span>informace o velikosti a využití <b>paměti</b> a odkládacího prostoru<span class="cislo">#8 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx588139f"><span><a href="#zx588139f">@</a></span></span>informace o velikosti a využití <b>paměti</b> a odkládacího prostoru<span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla">free -h</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx48ed700"><span><a href="#zx48ed700">☑</a></span></span>zjistit druh počítače (stolní počítač, nebo <b>notebook</b>?)(pro skript/pro člověka)<span class="cislo">#9 </span><sup><a href="#kapxba98a3bppc1" id="kapxba98a3bppcr1" title="Návratový kód je 0 pro notebook, 1 pro stolní počítač a 2, pokud to nelze zjistit; varianta „pro člověka“ navíc zjištění vypíše anglickou větou. Ve virtuálním počítači (dle mých zkušeností) tento přikaz zjistí druh fyzického počítače, na kterém virtuální počítač běží.">(1)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx48ed700"><span><a href="#zx48ed700">@</a></span></span>zjistit druh počítače (stolní počítač, nebo <b>notebook</b>?)(pro skript/pro člověka)<span class="cislo">#9 </span><sup><a href="#kapxba98a3bppc1" id="kapxba98a3bppcr1" title="Návratový kód je 0 pro notebook, 1 pro stolní počítač a 2, pokud to nelze zjistit; varianta „pro člověka“ navíc zjištění vypíše anglickou větou. Ve virtuálním počítači (dle mých zkušeností) tento přikaz zjistí druh fyzického počítače, na kterém virtuální počítač běží.">(1)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">laptop-detect</div>
 <div class="radekzaklinadla">laptop-detect -v <span class="volznak">[</span>|| true<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa9c45a5"><span><a href="#zxa9c45a5">ᚈ</a></span></span>kódové jméno verze <b>distribuce</b><span class="cislo">#10 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa9c45a5"><span><a href="#zxa9c45a5">@</a></span></span>kódové jméno verze <b>distribuce</b><span class="cislo">#10 </span></div><div class="radky">
 <div class="radekzaklinadla">lsb_release -sc<span class="prikladhodnoty">⊨ focal</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx29ad278"><span><a href="#zx29ad278">⣋</a></span></span>jméno/verze <b>distribuce</b><span class="cislo">#11 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx29ad278"><span><a href="#zx29ad278">@</a></span></span>jméno/verze <b>distribuce</b><span class="cislo">#11 </span></div><div class="radky">
 <div class="radekzaklinadla">lsb_release -si<span class="prikladhodnoty">⊨ Ubuntu</span></div>
 <div class="radekzaklinadla">lsb_release -sr<span class="prikladhodnoty">⊨ 20.04</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5ba31da"><span><a href="#zx5ba31da">☱</a></span></span><b>jméno počítače</b><span class="cislo">#12 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5ba31da"><span><a href="#zx5ba31da">@</a></span></span><b>jméno počítače</b><span class="cislo">#12 </span></div><div class="radky">
 <div class="radekzaklinadla">hostname<span class="prikladhodnoty">⊨ mojepc</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6a862df"><span><a href="#zx6a862df">⊇</a></span></span>jméno jádra/druh operačního systému<span class="cislo">#13 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6a862df"><span><a href="#zx6a862df">@</a></span></span>jméno jádra/druh operačního systému<span class="cislo">#13 </span></div><div class="radky">
 <div class="radekzaklinadla">uname -n<span class="prikladhodnoty">⊨ Linux</span></div>
 <div class="radekzaklinadla">uname -o<span class="prikladhodnoty">⊨ GNU/Linux</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx398c513"><span><a href="#zx398c513">╨</a></span></span>architektura systému<span class="cislo">#14 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx398c513"><span><a href="#zx398c513">@</a></span></span>architektura systému<span class="cislo">#14 </span></div><div class="radky">
 <div class="radekzaklinadla">arch<span class="prikladhodnoty">⊨ x86_64</span></div>
 </div></div>
 
 <h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 21 (Systém), sekce 3 (Zaklínadla), podsekce 2 (Restart a vypnutí počítače)"><sup>3/</sup>2 Restart a vypnutí počítače</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa169433"><span><a href="#zxa169433">䷨</a></span></span><b>restartovat</b> počítač (normálně/drasticky/velmi drasticky)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa169433"><span><a href="#zxa169433">@</a></span></span><b>restartovat</b> počítač (normálně/drasticky/velmi drasticky)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">reboot</div>
 <div class="radekzaklinadla">sudo systemctl reboot --force</div>
 <div class="radekzaklinadla">sudo systemctl reboot --force --force</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx38c8f7a"><span><a href="#zx38c8f7a">≘</a></span></span><b>vypnout</b> počítač (normálně/drasticky/velmi drasticky)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx38c8f7a"><span><a href="#zx38c8f7a">@</a></span></span><b>vypnout</b> počítač (normálně/drasticky/velmi drasticky)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">poweroff</div>
 <div class="radekzaklinadla">sudo systemctl poweroff --force</div>
 <div class="radekzaklinadla">sudo systemctl poweroff --force --force</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb143503"><span><a href="#zxb143503">⋵</a></span></span>přepnout do jednouživatelského režimu (záchranného/nouzového)<span class="cislo">#3 </span><sup><a href="#kapxba98a3bppc2" id="kapxba98a3bppcr2" title="Podle dokumentace poskytuje záchranný režim základní služby a připojené souborové systémy pro pohodlnou práci, zatímco nouzový režim nespustí nic a očekává od uživatele, že si spustí služby, které potřebuje, a připojí potřebné souborové systémy. Ovšem při přechodu z běžícího systému těmito příkazy jsem tento rozdíl nepozoroval/a. Souborové systémy zůstaly i v nouzovém režimu normálně připojené.">(2)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb143503"><span><a href="#zxb143503">@</a></span></span>přepnout do jednouživatelského režimu (záchranného/nouzového)<span class="cislo">#3 </span><sup><a href="#kapxba98a3bppc2" id="kapxba98a3bppcr2" title="Podle dokumentace poskytuje záchranný režim základní služby a připojené souborové systémy pro pohodlnou práci, zatímco nouzový režim nespustí nic a očekává od uživatele, že si spustí služby, které potřebuje, a připojí potřebné souborové systémy. Ovšem při přechodu z běžícího systému těmito příkazy jsem tento rozdíl nepozoroval/a. Souborové systémy zůstaly i v nouzovém režimu normálně připojené.">(2)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo systemctl rescue</div>
 <div class="radekzaklinadla">sudo systemctl emergency</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx08f010a"><span><a href="#zx08f010a">⇢</a></span></span><b>uspat</b> systém (trvale/na N sekund/na 48 hodin)<span class="cislo">#4 </span><sup><a href="#kapxba98a3bppc3" id="kapxba98a3bppcr3" title="Podpora dočasného uspání příkazem rtcwake není na různých počítačích jednotná. Na některých dokáže počítač uspat, ale už ho nedokáže probudit; na některých ho nedokáže ani uspat. Vždy nejprve vyzkoušejte uspání na krátkou dobu, abyste zjistili, jak se bude daný počítač chovat. Pokud „rtcwake“ nefunguje s parametrem „-m mem“, může fungovat bez něj a naopak.">(3)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx08f010a"><span><a href="#zx08f010a">@</a></span></span><b>uspat</b> systém (trvale/na N sekund/na 48 hodin)<span class="cislo">#4 </span><sup><a href="#kapxba98a3bppc3" id="kapxba98a3bppcr3" title="Podpora dočasného uspání příkazem rtcwake není na různých počítačích jednotná. Na některých dokáže počítač uspat, ale už ho nedokáže probudit; na některých ho nedokáže ani uspat. Vždy nejprve vyzkoušejte uspání na krátkou dobu, abyste zjistili, jak se bude daný počítač chovat. Pokud „rtcwake“ nefunguje s parametrem „-m mem“, může fungovat bez něj a naopak.">(3)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">systemctl suspend</div>
 <div class="radekzaklinadla">sudo rtcwake <span class="volznak">[</span>-m mem<span class="volznak">]</span> -s <i class="dopln">N</i></div>
 <div class="radekzaklinadla">sudo rtcwake <span class="volznak">[</span>-m mem<span class="volznak">]</span> -s 172800</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9d46638"><span><a href="#zx9d46638">ᚓ</a></span></span><b>hibernovat</b> systém<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9d46638"><span><a href="#zx9d46638">@</a></span></span><b>hibernovat</b> systém<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo systemctl hibernate</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx401b681"><span><a href="#zx401b681">◜</a></span></span><b>zastavit</b> systém bez vypnutí počítače (normálně/drasticky/velmi drasticky)<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx401b681"><span><a href="#zx401b681">@</a></span></span><b>zastavit</b> systém bez vypnutí počítače (normálně/drasticky/velmi drasticky)<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo systemctl halt</div>
 <div class="radekzaklinadla">sudo systemctl halt --force</div>
 <div class="radekzaklinadla">sudo systemctl halt --force --force</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb6fde25"><span><a href="#zxb6fde25">ᚔ</a></span></span><b>vypnout</b> počítač za N minut/zrušit naplánované vypnutí<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb6fde25"><span><a href="#zxb6fde25">@</a></span></span><b>vypnout</b> počítač za N minut/zrušit naplánované vypnutí<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo shutdown -P <span class="volznak">[</span>--no-wall<span class="volznak">]</span> <i class="dopln">N</i></div>
 <div class="radekzaklinadla">sudo shutdown -c</div>
 </div></div>
 
 <h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 21 (Systém), sekce 3 (Zaklínadla), podsekce 3 (Ovládání systémových jednotek)"><sup>3/</sup>3 Ovládání systémových jednotek</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1937cd5"><span><a href="#zx1937cd5">䷨</a></span></span><b>spustit</b> neběžící<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1937cd5"><span><a href="#zx1937cd5">@</a></span></span><b>spustit</b> neběžící<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo systemctl start <i class="dopln">jednotka.typ</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfd588eb"><span><a href="#zxfd588eb">≡</a></span></span><b>zastavit</b> běžící<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfd588eb"><span><a href="#zxfd588eb">@</a></span></span><b>zastavit</b> běžící<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo systemctl stop <i class="dopln">jednotka.typ</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7d9c4d2"><span><a href="#zx7d9c4d2">◭</a></span></span><b>restartovat</b> běžící<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7d9c4d2"><span><a href="#zx7d9c4d2">@</a></span></span><b>restartovat</b> běžící<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo systemctl restart <i class="dopln">jednotka.typ</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb9d739f"><span><a href="#zxb9d739f">⋁</a></span></span>nastavit automatické spouštění jednotky/zrušit toto nastavení<span class="cislo">#4 </span><sup><a href="#kapxba98a3bppc4" id="kapxba98a3bppcr4" title="U většiny služeb (ne úplně u všech) znamená automatické spouštění jejich spuštění při startu systému. Systémová jednotka s vypnutým automatickým spouštěním (disabled) stále může být spuštěna automaticky, pokud na ní závisí (jiná) automaticky spouštěná jednotka.">(4)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb9d739f"><span><a href="#zxb9d739f">@</a></span></span>nastavit automatické spouštění jednotky/zrušit toto nastavení<span class="cislo">#4 </span><sup><a href="#kapxba98a3bppc4" id="kapxba98a3bppcr4" title="U většiny služeb (ne úplně u všech) znamená automatické spouštění jejich spuštění při startu systému. Systémová jednotka s vypnutým automatickým spouštěním (disabled) stále může být spuštěna automaticky, pokud na ní závisí (jiná) automaticky spouštěná jednotka.">(4)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo systemctl enable <span class="volznak">[</span>--now<span class="volznak">]</span> <i class="dopln">jednotka.typ</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sudo systemctl disable <span class="volznak">[</span>--now<span class="volznak">]</span> <i class="dopln">jednotka.typ</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx278a6ac"><span><a href="#zx278a6ac">≌</a></span></span>zcela <b>zakázat</b> spouštění systémové jednotky/zrušit tento zákaz<span class="cislo">#5 </span><sup><a href="#kapxba98a3bppc5" id="kapxba98a3bppcr5" title="Je-li zakázáno spouštění systémové jednotky, nemůže být žádným způsobem spuštěna ani restartována. Zákaz vypne případné automatické spouštění jednotky a to nepůjde znovu nastavit. Pokud ale daná systémová jednotka právě běží, samotný zákaz ji nechá běžet.">(5)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx278a6ac"><span><a href="#zx278a6ac">@</a></span></span>zcela <b>zakázat</b> spouštění systémové jednotky/zrušit tento zákaz<span class="cislo">#5 </span><sup><a href="#kapxba98a3bppc5" id="kapxba98a3bppcr5" title="Je-li zakázáno spouštění systémové jednotky, nemůže být žádným způsobem spuštěna ani restartována. Zákaz vypne případné automatické spouštění jednotky a to nepůjde znovu nastavit. Pokud ale daná systémová jednotka právě běží, samotný zákaz ji nechá běžet.">(5)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo systemctl mask <i class="dopln">jednotka.typ</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sudo systemctl unmask <i class="dopln">jednotka.typ</i><span class="tritecky"></span></div>
 </div></div>
 
 <h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 21 (Systém), sekce 3 (Zaklínadla), podsekce 4 (Informace o systémových jednotkách)"><sup>3/</sup>4 Informace o systémových jednotkách</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxcab7582"><span><a href="#zxcab7582">⬣</a></span></span><b>zjistit stav</b> (pro člověka/pro skript)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxcab7582"><span><a href="#zxcab7582">@</a></span></span><b>zjistit stav</b> (pro člověka/pro skript)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">systemctl status <i class="dopln">jednotka.typ</i></div>
 <div class="radekzaklinadla">systemctl show <i class="dopln">jednotka.typ</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx67b696b"><span><a href="#zx67b696b">ꙮ</a></span></span>zjistit, zda jednotka běží<span class="cislo">#2 </span><sup><a href="#kapxba98a3bppc6" id="kapxba98a3bppcr6" title="Pro každou zadanou systémovou jednotku vypíše řádek „active“ nebo „inactive“; uspěje, pokud alespoň jeden řádek bude „active“.">(6)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx67b696b"><span><a href="#zx67b696b">@</a></span></span>zjistit, zda jednotka běží<span class="cislo">#2 </span><sup><a href="#kapxba98a3bppc6" id="kapxba98a3bppcr6" title="Pro každou zadanou systémovou jednotku vypíše řádek „active“ nebo „inactive“; uspěje, pokud alespoň jeden řádek bude „active“.">(6)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">systemctl is-active <span class="volznak">[</span>--quiet<span class="volznak">]</span> <i class="dopln">jednotka.typ-nebo-vzorek</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx376c49f"><span><a href="#zx376c49f">⣎</a></span></span><b>vypsat</b> jednotky všech typů<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx376c49f"><span><a href="#zx376c49f">@</a></span></span><b>vypsat</b> jednotky všech typů<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">systemctl list-units <span class="volznak">[</span>--all<span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">filtrovací-vzorek</i><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa4c95b7"><span><a href="#zxa4c95b7">➷</a></span></span>vypsat časovače<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa4c95b7"><span><a href="#zxa4c95b7">@</a></span></span>vypsat časovače<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">systemctl list-timers <span class="volznak">[</span>--all<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc25ec45"><span><a href="#zxc25ec45">┌</a></span></span>vypsat služby<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc25ec45"><span><a href="#zxc25ec45">@</a></span></span>vypsat služby<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">systemctl list-units --all -t service</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa69e2b3"><span><a href="#zxa69e2b3">◀</a></span></span>vypsat cíle<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa69e2b3"><span><a href="#zxa69e2b3">@</a></span></span>vypsat cíle<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">systemctl list-units --all -t target</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx316ea09"><span><a href="#zx316ea09">☦</a></span></span>zjistit <b>PID</b> příslušné dané jednotce (je-li definováno)<span class="cislo">#7 </span><sup><a href="#kapxba98a3bppc7" id="kapxba98a3bppcr7" title="Poznámka: pokud dané jednotce neodpovídá žádný běžící démon, vypíše tento příkaz „0“.">(7)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx316ea09"><span><a href="#zx316ea09">@</a></span></span>zjistit <b>PID</b> příslušné dané jednotce (je-li definováno)<span class="cislo">#7 </span><sup><a href="#kapxba98a3bppc7" id="kapxba98a3bppcr7" title="Poznámka: pokud dané jednotce neodpovídá žádný běžící démon, vypíše tento příkaz „0“.">(7)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">systemctl show --property=MainPID <i class="dopln">jednotka.typ</i> | sed -E 's/.*=//'</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf079852"><span><a href="#zxf079852">♕</a></span></span>vypsat <b>manuálovou stránku</b> příslušnou jednotce, je-li známa<span class="cislo">#8 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf079852"><span><a href="#zxf079852">@</a></span></span>vypsat <b>manuálovou stránku</b> příslušnou jednotce, je-li známa<span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla">systemctl help <i class="dopln">jednotka.typ</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx15e484e"><span><a href="#zx15e484e">⠏</a></span></span>vypsat dynamické závislosti jednotky (na kterých jednotka závisí/které závisí na jednotce)<span class="cislo">#9 </span><sup><a href="#kapxba98a3bppc8" id="kapxba98a3bppcr8" title="Poznámka: dynamické závislosti mezi jednotkami jsou obtížně pochopitelná věc, protože mohou vznikat a zanikat za běhu v reakci na změnu stavu systému. Nepředpokládejte, že je chápete, pokud jste podrobně nestudovali dokumentaci systemd.">(8)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx15e484e"><span><a href="#zx15e484e">@</a></span></span>vypsat dynamické závislosti jednotky (na kterých jednotka závisí/které závisí na jednotce)<span class="cislo">#9 </span><sup><a href="#kapxba98a3bppc8" id="kapxba98a3bppcr8" title="Poznámka: dynamické závislosti mezi jednotkami jsou obtížně pochopitelná věc, protože mohou vznikat a zanikat za běhu v reakci na změnu stavu systému. Nepředpokládejte, že je chápete, pokud jste podrobně nestudovali dokumentaci systemd.">(8)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">systemctl list-dependencies</div>
 <div class="radekzaklinadla">systemctl list-dependencies --reverse</div>
 </div></div>
 
 <h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 21 (Systém), sekce 3 (Zaklínadla), podsekce 5 (Logy)"><sup>3/</sup>5 Logy</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2dbba6e"><span><a href="#zx2dbba6e">‧</a></span></span><b>vypsat log</b> krále démonů (z tohoto běhu/z předchozího běhu/všechny)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2dbba6e"><span><a href="#zx2dbba6e">@</a></span></span><b>vypsat log</b> krále démonů (z tohoto běhu/z předchozího běhu/všechny)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">journalctl -b 0 <span class="volznak">[</span>-r<span class="volznak">]</span></div>
 <div class="radekzaklinadla">journalctl -b -1 <span class="volznak">[</span>-r<span class="volznak">]</span></div>
 <div class="radekzaklinadla">journalctl <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb78e02f"><span><a href="#zxb78e02f">➦</a></span></span><b>vypsat log</b> jádra (pro skript/pro člověka)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb78e02f"><span><a href="#zxb78e02f">@</a></span></span><b>vypsat log</b> jádra (pro skript/pro člověka)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">dmesg <span class="volznak">[</span>--time-format iso<span class="volznak">]</span></div>
 <div class="radekzaklinadla">dmesg -H<span class="volznak">[</span>x<span class="volznak">]</span> <span class="volznak">[</span>--time-format iso<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxbc083aa"><span><a href="#zxbc083aa">┃</a></span></span><b>sledovat</b> log krále démonů/log jádra<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxbc083aa"><span><a href="#zxbc083aa">@</a></span></span><b>sledovat</b> log krále démonů/log jádra<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">journalctl -fqn 0 <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span></div>
 <div class="radekzaklinadla">dmesg -w<span class="volznak">[</span>H<span class="volznak">]</span><span class="volznak">[</span>x<span class="volznak">]</span><span class="volznak">[</span>--time-format iso<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxee8024c"><span><a href="#zxee8024c">┧</a></span></span>vypsat seznam <b>časů posledních nabootování</b><span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxee8024c"><span><a href="#zxee8024c">@</a></span></span>vypsat seznam <b>časů posledních nabootování</b><span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">journalctl --list-boots | sed -E $'s/.*([A-Z][a-z]{2}.*)\u2014.*/\\1/' | date -f - &quot;+%F %T %z&quot;</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx08779ae"><span><a href="#zx08779ae">⠓</a></span></span>zjistit, kolik místa na disku zabírají logy krále démonů<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx08779ae"><span><a href="#zx08779ae">@</a></span></span>zjistit, kolik místa na disku zabírají logy krále démonů<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">journalctl --disk-usage</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx913f4ce"><span><a href="#zx913f4ce">⟾</a></span></span>vyprázdnit log krále démonů/log jádra<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx913f4ce"><span><a href="#zx913f4ce">@</a></span></span>vyprázdnit log krále démonů/log jádra<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo find /var/log/journal -type f -name '*.journal' -delete</div>
 <div class="radekzaklinadla">sudo dmesg --clear</div>
 </div></div>
 
 <h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 21 (Systém), sekce 3 (Zaklínadla), podsekce 6 (Sezení)"><sup>3/</sup>6 Sezení</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx20130c3"><span><a href="#zx20130c3">⨓</a></span></span>vypsat <b>seznam sezení</b>/přihlášených uživatelů<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx20130c3"><span><a href="#zx20130c3">@</a></span></span>vypsat <b>seznam sezení</b>/přihlášených uživatelů<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">loginctl <span class="volznak">[</span>list-sessions<span class="volznak">]</span></div>
 <div class="radekzaklinadla">loginctl list-users</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9aa3280"><span><a href="#zx9aa3280">⊪</a></span></span>vypsat informace o sezení/přihlášeném uživateli<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9aa3280"><span><a href="#zx9aa3280">@</a></span></span>vypsat informace o sezení/přihlášeném uživateli<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">loginctl show-session <i class="dopln">ID-sezení</i></div>
 <div class="radekzaklinadla">loginctl show-user <i class="dopln">uživatel</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona L" id="zx0fd2110"><span><a href="#zx0fd2110">⬱</a></span></span><b>přepnout</b> na uvedené sezení<span class="cislo">#3 </span><sup><a href="#kapxba98a3bppc9" id="kapxba98a3bppcr9" title="Poznámka: tento příkaz dokáže přepnout i mezi X a textovou konzolí!">(9)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0fd2110"><span><a href="#zx0fd2110">@</a></span></span><b>přepnout</b> na uvedené sezení<span class="cislo">#3 </span><sup><a href="#kapxba98a3bppc9" id="kapxba98a3bppcr9" title="Poznámka: tento příkaz dokáže přepnout i mezi X a textovou konzolí!">(9)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">loginctl activate <i class="dopln">ID-sezení</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf3c080c"><span><a href="#zxf3c080c">⭓</a></span></span><b>násilně ukončit</b> sezení/všechna sezení uživatele<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf3c080c"><span><a href="#zxf3c080c">@</a></span></span><b>násilně ukončit</b> sezení/všechna sezení uživatele<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">loginctl terminate-session <i class="dopln">ID-sezení</i></div>
 <div class="radekzaklinadla">loginctl terminate-user <i class="dopln">uživatel</i></div>
 </div></div>
 
 <h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 21 (Systém), sekce 3 (Zaklínadla), podsekce 7 (Ostatní)"><sup>3/</sup>7 Ostatní</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx96f9ea2"><span><a href="#zx96f9ea2">⚭</a></span></span>změnit jméno počítače<span class="cislo">#1 </span><sup><a href="#kapxba98a3bppc10" id="kapxba98a3bppcr10" title="Jméno počítače může být dlouhé maximálně 63 znaků a smí obsahovat pouze malá a velká písmena anglické abecedy, číslice. Může také obsahovat pomlčky, ale nesmí pomlčkou začínat ani končit. Např. „0---9Az“ je také dovolené jméno počítače.">(10)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx96f9ea2"><span><a href="#zx96f9ea2">@</a></span></span>změnit jméno počítače<span class="cislo">#1 </span><sup><a href="#kapxba98a3bppc10" id="kapxba98a3bppcr10" title="Jméno počítače může být dlouhé maximálně 63 znaků a smí obsahovat pouze malá a velká písmena anglické abecedy, číslice. Může také obsahovat pomlčky, ale nesmí pomlčkou začínat ani končit. Např. „0---9Az“ je také dovolené jméno počítače.">(10)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">stare=$(hostname)</div>
 <div class="radekzaklinadla">nove=<i class="dopln">nove-jmeno</i></div>
 <div class="radekzaklinadla">sudo sed -i -E 's/(\s)'${stare}'$/\1'${nove}'/' /etc/hosts &amp;&amp; sudo hostnamectl set-hostname &quot;$nove&quot;</div>
 <div class="radekzaklinadla akce">Restartujte počítač.</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxab73c99"><span><a href="#zxab73c99">⚪</a></span></span>spustit program a po dobu jeho běhu neumožnit běžným uživatelům uspání počítače, restart či vypnutí systému<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxab73c99"><span><a href="#zxab73c99">@</a></span></span>spustit program a po dobu jeho běhu neumožnit běžným uživatelům uspání počítače, restart či vypnutí systému<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">systemd-inhibit <span class="volznak">[</span>&quot;--why=<i class="dopln">Popis důvodu</i>&quot;<span class="volznak">]</span> <span class="volznak">[</span>&quot;--who=<i class="dopln">Popis příkazu</i>&quot;<span class="volznak">]</span> <span class="volznak">[</span>sudo<span class="volznak">]</span> <i class="dopln">příkaz</i> <i class="dopln">parametry</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx96d7426"><span><a href="#zx96d7426">➟</a></span></span>otestovat volnou paměť RAM<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx96d7426"><span><a href="#zx96d7426">@</a></span></span>otestovat volnou paměť RAM<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo memtester <i class="dopln">velikost-P</i> <span class="volznak">[</span><i class="dopln">počet-iterací</i><span class="volznak">]</span><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx78169f1"><span><a href="#zx78169f1">≇</a></span></span>nastavit proměnnou prostředí krále démonů/smazat ji<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx78169f1"><span><a href="#zx78169f1">@</a></span></span>nastavit proměnnou prostředí krále démonů/smazat ji<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo systemctl set-environment <i class="dopln">PROMĚNNÁ</i>=&quot;<i class="dopln">hodnota</i>&quot; <span class="volznak">[</span><i class="dopln">DALŠÍ_PROMĚNNÁ</i>=&quot;<i class="dopln">její hodnota</i>&quot;<span class="volznak">]</span><span class="tritecky"></span></div>
 <div class="radekzaklinadla">sudo systemctl unset-environment <i class="dopln">PROMĚNNÁ</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0f922a3"><span><a href="#zx0f922a3">✽</a></span></span>který cíl je pro start systému výchozí?<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0f922a3"><span><a href="#zx0f922a3">@</a></span></span>který cíl je pro start systému výchozí?<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">systemctl get-default</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7d7b9c7"><span><a href="#zx7d7b9c7">↵</a></span></span>nastavit výchozí cíl<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7d7b9c7"><span><a href="#zx7d7b9c7">@</a></span></span>nastavit výchozí cíl<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo systemctl set-default <i class="dopln">cíl.target</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3826850"><span><a href="#zx3826850">⠑</a></span></span>dočasně vypnout automatické připojování výměnných jednotek <span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3826850"><span><a href="#zx3826850">@</a></span></span>dočasně vypnout automatické připojování výměnných jednotek <span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
 <h3 id="cast3x8"><span><a href="#cast3x8" title="kapitola 21 (Systém), sekce 3 (Zaklínadla), podsekce 8 (Analýza času stráveného zaváděním systému)"><sup>3/</sup>8 Analýza času stráveného zaváděním systému</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1ca9a26"><span><a href="#zx1ca9a26">ᚗ</a></span></span>rozdělení času mezi firmware, zavaděč, jádro a zbytek (pro člověka)<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1ca9a26"><span><a href="#zx1ca9a26">@</a></span></span>rozdělení času mezi firmware, zavaděč, jádro a zbytek (pro člověka)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">systemd-analyze time<span class="prikladhodnoty">⊨ Startup finished in 13.465s (firmware) + 1.435s (loader) + 3.459s (kernel) + 1min 30.339s (userspace) = 1min 48.700s</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx867eddf"><span><a href="#zx867eddf">↕</a></span></span>kolik času zabrala inicializace jednotek? (pro člověka)<span class="cislo">#2 </span><sup><a href="#kapxba98a3bppc11" id="kapxba98a3bppcr11" title="Pozor! Do uvedeného času se započítává i čas strávený čekáním na inicializaci jiných jednotek; proto pokud má některá jednotka uvedený dlouhý čas, nemusí to znamenat, že zpomalení způsobuje ona!">(11)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx867eddf"><span><a href="#zx867eddf">@</a></span></span>kolik času zabrala inicializace jednotek? (pro člověka)<span class="cislo">#2 </span><sup><a href="#kapxba98a3bppc11" id="kapxba98a3bppcr11" title="Pozor! Do uvedeného času se započítává i čas strávený čekáním na inicializaci jiných jednotek; proto pokud má některá jednotka uvedený dlouhý čas, nemusí to znamenat, že zpomalení způsobuje ona!">(11)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">systemd-analyze blame <span class="volznak">[</span>--user<span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0024299"><span><a href="#zx0024299">▴</a></span></span>vykreslit graf popisující inicializaci jednotek při zavádění<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0024299"><span><a href="#zx0024299">@</a></span></span>vykreslit graf popisující inicializaci jednotek při zavádění<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">systemd-analyze plot &gt;<i class="dopln">dočasný-soubor.svg</i> &amp;&amp; sensible-browser <i class="dopln">dočasný-soubor.svg</i></div>
 </div></div>
 
 <h2 id="cast4"><a href="#cast4"><span class="cislo">4.</span> Zaklínada: Klávesnice</a></h2>
 
 <h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 21 (Systém), sekce 4 (Zaklínada: Klávesnice), podsekce 1 (Ovládání počítače klávesnicí)"><sup>4/</sup>1 Ovládání počítače klávesnicí</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx98a455f"><span><a href="#zx98a455f">┺</a></span></span><b>nouzový restart</b> počítače<span class="cislo">#1 </span><sup><a href="#kapxba98a3bppc12" id="kapxba98a3bppcr12" title="Ne, opravdu to není Ctrl+Alt+Delete...">(12)</a>,&nbsp;<a href="#kapxba98a3bppc13" id="kapxba98a3bppcr13" title="Poznámka: Skutečně důležitá je pouze poslední klávesa „B“; ty předchozí pouze vykonávají operace, díky nimž nebude restart tak drastický. Pokud chcete opravdu drastický reset, stačí na to klávesová zkratka „Alt“+„PrintScreen“+„B“.">(13)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx98a455f"><span><a href="#zx98a455f">@</a></span></span><b>nouzový restart</b> počítače<span class="cislo">#1 </span><sup><a href="#kapxba98a3bppc12" id="kapxba98a3bppcr12" title="Ne, opravdu to není Ctrl+Alt+Delete...">(12)</a>,&nbsp;<a href="#kapxba98a3bppc13" id="kapxba98a3bppcr13" title="Poznámka: Skutečně důležitá je pouze poslední klávesa „B“; ty předchozí pouze vykonávají operace, díky nimž nebude restart tak drastický. Pokud chcete opravdu drastický reset, stačí na to klávesová zkratka „Alt“+„PrintScreen“+„B“.">(13)</a></sup></div><div class="radky">
 <div class="radekzaklinadla akce">Stiskněte a držte stisknuté klávesy <kbd>Alt</kbd> + <kbd>PrtScr</kbd>.</div>
 <div class="radekzaklinadla akce">Na klávesnici s krátkými přestávkami vyťukejte: <kbd>R</kbd>, <kbd>E</kbd>, <kbd>I</kbd>, <kbd>S</kbd>, <kbd>U</kbd>, <kbd>B</kbd>.</div>
 <div class="radekzaklinadla akce">Uvolněte <kbd>PrtScr</kbd> a <kbd>Alt</kbd>.</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4a0d35e"><span><a href="#zx4a0d35e">☯</a></span></span>uspat počítač<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4a0d35e"><span><a href="#zx4a0d35e">@</a></span></span>uspat počítač<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1b9aba5"><span><a href="#zx1b9aba5">◌</a></span></span>drastické <b>nouzové vypnutí</b> počítače<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1b9aba5"><span><a href="#zx1b9aba5">@</a></span></span>drastické <b>nouzové vypnutí</b> počítače<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla akce"><kbd>Alt</kbd> + <kbd>PrtScr</kbd> + <kbd>O</kbd>.</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa39b0e4"><span><a href="#zxa39b0e4">⪁</a></span></span>vypsat nápovědu k nouzovým klávesovým zkratkám jádra<span class="cislo">#4 </span><sup><a href="#kapxba98a3bppc14" id="kapxba98a3bppcr14" title="Poznámka: Většina vypsaných operací je v jádru Ubuntu zakázána. Po stisknutí příslušné kombinace kláves se v takovém případě vypíše na konzoli zpráva, že operace je zakázána.">(14)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa39b0e4"><span><a href="#zxa39b0e4">@</a></span></span>vypsat nápovědu k nouzovým klávesovým zkratkám jádra<span class="cislo">#4 </span><sup><a href="#kapxba98a3bppc14" id="kapxba98a3bppcr14" title="Poznámka: Většina vypsaných operací je v jádru Ubuntu zakázána. Po stisknutí příslušné kombinace kláves se v takovém případě vypíše na konzoli zpráva, že operace je zakázána.">(14)</a></sup></div><div class="radky">
 <div class="radekzaklinadla akce">Jste-li v grafickém režimu, přepněte se na textovou virutální konzoli zkratkou <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>F2</kbd>.</div>
 <div class="radekzaklinadla akce">Stiskněte <kbd>Alt</kbd> + <kbd>PrtScr</kbd> + <kbd>H</kbd>. Měla by se vypsat nápověda.</div>
 <div class="radekzaklinadla akce">Zpět do grafického režimu se vrátíte <kbd>Alt</kbd> + <kbd>F7</kbd> (pouze ve variantách Ubuntu a Kubuntu je to místo toho <kbd>Alt</kbd> + <kbd>F1</kbd>).</div>
@@ -307,44 +307,44 @@ GNU GRUB je vyvíjen v rámci projektu GNU.
 <p class="ponadpisu">
 Poznámka: příkazy v této sekci jsou určeny výhradně pro X; téméř jistě nebudou fungovat v textových virtuálních konzolích ani na Waylandu.
 </p>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx615059a"><span><a href="#zx615059a">⇘</a></span></span>zapnout/vypnout/přepnout <b>Num Lock</b><span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx615059a"><span><a href="#zx615059a">@</a></span></span>zapnout/vypnout/přepnout <b>Num Lock</b><span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">numlockx on</div>
 <div class="radekzaklinadla">numlockx off</div>
 <div class="radekzaklinadla">numlockx toggle</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4598842"><span><a href="#zx4598842">⪉</a></span></span>zapnout/vypnout/přepnout <b>Caps Lock</b><span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4598842"><span><a href="#zx4598842">@</a></span></span>zapnout/vypnout/přepnout <b>Caps Lock</b><span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 <div class="radekzaklinadla">xdotool key Caps_Lock</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7633463"><span><a href="#zx7633463">◪</a></span></span>zapnout/vypnout/přepnout <b>Scroll Lock</b><span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7633463"><span><a href="#zx7633463">@</a></span></span>zapnout/vypnout/přepnout <b>Scroll Lock</b><span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 <div class="radekzaklinadla">xdotool key Scroll_Lock</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9ad454c"><span><a href="#zx9ad454c">―</a></span></span>vypnout/znovu zapnout klávesnici<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9ad454c"><span><a href="#zx9ad454c">@</a></span></span>vypnout/znovu zapnout klávesnici<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">xinput --disable $(xinput --list --short | egrep '\[.*keyboard.*\]' | egrep -iv 'virtual|(power|sleep)<span class="viditelnamezera">&nbsp;</span>button' | tail -n 1 | sed -E 's/.*id=([0-9]+)[^0-9].*/\1/')</div>
 <div class="radekzaklinadla">xinput --enable $(xinput --list --short | egrep '\[.*keyboard.*\]' | egrep -iv 'virtual|(power|sleep)<span class="viditelnamezera">&nbsp;</span>button' | tail -n 1 | sed -E 's/.*id=([0-9]+)[^0-9].*/\1/')</div>
 </div></div>
 
 <h3 id="cast4x3"><span><a href="#cast4x3" title="kapitola 21 (Systém), sekce 4 (Zaklínada: Klávesnice), podsekce 3 (Rozložení klávesnice)"><sup>4/</sup>3 Rozložení klávesnice</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9d0c9ab"><span><a href="#zx9d0c9ab">⇃</a></span></span>trvale změnit systémové rozložení<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9d0c9ab"><span><a href="#zx9d0c9ab">@</a></span></span>trvale změnit systémové rozložení<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo dpkg-reconfigure keyboard-configuration</div>
 <div class="radekzaklinadla">sudoedit /etc/default/keyboard</div>
 <div class="radekzaklinadla akce">Zkontrolujte hodnoty XKBLAYOUT a XKBVARIANT, zda jsou nastaveny podle vaších představ; pokud ne, opravte je a uložte soubor.</div>
 <div class="radekzaklinadla akce">Ukončete editor.</div>
 <div class="radekzaklinadla akce">Restartujte operační systém.</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx88b7fb6"><span><a href="#zx88b7fb6">↲</a></span></span>dočasně nastavit okamžité rozložení klávesnice (jen v X)(obecně/příklady...)<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx88b7fb6"><span><a href="#zx88b7fb6">@</a></span></span>dočasně nastavit okamžité rozložení klávesnice (jen v X)(obecně/příklady...)<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">setxkbmap <i class="dopln">rozložení</i> <span class="volznak">[</span><i class="dopln">varianta</i><span class="volznak">]</span></div>
 <div class="radekzaklinadla">setxkbmap cz</div>
 <div class="radekzaklinadla">setxkbmap cz qwerty</div>
 <div class="radekzaklinadla">setxkbmap ru</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1eb348c"><span><a href="#zx1eb348c">⊮</a></span></span>vypsat seznam dostupných rozložení klávesnice a jejich variant<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1eb348c"><span><a href="#zx1eb348c">@</a></span></span>vypsat seznam dostupných rozložení klávesnice a jejich variant<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sed -nE '/^!\s+layout/,/^$/s/^\s*(\S+)\s+(.*)$/\1\t\2/;/^!\s+variant/,/^$/s/^\s*(\S+)\s+([^:]+):\s*(.*)$/\2 \1\t\3/;T;p' /usr/share/X11/xkb/rules/xorg.lst | sort <span class="volznak">[</span>| column -nt -s $'\t' <span class="volznak">[</span>| less<span class="volznak">]</span><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9836930"><span><a href="#zx9836930">∆</a></span></span>vypsat seznam definovaných variant rozložení klávesnice (pro vývojáře)<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9836930"><span><a href="#zx9836930">@</a></span></span>vypsat seznam definovaných variant rozložení klávesnice (pro vývojáře)<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
@@ -454,7 +454,7 @@ Tato kapitola záměrně nepokrývá:
 </nav>
 
 
-<div class="odkazydole"><div><a href="prace-s-archivy.htm"><img src="obrazky/ik/prace-s-archivy.png" alt="" width="32" height="32">Práce s archivy</a><a href="sprava-uzivatelskych-uctu.htm"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="" width="32" height="32">Správa uživatelských účtů</a><a href="diskove-oddily-softwarovy-raid.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly / Softwarový RAID</a></div></div>
+<div class="odkazydole"><div><a href="prace-s-archivy.htm"><img src="obrazky/ik/prace-s-archivy.png" alt="" width="32" height="32">Práce s archivy</a><a href="diskove-oddily.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly</a><a href="metaprikazy.htm"><img src="obrazky/ik/metaprikazy.png" alt="" width="32" height="32">Metapříkazy</a></div></div>
 <div class="reklamnipata">Líbí se vám tento projekt a chcete, aby byl ještě lepší? Můžete mi s tím pomoci. Zmiňte se o něm technicky zdatným přátelům, opravte překlepy a nahlašte nefunkční zaklínadla, aby mohla být opravena; poskytněte mi zpětnou vazbu nebo se zapojte do vývoje nových kapitol. Další informace na GitHubu v dokumentu <a href="https://github.com/singularis-mzf/linux-spellbook/blob/v%C3%BDvojov%C3%A1/JAK-SE-ZAPOJIT.md">Jak se zapojit</a>.</div>
 
 </article>
@@ -528,6 +528,7 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="fragodkazy"><a href="koncepce-projektu.htm" class="odkaz"><span><span class="cislo">19</span>Koncepce projektu Linux: Kniha kouzel</span></a></span></div>
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/plan-vyvoje.png" alt="[]"></span><span class="fragodkazy"><a href="plan-vyvoje.htm" class="odkaz"><span><span class="cislo">20</span>Plán budoucího vývoje</span></a></span></div>
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="fragodkazy"><a href="licence.htm" class="odkaz"><span><span class="cislo">21</span>Licence</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/rejstrik.png" alt="[]"></span><span class="fragodkazy"><a href="rejstrik.htm" class="odkaz"><span><span class="cislo">22</span>Rejstřík podle klasických příkazů</span></a></span></div>
 <div class="premiove"><strong>Prémiové kapitoly:</strong>
 <div>AWK</div>
 <div>Bash / Vstup, výstup a přesměrování</div>

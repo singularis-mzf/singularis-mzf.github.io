@@ -5,13 +5,13 @@
 
 <title>Metapříkazy − Linux: Kniha kouzel</title>
 <meta name="viewport" content="width=1000, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="lkk-20211008.css">
+<link rel="stylesheet" type="text/css" href="lkk-20211115.css">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body class="jeukazka">
 <div id="nahore"><div id="okno">
 <header>
-<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.10, Ř. Ř. (8. října 2021)</span>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.11, S. S. (15. listopadu 2021)</span>
 <span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -80,79 +80,79 @@ Pozor na tento rozdíl!
 <h2 id="cast3" class="zaklinadla"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla</a></h2>
 
 <h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 12 (Metapříkazy), sekce 3 (Zaklínadla), podsekce 1 (Spustit jako jiný uživatel/skupina)"><sup>3/</sup>1 Spustit jako jiný uživatel/skupina</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxcdb5393"><span><a href="#zxcdb5393">⊯</a></span></span>jako <b>superuživatel</b><span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxcdb5393"><span><a href="#zxcdb5393">@</a></span></span>jako <b>superuživatel</b><span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo <i class="dopln">příkaz a parametry</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc8e1914"><span><a href="#zxc8e1914">⨜</a></span></span>jako <b>uživatel</b><span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc8e1914"><span><a href="#zxc8e1914">@</a></span></span>jako <b>uživatel</b><span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo -u <i class="dopln">uzivatel</i> <span class="volznak">[</span>-g <i class="dopln">skupina</i><span class="volznak">]</span> <i class="dopln">příkaz a parametry</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8f1c158"><span><a href="#zx8f1c158">䷿</a></span></span>jako <b>skupina</b> (alternativy)<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8f1c158"><span><a href="#zx8f1c158">@</a></span></span>jako <b>skupina</b> (alternativy)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo -g <i class="dopln">skupina</i> <i class="dopln">příkaz a parametry</i></div>
 <div class="radekzaklinadla">sg <i class="dopln">skupina</i> <i class="dopln">&quot;příkaz s parametry&quot;</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe11bc1d"><span><a href="#zxe11bc1d">⋑</a></span></span>jako uživatel/skupina (jen pro superuživatele)<span class="cislo">#4 </span><sup><a href="#kapx433b7b1ppc1" id="kapx433b7b1ppcr1" title="Poznámka: „sudo“ u příkazu „runuser“ je pouze symbolické; ve skutečnosti se nezadává, protože příkaz „runuser“ spouští pouze root (resp. skripty běžící pod účtem root) a sudo by zde bylo zbytečné.">(1)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe11bc1d"><span><a href="#zxe11bc1d">@</a></span></span>jako uživatel/skupina (jen pro superuživatele)<span class="cislo">#4 </span><sup><a href="#kapx433b7b1ppc1" id="kapx433b7b1ppcr1" title="Poznámka: „sudo“ u příkazu „runuser“ je pouze symbolické; ve skutečnosti se nezadává, protože příkaz „runuser“ spouští pouze root (resp. skripty běžící pod účtem root) a sudo by zde bylo zbytečné.">(1)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo runuser -u <i class="dopln">uzivatel</i> <span class="volznak">[</span>-g <i class="dopln">skupina</i><span class="volznak">]</span> <i class="dopln">&quot;příkaz s parametry&quot;</i></div>
 <div class="radekzaklinadla">sudo runuser -g <i class="dopln">skupina</i> <i class="dopln">&quot;příkaz s parametry&quot;</i></div>
 </div></div>
 
 <h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 12 (Metapříkazy), sekce 3 (Zaklínadla), podsekce 2 (Interakce s interpretem)"><sup>3/</sup>2 Interakce s interpretem</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8eb3539"><span><a href="#zx8eb3539">∣</a></span></span>spustit proces <b>místo</b> aktuálního interpretu<span class="cislo">#1 </span><sup><a href="#kapx433b7b1ppc2" id="kapx433b7b1ppcr2" title="Nový proces získá PID aktuálního interpretu a většinu jeho kontextu. Parametr „-c“ před vykonáním náhrady smaže všechny proměnné prostředí (dokonce i HOME, PATH apod., takže to možná není moc dobrý nápad).">(2)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8eb3539"><span><a href="#zx8eb3539">@</a></span></span>spustit proces <b>místo</b> aktuálního interpretu<span class="cislo">#1 </span><sup><a href="#kapx433b7b1ppc2" id="kapx433b7b1ppcr2" title="Nový proces získá PID aktuálního interpretu a většinu jeho kontextu. Parametr „-c“ před vykonáním náhrady smaže všechny proměnné prostředí (dokonce i HOME, PATH apod., takže to možná není moc dobrý nápad).">(2)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">exec <span class="volznak">[</span>-c<span class="volznak">]</span> <i class="dopln">příkaz a parametry</i> <span class="volznak">[</span><i>přesměrování</i><span class="volznak">]</span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx156a093"><span><a href="#zx156a093">ꜜ</a></span></span><b>interpretovat</b> text a vykonat jako příkazovou řádku ve stávající instanci interpretu<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx156a093"><span><a href="#zx156a093">@</a></span></span><b>interpretovat</b> text a vykonat jako příkazovou řádku ve stávající instanci interpretu<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">eval <i class="dopln">&quot;příkaz s parametry&quot;</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxae21df9"><span><a href="#zxae21df9">⬖</a></span></span>interpretovat a vykonat interpretem „<b>sh</b>“<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxae21df9"><span><a href="#zxae21df9">@</a></span></span>interpretovat a vykonat interpretem „<b>sh</b>“<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span><i>sudo</i><span class="volznak">]</span> sh -c <i class="dopln">&quot;příkaz s parametry&quot;</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6f16c79"><span><a href="#zx6f16c79">∷</a></span></span>interpretovat a vykonat interpretem „<b>bash</b>“<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6f16c79"><span><a href="#zx6f16c79">@</a></span></span>interpretovat a vykonat interpretem „<b>bash</b>“<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span><i>sudo</i><span class="volznak">]</span> bash -c <i class="dopln">&quot;příkaz s parametry&quot;</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx91661a4"><span><a href="#zx91661a4">⌀</a></span></span>interpretovat příkaz, ale <b>nevykonat ho</b><span class="cislo">#5 </span><sup><a href="#kapx433b7b1ppc3" id="kapx433b7b1ppcr3" title="Hlavní smysl tohoto metapříkazu spočívá v situacích, kdy má interpretace příkazu očekávané vedlejší účinky (např. nastavení zvláštní proměnné $_ nebo uložení do historie příkazů v interaktivním režimu interpretu).">(3)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx91661a4"><span><a href="#zx91661a4">@</a></span></span>interpretovat příkaz, ale <b>nevykonat ho</b><span class="cislo">#5 </span><sup><a href="#kapx433b7b1ppc3" id="kapx433b7b1ppcr3" title="Hlavní smysl tohoto metapříkazu spočívá v situacích, kdy má interpretace příkazu očekávané vedlejší účinky (např. nastavení zvláštní proměnné $_ nebo uložení do historie příkazů v interaktivním režimu interpretu).">(3)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">true <i class="dopln">příkaz a parametry</i></div>
 </div></div>
 
 <h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 12 (Metapříkazy), sekce 3 (Zaklínadla), podsekce 3 (Vykonat příkazy hromadně)"><sup>3/</sup>3 Vykonat příkazy hromadně</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb3748bf"><span><a href="#zxb3748bf">⡬</a></span></span>sestavit parametry příkazu ze záznamů ze vstupu, vykonat po dávkách<span class="cislo">#1 </span><sup><a href="#kapx433b7b1ppc4" id="kapx433b7b1ppcr4" title="Neuvedete-li parametr „-n“, použije „xargs“ v každé dávce co nejvíc parametrů, kolik mu umožní systémové limity. Neuvedete-li parametr „-P“, výchozí hodnota je 1, což znamená, že další dávka se spustí, teprve až ta předchozí doběhne. Parametr „-a“ použijte v případě, že vykonávaný příkaz potřebuje přístup ke standardnímu výstupu.">(4)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb3748bf"><span><a href="#zxb3748bf">@</a></span></span>sestavit parametry příkazu ze záznamů ze vstupu, vykonat po dávkách<span class="cislo">#1 </span><sup><a href="#kapx433b7b1ppc4" id="kapx433b7b1ppcr4" title="Neuvedete-li parametr „-n“, použije „xargs“ v každé dávce co nejvíc parametrů, kolik mu umožní systémové limity. Neuvedete-li parametr „-P“, výchozí hodnota je 1, což znamená, že další dávka se spustí, teprve až ta předchozí doběhne. Parametr „-a“ použijte v případě, že vykonávaný příkaz potřebuje přístup ke standardnímu výstupu.">(4)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">xargs -r0 <span class="volznak">[</span>-a <i class="dopln">vstupní-soubor</i><span class="volznak">]</span> <span class="volznak">[</span>-n <i class="dopln">max-parametrů-na-dávku</i><span class="volznak">]</span> <span class="volznak">[</span>-P <i class="dopln">úroveň-paralelismu</i><span class="volznak">]</span> <i class="dopln">příkaz a počáteční parametry</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx91e5fc3"><span><a href="#zx91e5fc3">⢢</a></span></span>pro každý vstupní záznam spustit příkaz a záznam dosadit do parametrů (obecně/příklad použití)<span class="cislo">#2 </span><sup><a href="#kapx433b7b1ppc5" id="kapx433b7b1ppcr5" title="Obsah vstupního záznamu bude dosazen do parametrů vnořeného příkazu za všechny výskyty podřetězce nastaveného parametrem „-I“ (obvykle „{}“).">(5)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx91e5fc3"><span><a href="#zx91e5fc3">@</a></span></span>pro každý vstupní záznam spustit příkaz a záznam dosadit do parametrů (obecně/příklad použití)<span class="cislo">#2 </span><sup><a href="#kapx433b7b1ppc5" id="kapx433b7b1ppcr5" title="Obsah vstupního záznamu bude dosazen do parametrů vnořeného příkazu za všechny výskyty podřetězce nastaveného parametrem „-I“ (obvykle „{}“).">(5)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">xargs -r0 -I '{}' <span class="volznak">[</span>-a <i class="dopln">vstupní-soubor</i><span class="volznak">]</span> <span class="volznak">[</span>-P <i class="dopln">úroveň-paralelismu</i><span class="volznak">]</span> <i class="dopln">příkaz a parametry</i></div>
 <div class="radekzaklinadla">find . -maxdepth 1 -type f -print0 | xargs -r0 -I '{}' -P 4 ln -frsTv &quot;{}&quot; &quot;{}.odkaz&quot;</div>
 </div></div>
 
 <h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 12 (Metapříkazy), sekce 3 (Zaklínadla), podsekce 4 (Spustit jinak...)"><sup>3/</sup>4 Spustit jinak...</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6a72481"><span><a href="#zx6a72481">ⵙ</a></span></span>pokud příkaz poběží ještě po N sekundách, poslat mu signál (obecně/příklady použití)<span class="cislo">#1 </span><sup><a href="#kapx433b7b1ppc6" id="kapx433b7b1ppcr6" title="Výchozí signál je SIGTERM (tedy požadavek na ukončení). Zadáte-li parametr „-k“, pak se po zaslání signálu odpočítá ještě „trvání2“ a příkaz se ukončí signálem SIGKILL. Obě trvání jsou v sekundách. Signály se zašlou i potomkům, které příkaz mezitím spustí.">(6)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6a72481"><span><a href="#zx6a72481">@</a></span></span>pokud příkaz poběží ještě po N sekundách, poslat mu signál (obecně/příklady použití)<span class="cislo">#1 </span><sup><a href="#kapx433b7b1ppc6" id="kapx433b7b1ppcr6" title="Výchozí signál je SIGTERM (tedy požadavek na ukončení). Zadáte-li parametr „-k“, pak se po zaslání signálu odpočítá ještě „trvání2“ a příkaz se ukončí signálem SIGKILL. Obě trvání jsou v sekundách. Signály se zašlou i potomkům, které příkaz mezitím spustí.">(6)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">timeout <span class="volznak">[</span>-s <i class="dopln">signál</i><span class="volznak">]</span> <span class="volznak">[</span>-k <i class="dopln">trvání2</i><span class="volznak">]</span> <span class="volznak">[</span>-v<span class="volznak">]</span> <i class="dopln">trvání1</i> <i class="dopln">příkaz a parametry</i></div>
 <div class="radekzaklinadla">timeout -s KILL 5.5 yes &quot;Ahoj, světe!&quot;</div>
 <div class="radekzaklinadla">{ timeout 1.125 yes &quot;abc&quot; || true; } | wc -l</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8de2b53"><span><a href="#zx8de2b53">ʕ</a></span></span>s upravenými proměnnými <b>prostředí</b><span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8de2b53"><span><a href="#zx8de2b53">@</a></span></span>s upravenými proměnnými <b>prostředí</b><span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">env <span class="volznak">[</span>-u <i class="dopln">promenna_k_odebrani</i><span class="volznak">]</span><span class="tritecky"></span> <span class="volznak">[</span><i class="dopln">promenna_k_nastaveni</i>=<i class="dopln">hodnota</i><span class="volznak">]</span><span class="tritecky"></span> <i class="dopln">příkaz a parametry</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7698e30"><span><a href="#zx7698e30">ⴽ</a></span></span>v jiném adresáři<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7698e30"><span><a href="#zx7698e30">@</a></span></span>v jiném adresáři<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">env <span class="volznak">[</span>-C <i class="dopln">nový/aktuální/adresář</i><span class="volznak">]</span> <i class="dopln">příkaz a parametry</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx528421a"><span><a href="#zx528421a">䷁</a></span></span>s vypnutým účinkem operace „sync“ (obecně/příklad)<span class="cislo">#4 </span><sup><a href="#kapx433b7b1ppc7" id="kapx433b7b1ppcr7" title="Potlačení účinku operace „sync“ tímto příkazem závisí na určitých proměnných prostředí, proto se rozšíří do všech procesů, které tyto proměnné zdědí.">(7)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx528421a"><span><a href="#zx528421a">@</a></span></span>s vypnutým účinkem operace „sync“ (obecně/příklad)<span class="cislo">#4 </span><sup><a href="#kapx433b7b1ppc7" id="kapx433b7b1ppcr7" title="Potlačení účinku operace „sync“ tímto příkazem závisí na určitých proměnných prostředí, proto se rozšíří do všech procesů, které tyto proměnné zdědí.">(7)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">eatmydata <i class="dopln">příkaz a parametry</i></div>
 <div class="radekzaklinadla">sudo eatmydata apt-get dist-upgrade</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx95de2c6"><span><a href="#zx95de2c6">⣣</a></span></span>s nižší/vyšší <b>prioritou</b><span class="cislo">#5 </span><sup><a href="#kapx433b7b1ppc8" id="kapx433b7b1ppcr8" title="Zvýšení/snížení se počítá relativně vůči prioritě interpretu, ve kterém je příkaz použit, a výsledek se omezí do intervalu 19 (nejnižší možná priorita) až -20 (nejvyšší možná priorita). Takže když zadáte „nice -n 10 bash“, dostanete interpret s prioritou „10“, a když v něm zadáte „nice -n 6 bash“, nový interpret bude mít prioritu 16. Když pak v něm zadáte ještě „nice -n 9 bash“, třetí interpret bude mít prioritu 19.">(8)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx95de2c6"><span><a href="#zx95de2c6">@</a></span></span>s nižší/vyšší <b>prioritou</b><span class="cislo">#5 </span><sup><a href="#kapx433b7b1ppc8" id="kapx433b7b1ppcr8" title="Zvýšení/snížení se počítá relativně vůči prioritě interpretu, ve kterém je příkaz použit, a výsledek se omezí do intervalu 19 (nejnižší možná priorita) až -20 (nejvyšší možná priorita). Takže když zadáte „nice -n 10 bash“, dostanete interpret s prioritou „10“, a když v něm zadáte „nice -n 6 bash“, nový interpret bude mít prioritu 16. Když pak v něm zadáte ještě „nice -n 9 bash“, třetí interpret bude mít prioritu 19.">(8)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">nice -n <i class="dopln">číslo 0 až 19</i> <i class="dopln">příkaz a parametry</i></div>
 <div class="radekzaklinadla">sudo nice -n <i class="dopln">číslo -1 až -20</i> <i class="dopln">příkaz a parametry</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx86b719a"><span><a href="#zx86b719a">▧</a></span></span>s potlačením kešování<span class="cislo">#6 </span><sup><a href="#kapx433b7b1ppc9" id="kapx433b7b1ppcr9" title="Primárním účelem je bránit čtením z souborů na disku, aby se ukládala do keše; nevím jistě, nakolik se lze spolehnout, že toto čtení nebude přistupovat k datům již v keši uloženým.">(9)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx86b719a"><span><a href="#zx86b719a">@</a></span></span>s potlačením kešování<span class="cislo">#6 </span><sup><a href="#kapx433b7b1ppc9" id="kapx433b7b1ppcr9" title="Primárním účelem je bránit čtením z souborů na disku, aby se ukládala do keše; nevím jistě, nakolik se lze spolehnout, že toto čtení nebude přistupovat k datům již v keši uloženým.">(9)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">nocache <i class="dopln">příkaz a parametry</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc047628"><span><a href="#zxc047628">⁑</a></span></span>jako <b>démona</b> (obecně/příklad)<span class="cislo">#7 </span><sup><a href="#kapx433b7b1ppc10" id="kapx433b7b1ppcr10" title="Při použití příkazu „nohup“ důrazně doporučuji ručně přesměrovat standardní vstup a oba standardní výstupy mimo terminál; pokud to neuděláte, příkaz „nohup“ to udělá za vás, ale vypíše přitom rušivou zprávu „nohup: vstup ignoruji a výstup připojuji k 'nohup.out'“. Ostatní deskriptory přesměrovávat nemusíte, ale pokud některý z nich povede na terminál, který mezitím zavřete, program pravděpodobně skončí s chybou, jakmile se z něj pokusí číst či do něj zapisovat.">(10)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc047628"><span><a href="#zxc047628">@</a></span></span>jako <b>démona</b> (obecně/příklad)<span class="cislo">#7 </span><sup><a href="#kapx433b7b1ppc10" id="kapx433b7b1ppcr10" title="Při použití příkazu „nohup“ důrazně doporučuji ručně přesměrovat standardní vstup a oba standardní výstupy mimo terminál; pokud to neuděláte, příkaz „nohup“ to udělá za vás, ale vypíše přitom rušivou zprávu „nohup: vstup ignoruji a výstup připojuji k 'nohup.out'“. Ostatní deskriptory přesměrovávat nemusíte, ale pokud některý z nich povede na terminál, který mezitím zavřete, program pravděpodobně skončí s chybou, jakmile se z něj pokusí číst či do něj zapisovat.">(10)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">nohup <i class="dopln">příkaz a parametry</i> &lt;<i class="dopln">vstup</i> &gt;<i class="dopln">kam/směřovat/výstup</i> 2gt;<i class="dopln">kam/směřovat/chybový/výstup</i></div>
 <div class="radekzaklinadla">nohup sort &lt;můj-soubor.txt &gt;seřazený-soubor.txt 2&gt;/dev/null</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa214c42"><span><a href="#zxa214c42">⋼</a></span></span>s prázdným prostředím (obecně/příklad)<span class="cislo">#8 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa214c42"><span><a href="#zxa214c42">@</a></span></span>s prázdným prostředím (obecně/příklad)<span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla">env -i <i class="dopln">příkaz a parametry</i></div>
 <div class="radekzaklinadla">env -i printenv</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe772fb0"><span><a href="#zxe772fb0">⠿</a></span></span>s nebufferovaným standardním vstupem a výstupem<span class="cislo">#9 </span><sup><a href="#kapx433b7b1ppc11" id="kapx433b7b1ppcr11" title="Užitečnost tohoto příkazu je velmi nízká, protože bude účinkovat jen na programy, které si nastavení bufferování svých vstupů nemění samy, a ani u nich nemusí výsledky odpovídat očekávání. Raději se podívejte do dokumentace příslušného programu, zda nepodporuje nějaký způsob zapnutí „nebufferovaného režimu“.">(11)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe772fb0"><span><a href="#zxe772fb0">@</a></span></span>s nebufferovaným standardním vstupem a výstupem<span class="cislo">#9 </span><sup><a href="#kapx433b7b1ppc11" id="kapx433b7b1ppcr11" title="Užitečnost tohoto příkazu je velmi nízká, protože bude účinkovat jen na programy, které si nastavení bufferování svých vstupů nemění samy, a ani u nich nemusí výsledky odpovídat očekávání. Raději se podívejte do dokumentace příslušného programu, zda nepodporuje nějaký způsob zapnutí „nebufferovaného režimu“.">(11)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">stdbuf -i 0 -o 0 <i class="dopln">příkaz a parametry</i></div>
 </div></div>
 
@@ -166,19 +166,19 @@ toto pořadí: „<span class="viditelnamezera">&nbsp;</span>“, „time“, �
 i když obsahuje více příkazů. Příkazy „time“ a „!“ účinkují na celou
 posloupnost příkazů spojených rourami.
 </p>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx055a729"><span><a href="#zx055a729">⌉</a></span></span>spustit s nastavením proměnných prostředí<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx055a729"><span><a href="#zx055a729">@</a></span></span>spustit s nastavením proměnných prostředí<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">promenna_k_nastaveni</i>=<i class="dopln">hodnota</i><span class="volznak">]</span><span class="tritecky"></span> <i class="dopln">příkaz a parametry</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx27d02df"><span><a href="#zx27d02df">↓</a></span></span>změřit <b>čas běhu</b> příkazu<span class="cislo">#2 </span><sup><a href="#kapx433b7b1ppc12" id="kapx433b7b1ppcr12" title="Pozor! Příkaz musí být spuštěn na popředí; pokud jeho běh přerušíte zkratkou Ctrl+Z, příkaz „time“ vypíše naměřený údaj a dál už měřit nebude.">(12)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx27d02df"><span><a href="#zx27d02df">@</a></span></span>změřit <b>čas běhu</b> příkazu<span class="cislo">#2 </span><sup><a href="#kapx433b7b1ppc12" id="kapx433b7b1ppcr12" title="Pozor! Příkaz musí být spuštěn na popředí; pokud jeho běh přerušíte zkratkou Ctrl+Z, příkaz „time“ vypíše naměřený údaj a dál už měřit nebude.">(12)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">time <span class="volznak">[</span>-p<span class="volznak">]</span> <i class="dopln">příkaz a parametry</i> <span class="volznak">[</span>| <i class="dopln">další příkaz a parametry</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx145e7d1"><span><a href="#zx145e7d1">໕</a></span></span>příkaz vykonat, ale neuložit do historie<span class="cislo">#3 </span><sup><a href="#kapx433b7b1ppc13" id="kapx433b7b1ppcr13" title="Mezera musí prvním znakem příkazové řádky vůbec (tzn. před ní nesmí být žádný další příkaz ani jiný znak), a aby tento způsob potlačení ukládání do historie fungoval, musí být proměnná HISTCONTROL nastavena na hodnotu „ignorespace“ nebo „ignoreboth“ (což je ve výchozím nastavení v Ubuntu v interaktivním režimu bashe splněno).">(13)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx145e7d1"><span><a href="#zx145e7d1">@</a></span></span>příkaz vykonat, ale neuložit do historie<span class="cislo">#3 </span><sup><a href="#kapx433b7b1ppc13" id="kapx433b7b1ppcr13" title="Mezera musí prvním znakem příkazové řádky vůbec (tzn. před ní nesmí být žádný další příkaz ani jiný znak), a aby tento způsob potlačení ukládání do historie fungoval, musí být proměnná HISTCONTROL nastavena na hodnotu „ignorespace“ nebo „ignoreboth“ (což je ve výchozím nastavení v Ubuntu v interaktivním režimu bashe splněno).">(13)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><span class="viditelnamezera">&nbsp;</span><i class="dopln">příkaz a parametry</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6933036"><span><a href="#zx6933036">≎</a></span></span>logicky obrátit hodnotu ukládanou do $?<span class="cislo">#4 </span><sup><a href="#kapx433b7b1ppc14" id="kapx433b7b1ppcr14" title="Do $? se uloží 1 pro nulový návratový kód a 0 pro nenulový. Tento příkaz nemá žádný vliv na pole PIPE_STATUS (tam zůstanou původní hodnoty). Tento příkaz ovlivní zřetězení operátory „&amp;&amp;“ a „||“, protože tyto operátory čtou proměnnou $?">(14)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6933036"><span><a href="#zx6933036">@</a></span></span>logicky obrátit hodnotu ukládanou do $?<span class="cislo">#4 </span><sup><a href="#kapx433b7b1ppc14" id="kapx433b7b1ppcr14" title="Do $? se uloží 1 pro nulový návratový kód a 0 pro nenulový. Tento příkaz nemá žádný vliv na pole PIPE_STATUS (tam zůstanou původní hodnoty). Tento příkaz ovlivní zřetězení operátory „&amp;&amp;“ a „||“, protože tyto operátory čtou proměnnou $?">(14)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">! <i class="dopln">příkaz a parametry</i> <span class="volznak">[</span>| <i class="dopln">další příkaz a parametry</i><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona L" id="zx81df913"><span><a href="#zx81df913">⟂</a></span></span>příklad kombinace všech pseudometapříkazů<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx81df913"><span><a href="#zx81df913">@</a></span></span>příklad kombinace všech pseudometapříkazů<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla"><span class="viditelnamezera">&nbsp;</span>time ! ! LC_ALL=C mojepromenna=0 ls</div>
 </div></div>
 
@@ -189,41 +189,41 @@ Příkaz <i>watch</i>: d — zvýrazňovat změny oproti předchozímu běhu
 Neuvedete-li parametr -n, výchozí interval jsou 2 sekundy.
 Parametr -n přijímá i desetinná čísla (minimální dovolená hodnota je „0.1“).
 </p>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx067c71e"><span><a href="#zx067c71e">☿</a></span></span>spouštět příkaz v pravidelném intervalu<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx067c71e"><span><a href="#zx067c71e">@</a></span></span>spouštět příkaz v pravidelném intervalu<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">watch -px<span class="volznak">[</span>t<span class="volznak">]</span><span class="volznak">[</span>d<span class="volznak">]</span> <span class="volznak">[</span>-n <i class="dopln">interval-v-sekundách</i><span class="volznak">]</span> <i class="dopln">příkaz a parametry</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc55ef78"><span><a href="#zxc55ef78">⋈</a></span></span>mezi spuštěními příkazu dělat pauzu<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc55ef78"><span><a href="#zxc55ef78">@</a></span></span>mezi spuštěními příkazu dělat pauzu<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">watch -x<span class="volznak">[</span>t<span class="volznak">]</span><span class="volznak">[</span>d<span class="volznak">]</span> <span class="volznak">[</span>-n <i class="dopln">pauza-v-sekundách</i><span class="volznak">]</span> <i class="dopln">příkaz a parametry</i></div>
 </div></div>
 
 <h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 12 (Metapříkazy), sekce 3 (Zaklínadla), podsekce 7 (Virtualizace vlastnictví a módu)"><sup>3/</sup>7 Virtualizace vlastnictví a módu</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf196c3b"><span><a href="#zxf196c3b">❵</a></span></span>spustit příkaz v prostředí virtualizovaného vlastnictví a módu souborů<span class="cislo">#1 </span><sup><a href="#kapx433b7b1ppc15" id="kapx433b7b1ppcr15" title="Viz podsekci „Příkaz fakeroot“.">(15)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf196c3b"><span><a href="#zxf196c3b">@</a></span></span>spustit příkaz v prostředí virtualizovaného vlastnictví a módu souborů<span class="cislo">#1 </span><sup><a href="#kapx433b7b1ppc15" id="kapx433b7b1ppcr15" title="Viz podsekci „Příkaz fakeroot“.">(15)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">fakeroot <span class="volznak">[</span>-u<span class="volznak">]</span> <span class="volznak">[</span>-i <i class="dopln">perzistentní-soubor</i><span class="volznak">]</span> <span class="volznak">[</span>-s <i class="dopln">perzistentní-soubor</i><span class="volznak">]</span> <i class="dopln">příkaz a parametry</i></div>
 </div></div>
 
 <h3 id="cast3x8"><span><a href="#cast3x8" title="kapitola 12 (Metapříkazy), sekce 3 (Zaklínadla), podsekce 8 (Ostatní metapříkazy)"><sup>3/</sup>8 Ostatní metapříkazy</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2a9bae5"><span><a href="#zx2a9bae5">⣦</a></span></span>spustit jedině vestavěný nebo externí příkaz (ne funkci či alias)(obecně/příklad použití)<span class="cislo">#1 </span><sup><a href="#kapx433b7b1ppc16" id="kapx433b7b1ppcr16" title="Tento příkaz se nejčastěji používá, když určitý externí program nahradíte stejnojmennou funkcí a chcete ho pak z této funkce zavolat.">(16)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2a9bae5"><span><a href="#zx2a9bae5">@</a></span></span>spustit jedině vestavěný nebo externí příkaz (ne funkci či alias)(obecně/příklad použití)<span class="cislo">#1 </span><sup><a href="#kapx433b7b1ppc16" id="kapx433b7b1ppcr16" title="Tento příkaz se nejčastěji používá, když určitý externí program nahradíte stejnojmennou funkcí a chcete ho pak z této funkce zavolat.">(16)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">command <i class="dopln">příkaz a parametry</i></div>
 <div class="radekzaklinadla">function echo { command echo &quot;Toto je příkaz echo:&quot; &quot;$@&quot;; }</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx221e019"><span><a href="#zx221e019">⢢</a></span></span>nastavit příkaz jako <b>obsluhu signálu</b> v aktuální instanci interpretu<span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx221e019"><span><a href="#zx221e019">@</a></span></span>nastavit příkaz jako <b>obsluhu signálu</b> v aktuální instanci interpretu<span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">trap <i class="dopln">&quot;příkaz s parametry&quot;</i> <i class="dopln">signál</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5f15320"><span><a href="#zx5f15320">┿</a></span></span>spustit příkaz v jiné <b>instalaci</b> linuxu (zatím nezkoušeno)<span class="cislo">#3 </span><sup><a href="#kapx433b7b1ppc17" id="kapx433b7b1ppcr17" title="Správné použití tohoto příkazu je náročné na znalosti, viz sekci „Příkaz chroot“.">(17)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5f15320"><span><a href="#zx5f15320">@</a></span></span>spustit příkaz v jiné <b>instalaci</b> linuxu (zatím nezkoušeno)<span class="cislo">#3 </span><sup><a href="#kapx433b7b1ppc17" id="kapx433b7b1ppcr17" title="Správné použití tohoto příkazu je náročné na znalosti, viz sekci „Příkaz chroot“.">(17)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">cd <i class="dopln">/kořenový/adresář/instalace</i></div>
 <div class="radekzaklinadla"><span class="volznak">[</span>for x in dev proc sys dev/shm dev/pts; do sudo mount --bind {,.}/$x; done<span class="volznak">]</span></div>
 <div class="radekzaklinadla">sudo ln -fsv /proc/mounts etc/mtab</div>
 <div class="radekzaklinadla">sudo cp -fv -t etc /etc/hosts /etc/resolv.conf</div>
 <div class="radekzaklinadla">sudo chroot . <span class="volznak">[</span>runuser -u <i class="dopln">uzivatelske-jmeno</i><span class="volznak">]</span> <i class="dopln">příkaz a parametry</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb4bccb5"><span><a href="#zxb4bccb5">▸</a></span></span>spustit příkaz v jiné instalaci linuxu (příklad, nezkoušeno)<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb4bccb5"><span><a href="#zxb4bccb5">@</a></span></span>spustit příkaz v jiné instalaci linuxu (příklad, nezkoušeno)<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">mkdir /tmp/druhý</div>
 <div class="radekzaklinadla">sudo mount -t ext4 -o rw,exec,suid,nodev /dev/sda3 /tmp/druhý</div>
 <div class="radekzaklinadla">cd /tmp/druhý</div>
 <div class="radekzaklinadla">for x in dev proc sys; do sudo mount --bind {,.}/$x; done</div>
 <div class="radekzaklinadla">sudo chroot . runuser -u karel bash</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx36a7a7e"><span><a href="#zx36a7a7e">䷅</a></span></span>spustit jedině vestavěný příkaz<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx36a7a7e"><span><a href="#zx36a7a7e">@</a></span></span>spustit jedině vestavěný příkaz<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">builtin <i class="dopln">příkaz a parametry</i></div>
 </div></div>
 
@@ -368,7 +368,7 @@ Tato kapitola záměrně nepokrývá:
 </nav>
 
 
-<div class="odkazydole"><div><a href="diskove-oddily-btrfs.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly / Btrfs</a><a href="regularni-vyrazy.htm"><img src="obrazky/ik/regularni-vyrazy.png" alt="" width="32" height="32">Regulární výrazy</a><a href="diskove-oddily-lvm.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly / LVM</a></div></div>
+<div class="odkazydole"><div><a href="bash-funkce-a-skripty.htm"><img src="obrazky/ik/bash.png" alt="" width="32" height="32">Bash / Funkce a skripty</a><a href="sprava-uzivatelskych-uctu.htm"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="" width="32" height="32">Správa uživatelských účtů</a><a href="system.htm"><img src="obrazky/ik/system.png" alt="" width="32" height="32">Systém</a></div></div>
 <div class="reklamnipata">Líbí se vám tento projekt a chcete, aby byl ještě lepší? Můžete mi s tím pomoci. Zmiňte se o něm technicky zdatným přátelům, opravte překlepy a nahlašte nefunkční zaklínadla, aby mohla být opravena; poskytněte mi zpětnou vazbu nebo se zapojte do vývoje nových kapitol. Další informace na GitHubu v dokumentu <a href="https://github.com/singularis-mzf/linux-spellbook/blob/v%C3%BDvojov%C3%A1/JAK-SE-ZAPOJIT.md">Jak se zapojit</a>.</div>
 
 </article>
@@ -438,6 +438,7 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="fragodkazy"><a href="koncepce-projektu.htm" class="odkaz"><span><span class="cislo">19</span>Koncepce projektu Linux: Kniha kouzel</span></a></span></div>
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/plan-vyvoje.png" alt="[]"></span><span class="fragodkazy"><a href="plan-vyvoje.htm" class="odkaz"><span><span class="cislo">20</span>Plán budoucího vývoje</span></a></span></div>
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="fragodkazy"><a href="licence.htm" class="odkaz"><span><span class="cislo">21</span>Licence</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/rejstrik.png" alt="[]"></span><span class="fragodkazy"><a href="rejstrik.htm" class="odkaz"><span><span class="cislo">22</span>Rejstřík podle klasických příkazů</span></a></span></div>
 <div class="premiove"><strong>Prémiové kapitoly:</strong>
 <div>AWK</div>
 <div>Bash / Vstup, výstup a přesměrování</div>

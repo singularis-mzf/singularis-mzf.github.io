@@ -5,13 +5,13 @@
 
 <title>Diskové oddíly / Softwarový RAID − Linux: Kniha kouzel</title>
 <meta name="viewport" content="width=1000, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="lkk-20211008.css">
+<link rel="stylesheet" type="text/css" href="lkk-20211115.css">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body class="jeukazka">
 <div id="nahore"><div id="okno">
 <header>
-<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.10, Ř. Ř. (8. října 2021)</span>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.11, S. S. (15. listopadu 2021)</span>
 <span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -68,113 +68,113 @@ Kde máte v zaklínadlech zadat <i class="dopln">md-pole</i>, můžete svoje po
 <h2 id="cast3" class="zaklinadla"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla</a></h2>
 
 <h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 9 (Diskové oddíly/Softwarový RAID), sekce 3 (Zaklínadla), podsekce 1 (Všechny typy polí: zjišťování údajů)"><sup>3/</sup>1 Všechny typy polí: zjišťování údajů</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxdc676d0"><span><a href="#zxdc676d0">⠽</a></span></span><b>dynamické informace</b> o připojených polích<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxdc676d0"><span><a href="#zxdc676d0">@</a></span></span><b>dynamické informace</b> o připojených polích<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">cat /proc/mdstat</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx09c7a8e"><span><a href="#zx09c7a8e">❄</a></span></span>podrobné statické informace o některém <b>poli</b><span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx09c7a8e"><span><a href="#zx09c7a8e">@</a></span></span>podrobné statické informace o některém <b>poli</b><span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo mdadm --detail <i class="dopln">md-pole</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb8fc8ea"><span><a href="#zxb8fc8ea">❄</a></span></span>statické informace o dílu pole (stručné/podrobné)<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb8fc8ea"><span><a href="#zxb8fc8ea">@</a></span></span>statické informace o dílu pole (stručné/podrobné)<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo mdadm --query <i class="dopln">/dev/díl</i></div>
 <div class="radekzaklinadla">sudo mdadm --examine <i class="dopln">/dev/díl</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8411410"><span><a href="#zx8411410">☣</a></span></span><b>seznam</b> připojených polí (pro skript)<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8411410"><span><a href="#zx8411410">@</a></span></span><b>seznam</b> připojených polí (pro skript)<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">find /dev/disk/by-uuid -type l -xtype b -printf '%f %l\n' | sed -nE '/\/md[0-9]+$/s!(\.\.\/){2}!/dev/!;T;p'</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx03111b7"><span><a href="#zx03111b7">╰</a></span></span><b>seznam dílů</b> připojeného pole (pro skript)<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx03111b7"><span><a href="#zx03111b7">@</a></span></span><b>seznam dílů</b> připojeného pole (pro skript)<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx26c5598"><span><a href="#zx26c5598">ɷ</a></span></span>zjistit <b>UUID</b> pole<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx26c5598"><span><a href="#zx26c5598">@</a></span></span>zjistit <b>UUID</b> pole<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6ba49e4"><span><a href="#zx6ba49e4">↼</a></span></span>zjistit název pole<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6ba49e4"><span><a href="#zx6ba49e4">@</a></span></span>zjistit název pole<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf58a887"><span><a href="#zxf58a887">┨</a></span></span>zjistit číslo pole<span class="cislo">#8 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf58a887"><span><a href="#zxf58a887">@</a></span></span>zjistit číslo pole<span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
 <h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 9 (Diskové oddíly/Softwarový RAID), sekce 3 (Zaklínadla), podsekce 2 (Všechny typy polí: změny)"><sup>3/</sup>2 Všechny typy polí: změny</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfdb51fc"><span><a href="#zxfdb51fc">╉</a></span></span><b>odpojit</b> pole<span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfdb51fc"><span><a href="#zxfdb51fc">@</a></span></span><b>odpojit</b> pole<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo mdadm --stop <i class="dopln">md-pole</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa74626e"><span><a href="#zxa74626e">⪑</a></span></span>ručně <b>připojit</b> existující pole<span class="cislo">#2 </span><sup><a href="#kapx1bb7a42ppc1" id="kapx1bb7a42ppcr1" title="Toto zaklínadlo budete obvykle potřebovat jen po ručním odpojení pole; jinak systém pole připojuje automaticky, jakmile ho zaregistruje, a stejně automaticky ho rozšiřuje, když narazí na nový díl, který do něj patří).">(1)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa74626e"><span><a href="#zxa74626e">@</a></span></span>ručně <b>připojit</b> existující pole<span class="cislo">#2 </span><sup><a href="#kapx1bb7a42ppc1" id="kapx1bb7a42ppcr1" title="Toto zaklínadlo budete obvykle potřebovat jen po ručním odpojení pole; jinak systém pole připojuje automaticky, jakmile ho zaregistruje, a stejně automaticky ho rozšiřuje, když narazí na nový díl, který do něj patří).">(1)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo mdadm -A <i class="dopln">md-pole</i> <i class="dopln">/dev/oddíl</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx47bf18f"><span><a href="#zx47bf18f">◔</a></span></span>označit díl jako <b>selhavší</b><span class="cislo">#3 </span><sup><a href="#kapx1bb7a42ppc2" id="kapx1bb7a42ppcr2" title="Díl označený jako „selhavší“ pole okamžitě přestane používat a bude počítat se ztrátou všech dat na něm uložených.">(2)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx47bf18f"><span><a href="#zx47bf18f">@</a></span></span>označit díl jako <b>selhavší</b><span class="cislo">#3 </span><sup><a href="#kapx1bb7a42ppc2" id="kapx1bb7a42ppcr2" title="Díl označený jako „selhavší“ pole okamžitě přestane používat a bude počítat se ztrátou všech dat na něm uložených.">(2)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo mdadm --manage <i class="dopln">md-pole</i> -f <i class="dopln">/dev/oddíl</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf7c85c2"><span><a href="#zxf7c85c2">╋</a></span></span><b>přejmenovat</b> pole<span class="cislo">#4 </span><sup><a href="#kapx1bb7a42ppc3" id="kapx1bb7a42ppcr3" title="Přejmenováním pole se nezmění jeho UUID, může se však změnit číslo md-zařízení.">(3)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf7c85c2"><span><a href="#zxf7c85c2">@</a></span></span><b>přejmenovat</b> pole<span class="cislo">#4 </span><sup><a href="#kapx1bb7a42ppc3" id="kapx1bb7a42ppcr3" title="Přejmenováním pole se nezmění jeho UUID, může se však změnit číslo md-zařízení.">(3)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo mdadm --detail <i class="dopln">md-pole</i></div>
 <div class="radekzaklinadla akce">Bezpečně si uschovejte seznam dílů pole.</div>
 <div class="radekzaklinadla">sudo mdadm --stop <i class="dopln">md-pole</i> &amp;&amp; sudo mdadm -A /dev/md/<i class="dopln">nový-název</i> --update=name --name=<i class="dopln">nový-název</i> --homehost=any <i class="dopln">/dev/všechny-díly</i><span class="tritecky"></span></div>
 </div></div>
 
 <h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 9 (Diskové oddíly/Softwarový RAID), sekce 3 (Zaklínadla), podsekce 3 (Prokládané pole (RAID0))"><sup>3/</sup>3 Prokládané pole (RAID0)</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1cb53bb"><span><a href="#zx1cb53bb">⇵</a></span></span><b>vytvořit</b><span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1cb53bb"><span><a href="#zx1cb53bb">@</a></span></span><b>vytvořit</b><span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">for x in <i class="dopln">/dev/oddíl</i><span class="tritecky"></span>; do sudo wipefs -a &quot;$x&quot;; done</div>
 <div class="radekzaklinadla">sudo mdadm -Cv /dev/md/<i class="dopln">název</i> --homehost=any -l stripe -n <i class="dopln">počet-oddílů</i> <i class="dopln">/dev/první-oddíl</i> <i class="dopln">/dev/další-oddíl</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx32cc9f4"><span><a href="#zx32cc9f4">꜓</a></span></span><b>smazat</b><span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx32cc9f4"><span><a href="#zx32cc9f4">@</a></span></span><b>smazat</b><span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla akce">Odpojte pole (madm --stop)</div>
 <div class="radekzaklinadla">for x in <i class="dopln">/dev/oddíl</i><span class="tritecky"></span>; do sudo mdadm --zero-superblock &quot;$x&quot;; done</div>
 </div></div>
 
 <h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 9 (Diskové oddíly/Softwarový RAID), sekce 3 (Zaklínadla), podsekce 4 (Zrcadlené pole (RAID1))"><sup>3/</sup>4 Zrcadlené pole (RAID1)</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx974a088"><span><a href="#zx974a088">⬋</a></span></span><b>vytvořit</b><span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx974a088"><span><a href="#zx974a088">@</a></span></span><b>vytvořit</b><span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">for x in <i class="dopln">/dev/oddíl</i><span class="tritecky"></span>; do sudo wipefs -a &quot;$x&quot;; done</div>
 <div class="radekzaklinadla">sudo mdadm -Cv /dev/md/<i class="dopln">název</i> --homehost=any -l mirror -n <i class="dopln">počet-zákl-dílů</i> <span class="volznak">[</span>-x <i class="dopln">počet-záložních-dílů</i><span class="volznak">]</span> <i class="dopln">/dev/první-oddíl</i> <i class="dopln">/dev/další-oddíl</i><span class="tritecky"></span></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx823ef8e"><span><a href="#zx823ef8e">❊</a></span></span><b>smazat</b><span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx823ef8e"><span><a href="#zx823ef8e">@</a></span></span><b>smazat</b><span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla akce">Odpojte pole (madm --stop)</div>
 <div class="radekzaklinadla">for x in <i class="dopln">/dev/oddíl</i><span class="tritecky"></span>; do sudo mdadm --zero-superblock &quot;$x&quot;; done</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa68e35d"><span><a href="#zxa68e35d">∥</a></span></span>přidat záložní/základní díl<span class="cislo">#3 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa68e35d"><span><a href="#zxa68e35d">@</a></span></span>přidat záložní/základní díl<span class="cislo">#3 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo mdadm --manage <i class="dopln">md-pole</i> -va <i class="dopln">/dev/nový-oddíl</i></div>
 <div class="radekzaklinadla">sudo mdadm --grow <i class="dopln">md-pole</i> -va <i class="dopln">/dev/nový-oddíl</i> -n <i class="dopln">nový-počet-zákl-oddílů</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8dbc0cc"><span><a href="#zx8dbc0cc">⪗</a></span></span>odebrat záložní/základní díl<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8dbc0cc"><span><a href="#zx8dbc0cc">@</a></span></span>odebrat záložní/základní díl<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo mdadm --manage <i class="dopln">md-pole</i> -vr <i class="dopln">/dev/nový-oddíl</i></div>
 <div class="radekzaklinadla">sudo mdadm --manage -vf <i class="dopln">/dev/díl</i> -r <i class="dopln">/dev/díl</i> &amp;&amp; sudo mdadm --grow -n <i class="dopln">nový-počet-zákl-oddílů</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx85e12bf"><span><a href="#zx85e12bf">⠘</a></span></span>zvýšit počet základních dílů na úkor záložních<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx85e12bf"><span><a href="#zx85e12bf">@</a></span></span>zvýšit počet základních dílů na úkor záložních<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo mdadm --grow <i class="dopln">md-pole</i> -n <i class="dopln">nový-počet-zákl-dílů</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx94a3069"><span><a href="#zx94a3069">ຝ</a></span></span>učinit z některých základních oddílů záložní<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx94a3069"><span><a href="#zx94a3069">@</a></span></span>učinit z některých základních oddílů záložní<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxba6df55"><span><a href="#zxba6df55">⊷</a></span></span>ručně spustit/ukončit kontrolu konzistence pole<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxba6df55"><span><a href="#zxba6df55">@</a></span></span>ručně spustit/ukončit kontrolu konzistence pole<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo tee /sys/devices/virtual/block/$(basename $(realpath <i class="dopln">md-pole</i> ))/md/sync_action &lt;&lt;&lt;check</div>
 <div class="radekzaklinadla">sudo tee /sys/devices/virtual/block/$(basename $(realpath <i class="dopln">md-pole</i> ))/md/sync_action &lt;&lt;&lt;idle</div>
 </div></div>
 
 <h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 9 (Diskové oddíly/Softwarový RAID), sekce 3 (Zaklínadla), podsekce 5 (Pole s paritou (RAID5))"><sup>3/</sup>5 Pole s paritou (RAID5)</a></span></h3>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxbf3b6eb"><span><a href="#zxbf3b6eb">┺</a></span></span><b>vytvořit</b><span class="cislo">#1 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxbf3b6eb"><span><a href="#zxbf3b6eb">@</a></span></span><b>vytvořit</b><span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">for x in <i class="dopln">/dev/oddíl</i><span class="tritecky"></span>; do sudo wipefs -a &quot;$x&quot;; done</div>
 <div class="radekzaklinadla">sudo mdadm -Cv /dev/md/<i class="dopln">název</i> --homehost=any -l raid5 -n <i class="dopln">počet-zákl-dílů</i> <span class="volznak">[</span>-x <i class="dopln">počet-záložních-dílů</i><span class="volznak">]</span> <i class="dopln">/dev/oddíl</i><span class="tritecky"></span></div>
 <div class="radekzaklinadla akce">Před dalšími operacemi s polem počkejte, než se uklidní (lze sledovat pomocí „watch -n 1 cat /proc/mdstat“).</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe769416"><span><a href="#zxe769416">⇸</a></span></span><b>smazat</b><span class="cislo">#2 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe769416"><span><a href="#zxe769416">@</a></span></span><b>smazat</b><span class="cislo">#2 </span></div><div class="radky">
 <div class="radekzaklinadla akce">Odpojte pole (madm --stop)</div>
 <div class="radekzaklinadla">for x in <i class="dopln">/dev/oddíl</i><span class="tritecky"></span>; do sudo mdadm --zero-superblock &quot;$x&quot;; done</div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4821195"><span><a href="#zx4821195">⌝</a></span></span>přidat záložní/základní díl<span class="cislo">#3 </span><sup><a href="#kapx1bb7a42ppc4" id="kapx1bb7a42ppcr4" title="Po přidání základního dílu neprovádějte další zásadní operace s polem, dokud se neuklidní.">(4)</a></sup></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4821195"><span><a href="#zx4821195">@</a></span></span>přidat záložní/základní díl<span class="cislo">#3 </span><sup><a href="#kapx1bb7a42ppc4" id="kapx1bb7a42ppcr4" title="Po přidání základního dílu neprovádějte další zásadní operace s polem, dokud se neuklidní.">(4)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">sudo mdadm --manage <i class="dopln">md-pole</i> -va <i class="dopln">/dev/nový-oddíl</i></div>
 <div class="radekzaklinadla">sudo mdadm --grow <i class="dopln">md-pole</i> -va <i class="dopln">/dev/nový-oddíl</i> <span class="volznak">[</span>-a <i class="dopln">/dev/další-nový-oddíl</i><span class="volznak">]</span><span class="tritecky"></span> -n <i class="dopln">nový-počet-zákl-dílů</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7801cc3"><span><a href="#zx7801cc3">⚢</a></span></span>odebrat záložní díl<span class="cislo">#4 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7801cc3"><span><a href="#zx7801cc3">@</a></span></span>odebrat záložní díl<span class="cislo">#4 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo mdadm --manage <i class="dopln">md-pole</i> -vr <i class="dopln">/dev/nový-oddíl</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2ee32be"><span><a href="#zx2ee32be">≎</a></span></span>odebrat základní díl<span class="cislo">#5 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2ee32be"><span><a href="#zx2ee32be">@</a></span></span>odebrat základní díl<span class="cislo">#5 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx47184e9"><span><a href="#zx47184e9">⣎</a></span></span>zvýšit počet základních dílů na úkor záložních<span class="cislo">#6 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx47184e9"><span><a href="#zx47184e9">@</a></span></span>zvýšit počet základních dílů na úkor záložních<span class="cislo">#6 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo mdadm --grow <i class="dopln">md-pole</i> -n <i class="dopln">nový-počet-zákl-dílů</i></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx49633c7"><span><a href="#zx49633c7">⚲</a></span></span>učinit z některých základních oddílů záložní<span class="cislo">#7 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx49633c7"><span><a href="#zx49633c7">@</a></span></span>učinit z některých základních oddílů záložní<span class="cislo">#7 </span></div><div class="radky">
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
-<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx33fa435"><span><a href="#zx33fa435">≷</a></span></span>nahradit díl za běhu jiným oddílem<span class="cislo">#8 </span></div><div class="radky">
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx33fa435"><span><a href="#zx33fa435">@</a></span></span>nahradit díl za běhu jiným oddílem<span class="cislo">#8 </span></div><div class="radky">
 <div class="radekzaklinadla">sudo mdadm --manage <i class="dopln">md-pole</i> -v --replace <i class="dopln">/dev/díl-k-odstranění</i> -a <i class="dopln">/dev/nový-oddíl</i></div>
 <div class="radekzaklinadla akce">Počkejte, než se pole uklidní (lze sledovat pomocí „watch -n 1 cat /proc/mdstat“)</div>
 <div class="radekzaklinadla">sudo mdadm --manage <i class="dopln">md-pole</i> -vr <i class="dopln">/dev/díl-k-odstranění</i></div>
@@ -229,7 +229,7 @@ Tato kapitola záměrně nepokrývá:
 </nav>
 
 
-<div class="odkazydole"><div><a href="nabidka-aplikaci.htm"><img src="obrazky/ik/nabidka-aplikaci.png" alt="" width="32" height="32">Nabídka aplikací</a><a href="sprava-uzivatelskych-uctu.htm"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="" width="32" height="32">Správa uživatelských účtů</a><a href="bash-funkce-a-skripty.htm"><img src="obrazky/ik/bash.png" alt="" width="32" height="32">Bash / Funkce a skripty</a></div></div>
+<div class="odkazydole"><div><a href="odkazy.htm"><img src="obrazky/ik/odkazy.png" alt="" width="32" height="32">Pevné a symbolické odkazy</a><a href="perl-zaklady.htm"><img src="obrazky/ik/perl-zaklady.png" alt="" width="32" height="32">Perl: základy</a><a href="bash-interaktivni-rezim.htm"><img src="obrazky/ik/bash.png" alt="" width="32" height="32">Bash / Interaktivní režim</a></div></div>
 <div class="reklamnipata">Líbí se vám tento projekt a chcete, aby byl ještě lepší? Můžete mi s tím pomoci. Zmiňte se o něm technicky zdatným přátelům, opravte překlepy a nahlašte nefunkční zaklínadla, aby mohla být opravena; poskytněte mi zpětnou vazbu nebo se zapojte do vývoje nových kapitol. Další informace na GitHubu v dokumentu <a href="https://github.com/singularis-mzf/linux-spellbook/blob/v%C3%BDvojov%C3%A1/JAK-SE-ZAPOJIT.md">Jak se zapojit</a>.</div>
 
 </article>
@@ -294,6 +294,7 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/koncepce-projektu.png" alt="[]"></span><span class="fragodkazy"><a href="koncepce-projektu.htm" class="odkaz"><span><span class="cislo">19</span>Koncepce projektu Linux: Kniha kouzel</span></a></span></div>
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/plan-vyvoje.png" alt="[]"></span><span class="fragodkazy"><a href="plan-vyvoje.htm" class="odkaz"><span><span class="cislo">20</span>Plán budoucího vývoje</span></a></span></div>
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="fragodkazy"><a href="licence.htm" class="odkaz"><span><span class="cislo">21</span>Licence</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/rejstrik.png" alt="[]"></span><span class="fragodkazy"><a href="rejstrik.htm" class="odkaz"><span><span class="cislo">22</span>Rejstřík podle klasických příkazů</span></a></span></div>
 <div class="premiove"><strong>Prémiové kapitoly:</strong>
 <div>AWK</div>
 <div>Bash / Vstup, výstup a přesměrování</div>

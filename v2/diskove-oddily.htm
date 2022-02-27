@@ -5,13 +5,13 @@
 
 <title>Diskové oddíly − Linux: Kniha kouzel</title>
 <meta name="viewport" content="width=1000, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="lkk-20211115.css">
+<link rel="stylesheet" type="text/css" href="lkk-20220227.css">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
 <body class="jeukazka">
 <div id="nahore"><div id="okno">
 <header>
-<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.11, S. S. (15. listopadu 2021)</span>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.12, Š. Š. (27. února 2022)</span>
 <span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -501,6 +501,8 @@ Poznámka: funkčnost těchto voleb ve správcích souborů může být různá;
 <h3 id="cast5x3"><span><a href="#cast5x3" title="kapitola 6 (Diskové oddíly), sekce 5 (Nejdůležitější volby připojení), podsekce 3 (Pro ext4, ext3 a ext2)"><sup>5/</sup>3 Pro ext4, ext3 a ext2</a></span></h3>
 <table class="parametryprikazu"><tbody><tr><td>○ errors=remount-ro ○ errors=panic ○ errors=continue</td><td>V případě kritické chyby: připojí systém jen pro čtení/zhroutí se/pokračuje. (Nezkoušel/a jsem.)</td></tr>
 
+<tr><td>☐ init_itable=0</td><td>Nastaví maximální prioritu inicializaci souborového systému. Výhodné při inicializaci souborových systémů na otočných pevných discích, kdy by normální pomalá inicializace delší dobu snižovala výkon disku. (Zkoušeno jen na ext4.)</td></tr>
+
 <tr><td>◉ user_xattr ○ nouser_xattr</td><td>Povolí/zakáže uživatelské rozšířené atributy. (ext3/ext4) V případě nouser_xattr budou uživatelské rozšířené atributy stávajících souborů a adresářů zachovány, ale nepůjdou číst ani zapisovat.</td></tr>
 
 <tr><td>◉ acl ○ noacl</td><td>Povolí/zakáže rozšířená přístupová práva. (Zatím jsem nezkoušel/a.)</td></tr>
@@ -699,7 +701,7 @@ Tato kapitola záměrně nepokrývá:
 </nav>
 
 
-<div class="odkazydole"><div><a href="git.htm"><img src="obrazky/ik/git.png" alt="" width="32" height="32">Git</a><a href="diskove-oddily-lvm.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly / LVM</a><a href="diskove-oddily-btrfs.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly / Btrfs</a></div></div>
+<div class="odkazydole"><div><a href="odkazy.htm"><img src="obrazky/ik/odkazy.png" alt="" width="32" height="32">Pevné a symbolické odkazy</a><a href="git.htm"><img src="obrazky/ik/git.png" alt="" width="32" height="32">Git</a><a href="nabidka-aplikaci.htm"><img src="obrazky/ik/nabidka-aplikaci.png" alt="" width="32" height="32">Nabídka aplikací</a></div></div>
 <div class="reklamnipata">Líbí se vám tento projekt a chcete, aby byl ještě lepší? Můžete mi s tím pomoci. Zmiňte se o něm technicky zdatným přátelům, opravte překlepy a nahlašte nefunkční zaklínadla, aby mohla být opravena; poskytněte mi zpětnou vazbu nebo se zapojte do vývoje nových kapitol. Další informace na GitHubu v dokumentu <a href="https://github.com/singularis-mzf/linux-spellbook/blob/v%C3%BDvojov%C3%A1/JAK-SE-ZAPOJIT.md">Jak se zapojit</a>.</div>
 
 </article>

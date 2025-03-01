@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="cs">
+<head profile="http://www.w3.org/2005/10/profile">
+<meta charset="UTF-8">
+
+<title>Bash / Vstup, výstup a přesměrování − Linux: Kniha kouzel</title>
+<meta name="viewport" content="width=1000, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="lkk-20250301.css">
+<link rel="icon" type="image/png" href="obrazky/favicon.png">
+</head>
+<body>
+<div id="nahore"><div id="okno">
+<header>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, 2.15 (1. března 2025)</span>
+<span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
+</header>
+<nav class="menuokna">
+<a href="#menuosnova" class="menu"><span class="prvnipismeno">O</span>snova</a>
+<a href="#menukapitoly" class="menu"><span class="prvnipismeno">K</span>apitoly</a>
+<a href="#menustitky" class="menu"><span class="prvnipismeno">Š</span>títky</a>
+<a href="#menunapoveda" class="menu"><span class="prvnipismeno">N</span>ápověda</a>
+<a href="bash-interaktivni-rezim.htm" rel="prev" title="4.2. Bash / Interaktivní režim" accesskey="p" class="predchozi">Předchozí&nbsp;kapitola</a>
+<a href="index.htm" class="prehled"><span class="prvnipismeno">P</span>řehled kapitol</a>
+<a href="datum-cas-kalendar.htm" rel="next" title="5. Datum, čas a kalendář" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
+</nav>
+
+<div class="slogan-veskera-moc">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+
+<!--
+<nav class="horni">
+<div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+<span class="prev">
+<a href="bash-interaktivni-rezim.htm" rel="prev" title="4.2. Bash / Interaktivní režim" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+</span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!- -
+- ->&nbsp;| <a href="datum-cas-kalendar.htm" rel="next" title="5. Datum, čas a kalendář" accesskey="n">Následující&nbsp;kapitola</a>
+</span>
+</nav>
+-->
+
+
+<article>
+
+<h1 class="kapitola">4.3. <img src="obrazky/ik/bash.png" alt="" width="64" height="64"> <a href="bash.htm">Bash</a> / Vstup, výstup a přesměrování</h1>
+<div class="varovani">
+Vývoj vanilkové příchuti Linuxu: Knihy kouzel byl 1.&nbsp;března&nbsp;2025
+ukončen. Tento text je zachován jako historický, ale chyby již nejsou
+opravovány. Odnože projektu pod kompatibilní licencí jsou vítány.
+</div>
+<div class="stitky"><a href="x-stitky.htm#">bash</a>
+<a href="x-stitky.htm#">program</a>
+</div>
+<h2 id="cast1"><a href="#cast1"><span class="cislo">1.</span> Úvod</a></h2>
+<p class="ponadpisu">
+Tato kapitola pokrývá nástroje interpretu Bash k ovládání vstupů a výstupů
+spouštěných příkazů i vstupů a výstupů samotného interpretu.
+Rovněž pokrývá nástroje ke čtení textových řetězců ze souborů, terminálu či
+výstupu spoustěného programu a nástroje k zápisu textových řetězců
+do souboru, na terminál, do souboru nebo na vstup spouštěného programu.
+</p><p>
+Interpret Bash je vyvíjen v rámci projektu GNU.
+</p>
+
+<h2 id="cast2"><a href="#cast2"><span class="cislo">2.</span> Definice</a></h2>
+<ul><li><b>Deskriptor</b> je (nejen v Bashi, ale pro každý jednotlivý proces v systému) číslovaný vstup nebo výstup. Základní deskriptory jsou „<b>standardní vstup</b>“ (číslo 0, „stdin“, budu zkracovat jako „s.vstup“), „<b>standardní výstup</b>“ (číslo 1, „stdout“, budu zkracovat jako „s.výstup“) a „<b>standardní chybový výstup</b>“ (číslo 2, „stderr“, budu zkracovat jako „s.ch. výstup“). Deskriptory 3 až 9 jsou určeny pro libovolné použití, deskriptory 10 až 255 pro vnitřní použití interpretem.
+</li><li><b>Vstup</b> je deskriptor, ze kterého může proces číst data.
+</li><li><b>Výstup</b> je deskriptor, do kterého může proces zapisovat data.
+</li><li><b>Roura</b> („pipeline“, v některých příručkách také nazývaná „kolona“) je spojení dvou nebo více jednoduchých příkazů operátorem „|“. Bash pak tyto příkazy spustí paralelně a připojí standardní výstup příkazu nalevo od | na standardní vstup příkazu napravo od |. Díky tomu pak data „protékají“ přímo z jednoho procesu do druhého. Návratovým kódem roury je ve výchozím nastavení návratový kód posledního uvedeného jednoduchého příkazu.
+</li><li><b>Přesměrování deskriptorů</b> (či jen <b>přesměrování</b>) je úkon, při kterém Bash něco provede s deskriptory vznikajícího procesu (nebo svými vlastními). Přesměrování se provádí jedno po druhém zleva doprava, jak jsou zadána na příkazové řádce.
+</li></ul><p class="ponadpisu">
+<i>Užitečná poznámka ke spouštění příkazů</i>: kdykoliv z Bashe spustíte jakýkoliv nový proces, ten nejprve zdědí <i>všechny</i> deskriptory od interpretu (ne jen ty tři základní), pak pro něj Bash provede přesměrování deskriptorů specifikovaná na příkazovém řádku (včetně propojení procesů rour) a pak se teprve pokusí program spustit. To znamená, že vedlejší účinky přesměrování (např. vytvoření souborů) se projeví i v případě, že se Bashi program spustit nepodaří (např. proto, že program takového názvu neexistuje).
+</p>
+
+<h2 id="cast3" class="zaklinadla"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla</a></h2>
+
+<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 7 (Bash/Vstup, výstup a přesměrování), sekce 3 (Zaklínadla), podsekce 1 (Roura)"><sup>3/</sup>1 Roura</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd2d4054"><span><a href="#zxd2d4054">@</a></span></span>přesměrovat s.výstup příkazu A na s.vstup příkazu B<span class="cislo">#1 </span><sup><a href="#kapxc92b097ppc1" id="kapxc92b097ppcr1" title="Varianta „|&amp;“ přesměruje navíc i s.ch. výstup.">(1)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">příkaz-A včetně přesměrování</i> <span class="volznak">[</span>|<span class="volznak">[</span>&amp;<span class="volznak">]</span> <i class="dopln">příkaz-B včetně přesměrování</i><span class="volznak">]</span><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0d68e38"><span><a href="#zx0d68e38">@</a></span></span>totéž, ale příkaz B přitom neuzavřít do podprostředí<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">příkaz-B včetně přesměrování</i> &lt; &lt;(<i class="dopln">příkaz-A včetně přesměrování</i>)</div>
+</div></div>
+
+<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 7 (Bash/Vstup, výstup a přesměrování), sekce 3 (Zaklínadla), podsekce 2 (Přesměrování vstupu (čtení odněkud))"><sup>3/</sup>2 Přesměrování vstupu (čtení odněkud)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx33c1a8c"><span><a href="#zx33c1a8c">@</a></span></span>čtení z existujícího <b>souboru</b> (obecně/příklad)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">deskriptor</i><span class="volznak">]</span>&lt; <i class="dopln">cesta</i></div>
+<div class="radekzaklinadla">&lt; &quot;../můj soubor.txt&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxecff70f"><span><a href="#zxecff70f">@</a></span></span>čtení ze zadaného <b>textu</b> (obecně/příklady)<span class="cislo">#2 </span><sup><a href="#kapxc92b097ppc2" id="kapxc92b097ppcr2" title="Poznámka: Bash za konec zadaného textu vždy připojí znak „\n“, i v případě, že už tam je!">(2)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">deskriptor</i><span class="volznak">]</span>&lt;&lt;&lt; <i class="dopln">parametr</i></div>
+<div class="radekzaklinadla">sort &lt;&lt;&lt; $'zoo\nahoj\nseminář'</div>
+<div class="radekzaklinadla">sort &lt;&lt;&lt; &quot;A$(echo BC)D&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb531c92"><span><a href="#zxb531c92">@</a></span></span>čtení z <b>prázdného</b> vstupu<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">deskriptor</i><span class="volznak">]</span>&lt; /dev/null</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxec6a620"><span><a href="#zxec6a620">@</a></span></span>čtení ze s.výstupu bloku <b>příkazů</b> (obecně/příklad)<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">deskriptor</i><span class="volznak">]</span>&lt;<span class="viditelnamezera">&nbsp;</span>&lt;(<i class="dopln">příkazy...</i>)</div>
+<div class="radekzaklinadla">sort &lt;<span class="viditelnamezera">&nbsp;</span>&lt;(echo Zoo; echo Abeceda)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx31181de"><span><a href="#zx31181de">@</a></span></span>zduplikovat/přečíslovat deskriptor pro čtení<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">cílový-deskriptor</i><span class="volznak">]</span>&lt;&amp;<i class="dopln">zdrojový-deskriptor</i></div>
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">cílový-deskriptor</i><span class="volznak">]</span>&lt;&amp;<i class="dopln">zdrojový-deskriptor</i>-</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe4851b1"><span><a href="#zxe4851b1">@</a></span></span>zduplikovat <b>pojmenovaný deskriptor</b> pro čtení<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">příkaz a parametry</i> <span class="volznak">[</span><i class="dopln">cílový-deskriptor</i><span class="volznak">]</span>&lt;&amp;$<i class="dopln">identifikator-pojm-desk</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx287f744"><span><a href="#zx287f744">@</a></span></span>čtení z <b>bloku řádků</b><span class="cislo">#7 </span><sup><a href="#kapxc92b097ppc3" id="kapxc92b097ppcr3" title="Zadaný ukončovač musí být neprázdný řetězec. Bash na přesměrovávaný vstup zapíše všechny řádky počínaje prvním řádkem po aktuálním příkazu a konče poslední řádkou, která se přesně neshoduje s ukončovačem (není dovolena odlišnost ani v bílých znacích na začátku či konci řádky!).">(3)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">deskriptor</i><span class="volznak">]</span>&lt;&lt; '<i class="dopln">ukončovač</i>'</div>
+<div class="radekzaklinadla"><i class="dopln">řádky textu</i></div>
+<div class="radekzaklinadla"><i class="dopln">ukončovač</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2c6b184"><span><a href="#zx2c6b184">@</a></span></span><b>zavřít</b> deskriptor<span class="cislo">#8 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">deskriptor</i>&lt;&amp;-</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0b4a867"><span><a href="#zx0b4a867">@</a></span></span>čtení z bloku řádků po rozvoji<span class="cislo">#9 </span><sup><a href="#kapxc92b097ppc4" id="kapxc92b097ppcr4" title="Pozor! Při použití tohoto zaklínadla nesmí být žádný znak v identifikátoru odzvláštněn (tzn. používejte jen znaky dovolené v názvu proměnné). Bash na přesměrovávaný vstup zapíše všechny řádky počínaje prvním řádkem po aktuálním příkazu a konče poslední řádkou, která se přesně neshoduje se zadaným identifikátorem (shoda musí být přesná, není dovolena odlišnost ani v bílých znacích na začátku či konci). Před použitím Bash celý blok řádek intepretuje, přičemž za zvláštní považuje pouze znaky „$“, „\“ a „`“ (s výjimkou apostrofů s dolarem, ty tam přímo použít nelze), můžete tam tedy dosazovat hodnoty proměnných a výstupy příkazů.">(4)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">deskriptor</i><span class="volznak">]</span>&lt;&lt;- <i class="dopln">identifikátor</i></div>
+<div class="radekzaklinadla"><i class="dopln">řádky textu</i></div>
+<div class="radekzaklinadla"><i class="dopln">identifikátor</i></div>
+</div></div>
+
+<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 7 (Bash/Vstup, výstup a přesměrování), sekce 3 (Zaklínadla), podsekce 3 (Přesměrování výstupu (zápis někam))"><sup>3/</sup>3 Přesměrování výstupu (zápis někam)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx68173f7"><span><a href="#zx68173f7">@</a></span></span>zápis do <b>souboru</b>; existuje-li: zkrátit na prázdný/připojit za konec<span class="cislo">#1 </span><sup><a href="#kapxc92b097ppc5" id="kapxc92b097ppcr5" title="Varianta „&gt;|“ dovolí přepsání existujícího souboru i v případě, že je nastavena volba „noclobber“.">(5)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">deskriptor</i><span class="volznak">]</span>&gt;<span class="volznak">[</span>|<span class="volznak">]</span> <i class="dopln">cesta</i></div>
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">deskriptor</i><span class="volznak">]</span>&gt;&gt; <i class="dopln">cesta</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx65ee635"><span><a href="#zx65ee635">@</a></span></span>zápis <b>nikam</b><span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">deskriptor</i><span class="volznak">]</span>&gt; /dev/null</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8a64062"><span><a href="#zx8a64062">@</a></span></span>zápis na s.vstup bloku příkazů (obecně/příklad)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">deskriptor</i><span class="volznak">]</span>&gt;<span class="viditelnamezera">&nbsp;</span>&gt;(<i class="dopln">příkaz</i><span class="tritecky"></span>)</div>
+<div class="radekzaklinadla">df -h &gt;<span class="viditelnamezera">&nbsp;</span>&gt;(sed -u 1q; sort)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx046ee3c"><span><a href="#zx046ee3c">@</a></span></span>zduplikovat/přečíslovat deskriptor pro zápis<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">cílový-deskriptor</i><span class="volznak">]</span>&gt;&amp;<i class="dopln">zdrojový-deskriptor</i></div>
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">cílový-deskriptor</i><span class="volznak">]</span>&gt;&amp;<i class="dopln">zdrojový-deskriptor</i>-</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx96384b7"><span><a href="#zx96384b7">@</a></span></span>zduplikovat <b>pojmenovaný deskriptor</b> pro zápis<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">příkaz a parametry</i> <span class="volznak">[</span><i class="dopln">cílový-deskriptor</i><span class="volznak">]</span>&gt;&amp;$<i class="dopln">identifikator-pojm-desk</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe50914b"><span><a href="#zxe50914b">@</a></span></span><b>zavřít</b> deskriptor<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">deskriptor</i>&gt;&amp;-</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa3f4a73"><span><a href="#zxa3f4a73">@</a></span></span><b>přepis</b> souboru (čtení i zápis, bez zkrácení) (obecně/příklad příkazu)<span class="cislo">#7 </span><sup><a href="#kapxc92b097ppc6" id="kapxc92b097ppcr6" title="Vyžaduje právo soubor číst i do něj zapisovat; neexistující soubor bude vytvořen, existující soubor nebude zkrácen a zápis začne bajt po bajtu přepisovat jeho obsah od začátku souboru.">(6)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">cílový-deskriptor</i>&lt;&gt;<i class="dopln">cesta</i></div>
+<div class="radekzaklinadla">echo ABC 2&gt;&amp;1 1&lt;&gt; můj-soubor.txt</div>
+</div></div>
+
+<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 7 (Bash/Vstup, výstup a přesměrování), sekce 3 (Zaklínadla), podsekce 4 (Některá obvyklá přesměrování)"><sup>3/</sup>4 Některá obvyklá přesměrování</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx621b5b7"><span><a href="#zx621b5b7">@</a></span></span><b>zahodit</b> s.výstup i s.ch. výstup (alternativy)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">&amp;&gt; /dev/null</div>
+<div class="radekzaklinadla">&gt;/dev/null 2&gt;/dev/null</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8c8e66b"><span><a href="#zx8c8e66b">@</a></span></span>s.ch. výstup nasměrovat na s.výstup (alternativy)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">2&gt;&amp;1</div>
+<div class="radekzaklinadla">2&gt; /dev/stdout</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0f8ecf7"><span><a href="#zx0f8ecf7">@</a></span></span>s.výstup nasměrovat na s.ch. výstup (alternativy)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">&gt; /dev/stderr</div>
+<div class="radekzaklinadla">&gt;&amp;2</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx18690af"><span><a href="#zx18690af">@</a></span></span>s.výstup a s.ch. výstup připojit za konec souboru (pokud neexistuje, vytvořit prázdný)(alternativy)<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">&gt;&gt; <i class="dopln">cesta</i> 2&gt;&amp;1</div>
+<div class="radekzaklinadla">&amp;&gt;&gt; <i class="dopln">cesta</i></div>
+</div></div>
+
+<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 7 (Bash/Vstup, výstup a přesměrování), sekce 3 (Zaklínadla), podsekce 5 (Pojmenované deskriptory)"><sup>3/</sup>5 Pojmenované deskriptory</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3c2f5bd"><span><a href="#zx3c2f5bd">@</a></span></span><b>otevřít</b> (obecně/příklad)<span class="cislo">#1 </span><sup><a href="#kapxc92b097ppc7" id="kapxc92b097ppcr7" title="„Režim“ může být pro čtení „&lt;“, pro zápis „&gt;“, „&gt;|“, „&gt;&gt;“ a pro přepis „&lt;&gt;“ s významem jako u odpovídajícího přesměrování.">(7)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">exec {<i class="dopln">identifikator</i>}<i class="dopln">režim</i> <i class="dopln">cesta/k/souboru</i></div>
+<div class="radekzaklinadla">exec {mujdesk}&lt; můj-soubor.txt</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5f77900"><span><a href="#zx5f77900">@</a></span></span><b>zavřít</b> pro vstup/pro výstup/pro přepis<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">exec {<i class="dopln">identifikator</i>}&lt;&amp;-</div>
+<div class="radekzaklinadla">exec {<i class="dopln">identifikator</i>}&gt;&amp;-</div>
+<div class="radekzaklinadla">exec {<i class="dopln">identifikator</i>}&lt;&amp;- {<i class="dopln">identifikator</i>}&gt;&amp;-</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb560354"><span><a href="#zxb560354">@</a></span></span>příklad použití<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">exec {mujd}&gt;&gt;můj-log.txt</div>
+<div class="radekzaklinadla">date &quot;+%F %T&quot; &gt;&amp;$mujd</div>
+<div class="radekzaklinadla">printf 'Skript spuštěn (deskriptor %d)\n' &quot;$mujd&quot; &gt;&amp;$mujd</div>
+<div class="radekzaklinadla">exec {mujd}&gt;&amp;-</div>
+</div></div>
+
+<h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 7 (Bash/Vstup, výstup a přesměrování), sekce 3 (Zaklínadla), podsekce 6 (Ostatní aplikace přesměrování)"><sup>3/</sup>6 Ostatní aplikace přesměrování</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxbf7ac36"><span><a href="#zxbf7ac36">@</a></span></span>aplikovat přesměrování na skupinu příkazů<span class="cislo">#1 </span><sup><a href="#kapxc92b097ppc8" id="kapxc92b097ppcr8" title="Složené závorky můžete umístit i na stejný řádek jako příkazy uvnitř, ale v takovém případě je musíte oddělit mezerami a poslední příkaz musí být ukončen operátorem „;“ nebo „&amp;“! Proto doporučuji raději oddělovat složené závorky od příkazů koncem řádku.">(8)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">{</div>
+<div class="radekzaklinadla" style="padding-left:2ch;"><i class="dopln">příkazy</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla">} <i class="dopln">přesměrování</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx415ec44"><span><a href="#zx415ec44">@</a></span></span>aplikovat přesměrování permanentně (na všechny následující příkazy)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">exec <i class="dopln">přesměrování</i><span class="tritecky"></span></div>
+</div></div>
+
+<h2 id="cast4" class="zaklinadla"><a href="#cast4"><span class="cislo">4.</span> Zaklínadla: Čtení a zápis z Bashe</a></h2>
+
+<h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 7 (Bash/Vstup, výstup a přesměrování), sekce 4 (Zaklínadla: Čtení a zápis z Bashe), podsekce 1 (Zápis (výstup))"><sup>4/</sup>1 Zápis (výstup)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6f0c146"><span><a href="#zx6f0c146">@</a></span></span>formátovaný výstup<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">printf <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">'formátovací řetězec'</i> <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span><span class="tritecky"></span> <span class="volznak">[</span><i class="dopln">přesměrování</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxac23680"><span><a href="#zxac23680">@</a></span></span>zapsat <b>text</b><span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">printf %s<span class="volznak">[</span>\\n<span class="volznak">]</span> <i class="dopln">&quot;text&quot;</i> <span class="volznak">[</span><i class="dopln">přesměrování</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx85ab56b"><span><a href="#zx85ab56b">@</a></span></span>zapsat <b>bajty</b><span class="cislo">#3 </span><sup><a href="#kapxc92b097ppc9" id="kapxc92b097ppcr9" title="AB a CD reprezentují dvoumístný hexadecimální zápis bajtů k zapsání">(9)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">printf '\x<i class="dopln">AB</i><span class="volznak">[</span>\x<i class="dopln">CD</i><span class="volznak">]</span><span class="tritecky"></span>' <span class="volznak">[</span><i class="dopln">přesměrování</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxaff7642"><span><a href="#zxaff7642">@</a></span></span>zapsat „\0“ (nulový bajt)<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">printf \\0 <span class="volznak">[</span><i class="dopln">přesměrování</i><span class="volznak">]</span></div>
+</div></div>
+
+<h3 id="cast4x2"><span><a href="#cast4x2" title="kapitola 7 (Bash/Vstup, výstup a přesměrování), sekce 4 (Zaklínadla: Čtení a zápis z Bashe), podsekce 2 (Čtení (vstup))"><sup>4/</sup>2 Čtení (vstup)</a></span></h3>
+<p class="ponadpisu">
+Před použitím zaklínadel z této podsekce si prosím přečtěte podsekci
+„Jak funguje příkaz read“!
+</p>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx13f366c"><span><a href="#zx13f366c">@</a></span></span>přečíst do proměnné <b>záznam</b> ukončený znakem „\n“/„\0“/zadaným ASCII znakem<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">IFS= read -r<span class="volznak">[</span>u <i class="dopln">deskriptor</i><span class="volznak">]</span> <i class="dopln">promenna</i></div>
+<div class="radekzaklinadla">IFS= read -r<span class="volznak">[</span>u <i class="dopln">deskriptor</i><span class="volznak">]</span> -d &quot;&quot; <i class="dopln">promenna</i></div>
+<div class="radekzaklinadla">IFS= read -r<span class="volznak">[</span>u <i class="dopln">deskriptor</i><span class="volznak">]</span> -d <i class="dopln">&quot;ASCII-znak&quot;</i> <i class="dopln">promenna</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7995601"><span><a href="#zx7995601">@</a></span></span>přečíst do proměnné N znaků/1 znak<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">IFS= read -r<span class="volznak">[</span>u <i class="dopln">deskriptor</i><span class="volznak">]</span> -N <i class="dopln">N</i> <i class="dopln">promenna</i></div>
+<div class="radekzaklinadla">IFS= read -r<span class="volznak">[</span>u <i class="dopln">deskriptor</i><span class="volznak">]</span> -N 1 <i class="dopln">promenna</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2f74d7b"><span><a href="#zx2f74d7b">@</a></span></span>načíst záznam a <b>rozložit</b> ho do pole<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">IFS=<i class="dopln">&quot;oddělovače&quot;</i> read -r<span class="volznak">[</span>u <i class="dopln">deskriptor</i><span class="volznak">]</span> <span class="volznak">[</span>-d <i class="dopln">&quot;ASCII-ukončovač-záznamu&quot;</i><span class="volznak">]</span> -a <i class="dopln">pole</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla">IFS=&quot;:&quot; read -r -a data &lt; /etc/passwd &amp;&amp; printf %s\\n &quot;${data[4]}&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx28789e9"><span><a href="#zx28789e9">@</a></span></span>načíst záznam a <b>rozložit</b> ho do proměnných (obecně/příklad)<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">IFS=<i class="dopln">&quot;oddělovače&quot;</i> read -r<span class="volznak">[</span>u <i class="dopln">deskriptor</i><span class="volznak">]</span> <span class="volznak">[</span>-d <i class="dopln">&quot;ASCII-ukončovač-záznamu&quot;</i><span class="volznak">]</span> <i class="dopln">promenna</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla">IFS=&quot;:&quot; read -r a b c d e &lt; /etc/passwd</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx73157c1"><span><a href="#zx73157c1">@</a></span></span>načíst všechny záznamy do <b>nového pole</b> (alternativy)<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">readarray -t <span class="volznak">[</span>-d <i class="dopln">&quot;ukončovač&quot;</i><span class="volznak">]</span> <span class="volznak">[</span>-s <i class="dopln">kolik-z-přeskočit</i><span class="volznak">]</span> <span class="volznak">[</span>-n <i class="dopln">kolik-max-načíst</i><span class="volznak">]</span> <span class="volznak">[</span>-u <i class="dopln">deskriptor</i><span class="volznak">]</span> <i class="dopln">pole</i></div>
+<div class="radekzaklinadla">IFS=<i class="dopln">&quot;ukončovače&quot;</i> read -r<span class="volznak">[</span>u <i class="dopln">deskriptor</i><span class="volznak">]</span> -d &quot;&quot; -a <i class="dopln">pole</i> || true</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx871778f"><span><a href="#zx871778f">@</a></span></span>načíst všechny záznamy do existujícího pole<span class="cislo">#6 </span><sup><a href="#kapxc92b097ppc10" id="kapxc92b097ppcr10" title="„index“ je index v poli, kam má začít příkaz zapisovat. Pro zápis od začátku pole uveďte index „0“.">(10)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">readarray -t -O <i class="dopln">index</i> <span class="volznak">[</span>-d <i class="dopln">&quot;ukončovač&quot;</i><span class="volznak">]</span> <span class="volznak">[</span>-s <i class="dopln">kolik-z-přeskočit</i><span class="volznak">]</span> <span class="volznak">[</span>-n <i class="dopln">kolik-max-načíst</i><span class="volznak">]</span> <span class="volznak">[</span>-u <i class="dopln">deskriptor</i><span class="volznak">]</span> <i class="dopln">pole</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf35b1e0"><span><a href="#zxf35b1e0">@</a></span></span>načíst celý zbytek vstupu do proměnné<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla">IFS= read -rd &quot;&quot; <i class="dopln">promenna</i> &lt;<span class="viditelnamezera">&nbsp;</span>&lt;(tr -d \\0)</div>
+</div></div>
+
+<h3 id="cast4x3"><span><a href="#cast4x3" title="kapitola 7 (Bash/Vstup, výstup a přesměrování), sekce 4 (Zaklínadla: Čtení a zápis z Bashe), podsekce 3 (Interakce s uživatelem (jen při čtení z terminálu))"><sup>4/</sup>3 Interakce s uživatelem (jen při čtení z terminálu)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4136c41"><span><a href="#zx4136c41">@</a></span></span>načíst <b>heslo</b><span class="cislo">#1 </span><sup><a href="#kapxc92b097ppc11" id="kapxc92b097ppcr11" title="Parametr „-s“ potlačí výstup psaných znaků na terminál. Při načítání hesel si dejte velký pozor na to, aby použitá proměnná nebyla exportovaná, jinak se totiž heslo objeví v prostředí nově spuštěných procesů, odkud může být šikovnými hackery odposlechnuto.">(11)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>if<span class="volznak">]</span> IFS= read -rs <span class="volznak">[</span>-p <i class="dopln">&quot;Text výzvy:&quot;</i><span class="volznak">]</span> <i class="dopln">promenna</i> &amp;&amp; echo <span class="volznak">[</span>then <i class="dopln">...</i> fi<span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6ffc8b5"><span><a href="#zx6ffc8b5">@</a></span></span>nabídnout uživateli řádku k <b>úpravě</b> (obecně/příklad)<span class="cislo">#2 </span><sup><a href="#kapxc92b097ppc12" id="kapxc92b097ppcr12" title="Pozor! V případě selhání příkazu (např. vypršení časového limitu) zůstane v cílové proměnné prázdný řetězec, ať už uživatel mezitím nějaké úpravy provedl nebo ne.">(12)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">IFS= <span class="volznak">[</span>TMOUT=<span class="volznak">[</span><i class="dopln">časový-limit-sek</i><span class="volznak">]</span><span class="volznak">]</span> read -r <span class="volznak">[</span>-p <i class="dopln">&quot;Text výzvy&quot;</i><span class="volznak">]</span> -ei <i class="dopln">&quot;Výchozí text řádky&quot;</i> <i class="dopln">promenna</i></div>
+</div></div>
+
+<h3 id="cast4x4"><span><a href="#cast4x4" title="kapitola 7 (Bash/Vstup, výstup a přesměrování), sekce 4 (Zaklínadla: Čtení a zápis z Bashe), podsekce 4 (Je deskriptor připojený na terminál?)"><sup>4/</sup>4 Je deskriptor připojený na terminál?</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4b59aed"><span><a href="#zx4b59aed">@</a></span></span>je s.vstup připojený na terminál?<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">test -t 0</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfd39e9c"><span><a href="#zxfd39e9c">@</a></span></span>je s.výstup/s.ch. výstup připojený na terminál?<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">test -t 1</div>
+<div class="radekzaklinadla">test -t 2</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxeb5ee8a"><span><a href="#zxeb5ee8a">@</a></span></span>je deskriptor N připojený na terminál?<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">test -t <i class="dopln">N</i></div>
+</div></div>
+
+<h3 id="cast4x5"><span><a href="#cast4x5" title="kapitola 7 (Bash/Vstup, výstup a přesměrování), sekce 4 (Zaklínadla: Čtení a zápis z Bashe), podsekce 5 (Nastavení Bashe související s deskriptory a rourami)"><sup>4/</sup>5 Nastavení Bashe související s deskriptory a rourami</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2f522d8"><span><a href="#zx2f522d8">@</a></span></span>návratový kód vícenásobné roury se vezme: z prvního příkazu, který selhal/vždy z posledního příkazu roury (výchozí nastavení)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">set -o pipefail</div>
+<div class="radekzaklinadla">set +o pipefail</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa13defb"><span><a href="#zxa13defb">@</a></span></span>zkrácení existujícího souboru obyčejným přesměrováním výstupu (zakázat/povolit)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">set -C</div>
+<div class="radekzaklinadla">set +C</div>
+</div></div>
+
+<h2 id="cast5"><a href="#cast5"><span class="cislo">5.</span> Další poznámky</a></h2>
+
+<h3 id="cast5x1"><span><a href="#cast5x1" title="kapitola 7 (Bash/Vstup, výstup a přesměrování), sekce 5 (Další poznámky), podsekce 1 (Použití přesměrování deskriptorů)"><sup>5/</sup>1 Použití přesměrování deskriptorů</a></span></h3>
+<p class="ponadpisu">
+Přesměrování deskriptorů se obvykle uvádějí na konec příkazu, za poslední
+parametr; např. takto:
+</p>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">printf %s\\n &quot;Chyba!&quot; &gt;&amp;2</div>
+</div></div>
+<p class="ponadpisu">
+Ale Bash je dovoluje uvést kamkoliv, dokonce i před příkaz nebo mezi parametry, např.:
+</p>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">&gt;&amp;2 LC_ALL=C sort &lt;&lt;&lt; $'P\nC\nA' -</div>
+</div></div>
+<p class="ponadpisu">
+Přesměrování je možno aplikovat i na celý blok příkazů, na cykly (např. „while“) apod.
+</p><p>
+Zvláštní pozornost je potřeba věnovat použití „bloku řádků“ jako vstupu;
+definice ukončovače se totiž uvádí za značku &lt;&lt;, ale číst vstup začne
+Bash až <i>od následující řádky</i>, což umožňuje tento druh vstupu skombinovat
+např. s rourou:
+</p>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">LC_ALL=C sort &lt;&lt; &quot;KONEC&quot; | tr A _</div>
+<div class="radekzaklinadla">ZAHRADA</div>
+<div class="radekzaklinadla">Abeceda</div>
+<div class="radekzaklinadla">KONEC</div>
+</div></div>
+
+<h3 id="cast5x2"><span><a href="#cast5x2" title="kapitola 7 (Bash/Vstup, výstup a přesměrování), sekce 5 (Další poznámky), podsekce 2 (Jak funguje příkaz read)"><sup>5/</sup>2 Jak funguje příkaz read</a></span></h3>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">IFS=<i class="dopln">&quot;oddělovače&quot;</i> read -r<span class="volznak">[</span>u <i class="dopln">deskriptor</i><span class="volznak">]</span> <span class="volznak">[</span>-d <i class="dopln">&quot;ukončovač&quot;</i><span class="volznak">]</span> <i class="dopln">promenna</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla">IFS=<i class="dopln">&quot;oddělovače&quot;</i> read -r<span class="volznak">[</span>u <i class="dopln">deskriptor</i><span class="volznak">]</span> <span class="volznak">[</span>-d <i class="dopln">&quot;ukončovač&quot;</i><span class="volznak">]</span> -a <i class="dopln">pole</i></div>
+<div class="radekzaklinadla">read -r<span class="volznak">[</span>u <i class="dopln">deskriptor</i><span class="volznak">]</span> -N <i class="dopln">počet-znaků</i> <i class="dopln">promenna</i></div>
+</div></div>
+<ul class="kompaktni"><li>Před zahájením čtení „read“ do všech uvedených proměnných přiřadí prázdný řetězec. (Jde-li o čtení do pole, pole se vyprázdní.)
+</li><li>Čte ze zadaného deskriptoru (výchozí je s.vstup, tedy 0) znak po znaku a přidává je na konec první zadané proměnné (resp. prvního prvku pole).
+</li><li>Když na vstupu narazí na <i>oddělovač</i> (kterýkoliv znak z hodnoty proměnné IFS), přeskočí na další proměnnou/další prvek pole, s výjimkou případu, kdy se oddělovač nachází bezprostředně před ukončovačem záznamu; v takovém případu je oddělovač ignorován. Do poslední zadané proměnné se pak načte celý zbytek záznamu (tam už je hodnota proměnné IFS ignorována).
+</li><li>Když „read“ na vstupu narazí na ukončovač záznamu (výchozí je „\n“), <i>úspěšně</i> tím skončí čtení (tzn. návratový kód 0).
+</li><li>Když „read“ narazí na konec vstupu (nebo hardwarovou chybu), skončí čtení s návratovým kódem 1. Již načtené znaky budou v proměnných ponechány.
+</li></ul><p class="ponadpisu">
+<i>Postřehy:</i>
+</p>
+<ul class="kompaktni"><li>Ne-ASCII znaky lze použít v proměnné IFS (tzn. jako oddělovače záznamů), ale ne v parametru „-d“ (tzn. nemohou sloužit jako ukončovače záznamů).
+</li><li>Nulový bajt lze použít jako ukončovač záznamu (tvar parametru je pak „-d &quot;&quot;“), ale ne jako oddělovač záznamů (nelze ho uložit do proměnné IFS).
+</li><li>V případě, že „read“ narazí na konec vstupu, skončí s návratovým kódem 1, ale již přečtené znaky ponechá v příslušných proměnných.
+</li><li>Nastavíte-li časový limit, v případě jeho vypršení skončí „read“ s kódem 142 a načítané proměnné budou vyprázdněny.
+</li></ul>
+<h3 id="cast5x3"><span><a href="#cast5x3" title="kapitola 7 (Bash/Vstup, výstup a přesměrování), sekce 5 (Další poznámky), podsekce 3 (Jak funguje příkaz printf)"><sup>5/</sup>3 Jak funguje příkaz printf</a></span></h3>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">printf <span class="volznak">[</span>-v <i class="dopln">promenna</i><span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">'formátovací řetězec'</i> <span class="volznak">[</span><i class="dopln">parametr</i><span class="volznak">]</span><span class="tritecky"></span></div>
+</div></div>
+<p class="ponadpisu">
+Ve formátovacím řetězci jsou interpretovány formátovací značky (uvozené znakem „%“)
+a lomítkové sekvence (začínající zpětným lomítkem „\“), oba případy lze odzvláštnit
+zdvojením (tzn. „%%“ se interpretuje jako obyčejný znak % a „\\“ jako obyčejné
+zpětné lomítko). Netriviální formátovací řetězce doporučuji uzavřít do apostrofů,
+aby nedocházelo ke konfliktům se zvláštním významem některých znaků
+na příkazovém řádku.
+</p><p>
+Algoritmus příkazu printf:
+</p>
+<ul class="kompaktni"><li>1. Vzít formátovací řetězec a nahradit v něm všechny lomítkové sekvence odpovídajícími znaky či řetězci.
+</li><li>2. Projít všechny formátovací značky ve formátovacím řetězci zleva doprava; pro každou načíst jeden parametr z parametrů za formátovacím řetězcem (pokud chybí, použít místo něj prázdný řetězec), zformátovat podle značky a dosadit místo ní.
+</li><li>3. Výsledný řetězec vypsat na standardní výstup.
+</li><li>4. Pokud zbyl alespoň jeden parametr, vzít řetězec, který byl výstupem kroku 1 a jít na krok 2 se zbylými parametry.
+</li></ul><p class="ponadpisu">
+V případě použití parametru „-v“ se řetězce místo vypsání ukládají do zadané proměnné
+a nesmí obsahovat nulový bajt (jinak může být chování nepředvídatelné).
+</p>
+
+<h2 id="cast6"><a href="#cast6"><span class="cislo">6.</span> Instalace na Ubuntu</a></h2>
+<p class="ponadpisu">
+Bash a všechny příkazy použité v této kapitole jsou základními součástmi
+Ubuntu přítomnými i v minimální instalaci.
+</p>
+
+<h2 id="cast7"><a href="#cast7"><span class="cislo">7.</span> Tipy a zkušenosti</a></h2>
+<ul><li>Při práci s deskriptory je třeba mít na paměti, že „pozice“ čtení či zápisu není vlastností samotného deskriptoru. Otevřením souboru přesměrováním deskriptoru vznikne nová „čtecí pozice“ i v případě, že stejný soubor je již otevřen přes jiný deskriptor; pokud ale stávající deskriptor zduplikujete nebo ho zdědí nový proces, nová pozice nevznikne a čtení z obou deskriptorů bude posouvat tutéž čtecí pozici (existující pravděpodobně někde v jádře).
+</li></ul>
+<h3 id="cast7x1"><span><a href="#cast7x1" title="kapitola 7 (Bash/Vstup, výstup a přesměrování), sekce 7 (Tipy a zkušenosti), podsekce 1 (Časté chyby s rourou)"><sup>7/</sup>1 Časté chyby s rourou</a></span></h3>
+<p class="ponadpisu">
+Pozor na implicitní vznik podprostředí v některých situacích! Bash automaticky obklopí podprostředím každý jednoduchý příkaz roury a také i jednoduchý příkaz spouštěný na pozadí nebo v operátoru „$()“. To znamená, že např. tento blok kódu vypíše „19“, protože přiřazení z konstrukce „:=“ zůstalo izolované v podprostředí:
+</p>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">unset a</div>
+<div class="radekzaklinadla">true &quot;${a:=12}&quot; &amp;</div>
+<div class="radekzaklinadla">wait $!</div>
+<div class="radekzaklinadla">printf %s\\n &quot;${a:=19}&quot;</div>
+</div></div>
+<p class="ponadpisu">
+Nejčastěji se tato chyba vyskytuje ve formě pokusu o použití příkazu „read“ s rourou:
+</p>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">unset a</div>
+<div class="radekzaklinadla">printf 99\\n | IFS= read -r a</div>
+<div class="radekzaklinadla">printf %s\\n &quot;$a&quot;</div>
+</div></div>
+<p class="ponadpisu">
+V uvedeném příkladu zůstane hodnota „a“ nedefinovaná, protože Bash uzavře příkaz
+„read“ do samostatného podprostředí.
+</p>
+
+<h3 id="cast7x2"><span><a href="#cast7x2" title="kapitola 7 (Bash/Vstup, výstup a přesměrování), sekce 7 (Tipy a zkušenosti), podsekce 2 (Problémy s nulovým bajtem)"><sup>7/</sup>2 Problémy s nulovým bajtem</a></span></h3>
+<p class="ponadpisu">
+Bash obecně neumí pracovat s nulovým bajtem „\0“; umí ho však vygenerovat (příkazem printf) a přečíst jako ukončovač záznamu (příkazy read a readarray) a rovněž může být předáván rourou z příkazu do příkazu (což probíhá mimo Bash, ten rouru jen vytváří). Celkově je třeba při jakémkoliv pokusu o prácí
+s nulovým bajtem nástroji Bashe dát velký pozor, zejména ho
+<i>nelze uložit do proměnných</i> ani použít uvnitř textu parametru jakéhokoliv příkazu.
+</p>
+
+<h2 id="cast8"><a href="#cast8"><span class="cislo">8.</span> Další zdroje informací</a></h2>
+<ul class="kompaktni"><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/common/printf.md">TL;DR: printf</a> (anglicky)
+</li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/common/read.md">TL;DR: read</a> (anglicky)
+</li></ul>
+<h2 id="cast9"><a href="#cast9"><span class="cislo">9.</span> Zákulisí kapitoly</a></h2>
+<p class="ponadpisu">
+V této verzi kapitoly chybí:
+</p>
+<ul class="kompaktni"><li>koprocesy
+</li><li>více „dalších zdrojů informací“
+</li><li>podrobnější výklad o „printf“
+</li></ul><p class="ponadpisu">
+Tato kapitola záměrně nepokrývá:
+</p>
+<ul class="kompaktni"><li>nic
+</li></ul><div class="ppc"><div id="kapxc92b097ppc1"><a href="#kapxc92b097ppcr1" class="cislopozn">1</a>&nbsp;Varianta „|&amp;“ přesměruje navíc i s.ch. výstup.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxc92b097ppc2"><a href="#kapxc92b097ppcr2" class="cislopozn">2</a>&nbsp;Poznámka: Bash za konec zadaného textu vždy připojí znak „\n“, i v případě, že už tam je!</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxc92b097ppc3"><a href="#kapxc92b097ppcr3" class="cislopozn">3</a>&nbsp;Zadaný ukončovač musí být neprázdný řetězec. Bash na přesměrovávaný vstup zapíše všechny řádky počínaje prvním řádkem po aktuálním příkazu a konče poslední řádkou, která se přesně neshoduje s ukončovačem (není dovolena odlišnost ani v bílých znacích na začátku či konci řádky!).</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxc92b097ppc4"><a href="#kapxc92b097ppcr4" class="cislopozn">4</a>&nbsp;Pozor! Při použití tohoto zaklínadla nesmí být žádný znak v identifikátoru odzvláštněn (tzn. používejte jen znaky dovolené v názvu proměnné). Bash na přesměrovávaný vstup zapíše všechny řádky počínaje prvním řádkem po aktuálním příkazu a konče poslední řádkou, která se přesně neshoduje se zadaným identifikátorem (shoda musí být přesná, není dovolena odlišnost ani v bílých znacích na začátku či konci). Před použitím Bash celý blok řádek intepretuje, přičemž za zvláštní považuje pouze znaky „$“, „\“ a „`“ (s výjimkou apostrofů s dolarem, ty tam přímo použít nelze), můžete tam tedy dosazovat hodnoty proměnných a výstupy příkazů.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxc92b097ppc5"><a href="#kapxc92b097ppcr5" class="cislopozn">5</a>&nbsp;Varianta „&gt;|“ dovolí přepsání existujícího souboru i v případě, že je nastavena volba „noclobber“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxc92b097ppc6"><a href="#kapxc92b097ppcr6" class="cislopozn">6</a>&nbsp;Vyžaduje právo soubor číst i do něj zapisovat; neexistující soubor bude vytvořen, existující soubor nebude zkrácen a zápis začne bajt po bajtu přepisovat jeho obsah od začátku souboru.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxc92b097ppc7"><a href="#kapxc92b097ppcr7" class="cislopozn">7</a>&nbsp;„Režim“ může být pro čtení „&lt;“, pro zápis „&gt;“, „&gt;|“, „&gt;&gt;“ a pro přepis „&lt;&gt;“ s významem jako u odpovídajícího přesměrování.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxc92b097ppc8"><a href="#kapxc92b097ppcr8" class="cislopozn">8</a>&nbsp;Složené závorky můžete umístit i na stejný řádek jako příkazy uvnitř, ale v takovém případě je musíte oddělit mezerami a poslední příkaz musí být ukončen operátorem „;“ nebo „&amp;“! Proto doporučuji raději oddělovat složené závorky od příkazů koncem řádku.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxc92b097ppc9"><a href="#kapxc92b097ppcr9" class="cislopozn">9</a>&nbsp;AB a CD reprezentují dvoumístný hexadecimální zápis bajtů k zapsání</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxc92b097ppc10"><a href="#kapxc92b097ppcr10" class="cislopozn">10</a>&nbsp;„index“ je index v poli, kam má začít příkaz zapisovat. Pro zápis od začátku pole uveďte index „0“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxc92b097ppc11"><a href="#kapxc92b097ppcr11" class="cislopozn">11</a>&nbsp;Parametr „-s“ potlačí výstup psaných znaků na terminál. Při načítání hesel si dejte velký pozor na to, aby použitá proměnná nebyla exportovaná, jinak se totiž heslo objeví v prostředí nově spuštěných procesů, odkud může být šikovnými hackery odposlechnuto.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxc92b097ppc12"><a href="#kapxc92b097ppcr12" class="cislopozn">12</a>&nbsp;Pozor! V případě selhání příkazu (např. vypršení časového limitu) zůstane v cílové proměnné prázdný řetězec, ať už uživatel mezitím nějaké úpravy provedl nebo ne.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+</div>
+
+
+<nav class="spodni">
+<a href="index.htm" class="naindex">🗐&nbsp;Přehled&nbsp;kapitol</a>
+<div class="naslkap">
+<a href="datum-cas-kalendar.htm" rel="next" title="5. Datum, čas a kalendář">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">5</span>
+<span class="nazev">Datum, čas a kalendář</span></a>
+</div>
+<!--<div><a href="index.htm">🗐&nbsp;Přehled&nbsp;kapitol</a></div>-->
+</nav>
+
+
+<div class="odkazydole"><div><a href="promenne.htm"><img src="obrazky/ik/promenne.png" alt="" width="32" height="32">Proměnné prostředí a interpretu</a><a href="zpracovani-binarnich-souboru.htm"><img src="obrazky/ik/zpracovani-binarnich-souboru.png" alt="" width="32" height="32">Zpracování binárních souborů</a><a href="datum-cas-kalendar.htm"><img src="obrazky/ik/datum-cas-kalendar.png" alt="" width="32" height="32">Datum, čas a kalendář</a></div></div>
+
+</article>
+<!-- *** -->
+<footer id="dole">
+<img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
+<p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
+<a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
+Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
+či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
+na stránce „<a href="x-autori.htm">Přehled autorů</a>“.
+Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
+licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
+Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód
+a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
+<a href="https://github.com/singularis-mzf/linux-spellbook">repozitář na GitHubu</a>.
+</footer>
+</div>
+
+<nav class="menu">
+<!-- MENU OSNOVA -->
+<a href="#menuosnova" id="menuosnova"><span class="prvnipismeno">O</span>snova</a>
+<aside class="menuosnova">
+<div><div class="nadpis">Osnova</div><div class="polozky">
+<a href="#cast1" class="sekce">1 Úvod</a>
+<a href="#cast2" class="sekce">2 Definice</a>
+<a href="#cast3" class="sekce">3 Zaklínadla</a>
+<a href="#cast3x1" class="podsekce">/1 Roura</a>
+<a href="#cast3x2" class="podsekce">/2 Přesměrování vstupu (čtení odněkud)</a>
+<a href="#cast3x3" class="podsekce">/3 Přesměrování výstupu (zápis někam)</a>
+<a href="#cast3x4" class="podsekce">/4 Některá obvyklá přesměrování</a>
+<a href="#cast3x5" class="podsekce">/5 Pojmenované deskriptory</a>
+<a href="#cast3x6" class="podsekce">/6 Ostatní aplikace přesměrování</a>
+<a href="#cast4" class="sekce">4 Zaklínadla: Čtení a zápis z Bashe</a>
+<a href="#cast4x1" class="podsekce">/1 Zápis (výstup)</a>
+<a href="#cast4x2" class="podsekce">/2 Čtení (vstup)</a>
+<a href="#cast4x3" class="podsekce">/3 Interakce s uživatelem (jen při čtení z terminálu)</a>
+<a href="#cast4x4" class="podsekce">/4 Je deskriptor připojený na terminál?</a>
+<a href="#cast4x5" class="podsekce">/5 Nastavení Bashe související s deskriptory a rourami</a>
+<a href="#cast5" class="sekce">5 Další poznámky</a>
+<a href="#cast5x1" class="podsekce">/1 Použití přesměrování deskriptorů</a>
+<a href="#cast5x2" class="podsekce">/2 Jak funguje příkaz read</a>
+<a href="#cast5x3" class="podsekce">/3 Jak funguje příkaz printf</a>
+<a href="#cast6" class="sekce">6 Instalace na Ubuntu</a>
+<a href="#cast7" class="sekce">7 Tipy a zkušenosti</a>
+<a href="#cast7x1" class="podsekce">/1 Časté chyby s rourou</a>
+<a href="#cast7x2" class="podsekce">/2 Problémy s nulovým bajtem</a>
+<a href="#cast8" class="sekce">8 Další zdroje informací</a>
+<a href="#cast9" class="sekce">9 Zákulisí kapitoly</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU KAPITOLY -->
+<a href="#menukapitoly" id="menukapitoly"><span class="prvnipismeno">K</span>apitoly</a>
+<aside class="menukapitoly">
+<div><div class="nadpis">Kapitoly</div><div class="polozky">
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/predmluva.png" alt="[]"></span><span class="fragodkazy"><a href="predmluva.htm" class="odkaz"><span><span class="cislo">1</span>Předmluva</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zakladni-znalosti.png" alt="[]"></span><span class="fragodkazy"><a href="zakladni-znalosti.htm" class="odkaz"><span><span class="cislo">2</span>Základní znalosti</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/awk.png" alt="[]"></span><span class="fragodkazy"><a href="awk.htm" class="odkaz"><span><span class="cislo">3</span>AWK</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/bash.png" alt="[]"></span><span class="fragodkazy"><a href="bash.htm" class="odkaz"><span><span class="cislo">4</span>Bash</span></a><span class="podkpodkazy"><a href="bash-funkce-a-skripty.htm" class="odkaz"><span><span class="cislo">4.1</span>Funkce a skripty</span></a><a href="bash-interaktivni-rezim.htm" class="odkaz"><span><span class="cislo">4.2</span>Interaktivní režim</span></a><a href="bash-vstup-vystup.htm" class="odkaz"><span><span class="cislo">4.3</span>Vstup, výstup a přesměrování</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/datum-cas-kalendar.png" alt="[]"></span><span class="fragodkazy"><a href="datum-cas-kalendar.htm" class="odkaz"><span><span class="cislo">5</span>Datum, čas a kalendář</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/diskove-oddily.png" alt="[]"></span><span class="fragodkazy"><a href="diskove-oddily.htm" class="odkaz"><span><span class="cislo">6</span>Diskové oddíly</span></a><span class="podkpodkazy"><a href="diskove-oddily-btrfs.htm" class="odkaz"><span><span class="cislo">6.1</span>Btrfs</span></a><a href="diskove-oddily-lvm.htm" class="odkaz"><span><span class="cislo">6.2</span>LVM</span></a><a href="diskove-oddily-softwarovy-raid.htm" class="odkaz"><span><span class="cislo">6.3</span>Softwarový RAID</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/git.png" alt="[]"></span><span class="fragodkazy"><a href="git.htm" class="odkaz"><span><span class="cislo">7</span>Git</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/hledani-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="hledani-souboru.htm" class="odkaz"><span><span class="cislo">8</span>Hledání souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/make.png" alt="[]"></span><span class="fragodkazy"><a href="make.htm" class="odkaz"><span><span class="cislo">9</span>Make</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/manualove-stranky.png" alt="[]"></span><span class="fragodkazy"><a href="manualove-stranky.htm" class="odkaz"><span><span class="cislo">10</span>Manuálové stránky</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/markdown.png" alt="[]"></span><span class="fragodkazy"><a href="markdown.htm" class="odkaz"><span><span class="cislo">11</span>Markdown</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/metaprikazy.png" alt="[]"></span><span class="fragodkazy"><a href="metaprikazy.htm" class="odkaz"><span><span class="cislo">12</span>Metapříkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/nabidka-aplikaci.png" alt="[]"></span><span class="fragodkazy"><a href="nabidka-aplikaci.htm" class="odkaz"><span><span class="cislo">13</span>Nabídka aplikací</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/odkazy.png" alt="[]"></span><span class="fragodkazy"><a href="odkazy.htm" class="odkaz"><span><span class="cislo">14</span>Pevné a symbolické odkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-moduly.png" alt="[]"></span><span class="fragodkazy"><a href="perl-moduly.htm" class="odkaz"><span><span class="cislo">15</span>Perl: moduly a objekty</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-zaklady.png" alt="[]"></span><span class="fragodkazy"><a href="perl-zaklady.htm" class="odkaz"><span><span class="cislo">16</span>Perl: základy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="fragodkazy"><a href="prace-s-archivy.htm" class="odkaz"><span><span class="cislo">17</span>Práce s archivy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prohlizeni-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="prohlizeni-textovych-souboru.htm" class="odkaz"><span><span class="cislo">18</span>Prohlížení textových souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/promenne.png" alt="[]"></span><span class="fragodkazy"><a href="promenne.htm" class="odkaz"><span><span class="cislo">19</span>Proměnné prostředí a interpretu</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="fragodkazy"><a href="regularni-vyrazy.htm" class="odkaz"><span><span class="cislo">20</span>Regulární výrazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sed.png" alt="[]"></span><span class="fragodkazy"><a href="sed.htm" class="odkaz"><span><span class="cislo">21</span>Sed</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/soubory-a-adresare.png" alt="[]"></span><span class="fragodkazy"><a href="soubory-a-adresare.htm" class="odkaz"><span><span class="cislo">22</span>Soubory a adresáře</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-balicku.htm" class="odkaz"><span><span class="cislo">23</span>Správa balíčků</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-procesu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-procesu.htm" class="odkaz"><span><span class="cislo">24</span>Správa procesů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-uzivatelskych-uctu.htm" class="odkaz"><span><span class="cislo">25</span>Správa uživatelských účtů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="fragodkazy"><a href="system.htm" class="odkaz"><span><span class="cislo">26</span>Systém</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/terminal.png" alt="[]"></span><span class="fragodkazy"><a href="terminal.htm" class="odkaz"><span><span class="cislo">27</span>Terminál</span></a><span class="podkpodkazy"><a href="terminal-emodzi.htm" class="odkaz"><span><span class="cislo">27.1</span>Emodži</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/vim.png" alt="[]"></span><span class="fragodkazy"><a href="vim.htm" class="odkaz"><span><span class="cislo">28</span>Vim</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-binarnich-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-binarnich-souboru.htm" class="odkaz"><span><span class="cislo">29</span>Zpracování binárních souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-textovych-souboru.htm" class="odkaz"><span><span class="cislo">30</span>Zpracování textových souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-videa-a-zvuku.htm" class="odkaz"><span><span class="cislo">31</span>Zpracování videa a zvuku</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="fragodkazy"><a href="licence.htm" class="odkaz"><span><span class="cislo">32</span>Licence</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/rejstrik.png" alt="[]"></span><span class="fragodkazy"><a href="rejstrik.htm" class="odkaz"><span><span class="cislo">33</span>Rejstřík podle klasických příkazů</span></a></span></div>
+</div></div>
+<a href="#zavritmenu" id="zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU ŠTÍTKY -->
+<a href="#menustitky" id="menustitky"><span class="prvnipismeno">Š</span>títky</a>
+<aside class="menustitky">
+<div><div class="nadpis">Štítky</div><div class="polozky">
+<a href="x-stitky.htm#x5208bbb">adresáře&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#xb0a5782">aplikace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x583f72a">apt&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa619ea3">automatizace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xb2b2bff">bajty&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5c1d5fa">barvy&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xd574d4b">bash&nbsp;&nbsp;(9)</a>
+<a href="x-stitky.htm#xedb0c6c">čas&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x8d777f3">data&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xcd6caf8">démoni&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x38864cc">dokumentace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5aee9db">editor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x905aee4">emodži&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xb05338c">Flatpak&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x1e3042b">GUI&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x891be82">hešovací funkce&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x4e36c04">hledání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c8789a">klávesnice&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x7aeae24">kódování&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa473827">komprese&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x79108ba">LVM&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x2d47ed4">odkládací prostor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xd8dfe69">ovládání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x0114ad0">Perl&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x84913e6">procesy&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa9c449d">program&nbsp;&nbsp;(11)</a>
+<a href="x-stitky.htm#xc65388d">programování&nbsp;&nbsp;(5)</a>
+<a href="x-stitky.htm#x43a526a">přístupová práva&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#xcf91513">RAID&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5c5f44a">ramdisk&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9ad09a9">Snap&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x23be896">soubory&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x12e55d8">správa verzí&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9dcbb0b">syntaxe&nbsp;&nbsp;(7)</a>
+<a href="x-stitky.htm#xba98a3b">systém&nbsp;&nbsp;(9)</a>
+<a href="x-stitky.htm#x3972255">systém souborů&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c01147">tematický okruh&nbsp;&nbsp;(22)</a>
+<a href="x-stitky.htm#xf54f028">textové soubory&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x7f6c02d">Unicode&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x421b47f">video&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xadcdbd7">zip&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x908961b">zpracování textu&nbsp;&nbsp;(5)</a>
+<a href="x-stitky.htm#x04b5cff">zvuk&nbsp;&nbsp;(1)</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU NÁPOVĚDA -->
+<a href="#menunapoveda" id="menunapoveda"><span class="prvnipismeno">N</span>ápověda</a>
+<aside class="menunapoveda">
+<div><div class="nadpis">Nápověda</div><div class="polozky">
+<a href="predmluva.htm">Předmluva</a>
+<a href="https://singularis-mzf.github.io/">Ostatní verze knihy</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook">Repozitář na GitHubu</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook/blob/stabiln%C3%AD/dokumentace/odm%C4%9Bna-za-sestaven%C3%AD.md">Odměna za sestavení (prémiové kapitoly)</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+</nav>
+
+<a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
+<a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="cs">
+<head profile="http://www.w3.org/2005/10/profile">
+<meta charset="UTF-8">
+
+<title>Terminál − Linux: Kniha kouzel</title>
+<meta name="viewport" content="width=1000, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="lkk-20250301.css">
+<link rel="icon" type="image/png" href="obrazky/favicon.png">
+</head>
+<body>
+<div id="nahore"><div id="okno">
+<header>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, 2.15 (1. března 2025)</span>
+<span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
+</header>
+<nav class="menuokna">
+<a href="#menuosnova" class="menu"><span class="prvnipismeno">O</span>snova</a>
+<a href="#menukapitoly" class="menu"><span class="prvnipismeno">K</span>apitoly</a>
+<a href="#menustitky" class="menu"><span class="prvnipismeno">Š</span>títky</a>
+<a href="#menunapoveda" class="menu"><span class="prvnipismeno">N</span>ápověda</a>
+<a href="system.htm" rel="prev" title="26. Systém" accesskey="p" class="predchozi">Předchozí&nbsp;kapitola</a>
+<a href="index.htm" class="prehled"><span class="prvnipismeno">P</span>řehled kapitol</a>
+<a href="terminal-emodzi.htm" rel="next" title="27.1. Terminál / Emodži" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
+</nav>
+
+<div class="slogan-veskera-moc">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+
+<!--
+<nav class="horni">
+<div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+<span class="prev">
+<a href="system.htm" rel="prev" title="26. Systém" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+</span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!- -
+- ->&nbsp;| <a href="terminal-emodzi.htm" rel="next" title="27.1. Terminál / Emodži" accesskey="n">Následující&nbsp;kapitola</a>
+</span>
+</nav>
+-->
+
+
+<article>
+
+<h1 class="kapitola">27. <img src="obrazky/ik/terminal.png" alt="" width="64" height="64"> Terminál</h1>
+<p>Podkapitoly: <a href="terminal-emodzi.htm">27.1 Emodži</a>;
+</p>
+<!-- [ ] ... -->
+<div class="varovani">
+Vývoj vanilkové příchuti Linuxu: Knihy kouzel byl 1.&nbsp;března&nbsp;2025
+ukončen. Tento text je zachován jako historický, ale chyby již nejsou
+opravovány. Odnože projektu pod kompatibilní licencí jsou vítány.
+</div>
+<div class="stitky"><a href="x-stitky.htm#">barvy</a>
+<a href="x-stitky.htm#">bash</a>
+<a href="x-stitky.htm#">tematický okruh</a>
+</div>
+<h2 id="cast1"><a href="#cast1"><span class="cislo">1.</span> Úvod</a></h2>
+<p class="ponadpisu">
+Tato kapitola pokrývá způsoby, kterými můžete učinit okno emulátoru terminálu
+praktičtější, barevnější a méně jednotvárné, aniž byste musel/a opustit
+příkazový interpret bash – v linuxu můžete nastavit barvu písma či pozadí, titulek,
+výzvu intepretu či vypsat ozdobné nápisy.
+</p><p>
+Barva písma a pozadí se ve skutečnosti nastavuje vypsáním takzvaných <i>escape sekvencí</i>,
+což jsou zvláštní řídicí sekvence bajtů, kterým daný terminál rozumí
+a místo vypsání něčeho na obrazovku vykoná akci, která je v sekvenci zakódovaná.
+Abychom se tyto sekvence nemuseli učit, používáme místo nich moderní příkaz „tput“,
+který načte příslušnou sekvenci ze své databáze a vypíše ji na svůj standardní výstup.
+Tento výstup můžeme buď uložit do proměnné pro pozdější použití, nebo vypsat
+na terminál přímo. Uložení do souboru není vhodné, protože v jiném terminálu
+by se mohla sekvence lišit.
+</p><p>
+Tato verze kapitoly se omezuje na sekvence široce podporované většinou
+emulátorů terminálu. Kde není dostupná podpora v textovém režimu,
+bude to zmíněno. Dále nepokrývá podporu šestnácti milionů barev.
+</p><p>
+GNU Bash je vyvíjen v rámci projektu GNU.
+</p>
+
+<h2 id="cast2"><a href="#cast2"><span class="cislo">2.</span> Definice</a></h2>
+<ul><li><b>Výzva terminálu</b> (zkráceně „výzva“) je řetězec, který interpret příkazové řádky (v našem případě bash) vypisuje před, během nebo po přijetí příkazu od uživatele (tzn. v interaktivním režimu). V interpretu „bash“ se rozeznávají tři druhy výzvy a jejich šablony jsou uloženy v proměnných PS0, PS1 a PS2: <b>hlavní výzva</b> (PS1) značí, že bash očekává příkaz, <b>vedlejší výzva</b> (PS2) značí, že bash očekává pokračování příkazu na dalším řádku, <b>potvrzující výzva</b> (PS0) se vypisuje po přijetí příkazu a před zahájením jeho vykonávání.
+</li><li><b>Escape sekvence</b> je posloupnost ASCII znaků se zvláštním významem pro terminál, která začíná netisknutelným znakem „\e“. V minulosti se tyto sekvence zapisovaly ručně a děsily nezkušené uživatele; dnes je však většinou můžeme pohodlně generovat moderním příkazem „tput“ a jejich děsivou úlohu zaujaly sekvence znaků Unicode.
+</li><li><b>Paleta</b> je (v této kapitole) pole barev, které daný terminál podporuje, <i>indexované od nuly</i>. Běžně se vyskytují pouze dvě palety: s 8 barvami a s 256 barvami, ačkoliv realizace konkrétních barev v těchto paletách se mohou v jednotlivých emulátorech mírně lišit (často jdou nastavit).
+</li></ul>
+<h2 id="cast3" class="zaklinadla"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla: obecná</a></h2>
+
+<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 33 (Terminál), sekce 3 (Zaklínadla: obecná), podsekce 1 (Titulek)"><sup>3/</sup>1 Titulek</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx20dce73"><span><a href="#zx20dce73">@</a></span></span>nastavit <b>titulek</b> okna emulátoru terminálu<span class="cislo">#1 </span><sup><a href="#kapxff5b3f8ppc1" id="kapxff5b3f8ppcr1" title="Poznámka: Protože ve výchozím nastavení nastavuje titulek terminálu výzva PS1, před jakýmkoliv experimentováním ji musíte vypnout nebo změnit (např. příkazem „PS=&quot;&quot;“), jinak vám vaše nové nastavení hned přepíše, takže se vám bude zdát, že nefunguje.">(1)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">lkk titulek &quot;<i class="dopln">nový titulek</i>&quot;</div>
+</div></div>
+
+<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 33 (Terminál), sekce 3 (Zaklínadla: obecná), podsekce 2 (Barvy)"><sup>3/</sup>2 Barvy</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx998c20b"><span><a href="#zx998c20b">@</a></span></span>vypsat <b>vzorník palety</b> (barvy na pozadí)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">for I in $(seq 0 $(($(tput colors) - 1)))</div>
+<div class="radekzaklinadla">do</div>
+<div class="radekzaklinadla">printf &quot;%s<span class="viditelnamezera">&nbsp;</span>%3d<span class="viditelnamezera">&nbsp;</span>%s&quot; &quot;$(tput bold;tput setab $I)&quot; $I &quot;$(tput sgr0)&quot;</div>
+<div class="radekzaklinadla">test $(($I % 16)) -eq 15 &amp;&amp; printf \\n</div>
+<div class="radekzaklinadla">done</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf0f6609"><span><a href="#zxf0f6609">@</a></span></span>vypsat vzorník palety (barvy textu)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">for I in $(seq 0 $(($(tput colors) - 1)))</div>
+<div class="radekzaklinadla">do</div>
+<div class="radekzaklinadla">printf &quot;%s<span class="viditelnamezera">&nbsp;</span>%3d<span class="viditelnamezera">&nbsp;</span>%s&quot; &quot;$(tput bold;tput setaf $I)&quot; $I &quot;$(tput sgr0)&quot;</div>
+<div class="radekzaklinadla">test $(($I % 16)) -eq 15 &amp;&amp; printf \\n</div>
+<div class="radekzaklinadla">done</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx941aa16"><span><a href="#zx941aa16">@</a></span></span><b>resetovat</b> všechny atributy písma a barev<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">tput sgr0</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9c220cb"><span><a href="#zx9c220cb">@</a></span></span>nastavit <b>barvu popředí/pozadí</b><span class="cislo">#4 </span><sup><a href="#kapxff5b3f8ppc2" id="kapxff5b3f8ppcr2" title="Funkce „lkk_bezp_set“ použije ze svých argumentů první podporované číslo barvy. Není-li žádné z uvedených čísel podporováno, žádná barva se nanastaví. Při volání doporučuji jako první uvést číslo pro paletu s 256 barvami a jako druhé číslo náhradní barvy z osmibarevné palety.">(2)</a></sup></div><div class="radky">
+<div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>source &lt;(lkk --funkce)</div>
+<div class="radekzaklinadla">lkk_bezp_set setaf <i class="dopln">číslo-barvy</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla">lkk_bezp_set setab <i class="dopln">číslo-barvy</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx950dd46"><span><a href="#zx950dd46">@</a></span></span><b>ztmavit</b> text (jen zapnout)<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">tput dim</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd9c1b35"><span><a href="#zxd9c1b35">@</a></span></span>inverzní režim (dočasně prohodí barvy popředí a pozadí; jen zapnout)<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">tput rev</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxaaa2f9f"><span><a href="#zxaaa2f9f">@</a></span></span>neviditelný text (text barvou pozadí; jen zapnout)<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla">tput invis</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0eadd33"><span><a href="#zx0eadd33">@</a></span></span>zvýrazněný mód (zapnout/vypnout)<span class="cislo">#8 </span><sup><a href="#kapxff5b3f8ppc3" id="kapxff5b3f8ppcr3" title="Na některých terminálech je realizován jako inverzní text, na jiných jako tučné písmo.">(3)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">tput smso</div>
+<div class="radekzaklinadla">tput rmso</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3deef0b"><span><a href="#zx3deef0b">@</a></span></span>blikající text (jen zapnout; málo podporovaný)<span class="cislo">#9 </span><sup><a href="#kapxff5b3f8ppc4" id="kapxff5b3f8ppcr4" title="Používání blikajícího textu se výrazně nedoporučuje, protože je v různých terminálech málo a nejednotně podporován, má mnoho odpůrců a může uživateli způsobovat zdravotní potíže.">(4)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">tput blink</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd37f3be"><span><a href="#zxd37f3be">@</a></span></span>vyplnit celý terminál barvou<span class="cislo">#10 </span></div><div class="radky">
+<div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>source &lt;(lkk --funkce)</div>
+<div class="radekzaklinadla">lkk_bezp_set setab <i class="dopln">číslo-barvy</i> <span class="volznak">[</span><i class="dopln">náhradní-číslo-barvy</i><span class="volznak">]</span><span class="tritecky"></span>; tput clear; tput sgr0</div>
+</div></div>
+
+<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 33 (Terminál), sekce 3 (Zaklínadla: obecná), podsekce 3 (Nastavení písma)"><sup>3/</sup>3 Nastavení písma</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6ff9390"><span><a href="#zx6ff9390">@</a></span></span><b>vypnout všechny atributy</b> písma a barev<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">tput sgr0</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd67091f"><span><a href="#zxd67091f">@</a></span></span><b>tučné</b> písmo (jen zapnout)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">tput bold</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2465341"><span><a href="#zx2465341">@</a></span></span><b>kurzíva</b> (zapnout/vypnout)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">tput sitm</div>
+<div class="radekzaklinadla">tput ritm</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2039a56"><span><a href="#zx2039a56">@</a></span></span><b>podtržení</b> (zapnout/vypnout)<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">tput smul</div>
+<div class="radekzaklinadla">tput rmul</div>
+</div></div>
+
+<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 33 (Terminál), sekce 3 (Zaklínadla: obecná), podsekce 4 (Ozdoby (nápisy a matrix))"><sup>3/</sup>4 Ozdoby (nápisy a matrix)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxaa06da5"><span><a href="#zxaa06da5">@</a></span></span>spustit simulaci „Matrixu“ (zelený spořič obrazovky/růžový spoříč obrazovky/interaktivní režim)<span class="cislo">#1 </span><sup><a href="#kapxff5b3f8ppc5" id="kapxff5b3f8ppcr5" title="V interaktivním režimu program ukončíte klávesou „q“, další klávesové zkratky najdete v manuálové stránce. Rychlost je od 0 (nejrychlejší) po 9 (nejpomalejší).">(5)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">cmatrix -bs -C green <span class="volznak">[</span>-u <i class="dopln">rychlost</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla">cmatrix -b -C magenta <span class="volznak">[</span>-u <i class="dopln">rychlost</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla">cmatrix -b</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx69dfb80"><span><a href="#zx69dfb80">@</a></span></span>vypsat <b>nápis</b> ozdobným písmem (alternativy)<span class="cislo">#2 </span><sup><a href="#kapxff5b3f8ppc6" id="kapxff5b3f8ppcr6" title="Pro český text s háčky a čárky se bohužel dobře hodí jen písma „ascii9“, „smmono9“ a „standard“; čárky zvládají i některá další; písmena anglické abecedy zvládají všechna. Z filtrů mohu doporučit „gay“ a „border“, méně „metal“, „180“ a „flip“.">(6)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">toilet -t -f <i class="dopln">písmo-pro-toilet</i> <span class="volznak">[</span>-F <i class="dopln">filtr</i><span class="volznak">[</span>:<i class="dopln">další-filtr</i><span class="volznak">]</span><span class="tritecky"></span><span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> &quot;<i class="dopln">nápis</i>&quot;</div>
+<div class="radekzaklinadla"><i class="dopln">zdroj</i> | toilet -t -f <i class="dopln">písmo-pro-toilet</i> <span class="volznak">[</span>-F <i class="dopln">filtr</i><span class="volznak">[</span>:<i class="dopln">další-filtr</i><span class="volznak">]</span><span class="tritecky"></span><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5412e97"><span><a href="#zx5412e97">@</a></span></span>vypsat seznam dostupných písem/filtrů/výstupních formátů pro „toilet“<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">find /usr/share/figlet -maxdepth 1 -type f -printf %f\\n | sed -nE 's/\.(flf|tlf)$//;T;p' | sort</div>
+<div class="radekzaklinadla">toilet -F list</div>
+<div class="radekzaklinadla">toilet -E list</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa818c67"><span><a href="#zxa818c67">@</a></span></span>vypsat vzorník ozdobných nápisů různými písmy<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">find /usr/share/figlet -maxdepth 1 -type f -printf %f\\n | sed -nE 's/\.(flf|tlf)$//;T;p' | sort | while read -r pismo; do printf %s:\\n &quot;$pismo&quot;; toilet -f &quot;$pismo&quot; --gay -t -- &quot;Žluťoučký kůň&quot;; done <span class="volznak">[</span>| less -r<span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx10e254e"><span><a href="#zx10e254e">@</a></span></span>příklady ozdobných nápisů<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">toilet -t -f slant -F gay &quot;Formule 1&quot;</div>
+<div class="radekzaklinadla">toilet -t -f standard -F gay:border &quot;Žďár nad Sázavou&quot;</div>
+<div class="radekzaklinadla">tput setaf 6; tput setab 4; tput bold; tput el; toilet -t -f standard -F border &quot;Test&quot;; tput sgr0; tput el</div>
+</div></div>
+
+<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 33 (Terminál), sekce 3 (Zaklínadla: obecná), podsekce 5 (Zjistit údaje o terminálu)"><sup>3/</sup>5 Zjistit údaje o terminálu</a></span></h3>
+<p class="ponadpisu">
+Zde uvedené příkazy nevypisují escape sekvence, ale konkrétní hodnoty.
+</p>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx48ce6aa"><span><a href="#zx48ce6aa">@</a></span></span>počet sloupců/řádků terminálu<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">tput cols<span class="prikladhodnoty">⊨ 98</span></div>
+<div class="radekzaklinadla">tput lines<span class="prikladhodnoty">⊨ 30</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfca9bb6"><span><a href="#zxfca9bb6">@</a></span></span>počet podporovaných barev (velikost palety)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">tput colors<span class="prikladhodnoty">⊨ 256</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx14b4020"><span><a href="#zx14b4020">@</a></span></span>aktuální sloupec/řádka kurzoru/obojí do proměnných $Y (řádek) a $X (sloupec)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">read -rsd R -p $'\e[6n' &lt;/dev/tty &amp;&amp; printf %s\\n $(($(printf %s\\n &quot;$REPLY&quot; | sed -E 's/.*\[([0-9]+);([0-9]+)/\1/') - 1))</div>
+<div class="radekzaklinadla">read -rsd R -p $'\e[6n' &lt;/dev/tty &amp;&amp; printf %s\\n $(($(printf %s\\n &quot;$REPLY&quot; | sed -E 's/.*\[([0-9]+);([0-9]+)/\2/') - 1))</div>
+<div class="radekzaklinadla">read -rsd R -p $'\e[6n' &lt;/dev/tty &amp;&amp; eval &quot;$(printf %s\\n &quot;$REPLY&quot; | sed -E 's/.*\[([0-9]+);([0-9]+)/Y=$((\1-1));X=$((\2-1));/')&quot;</div>
+</div></div>
+
+<h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 33 (Terminál), sekce 3 (Zaklínadla: obecná), podsekce 6 (Ovládání kurzoru)"><sup>3/</sup>6 Ovládání kurzoru</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0e9e620"><span><a href="#zx0e9e620">@</a></span></span><b>uložit/obnovit</b> pozici kurzoru<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">tput sc</div>
+<div class="radekzaklinadla">tput rc</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4f16c7a"><span><a href="#zx4f16c7a">@</a></span></span>posun kurzoru <b>na pozici</b><span class="cislo">#2 </span><sup><a href="#kapxff5b3f8ppc7" id="kapxff5b3f8ppcr7" title="Řádky a sloupce jsou číslovány od nuly od levého horního rohu terminálu.">(7)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">tput cup <i class="dopln">číslo-řádku</i> <i class="dopln">číslo-sloupce</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx96a9986"><span><a href="#zx96a9986">@</a></span></span>posun kurzoru nahoru/dolů/vlevo/vpravo<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">tput cuu <i class="dopln">posun</i></div>
+<div class="radekzaklinadla">tput cud <i class="dopln">posun</i></div>
+<div class="radekzaklinadla">tput cub <i class="dopln">posun</i></div>
+<div class="radekzaklinadla">tput cuf <i class="dopln">posun</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx742fb67"><span><a href="#zx742fb67">@</a></span></span>posun kurzoru <b>do určitého sloupce</b> na aktuální řádce/na začátek řádku<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">tput hpa <i class="dopln">index-sloupce</i></div>
+<div class="radekzaklinadla">tput hpa 0</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe05b559"><span><a href="#zxe05b559">@</a></span></span>posun kurzoru do levého horního rohu/levého dolního rohu<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">tput home</div>
+<div class="radekzaklinadla">tput cup $(tput lines) 0</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxae3849b"><span><a href="#zxae3849b">@</a></span></span>skrytí kurzoru/zrušení skrytí<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">tput civis</div>
+<div class="radekzaklinadla">tput cnorm</div>
+</div></div>
+
+<h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 33 (Terminál), sekce 3 (Zaklínadla: obecná), podsekce 7 (Mazání obrazovky)"><sup>3/</sup>7 Mazání obrazovky</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx440beab"><span><a href="#zx440beab">@</a></span></span>smazat <b>část řádky</b> od kurzoru vlevo/vpravo<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">tput el1</div>
+<div class="radekzaklinadla">tput el</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8b4d4c4"><span><a href="#zx8b4d4c4">@</a></span></span>smazat <b>celou obrazovku</b> a kurzor přesunout na pozici 0 0 (levý horní roh)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">tput clear</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3702065"><span><a href="#zx3702065">@</a></span></span>odstranit N řádků od aktuální řádky (včetně) dolů<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+
+<h2 id="cast4" class="zaklinadla"><a href="#cast4"><span class="cislo">4.</span> Zaklínadla: PS0, PS1 a PS2</a></h2>
+<p class="ponadpisu">
+Poznámka: znění zaklínadel v této sekci je upraveno pro uvedení uvnitř dvojitých uvozovek. Při uvedení jiným způsobem (např. v jednoduchých uvozovkách nebo při načítání ze souboru) je tomu nutno uzpůsobit umístění zpětných lomítek.
+</p>
+
+<h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 33 (Terminál), sekce 4 (Zaklínadla: PS0, PS1 a PS2), podsekce 1 (Častá)"><sup>4/</sup>1 Častá</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5807ad9"><span><a href="#zx5807ad9">@</a></span></span><b>znak $</b> pro normálního uživatele a # pro uživatele „root“<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">\\\$<span class="prikladhodnoty">⊨ $</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa3392c2"><span><a href="#zxa3392c2">@</a></span></span>provedení příkazu a vypsání jeho výstupu (vyhodnotit hned/vyhodnotit při každém vypsání dané výzvy)<span class="cislo">#2 </span><sup><a href="#kapxff5b3f8ppc8" id="kapxff5b3f8ppcr8" title="U druhé varianty (vyhodnotit při každém vypsání výzvy) musíte v příkazu odzvláštnit znaky &quot;, \, $ a !, aby se do příslušné proměnné uložil přesně tak, jak má být vykonán.">(8)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">$(<i class="dopln">příkaz</i>)</div>
+<div class="radekzaklinadla">\$(<i class="dopln">příkaz</i>)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4a1444c"><span><a href="#zx4a1444c">@</a></span></span><b>návratový kód</b> posledního příkazu (viz poznámka!)<span class="cislo">#3 </span><sup><a href="#kapxff5b3f8ppc9" id="kapxff5b3f8ppcr9" title="Poznámka: Aby tento výraz fungoval, musíte do proměnné PROMPT_COMMAND (ideálně na začátek) přidat příkaz „navr_hodn=$?“, např. příkazem „PROMPT_COMMAND=&quot;navr_hodn=\$?;$PROMPT_COMMAND&quot;“.">(9)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">\${navr_hodn}<span class="prikladhodnoty">⊨ 0</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfe08549"><span><a href="#zxfe08549">@</a></span></span>cesta/název <b>aktuálního adresáře</b> (v obou případech se domovský adresář nahrazuje znakem „~“)<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">\\w<span class="prikladhodnoty">⊨ ~/Dokumenty</span></div>
+<div class="radekzaklinadla">\\W<span class="prikladhodnoty">⊨ Dokumenty</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe235b19"><span><a href="#zxe235b19">@</a></span></span>zkrácená cesta aktuálního adresáře<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>PROMPT_DIRTRIM=<i class="dopln">max-počet-adresářů</i></div>
+<div class="radekzaklinadla">\\w<span class="prikladhodnoty">⊨ .../share/doc/lkk</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx686daf5"><span><a href="#zx686daf5">@</a></span></span>aktuální <b>čas</b> ve formátu HH:MM/HH:MM:SS<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">\\A<span class="prikladhodnoty">⊨ 15:35</span></div>
+<div class="radekzaklinadla">\\t<span class="prikladhodnoty">⊨ 15:35:38</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc3b606d"><span><a href="#zxc3b606d">@</a></span></span>aktuální <b>datum</b> ve formátu YYYY-MM-DD/ve vlastním formátu<span class="cislo">#7 </span><sup><a href="#kapxff5b3f8ppc10" id="kapxff5b3f8ppcr10" title="Pro popis vlastního formátu viz „man strftime“ nebo kapitolu „Datum, čas a kalendář“.">(10)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">\\D{%F}<span class="prikladhodnoty">⊨ 2020-01-29</span></div>
+<div class="radekzaklinadla">\\D{<i class="dopln">formát</i>}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4110c33"><span><a href="#zx4110c33">@</a></span></span><b>název počítače</b> (úplný/jen do první „.“)<span class="cislo">#8 </span></div><div class="radky">
+<div class="radekzaklinadla">\\H<span class="prikladhodnoty">⊨ mars.podnik</span></div>
+<div class="radekzaklinadla">\\h<span class="prikladhodnoty">⊨ mars</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8f2998e"><span><a href="#zx8f2998e">@</a></span></span>konec řádku/tabulátor<span class="cislo">#9 </span></div><div class="radky">
+<div class="radekzaklinadla">\\n</div>
+<div class="radekzaklinadla">$(printf \\t)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc3792b3"><span><a href="#zxc3792b3">@</a></span></span><b>hodnota proměnné</b> při každém vypsání výzvy<span class="cislo">#10 </span></div><div class="radky">
+<div class="radekzaklinadla">\${<i class="dopln">název proměnné</i>}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx44f88a0"><span><a href="#zx44f88a0">@</a></span></span>obsah souboru v momentě vypsání výzvy (konce řádek na konci souboru vynechat/vypsat také)<span class="cislo">#11 </span></div><div class="radky">
+<div class="radekzaklinadla">\$(&lt;<i class="dopln">/cesta/k/souboru</i>)</div>
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx20f4b68"><span><a href="#zx20f4b68">@</a></span></span><b>uživatelské jméno</b> přihlášeného uživatele/jeho celé jméno<span class="cislo">#12 </span></div><div class="radky">
+<div class="radekzaklinadla">\\u<span class="prikladhodnoty">⊨ novakova</span></div>
+<div class="radekzaklinadla">$(getent passwd $UID | cut -d : -f 5 | cut -d , -f 1)<span class="prikladhodnoty">⊨ Jarmila Nováková</span></div>
+</div></div>
+
+<h3 id="cast4x2"><span><a href="#cast4x2" title="kapitola 33 (Terminál), sekce 4 (Zaklínadla: PS0, PS1 a PS2), podsekce 2 (Méně častá)"><sup>4/</sup>2 Méně častá</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb46b04e"><span><a href="#zxb46b04e">@</a></span></span><b>trvání</b> posledního příkazu v sekundách<span class="cislo">#1 </span><sup><a href="#kapxff5b3f8ppc11" id="kapxff5b3f8ppcr11" title="Poznámka: V případě, že nějaký příkaz spustíte na pozadí nebo ho přerušíte (Ctrl+Z), vypíše výzva dobu trvání po částech (vždy od potvrzení příkazu po následující zobrazení výzvy). Pro pokročilejší měření použijte příkaz „time“. Tyto příkazy navíc obsazují obsluhu signálu SIGUSR2, proto je nelze kombinovat s jinými příkazy, které by obsluhu tohoto signálu potřebovaly.">(11)</a></sup></div><div class="radky">
+<div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>PS_TIMESTAMP=$(date +%s%1N)</div>
+<div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>trap 'PS_TIMESTAMP=$(date +%s%1N)' SIGUSR2</div>
+<div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>PS0=&quot;<i class="dopln">...</i>\$(kill -SIGUSR2 $$)<i class="dopln">...</i>&quot;</div>
+<div class="radekzaklinadla">\$(((\$(date +%s%1N) - PS_TIMESTAMP + 5) / 10))</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3b0a09e"><span><a href="#zx3b0a09e">@</a></span></span>trvání posledního příkazu v milisekundách<span class="cislo">#2 </span><sup><a href="#kapxff5b3f8ppc12" id="kapxff5b3f8ppcr12" title="Viz poznámku pod čarou k „trvání posledního příkazu v sekundách“.">(12)</a></sup></div><div class="radky">
+<div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>PS_TIMESTAMP=$(date +%s%4N)</div>
+<div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>trap 'PS_TIMESTAMP=$(date +%s%4N)' SIGUSR2</div>
+<div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>PS0=&quot;<i class="dopln">...</i>\$(kill -SIGUSR2 $$)<i class="dopln">...</i>&quot;</div>
+<div class="radekzaklinadla">\$(((\$(date +%s%4N) - PS_TIMESTAMP + 5) / 10))</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5017a57"><span><a href="#zx5017a57">@</a></span></span><b>PID</b> příkazového interpretu<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">$$<span class="prikladhodnoty">⊨ 3338</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1ac806f"><span><a href="#zx1ac806f">@</a></span></span><b>číslo příkazu</b> (podle historie/pořadové)<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">\\!&quot;&quot;<span class="prikladhodnoty">⊨ 1984</span></div>
+<div class="radekzaklinadla">\\#<span class="prikladhodnoty">⊨ 9</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4431745"><span><a href="#zx4431745">@</a></span></span>označení <b>terminálu</b> (alternativy)<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">\\l<span class="prikladhodnoty">⊨ 3 (pro textovou konzoli např. „tty3“)</span></div>
+<div class="radekzaklinadla">$(ps h -o tty:1 -p $$)<span class="prikladhodnoty">⊨ pts/3 (pro textovou konzoli např. „tty3“)</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxcd079a9"><span><a href="#zxcd079a9">@</a></span></span>počet úloh běžících na pozadí (těch, které lze vypsat příkazem „jobs“)<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">\\j<span class="prikladhodnoty">⊨ 0</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9972011"><span><a href="#zx9972011">@</a></span></span>počet řádek/sloupců terminálu<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla">\${LINES}</div>
+<div class="radekzaklinadla">\${COLUMNS}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx563894b"><span><a href="#zx563894b">@</a></span></span>cesta/název aktuálního adresáře (bez zkracování znakem „~“)<span class="cislo">#8 </span></div><div class="radky">
+<div class="radekzaklinadla">\$(pwd)<span class="prikladhodnoty">⊨ /home/novakova/Dokumenty</span></div>
+<div class="radekzaklinadla">\$(basename \$(pwd))<span class="prikladhodnoty">⊨ Dokumenty</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe9d8252"><span><a href="#zxe9d8252">@</a></span></span>znak „$“ pro všechny (i pro uživatele root)(alternativy)<span class="cislo">#9 </span></div><div class="radky">
+<div class="radekzaklinadla">\$(printf \$)<span class="prikladhodnoty">⊨ $</span></div>
+<div class="radekzaklinadla">\044\[\]</div>
+</div></div>
+
+<h3 id="cast4x3"><span><a href="#cast4x3" title="kapitola 33 (Terminál), sekce 4 (Zaklínadla: PS0, PS1 a PS2), podsekce 3 (Ucelené příklady nastavení)"><sup>4/</sup>3 Ucelené příklady nastavení</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx23da624"><span><a href="#zx23da624">@</a></span></span>návratová hodnota, čas, aktuální adresář a dolar<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>source &lt;(lkk --funkce)</div>
+<div class="radekzaklinadla">PROMPT_COMMAND=&quot;navr_hodn=\$?&quot;</div>
+<div class="radekzaklinadla">PS1=&quot;$(lkk_pstput sgr0)\$navr_hodn $(lkk_pstput setaf 6)\A &quot;</div>
+<div class="radekzaklinadla">PS1+=&quot;$(lkk_pstput sgr0; lkk_pstput bold; lkk_pstput setaf 2)\w$(lkk_pstput sgr0)\\\$<span class="viditelnamezera">&nbsp;</span>&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx09c5ddf"><span><a href="#zx09c5ddf">@</a></span></span>vedlejší výzva: zelené svislítko<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>source &lt;(lkk --funkce)</div>
+<div class="radekzaklinadla">PS2=&quot;\\[$(lkk_bezp_set setaf 2)\\]|$(lkk_pstput sgr0)<span class="viditelnamezera">&nbsp;</span>&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfde9c39"><span><a href="#zxfde9c39">@</a></span></span>příkazy psát červeně na zeleném pozadí, výpisy příkazů tyrkysově na fialové pozadí<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>source &lt;(lkk --funkce)</div>
+<div class="radekzaklinadla">PS1=&quot;\\[$(lkk_bezp_set setaf 1; lkk_bezp_set setab 2; tput el)\\]\$<span class="viditelnamezera">&nbsp;</span>&quot;</div>
+<div class="radekzaklinadla">PS0=&quot;$(lkk_bezp_set setaf 6; lkk_bezp_set setab 5; tput el)&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc2b93a7"><span><a href="#zxc2b93a7">@</a></span></span>příkazy psát tučným zeleným písmem, výzvu bez zvýraznění<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>source &lt;(lkk --funkce)</div>
+<div class="radekzaklinadla">PS0=&quot;$(tput sgr0)&quot;</div>
+<div class="radekzaklinadla">PS1=&quot;\\[$(tput sgr0)\\]\w\$<span class="viditelnamezera">&nbsp;</span>\\[$(lkk_bezp_set setaf 2; tput bold)\\]&quot;</div>
+<div class="radekzaklinadla">PS2=&quot;\\[$(tput sgr0)\\]|<span class="viditelnamezera">&nbsp;</span>\\[$(lkk_bezp_set setaf 2; tput bold)\\]&quot;</div>
+</div></div>
+
+<h2 id="cast5" class="zaklinadla"><a href="#cast5"><span class="cislo">5.</span> Zaklínadla: Zvýrazňování v příkazu „ls“</a></h2>
+<p class="ponadpisu">
+Poznámka 1: Nastavení barevného zvýraznění příkazu „ls“ řídí proměnná prostředí
+„LS_COLORS“, kterou bash nastavuje při spuštění interaktivní instance
+z konfiguračního souboru „~/.dircolors“ (pokud existuje).
+Změny tohoto souboru se tedy projeví teprve po jejich přepsání
+do proměnné „LS_COLORS“.
+</p><p>
+Poznámka 2: <i class="dopln">nastavení</i> v níže uvedených zaklínadlech je neprázdná posloupnost
+číselných kódů (podle vzorníku) oddělených středníkem, např. „1;32“ pro tučné
+modré písmo, „32“ pro modré písmo apod.
+</p>
+
+<h3 id="cast5x1"><span><a href="#cast5x1" title="kapitola 33 (Terminál), sekce 5 (Zaklínadla: Zvýrazňování v příkazu „ls“), podsekce 1 (Bash: obecné příkazy)"><sup>5/</sup>1 Bash: obecné příkazy</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxae125a1"><span><a href="#zxae125a1">@</a></span></span>vypsat <b>vzorník</b> číselných kódů pro nastavení<span class="cislo">#1 </span><sup><a href="#kapxff5b3f8ppc13" id="kapxff5b3f8ppcr13" title="Tip: pokud to váš terminál podporuje, můžete použít i barvy v rozsahu 16 až 255. Odpovídající sekvence kódu jsou ovšem netriviální a je potřeba je vygenerovat níže uvedeným zaklínadlem z příkazu „tput“. Jejich použití také může způsobit potíže, pokud se přepnete na terminál, který tyto barvy nepodporuje.">(13)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">printf '\e[0m0 = reset\n\e[1m1 = tučné písmo\e[0m\n\e[4m4 = podtržení\e[0m' &amp;&amp;</div>
+<div class="radekzaklinadla">printf '\ntext:<span class="viditelnamezera">&nbsp;</span><span class="viditelnamezera">&nbsp;</span><span class="viditelnamezera">&nbsp;</span>' &amp;&amp; for x in {30..37} {90..97}; do printf '\e[%dm%4s ' $x $x; done &amp;&amp;</div>
+<div class="radekzaklinadla">printf '\n\e[0m\e[1mtučný:<span class="viditelnamezera">&nbsp;</span><span class="viditelnamezera">&nbsp;</span>' &amp;&amp; for x in {30..37} {90..97}; do printf '\e[%dm%4s ' $x &quot;1;$x&quot;; done &amp;&amp;</div>
+<div class="radekzaklinadla">printf '\n\e[0mpozadí:<span class="viditelnamezera">&nbsp;</span>' &amp;&amp; for x in {40..47} {100..107}; do printf '\e[%dm%4s\e[0m ' $x $x; done &amp;&amp;</div>
+<div class="radekzaklinadla">echo</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb4a5f1b"><span><a href="#zxb4a5f1b">@</a></span></span>vygenerovat výchozí nastavení a zapsat do konfiguračního souboru (výchozího/vlastního)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">dircolors -p &gt;~/.dircolors</div>
+<div class="radekzaklinadla">dircolors -p &gt;<i class="dopln">konfigurační/soubor</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx44f4bb2"><span><a href="#zx44f4bb2">@</a></span></span>vygenerovat <b>sekvenci kódů</b> z příkazu „tput“<span class="cislo">#3 </span><sup><a href="#kapxff5b3f8ppc14" id="kapxff5b3f8ppcr14" title="Prázdný výstup znamená, že takovou sekvenci nelze vygenerovat.">(14)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">tput <i class="dopln">parametry</i> | sed -znE 's/^\x1b\[([0-9;]+)m$/\1\n/;T;p'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxff98b30"><span><a href="#zxff98b30">@</a></span></span>ručně uplatit změny z konfiguračního souboru (z výchozího/z vlastního)<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>test -e ~/.dircolors &amp;&amp;<span class="volznak">]</span> eval &quot;$(dircolors -b ~/.dircolors)&quot;</div>
+<div class="radekzaklinadla">eval &quot;$(dircolors -b <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">konfigurační/soubor</i>)&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7361f4a"><span><a href="#zx7361f4a">@</a></span></span>dočasně nastavit zvýraznění do výchozího stavu<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">dircolors -p | dircolors -b -</div>
+</div></div>
+
+<h3 id="cast5x2"><span><a href="#cast5x2" title="kapitola 33 (Terminál), sekce 5 (Zaklínadla: Zvýrazňování v příkazu „ls“), podsekce 2 (Bash: Vybrané změny v konfiguračním souboru)"><sup>5/</sup>2 Bash: Vybrané změny v konfiguračním souboru</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxeb6a21a"><span><a href="#zxeb6a21a">@</a></span></span>u adresářů použít světle modré písmo místo tmavě modrého (doporučuji)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">sed -i -E '/^DIR\&gt;/s/\&lt;34\&gt;/94/' ~/.dircolors</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1a27eaa"><span><a href="#zx1a27eaa">@</a></span></span>změnit nastavení pro všechny obrázky a videa (jpg, mp4 apod.)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">sed -i -E '/^\s*#\s*image formats/,/^\s*#\s[^h]/s/^(\.\S+)\s.*$/\1<span class="viditelnamezera">&nbsp;</span><i class="dopln">nové;nastavení</i>/' ~/.dircolors</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9c76fcd"><span><a href="#zx9c76fcd">@</a></span></span>změnit nastavení pro všechny audioformáty (mp3, wav apod.)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">sed -i -E '/^\s*#\s*audio formats/,/^\s*#\s[^h]/s/^(\.\S+)\s.*$/\1<span class="viditelnamezera">&nbsp;</span><i class="dopln">nové;nastavení</i>/' ~/.dircolors</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx90af268"><span><a href="#zx90af268">@</a></span></span>změnit nastavení pro archivy<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">sed -i -E '/^\s*#\s*archives/,/^\s*#\s[^h]/s/^(\.\S+)\s.*$/\1<span class="viditelnamezera">&nbsp;</span><i class="dopln">nové;nastavení</i>/' ~/.dircolors</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3cdeeeb"><span><a href="#zx3cdeeeb">@</a></span></span>smazat nastavení podle přípony<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla akce">Otevřete konfigurační soubor ve vhodném textovém editoru.</div>
+<div class="radekzaklinadla akce">Najděte a odstraňte řádky začínající příponou, podle které již nechcete zvýrazňovat.</div>
+<div class="radekzaklinadla akce">Uložte konfigurační soubor a zavřete textový editor.</div>
+</div></div>
+
+<h3 id="cast5x3"><span><a href="#cast5x3" title="kapitola 33 (Terminál), sekce 5 (Zaklínadla: Zvýrazňování v příkazu „ls“), podsekce 3 (.dircolors: Zvýraznění adresářů)"><sup>5/</sup>3 .dircolors: Zvýraznění adresářů</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx56b5179"><span><a href="#zx56b5179">@</a></span></span>adresáře (normální)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">DIR <i class="dopln">nastavení</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2302188"><span><a href="#zx2302188">@</a></span></span>adresář, který má nastaveno o+w/+t/obojí<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">OTHER_WRITABLE <i class="dopln">nastavení</i></div>
+<div class="radekzaklinadla">STICKY <i class="dopln">nastavení</i></div>
+<div class="radekzaklinadla">STICKY_OTHER_WRITABLE <i class="dopln">nastavení</i></div>
+</div></div>
+
+<h3 id="cast5x4"><span><a href="#cast5x4" title="kapitola 33 (Terminál), sekce 5 (Zaklínadla: Zvýrazňování v příkazu „ls“), podsekce 4 (.dircolors: Zvýraznění podle typu adresářové položky)"><sup>5/</sup>4 .dircolors: Zvýraznění podle typu adresářové položky</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxbb990d0"><span><a href="#zxbb990d0">@</a></span></span>symbolický odkaz (platný/neplatný/cíl neplatného)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">LINK <i class="dopln">nastavení</i></div>
+<div class="radekzaklinadla">ORPHAN <i class="dopln">nastavení</i></div>
+<div class="radekzaklinadla">MISSING <i class="dopln">nastavení</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2861516"><span><a href="#zx2861516">@</a></span></span>zvláštní zařízení: blokové/znakové<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">BLK <i class="dopln">nastavení</i></div>
+<div class="radekzaklinadla">CHR <i class="dopln">nastavení</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb704c24"><span><a href="#zxb704c24">@</a></span></span>pojmenovaná roura<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">FIFO <i class="dopln">nastavení</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd0bdb42"><span><a href="#zxd0bdb42">@</a></span></span>soket<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">SOCK <i class="dopln">nastavení</i></div>
+</div></div>
+
+<h3 id="cast5x5"><span><a href="#cast5x5" title="kapitola 33 (Terminál), sekce 5 (Zaklínadla: Zvýrazňování v příkazu „ls“), podsekce 5 (.dircolors: Zvýraznění obyčejných souborů podle vlastností)"><sup>5/</sup>5 .dircolors: Zvýraznění obyčejných souborů podle vlastností</a></span></h3>
+<p class="ponadpisu">
+Poznámka: použije se jen jedno zvýraznění; priority jsou:
+SETUID &gt; SETGID &gt; EXEC &gt; MULTIHARDLINK &gt; FILE
+</p>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9196fad"><span><a href="#zx9196fad">@</a></span></span>soubor, který má někdo (kdokoliv) právo spouštět<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">EXEC <i class="dopln">nastavení</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxde5514b"><span><a href="#zxde5514b">@</a></span></span>soubor s nastaveným u+s/g+s<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">SETUID <i class="dopln">nastavení</i></div>
+<div class="radekzaklinadla">SETGID <i class="dopln">nastavení</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxdfb72ad"><span><a href="#zxdfb72ad">@</a></span></span>soubor s více než jedním pevným odkazem<span class="cislo">#3 </span><sup><a href="#kapxff5b3f8ppc15" id="kapxff5b3f8ppcr15" title="Poznámka: toto nastavení má nižší prioritu než EXEC, proto spustitelné soubory s více pevnými odkazy nebudou tímto nastavením zvýrazněny.">(15)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">MULTIHARDLINK <i class="dopln">nastavení</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxdbeca48"><span><a href="#zxdbeca48">@</a></span></span>soubor bez zvláštních vlastností<span class="cislo">#4 </span><sup><a href="#kapxff5b3f8ppc16" id="kapxff5b3f8ppcr16" title="Ve výchozím konfiguračním souboru musíte toto nastavení nejprve odkomentovat. Pozor, po odkomentování překryje nastavení MULTIHARDLINK!">(16)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">FILE <i class="dopln">nastavení</i></div>
+</div></div>
+
+<h3 id="cast5x6"><span><a href="#cast5x6" title="kapitola 33 (Terminál), sekce 5 (Zaklínadla: Zvýrazňování v příkazu „ls“), podsekce 6 (.dircolors: Zvýraznění obyčejných souborů podle přípony)"><sup>5/</sup>6 .dircolors: Zvýraznění obyčejných souborů podle přípony</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx382cf25"><span><a href="#zx382cf25">@</a></span></span>zvýraznit podle přípony (obecně/příklad)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">.<i class="dopln">zbytekpřípony</i><span class="viditelnamezera">&nbsp;</span><i class="dopln">nastavení</i></div>
+<div class="radekzaklinadla">.tar 01;31</div>
+</div></div>
+
+<h2 id="cast6"><a href="#cast6"><span class="cislo">6.</span> Parametry příkazů</a></h2>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx20093bf"><span><a href="#zx20093bf">@</a></span></span>nastavit šablonu hlavní výzvy/připojit k ní další text (analogicky platí i pro ostatní výzvy)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">PS1=&quot;<i class="dopln">text</i>&quot;</div>
+<div class="radekzaklinadla">PS1+=&quot;<i class="dopln">další text</i>&quot;</div>
+</div></div>
+<p class="ponadpisu">
+<i>Důležitá poznámka:</i> Aby mohl bash správně zformátovat hlavní a vedlejší výzvu (PS1 a PS2), potřebuje předem znát počet tisknutých znaků na každém řádku. Bohužel bash nerozumí escape sekvencím, proto mu musíte napovědět a tyto sekvence uzavřít do zvláštních závorek „\[“ a „\]“ (ve dvojitých uvozovkách se zadávají „\\[“ a „\\]“), které znamenají, že jejich obsah bash nemá při výpočtu šířky řádků vůbec zohledňovat. Tyto závorky se bohužel naopak nesmějí používat v proměnné PS0, tam by vypsaly škaredé paznaky na terminál. V ukázce a v některých zaklínadlech lze tento problém vyřešit tak, že místo přímého zadání příkazu tput použijete pomocnou funkci lkk_pstput.
+</p><p>
+<i>Poznámka k emodži:</i> Při použití emodži ve výzvách PS1 a PS2 je vhodné za ně zařadit znak „\u200b“ (mezera nulové šířky), protože většina z nich zabírá v emulátoru terminálu dva textové sloupce a bash by jinak chybně odhadl délku dané řádky výzvy. Pokud použijete emodži, která zabírá tři sloupce, použijte mezery nulové šířky dvě; pokud zabírá jen jeden sloupec, nevkládejte žádnou.
+</p>
+
+<h2 id="cast7"><a href="#cast7"><span class="cislo">7.</span> Instalace na Ubuntu</a></h2>
+<p class="ponadpisu">
+Příkaz cmatrix, pokud ho potřebujete, je nutno doinstalovat:
+</p>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">sudo apt-get install cmatrix</div>
+</div></div>
+<p class="ponadpisu">
+Pokud potřebujete příkaz „toilet“, vždy ho instalujte v kombinaci s balíčkem „figlet“, který obsahuje potřebná písma:
+</p>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">sudo apt-get install toilet figlet</div>
+</div></div>
+
+<h2 id="cast8"><a href="#cast8"><span class="cislo">8.</span> Ukázka</a></h2>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">source &lt;(lkk --funkce)</div>
+<div class="radekzaklinadla">PROMPT_COMMAND=&quot;navr_hodn=\$?;$PROMPT_COMMAND&quot;</div>
+<div class="radekzaklinadla">PS1=&quot;$(printf $'\U0001f4d7\u200b')\\[$(lkk_bezp_set setab 65 2)\\]$(printf $'\U0001f427\u200b'; lkk_pstput sgr0; printf $'\U0001f4d7\u200b') &quot;</div>
+<div class="radekzaklinadla">PS1+=&quot;\\[$(printf %s\\n &quot;$TERM&quot; | egrep -isq &quot;^(xterm|rxvt)&quot; &amp;&amp; printf &quot;\\e]2;%s\\a&quot; &quot;Bude příkaz č. \\#&quot;)\\]&quot;</div>
+<div class="radekzaklinadla">PS1+=&quot;Tato $(lkk_pstput smul)výzva je $(lkk_pstput sitm)zbytečně$(lkk_pstput rmul) rozsáhlá, aby ukázala $(lkk_pstput bold)spoustu$(lkk_pstput sgr0) možností.\\n&quot;</div>
+<div class="radekzaklinadla">PS1+=&quot;$(lkk_pstput dim)Velikost terminálu: \$(tput cols)x\$(tput lines) Volné místo: $(lkk_pstput smul)\$(df -h --output=avail . | tail -n 1 | tr -d \&quot; \&quot;)$(lkk_pstput sgr0)\\n&quot;</div>
+<div class="radekzaklinadla">PS1+=&quot;Návr.kód:\\[\$(lkk_barvapronh \${navr_hodn})\\]\${navr_hodn}$(lkk_pstput sgr0)<span class="viditelnamezera">&nbsp;</span>(\\[$(lkk_bezp_set setaf 87 6)\\]\\t$(lkk_pstput sgr0)) !&quot;&quot;\\!<span class="viditelnamezera">&nbsp;</span>&quot;</div>
+<div class="radekzaklinadla">PS1+=&quot;\\[$(lkk_bezp_set setaf 220 3; tput bold)\\]\\w$(lkk_pstput sgr0)<span class="viditelnamezera">&nbsp;</span>\\$<span class="viditelnamezera">&nbsp;</span>&quot;</div>
+<div class="radekzaklinadla">PS2=&quot;\\[$(lkk_bezp_set setaf 10 2; tput bold)\\]|<span class="viditelnamezera">&nbsp;</span>$(lkk_pstput sgr0)&quot;</div>
+</div></div>
+
+<h2 id="cast9"><a href="#cast9"><span class="cislo">9.</span> Tipy a zkušenosti</a></h2>
+<ul><li>Výchozí nastavení výzev se nachází v souboru „~/.bashrc“. Umístěním svých definic na konec tohoto souboru můžete výchozí nastavení přepsat. Změna se projeví při dalším spuštění Bashe.
+</li><li>Konstrukci proměnné PS1 je vhodné pro přehlednost rozdělit do více řádek, kdy první řádka bude přiřazení a na dalších použijete operátor += k připojení hodnoty ke stávající hodnotě.
+</li><li>Tip: Před zkoušením nastavování barev a titulku terminálu si vypněte výzvu příkazem „PS1=&quot;&quot;“. Výchozí výzva obsahuje escape sekvence, které by kolidovaly s těmi, které se snažíte zadat a rušily by jejich účinek.
+</li><li>Bash podporuje proměnnou „PROMPT_COMMAND“. Je-li nastavena, je vykonána jako příkaz těsně před vypsáním hlavní výzvy. Toho lze využít k nastavení proměnných, které pak ve výzvě použijeme. Proměnná PROMPT_COMMAND může obsahovat i více příkazů oddělených středníky. Podle manuálové stránky by příkazy uvedené v této proměnné neměly generovat žádný výstup na terminál! (Ale výstup do souboru je pravděpodobně v pořádku.)
+</li></ul>
+<h2 id="cast10"><a href="#cast10"><span class="cislo">10.</span> Další zdroje informací</a></h2>
+<p class="ponadpisu">
+Přehled syntaxe pro proměnné PS0, PS1 a PS2 najdete v sekci „PROMPTING“ v manuálové stránce „bash“ (anglicky).
+</p><p>
+Různé další tipy se dají najít v článku Bash/Prompt customization (anglicky).
+</p>
+<ul class="kompaktni"><li><a href="https://cs.wikipedia.org/wiki/ANSI_escape_k%C3%B3d">Wikipedie: ANSI escape kód</a>
+</li><li><a href="https://wiki.archlinux.org/index.php/Bash/Prompt_customization">Bash/Prompt customization</a> (anglicky)
+</li><li><a href="http://www.linuxcommand.org/lc3_adv_tput.php">Command tput</a> (anglicky)
+</li><li><a href="https://en.wikipedia.org/wiki/ANSI_escape_code">Wikipedie: ANSI escape code</a> (anglicky)
+</li><li><a href="http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html">xterm-256 Color Chart</a> (anglicky)
+</li><li><a href="http://manpages.ubuntu.com/manpages/focal/en/man1/bash.1.html">Manuálová stránka: bash</a> (anglicky)
+</li><li><a href="https://www.youtube.com/watch?v=iaXQdyHRL8M">Video: Customizing Your Terminal | Linux Terminal Beautification</a>
+</li><li><a href="https://www.gnu.org/software/termutils/manual/termutils-2.0/html_chapter/tput_1.html">Oficiální příručka příkazu tput</a> (anglicky)
+</li><li><a href="https://packages.ubuntu.com/focal/ncurses-bin">Balíček: ncurses-bin</a> (anglicky)
+</li><li><a href="https://www.youtube.com/watch?v=wOUYzKrGZaA">Video: Customize the Bash Prompt</a> (anglicky)
+</li><li><a href="https://www.youtube.com/watch?v=C92eaq_bZR8">Video: Customize &amp; Colorize Your Bash Prompt/Terminal</a> (anglicky)
+</li><li><a href="https://www.youtube.com/watch?v=N8pdAvIwj28">Video: Color Variables BASH Shell Script Linux Tutorial</a> (anglicky)
+</li></ul>
+<h2 id="cast11"><a href="#cast11"><span class="cislo">11.</span> Pomocné funkce a skripty</a></h2>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8caa828"><span><a href="#zx8caa828">@</a></span></span>lkk_bezp_set() – nastaví písmo či pozadí na první podporovanou barvu<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">function lkk_bezp_set () {</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">local f=&quot;$1&quot; c=&quot;$(tput colors 2&gt;/dev/null || printf 0)&quot; x=&quot;&quot;</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">shift</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">for x in $@; do if test $x -lt $c; then tput $f $x; break; fi; done</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">return 0</div>
+<div class="radekzaklinadla">}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4857582"><span><a href="#zx4857582">@</a></span></span>lkk_barvapronh() – nastaví barvu písma podle hodnoty parametru<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">function lkk_barvapronh () {</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">test $1 -gt 0 &amp;&amp; tput bold</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">test $1 -eq 1 &amp;&amp; lkk_bezp_set setaf 1</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">test $1 -gt 1 &amp;&amp; lkk_bezp_set setaf 2</div>
+<div class="radekzaklinadla">}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx93f1732"><span><a href="#zx93f1732">@</a></span></span>lkk_pstput() – vypíše escape sekvenci uzavřenou pro použití v proměnných PS1 a PS2<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">function lkk_pstput () {</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">printf \\[; tput &quot;$@&quot; &amp;&amp; printf \\]</div>
+<div class="radekzaklinadla">}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx58c369b"><span><a href="#zx58c369b">@</a></span></span>lkk titulek – nastaví titulek emulátoru terminálu, je-li to podporováno<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">#!/bin/bash</div>
+<div class="radekzaklinadla">[[ $TERM =~ ^(xterm|rxvt) ]] &amp;&amp; printf '\e]2;%s\a' &quot;$1&quot;</div>
+</div></div>
+
+<h2 id="cast12"><a href="#cast12"><span class="cislo">12.</span> Zákulisí kapitoly</a></h2>
+<p class="ponadpisu">
+V této verzi kapitoly chybí:
+</p>
+<ul class="kompaktni"><li>nic
+</li></ul><p class="ponadpisu">
+Tato kapitola záměrně nepokrývá:
+</p>
+<ul class="kompaktni"><li>nic
+</li></ul><div class="ppc"><div id="kapxff5b3f8ppc1"><a href="#kapxff5b3f8ppcr1" class="cislopozn">1</a>&nbsp;Poznámka: Protože ve výchozím nastavení nastavuje titulek terminálu výzva PS1, před jakýmkoliv experimentováním ji musíte vypnout nebo změnit (např. příkazem „PS=&quot;&quot;“), jinak vám vaše nové nastavení hned přepíše, takže se vám bude zdát, že nefunguje.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxff5b3f8ppc2"><a href="#kapxff5b3f8ppcr2" class="cislopozn">2</a>&nbsp;Funkce „lkk_bezp_set“ použije ze svých argumentů první podporované číslo barvy. Není-li žádné z uvedených čísel podporováno, žádná barva se nanastaví. Při volání doporučuji jako první uvést číslo pro paletu s 256 barvami a jako druhé číslo náhradní barvy z osmibarevné palety.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxff5b3f8ppc3"><a href="#kapxff5b3f8ppcr3" class="cislopozn">3</a>&nbsp;Na některých terminálech je realizován jako inverzní text, na jiných jako tučné písmo.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxff5b3f8ppc4"><a href="#kapxff5b3f8ppcr4" class="cislopozn">4</a>&nbsp;Používání blikajícího textu se výrazně nedoporučuje, protože je v různých terminálech málo a nejednotně podporován, má mnoho odpůrců a může uživateli způsobovat zdravotní potíže.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxff5b3f8ppc5"><a href="#kapxff5b3f8ppcr5" class="cislopozn">5</a>&nbsp;V interaktivním režimu program ukončíte klávesou „q“, další klávesové zkratky najdete v manuálové stránce. Rychlost je od 0 (nejrychlejší) po 9 (nejpomalejší).</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxff5b3f8ppc6"><a href="#kapxff5b3f8ppcr6" class="cislopozn">6</a>&nbsp;Pro český text s háčky a čárky se bohužel dobře hodí jen písma „ascii9“, „smmono9“ a „standard“; čárky zvládají i některá další; písmena anglické abecedy zvládají všechna. Z filtrů mohu doporučit „gay“ a „border“, méně „metal“, „180“ a „flip“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxff5b3f8ppc7"><a href="#kapxff5b3f8ppcr7" class="cislopozn">7</a>&nbsp;Řádky a sloupce jsou číslovány od nuly od levého horního rohu terminálu.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxff5b3f8ppc8"><a href="#kapxff5b3f8ppcr8" class="cislopozn">8</a>&nbsp;U druhé varianty (vyhodnotit při každém vypsání výzvy) musíte v příkazu odzvláštnit znaky &quot;, \, $ a !, aby se do příslušné proměnné uložil přesně tak, jak má být vykonán.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxff5b3f8ppc9"><a href="#kapxff5b3f8ppcr9" class="cislopozn">9</a>&nbsp;Poznámka: Aby tento výraz fungoval, musíte do proměnné PROMPT_COMMAND (ideálně na začátek) přidat příkaz „navr_hodn=$?“, např. příkazem „PROMPT_COMMAND=&quot;navr_hodn=\$?;$PROMPT_COMMAND&quot;“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxff5b3f8ppc10"><a href="#kapxff5b3f8ppcr10" class="cislopozn">10</a>&nbsp;Pro popis vlastního formátu viz „man strftime“ nebo kapitolu „Datum, čas a kalendář“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxff5b3f8ppc11"><a href="#kapxff5b3f8ppcr11" class="cislopozn">11</a>&nbsp;Poznámka: V případě, že nějaký příkaz spustíte na pozadí nebo ho přerušíte (Ctrl+Z), vypíše výzva dobu trvání po částech (vždy od potvrzení příkazu po následující zobrazení výzvy). Pro pokročilejší měření použijte příkaz „time“. Tyto příkazy navíc obsazují obsluhu signálu SIGUSR2, proto je nelze kombinovat s jinými příkazy, které by obsluhu tohoto signálu potřebovaly.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxff5b3f8ppc12"><a href="#kapxff5b3f8ppcr12" class="cislopozn">12</a>&nbsp;Viz poznámku pod čarou k „trvání posledního příkazu v sekundách“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxff5b3f8ppc13"><a href="#kapxff5b3f8ppcr13" class="cislopozn">13</a>&nbsp;Tip: pokud to váš terminál podporuje, můžete použít i barvy v rozsahu 16 až 255. Odpovídající sekvence kódu jsou ovšem netriviální a je potřeba je vygenerovat níže uvedeným zaklínadlem z příkazu „tput“. Jejich použití také může způsobit potíže, pokud se přepnete na terminál, který tyto barvy nepodporuje.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxff5b3f8ppc14"><a href="#kapxff5b3f8ppcr14" class="cislopozn">14</a>&nbsp;Prázdný výstup znamená, že takovou sekvenci nelze vygenerovat.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxff5b3f8ppc15"><a href="#kapxff5b3f8ppcr15" class="cislopozn">15</a>&nbsp;Poznámka: toto nastavení má nižší prioritu než EXEC, proto spustitelné soubory s více pevnými odkazy nebudou tímto nastavením zvýrazněny.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxff5b3f8ppc16"><a href="#kapxff5b3f8ppcr16" class="cislopozn">16</a>&nbsp;Ve výchozím konfiguračním souboru musíte toto nastavení nejprve odkomentovat. Pozor, po odkomentování překryje nastavení MULTIHARDLINK!</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+</div>
+
+
+<nav class="spodni">
+<a href="index.htm" class="naindex">🗐&nbsp;Přehled&nbsp;kapitol</a>
+<div class="naslkap">
+<a href="terminal-emodzi.htm" rel="next" title="27.1. Terminál / Emodži">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">27.1</span>
+<span class="nazev">Terminál / Emodži</span></a>
+</div>
+<!--<div><a href="index.htm">🗐&nbsp;Přehled&nbsp;kapitol</a></div>-->
+</nav>
+
+
+<div class="odkazydole"><div><a href="odkazy.htm"><img src="obrazky/ik/odkazy.png" alt="" width="32" height="32">Pevné a symbolické odkazy</a><a href="sprava-procesu.htm"><img src="obrazky/ik/sprava-procesu.png" alt="" width="32" height="32">Správa procesů</a><a href="diskove-oddily.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly</a></div></div>
+
+</article>
+<!-- *** -->
+<footer id="dole">
+<img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
+<p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
+<a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
+Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
+či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
+na stránce „<a href="x-autori.htm">Přehled autorů</a>“.
+Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
+licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
+Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód
+a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
+<a href="https://github.com/singularis-mzf/linux-spellbook">repozitář na GitHubu</a>.
+</footer>
+</div>
+
+<nav class="menu">
+<!-- MENU OSNOVA -->
+<a href="#menuosnova" id="menuosnova"><span class="prvnipismeno">O</span>snova</a>
+<aside class="menuosnova">
+<div><div class="nadpis">Osnova</div><div class="polozky">
+<a href="#cast1" class="sekce">1 Úvod</a>
+<a href="#cast2" class="sekce">2 Definice</a>
+<a href="#cast3" class="sekce">3 Zaklínadla: obecná</a>
+<a href="#cast3x1" class="podsekce">/1 Titulek</a>
+<a href="#cast3x2" class="podsekce">/2 Barvy</a>
+<a href="#cast3x3" class="podsekce">/3 Nastavení písma</a>
+<a href="#cast3x4" class="podsekce">/4 Ozdoby (nápisy a matrix)</a>
+<a href="#cast3x5" class="podsekce">/5 Zjistit údaje o terminálu</a>
+<a href="#cast3x6" class="podsekce">/6 Ovládání kurzoru</a>
+<a href="#cast3x7" class="podsekce">/7 Mazání obrazovky</a>
+<a href="#cast4" class="sekce">4 Zaklínadla: PS0, PS1 a PS2</a>
+<a href="#cast4x1" class="podsekce">/1 Častá</a>
+<a href="#cast4x2" class="podsekce">/2 Méně častá</a>
+<a href="#cast4x3" class="podsekce">/3 Ucelené příklady nastavení</a>
+<a href="#cast5" class="sekce">5 Zaklínadla: Zvýrazňování v příkazu „ls“</a>
+<a href="#cast5x1" class="podsekce">/1 Bash: obecné příkazy</a>
+<a href="#cast5x2" class="podsekce">/2 Bash: Vybrané změny v konfiguračním souboru</a>
+<a href="#cast5x3" class="podsekce">/3 .dircolors: Zvýraznění adresářů</a>
+<a href="#cast5x4" class="podsekce">/4 .dircolors: Zvýraznění podle typu adresářové položky</a>
+<a href="#cast5x5" class="podsekce">/5 .dircolors: Zvýraznění obyčejných souborů podle vlastností</a>
+<a href="#cast5x6" class="podsekce">/6 .dircolors: Zvýraznění obyčejných souborů podle přípony</a>
+<a href="#cast6" class="sekce">6 Parametry příkazů</a>
+<a href="#cast7" class="sekce">7 Instalace na Ubuntu</a>
+<a href="#cast8" class="sekce">8 Ukázka</a>
+<a href="#cast9" class="sekce">9 Tipy a zkušenosti</a>
+<a href="#cast10" class="sekce">10 Další zdroje informací</a>
+<a href="#cast11" class="sekce">11 Pomocné funkce a skripty</a>
+<a href="#cast12" class="sekce">12 Zákulisí kapitoly</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU KAPITOLY -->
+<a href="#menukapitoly" id="menukapitoly"><span class="prvnipismeno">K</span>apitoly</a>
+<aside class="menukapitoly">
+<div><div class="nadpis">Kapitoly</div><div class="polozky">
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/predmluva.png" alt="[]"></span><span class="fragodkazy"><a href="predmluva.htm" class="odkaz"><span><span class="cislo">1</span>Předmluva</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zakladni-znalosti.png" alt="[]"></span><span class="fragodkazy"><a href="zakladni-znalosti.htm" class="odkaz"><span><span class="cislo">2</span>Základní znalosti</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/awk.png" alt="[]"></span><span class="fragodkazy"><a href="awk.htm" class="odkaz"><span><span class="cislo">3</span>AWK</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/bash.png" alt="[]"></span><span class="fragodkazy"><a href="bash.htm" class="odkaz"><span><span class="cislo">4</span>Bash</span></a><span class="podkpodkazy"><a href="bash-funkce-a-skripty.htm" class="odkaz"><span><span class="cislo">4.1</span>Funkce a skripty</span></a><a href="bash-interaktivni-rezim.htm" class="odkaz"><span><span class="cislo">4.2</span>Interaktivní režim</span></a><a href="bash-vstup-vystup.htm" class="odkaz"><span><span class="cislo">4.3</span>Vstup, výstup a přesměrování</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/datum-cas-kalendar.png" alt="[]"></span><span class="fragodkazy"><a href="datum-cas-kalendar.htm" class="odkaz"><span><span class="cislo">5</span>Datum, čas a kalendář</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/diskove-oddily.png" alt="[]"></span><span class="fragodkazy"><a href="diskove-oddily.htm" class="odkaz"><span><span class="cislo">6</span>Diskové oddíly</span></a><span class="podkpodkazy"><a href="diskove-oddily-btrfs.htm" class="odkaz"><span><span class="cislo">6.1</span>Btrfs</span></a><a href="diskove-oddily-lvm.htm" class="odkaz"><span><span class="cislo">6.2</span>LVM</span></a><a href="diskove-oddily-softwarovy-raid.htm" class="odkaz"><span><span class="cislo">6.3</span>Softwarový RAID</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/git.png" alt="[]"></span><span class="fragodkazy"><a href="git.htm" class="odkaz"><span><span class="cislo">7</span>Git</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/hledani-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="hledani-souboru.htm" class="odkaz"><span><span class="cislo">8</span>Hledání souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/make.png" alt="[]"></span><span class="fragodkazy"><a href="make.htm" class="odkaz"><span><span class="cislo">9</span>Make</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/manualove-stranky.png" alt="[]"></span><span class="fragodkazy"><a href="manualove-stranky.htm" class="odkaz"><span><span class="cislo">10</span>Manuálové stránky</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/markdown.png" alt="[]"></span><span class="fragodkazy"><a href="markdown.htm" class="odkaz"><span><span class="cislo">11</span>Markdown</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/metaprikazy.png" alt="[]"></span><span class="fragodkazy"><a href="metaprikazy.htm" class="odkaz"><span><span class="cislo">12</span>Metapříkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/nabidka-aplikaci.png" alt="[]"></span><span class="fragodkazy"><a href="nabidka-aplikaci.htm" class="odkaz"><span><span class="cislo">13</span>Nabídka aplikací</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/odkazy.png" alt="[]"></span><span class="fragodkazy"><a href="odkazy.htm" class="odkaz"><span><span class="cislo">14</span>Pevné a symbolické odkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-moduly.png" alt="[]"></span><span class="fragodkazy"><a href="perl-moduly.htm" class="odkaz"><span><span class="cislo">15</span>Perl: moduly a objekty</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-zaklady.png" alt="[]"></span><span class="fragodkazy"><a href="perl-zaklady.htm" class="odkaz"><span><span class="cislo">16</span>Perl: základy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="fragodkazy"><a href="prace-s-archivy.htm" class="odkaz"><span><span class="cislo">17</span>Práce s archivy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prohlizeni-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="prohlizeni-textovych-souboru.htm" class="odkaz"><span><span class="cislo">18</span>Prohlížení textových souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/promenne.png" alt="[]"></span><span class="fragodkazy"><a href="promenne.htm" class="odkaz"><span><span class="cislo">19</span>Proměnné prostředí a interpretu</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="fragodkazy"><a href="regularni-vyrazy.htm" class="odkaz"><span><span class="cislo">20</span>Regulární výrazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sed.png" alt="[]"></span><span class="fragodkazy"><a href="sed.htm" class="odkaz"><span><span class="cislo">21</span>Sed</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/soubory-a-adresare.png" alt="[]"></span><span class="fragodkazy"><a href="soubory-a-adresare.htm" class="odkaz"><span><span class="cislo">22</span>Soubory a adresáře</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-balicku.htm" class="odkaz"><span><span class="cislo">23</span>Správa balíčků</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-procesu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-procesu.htm" class="odkaz"><span><span class="cislo">24</span>Správa procesů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-uzivatelskych-uctu.htm" class="odkaz"><span><span class="cislo">25</span>Správa uživatelských účtů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="fragodkazy"><a href="system.htm" class="odkaz"><span><span class="cislo">26</span>Systém</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/terminal.png" alt="[]"></span><span class="fragodkazy"><a href="terminal.htm" class="odkaz"><span><span class="cislo">27</span>Terminál</span></a><span class="podkpodkazy"><a href="terminal-emodzi.htm" class="odkaz"><span><span class="cislo">27.1</span>Emodži</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/vim.png" alt="[]"></span><span class="fragodkazy"><a href="vim.htm" class="odkaz"><span><span class="cislo">28</span>Vim</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-binarnich-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-binarnich-souboru.htm" class="odkaz"><span><span class="cislo">29</span>Zpracování binárních souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-textovych-souboru.htm" class="odkaz"><span><span class="cislo">30</span>Zpracování textových souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-videa-a-zvuku.htm" class="odkaz"><span><span class="cislo">31</span>Zpracování videa a zvuku</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="fragodkazy"><a href="licence.htm" class="odkaz"><span><span class="cislo">32</span>Licence</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/rejstrik.png" alt="[]"></span><span class="fragodkazy"><a href="rejstrik.htm" class="odkaz"><span><span class="cislo">33</span>Rejstřík podle klasických příkazů</span></a></span></div>
+</div></div>
+<a href="#zavritmenu" id="zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU ŠTÍTKY -->
+<a href="#menustitky" id="menustitky"><span class="prvnipismeno">Š</span>títky</a>
+<aside class="menustitky">
+<div><div class="nadpis">Štítky</div><div class="polozky">
+<a href="x-stitky.htm#x5208bbb">adresáře&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#xb0a5782">aplikace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x583f72a">apt&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa619ea3">automatizace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xb2b2bff">bajty&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5c1d5fa">barvy&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xd574d4b">bash&nbsp;&nbsp;(9)</a>
+<a href="x-stitky.htm#xedb0c6c">čas&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x8d777f3">data&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xcd6caf8">démoni&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x38864cc">dokumentace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5aee9db">editor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x905aee4">emodži&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xb05338c">Flatpak&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x1e3042b">GUI&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x891be82">hešovací funkce&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x4e36c04">hledání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c8789a">klávesnice&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x7aeae24">kódování&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa473827">komprese&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x79108ba">LVM&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x2d47ed4">odkládací prostor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xd8dfe69">ovládání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x0114ad0">Perl&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x84913e6">procesy&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa9c449d">program&nbsp;&nbsp;(11)</a>
+<a href="x-stitky.htm#xc65388d">programování&nbsp;&nbsp;(5)</a>
+<a href="x-stitky.htm#x43a526a">přístupová práva&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#xcf91513">RAID&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5c5f44a">ramdisk&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9ad09a9">Snap&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x23be896">soubory&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x12e55d8">správa verzí&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9dcbb0b">syntaxe&nbsp;&nbsp;(7)</a>
+<a href="x-stitky.htm#xba98a3b">systém&nbsp;&nbsp;(9)</a>
+<a href="x-stitky.htm#x3972255">systém souborů&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c01147">tematický okruh&nbsp;&nbsp;(22)</a>
+<a href="x-stitky.htm#xf54f028">textové soubory&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x7f6c02d">Unicode&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x421b47f">video&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xadcdbd7">zip&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x908961b">zpracování textu&nbsp;&nbsp;(5)</a>
+<a href="x-stitky.htm#x04b5cff">zvuk&nbsp;&nbsp;(1)</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU NÁPOVĚDA -->
+<a href="#menunapoveda" id="menunapoveda"><span class="prvnipismeno">N</span>ápověda</a>
+<aside class="menunapoveda">
+<div><div class="nadpis">Nápověda</div><div class="polozky">
+<a href="predmluva.htm">Předmluva</a>
+<a href="https://singularis-mzf.github.io/">Ostatní verze knihy</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook">Repozitář na GitHubu</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook/blob/stabiln%C3%AD/dokumentace/odm%C4%9Bna-za-sestaven%C3%AD.md">Odměna za sestavení (prémiové kapitoly)</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+</nav>
+
+<a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
+<a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
+
+</div>
+</body>
+</html>

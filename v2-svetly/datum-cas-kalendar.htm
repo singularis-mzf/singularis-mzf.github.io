@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="cs">
+<head profile="http://www.w3.org/2005/10/profile">
+<meta charset="UTF-8">
+
+<title>Datum, čas a kalendář − Linux: Kniha kouzel</title>
+<meta name="viewport" content="width=1000, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="lkk-20250301.css">
+<link rel="icon" type="image/png" href="obrazky/favicon.png">
+</head>
+<body>
+<div id="nahore"><div id="okno">
+<header>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, 2.15 (1. března 2025)</span>
+<span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
+</header>
+<nav class="menuokna">
+<a href="#menuosnova" class="menu"><span class="prvnipismeno">O</span>snova</a>
+<a href="#menukapitoly" class="menu"><span class="prvnipismeno">K</span>apitoly</a>
+<a href="#menustitky" class="menu"><span class="prvnipismeno">Š</span>títky</a>
+<a href="#menunapoveda" class="menu"><span class="prvnipismeno">N</span>ápověda</a>
+<a href="bash-vstup-vystup.htm" rel="prev" title="4.3. Bash / Vstup, výstup a přesměrování" accesskey="p" class="predchozi">Předchozí&nbsp;kapitola</a>
+<a href="index.htm" class="prehled"><span class="prvnipismeno">P</span>řehled kapitol</a>
+<a href="diskove-oddily.htm" rel="next" title="6. Diskové oddíly" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
+</nav>
+
+<div class="slogan-veskera-moc">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+
+<!--
+<nav class="horni">
+<div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+<span class="prev">
+<a href="bash-vstup-vystup.htm" rel="prev" title="4.3. Bash / Vstup, výstup a přesměrování" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+</span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!- -
+- ->&nbsp;| <a href="diskove-oddily.htm" rel="next" title="6. Diskové oddíly" accesskey="n">Následující&nbsp;kapitola</a>
+</span>
+</nav>
+-->
+
+
+<article>
+
+<h1 class="kapitola">5. <img src="obrazky/ik/datum-cas-kalendar.png" alt="" width="64" height="64"> Datum, čas a kalendář</h1>
+<div class="varovani">
+Vývoj vanilkové příchuti Linuxu: Knihy kouzel byl 1.&nbsp;března&nbsp;2025
+ukončen. Tento text je zachován jako historický, ale chyby již nejsou
+opravovány. Odnože projektu pod kompatibilní licencí jsou vítány.
+</div>
+<div class="stitky"><a href="x-stitky.htm#">čas</a>
+<a href="x-stitky.htm#">tematický okruh</a>
+</div>
+<h2 id="cast1"><a href="#cast1"><span class="cislo">1.</span> Úvod</a></h2>
+<p class="ponadpisu">
+Obsahem této kapitoly je veškerá práce s hodnotami času a data a kalendářem jako takovým,
+to znamená výpočty, formátování, práci s časovými zónami a vizualizace. Kapitola rovněž
+pokrývá nastavování systémového a hardwarového času.
+</p><p>
+Příkaz „date“ je vyvíjen v rámci projektu GNU.
+</p>
+
+<h2 id="cast2"><a href="#cast2"><span class="cislo">2.</span> Definice</a></h2>
+<ul><li><b>Časová známka Unixu</b> je číselná reprezentace okamžiku v čase daná počtem sekund od 00:00:00 UTC 1. ledna 1970. Čas před tímto milníkem se reprezentuje zápornými čísly, pozdější čas kladnými. Obvykle se uvažují celá čísla, ale některé implementace pracují i s desetinnými. Časová známka Unixu se uvádí téměř výhradně v desítkové soustavě.
+</li><li><b>Systémový čas</b> je čas zpřístupněný systémem programům. Při startu systému se nastaví podle hardwarového času a zaniká vypnutím operačního systému. Systémový čas je obvykle v lokální časové zóně. Protikladem je <b>hardwarový čas</b>, což je čas poskytovaný zařízením na základní desce počítače. Hardwarový čas je obvykle v UTC.
+</li><li><b>UTC</b> je základní celosvětový čas, od kterého se odvozují hodnoty času v jednotlivých časových zónách.
+</li></ul>
+<h2 id="cast3" class="zaklinadla"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla: Obecná</a></h2>
+
+<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 8 (Datum, čas a kalendář), sekce 3 (Zaklínadla: Obecná), podsekce 1 (Výstupní formát („date +“ a „strftime“))"><sup>3/</sup>1 Výstupní formát („date +“ a „strftime“)</a></span></h3>
+<p class="ponadpisu">
+Číselné hodnoty (kromě %s) se automaticky zarovnávají nulami (např. leden je měsíc 01),
+potlačit to můžete vložením „-“ za %, např. „%-m“ vrátí pro leden „1“;
+pro zarovnání mezerami místo nulami tam vložte „_“, např. „%_m“ vrátí pro leden „<span class="viditelnamezera">&nbsp;</span>1“.
+</p>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxbbe48c0"><span><a href="#zxbbe48c0">@</a></span></span>lokalizované celky<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">%x<span class="prikladhodnoty">⊨ datum = 31.12.2019</span></div>
+<div class="radekzaklinadla">%X<span class="prikladhodnoty">⊨ čas (24hodinový) = 23:59:59</span></div>
+<div class="radekzaklinadla">%r<span class="prikladhodnoty">⊨ čas (12hodinový) = 11:59:59</span></div>
+<div class="radekzaklinadla">%c<span class="prikladhodnoty">⊨ datum a čas (24hodinový) = Út 31. prosince 2019, 23:59:59 CET</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9cac6d7"><span><a href="#zx9cac6d7">@</a></span></span>nelokalizované celky<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">%D<span class="prikladhodnoty">⊨ %m/%d/%y = 12/31/19</span></div>
+<div class="radekzaklinadla">%F<span class="prikladhodnoty">⊨ %Y-%m-%d = 2019-12-31</span></div>
+<div class="radekzaklinadla">%R<span class="prikladhodnoty">⊨ %H:%M = 23:59</span></div>
+<div class="radekzaklinadla">%T<span class="prikladhodnoty">⊨ %H:%M:%S = 23:59:59</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx258c788"><span><a href="#zx258c788">@</a></span></span>den v týdnu (alternativy)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">%A<span class="prikladhodnoty">⊨ Úterý (plný název, lokalizovaný)</span></div>
+<div class="radekzaklinadla">%a<span class="prikladhodnoty">⊨ Út (zkratka, lokalizovaná)</span></div>
+<div class="radekzaklinadla">%u<span class="prikladhodnoty">⊨ 2 (číslo 1..7, kde 1 je pondělí)</span></div>
+<div class="radekzaklinadla">%w<span class="prikladhodnoty">⊨ 2 (číslo 0..6, kde 0 je neděle)</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx773233d"><span><a href="#zx773233d">@</a></span></span><b>rok</b> (alternativy)<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">%Y<span class="prikladhodnoty">⊨ 2010 (4 číslice)</span></div>
+<div class="radekzaklinadla">%C<span class="prikladhodnoty">⊨ 20 (století)</span></div>
+<div class="radekzaklinadla">%y<span class="prikladhodnoty">⊨ 10 (dvojčíslí roku)</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx31a6098"><span><a href="#zx31a6098">@</a></span></span>čtvrtletí (ne strftime)<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">%q<span class="prikladhodnoty">⊨ 3 (číslo 1..4)</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxcd858aa"><span><a href="#zxcd858aa">@</a></span></span><b>měsíc</b> (alternativy)<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">%m<span class="prikladhodnoty">⊨ 03 (číslo)</span></div>
+<div class="radekzaklinadla">%B<span class="prikladhodnoty">⊨ listopad (plný název, lokalizovaný)</span></div>
+<div class="radekzaklinadla">%b<span class="prikladhodnoty">⊨ lis (zkratka, lokalizovaná)</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6355b10"><span><a href="#zx6355b10">@</a></span></span>den v měsíci (alternativy)<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla">%d<span class="prikladhodnoty">⊨ 03 (číslo)</span></div>
+<div class="radekzaklinadla">%e<span class="prikladhodnoty">⊨ <span class="viditelnamezera">&nbsp;</span>3 (číslo zarovnané mezerou)</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx681ae05"><span><a href="#zx681ae05">@</a></span></span><b>hodina</b> + období dne (alternativy)<span class="cislo">#8 </span></div><div class="radky">
+<div class="radekzaklinadla">%H<span class="prikladhodnoty">⊨ 15 (číslo 00..23)</span></div>
+<div class="radekzaklinadla">%I<span class="prikladhodnoty">⊨ 03 (číslo 01..12)</span></div>
+<div class="radekzaklinadla">%p<span class="prikladhodnoty">⊨ AM/PM (lokalizovaně)</span></div>
+<div class="radekzaklinadla">%P<span class="prikladhodnoty">⊨ am/pm (lokalizovaně)</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx73edf2b"><span><a href="#zx73edf2b">@</a></span></span><b>minuta</b><span class="cislo">#9 </span></div><div class="radky">
+<div class="radekzaklinadla">%M<span class="prikladhodnoty">⊨ 59 (číslo 00..59)</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3b80e85"><span><a href="#zx3b80e85">@</a></span></span><b>sekunda</b><span class="cislo">#10 </span></div><div class="radky">
+<div class="radekzaklinadla">%S<span class="prikladhodnoty">⊨ 59 (číslo 00..61)</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc79950d"><span><a href="#zxc79950d">@</a></span></span>zlomky sekundy (ne strftime)<span class="cislo">#11 </span><sup><a href="#kapxa288d20ppc1" id="kapxa288d20ppcr1" title="Počet „číslic“ by měl být v rozsahu 1 až 9.">(1)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">%<span class="volznak">[</span><i class="dopln">číslic</i><span class="volznak">]</span>N<span class="prikladhodnoty">⊨ 123456789 (počítadlo nanosekund)</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3aa4542"><span><a href="#zx3aa4542">@</a></span></span><b>časová zóna</b><span class="cislo">#12 </span><sup><a href="#kapxa288d20ppc2" id="kapxa288d20ppcr2" title="strftime jen %z a %Z.">(2)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">%Z<span class="prikladhodnoty">⊨ CET (zkratka časové zóny)</span></div>
+<div class="radekzaklinadla">%z<span class="prikladhodnoty">⊨ +0100</span></div>
+<div class="radekzaklinadla">%:z<span class="prikladhodnoty">⊨ +01:00</span></div>
+<div class="radekzaklinadla">%::z<span class="prikladhodnoty">⊨ +01:00:00</span></div>
+<div class="radekzaklinadla">%:::z<span class="prikladhodnoty">⊨ +01 (nejkratší přesné vyjádření)</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc82b027"><span><a href="#zxc82b027">@</a></span></span>číslo týdne podle ISO normy (týden začíná pondělím)<span class="cislo">#13 </span></div><div class="radky">
+<div class="radekzaklinadla">%G<span class="prikladhodnoty">⊨ 2010 (celé číslo roku)</span></div>
+<div class="radekzaklinadla">%g<span class="prikladhodnoty">⊨ 10 (dvojčíslí roku)</span></div>
+<div class="radekzaklinadla">%V<span class="prikladhodnoty">⊨ 03 (číslo týdne 01..53)</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1198d02"><span><a href="#zx1198d02">@</a></span></span>číslo týdne v roce<span class="cislo">#14 </span></div><div class="radky">
+<div class="radekzaklinadla">%W<span class="prikladhodnoty">⊨ 07 (00..53, týden začíná pondělím)</span></div>
+<div class="radekzaklinadla">%U<span class="prikladhodnoty">⊨ 07 (00..53, týden začíná nedělí)</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe71f187"><span><a href="#zxe71f187">@</a></span></span>odzvláštněné znaky (alternativy)<span class="cislo">#15 </span></div><div class="radky">
+<div class="radekzaklinadla">%%<span class="prikladhodnoty">⊨ %</span></div>
+<div class="radekzaklinadla">%n<span class="prikladhodnoty">⊨ konec řádku</span></div>
+<div class="radekzaklinadla">%t<span class="prikladhodnoty">⊨ tabulátor</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx93c839e"><span><a href="#zx93c839e">@</a></span></span>časová známka Unixu (ne strftime)<span class="cislo">#16 </span></div><div class="radky">
+<div class="radekzaklinadla">%s<span class="prikladhodnoty">⊨ 1577833199</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx74e4cec"><span><a href="#zx74e4cec">@</a></span></span>číslo dne v roce<span class="cislo">#17 </span></div><div class="radky">
+<div class="radekzaklinadla">%<span class="volznak">[</span>-<span class="volznak">]</span>j<span class="prikladhodnoty">⊨ 001</span></div>
+</div></div>
+
+<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 8 (Datum, čas a kalendář), sekce 3 (Zaklínadla: Obecná), podsekce 2 (Doporučené vstupní formáty času („date -d“))"><sup>3/</sup>2 Doporučené vstupní formáty času („date -d“)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8dffc32"><span><a href="#zx8dffc32">@</a></span></span><b>lokální čas</b> (alternativa 1/2/příklady...)<span class="cislo">#1 </span><sup><a href="#kapxa288d20ppc3" id="kapxa288d20ppcr3" title="Odpovídá formátům „%F %T“, „%FT%T.%3N“, „%F %T.%9N“, „%FT%T.%6N“ apod.">(3)</a>,&nbsp;<a href="#kapxa288d20ppc4" id="kapxa288d20ppcr4" title="„f“ je jedna až devět číslic.">(4)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">rok</i>-<i class="dopln">měsíc</i>-<i class="dopln">den</i><span class="viditelnamezera">&nbsp;</span><i class="dopln">hodina</i>:<i class="dopln">minuta</i>:<i class="dopln">sekunda</i><span class="volznak">[</span>.<i class="dopln">f</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla"><i class="dopln">rok</i>-<i class="dopln">měsíc</i>-<i class="dopln">den</i>T<i class="dopln">hodina</i>:<i class="dopln">minuta</i>:<i class="dopln">sekunda</i><span class="volznak">[</span>.<i class="dopln">f</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla">2019-12-31 23:59:59</div>
+<div class="radekzaklinadla">2019-12-31 23:59:59.123456789</div>
+<div class="radekzaklinadla">2019-12-31T23:59:59.123456</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd424c8c"><span><a href="#zxd424c8c">@</a></span></span>čas s udaným <b>posunem proti UTC</b> (obecně/příklady)<span class="cislo">#2 </span><sup><a href="#kapxa288d20ppc5" id="kapxa288d20ppcr5" title="„posun“ je znaménko a čtyři číslice značící posun oproti UTC v hodinách a minutách, např. „+0100“. Odpovídá formátu „%z“.">(5)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">rok</i>-<i class="dopln">měsíc</i>-<i class="dopln">den</i><span class="viditelnamezera">&nbsp;</span><i class="dopln">hodina</i>:<i class="dopln">minuta</i>:<i class="dopln">sekunda</i><span class="volznak">[</span>.<i class="dopln">f</i><span class="volznak">]</span><span class="volznak">[</span><span class="viditelnamezera">&nbsp;</span><span class="volznak">]</span><i class="dopln">posun</i></div>
+<div class="radekzaklinadla"><i class="dopln">rok</i>-<i class="dopln">měsíc</i>-<i class="dopln">den</i>T<i class="dopln">hodina</i>:<i class="dopln">minuta</i>:<i class="dopln">sekunda</i><span class="volznak">[</span>.<i class="dopln">f</i><span class="volznak">]</span><i class="dopln">posun</i></div>
+<div class="radekzaklinadla">2019-12-31 23:59:59.123456789 -0100</div>
+<div class="radekzaklinadla">2019-12-31T23:59:59.123456+0100</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6474fc1"><span><a href="#zx6474fc1">@</a></span></span>čas v udané <b>časové zóně</b> (obecně/příklady...)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">TZ=&quot;<i class="dopln">časová/zóna</i>&quot;<span class="viditelnamezera">&nbsp;</span><i class="dopln">rok</i>-<i class="dopln">měsíc</i>-<i class="dopln">den</i><span class="viditelnamezera">&nbsp;</span><i class="dopln">hodina</i>:<i class="dopln">minuta</i>:<i class="dopln">sekunda</i><span class="volznak">[</span>.<i class="dopln">f</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla">TZ=&quot;Europe/Prague&quot;<span class="viditelnamezera">&nbsp;</span>2019-12-31<span class="viditelnamezera">&nbsp;</span>23:59:59.123456</div>
+<div class="radekzaklinadla">TZ=&quot;UTC&quot;<span class="viditelnamezera">&nbsp;</span>2019-12-31<span class="viditelnamezera">&nbsp;</span>23:59:59.123456789</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx655950b"><span><a href="#zx655950b">@</a></span></span><b>UTC čas</b> (alternativy)<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">rok</i>-<i class="dopln">měsíc</i>-<i class="dopln">den</i><span class="viditelnamezera">&nbsp;</span><i class="dopln">hodina</i>:<i class="dopln">minuta</i>:<i class="dopln">sekunda</i><span class="volznak">[</span>.<i class="dopln">f</i><span class="volznak">]</span>Z</div>
+<div class="radekzaklinadla"><i class="dopln">rok</i>-<i class="dopln">měsíc</i>-<i class="dopln">den</i>T<i class="dopln">hodina</i>:<i class="dopln">minuta</i>:<i class="dopln">sekunda</i><span class="volznak">[</span>.<i class="dopln">f</i><span class="volznak">]</span>Z</div>
+<div class="radekzaklinadla"><i class="dopln">rok</i>-<i class="dopln">měsíc</i>-<i class="dopln">den</i><span class="viditelnamezera">&nbsp;</span><i class="dopln">hodina</i>:<i class="dopln">minuta</i>:<i class="dopln">sekunda</i><span class="volznak">[</span>.<i class="dopln">f</i><span class="volznak">]</span><span class="volznak">[</span><span class="viditelnamezera">&nbsp;</span><span class="volznak">]</span>+0000</div>
+<div class="radekzaklinadla"><i class="dopln">rok</i>-<i class="dopln">měsíc</i>-<i class="dopln">den</i>T<i class="dopln">hodina</i>:<i class="dopln">minuta</i>:<i class="dopln">sekunda</i><span class="volznak">[</span>.<i class="dopln">f</i><span class="volznak">]</span>+0000</div>
+<div class="radekzaklinadla">TZ=&quot;UTC&quot;<span class="viditelnamezera">&nbsp;</span><i class="dopln">rok</i>-<i class="dopln">měsíc</i>-<i class="dopln">den</i><span class="viditelnamezera">&nbsp;</span><i class="dopln">hodina</i>:<i class="dopln">minuta</i>:<i class="dopln">sekunda</i><span class="volznak">[</span>.<i class="dopln">f</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxeb392c8"><span><a href="#zxeb392c8">@</a></span></span><b>časová známka Unixu</b> (obecně/příklady)<span class="cislo">#5 </span><sup><a href="#kapxa288d20ppc6" id="kapxa288d20ppcr6" title="„číslo“ může být kladné i záporné, celé i s desetinnou tečkou. Odpovídá formátu „%s“, resp. „%s.%N“">(6)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">@<i class="dopln">číslo</i></div>
+<div class="radekzaklinadla">@1577750400</div>
+<div class="radekzaklinadla">@-12345.6789</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfc552dc"><span><a href="#zxfc552dc">@</a></span></span>půlnoc daného dne (obecně/příklad)<span class="cislo">#6 </span><sup><a href="#kapxa288d20ppc7" id="kapxa288d20ppcr7" title="Odpovíďá formátu „+%F“.">(7)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">rok</i>-<i class="dopln">měsíc</i>-<i class="dopln">den</i></div>
+<div class="radekzaklinadla">2019-12-31</div>
+</div></div>
+<p class="ponadpisu">
+Příkaz „date“ podporuje i mnoho dalších vstupních formátů; úplná dokumentace v angličtině je dostupná příkazem „info date“, ale v praxi doporučuji omezit se pouze na zde uvedené.
+</p>
+
+<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 8 (Datum, čas a kalendář), sekce 3 (Zaklínadla: Obecná), podsekce 3 (Čekání)"><sup>3/</sup>3 Čekání</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx168b425"><span><a href="#zx168b425">@</a></span></span>počkat určitou dobu<span class="cislo">#1 </span><sup><a href="#kapxa288d20ppc8" id="kapxa288d20ppcr8" title="Počet sekund může být i necelé číslo, např. 0.12 počká 120 milisekund. Pro hodnoty pod 100 milisekund ale neočekávejte velkou přesnost.">(8)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">sleep <i class="dopln">sekund</i><span class="tritecky"></span></div>
+</div></div>
+
+<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 8 (Datum, čas a kalendář), sekce 3 (Zaklínadla: Obecná), podsekce 4 (Gregoriánský kalendář)"><sup>3/</sup>4 Gregoriánský kalendář</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx71f27bd"><span><a href="#zx71f27bd">@</a></span></span>je <b>rok přestupný</b>?<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">test 61 -eq $(date -d <i class="dopln">rok</i>-03-01 +%-j)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx71799cc"><span><a href="#zx71799cc">@</a></span></span>zobrazit kalendář měsíce a <b>dvou okolních</b><span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">ncal -M3<span class="volznak">[</span>b<span class="volznak">]</span><span class="volznak">[</span>w<span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">měsíc-1-až-12</i> <i class="dopln">rok</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd11957b"><span><a href="#zxd11957b">@</a></span></span>zobrazit kalendář měsíce<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">ncal -M<span class="volznak">[</span>b<span class="volznak">]</span><span class="volznak">[</span>w<span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">měsíc-1-až-12</i><span class="volznak">]</span> <i class="dopln">rok</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe0f1595"><span><a href="#zxe0f1595">@</a></span></span>zobrazit kalendář všech měsíců <b>v roce</b><span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">ncal -Mb<span class="volznak">[</span>w<span class="volznak">]</span> <i class="dopln">rok</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx300b89e"><span><a href="#zx300b89e">@</a></span></span>zobrazit kalendář měsíce a N následujících<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">ncal -M<span class="volznak">[</span>b<span class="volznak">]</span><span class="volznak">[</span>w<span class="volznak">]</span> -A <i class="dopln">N</i> <span class="volznak">[</span><i class="dopln">měsíc-1-až-12</i><span class="volznak">]</span> <i class="dopln">rok</i></div>
+</div></div>
+
+<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 8 (Datum, čas a kalendář), sekce 3 (Zaklínadla: Obecná), podsekce 5 (Aktuální čas a datum (všechny kalendáře))"><sup>3/</sup>5 Aktuální čas a datum (všechny kalendáře)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1251a3d"><span><a href="#zx1251a3d">@</a></span></span>vypsat aktuální čas (resp. datum): lokální/UTC/v určité časové zóně<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">date <span class="volznak">[</span>+<i class="dopln">formát</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla">date -u <span class="volznak">[</span>+<i class="dopln">formát</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla">TZ=&quot;<i class="dopln">časová/zóna</i>&quot; date <span class="volznak">[</span>+<i class="dopln">formát</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxabc0c3a"><span><a href="#zxabc0c3a">@</a></span></span>zobrazit kalendář aktuálního měsíce a dvou okolních<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">ncal -M3<span class="volznak">[</span>b<span class="volznak">]</span><span class="volznak">[</span>w<span class="volznak">]</span></div>
+</div></div>
+
+<h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 8 (Datum, čas a kalendář), sekce 3 (Zaklínadla: Obecná), podsekce 6 (Východ a západ slunce, Velikonoce)"><sup>3/</sup>6 Východ a západ slunce, Velikonoce</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxcad558f"><span><a href="#zxcad558f">@</a></span></span>zjistit čas východu a západu slunce (obecně/příklad: Václavské náměstí v Praze)<span class="cislo">#1 </span><sup><a href="#kapxa288d20ppc9" id="kapxa288d20ppcr9" title="Čas východu slunce bude na první řádce výstupu, čas západu slunce na druhé. Pozice-NS je zeměpisná šířka a musí začínat písmenem N (severní) nebo S (jižní) a pokračovat číslem ve stupních a následně buď tečkou a desetinnou částí (např. N50.08105), nebo minutami a sekundami oddělenými dvojtečkami (např. N50:4:52). Pozice-WE je zeměpisná šířka ve stejném formátu, ale písmeno je W (západní) nebo E (východní). Datum se zadává ve standardním formátu YYYY-MM-DD. Přesnost výpočtu jsem podrobně nezkoumal/a, ale neočekávajte vyšší přesnost než tak plus minus dvě minuty.">(9)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">TZ=UTC hdate -qsT -l <i class="dopln">pozice-NS</i> -L <i class="dopln">pozice-WE</i> $(($(date -d '<i class="dopln">datum</i><span class="viditelnamezera">&nbsp;</span>00:00:00' +%s) / 86400 + 2440589)) | sed -E '/^[0-9]/!d;s/\.([0-9])\./.0\1./g;s/^([0-9]+)\.([0-9]+)\.([0-9]+),[^,]*,([^,]+),([^,]+).*/TZ=&quot;UTC&quot; \3-\2-\1<span class="viditelnamezera">&nbsp;</span>\4:00\nTZ=&quot;UTC&quot; \3-\2-\1<span class="viditelnamezera">&nbsp;</span>\5:00/' <span class="volznak">[</span>| <span class="volznak">[</span>TZ=&quot;<i class="dopln">časová/zóna</i>&quot;<span class="volznak">]</span> date -f - &quot;+%F %T %z&quot;<span class="volznak">]</span></div>
+<div class="radekzaklinadla">TZ=UTC hdate -qsT -l N50.0810578 -L E14.4279506 $(($(date -d '2020-08-19<span class="viditelnamezera">&nbsp;</span>00:00:00' +%s) / 86400 + 2440589)) | sed -E '/^[0-9]/!d;s/\.([0-9])\./.0\1./g;s/^([0-9]+)\.([0-9]+)\.([0-9]+),[^,]*,([^,]+),([^,]+).*/TZ=&quot;UTC&quot; \3-\2-\1<span class="viditelnamezera">&nbsp;</span>\4:00/' | date -f - &quot;+%F %T %z&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfaffa2a"><span><a href="#zxfaffa2a">@</a></span></span>zjistit datum <b>Velikonoční</b> neděle<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">date -d &quot;$(LC_ALL=C ncal -e <span class="volznak">[</span><i class="dopln">rok</i><span class="volznak">]</span>)&quot; +%F</div>
+</div></div>
+
+<h2 id="cast4" class="zaklinadla"><a href="#cast4"><span class="cislo">4.</span> Zaklínadla: Konverze data a času a časová aritmetika</a></h2>
+
+<h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 8 (Datum, čas a kalendář), sekce 4 (Zaklínadla: Konverze data a času a časová aritmetika), podsekce 1 (Konverze časové zóny)"><sup>4/</sup>1 Konverze časové zóny</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxbf74fb8"><span><a href="#zxbf74fb8">@</a></span></span>konverze z UTC na lokální čas/z lokálního času na UTC<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">date -d &quot;TZ=\&quot;UTC\&quot; <i class="dopln">čas-UTC</i>&quot; &quot;+%F %T&quot;</div>
+<div class="radekzaklinadla">date -ud &quot;TZ=\&quot;$(cat /etc/timezone)\&quot;<span class="viditelnamezera">&nbsp;</span><i class="dopln">lokální čas</i>&quot; &quot;+%F %T&quot;</div>
+<div class="radekzaklinadla">date -ud &quot;@$(date -d &quot;<i class="dopln">čas</i>&quot; +%s)&quot; &quot;+%F %T&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf3e7910"><span><a href="#zxf3e7910">@</a></span></span>konverze z jedné časové zóny do druhé (obecně/příklad)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">TZ=&quot;<i class="dopln">cílová/časová/zóna</i>&quot; date -d 'TZ=&quot;<i class="dopln">zdrojová/časová/zóna</i>&quot;<span class="viditelnamezera">&nbsp;</span><i class="dopln">čas</i>' &quot;+%F %T<span class="volznak">[</span><span class="viditelnamezera">&nbsp;</span>%z<span class="volznak">]</span>&quot;</div>
+<div class="radekzaklinadla">TZ=&quot;America/New_York&quot; date -d 'TZ=&quot;Asia/Vladivostok&quot; 2019-01-01 12:35:57' &quot;+%F %T %z&quot;</div>
+</div></div>
+
+<h3 id="cast4x2"><span><a href="#cast4x2" title="kapitola 8 (Datum, čas a kalendář), sekce 4 (Zaklínadla: Konverze data a času a časová aritmetika), podsekce 2 (Aritmetika s datem)"><sup>4/</sup>2 Aritmetika s datem</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx248c62b"><span><a href="#zx248c62b">@</a></span></span>konverze data na „číslo dne“/zpět<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">printf %s\\n $(($(date -ud <i class="dopln">datum</i> +%s) / 86400))</div>
+<div class="radekzaklinadla">date -ud &quot;@$((<i class="dopln">číslo-dne</i> * 86400))&quot; +%F</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx155e461"><span><a href="#zx155e461">@</a></span></span><b>přičíst/odečíst</b> N dní<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">date -ud @$((<i class="dopln">N</i> * 86400 + $(date -ud &quot;<i class="dopln">datum</i>&quot; +%s))) +%F</div>
+<div class="radekzaklinadla">date -ud @$((-<i class="dopln">N</i> * 86400 + $(date -ud &quot;<i class="dopln">datum</i>&quot; +%s))) +%F</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx961068f"><span><a href="#zx961068f">@</a></span></span><b>rozdíl</b> ve dnech<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">printf %s\\n $((($(date -ud <i class="dopln">datum</i> +%s) - $(date -ud <i class="dopln">odečítané-datum</i> +%s)) / 86400))</div>
+</div></div>
+
+<h3 id="cast4x3"><span><a href="#cast4x3" title="kapitola 8 (Datum, čas a kalendář), sekce 4 (Zaklínadla: Konverze data a času a časová aritmetika), podsekce 3 (Artimetika s časem)"><sup>4/</sup>3 Artimetika s časem</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6f7e6ca"><span><a href="#zx6f7e6ca">@</a></span></span>konverze lokálního/UTC času na časovou známku Unixu<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">date -d &quot;<i class="dopln">čas</i>&quot; +%s</div>
+<div class="radekzaklinadla">date -ud &quot;<i class="dopln">čas</i>&quot; +%s</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0adf0de"><span><a href="#zx0adf0de">@</a></span></span>konverze časové známky Unixu na lokální čas/UTC<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">date -d @<i class="dopln">časová-známka</i> &quot;+%F %T<span class="volznak">[</span><span class="viditelnamezera">&nbsp;</span>%z<span class="volznak">]</span>&quot;</div>
+<div class="radekzaklinadla">date -ud @<i class="dopln">časová-známka</i> &quot;+%F %T&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd7bc5c3"><span><a href="#zxd7bc5c3">@</a></span></span><b>přičíst/odečíst</b> N sekund (v UTC)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">date -ud @$(($(date -ud &quot;<i class="dopln">datum čas</i>&quot; +%s) + <i class="dopln">N</i> )) &quot;+%F %T&quot;</div>
+<div class="radekzaklinadla">date -ud @$(($(date -ud &quot;<i class="dopln">datum čas</i>&quot; +%s) - <i class="dopln">N</i> )) &quot;+%F %T&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx39cd483"><span><a href="#zx39cd483">@</a></span></span><b>rozdíl</b> UTC časů v sekundách<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">printf %s\\n $(($(date -ud <i class="dopln">čas</i> +%s) - $(date -ud <i class="dopln">odečítaný-čas</i> +%s)))</div>
+</div></div>
+
+<h3 id="cast4x4"><span><a href="#cast4x4" title="kapitola 8 (Datum, čas a kalendář), sekce 4 (Zaklínadla: Konverze data a času a časová aritmetika), podsekce 4 (Konverze kalendářů)"><sup>4/</sup>4 Konverze kalendářů</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa03dc64"><span><a href="#zxa03dc64">@</a></span></span>konverze data gregoriánského kalendáře na juliánský/naopak<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc8aa83d"><span><a href="#zxc8aa83d">@</a></span></span>konverze data gregoriánského kalendáře na hebrejský/naopak<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxab1668c"><span><a href="#zxab1668c">@</a></span></span>konverze data gregoriánského kalendáře na arabský/naopak<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+
+<h2 id="cast5" class="zaklinadla"><a href="#cast5"><span class="cislo">5.</span> Zaklínadla: Nastavení systému</a></h2>
+
+<h3 id="cast5x1"><span><a href="#cast5x1" title="kapitola 8 (Datum, čas a kalendář), sekce 5 (Zaklínadla: Nastavení systému), podsekce 1 (Časové zóny)"><sup>5/</sup>1 Časové zóny</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxad375c5"><span><a href="#zxad375c5">@</a></span></span><b>vypsat</b> seznam podporovaných časových zón, seřazený podle jejich aktuální odchylky od UTC<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">timedatectl list-timezones | sed 's/.*/TZ=&quot;&amp;&quot; date +%z; echo &amp;/' | bash | xargs -rd \\n -n 2 printf &quot;%s\\t%s\\n&quot; | LC_ALL=C sort | sort -ns</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1996710"><span><a href="#zx1996710">@</a></span></span>vypsat seznam podporovaných časových zón<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">timedatectl list-timezones</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx27bbe9d"><span><a href="#zx27bbe9d">@</a></span></span>vypsat aktuální časovou zónu nastavenou v systému (alternativy)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">cat /etc/timezone</div>
+<div class="radekzaklinadla">readlink /etc/localtime | sed -E 's!.*/share/zoneinfo/!!'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx60f9239"><span><a href="#zx60f9239">@</a></span></span>nastavit časovou zónu pro celý systém<span class="cislo">#4 </span><sup><a href="#kapxa288d20ppc10" id="kapxa288d20ppcr10" title="Změna časové zóny má okamžitou platnost a vydrží i po restartu.">(10)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">sudo timedatectl set-timezone <i class="dopln">časová/zóna</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxff0bfce"><span><a href="#zxff0bfce">@</a></span></span>nastavit časovou zónu pro nový proces<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">TZ=&quot;<i class="dopln">časová/zóna</i>&quot; <i class="dopln">příkaz</i> <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span><span class="tritecky"></span></div>
+</div></div>
+
+<h3 id="cast5x2"><span><a href="#cast5x2" title="kapitola 8 (Datum, čas a kalendář), sekce 5 (Zaklínadla: Nastavení systému), podsekce 2 (Systémový a hardwarový čas)"><sup>5/</sup>2 Systémový a hardwarový čas</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9994e88"><span><a href="#zx9994e88">@</a></span></span>vypnout/zapnout <b>automatickou synchronizaci</b> systémového času<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">timedatectl set-ntp off</div>
+<div class="radekzaklinadla">timedatectl set-ntp on</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx21935ab"><span><a href="#zx21935ab">@</a></span></span><b>ručně</b> nastavit systémový čas<span class="cislo">#2 </span><sup><a href="#kapxa288d20ppc11" id="kapxa288d20ppcr11" title="Zadejte čas a datum ve formátu „YYYY-MM-DD HH:MM:SS“. Poznámka: Jsou-li ve VirtualBoxu nainstalované přídavky pro hosta, tyto přídavky velmi často systémový čas vnitřního systému (hosta) synchronizují se systémovým časem vnějšího systému (hostitele), proto v takovém případě změna systémového času vnitřního systému vydrží jen velmi krátce a je sotva pozorovatelná.">(11)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">timedatectl set-ntp off</div>
+<div class="radekzaklinadla">timedatectl set-time &quot;<i class="dopln">nový lokální čas</i>&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa631be8"><span><a href="#zxa631be8">@</a></span></span>ručně nastavit hardwarový čas<span class="cislo">#3 </span><sup><a href="#kapxa288d20ppc12" id="kapxa288d20ppcr12" title="Datum a čas by měly být ve formátu „YYYY-MM-DD HH:MM:SS“, dovoleny jsou i jiné formáty. Pozor, je vyžadován lokální čas v časové zóně systému, a to i v případě, že ve skutečnosti je hardwarový čas uložen v UTC!">(12)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">sudo hwclock --set --date '<i class="dopln">lokální datum čas</i>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7bf00fd"><span><a href="#zx7bf00fd">@</a></span></span>nastavit systémový čas z hardwarového/hardwarový ze systémového<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">sudo hwclock -s</div>
+<div class="radekzaklinadla">sudo hwclock -w</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf9caf53"><span><a href="#zxf9caf53">@</a></span></span>zobrazit hardwarový čas (lokální/UTC)<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">sudo hwclock -r</div>
+<div class="radekzaklinadla">sudo hwclock -r | date -u -f - '+%F<span class="viditelnamezera">&nbsp;</span>%T.%6N%z'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe84e783"><span><a href="#zxe84e783">@</a></span></span>ručně synchronizovat systémový čas<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+
+<h2 id="cast6"><a href="#cast6"><span class="cislo">6.</span> Parametry příkazů</a></h2>
+
+<h3 id="cast6x1"><span><a href="#cast6x1" title="kapitola 8 (Datum, čas a kalendář), sekce 6 (Parametry příkazů), podsekce 1 (date)"><sup>6/</sup>1 date</a></span></h3>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>TZ=&quot;<i class="dopln">cílová časová zóna</i>&quot;<span class="volznak">]</span> date <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> <span class="volznak">[</span>+<i class="dopln">formát</i><span class="volznak">]</span></div>
+</div></div>
+<table class="parametryprikazu"><tbody><tr><td>○ -d '<i class="dopln">datum a čas</i>' ○ -d '&quot;<i class="dopln">původní čas. zóna</i>&quot; <i class="dopln">datum a čas</i>' ○ -f <i class="dopln">soubor</i> ○ -f -</td><td>Použije zadaný čas (parametr -d), popř. načte čas z řádků daného souboru či ze standardního vstupu (parametr -f). Výchozí chování: použije aktuální čas.</td></tr>
+
+<tr><td>○ -u</td><td>Cílová časová zóna bude UTC. Výchozí chování: časovou zónu určuje proměnná prostředí TZ, popř. je to lokální čas.</td></tr>
+
+</tbody></table>
+
+<h3 id="cast6x2"><span><a href="#cast6x2" title="kapitola 8 (Datum, čas a kalendář), sekce 6 (Parametry příkazů), podsekce 2 (ncal)"><sup>6/</sup>2 ncal</a></span></h3>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">ncal <i class="dopln">parametry</i> <span class="volznak">[</span><span class="volznak">[</span><i class="dopln">měsíc</i><span class="volznak">]</span> <i class="dopln">rok</i><span class="volznak">]</span></div>
+</div></div>
+<table class="parametryprikazu"><tbody><tr><td>○ -M ○ -S</td><td>Týden začíná pondělím/nedělí. Výchozí chování určuje lokalizace systému.</td></tr>
+
+<tr><td>○ -b</td><td>Týdny tvoří řádky. Výchozí chování: týdny tvoří sloupce.</td></tr>
+
+<tr><td>☐ -3</td><td>Zobrazí také předchozí a následující měsíc.</td></tr>
+
+<tr><td>☐ -w</td><td>Do kalendáře zahrne čísla týdnů.</td></tr>
+
+</tbody></table>
+
+<h2 id="cast7"><a href="#cast7"><span class="cislo">7.</span> Instalace na Ubuntu</a></h2>
+<p class="ponadpisu">
+Většina použitých nástrojů je součástí minimální instalace Ubuntu; výjimkou je příkaz „hdate“,
+který je třeba doinstalovat:
+</p>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">sudo apt-get install hdate</div>
+</div></div>
+
+<h2 id="cast8"><a href="#cast8"><span class="cislo">8.</span> Ukázka</a></h2>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">ncal -M3bw</div>
+<div class="radekzaklinadla">date &quot;+%F %T.%9N %z%t(%s.%9N)&quot;</div>
+<div class="radekzaklinadla">date -u &quot;+%F %T.%9N %z%t(%s.%9N)&quot;</div>
+<div class="radekzaklinadla">date -d &quot;TZ=\&quot;America/New_York\&quot;<span class="viditelnamezera">&nbsp;</span>2000-02-29 12:01:02.123&quot; &quot;+%FT%T.%9N%z&quot;</div>
+<div class="radekzaklinadla">date -ud &quot;TZ=\&quot;America/New_York\&quot;<span class="viditelnamezera">&nbsp;</span>2000-02-29 12:01:02.123&quot; &quot;+%FT%T.%9N%z&quot;</div>
+<div class="radekzaklinadla">TZ=&quot;America/New_York&quot; date -d &quot;TZ=\&quot;America/New_York\&quot;<span class="viditelnamezera">&nbsp;</span>2000-02-29 12:01:02.123&quot; &quot;+%FT%T.%9N%z&quot;</div>
+<div class="radekzaklinadla">printf %s\\n $((($(date -ud 2001-01-01 +%s) - $(date -ud 2000-01-01 +%s)) / 86400))</div>
+</div></div>
+
+<h2 id="cast9"><a href="#cast9"><span class="cislo">9.</span> Tipy a zkušenosti</a></h2>
+<ul><li>Specifikace časové zóny či posunu mají následující prioritu: 1) parametr <b>-d</b>; 2) parametr <b>-u</b>; 3) proměnná prostředí <b>TZ</b>; 4) časová zóna systému.
+</li></ul>
+<h2 id="cast10"><a href="#cast10"><span class="cislo">10.</span> Další zdroje informací</a></h2>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">man date</div>
+<div class="radekzaklinadla">man ncal</div>
+</div></div>
+<ul class="kompaktni"><li><a href="https://en.cppreference.com/w/c/chrono/strftime">Reference funkce strftime</a> (anglicky)
+</li><li><a href="http://manpages.ubuntu.com/manpages/focal/en/man1/date.1.html">Manuálová stránka „date“</a> (anglicky)
+</li><li><a href="http://manpages.ubuntu.com/manpages/focal/en/man1/ncal.1.html">Manuálová stránka „ncal“</a> (anglicky)
+</li><li><a href="https://www.youtube.com/watch?v=FMrV5FdmBVI">Video Linux Operating System | Commands | Date And Time</a> (anglicky)
+</li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/common/date.md">TL;DR stránka „date“</a> (anglicky)
+</li></ul>
+<h2 id="cast11"><a href="#cast11"><span class="cislo">11.</span> Zákulisí kapitoly</a></h2>
+<p class="ponadpisu">
+V této verzi kapitoly chybí:
+</p>
+<ul class="kompaktni"><li>menstruační kalendář
+</li><li>výpočet času muslimských modliteb
+</li><li>konverze mezi druhy kalendářů (juliánský, gregoriánský, hebrejský, čínský apod.).
+</li></ul><p class="ponadpisu">
+Tato kapitola záměrně nepokrývá:
+</p>
+<ul class="kompaktni"><li>plánování úloh na konkrétní čas
+</li></ul><div class="ppc"><div id="kapxa288d20ppc1"><a href="#kapxa288d20ppcr1" class="cislopozn">1</a>&nbsp;Počet „číslic“ by měl být v rozsahu 1 až 9.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxa288d20ppc2"><a href="#kapxa288d20ppcr2" class="cislopozn">2</a>&nbsp;strftime jen %z a %Z.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxa288d20ppc3"><a href="#kapxa288d20ppcr3" class="cislopozn">3</a>&nbsp;Odpovídá formátům „%F %T“, „%FT%T.%3N“, „%F %T.%9N“, „%FT%T.%6N“ apod.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxa288d20ppc4"><a href="#kapxa288d20ppcr4" class="cislopozn">4</a>&nbsp;„f“ je jedna až devět číslic.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxa288d20ppc5"><a href="#kapxa288d20ppcr5" class="cislopozn">5</a>&nbsp;„posun“ je znaménko a čtyři číslice značící posun oproti UTC v hodinách a minutách, např. „+0100“. Odpovídá formátu „%z“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxa288d20ppc6"><a href="#kapxa288d20ppcr6" class="cislopozn">6</a>&nbsp;„číslo“ může být kladné i záporné, celé i s desetinnou tečkou. Odpovídá formátu „%s“, resp. „%s.%N“</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxa288d20ppc7"><a href="#kapxa288d20ppcr7" class="cislopozn">7</a>&nbsp;Odpovíďá formátu „+%F“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxa288d20ppc8"><a href="#kapxa288d20ppcr8" class="cislopozn">8</a>&nbsp;Počet sekund může být i necelé číslo, např. 0.12 počká 120 milisekund. Pro hodnoty pod 100 milisekund ale neočekávejte velkou přesnost.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxa288d20ppc9"><a href="#kapxa288d20ppcr9" class="cislopozn">9</a>&nbsp;Čas východu slunce bude na první řádce výstupu, čas západu slunce na druhé. Pozice-NS je zeměpisná šířka a musí začínat písmenem N (severní) nebo S (jižní) a pokračovat číslem ve stupních a následně buď tečkou a desetinnou částí (např. N50.08105), nebo minutami a sekundami oddělenými dvojtečkami (např. N50:4:52). Pozice-WE je zeměpisná šířka ve stejném formátu, ale písmeno je W (západní) nebo E (východní). Datum se zadává ve standardním formátu YYYY-MM-DD. Přesnost výpočtu jsem podrobně nezkoumal/a, ale neočekávajte vyšší přesnost než tak plus minus dvě minuty.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxa288d20ppc10"><a href="#kapxa288d20ppcr10" class="cislopozn">10</a>&nbsp;Změna časové zóny má okamžitou platnost a vydrží i po restartu.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxa288d20ppc11"><a href="#kapxa288d20ppcr11" class="cislopozn">11</a>&nbsp;Zadejte čas a datum ve formátu „YYYY-MM-DD HH:MM:SS“. Poznámka: Jsou-li ve VirtualBoxu nainstalované přídavky pro hosta, tyto přídavky velmi často systémový čas vnitřního systému (hosta) synchronizují se systémovým časem vnějšího systému (hostitele), proto v takovém případě změna systémového času vnitřního systému vydrží jen velmi krátce a je sotva pozorovatelná.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxa288d20ppc12"><a href="#kapxa288d20ppcr12" class="cislopozn">12</a>&nbsp;Datum a čas by měly být ve formátu „YYYY-MM-DD HH:MM:SS“, dovoleny jsou i jiné formáty. Pozor, je vyžadován lokální čas v časové zóně systému, a to i v případě, že ve skutečnosti je hardwarový čas uložen v UTC!</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+</div>
+
+
+<nav class="spodni">
+<a href="index.htm" class="naindex">🗐&nbsp;Přehled&nbsp;kapitol</a>
+<div class="naslkap">
+<a href="diskove-oddily.htm" rel="next" title="6. Diskové oddíly">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">6</span>
+<span class="nazev">Diskové oddíly</span></a>
+</div>
+<!--<div><a href="index.htm">🗐&nbsp;Přehled&nbsp;kapitol</a></div>-->
+</nav>
+
+
+<div class="odkazydole"><div><a href="sprava-procesu.htm"><img src="obrazky/ik/sprava-procesu.png" alt="" width="32" height="32">Správa procesů</a><a href="terminal.htm"><img src="obrazky/ik/terminal.png" alt="" width="32" height="32">Terminál</a><a href="prace-s-archivy.htm"><img src="obrazky/ik/prace-s-archivy.png" alt="" width="32" height="32">Práce s archivy</a></div></div>
+
+</article>
+<!-- *** -->
+<footer id="dole">
+<img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
+<p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
+<a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
+Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
+či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
+na stránce „<a href="x-autori.htm">Přehled autorů</a>“.
+Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
+licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
+Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód
+a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
+<a href="https://github.com/singularis-mzf/linux-spellbook">repozitář na GitHubu</a>.
+</footer>
+</div>
+
+<nav class="menu">
+<!-- MENU OSNOVA -->
+<a href="#menuosnova" id="menuosnova"><span class="prvnipismeno">O</span>snova</a>
+<aside class="menuosnova">
+<div><div class="nadpis">Osnova</div><div class="polozky">
+<a href="#cast1" class="sekce">1 Úvod</a>
+<a href="#cast2" class="sekce">2 Definice</a>
+<a href="#cast3" class="sekce">3 Zaklínadla: Obecná</a>
+<a href="#cast3x1" class="podsekce">/1 Výstupní formát („date +“ a „strftime“)</a>
+<a href="#cast3x2" class="podsekce">/2 Doporučené vstupní formáty času („date -d“)</a>
+<a href="#cast3x3" class="podsekce">/3 Čekání</a>
+<a href="#cast3x4" class="podsekce">/4 Gregoriánský kalendář</a>
+<a href="#cast3x5" class="podsekce">/5 Aktuální čas a datum (všechny kalendáře)</a>
+<a href="#cast3x6" class="podsekce">/6 Východ a západ slunce, Velikonoce</a>
+<a href="#cast4" class="sekce">4 Zaklínadla: Konverze data a času a časová aritmetika</a>
+<a href="#cast4x1" class="podsekce">/1 Konverze časové zóny</a>
+<a href="#cast4x2" class="podsekce">/2 Aritmetika s datem</a>
+<a href="#cast4x3" class="podsekce">/3 Artimetika s časem</a>
+<a href="#cast4x4" class="podsekce">/4 Konverze kalendářů</a>
+<a href="#cast5" class="sekce">5 Zaklínadla: Nastavení systému</a>
+<a href="#cast5x1" class="podsekce">/1 Časové zóny</a>
+<a href="#cast5x2" class="podsekce">/2 Systémový a hardwarový čas</a>
+<a href="#cast6" class="sekce">6 Parametry příkazů</a>
+<a href="#cast6x1" class="podsekce">/1 date</a>
+<a href="#cast6x2" class="podsekce">/2 ncal</a>
+<a href="#cast7" class="sekce">7 Instalace na Ubuntu</a>
+<a href="#cast8" class="sekce">8 Ukázka</a>
+<a href="#cast9" class="sekce">9 Tipy a zkušenosti</a>
+<a href="#cast10" class="sekce">10 Další zdroje informací</a>
+<a href="#cast11" class="sekce">11 Zákulisí kapitoly</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU KAPITOLY -->
+<a href="#menukapitoly" id="menukapitoly"><span class="prvnipismeno">K</span>apitoly</a>
+<aside class="menukapitoly">
+<div><div class="nadpis">Kapitoly</div><div class="polozky">
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/predmluva.png" alt="[]"></span><span class="fragodkazy"><a href="predmluva.htm" class="odkaz"><span><span class="cislo">1</span>Předmluva</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zakladni-znalosti.png" alt="[]"></span><span class="fragodkazy"><a href="zakladni-znalosti.htm" class="odkaz"><span><span class="cislo">2</span>Základní znalosti</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/awk.png" alt="[]"></span><span class="fragodkazy"><a href="awk.htm" class="odkaz"><span><span class="cislo">3</span>AWK</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/bash.png" alt="[]"></span><span class="fragodkazy"><a href="bash.htm" class="odkaz"><span><span class="cislo">4</span>Bash</span></a><span class="podkpodkazy"><a href="bash-funkce-a-skripty.htm" class="odkaz"><span><span class="cislo">4.1</span>Funkce a skripty</span></a><a href="bash-interaktivni-rezim.htm" class="odkaz"><span><span class="cislo">4.2</span>Interaktivní režim</span></a><a href="bash-vstup-vystup.htm" class="odkaz"><span><span class="cislo">4.3</span>Vstup, výstup a přesměrování</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/datum-cas-kalendar.png" alt="[]"></span><span class="fragodkazy"><a href="datum-cas-kalendar.htm" class="odkaz"><span><span class="cislo">5</span>Datum, čas a kalendář</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/diskove-oddily.png" alt="[]"></span><span class="fragodkazy"><a href="diskove-oddily.htm" class="odkaz"><span><span class="cislo">6</span>Diskové oddíly</span></a><span class="podkpodkazy"><a href="diskove-oddily-btrfs.htm" class="odkaz"><span><span class="cislo">6.1</span>Btrfs</span></a><a href="diskove-oddily-lvm.htm" class="odkaz"><span><span class="cislo">6.2</span>LVM</span></a><a href="diskove-oddily-softwarovy-raid.htm" class="odkaz"><span><span class="cislo">6.3</span>Softwarový RAID</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/git.png" alt="[]"></span><span class="fragodkazy"><a href="git.htm" class="odkaz"><span><span class="cislo">7</span>Git</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/hledani-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="hledani-souboru.htm" class="odkaz"><span><span class="cislo">8</span>Hledání souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/make.png" alt="[]"></span><span class="fragodkazy"><a href="make.htm" class="odkaz"><span><span class="cislo">9</span>Make</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/manualove-stranky.png" alt="[]"></span><span class="fragodkazy"><a href="manualove-stranky.htm" class="odkaz"><span><span class="cislo">10</span>Manuálové stránky</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/markdown.png" alt="[]"></span><span class="fragodkazy"><a href="markdown.htm" class="odkaz"><span><span class="cislo">11</span>Markdown</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/metaprikazy.png" alt="[]"></span><span class="fragodkazy"><a href="metaprikazy.htm" class="odkaz"><span><span class="cislo">12</span>Metapříkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/nabidka-aplikaci.png" alt="[]"></span><span class="fragodkazy"><a href="nabidka-aplikaci.htm" class="odkaz"><span><span class="cislo">13</span>Nabídka aplikací</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/odkazy.png" alt="[]"></span><span class="fragodkazy"><a href="odkazy.htm" class="odkaz"><span><span class="cislo">14</span>Pevné a symbolické odkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-moduly.png" alt="[]"></span><span class="fragodkazy"><a href="perl-moduly.htm" class="odkaz"><span><span class="cislo">15</span>Perl: moduly a objekty</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-zaklady.png" alt="[]"></span><span class="fragodkazy"><a href="perl-zaklady.htm" class="odkaz"><span><span class="cislo">16</span>Perl: základy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="fragodkazy"><a href="prace-s-archivy.htm" class="odkaz"><span><span class="cislo">17</span>Práce s archivy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prohlizeni-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="prohlizeni-textovych-souboru.htm" class="odkaz"><span><span class="cislo">18</span>Prohlížení textových souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/promenne.png" alt="[]"></span><span class="fragodkazy"><a href="promenne.htm" class="odkaz"><span><span class="cislo">19</span>Proměnné prostředí a interpretu</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="fragodkazy"><a href="regularni-vyrazy.htm" class="odkaz"><span><span class="cislo">20</span>Regulární výrazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sed.png" alt="[]"></span><span class="fragodkazy"><a href="sed.htm" class="odkaz"><span><span class="cislo">21</span>Sed</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/soubory-a-adresare.png" alt="[]"></span><span class="fragodkazy"><a href="soubory-a-adresare.htm" class="odkaz"><span><span class="cislo">22</span>Soubory a adresáře</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-balicku.htm" class="odkaz"><span><span class="cislo">23</span>Správa balíčků</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-procesu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-procesu.htm" class="odkaz"><span><span class="cislo">24</span>Správa procesů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-uzivatelskych-uctu.htm" class="odkaz"><span><span class="cislo">25</span>Správa uživatelských účtů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="fragodkazy"><a href="system.htm" class="odkaz"><span><span class="cislo">26</span>Systém</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/terminal.png" alt="[]"></span><span class="fragodkazy"><a href="terminal.htm" class="odkaz"><span><span class="cislo">27</span>Terminál</span></a><span class="podkpodkazy"><a href="terminal-emodzi.htm" class="odkaz"><span><span class="cislo">27.1</span>Emodži</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/vim.png" alt="[]"></span><span class="fragodkazy"><a href="vim.htm" class="odkaz"><span><span class="cislo">28</span>Vim</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-binarnich-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-binarnich-souboru.htm" class="odkaz"><span><span class="cislo">29</span>Zpracování binárních souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-textovych-souboru.htm" class="odkaz"><span><span class="cislo">30</span>Zpracování textových souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-videa-a-zvuku.htm" class="odkaz"><span><span class="cislo">31</span>Zpracování videa a zvuku</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="fragodkazy"><a href="licence.htm" class="odkaz"><span><span class="cislo">32</span>Licence</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/rejstrik.png" alt="[]"></span><span class="fragodkazy"><a href="rejstrik.htm" class="odkaz"><span><span class="cislo">33</span>Rejstřík podle klasických příkazů</span></a></span></div>
+</div></div>
+<a href="#zavritmenu" id="zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU ŠTÍTKY -->
+<a href="#menustitky" id="menustitky"><span class="prvnipismeno">Š</span>títky</a>
+<aside class="menustitky">
+<div><div class="nadpis">Štítky</div><div class="polozky">
+<a href="x-stitky.htm#x5208bbb">adresáře&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#xb0a5782">aplikace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x583f72a">apt&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa619ea3">automatizace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xb2b2bff">bajty&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5c1d5fa">barvy&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xd574d4b">bash&nbsp;&nbsp;(9)</a>
+<a href="x-stitky.htm#xedb0c6c">čas&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x8d777f3">data&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xcd6caf8">démoni&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x38864cc">dokumentace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5aee9db">editor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x905aee4">emodži&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xb05338c">Flatpak&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x1e3042b">GUI&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x891be82">hešovací funkce&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x4e36c04">hledání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c8789a">klávesnice&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x7aeae24">kódování&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa473827">komprese&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x79108ba">LVM&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x2d47ed4">odkládací prostor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xd8dfe69">ovládání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x0114ad0">Perl&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x84913e6">procesy&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa9c449d">program&nbsp;&nbsp;(11)</a>
+<a href="x-stitky.htm#xc65388d">programování&nbsp;&nbsp;(5)</a>
+<a href="x-stitky.htm#x43a526a">přístupová práva&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#xcf91513">RAID&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5c5f44a">ramdisk&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9ad09a9">Snap&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x23be896">soubory&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x12e55d8">správa verzí&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9dcbb0b">syntaxe&nbsp;&nbsp;(7)</a>
+<a href="x-stitky.htm#xba98a3b">systém&nbsp;&nbsp;(9)</a>
+<a href="x-stitky.htm#x3972255">systém souborů&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c01147">tematický okruh&nbsp;&nbsp;(22)</a>
+<a href="x-stitky.htm#xf54f028">textové soubory&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x7f6c02d">Unicode&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x421b47f">video&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xadcdbd7">zip&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x908961b">zpracování textu&nbsp;&nbsp;(5)</a>
+<a href="x-stitky.htm#x04b5cff">zvuk&nbsp;&nbsp;(1)</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU NÁPOVĚDA -->
+<a href="#menunapoveda" id="menunapoveda"><span class="prvnipismeno">N</span>ápověda</a>
+<aside class="menunapoveda">
+<div><div class="nadpis">Nápověda</div><div class="polozky">
+<a href="predmluva.htm">Předmluva</a>
+<a href="https://singularis-mzf.github.io/">Ostatní verze knihy</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook">Repozitář na GitHubu</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook/blob/stabiln%C3%AD/dokumentace/odm%C4%9Bna-za-sestaven%C3%AD.md">Odměna za sestavení (prémiové kapitoly)</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+</nav>
+
+<a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
+<a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
+
+</div>
+</body>
+</html>

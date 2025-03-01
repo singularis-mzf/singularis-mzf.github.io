@@ -1,0 +1,823 @@
+<!doctype html>
+<html lang="cs">
+<head profile="http://www.w3.org/2005/10/profile">
+<meta charset="UTF-8">
+
+<title>Soubory a adresáře − Linux: Kniha kouzel</title>
+<meta name="viewport" content="width=1000, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="lkk-20250301.css">
+<link rel="icon" type="image/png" href="obrazky/favicon.png">
+</head>
+<body>
+<div id="nahore"><div id="okno">
+<header>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, 2.15 (1. března 2025)</span>
+<span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
+</header>
+<nav class="menuokna">
+<a href="#menuosnova" class="menu"><span class="prvnipismeno">O</span>snova</a>
+<a href="#menukapitoly" class="menu"><span class="prvnipismeno">K</span>apitoly</a>
+<a href="#menustitky" class="menu"><span class="prvnipismeno">Š</span>títky</a>
+<a href="#menunapoveda" class="menu"><span class="prvnipismeno">N</span>ápověda</a>
+<a href="sed.htm" rel="prev" title="21. Sed" accesskey="p" class="predchozi">Předchozí&nbsp;kapitola</a>
+<a href="index.htm" class="prehled"><span class="prvnipismeno">P</span>řehled kapitol</a>
+<a href="sprava-balicku.htm" rel="next" title="23. Správa balíčků" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
+</nav>
+
+<div class="slogan-veskera-moc">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+
+<!--
+<nav class="horni">
+<div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+<span class="prev">
+<a href="sed.htm" rel="prev" title="21. Sed" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+</span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!- -
+- ->&nbsp;| <a href="sprava-balicku.htm" rel="next" title="23. Správa balíčků" accesskey="n">Následující&nbsp;kapitola</a>
+</span>
+</nav>
+-->
+
+
+<article>
+
+<h1 class="kapitola">22. <img src="obrazky/ik/soubory-a-adresare.png" alt="" width="64" height="64"> Soubory a adresáře</h1>
+<div class="varovani">
+Vývoj vanilkové příchuti Linuxu: Knihy kouzel byl 1.&nbsp;března&nbsp;2025
+ukončen. Tento text je zachován jako historický, ale chyby již nejsou
+opravovány. Odnože projektu pod kompatibilní licencí jsou vítány.
+</div>
+<div class="stitky"><a href="x-stitky.htm#">adresáře</a>
+<a href="x-stitky.htm#">přístupová práva</a>
+<a href="x-stitky.htm#">soubory</a>
+<a href="x-stitky.htm#">tematický okruh</a>
+</div>
+<h2 id="cast1"><a href="#cast1"><span class="cislo">1.</span> Úvod</a></h2>
+<p class="ponadpisu">
+Tato kapitola se zabývá prací s adresáři a jejich položkami (soubory, podadresáři apod.),
+včetně jejich velikosti, vlastnictví, přístupových práv, příznaků a datových položek.
+Nepokrývá však zacházení s konkrétním obsahem souborů (analýzu, kopírování, zálohování apod.).
+</p><p>
+Příkazy chmod, find, stat a některé další jsou vyvíjeny v rámci projektu GNU.
+</p>
+
+<h2 id="cast2"><a href="#cast2"><span class="cislo">2.</span> Definice</a></h2>
+<ul><li><b>Adresářová položka</b> je jednoznačně pojmenovaná položka v adresáři; obvykle je to soubor (přesněji – pevný odkaz na soubor), další adresář či symbolický odkaz, méně často zařízení (např. „/dev/null“), pojmenovaná roura apod. Adresářové položky se v daném adresáři identifikují svým <b>názvem</b>, který může obsahovat jakékoliv znaky UTF-8 kromě nulového bajtu a znaku „/“. V každém adresáři se nacházejí dva zvláštní adresářové odkazy „.“ (na sebe) a „..“ (na nadřazený adresář), které se ale nepočítají a většina nástojů je ignoruje (bohužel ne všechny).
+</li><li>Adresářová položka je <b>skrytá</b>, pokud její název začíná znakem „.“.
+</li><li><b>Přístupová práva</b> jsou nastavení souboru či adresáře, která určují, kteří uživatelé budou moci s daným souborem či adresářem zacházet. Nastavení přístupových práv se dělí na tři <b>základní nastavení</b>, která jsou přítomna vždy, a <b>rozšířená nastavení</b> (ACL, access control list), která lze přidávat či odebírat. (Vedle toho existují ještě „výchozí“ nastavení, ale těmi se pro jejich neintuitivnost a zřídkavé využití budu zabývat jen okrajově.)
+</li><li><b>Zvláštní příznaky</b> jsou příznaky, které mohou být nastaveny souborům a adresářům a mají na ně zvláštní účinky; dělí se na tři <b>základní zvláštní příznaky</b> (u+s, g+s, +t) a mnoho <b>rozšířených zvláštních příznaků</b>. Zatímco ty základní jsou podporované na všech nativně linuxových typech souborových systémů, podpora těch rozšířených se liší.
+</li><li><b>Mód</b> (mode) je standardizované číselné vyjádření základních přístupových práv a základních zvláštních příznaků v osmičkové soustavě.
+</li><li><b>Uživatelské datové položky</b> (user xattrs, user extended attributes) umožňují k souborům a adresářům ukládat další obecná data v podobě dvojic klíč–hodnota. Nejčastěji se používají k uložení krátkých čísel či textových řetězců, např. URL, ze kterého byl daný soubor stažen. Mají řadu nevýhod – jsou před uživatelem poměrně skryté (příkazy „ls“ ani „find“ s nimi neumí pracovat), při kopírování či zálohování se obvykle ztratí a nejsou příliš využívány. Proto doporučuji se jim raději vyhýbat a dodatečná data ukládat do samostatných, skrytých souborů.
+</li></ul>
+<h3 id="cast2x1"><span><a href="#cast2x1" title="kapitola 28 (Soubory a adresáře), sekce 2 (Definice), podsekce 1 (Přístupová práva)"><sup>2/</sup>1 Přístupová práva</a></span></h3>
+<p class="ponadpisu">
+V linuxu se u souborů a adresářů povolují či zakazují tři přístupová práva:
+</p><p>
+Právo <b>čtení</b> (r, číselná hodnota „4“, read) znamená:
+</p>
+<ul><li>U souboru právo otevřít soubor pro čtení a přečíst jeho obsah, a to jak sekvenčně, tak na přeskáčku.
+</li><li>U adresáře právo přečíst seznam názvů položek v adresáři včetně jejich typu (soubor či adresář), ale už bez dalších údajů.
+</li></ul><p class="ponadpisu">
+Právo <b>zápisu</b> (w, číselná hodnota „2“, write) znamená:
+</p>
+<ul><li>U souboru právo otevřít daný soubor pro zápis, zkrátit ho (i na nulovou velikost), přepisovat existující bajty souboru a zapisovat nové na jeho konec.
+</li><li>U adresáře právo vytvářet nové adresářové položky, měnit názvy stávajících a stávající mazat.
+</li></ul><p class="ponadpisu">
+Právo <b>spouštění</b> (x, číselná hodnota „1“, execute) znamená:
+</p>
+<ul><li>U souboru právo daný soubor spustit jako proces. Toto právo stačí, pokud se jedná o program v přímo spustitelném binárním formátu; jde-li ve skutečnosti o interpretovaný skript, je potřeba také právo „r“, aby ho příslušný interpret mohl číst.
+</li><li>U adresáře právo do daného adresáře vstoupit, zjistit podrobnější informace o jeho položkách (např. přístupová práva) a dál k nim přistupovat. Nezahrnuje však možnost přečíst seznam názvů položek, takže pokud máte k adresáři samotné právo „x“, musíte znát názvy jeho položek, abyste s nimi mohli zacházet. (Samotné právo „r“ bez práva „x“ zase umožní programu vypsat seznam položek v adresáři, ale už o nich nebude moci nic zjistit.
+</li></ul><p class="ponadpisu">
+Každá adresářová položka má vlastníka (což je některý uživatel, např. „root“) a příslušnou skupinu.
+Přístupová práva může měnit pouze vlastník položky nebo superuživatel.
+</p><p>
+Existují tři základní nastavení přístupových práv: pro vlastníka („u“), pro skupinu („g“) a pro ostatní („o“),
+vždy v tomto pořadí. Rozšířená nastavení přístupových práv jsou seznam dalších položek,
+které mohou stanovovat dodatečná práva konkrétním uživatelům a skupinám.
+Tento seznam však může být (a také obvykle bývá) prázdný.
+</p><p>
+Nastavení přístupových práv se uplatňují následovně:
+</p>
+<ul><li>Když k položce přistupuje její vlastník, uplatní se jen a pouze základní nastavení přístupových práv pro vlastníka („u“); žádné jiné nastavení se neuplatní, dokonce ani rozšířené nastavení přístupových práv, které vlastníka výslovně jmenuje.
+</li><li>Jinak se vezme základní nastavení pro skupinu („g“) a všechny položky rozšířeného nastavení. Pokud bude mezi nimi nalezena alespoň jedna „odpovídající“ položka, tedy např. skupina, jejíž je uživatel členem, uživatel dostane všechna práva garantovaná alespoň některou odpovídající položkou. (To znamená, že když např. bude adresář „adr“ mít nastavena pro skupinu „askup“ práva „r--“ a pro skupinu „bskup“ práva „--x“, uživatel, který je členem obou skupin, ale není vlastníkem daného adresáře, má k adresáři „adr“ práva „r-x“.)
+</li><li>Jedině pokud nebyla v druhém kroku nalezena žádná odpovídající položka, uplatní se nastavení pro ostatní („o“).
+</li></ul>
+<h3 id="cast2x2"><span><a href="#cast2x2" title="kapitola 28 (Soubory a adresáře), sekce 2 (Definice), podsekce 2 (Základní zvláštní příznaky)"><sup>2/</sup>2 Základní zvláštní příznaky</a></span></h3>
+<p class="ponadpisu">
+Vedle přístupových práv může mít každý soubor či adresář nastaveny ještě tři základní zvláštní příznaky:
+</p><p>
+<b>Příznak zmocnění vlastníka</b> (u+s, číselná hodnota „4“, set-uid bit):
+</p>
+<ul><li>U souboru má význam pouze v kombinaci s právem „x“. Je-li takový soubor spuštěn, vzniklý proces získá EUID (a tedy i práva) vlastníka souboru, a to i v případě, že ho spustil jiný uživatel. Nejčastějším použitím je spuštění určitého programu s právy superuživatele.
+</li><li>U adresáře nemá žádný význam.
+</li></ul><p class="ponadpisu">
+<b>Příznak zmocnění skupiny</b> (g+s, číselná hodnota „2“ set-gid bit):
+</p>
+<ul><li>U souboru funguje analogicky jako příznak zmocnění vlastníka – vzniklý proces získá EGID (tedy skupinová práva) skupiny souboru.
+</li><li>U adresáře znamená, že všechny nově vytvořené adresářové položky v adresáři s tímto příznakem budou při vytvoření přiřazeny stejné skupině jako adresář, ve kterém byly vytvořeny. (Normálně by získaly skupinu podle procesu, který je vytvořil.) Takto vytvořené podadresáře navíc získají také příznak zmocnění pro skupinu, což znamená, že tento příznak se automaticky rozšíří i do všech nově vytvořených podadresářů, pokud u nich nebude výslovně zrušen.
+</li></ul><p class="ponadpisu">
+<b>Příznak omezení smazání</b> (+t, číselná hodnota „1“, sticky-bit):
+</p>
+<ul><li>U souboru nemá žádný význam.
+</li><li>U adresáře omezuje výkon práva „w“ – brání ve smazání či přejmenování „cizích položek“, tedy přesněji – zabrání ve smazání či přejmenování adresářové položky každému uživateli, který není vlastníkem dané položky či vlastníkem samotného adresáře. Hlavním smyslem této kombinace je, že uživatelé mohou v daném adresáři vytvářet nové položky a ty jsou pak chráněny před zásahy jiných uživatelů, kteří mají k témuž adresáři také právo zápisu. Tento příznak je typicky nastaven na adresáři „/tmp“. Poznámka: vzniklé podadresáře tento příznak nedědí.
+</li></ul>
+<h3 id="cast2x3"><span><a href="#cast2x3" title="kapitola 28 (Soubory a adresáře), sekce 2 (Definice), podsekce 3 (Superuživatel)"><sup>2/</sup>3 Superuživatel</a></span></h3>
+<p class="ponadpisu">
+Na <b>superuživatele</b> se nevztahují žádná přístupová práva a příznaky zmocnění vlastníka a omezení smazání. Ostatní zvláštní příznaky (zejména ty rozšířené) se vztahují i na superuživatele.
+</p>
+
+<h3 id="cast2x4"><span><a href="#cast2x4" title="kapitola 28 (Soubory a adresáře), sekce 2 (Definice), podsekce 4 (Mód)"><sup>2/</sup>4 Mód</a></span></h3>
+<p class="ponadpisu">
+Mód se vyjadřuje čtyřmístným číslem v osmičkové soustavě (0000 až 7777),
+kde jednotlivé číslice zleva doprava znamenají: <b>Příznaky, práva vlastníka, práva skupiny, práva ostatních.</b>
+První číslice vyjadřující příznaky je nepovinná, mód tedy lze zadat i trojmístným číslem; místo chybějící úvodní číslice se pak uvažuje nula.
+</p><p>
+Každou číslici vypočteme jako součet číselných hodnot příznaků,
+které <i>mají</i> být nastaveny, a práv, která <i>mají</i> být přidělena.
+(Číselné hodnoty příznaků a práv jsou uvedeny výše.)
+</p><p>
+Příklad: chceme-li adresáři nastavit příznak omezení smazání (číselná hodnota 1)
+a nastavit, že vlastník bude mít všechna práva (4 + 2 + 1), skupina jen právo čtení (4)
+a ostatní nebudou mít žádná práva (0), výsledný mód bude: „1740“.
+</p><p>
+Pro čtení módu si musíme zapamatovat význam jednotlivých číslic v pořadí
+a číselné hodnoty příznaků a práv. Pak můžeme mód snadno přečíst následujícím postupem:
+</p>
+<ul><li>Pokud je číslice 4, 2 nebo 1, výsledkem je právě jeden příznak/právo této číselné hodnoty.
+</li><li>Pokud je číslice 7, výsledkem jsou všechny příznaky/práva.
+</li><li>Pokud je číslice 0, výsledkem jsou žádné příznaky/práva.
+</li><li>U zbylých číslic (6, 5 nebo 3) budou výsledkem dva příznaky/práva; u nich zkoušíme postupně odečíst 4 a 2; pokud se nám to podaří, aniž bychom se dostali pod nulu, zapíšeme příznak/právo odpovídající číslici, kterou jsme odečetli, a druhý příznak/právo odpovídající číslici, která nám po odečtení zbyla. 6 = 4 + 2, 5 = 4 + 1, 3 = 2 + 1.
+</li></ul><p class="ponadpisu">
+Příklad: mějme mód 3571. První číslice: 4 odečíst nejde, takže odečteme 2 a zbude nám jedna; zapíšeme tedy příznak zmocnění skupiny (hodnota 2) a příznak omezení smazání (hodnota 1). Druhá číslice: 4 odečíst jde a zbude nám 1, zapíšeme tedy práva čtení (4) a spouštění (1). Třetí číslice: 7 znamená pro skupinu všechna práva, tedy čtení, zápis i spouštění. Čtvrtá číslice: 1 znamená pro ostatní jen právo spouštění.
+</p>
+
+<h3 id="cast2x5"><span><a href="#cast2x5" title="kapitola 28 (Soubory a adresáře), sekce 2 (Definice), podsekce 5 (Rozšířené zvláštní příznaky)"><sup>2/</sup>5 Rozšířené zvláštní příznaky</a></span></h3>
+<p class="ponadpisu">
+Rozšířené zvláštní příznaky jsou relativně málo významné, málo uživtečné a jejich podpora je omezená typem souborového systému. Mezi užitečné z nich patří:
+</p>
+<ul><li>Příznak „<b>a</b>“ (ext4: ano, btrfs: ano, tmpfs: ne) – Poskytne souboru či adresáři silnou ochranu před zápisem a jinými změnami, ale na rozdíl od příznaku „i“ umožňuje zápis za konec souboru a u adresáře vytvoření nové adresářové položky (její přejmenování či smazání už ne). Nově vytvářené podadresáře tento příznak nedědí.
+</li><li>Příznak „<b>i</b>“ (ext4: ano, btrfs: ano, tmpfs: ne) – Poskytne souboru či adresáři silnou ochranu před zápisem a jinými změnami. Pozor, na soubor s tímto příznakem nelze ani vytvořit nový pevný odkaz, přejmenovat ho nebo změnit jeho vlastnictví či přístupová práva!
+</li><li>Příznak „<b>S</b>“ (ext4: ano, btrfs: ano, tmpfs: ne) – Změny se zapisují okamžitě na disk. (Normálně čekají nějakou dobu v paměti.) Nově vytvořené soubory a adresáře tento příznak dědí.
+</li><li>Příznak „<b>C</b>“ (ext4: ne, btrfs: ano, tmpfs: ne) – Byl-li tento příznak nastaven prázdnému souboru, jeho později alokované datové bloky na disku nebudou sdíleny s jinými soubory (např. klony). Je-li tento příznak nastaven adresáři, nově vytvořené soubory a podadresáře ho zdědí.
+</li><li>Příznak „<b>A</b>“ (ext4: ano, btrfs: ano, tmpfs: ne) – Čas posledního přístupu („atime“) nebude aktualizován. (Nezkoušel/a jsem.)
+</li></ul>
+<h2 id="cast3" class="zaklinadla"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla</a></h2>
+
+<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 28 (Soubory a adresáře), sekce 3 (Zaklínadla), podsekce 1 (Vypsat seznam adresářových položek (pro člověka))"><sup>3/</sup>1 Vypsat seznam adresářových položek (pro člověka)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfd57032"><span><a href="#zxfd57032">@</a></span></span>všech kromě skrytých<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">ls <span class="volznak">[</span>-lh<span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">adresář</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx78d905e"><span><a href="#zx78d905e">@</a></span></span>všech kromě „.“ a „..“<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">ls -A<span class="volznak">[</span>lh<span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">adresář</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd7b56ef"><span><a href="#zxd7b56ef">@</a></span></span>jen adresářů (a symbolických odkazů na ně)(kromě/včetně skrytých)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">tree -dL 1</div>
+<div class="radekzaklinadla">tree -daL 1</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx408f352"><span><a href="#zx408f352">@</a></span></span>jen souborů (a symbolických odkazů na ně)(kromě/včetně skrytých)<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">find -L <i class="dopln">adresář</i> -mindepth 1 -maxdepth 1 -type f -name '[!.]*' -printf %f\\n <span class="volznak">[</span>| sort -f<span class="volznak">]</span></div>
+<div class="radekzaklinadla">find -L <i class="dopln">adresář</i> -mindepth 1 -maxdepth 1 -type f -printf %f\\n <span class="volznak">[</span>| sort -f<span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx115d4bb"><span><a href="#zx115d4bb">@</a></span></span>adresářů a podadresářů včetně symbolických odkazů na adresáře (kromě/včetně skrytých)<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">tree -d<span class="volznak">[</span>L <i class="dopln">úrovní</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla">tree -da<span class="volznak">[</span>L <i class="dopln">úrovní</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3380e93"><span><a href="#zx3380e93">@</a></span></span>všech včetně „.“ a „..“<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">ls -a<span class="volznak">[</span>lh<span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">adresář</i><span class="volznak">]</span></div>
+</div></div>
+
+<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 28 (Soubory a adresáře), sekce 3 (Zaklínadla), podsekce 2 (Vypsat seznam adresářových položek (pro skript))"><sup>3/</sup>2 Vypsat seznam adresářových položek (pro skript)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb5aa21f"><span><a href="#zxb5aa21f">@</a></span></span><b>všech</b> (txt/txtz)<span class="cislo">#1 </span><sup><a href="#kapx8836c9eppc1" id="kapx8836c9eppcr1" title="Poznámka: příkaz „find“ odzvláštňuje speciální znaky na svém výstupu, pokud je veden na terminál. Je-li toto chování nežádoucí, nechte jeho výstup ještě projít dalším filtrem, např. „cat“.">(1)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">find <i class="dopln">adresář</i> -mindepth 1 -maxdepth 1 -printf %P\n</div>
+<div class="radekzaklinadla">find <i class="dopln">adresář</i> -mindepth 1 -maxdepth 1 -printf %P\0</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx55e0ec6"><span><a href="#zx55e0ec6">@</a></span></span>jen <b>souborů</b> (txt/txtz)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">find <i class="dopln">adresář</i> -mindepth 1 -maxdepth 1 -type f -printf %P\n</div>
+<div class="radekzaklinadla">find <i class="dopln">adresář</i> -mindepth 1 -maxdepth 1 -type f -printf %P\0</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa085b6b"><span><a href="#zxa085b6b">@</a></span></span>jen <b>adresářů</b> (txt/txtz)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">find <i class="dopln">adresář</i> -mindepth 1 -maxdepth 1 -type d -printf %P\n</div>
+<div class="radekzaklinadla">find <i class="dopln">adresář</i> -mindepth 1 -maxdepth 1 -type d -printf %P\0</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx871350b"><span><a href="#zx871350b">@</a></span></span>všech kromě skrytých (txt/txtz)<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">find <i class="dopln">adresář</i> -mindepth 1 -maxdepth 1 -name '[!.]*' -printf %P\n</div>
+<div class="radekzaklinadla">find <i class="dopln">adresář</i> -mindepth 1 -maxdepth 1 -name '[!.]*' -printf %P\0</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx81d56d1"><span><a href="#zx81d56d1">@</a></span></span>všech včetně „.“ a „..“ (txt/txtz)<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">{ printf %s\n . ..; find <i class="dopln">adresář</i> -mindepth 1 -maxdepth 1 -printf %P\n; }</div>
+<div class="radekzaklinadla">{ printf %s\0 . ..; find <i class="dopln">adresář</i> -mindepth 1 -maxdepth 1 -printf %P\0; }</div>
+</div></div>
+
+<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 28 (Soubory a adresáře), sekce 3 (Zaklínadla), podsekce 3 (Testy)"><sup>3/</sup>3 Testy</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx01f8993"><span><a href="#zx01f8993">@</a></span></span><b>existuje</b> adresářová položka?<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">test -e <i class="dopln">cesta</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx33a7a35"><span><a href="#zx33a7a35">@</a></span></span>je adresářová položka {<b>soubor</b>/adresář/pojmenovaná roura} nebo symbolický odkaz na ni/něj?<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">test -f <i class="dopln">cesta</i></div>
+<div class="radekzaklinadla">test -d <i class="dopln">cesta</i></div>
+<div class="radekzaklinadla">test -p <i class="dopln">cesta</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxbea1d54"><span><a href="#zxbea1d54">@</a></span></span>je adresářová položka <b>soubor</b>/adresář/symbolický odkaz/pojmenovaná roura?<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">test -f <i class="dopln">cesta</i> -a ! -L <i class="dopln">cesta</i></div>
+<div class="radekzaklinadla">test -d <i class="dopln">cesta</i> -a ! -L <i class="dopln">cesta</i></div>
+<div class="radekzaklinadla">test -L <i class="dopln">cesta</i> -a ! -L <i class="dopln">cesta</i></div>
+<div class="radekzaklinadla">test -p <i class="dopln">cesta</i> -a ! -L <i class="dopln">cesta</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd436d73"><span><a href="#zxd436d73">@</a></span></span>je adresářová položka symbolický odkaz (jakýkoliv/relativní/absolutní)<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">test -L <i class="dopln">cesta</i></div>
+<div class="radekzaklinadla">test -L <i class="dopln">cesta</i> &amp;&amp; readlink <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i> | egrep -qv ^/</div>
+<div class="radekzaklinadla">test -L <i class="dopln">cesta</i> &amp;&amp; readlink <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i> | egrep -q ^/</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx27444b0"><span><a href="#zx27444b0">@</a></span></span>je soubor neprázdný/<b>prázdný</b>?<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">test -f <i class="dopln">cesta</i> -a -s <i class="dopln">cesta</i></div>
+<div class="radekzaklinadla">test -f <i class="dopln">cesta</i> -a ! -s <i class="dopln">cesta</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx80849e6"><span><a href="#zx80849e6">@</a></span></span>má položka nastavený zvláštní příznak u+s/u+g/+t?<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">[[ $(stat -c %04a <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i>) =~ ^[4567] ]]</div>
+<div class="radekzaklinadla">[[ $(stat -c %04a <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i>) =~ ^[2367] ]]</div>
+<div class="radekzaklinadla">[[ $(stat -c %04a <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i>) =~ ^[1357] ]]</div>
+</div></div>
+
+<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 28 (Soubory a adresáře), sekce 3 (Zaklínadla), podsekce 4 (Srovnání)"><sup>3/</sup>4 Srovnání</a></span></h3>
+<p class="ponadpisu">
+Poznámka: srovnávané položky nemusejí být v tomtéž adresáři; můžete je zadat i s relativní či absolutní cestou.
+</p>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6143dc3"><span><a href="#zx6143dc3">@</a></span></span>je položka1 <b>novější</b> než položka2? (z hlediska času poslední úpravy)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">test <i class="dopln">položka1</i> -nt <i class="dopln">položka2</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4b8f8f1"><span><a href="#zx4b8f8f1">@</a></span></span>je soubor1 <b>větší</b>/větší nebo stejně velký než soubor2?<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">test $(stat -c %s &quot;<i class="dopln">soubor1</i>&quot;) -gt $(stat -c %s &quot;<i class="dopln">soubor2</i>&quot;)</div>
+<div class="radekzaklinadla">test $(stat -c %s &quot;<i class="dopln">soubor1</i>&quot;) -ge $(stat -c %s &quot;<i class="dopln">soubor2</i>&quot;)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe3d56de"><span><a href="#zxe3d56de">@</a></span></span>odkazují dvě položky na tutéž entitu (soubor, adresář apod.)?<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">test <i class="dopln">položka1</i> -ef <i class="dopln">položka2</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc3a122a"><span><a href="#zxc3a122a">@</a></span></span>jsou obě položky stejně staré?<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">test ! <i class="dopln">položka1</i> -nt <i class="dopln">položka2</i> -a ! <i class="dopln">položka1</i> -ot <i class="dopln">položka2</i></div>
+</div></div>
+
+<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 28 (Soubory a adresáře), sekce 3 (Zaklínadla), podsekce 5 (Zjistit údaje)"><sup>3/</sup>5 Zjistit údaje</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0406a95"><span><a href="#zx0406a95">@</a></span></span>prostor zabraný na disku adresářem a celým jeho podstromem (v bajtech/čitelně pro člověka)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">du -s0<span class="volznak">[</span>x<span class="volznak">]</span> -B 1 <i class="dopln">adresář</i><span class="tritecky"></span> | sed -zE 's/\s.*/\n/' | tr -d \\0<span class="prikladhodnoty">⊨ 16404</span></div>
+<div class="radekzaklinadla">du -sh<span class="volznak">[</span>x<span class="volznak">]</span> <i class="dopln">adresář</i><span class="tritecky"></span><span class="prikladhodnoty">⊨ 28K .</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxeceda5f"><span><a href="#zxeceda5f">@</a></span></span>přístupová <b>práva</b> (kompletní/základní číselně/základní textově pro člověka)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">getfacl -ac <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span><span class="prikladhodnoty">⊨ user::rw- (výstup má víc řádek)</span></div>
+<div class="radekzaklinadla">stat -c %<span class="volznak">[</span>04<span class="volznak">]</span>a <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span><span class="prikladhodnoty">⊨ 1775</span></div>
+<div class="radekzaklinadla">stat -c %A <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span><span class="prikladhodnoty">⊨ -rwxrwxr-t</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5aa3c58"><span><a href="#zx5aa3c58">@</a></span></span>celková <b>velikost</b> (v bajtech/čitelně pro člověka)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">stat -c %s <i class="dopln">cesta</i><span class="tritecky"></span><span class="prikladhodnoty">⊨ 15132</span></div>
+<div class="radekzaklinadla">stat -c %s <i class="dopln">cesta</i><span class="tritecky"></span> | numfmt --to iec<span class="prikladhodnoty">⊨ 15K</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd2ed784"><span><a href="#zxd2ed784">@</a></span></span><b>vlastník</b> (jméno/UID)<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">stat -c %U <i class="dopln">cesta</i><span class="tritecky"></span><span class="prikladhodnoty">⊨ filip</span></div>
+<div class="radekzaklinadla">stat -c %u <i class="dopln">cesta</i><span class="tritecky"></span><span class="prikladhodnoty">⊨ 1000</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx850994f"><span><a href="#zx850994f">@</a></span></span><b>skupina</b> (název/GID)<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">stat -c %G <i class="dopln">cesta</i><span class="tritecky"></span><span class="prikladhodnoty">⊨ www-data</span></div>
+<div class="radekzaklinadla">stat -c %g <i class="dopln">cesta</i><span class="tritecky"></span><span class="prikladhodnoty">⊨ 33</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxcd896ef"><span><a href="#zxcd896ef">@</a></span></span>datum a čas poslední <b>změny</b> (pro člověka či skript/časová známka Unixu)<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">stat -c %y <i class="dopln">cesta</i><span class="tritecky"></span><span class="prikladhodnoty">⊨ 2020-03-01 05:30:59.280255271 +0100</span></div>
+<div class="radekzaklinadla">stat -c %Y <i class="dopln">cesta</i><span class="tritecky"></span><span class="prikladhodnoty">⊨ 1583037059</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa49b983"><span><a href="#zxa49b983">@</a></span></span><b>kanonická cesta</b> adresářové položky (v případě symb. odkazu vzít: odkaz/odkazovanou položku)<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla">realpath -s <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i></div>
+<div class="radekzaklinadla">realpath <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf7c363a"><span><a href="#zxf7c363a">@</a></span></span>počet pevných odkazů<span class="cislo">#8 </span></div><div class="radky">
+<div class="radekzaklinadla">stat -c %h <i class="dopln">cesta</i><span class="tritecky"></span><span class="prikladhodnoty">⊨ 1</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx801928c"><span><a href="#zx801928c">@</a></span></span>číslo <b>inode</b><span class="cislo">#9 </span></div><div class="radky">
+<div class="radekzaklinadla">stat -c %i <i class="dopln">cesta</i><span class="tritecky"></span><span class="prikladhodnoty">⊨ 403723</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxddfddd6"><span><a href="#zxddfddd6">@</a></span></span>typ adresářové položky (písmeno/čitelně pro člověka)<span class="cislo">#10 </span></div><div class="radky">
+<div class="radekzaklinadla">stat -c %A | cut -c 1 | tr - f<span class="prikladhodnoty">⊨ f</span></div>
+<div class="radekzaklinadla">stat -c %F <i class="dopln">cesta</i><span class="tritecky"></span><span class="prikladhodnoty">⊨ běžný soubor</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx76ff0a4"><span><a href="#zx76ff0a4">@</a></span></span>příslušný přípojný bod (kořenový adresář systému souborů, na kterém se položka nachází)<span class="cislo">#11 </span></div><div class="radky">
+<div class="radekzaklinadla">stat -c %m <i class="dopln">cesta</i><span class="tritecky"></span><span class="prikladhodnoty">⊨ /</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf53759f"><span><a href="#zxf53759f">@</a></span></span>prostor skutečně zabraný na disku souborem (v bajtech/čitelně pro člověka)<span class="cislo">#12 </span></div><div class="radky">
+<div class="radekzaklinadla">stat -c '%b*%B' <i class="dopln">cesta</i><span class="tritecky"></span> | bc<span class="prikladhodnoty">⊨ 16384</span></div>
+<div class="radekzaklinadla">stat -c '%b*%B' <i class="dopln">cesta</i><span class="tritecky"></span> | bc | numfmt --to iec<span class="prikladhodnoty">⊨ 16K</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx295e4c0"><span><a href="#zx295e4c0">@</a></span></span>nastavené rozšířené zvláštní příznaky (pro člověka/pro skript)<span class="cislo">#13 </span><sup><a href="#kapx8836c9eppc2" id="kapx8836c9eppcr2" title="Poznámka: některé rozšířené zvláštní příznaky jsou pouze informativní a nemohou být přímo změněny žádným příkazem.">(2)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">lsattr -d <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla">lsattr -d <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i> | sed -zE 's/-//g;s/\s.*/\n/'</div>
+</div></div>
+
+<h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 28 (Soubory a adresáře), sekce 3 (Zaklínadla), podsekce 6 (Aktuální adresář)"><sup>3/</sup>6 Aktuální adresář</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxeeb9464"><span><a href="#zxeeb9464">@</a></span></span>přejít do daného adresáře/na předchozí aktuální adresář<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">cd <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i></div>
+<div class="radekzaklinadla">cd -</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8b6be6f"><span><a href="#zx8b6be6f">@</a></span></span>zjistit aktuální adresář<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">pwd<span class="prikladhodnoty">⊨ /home/aneta</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxdea1319"><span><a href="#zxdea1319">@</a></span></span>přejít do domovského adresáře<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">cd</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6c308b3"><span><a href="#zx6c308b3">@</a></span></span>přejít o úroveň výš<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">cd ..</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxba35980"><span><a href="#zxba35980">@</a></span></span>přejít do kořenového adresáře<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">cd /</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3e91492"><span><a href="#zx3e91492">@</a></span></span>přejít do předchozího aktuálního adresáře dané instance interpretu<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">cd -</div>
+</div></div>
+
+<h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 28 (Soubory a adresáře), sekce 3 (Zaklínadla), podsekce 7 (Vytvořit adresářovou položku)"><sup>3/</sup>7 Vytvořit adresářovou položku</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfd1ebc0"><span><a href="#zxfd1ebc0">@</a></span></span>vytvořit prázdný <b>adresář</b> (alternativy)<span class="cislo">#1 </span><sup><a href="#kapx8836c9eppc3" id="kapx8836c9eppcr3" title="Parametr „-p“: vytvořit adresář, jen pokud ještě neexistuje; a v případě potřeby nejdřív vytvořit adresáře jemu nadřazené.">(3)</a>,&nbsp;<a href="#kapx8836c9eppc4" id="kapx8836c9eppcr4" title="Znak „=“ u módu má význam pouze v případě, že chcete zabránit, aby vytvořený adresář zdědil od nadřazeného adresáře příznak zmocnění skupiny. Bez = se totiž v takovém případě tento příznak zdědí i v případě, že ho uvedený mód nemá nastavený. Pokud „=“ uvedete, dědění se tím zabrání a příznak se nastaví výhradně podle uvedeného módu.">(4)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">mkdir <span class="volznak">[</span>-v<span class="volznak">]</span> <span class="volznak">[</span>-m <i class="dopln">práva</i><span class="volznak">]</span> <span class="volznak">[</span>-p<span class="volznak">]</span> <i class="dopln">název</i></div>
+<div class="radekzaklinadla">mkdir <span class="volznak">[</span>-v<span class="volznak">]</span> -m <span class="volznak">[</span>=<span class="volznak">]</span><i class="dopln">mód</i> <span class="volznak">[</span>-p<span class="volznak">]</span> <i class="dopln">název</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxaa60cbb"><span><a href="#zxaa60cbb">@</a></span></span>vytvořit prázdný <b>soubor</b><span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">touch <i class="dopln">název</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe00eedb"><span><a href="#zxe00eedb">@</a></span></span>vytvořit symbolický odkaz<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">ln -s &quot;<i class="dopln">obsah/odkazu</i>&quot; <i class="dopln">název</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd3e157d"><span><a href="#zxd3e157d">@</a></span></span>vytvořit soubor vyplněný <b>nulami</b> (velikost zadat/odvodit)<span class="cislo">#4 </span><sup><a href="#kapx8836c9eppc5" id="kapx8836c9eppcr5" title="Poznámka: Je-li to možné, příkaz „truncate“ vytvoří takzvaný „řídký soubor“, tedy soubor, který ve skutečnosti zprvu nezabírá žádné místo na disku a jeho datové bloky se alokují teprve při zápisu. Tím pádem také umožňuje vytvořit soubor větší než je velikost souborového systému. Pokud chcete pro soubor rovnou vyhradit i prostor na disku, místo „truncate -s“ použijte „fallocate -l“.">(5)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">rm -f <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/k/souboru</i><span class="tritecky"></span> &amp;&amp; truncate -s <i class="dopln">velikost</i> <i class="dopln">cesta/k/souboru</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla">rm -f <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/k/souboru</i><span class="tritecky"></span> &amp;&amp; truncate -r <i class="dopln">cesta/ke/vzorovému/souboru</i> <i class="dopln">cesta/k/souboru</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxdc1f2ba"><span><a href="#zxdc1f2ba">@</a></span></span>vytvořit pojmenovanou rouru<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">mkfifo <span class="volznak">[</span>-m <i class="dopln">práva</i><span class="volznak">]</span> <i class="dopln">název</i><span class="tritecky"></span></div>
+</div></div>
+
+<h3 id="cast3x8"><span><a href="#cast3x8" title="kapitola 28 (Soubory a adresáře), sekce 3 (Zaklínadla), podsekce 8 (Přejmenovat či smazat adresářovou položku)"><sup>3/</sup>8 Přejmenovat či smazat adresářovou položku</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa61966a"><span><a href="#zxa61966a">@</a></span></span><b>přejmenovat</b> adresářovou položku<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">mv <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">původní-název</i> <i class="dopln">nový-název</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxef03d03"><span><a href="#zxef03d03">@</a></span></span>smazat <b>neadresář</b><span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">rm <span class="volznak">[</span>-f<span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9d327c0"><span><a href="#zx9d327c0">@</a></span></span>smazat prázdný adresář<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">rmdir <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxaabbbf6"><span><a href="#zxaabbbf6">@</a></span></span>smazat rekurzivně veškerý obsah adresáře a nakonec i samotný adresář<span class="cislo">#4 </span><sup><a href="#kapx8836c9eppc6" id="kapx8836c9eppcr6" title="Tuto variantu můžete použít i na jednotlivé soubory.">(6)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">rm -r<span class="volznak">[</span>f<span class="volznak">]</span><span class="volznak">[</span>v<span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+</div></div>
+
+<h3 id="cast3x9"><span><a href="#cast3x9" title="kapitola 28 (Soubory a adresáře), sekce 3 (Zaklínadla), podsekce 9 (Nastavit přístupová práva)"><sup>3/</sup>9 Nastavit přístupová práva</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe132a20"><span><a href="#zxe132a20">@</a></span></span>nastavit práva „rwx“ pro vlastníka, „rx“ pro skupinu a nic pro ostatní (alternativy)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> chmod <span class="volznak">[</span>-R<span class="volznak">]</span> u=rwx,g=rx,o=- <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> setfacl <span class="volznak">[</span>-R<span class="volznak">]</span> u::rwx,g::rx,o::- <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5bc5eda"><span><a href="#zx5bc5eda">@</a></span></span>odebrat všem všechna práva<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> setfacl <span class="volznak">[</span>-R<span class="volznak">]</span> -bm u::-,g::-,o::- <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4ee3a02"><span><a href="#zx4ee3a02">@</a></span></span>přidat/odebrat vlastníkovi právo „x“<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> chmod <span class="volznak">[</span>-R<span class="volznak">]</span> u+x <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> chmod <span class="volznak">[</span>-R<span class="volznak">]</span> u-x <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx62acaa6"><span><a href="#zx62acaa6">@</a></span></span>přidat/odebrat vlastníkovi a skupině právo „x“<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> chmod <span class="volznak">[</span>-R<span class="volznak">]</span> ug+x <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> chmod <span class="volznak">[</span>-R<span class="volznak">]</span> ug-x <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe454d3d"><span><a href="#zxe454d3d">@</a></span></span>přidat/odebrat všem práva „r“ a „x“<span class="cislo">#5 </span><sup><a href="#kapx8836c9eppc7" id="kapx8836c9eppcr7" title="Pozor! Pokud má některý uživatel dané právo výslovně odebrané položkou rozšířených přístupových práv, uvedený příkaz na přidání práv všem mu ho nepřidá.">(7)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> chmod <span class="volznak">[</span>-R<span class="volznak">]</span> a+rx <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> chmod <span class="volznak">[</span>-R<span class="volznak">]</span> a-rx <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx33ffdd9"><span><a href="#zx33ffdd9">@</a></span></span>nastavit mód (základní přístupová práva a základní zvláštní příznaky)<span class="cislo">#6 </span><sup><a href="#kapx8836c9eppc8" id="kapx8836c9eppcr8" title="Mód můžete zadat i bez znaku „=“, ale v takovém případě by tento příkaz neodstranil ze souborů a adresářů příznaky zmocnění vlastníka a skupiny; příznak omezení smazání by se odstranil i v takovém případě.">(8)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> chmod <span class="volznak">[</span>-R<span class="volznak">]</span> =<i class="dopln">mód</i> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9fa466a"><span><a href="#zx9fa466a">@</a></span></span>nastavit práva „rwx“ pro vlastníka a „rx“ pro ostatní, práva pro skupinu neměnit (alternativy)<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> chmod <span class="volznak">[</span>-R<span class="volznak">]</span> u=rwx,o=rx <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> setfacl <span class="volznak">[</span>-R<span class="volznak">]</span> -m u::rwx,o::- <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxcfa7d2c"><span><a href="#zxcfa7d2c">@</a></span></span>nastavit rozšířená práva „rx“ uživateli „filip“<span class="cislo">#8 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> setfacl <span class="volznak">[</span>-R<span class="volznak">]</span> -m u:filip:rx <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0151580"><span><a href="#zx0151580">@</a></span></span>zrušit rozšířená práva uživatele „filip“<span class="cislo">#9 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> setfacl <span class="volznak">[</span>-R<span class="volznak">]</span> -x u:filip <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf6ea0a8"><span><a href="#zxf6ea0a8">@</a></span></span>zrušit rozšířená práva všech uživatelů a skupin<span class="cislo">#10 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> setfacl <span class="volznak">[</span>-R<span class="volznak">]</span> -b <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc83c20c"><span><a href="#zxc83c20c">@</a></span></span>nastavit skupině („g“) a ostatním („o“) přístupová práva, jaká má vlastník („u“) (alternativy)<span class="cislo">#11 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> chmod <span class="volznak">[</span>-R<span class="volznak">]</span> go=u <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> getfacl <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i> | sed -nE 's/^user::/g::/;T;p;s/^[^:]+/o/;p' | <span class="volznak">[</span>sudo<span class="volznak">]</span> setfacl -M- <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i></div>
+</div></div>
+
+<h3 id="cast3x10"><span><a href="#cast3x10" title="kapitola 28 (Soubory a adresáře), sekce 3 (Zaklínadla), podsekce 10 (Změnit čas, vlastnictví a skupinu)"><sup>3/</sup>10 Změnit čas, vlastnictví a skupinu</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3d679a2"><span><a href="#zx3d679a2">@</a></span></span><b>nastavit čas</b> „změněno“/čas „čteno“/oba časy na aktuální čas<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> touch -cm <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> touch -ca <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> touch -c <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7982bc7"><span><a href="#zx7982bc7">@</a></span></span>změnit <b>vlastníka</b> souboru či adresáře (volitelně i skupinu)(obecně/příklad)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">sudo chown <span class="volznak">[</span>-R <span class="volznak">[</span>-L<span class="volznak">]</span><span class="volznak">]</span> <span class="volznak">[</span>-c<span class="volznak">]</span> <span class="volznak">[</span>--from=<span class="volznak">[</span><i class="dopln">původní-vlastník</i><span class="volznak">]</span>:<span class="volznak">[</span><i class="dopln">původní-skupina</i><span class="volznak">]</span><span class="volznak">]</span> <i class="dopln">nový-vlastník</i><span class="volznak">[</span>:<i class="dopln">nová-skupina</i><span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla">sudo chown root:root soubor.txt</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxaa763b4"><span><a href="#zxaa763b4">@</a></span></span>změnit skupinu souboru či adresáře<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> chgrp <span class="volznak">[</span>-R<span class="volznak">]</span> <span class="volznak">[</span>-c<span class="volznak">]</span> <i class="dopln">nová-skupina</i> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxcffb4be"><span><a href="#zxcffb4be">@</a></span></span><b>přenést čas</b> „změněno“/„čteno“/oba časy ze zdrojového souboru či adresáře<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> touch -cm -r <i class="dopln">zdrojová/položka</i> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> touch -ca -r <i class="dopln">zdrojová/položka</i> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> touch -c -r <i class="dopln">zdrojová/položka</i> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx050e11d"><span><a href="#zx050e11d">@</a></span></span>nastavit čas „změněno“ (obecně/příklady...)<span class="cislo">#5 </span><sup><a href="#kapx8836c9eppc9" id="kapx8836c9eppcr9" title="Pozor! Příkaz „touch“ při tomto použití tiše ignoruje neexistující soubory! Neuvedete-li u času posun, bude se interpretovat v místní časové zóně (podle proměnné prostředí „TZ“).">(9)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> touch -cmd &quot;<i class="dopln">datum-čas</i>&quot; <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla">sudo touch -cmd &quot;2019-04-21<span class="viditelnamezera">&nbsp;</span>23:59:58&quot; -- /root/mujsoubor.txt</div>
+<div class="radekzaklinadla">touch -cmd &quot;2019-04-21<span class="viditelnamezera">&nbsp;</span>23:59:58.123456789&quot; -- ~/mujsoubor.txt</div>
+<div class="radekzaklinadla">touch -cmd &quot;2019-04-21<span class="viditelnamezera">&nbsp;</span>23:59:58.123456789<span class="viditelnamezera">&nbsp;</span>+0200&quot; -- ~/mujsoubor.txt</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9f73de0"><span><a href="#zx9f73de0">@</a></span></span>nastavit čas „čteno“/oba časy<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> touch -cad &quot;<i class="dopln">datum-čas</i>&quot; <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> touch -cd &quot;<i class="dopln">datum-čas</i>&quot; <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+</div></div>
+
+<h3 id="cast3x11"><span><a href="#cast3x11" title="kapitola 28 (Soubory a adresáře), sekce 3 (Zaklínadla), podsekce 11 (Zvláštní příznaky (nastavit))"><sup>3/</sup>11 Zvláštní příznaky (nastavit)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx972e886"><span><a href="#zx972e886">@</a></span></span>zapnout/vypnout příznak omezení smazání (<b>+t</b>)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> chmod <span class="volznak">[</span>-R<span class="volznak">]</span> +t <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> chmod <span class="volznak">[</span>-R<span class="volznak">]</span> -t <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6725637"><span><a href="#zx6725637">@</a></span></span>zapnout/vypnout příznak zmocnění skupiny (<b>g+s</b>)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> chmod <span class="volznak">[</span>-R<span class="volznak">]</span> g+s <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> chmod <span class="volznak">[</span>-R<span class="volznak">]</span> g-s <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa785903"><span><a href="#zxa785903">@</a></span></span>zapnout/vypnout příznak zmocnění vlastníka (<b>u+s</b>)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> chmod <span class="volznak">[</span>-R<span class="volznak">]</span> u+s <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> chmod <span class="volznak">[</span>-R<span class="volznak">]</span> u-s <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf46677e"><span><a href="#zxf46677e">@</a></span></span>zapnout/vypnout současně všechny tři základní zvláštní příznaky<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> chmod <span class="volznak">[</span>-R<span class="volznak">]</span> ug+s,+t <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> chmod <span class="volznak">[</span>-R<span class="volznak">]</span> ug-s,-t <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3db0989"><span><a href="#zx3db0989">@</a></span></span>zapnout/vypnout rozšířené zvláštní příznaky<span class="cislo">#5 </span><sup><a href="#kapx8836c9eppc10" id="kapx8836c9eppcr10" title="Pozor! Tímto příkazem nemůžete měnit základní zvláštní příznaky! Obzvlášť nebezpečná záměna hrozí u příznaku „t“, protože existuje základní příznak „+t“ a současně i nesouvisející rozšířený zvláštní příznak „t“.">(10)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">sudo chattr <span class="volznak">[</span>-R<span class="volznak">]</span> +<i class="dopln">příznak</i><span class="volznak">[</span><i class="dopln">dalšípříznak</i><span class="volznak">]</span><span class="tritecky"></span> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla">sudo chattr <span class="volznak">[</span>-R<span class="volznak">]</span> -<i class="dopln">příznak</i><span class="volznak">[</span><i class="dopln">dalšípříznak</i><span class="volznak">]</span><span class="tritecky"></span> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+</div></div>
+
+<h3 id="cast3x12"><span><a href="#cast3x12" title="kapitola 28 (Soubory a adresáře), sekce 3 (Zaklínadla), podsekce 12 (Ostatní)"><sup>3/</sup>12 Ostatní</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx857912a"><span><a href="#zx857912a">@</a></span></span>kolik je v adresáři položek? (včetně skrytých, ale bez „.“ a „..“)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">find <i class="dopln">adresář</i> -mindepth 1 -maxdepth 1 -printf \\0 | wc -c</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5b34a1b"><span><a href="#zx5b34a1b">@</a></span></span>kolik je v adresáři neskrytých souborů/adresářů (bez symbolických odkazů)?<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">find <i class="dopln">adresář</i> -mindepth 1 -maxdepth 1 -type f -name '[!.]*' -printf \\0 | wc -c</div>
+<div class="radekzaklinadla">find <i class="dopln">adresář</i> -mindepth 1 -maxdepth 1 -type d -name '[!.]*' -printf \\0 | wc -c</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd7b400e"><span><a href="#zxd7b400e">@</a></span></span>kolik je v adresáři neskrytých souborů/adresářů (včetně symbolických odkazů)?<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">find -L <i class="dopln">adresář</i> -mindepth 1 -maxdepth 1 -type f -name '[!.]*' -printf \\0 | wc -c</div>
+<div class="radekzaklinadla">find -L <i class="dopln">adresář</i> -mindepth 1 -maxdepth 1 -type d -name '[!.]*' -printf \\0 | wc -c</div>
+</div></div>
+
+<h2 id="cast4" class="zaklinadla"><a href="#cast4"><span class="cislo">4.</span> Zaklínadla: Uživatelské datové položky</a></h2>
+<p class="ponadpisu">
+Poznámka: Znaky „\r“, „\n“, „=“ a „\“ se v klíčích atributů při použití
+následujících zaklínadel nahrazují sekvencemi „\015“ (\r), „\012“ (\n), „\075“ (=),
+resp. „\134“(„\“). Příkaz „getfattr“ je již automaticky nahrazuje ve výpisech a příkaz „setfattr“ očekává klíč s nahrazenými znaky. Buď se použití těchto znaků vyhněte,
+nebo jim zajistěte odpovídající konverzi. Nulový bajt „\0“ se v klíči vyskytovat
+nemůže.
+</p><p>
+Podle manuálové stránky je délka klíče omezena na 256 bajtů a délka hodnoty na 64 kibibajtů.
+</p>
+
+<h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 28 (Soubory a adresáře), sekce 4 (Zaklínadla: Uživatelské datové položky), podsekce 1 (Vypsat položky)"><sup>4/</sup>1 Vypsat položky</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0bbf56a"><span><a href="#zx0bbf56a">@</a></span></span>vypsat klíče všech souborů a podadresářů (spíš pro člověka)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> getfattr -PR --absolute-names <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/adresáře</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx050c2b3"><span><a href="#zx050c2b3">@</a></span></span><b>vypsat</b> klíče i hodnoty pro člověka (řetězcově/hexadecimálně)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> getfattr --dump <span class="volznak">[</span>-m -<span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> getfattr --dump -e hex <span class="volznak">[</span>-m -<span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc078da4"><span><a href="#zxc078da4">@</a></span></span>vypsat klíče (pro člověka)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> getfattr <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxcf8c77e"><span><a href="#zxcf8c77e">@</a></span></span>vypsat klíče (pro skript, ukončovač „\n“)<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> getfattr <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i> | sed -E '1d;$d'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx41fc917"><span><a href="#zx41fc917">@</a></span></span>má datové položky (uživatelské/uživatelské nebo systémové)?<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> getfattr <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i> | egrep -zq .</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> getfattr -m - <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i> | egrep -zq .</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx10b3493"><span><a href="#zx10b3493">@</a></span></span>počet klíčů (jen číslo/číslo a adresářová cesta)<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> getfattr <span class="volznak">[</span>-m -<span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">adr/položka</i> | sed -E '1d;$d' | wc -l</div>
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+
+<h3 id="cast4x2"><span><a href="#cast4x2" title="kapitola 28 (Soubory a adresáře), sekce 4 (Zaklínadla: Uživatelské datové položky), podsekce 2 (Smazat položku)"><sup>4/</sup>2 Smazat položku</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb0805b9"><span><a href="#zxb0805b9">@</a></span></span>smazat všechny<span class="cislo">#1 </span><sup><a href="#kapx8836c9eppc11" id="kapx8836c9eppcr11" title="Poznámka: mám podezření, že tento příkaz nedokáže odstranit některé datové položky, jejichž názvy obsahují sekvence bajtů neplatné v UTF-8. Pro potvrzení nebo vyvrácení tohoto podezření by bylo potřeba další náročné experimentování.">(11)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">jmeno=$(realpath <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i>)</div>
+<div class="radekzaklinadla"><span class="volznak">[</span><i>sudo</i><span class="volznak">]</span> getfattr <span class="volznak">[</span>--<span class="volznak">]</span> &quot;$jmeno&quot; | sed -E $'1d;$d' | (export LC_ALL=C; while read -r klic; do setfattr -x &quot;$klic&quot; -- &quot;$jmeno&quot;; done)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7aaa7ad"><span><a href="#zx7aaa7ad">@</a></span></span><b>smazat</b><span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> setfattr -x <i class="dopln">klíč</i> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">adr/položka</i><span class="tritecky"></span></div>
+</div></div>
+
+<h3 id="cast4x3"><span><a href="#cast4x3" title="kapitola 28 (Soubory a adresáře), sekce 4 (Zaklínadla: Uživatelské datové položky), podsekce 3 (Přečíst položku)"><sup>4/</sup>3 Přečíst položku</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx25f3f26"><span><a href="#zx25f3f26">@</a></span></span><b>získat</b> hodnotu datové položky<span class="cislo">#1 </span><sup><a href="#kapx8836c9eppc12" id="kapx8836c9eppcr12" title="Poznámka: hodnotou mohou obecná binárná data. Nepředpokládejte, že obsahuje text v kódování UTF-8 nebo že neobsahuje nulové bajty!">(12)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> getfattr --only-values -n <i class="dopln">klíč</i> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">adr/položka</i> | <i class="dopln">zpracování</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7dc3d5b"><span><a href="#zx7dc3d5b">@</a></span></span>načíst klíče a hodnoty do asociativního pole bashe (nulové bajty nahradit za „\n“)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx18702a1"><span><a href="#zx18702a1">@</a></span></span>načíst klíče do pole bashe<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5fde5ca"><span><a href="#zx5fde5ca">@</a></span></span>délka hodnoty v <b>bajtech</b><span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> getfattr --only-values -n <i class="dopln">klíč</i> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">adr/položka</i> | wc -c</div>
+</div></div>
+
+<h3 id="cast4x4"><span><a href="#cast4x4" title="kapitola 28 (Soubory a adresáře), sekce 4 (Zaklínadla: Uživatelské datové položky), podsekce 4 (Vytvořit či přepsat položku)"><sup>4/</sup>4 Vytvořit či přepsat položku</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx63e94c3"><span><a href="#zx63e94c3">@</a></span></span><b>nastavit</b> datovou položku (hodnota je text/binární data)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> setfattr -n <i class="dopln">klíč</i> -v &quot;0x$(printf %s &quot;<i class="dopln">text</i>&quot; | xxd -p -c 1 | tr -d \\n)&quot; <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">adr/položka</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>sudo<span class="volznak">]</span> setfattr -n <i class="dopln">klíč</i> -v &quot;0x$(<i class="dopln">zdroj</i> | xxd -p -c 1 | tr -d \\n)&quot; <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">adr/položka</i><span class="tritecky"></span></div>
+</div></div>
+
+<h2 id="cast5"><a href="#cast5"><span class="cislo">5.</span> Parametry příkazů</a></h2>
+
+<h3 id="cast5x1"><span><a href="#cast5x1" title="kapitola 28 (Soubory a adresáře), sekce 5 (Parametry příkazů), podsekce 1 (chmod)"><sup>5/</sup>1 chmod</a></span></h3>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">chmod <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> <span class="volznak">[</span>=<span class="volznak">]</span><i class="dopln">mód</i> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla">chmod <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> <i class="dopln">nastavení,práv,a,příznaků</i> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+</div></div>
+<p class="ponadpisu">
+Příklady, jak může vypadat nastavení práv a příznaků najdete v zaklínadlech.
+Mód je číselné vyjádření základních práv a zvláštních příznaků v osmičkové soustavě.
+</p>
+<table class="parametryprikazu"><tbody><tr><td>☐ -R</td><td>Je-li argumentem adresář, provede stejné nastavení i na všech jeho položkách, položkách všech podadresářů a tak dále.</td></tr>
+
+<tr><td>☐ -v</td><td>Vypisovat provedené operace.</td></tr>
+
+</tbody></table>
+
+<h3 id="cast5x2"><span><a href="#cast5x2" title="kapitola 28 (Soubory a adresáře), sekce 5 (Parametry příkazů), podsekce 2 (mkdir)"><sup>5/</sup>2 mkdir</a></span></h3>
+<table class="parametryprikazu"><tbody><tr><td>☐ -p</td><td>Vytvoří adresář, pokud ještě neexistuje. Je-li to třeba, vytvoří i nadřazené adresáře.</td></tr>
+
+<tr><td>☐ -v</td><td>Vypisovat provedené operace.</td></tr>
+
+<tr><td>☐ -m <i class="dopln">práva</i></td><td>Vytvořenému adresáři nastaví uvedený mód. Ten může být zadán symbolicky (např. „u=rwx,g=rx,o=“) nebo číselně (např. „755“).</td></tr>
+
+</tbody></table>
+
+<h3 id="cast5x3"><span><a href="#cast5x3" title="kapitola 28 (Soubory a adresáře), sekce 5 (Parametry příkazů), podsekce 3 (setfacl)"><sup>5/</sup>3 setfacl</a></span></h3>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">setfacl <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> -m &quot;<i class="dopln">nastavení práv</i>&quot; <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla">setfacl <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> -M <i class="dopln">soubor</i> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla">setfacl <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> -x &quot;<i class="dopln">práva ke zrušení</i>&quot; <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla">setfacl <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> -X <i class="dopln">soubor</i> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla">setfacl <span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span> -M- <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla">setfacl --restore=<i class="dopln">soubor</i></div>
+</div></div>
+<table class="parametryprikazu"><tbody><tr><td>☐ -b ☐ -k</td><td>Odstraní všechna rozšířená/výchozí přístupová práva.</td></tr>
+
+<tr><td>☐ -d</td><td>Uvedená normální přístupová práva nastaví jako „výchozí“.</td></tr>
+
+<tr><td>☐ -R</td><td>Je-li argumentem adresář, provede stejné nastavení i na všech jeho položkách, položkách všech podadresářů a tak dále.</td></tr>
+
+</tbody></table>
+
+<h2 id="cast6"><a href="#cast6"><span class="cislo">6.</span> Instalace na Ubuntu</a></h2>
+<p class="ponadpisu">
+Všechny použité nástroje jsou základními součástmi Ubuntu, s výjimkou příkazů
+„tree“, „getfattr“ a „setfattr“, které můžete doinstalovat takto:
+</p>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">sudo apt-get install tree attr</div>
+</div></div>
+
+<h2 id="cast7"><a href="#cast7"><span class="cislo">7.</span> Tipy a zkušenosti</a></h2>
+<ul><li>Vlastníci a skupiny jsou v souborovém systému uloženy ve formě čísel UID a GID. Proto když uložíte soubor na USB flash disk a přenesete ho na jiný počítač, kde pracujete jako uživatel s jiným UID, může se stát, že tam k souborům na flash disku nebudete mít dostatečná přístupová práva.
+</li><li>Symbolické odkazy mají vlastníka a skupinu, ale nemají vlastní přístupová práva. Přístup k odkazované položce se vždy řídí jejími přístupovými právy, čtení symbolického odkazu je bez omezení a zápis do něj není dovolen (je nutno místo toho odkaz smazat a vytvořit nový).
+</li><li>Příznaky zmocnění vlastníka a skupiny jsou u souboru (vždy oba) automaticky odebrány, kdykoliv se změní jeho vlastník či skupina. U adresáře jsou v takové situaci ponechány.
+</li><li>V linuxu existují také „výchozí přístupová práva“, což je nastavení přístupových práv na adresáři, které (je-li nastaveno) ovlivňuje přístupová práva nově vyvářených položek; bohužel nelze říci „stanovuje“, ale platí pouze „ovlivňuje“ – na výsledných právech se podílejí i další faktory, nelze rozlišit práva pro soubory a pro adresáře a celé je to dost komplikované a neintuitivní. Zatím jsem naštěstí nanarazil/a na případ, kdy by tuto vlastnost skutečně nějaký program použil.
+</li></ul>
+<h2 id="cast8"><a href="#cast8"><span class="cislo">8.</span> Další zdroje informací</a></h2>
+<ul class="kompaktni"><li><a href="https://cs.wikipedia.org/wiki/P%C5%99%C3%ADstupov%C3%A1_pr%C3%A1va_v_Unixu">Wikipedie: Přístupová práva v Unixu</a>
+</li><li><a href="https://cs.wikipedia.org/wiki/Access_Control_List">Wikipedie: Access Control List</a>
+</li><li><a href="https://cs.wikipedia.org/wiki/Setuid">Wikipedie: setuid</a>
+</li><li><a href="https://www.tutorialspoint.com/unix_commands/setfacl.htm">Tutorialspoint: setfacl</a> (anglicky)
+</li><li>man chmod (anglicky)
+</li><li>man getfacl (anglicky)
+</li><li>man setfacl (anglicky)
+</li><li>man 5 acl (anglicky)
+</li><li>man chattr (anglicky)
+</li><li><a href="https://www.zyxware.com/articles/2955/how-to-use-getfacl-and-setfacl-to-get-and-set-access-control-lists-acls-on">Článek o getfacl a setfacl</a> (anglicky)
+</li><li><a href="https://www.youtube.com/watch?v=WhCIuGjhH-0">YouTube: Basic Linux Access Control</a> (anglicky)
+</li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/linux/setfacl.md">TL;DR: setfacl</a> (anglicky)
+</li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/linux/chattr.md">TL;DR: chattr</a> (anglicky)
+</li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/linux/getfacl.md">TL;DR: getfacl</a> (anglicky)
+</li></ul>
+<h2 id="cast9"><a href="#cast9"><span class="cislo">9.</span> Zákulisí kapitoly</a></h2>
+<p class="ponadpisu">
+V této verzi kapitoly chybí:
+</p>
+<ul class="kompaktni"><li>Kdo má právo nastavovat příslušnou skupinu?
+</li><li>kopírování (bude samostatná kapitola).
+</li><li>hledání a eliminace duplikátů (pevné odkazy/btrfs klony)
+</li></ul><p class="ponadpisu">
+Tato kapitola záměrně nepokrývá:
+</p>
+<ul class="kompaktni"><li>pevné a symbolické odkazy (mají vlastní kapitolu)
+</li><li>připojováním souborových systémů či prací s pododdíly btrfs (mají vlastní kapitolu)
+</li></ul><div class="ppc"><div id="kapx8836c9eppc1"><a href="#kapx8836c9eppcr1" class="cislopozn">1</a>&nbsp;Poznámka: příkaz „find“ odzvláštňuje speciální znaky na svém výstupu, pokud je veden na terminál. Je-li toto chování nežádoucí, nechte jeho výstup ještě projít dalším filtrem, např. „cat“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx8836c9eppc2"><a href="#kapx8836c9eppcr2" class="cislopozn">2</a>&nbsp;Poznámka: některé rozšířené zvláštní příznaky jsou pouze informativní a nemohou být přímo změněny žádným příkazem.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx8836c9eppc3"><a href="#kapx8836c9eppcr3" class="cislopozn">3</a>&nbsp;Parametr „-p“: vytvořit adresář, jen pokud ještě neexistuje; a v případě potřeby nejdřív vytvořit adresáře jemu nadřazené.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx8836c9eppc4"><a href="#kapx8836c9eppcr4" class="cislopozn">4</a>&nbsp;Znak „=“ u módu má význam pouze v případě, že chcete zabránit, aby vytvořený adresář zdědil od nadřazeného adresáře příznak zmocnění skupiny. Bez = se totiž v takovém případě tento příznak zdědí i v případě, že ho uvedený mód nemá nastavený. Pokud „=“ uvedete, dědění se tím zabrání a příznak se nastaví výhradně podle uvedeného módu.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx8836c9eppc5"><a href="#kapx8836c9eppcr5" class="cislopozn">5</a>&nbsp;Poznámka: Je-li to možné, příkaz „truncate“ vytvoří takzvaný „řídký soubor“, tedy soubor, který ve skutečnosti zprvu nezabírá žádné místo na disku a jeho datové bloky se alokují teprve při zápisu. Tím pádem také umožňuje vytvořit soubor větší než je velikost souborového systému. Pokud chcete pro soubor rovnou vyhradit i prostor na disku, místo „truncate -s“ použijte „fallocate -l“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx8836c9eppc6"><a href="#kapx8836c9eppcr6" class="cislopozn">6</a>&nbsp;Tuto variantu můžete použít i na jednotlivé soubory.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx8836c9eppc7"><a href="#kapx8836c9eppcr7" class="cislopozn">7</a>&nbsp;Pozor! Pokud má některý uživatel dané právo výslovně odebrané položkou rozšířených přístupových práv, uvedený příkaz na přidání práv všem mu ho nepřidá.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx8836c9eppc8"><a href="#kapx8836c9eppcr8" class="cislopozn">8</a>&nbsp;Mód můžete zadat i bez znaku „=“, ale v takovém případě by tento příkaz neodstranil ze souborů a adresářů příznaky zmocnění vlastníka a skupiny; příznak omezení smazání by se odstranil i v takovém případě.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx8836c9eppc9"><a href="#kapx8836c9eppcr9" class="cislopozn">9</a>&nbsp;Pozor! Příkaz „touch“ při tomto použití tiše ignoruje neexistující soubory! Neuvedete-li u času posun, bude se interpretovat v místní časové zóně (podle proměnné prostředí „TZ“).</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx8836c9eppc10"><a href="#kapx8836c9eppcr10" class="cislopozn">10</a>&nbsp;Pozor! Tímto příkazem nemůžete měnit základní zvláštní příznaky! Obzvlášť nebezpečná záměna hrozí u příznaku „t“, protože existuje základní příznak „+t“ a současně i nesouvisející rozšířený zvláštní příznak „t“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx8836c9eppc11"><a href="#kapx8836c9eppcr11" class="cislopozn">11</a>&nbsp;Poznámka: mám podezření, že tento příkaz nedokáže odstranit některé datové položky, jejichž názvy obsahují sekvence bajtů neplatné v UTF-8. Pro potvrzení nebo vyvrácení tohoto podezření by bylo potřeba další náročné experimentování.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx8836c9eppc12"><a href="#kapx8836c9eppcr12" class="cislopozn">12</a>&nbsp;Poznámka: hodnotou mohou obecná binárná data. Nepředpokládejte, že obsahuje text v kódování UTF-8 nebo že neobsahuje nulové bajty!</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+</div>
+
+
+<nav class="spodni">
+<a href="index.htm" class="naindex">🗐&nbsp;Přehled&nbsp;kapitol</a>
+<div class="naslkap">
+<a href="sprava-balicku.htm" rel="next" title="23. Správa balíčků">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">23</span>
+<span class="nazev">Správa balíčků</span></a>
+</div>
+<!--<div><a href="index.htm">🗐&nbsp;Přehled&nbsp;kapitol</a></div>-->
+</nav>
+
+
+<div class="odkazydole"><div><a href="zpracovani-videa-a-zvuku.htm"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="" width="32" height="32">Zpracování videa a zvuku</a><a href="zpracovani-textovych-souboru.htm"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="" width="32" height="32">Zpracování textových souborů</a><a href="manualove-stranky.htm"><img src="obrazky/ik/manualove-stranky.png" alt="" width="32" height="32">Manuálové stránky</a></div></div>
+
+</article>
+<!-- *** -->
+<footer id="dole">
+<img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
+<p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
+<a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
+Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
+či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
+na stránce „<a href="x-autori.htm">Přehled autorů</a>“.
+Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
+licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
+Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód
+a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
+<a href="https://github.com/singularis-mzf/linux-spellbook">repozitář na GitHubu</a>.
+</footer>
+</div>
+
+<nav class="menu">
+<!-- MENU OSNOVA -->
+<a href="#menuosnova" id="menuosnova"><span class="prvnipismeno">O</span>snova</a>
+<aside class="menuosnova">
+<div><div class="nadpis">Osnova</div><div class="polozky">
+<a href="#cast1" class="sekce">1 Úvod</a>
+<a href="#cast2" class="sekce">2 Definice</a>
+<a href="#cast2x1" class="podsekce">/1 Přístupová práva</a>
+<a href="#cast2x2" class="podsekce">/2 Základní zvláštní příznaky</a>
+<a href="#cast2x3" class="podsekce">/3 Superuživatel</a>
+<a href="#cast2x4" class="podsekce">/4 Mód</a>
+<a href="#cast2x5" class="podsekce">/5 Rozšířené zvláštní příznaky</a>
+<a href="#cast3" class="sekce">3 Zaklínadla</a>
+<a href="#cast3x1" class="podsekce">/1 Vypsat seznam adresářových položek (pro člověka)</a>
+<a href="#cast3x2" class="podsekce">/2 Vypsat seznam adresářových položek (pro skript)</a>
+<a href="#cast3x3" class="podsekce">/3 Testy</a>
+<a href="#cast3x4" class="podsekce">/4 Srovnání</a>
+<a href="#cast3x5" class="podsekce">/5 Zjistit údaje</a>
+<a href="#cast3x6" class="podsekce">/6 Aktuální adresář</a>
+<a href="#cast3x7" class="podsekce">/7 Vytvořit adresářovou položku</a>
+<a href="#cast3x8" class="podsekce">/8 Přejmenovat či smazat adresářovou položku</a>
+<a href="#cast3x9" class="podsekce">/9 Nastavit přístupová práva</a>
+<a href="#cast3x10" class="podsekce">/10 Změnit čas, vlastnictví a skupinu</a>
+<a href="#cast3x11" class="podsekce">/11 Zvláštní příznaky (nastavit)</a>
+<a href="#cast3x12" class="podsekce">/12 Ostatní</a>
+<a href="#cast4" class="sekce">4 Zaklínadla: Uživatelské datové položky</a>
+<a href="#cast4x1" class="podsekce">/1 Vypsat položky</a>
+<a href="#cast4x2" class="podsekce">/2 Smazat položku</a>
+<a href="#cast4x3" class="podsekce">/3 Přečíst položku</a>
+<a href="#cast4x4" class="podsekce">/4 Vytvořit či přepsat položku</a>
+<a href="#cast5" class="sekce">5 Parametry příkazů</a>
+<a href="#cast5x1" class="podsekce">/1 chmod</a>
+<a href="#cast5x2" class="podsekce">/2 mkdir</a>
+<a href="#cast5x3" class="podsekce">/3 setfacl</a>
+<a href="#cast6" class="sekce">6 Instalace na Ubuntu</a>
+<a href="#cast7" class="sekce">7 Tipy a zkušenosti</a>
+<a href="#cast8" class="sekce">8 Další zdroje informací</a>
+<a href="#cast9" class="sekce">9 Zákulisí kapitoly</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU KAPITOLY -->
+<a href="#menukapitoly" id="menukapitoly"><span class="prvnipismeno">K</span>apitoly</a>
+<aside class="menukapitoly">
+<div><div class="nadpis">Kapitoly</div><div class="polozky">
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/predmluva.png" alt="[]"></span><span class="fragodkazy"><a href="predmluva.htm" class="odkaz"><span><span class="cislo">1</span>Předmluva</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zakladni-znalosti.png" alt="[]"></span><span class="fragodkazy"><a href="zakladni-znalosti.htm" class="odkaz"><span><span class="cislo">2</span>Základní znalosti</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/awk.png" alt="[]"></span><span class="fragodkazy"><a href="awk.htm" class="odkaz"><span><span class="cislo">3</span>AWK</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/bash.png" alt="[]"></span><span class="fragodkazy"><a href="bash.htm" class="odkaz"><span><span class="cislo">4</span>Bash</span></a><span class="podkpodkazy"><a href="bash-funkce-a-skripty.htm" class="odkaz"><span><span class="cislo">4.1</span>Funkce a skripty</span></a><a href="bash-interaktivni-rezim.htm" class="odkaz"><span><span class="cislo">4.2</span>Interaktivní režim</span></a><a href="bash-vstup-vystup.htm" class="odkaz"><span><span class="cislo">4.3</span>Vstup, výstup a přesměrování</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/datum-cas-kalendar.png" alt="[]"></span><span class="fragodkazy"><a href="datum-cas-kalendar.htm" class="odkaz"><span><span class="cislo">5</span>Datum, čas a kalendář</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/diskove-oddily.png" alt="[]"></span><span class="fragodkazy"><a href="diskove-oddily.htm" class="odkaz"><span><span class="cislo">6</span>Diskové oddíly</span></a><span class="podkpodkazy"><a href="diskove-oddily-btrfs.htm" class="odkaz"><span><span class="cislo">6.1</span>Btrfs</span></a><a href="diskove-oddily-lvm.htm" class="odkaz"><span><span class="cislo">6.2</span>LVM</span></a><a href="diskove-oddily-softwarovy-raid.htm" class="odkaz"><span><span class="cislo">6.3</span>Softwarový RAID</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/git.png" alt="[]"></span><span class="fragodkazy"><a href="git.htm" class="odkaz"><span><span class="cislo">7</span>Git</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/hledani-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="hledani-souboru.htm" class="odkaz"><span><span class="cislo">8</span>Hledání souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/make.png" alt="[]"></span><span class="fragodkazy"><a href="make.htm" class="odkaz"><span><span class="cislo">9</span>Make</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/manualove-stranky.png" alt="[]"></span><span class="fragodkazy"><a href="manualove-stranky.htm" class="odkaz"><span><span class="cislo">10</span>Manuálové stránky</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/markdown.png" alt="[]"></span><span class="fragodkazy"><a href="markdown.htm" class="odkaz"><span><span class="cislo">11</span>Markdown</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/metaprikazy.png" alt="[]"></span><span class="fragodkazy"><a href="metaprikazy.htm" class="odkaz"><span><span class="cislo">12</span>Metapříkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/nabidka-aplikaci.png" alt="[]"></span><span class="fragodkazy"><a href="nabidka-aplikaci.htm" class="odkaz"><span><span class="cislo">13</span>Nabídka aplikací</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/odkazy.png" alt="[]"></span><span class="fragodkazy"><a href="odkazy.htm" class="odkaz"><span><span class="cislo">14</span>Pevné a symbolické odkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-moduly.png" alt="[]"></span><span class="fragodkazy"><a href="perl-moduly.htm" class="odkaz"><span><span class="cislo">15</span>Perl: moduly a objekty</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-zaklady.png" alt="[]"></span><span class="fragodkazy"><a href="perl-zaklady.htm" class="odkaz"><span><span class="cislo">16</span>Perl: základy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="fragodkazy"><a href="prace-s-archivy.htm" class="odkaz"><span><span class="cislo">17</span>Práce s archivy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prohlizeni-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="prohlizeni-textovych-souboru.htm" class="odkaz"><span><span class="cislo">18</span>Prohlížení textových souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/promenne.png" alt="[]"></span><span class="fragodkazy"><a href="promenne.htm" class="odkaz"><span><span class="cislo">19</span>Proměnné prostředí a interpretu</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="fragodkazy"><a href="regularni-vyrazy.htm" class="odkaz"><span><span class="cislo">20</span>Regulární výrazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sed.png" alt="[]"></span><span class="fragodkazy"><a href="sed.htm" class="odkaz"><span><span class="cislo">21</span>Sed</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/soubory-a-adresare.png" alt="[]"></span><span class="fragodkazy"><a href="soubory-a-adresare.htm" class="odkaz"><span><span class="cislo">22</span>Soubory a adresáře</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-balicku.htm" class="odkaz"><span><span class="cislo">23</span>Správa balíčků</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-procesu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-procesu.htm" class="odkaz"><span><span class="cislo">24</span>Správa procesů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-uzivatelskych-uctu.htm" class="odkaz"><span><span class="cislo">25</span>Správa uživatelských účtů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="fragodkazy"><a href="system.htm" class="odkaz"><span><span class="cislo">26</span>Systém</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/terminal.png" alt="[]"></span><span class="fragodkazy"><a href="terminal.htm" class="odkaz"><span><span class="cislo">27</span>Terminál</span></a><span class="podkpodkazy"><a href="terminal-emodzi.htm" class="odkaz"><span><span class="cislo">27.1</span>Emodži</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/vim.png" alt="[]"></span><span class="fragodkazy"><a href="vim.htm" class="odkaz"><span><span class="cislo">28</span>Vim</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-binarnich-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-binarnich-souboru.htm" class="odkaz"><span><span class="cislo">29</span>Zpracování binárních souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-textovych-souboru.htm" class="odkaz"><span><span class="cislo">30</span>Zpracování textových souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-videa-a-zvuku.htm" class="odkaz"><span><span class="cislo">31</span>Zpracování videa a zvuku</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="fragodkazy"><a href="licence.htm" class="odkaz"><span><span class="cislo">32</span>Licence</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/rejstrik.png" alt="[]"></span><span class="fragodkazy"><a href="rejstrik.htm" class="odkaz"><span><span class="cislo">33</span>Rejstřík podle klasických příkazů</span></a></span></div>
+</div></div>
+<a href="#zavritmenu" id="zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU ŠTÍTKY -->
+<a href="#menustitky" id="menustitky"><span class="prvnipismeno">Š</span>títky</a>
+<aside class="menustitky">
+<div><div class="nadpis">Štítky</div><div class="polozky">
+<a href="x-stitky.htm#x5208bbb">adresáře&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#xb0a5782">aplikace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x583f72a">apt&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa619ea3">automatizace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xb2b2bff">bajty&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5c1d5fa">barvy&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xd574d4b">bash&nbsp;&nbsp;(9)</a>
+<a href="x-stitky.htm#xedb0c6c">čas&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x8d777f3">data&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xcd6caf8">démoni&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x38864cc">dokumentace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5aee9db">editor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x905aee4">emodži&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xb05338c">Flatpak&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x1e3042b">GUI&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x891be82">hešovací funkce&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x4e36c04">hledání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c8789a">klávesnice&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x7aeae24">kódování&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa473827">komprese&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x79108ba">LVM&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x2d47ed4">odkládací prostor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xd8dfe69">ovládání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x0114ad0">Perl&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x84913e6">procesy&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa9c449d">program&nbsp;&nbsp;(11)</a>
+<a href="x-stitky.htm#xc65388d">programování&nbsp;&nbsp;(5)</a>
+<a href="x-stitky.htm#x43a526a">přístupová práva&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#xcf91513">RAID&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5c5f44a">ramdisk&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9ad09a9">Snap&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x23be896">soubory&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x12e55d8">správa verzí&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9dcbb0b">syntaxe&nbsp;&nbsp;(7)</a>
+<a href="x-stitky.htm#xba98a3b">systém&nbsp;&nbsp;(9)</a>
+<a href="x-stitky.htm#x3972255">systém souborů&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c01147">tematický okruh&nbsp;&nbsp;(22)</a>
+<a href="x-stitky.htm#xf54f028">textové soubory&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x7f6c02d">Unicode&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x421b47f">video&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xadcdbd7">zip&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x908961b">zpracování textu&nbsp;&nbsp;(5)</a>
+<a href="x-stitky.htm#x04b5cff">zvuk&nbsp;&nbsp;(1)</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU NÁPOVĚDA -->
+<a href="#menunapoveda" id="menunapoveda"><span class="prvnipismeno">N</span>ápověda</a>
+<aside class="menunapoveda">
+<div><div class="nadpis">Nápověda</div><div class="polozky">
+<a href="predmluva.htm">Předmluva</a>
+<a href="https://singularis-mzf.github.io/">Ostatní verze knihy</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook">Repozitář na GitHubu</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook/blob/stabiln%C3%AD/dokumentace/odm%C4%9Bna-za-sestaven%C3%AD.md">Odměna za sestavení (prémiové kapitoly)</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+</nav>
+
+<a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
+<a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
+
+</div>
+</body>
+</html>

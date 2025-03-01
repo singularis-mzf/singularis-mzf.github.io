@@ -5,13 +5,13 @@
 
 <title>Bash / Funkce a skripty − Linux: Kniha kouzel</title>
 <meta name="viewport" content="width=1000, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="lkk-20220715.css">
+<link rel="stylesheet" type="text/css" href="lkk-20250301.css">
 <link rel="icon" type="image/png" href="obrazky/favicon.png">
 </head>
-<body class="jeukazka">
+<body>
 <div id="nahore"><div id="okno">
 <header>
-<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, vanilková příchuť 2.14 (15. července 2022)</span>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, 2.15 (1. března 2025)</span>
 <span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
 </header>
 <nav class="menuokna">
@@ -19,9 +19,9 @@
 <a href="#menukapitoly" class="menu"><span class="prvnipismeno">K</span>apitoly</a>
 <a href="#menustitky" class="menu"><span class="prvnipismeno">Š</span>títky</a>
 <a href="#menunapoveda" class="menu"><span class="prvnipismeno">N</span>ápověda</a>
-<a href="bash.htm" rel="prev" title="3. Bash" accesskey="p" class="predchozi">Předchozí&nbsp;kapitola</a>
+<a href="bash.htm" rel="prev" title="4. Bash" accesskey="p" class="predchozi">Předchozí&nbsp;kapitola</a>
 <a href="index.htm" class="prehled"><span class="prvnipismeno">P</span>řehled kapitol</a>
-<a href="bash-interaktivni-rezim.htm" rel="next" title="3.2. Bash / Interaktivní režim" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
+<a href="bash-interaktivni-rezim.htm" rel="next" title="4.2. Bash / Interaktivní režim" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
 </nav>
 
 <div class="slogan-veskera-moc">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
@@ -30,9 +30,9 @@
 <nav class="horni">
 <div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
 <span class="prev">
-<a href="bash.htm" rel="prev" title="3. Bash" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+<a href="bash.htm" rel="prev" title="4. Bash" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
 </span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!- -
-- ->&nbsp;| <a href="bash-interaktivni-rezim.htm" rel="next" title="3.2. Bash / Interaktivní režim" accesskey="n">Následující&nbsp;kapitola</a>
+- ->&nbsp;| <a href="bash-interaktivni-rezim.htm" rel="next" title="4.2. Bash / Interaktivní režim" accesskey="n">Následující&nbsp;kapitola</a>
 </span>
 </nav>
 -->
@@ -40,14 +40,11 @@
 
 <article>
 
-<h1 class="kapitola">3.1. <img src="obrazky/ik/bash.png" alt="" width="64" height="64"> <a href="bash.htm">Bash</a> / Funkce a skripty</h1>
+<h1 class="kapitola">4.1. <img src="obrazky/ik/bash.png" alt="" width="64" height="64"> <a href="bash.htm">Bash</a> / Funkce a skripty</h1>
 <div class="varovani">
-Řada 2.x vanilkové příchuti Linuxu: Knihy kouzel je od 15. července 2022
-do 1. března 2025 ve stavu dlouhodobé pasivní údržby;
-nahlášené chyby budou opravovány, ale aktivní vývoj se již věnuje jiným
-projektům. Máte-li zájem pokračovat v tvorbě Linuxu: Knihy kouzel
-pro novější verze linuxových operačních systémů,
-kontaktujte autora nebo rovnou vytvořte odnož.
+Vývoj vanilkové příchuti Linuxu: Knihy kouzel byl 1.&nbsp;března&nbsp;2025
+ukončen. Tento text je zachován jako historický, ale chyby již nejsou
+opravovány. Odnože projektu pod kompatibilní licencí jsou vítány.
 </div>
 <div class="stitky"><a href="x-stitky.htm#">automatizace</a>
 <a href="x-stitky.htm#">bash</a>
@@ -79,7 +76,7 @@ Interpret Bash je vyvíjen v rámci projektu GNU.
 </li></ul>
 <h2 id="cast3" class="zaklinadla"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla: Základní</a></h2>
 
-<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 4 (Bash/Funkce a skripty), sekce 3 (Zaklínadla: Základní), podsekce 1 (Logické řetězení příkazů)"><sup>3/</sup>1 Logické řetězení příkazů</a></span></h3>
+<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 5 (Bash/Funkce a skripty), sekce 3 (Zaklínadla: Základní), podsekce 1 (Logické řetězení příkazů)"><sup>3/</sup>1 Logické řetězení příkazů</a></span></h3>
 <p class="ponadpisu">
 Poznámka: „příkazem“ se v těchto zaklínadlech rozumí příkaz včetně všech parametrů, přesměrování, rour apod., dokonce to může být i celý blok příkazů ve složených závorkách.
 </p>
@@ -93,7 +90,7 @@ Poznámka: „příkazem“ se v těchto zaklínadlech rozumí příkaz včetn�
 <div class="radekzaklinadla"><i class="dopln">příkaz A</i> || <i class="dopln">příkaz B</i></div>
 </div></div>
 
-<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 4 (Bash/Funkce a skripty), sekce 3 (Zaklínadla: Základní), podsekce 2 (Řízení běhu)"><sup>3/</sup>2 Řízení běhu</a></span></h3>
+<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 5 (Bash/Funkce a skripty), sekce 3 (Zaklínadla: Základní), podsekce 2 (Řízení běhu)"><sup>3/</sup>2 Řízení běhu</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx90437f4"><span><a href="#zx90437f4">@</a></span></span>cyklus „<b>while</b>“<span class="cislo">#1 </span><sup><a href="#kapxec6ad7bppc1" id="kapxec6ad7bppcr1" title="Cyklus se opakuje, dokud testovací příkazy skončí úspěchem (s kódem 0).">(1)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">while <i class="dopln">testovací-příkazy</i></div>
 <div class="radekzaklinadla">do <i class="dopln">příkazy; cyklu</i></div>
@@ -136,7 +133,7 @@ Poznámka: „příkazem“ se v těchto zaklínadlech rozumí příkaz včetn�
 <div class="radekzaklinadla">exit <span class="volznak">[</span><i class="dopln">návratový-kód</i><span class="volznak">]</span></div>
 </div></div>
 
-<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 4 (Bash/Funkce a skripty), sekce 3 (Zaklínadla: Základní), podsekce 3 (Zvláštní proměnné)"><sup>3/</sup>3 Zvláštní proměnné</a></span></h3>
+<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 5 (Bash/Funkce a skripty), sekce 3 (Zaklínadla: Základní), podsekce 3 (Zvláštní proměnné)"><sup>3/</sup>3 Zvláštní proměnné</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx88c6e8c"><span><a href="#zx88c6e8c">@</a></span></span><b>návratová hodnota</b> posledního vykonaného příkazu<span class="cislo">#1 </span><sup><a href="#kapxec6ad7bppc5" id="kapxec6ad7bppcr5" title="Tato hodnota může být negována metapříkazem „!“, viz kapitolu Metapříkazy.">(5)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">$?</div>
 </div></div>
@@ -176,7 +173,7 @@ Poznámka: „příkazem“ se v těchto zaklínadlech rozumí příkaz včetn�
 <div class="radekzaklinadla">${BASH_VERSINFO[1]}<span class="prikladhodnoty">⊨ 0</span></div>
 </div></div>
 
-<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 4 (Bash/Funkce a skripty), sekce 3 (Zaklínadla: Základní), podsekce 4 (Poziční parametry (skriptů i funkcí))"><sup>3/</sup>4 Poziční parametry (skriptů i funkcí)</a></span></h3>
+<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 5 (Bash/Funkce a skripty), sekce 3 (Zaklínadla: Základní), podsekce 4 (Poziční parametry (skriptů i funkcí))"><sup>3/</sup>4 Poziční parametry (skriptů i funkcí)</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx513fb7f"><span><a href="#zx513fb7f">@</a></span></span>dosadit N-tý <b>poziční parametr</b> (alternativy)<span class="cislo">#1 </span><sup><a href="#kapxec6ad7bppc10" id="kapxec6ad7bppcr10" title="První variantu lze použít pouze pro parametry $0 až $9. Druhou variantu (tu se složenými závorkami) lze použít i pro ostatní parametry (např. ${10}) a lze ji skombinovat s pokročilými formami dosazení.">(10)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">$<i class="dopln">N</i></div>
 <div class="radekzaklinadla">${<i class="dopln">N</i>}</div>
@@ -203,7 +200,7 @@ Poznámka: „příkazem“ se v těchto zaklínadlech rozumí příkaz včetn�
 <div class="radekzaklinadla">&quot;${*:0}&quot;</div>
 </div></div>
 
-<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 4 (Bash/Funkce a skripty), sekce 3 (Zaklínadla: Základní), podsekce 5 (Funkce „zvenku“)"><sup>3/</sup>5 Funkce „zvenku“</a></span></h3>
+<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 5 (Bash/Funkce a skripty), sekce 3 (Zaklínadla: Základní), podsekce 5 (Funkce „zvenku“)"><sup>3/</sup>5 Funkce „zvenku“</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfd1e1e7"><span><a href="#zxfd1e1e7">@</a></span></span><b>vytvořit</b> (resp. předefinovat) funkci<span class="cislo">#1 </span><sup><a href="#kapxec6ad7bppc14" id="kapxec6ad7bppcr14" title="Závorku „{“ můžete oddělit na samostatnou řádku, pokud vám to připadne přehlednější; je-li uzavírací závorka „}“ na stejné řádce jako poslední příkaz těla funkce, musí být od něj oddělená středníkem nebo „&amp;“.">(14)</a></sup></div><div class="radky">
 <div class="radekzaklinadla"><span class="volznak">[</span>function<span class="volznak">]</span> <i class="dopln">nazev_funkce</i> {</div>
 <div class="radekzaklinadla" style="padding-left:2ch;"><i class="dopln">příkazy funkce</i><span class="tritecky"></span></div>
@@ -230,7 +227,7 @@ Poznámka: „příkazem“ se v těchto zaklínadlech rozumí příkaz včetn�
 <div class="radekzaklinadla">export -fn <i class="dopln">nazev_funkce</i></div>
 </div></div>
 
-<h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 4 (Bash/Funkce a skripty), sekce 3 (Zaklínadla: Základní), podsekce 6 (Funkce „uvnitř“)"><sup>3/</sup>6 Funkce „uvnitř“</a></span></h3>
+<h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 5 (Bash/Funkce a skripty), sekce 3 (Zaklínadla: Základní), podsekce 6 (Funkce „uvnitř“)"><sup>3/</sup>6 Funkce „uvnitř“</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5903247"><span><a href="#zx5903247">@</a></span></span>vytvořit <b>překryvnou proměnnou</b><span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">local <i class="dopln">identifikator</i><span class="volznak">[</span>=<i class="dopln">hodnota</i><span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">identifikator</i><span class="volznak">[</span>=<i class="dopln">hodnota</i><span class="volznak">]</span><span class="volznak">]</span><span class="tritecky"></span></div>
 </div></div>
@@ -242,7 +239,7 @@ Poznámka: „příkazem“ se v těchto zaklínadlech rozumí příkaz včetn�
 <div class="radekzaklinadla">$FUNCNEST<span class="prikladhodnoty">⊨ 1</span></div>
 </div></div>
 
-<h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 4 (Bash/Funkce a skripty), sekce 3 (Zaklínadla: Základní), podsekce 7 (Skript „zvenku“)"><sup>3/</sup>7 Skript „zvenku“</a></span></h3>
+<h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 5 (Bash/Funkce a skripty), sekce 3 (Zaklínadla: Základní), podsekce 7 (Skript „zvenku“)"><sup>3/</sup>7 Skript „zvenku“</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2e5bbfd"><span><a href="#zx2e5bbfd">@</a></span></span>spustit skript v nové instanci interpretu (alternativy)<span class="cislo">#1 </span><sup><a href="#kapxec6ad7bppc16" id="kapxec6ad7bppcr16" title="Druhá a třetí varianta vyžadují, abyste měl/a k danému souboru právo „x“ (spouštění).">(16)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">bash <span class="volznak">[</span><i class="dopln">-volby -Bashe</i><span class="volznak">]</span> <i class="dopln">cesta/ke/skriptu</i> <span class="volznak">[</span><i class="dopln">poziční parametry</i><span class="volznak">]</span></div>
 <div class="radekzaklinadla"><i class="dopln">cesta/ke/skriptu</i> <span class="volznak">[</span><i class="dopln">poziční parametry</i><span class="volznak">]</span></div>
@@ -259,7 +256,7 @@ Poznámka: „příkazem“ se v těchto zaklínadlech rozumí příkaz včetn�
 <div class="radekzaklinadla">BASH_ENV=<i class="dopln">cesta/předskriptu</i> <span class="volznak">[</span>bash <span class="volznak">[</span><i class="dopln">-volby -Bashe</i><span class="volznak">]</span><span class="volznak">]</span> <i class="dopln">cesta/ke/skriptu</i> <span class="volznak">[</span><i class="dopln">poziční parametry</i><span class="volznak">]</span></div>
 </div></div>
 
-<h3 id="cast3x8"><span><a href="#cast3x8" title="kapitola 4 (Bash/Funkce a skripty), sekce 3 (Zaklínadla: Základní), podsekce 8 (Vykonání kódu)"><sup>3/</sup>8 Vykonání kódu</a></span></h3>
+<h3 id="cast3x8"><span><a href="#cast3x8" title="kapitola 5 (Bash/Funkce a skripty), sekce 3 (Zaklínadla: Základní), podsekce 8 (Vykonání kódu)"><sup>3/</sup>8 Vykonání kódu</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4b6d8f3"><span><a href="#zx4b6d8f3">@</a></span></span>vykonat řetězec jako příkazy v této instanci interpretu<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">eval <i class="dopln">&quot;řetězec&quot;</i></div>
 </div></div>
@@ -267,7 +264,7 @@ Poznámka: „příkazem“ se v těchto zaklínadlech rozumí příkaz včetn�
 <div class="radekzaklinadla">true $((<i class="dopln">výraz</i>))</div>
 </div></div>
 
-<h3 id="cast3x9"><span><a href="#cast3x9" title="kapitola 4 (Bash/Funkce a skripty), sekce 3 (Zaklínadla: Základní), podsekce 9 (Obsluha signálů a zvláštních situací)"><sup>3/</sup>9 Obsluha signálů a zvláštních situací</a></span></h3>
+<h3 id="cast3x9"><span><a href="#cast3x9" title="kapitola 5 (Bash/Funkce a skripty), sekce 3 (Zaklínadla: Základní), podsekce 9 (Obsluha signálů a zvláštních situací)"><sup>3/</sup>9 Obsluha signálů a zvláštních situací</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa19064a"><span><a href="#zxa19064a">@</a></span></span>nastavit obsluhu signálu (obecně/příklad)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">trap <span class="volznak">[</span>--<span class="volznak">]</span> '<i class="dopln">příkazy</i><span class="tritecky"></span>' <i class="dopln">signál</i><span class="tritecky"></span></div>
 </div></div>
@@ -287,7 +284,7 @@ Poznámka: „příkazem“ se v těchto zaklínadlech rozumí příkaz včetn�
 <div class="radekzaklinadla">trap - EXIT</div>
 </div></div>
 
-<h3 id="cast3x10"><span><a href="#cast3x10" title="kapitola 4 (Bash/Funkce a skripty), sekce 3 (Zaklínadla: Základní), podsekce 10 (Skript „uvnitř“)"><sup>3/</sup>10 Skript „uvnitř“</a></span></h3>
+<h3 id="cast3x10"><span><a href="#cast3x10" title="kapitola 5 (Bash/Funkce a skripty), sekce 3 (Zaklínadla: Základní), podsekce 10 (Skript „uvnitř“)"><sup>3/</sup>10 Skript „uvnitř“</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx19ec52a"><span><a href="#zx19ec52a">@</a></span></span>číslo řádky skriptu<span class="cislo">#1 </span><sup><a href="#kapxec6ad7bppc20" id="kapxec6ad7bppcr20" title="Jde o číslo řádky, na které se nachází první znak jednotlivého příkazu; pokud příkaz pokračuje přes několik řádek, hodnota proměnné LINENO je na všech těchto řádkách jednotná.">(20)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">$LINENO<span class="prikladhodnoty">⊨ 137</span></div>
 </div></div>
@@ -301,7 +298,7 @@ Poznámka: „příkazem“ se v těchto zaklínadlech rozumí příkaz včetn�
 
 <h2 id="cast4" class="zaklinadla"><a href="#cast4"><span class="cislo">4.</span> Zaklínadla: Testy pro podmínky</a></h2>
 
-<h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 4 (Bash/Funkce a skripty), sekce 4 (Zaklínadla: Testy pro podmínky), podsekce 1 (Typ a existence adresářových položek)"><sup>4/</sup>1 Typ a existence adresářových položek</a></span></h3>
+<h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 5 (Bash/Funkce a skripty), sekce 4 (Zaklínadla: Testy pro podmínky), podsekce 1 (Typ a existence adresářových položek)"><sup>4/</sup>1 Typ a existence adresářových položek</a></span></h3>
 <p class="ponadpisu">
 <i>Poznámka:</i> V Bashi můžete všechny uvedené varianty příkazu „test“ nahradit konstrukcí [[ <i class="dopln">parametry</i> ]], opačně to však neplatí. V interpretu „sh“ je můžete nahradit konstrukcí „[ <i class="dopln">parametry</i> ]“.
 </p><p>
@@ -332,7 +329,7 @@ Poznámka: „příkazem“ se v těchto zaklínadlech rozumí příkaz včetn�
 <div class="radekzaklinadla">test -S &quot;<i class="dopln">cesta</i>&quot;</div>
 </div></div>
 
-<h3 id="cast4x2"><span><a href="#cast4x2" title="kapitola 4 (Bash/Funkce a skripty), sekce 4 (Zaklínadla: Testy pro podmínky), podsekce 2 (Textové řetězce (testy))"><sup>4/</sup>2 Textové řetězce (testy)</a></span></h3>
+<h3 id="cast4x2"><span><a href="#cast4x2" title="kapitola 5 (Bash/Funkce a skripty), sekce 4 (Zaklínadla: Testy pro podmínky), podsekce 2 (Textové řetězce (testy))"><sup>4/</sup>2 Textové řetězce (testy)</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6d100e8"><span><a href="#zx6d100e8">@</a></span></span>je řetězec <b>neprázdný</b>/prázdný?<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">test -n &quot;<i class="dopln">řetězec</i>&quot;</div>
 <div class="radekzaklinadla">test -z &quot;<i class="dopln">řetězec</i>&quot;</div>
@@ -354,7 +351,7 @@ Poznámka: „příkazem“ se v těchto zaklínadlech rozumí příkaz včetn�
 <div class="radekzaklinadla">test ${#<i class="dopln">název_proměnné</i>} -ge <i class="dopln">N</i></div>
 </div></div>
 
-<h3 id="cast4x3"><span><a href="#cast4x3" title="kapitola 4 (Bash/Funkce a skripty), sekce 4 (Zaklínadla: Testy pro podmínky), podsekce 3 (Regulární výrazy (testy a extrakce))"><sup>4/</sup>3 Regulární výrazy (testy a extrakce)</a></span></h3>
+<h3 id="cast4x3"><span><a href="#cast4x3" title="kapitola 5 (Bash/Funkce a skripty), sekce 4 (Zaklínadla: Testy pro podmínky), podsekce 3 (Regulární výrazy (testy a extrakce))"><sup>4/</sup>3 Regulární výrazy (testy a extrakce)</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb05161e"><span><a href="#zxb05161e">@</a></span></span>obsahuje text proměnné shodu s <b>regulárním výrazem</b>? (bash/sh)<span class="cislo">#1 </span><sup><a href="#kapxec6ad7bppc22" id="kapxec6ad7bppcr22" title="Název proměnné „regvyraz“ zde nemá žádný speciální význam, je zvolen jen pro přehlednost; můžete použít jakoukoliv proměnnou. Jednoduchý regulární výraz (takový, který neobsahuje mezery, uvozovky, zpětná lomítka ani hranaté závorky) můžete dokonce zadat přímo, pro zadání složitějšího výrazu je ale striktně doporučeno jej předem uložit do proměnné, protože pravidla odzvláštňování v tomto kontextu jsou složitá a neintuitivní.">(22)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">regvyraz='<i class="dopln">regulární výraz</i>'</div>
 <div class="radekzaklinadla">[[ $<i class="dopln">název_proměnné</i> =~ $regvyraz ]]</div>
@@ -370,7 +367,7 @@ Poznámka: „příkazem“ se v těchto zaklínadlech rozumí příkaz včetn�
 <div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
 </div></div>
 
-<h3 id="cast4x4"><span><a href="#cast4x4" title="kapitola 4 (Bash/Funkce a skripty), sekce 4 (Zaklínadla: Testy pro podmínky), podsekce 4 (Celá čísla (testy))"><sup>4/</sup>4 Celá čísla (testy)</a></span></h3>
+<h3 id="cast4x4"><span><a href="#cast4x4" title="kapitola 5 (Bash/Funkce a skripty), sekce 4 (Zaklínadla: Testy pro podmínky), podsekce 4 (Celá čísla (testy))"><sup>4/</sup>4 Celá čísla (testy)</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx167ac8d"><span><a href="#zx167ac8d">@</a></span></span>=<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">((<i class="dopln">číslo1</i> = <i class="dopln">číslo2</i>))</div>
 </div></div>
@@ -390,7 +387,7 @@ Poznámka: „příkazem“ se v těchto zaklínadlech rozumí příkaz včetn�
 <div class="radekzaklinadla">((<i class="dopln">číslo1</i> != <i class="dopln">číslo2</i>))</div>
 </div></div>
 
-<h3 id="cast4x5"><span><a href="#cast4x5" title="kapitola 4 (Bash/Funkce a skripty), sekce 4 (Zaklínadla: Testy pro podmínky), podsekce 5 (Čas „změněno“ u souborů a adresářů)"><sup>4/</sup>5 Čas „změněno“ u souborů a adresářů</a></span></h3>
+<h3 id="cast4x5"><span><a href="#cast4x5" title="kapitola 5 (Bash/Funkce a skripty), sekce 4 (Zaklínadla: Testy pro podmínky), podsekce 5 (Čas „změněno“ u souborů a adresářů)"><sup>4/</sup>5 Čas „změněno“ u souborů a adresářů</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd3820bb"><span><a href="#zxd3820bb">@</a></span></span>je soubor1 <b>novější</b> než soubor2? (&gt;)<span class="cislo">#1 </span></div><div class="radky">
 <div class="radekzaklinadla">test &quot;<i class="dopln">soubor1</i>&quot; -nt &quot;<i class="dopln">soubor2</i>&quot;</div>
 </div></div>
@@ -407,7 +404,7 @@ Poznámka: „příkazem“ se v těchto zaklínadlech rozumí příkaz včetn�
 <div class="radekzaklinadla">test &quot;<i class="dopln">soubor1</i>&quot; -ot &quot;<i class="dopln">soubor2</i>&quot;</div>
 </div></div>
 
-<h3 id="cast4x6"><span><a href="#cast4x6" title="kapitola 4 (Bash/Funkce a skripty), sekce 4 (Zaklínadla: Testy pro podmínky), podsekce 6 (Práva adresářových položek)"><sup>4/</sup>6 Práva adresářových položek</a></span></h3>
+<h3 id="cast4x6"><span><a href="#cast4x6" title="kapitola 5 (Bash/Funkce a skripty), sekce 4 (Zaklínadla: Testy pro podmínky), podsekce 6 (Práva adresářových položek)"><sup>4/</sup>6 Práva adresářových položek</a></span></h3>
 <p class="ponadpisu">
 Poznámka: testy -r, -w a -x netestují nastavená přístupová práva, ale faktickou
 proveditelnost dané operace; proto „w“ vrátí „nepravdu“ u souboru s právem „w“,
@@ -428,7 +425,7 @@ superuživatelem vrátí „pravdu“ u souboru, který nesmí číst nikdo „
 <div class="radekzaklinadla">test -u &quot;<i class="dopln">cesta</i>&quot;</div>
 </div></div>
 
-<h3 id="cast4x7"><span><a href="#cast4x7" title="kapitola 4 (Bash/Funkce a skripty), sekce 4 (Zaklínadla: Testy pro podmínky), podsekce 7 (Ostatní testy)"><sup>4/</sup>7 Ostatní testy</a></span></h3>
+<h3 id="cast4x7"><span><a href="#cast4x7" title="kapitola 5 (Bash/Funkce a skripty), sekce 4 (Zaklínadla: Testy pro podmínky), podsekce 7 (Ostatní testy)"><sup>4/</sup>7 Ostatní testy</a></span></h3>
 <div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxdeaf3dc"><span><a href="#zxdeaf3dc">@</a></span></span>znamenají dvě adresářové položky tutéž entitu? (následuje symbolické odkazy)<span class="cislo">#1 </span><sup><a href="#kapxec6ad7bppc23" id="kapxec6ad7bppcr23" title="Typicky se tento test používá k odhalení pevných odkazů nebo synonym vytvořených např. pomocí „mount --bind“.">(23)</a></sup></div><div class="radky">
 <div class="radekzaklinadla">test <i class="dopln">cesta1</i> -ef <i class="dopln">cesta2</i></div>
 </div></div>
@@ -516,15 +513,14 @@ Další poznámky:
 <nav class="spodni">
 <a href="index.htm" class="naindex">🗐&nbsp;Přehled&nbsp;kapitol</a>
 <div class="naslkap">
-<a href="bash-interaktivni-rezim.htm" rel="next" title="3.2. Bash / Interaktivní režim">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">3.2</span>
+<a href="bash-interaktivni-rezim.htm" rel="next" title="4.2. Bash / Interaktivní režim">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">4.2</span>
 <span class="nazev">Bash / Interaktivní režim</span></a>
 </div>
 <!--<div><a href="index.htm">🗐&nbsp;Přehled&nbsp;kapitol</a></div>-->
 </nav>
 
 
-<div class="odkazydole"><div><a href="diskove-oddily.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly</a><a href="prace-s-archivy.htm"><img src="obrazky/ik/prace-s-archivy.png" alt="" width="32" height="32">Práce s archivy</a><a href="prohlizeni-textovych-souboru.htm"><img src="obrazky/ik/prohlizeni-textovych-souboru.png" alt="" width="32" height="32">Prohlížení textových souborů</a></div></div>
-<div class="reklamnipata">Líbí se vám tento projekt a chcete, aby byl ještě lepší? Můžete mi s tím pomoci. Zmiňte se o něm technicky zdatným přátelům, opravte překlepy a nahlašte nefunkční zaklínadla, aby mohla být opravena; poskytněte mi zpětnou vazbu nebo se zapojte do vývoje nových kapitol. Další informace na GitHubu v dokumentu <a href="https://github.com/singularis-mzf/linux-spellbook/blob/v%C3%BDvojov%C3%A1/JAK-SE-ZAPOJIT.md">Jak se zapojit</a>.</div>
+<div class="odkazydole"><div><a href="diskove-oddily-lvm.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly / LVM</a><a href="awk.htm"><img src="obrazky/ik/awk.png" alt="" width="32" height="32">AWK</a><a href="markdown.htm"><img src="obrazky/ik/markdown.png" alt="" width="32" height="32">Markdown</a></div></div>
 
 </article>
 <!-- *** -->
@@ -582,41 +578,37 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <div><div class="nadpis">Kapitoly</div><div class="polozky">
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/predmluva.png" alt="[]"></span><span class="fragodkazy"><a href="predmluva.htm" class="odkaz"><span><span class="cislo">1</span>Předmluva</span></a></span></div>
 <div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zakladni-znalosti.png" alt="[]"></span><span class="fragodkazy"><a href="zakladni-znalosti.htm" class="odkaz"><span><span class="cislo">2</span>Základní znalosti</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/bash.png" alt="[]"></span><span class="fragodkazy"><a href="bash.htm" class="odkaz"><span><span class="cislo">3</span>Bash</span></a><span class="podkpodkazy"><a href="bash-funkce-a-skripty.htm" class="odkaz"><span><span class="cislo">3.1</span>Funkce a skripty</span></a><a href="bash-interaktivni-rezim.htm" class="odkaz"><span><span class="cislo">3.2</span>Interaktivní režim</span></a></span></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/diskove-oddily.png" alt="[]"></span><span class="fragodkazy"><a href="diskove-oddily.htm" class="odkaz"><span><span class="cislo">4</span>Diskové oddíly</span></a><span class="podkpodkazy"><a href="diskove-oddily-btrfs.htm" class="odkaz"><span><span class="cislo">4.1</span>Btrfs</span></a><a href="diskove-oddily-lvm.htm" class="odkaz"><span><span class="cislo">4.2</span>LVM</span></a><a href="diskove-oddily-softwarovy-raid.htm" class="odkaz"><span><span class="cislo">4.3</span>Softwarový RAID</span></a></span></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/git.png" alt="[]"></span><span class="fragodkazy"><a href="git.htm" class="odkaz"><span><span class="cislo">5</span>Git</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/hledani-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="hledani-souboru.htm" class="odkaz"><span><span class="cislo">6</span>Hledání souborů</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/metaprikazy.png" alt="[]"></span><span class="fragodkazy"><a href="metaprikazy.htm" class="odkaz"><span><span class="cislo">7</span>Metapříkazy</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/nabidka-aplikaci.png" alt="[]"></span><span class="fragodkazy"><a href="nabidka-aplikaci.htm" class="odkaz"><span><span class="cislo">8</span>Nabídka aplikací</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/odkazy.png" alt="[]"></span><span class="fragodkazy"><a href="odkazy.htm" class="odkaz"><span><span class="cislo">9</span>Pevné a symbolické odkazy</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-zaklady.png" alt="[]"></span><span class="fragodkazy"><a href="perl-zaklady.htm" class="odkaz"><span><span class="cislo">10</span>Perl: základy</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="fragodkazy"><a href="prace-s-archivy.htm" class="odkaz"><span><span class="cislo">11</span>Práce s archivy</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prohlizeni-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="prohlizeni-textovych-souboru.htm" class="odkaz"><span><span class="cislo">12</span>Prohlížení textových souborů</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="fragodkazy"><a href="regularni-vyrazy.htm" class="odkaz"><span><span class="cislo">13</span>Regulární výrazy</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-balicku.htm" class="odkaz"><span><span class="cislo">14</span>Správa balíčků</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-uzivatelskych-uctu.htm" class="odkaz"><span><span class="cislo">15</span>Správa uživatelských účtů</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="fragodkazy"><a href="system.htm" class="odkaz"><span><span class="cislo">16</span>Systém</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-textovych-souboru.htm" class="odkaz"><span><span class="cislo">17</span>Zpracování textových souborů</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="fragodkazy"><a href="licence.htm" class="odkaz"><span><span class="cislo">18</span>Licence</span></a></span></div>
-<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/rejstrik.png" alt="[]"></span><span class="fragodkazy"><a href="rejstrik.htm" class="odkaz"><span><span class="cislo">19</span>Rejstřík podle klasických příkazů</span></a></span></div>
-<div class="premiove"><strong>Prémiové kapitoly:</strong>
-<div>AWK</div>
-<div>Bash / Vstup, výstup a přesměrování</div>
-<div>Datum, čas a kalendář</div>
-<div>Make</div>
-<div>Manuálové stránky</div>
-<div>Markdown</div>
-<div>Perl: moduly a objekty</div>
-<div>Proměnné prostředí a interpretu</div>
-<div>Sed</div>
-<div>Soubory a adresáře</div>
-<div>Správa procesů</div>
-<div>Terminál</div>
-<div>Terminál / Emodži</div>
-<div>Vim</div>
-<div>Zpracování binárních souborů</div>
-<div>Zpracování videa a zvuku</div>
-</div><p>Tyto kapitoly můžete získat jako odměnu za překlad ze zdrojového kódu. Podrobnější informace <a href="https://github.com/singularis-mzf/linux-spellbook/blob/stabiln%C3%AD/dokumentace/odm%C4%9Bna-za-sestaven%C3%AD.md">na GitHubu</a>.</p>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/awk.png" alt="[]"></span><span class="fragodkazy"><a href="awk.htm" class="odkaz"><span><span class="cislo">3</span>AWK</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/bash.png" alt="[]"></span><span class="fragodkazy"><a href="bash.htm" class="odkaz"><span><span class="cislo">4</span>Bash</span></a><span class="podkpodkazy"><a href="bash-funkce-a-skripty.htm" class="odkaz"><span><span class="cislo">4.1</span>Funkce a skripty</span></a><a href="bash-interaktivni-rezim.htm" class="odkaz"><span><span class="cislo">4.2</span>Interaktivní režim</span></a><a href="bash-vstup-vystup.htm" class="odkaz"><span><span class="cislo">4.3</span>Vstup, výstup a přesměrování</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/datum-cas-kalendar.png" alt="[]"></span><span class="fragodkazy"><a href="datum-cas-kalendar.htm" class="odkaz"><span><span class="cislo">5</span>Datum, čas a kalendář</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/diskove-oddily.png" alt="[]"></span><span class="fragodkazy"><a href="diskove-oddily.htm" class="odkaz"><span><span class="cislo">6</span>Diskové oddíly</span></a><span class="podkpodkazy"><a href="diskove-oddily-btrfs.htm" class="odkaz"><span><span class="cislo">6.1</span>Btrfs</span></a><a href="diskove-oddily-lvm.htm" class="odkaz"><span><span class="cislo">6.2</span>LVM</span></a><a href="diskove-oddily-softwarovy-raid.htm" class="odkaz"><span><span class="cislo">6.3</span>Softwarový RAID</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/git.png" alt="[]"></span><span class="fragodkazy"><a href="git.htm" class="odkaz"><span><span class="cislo">7</span>Git</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/hledani-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="hledani-souboru.htm" class="odkaz"><span><span class="cislo">8</span>Hledání souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/make.png" alt="[]"></span><span class="fragodkazy"><a href="make.htm" class="odkaz"><span><span class="cislo">9</span>Make</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/manualove-stranky.png" alt="[]"></span><span class="fragodkazy"><a href="manualove-stranky.htm" class="odkaz"><span><span class="cislo">10</span>Manuálové stránky</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/markdown.png" alt="[]"></span><span class="fragodkazy"><a href="markdown.htm" class="odkaz"><span><span class="cislo">11</span>Markdown</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/metaprikazy.png" alt="[]"></span><span class="fragodkazy"><a href="metaprikazy.htm" class="odkaz"><span><span class="cislo">12</span>Metapříkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/nabidka-aplikaci.png" alt="[]"></span><span class="fragodkazy"><a href="nabidka-aplikaci.htm" class="odkaz"><span><span class="cislo">13</span>Nabídka aplikací</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/odkazy.png" alt="[]"></span><span class="fragodkazy"><a href="odkazy.htm" class="odkaz"><span><span class="cislo">14</span>Pevné a symbolické odkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-moduly.png" alt="[]"></span><span class="fragodkazy"><a href="perl-moduly.htm" class="odkaz"><span><span class="cislo">15</span>Perl: moduly a objekty</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-zaklady.png" alt="[]"></span><span class="fragodkazy"><a href="perl-zaklady.htm" class="odkaz"><span><span class="cislo">16</span>Perl: základy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="fragodkazy"><a href="prace-s-archivy.htm" class="odkaz"><span><span class="cislo">17</span>Práce s archivy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prohlizeni-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="prohlizeni-textovych-souboru.htm" class="odkaz"><span><span class="cislo">18</span>Prohlížení textových souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/promenne.png" alt="[]"></span><span class="fragodkazy"><a href="promenne.htm" class="odkaz"><span><span class="cislo">19</span>Proměnné prostředí a interpretu</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="fragodkazy"><a href="regularni-vyrazy.htm" class="odkaz"><span><span class="cislo">20</span>Regulární výrazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sed.png" alt="[]"></span><span class="fragodkazy"><a href="sed.htm" class="odkaz"><span><span class="cislo">21</span>Sed</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/soubory-a-adresare.png" alt="[]"></span><span class="fragodkazy"><a href="soubory-a-adresare.htm" class="odkaz"><span><span class="cislo">22</span>Soubory a adresáře</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-balicku.htm" class="odkaz"><span><span class="cislo">23</span>Správa balíčků</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-procesu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-procesu.htm" class="odkaz"><span><span class="cislo">24</span>Správa procesů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-uzivatelskych-uctu.htm" class="odkaz"><span><span class="cislo">25</span>Správa uživatelských účtů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="fragodkazy"><a href="system.htm" class="odkaz"><span><span class="cislo">26</span>Systém</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/terminal.png" alt="[]"></span><span class="fragodkazy"><a href="terminal.htm" class="odkaz"><span><span class="cislo">27</span>Terminál</span></a><span class="podkpodkazy"><a href="terminal-emodzi.htm" class="odkaz"><span><span class="cislo">27.1</span>Emodži</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/vim.png" alt="[]"></span><span class="fragodkazy"><a href="vim.htm" class="odkaz"><span><span class="cislo">28</span>Vim</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-binarnich-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-binarnich-souboru.htm" class="odkaz"><span><span class="cislo">29</span>Zpracování binárních souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-textovych-souboru.htm" class="odkaz"><span><span class="cislo">30</span>Zpracování textových souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-videa-a-zvuku.htm" class="odkaz"><span><span class="cislo">31</span>Zpracování videa a zvuku</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="fragodkazy"><a href="licence.htm" class="odkaz"><span><span class="cislo">32</span>Licence</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/rejstrik.png" alt="[]"></span><span class="fragodkazy"><a href="rejstrik.htm" class="odkaz"><span><span class="cislo">33</span>Rejstřík podle klasických příkazů</span></a></span></div>
 </div></div>
 <a href="#zavritmenu" id="zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
 </aside>
@@ -624,35 +616,49 @@ a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
 <a href="#menustitky" id="menustitky"><span class="prvnipismeno">Š</span>títky</a>
 <aside class="menustitky">
 <div><div class="nadpis">Štítky</div><div class="polozky">
-<a href="x-stitky.htm#x5208bbb">adresáře&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x5208bbb">adresáře&nbsp;&nbsp;(3)</a>
 <a href="x-stitky.htm#xb0a5782">aplikace&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#x583f72a">apt&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#xa619ea3">automatizace&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#xd574d4b">bash&nbsp;&nbsp;(5)</a>
+<a href="x-stitky.htm#xb2b2bff">bajty&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5c1d5fa">barvy&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xd574d4b">bash&nbsp;&nbsp;(9)</a>
+<a href="x-stitky.htm#xedb0c6c">čas&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x8d777f3">data&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#xcd6caf8">démoni&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x38864cc">dokumentace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5aee9db">editor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x905aee4">emodži&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#xb05338c">Flatpak&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#x1e3042b">GUI&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x891be82">hešovací funkce&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#x4e36c04">hledání&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#x3c8789a">klávesnice&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x7aeae24">kódování&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#xa473827">komprese&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#x79108ba">LVM&nbsp;&nbsp;(2)</a>
 <a href="x-stitky.htm#x2d47ed4">odkládací prostor&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#x0114ad0">Perl&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#xa9c449d">program&nbsp;&nbsp;(5)</a>
-<a href="x-stitky.htm#xc65388d">programování&nbsp;&nbsp;(2)</a>
-<a href="x-stitky.htm#x43a526a">přístupová práva&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xd8dfe69">ovládání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x0114ad0">Perl&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x84913e6">procesy&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa9c449d">program&nbsp;&nbsp;(11)</a>
+<a href="x-stitky.htm#xc65388d">programování&nbsp;&nbsp;(5)</a>
+<a href="x-stitky.htm#x43a526a">přístupová práva&nbsp;&nbsp;(2)</a>
 <a href="x-stitky.htm#xcf91513">RAID&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#x5c5f44a">ramdisk&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#x9ad09a9">Snap&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#x23be896">soubory&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x23be896">soubory&nbsp;&nbsp;(2)</a>
 <a href="x-stitky.htm#x12e55d8">správa verzí&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#x9dcbb0b">syntaxe&nbsp;&nbsp;(3)</a>
-<a href="x-stitky.htm#xba98a3b">systém&nbsp;&nbsp;(7)</a>
+<a href="x-stitky.htm#x9dcbb0b">syntaxe&nbsp;&nbsp;(7)</a>
+<a href="x-stitky.htm#xba98a3b">systém&nbsp;&nbsp;(9)</a>
 <a href="x-stitky.htm#x3972255">systém souborů&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#x3c01147">tematický okruh&nbsp;&nbsp;(14)</a>
+<a href="x-stitky.htm#x3c01147">tematický okruh&nbsp;&nbsp;(22)</a>
 <a href="x-stitky.htm#xf54f028">textové soubory&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x7f6c02d">Unicode&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x421b47f">video&nbsp;&nbsp;(1)</a>
 <a href="x-stitky.htm#xadcdbd7">zip&nbsp;&nbsp;(1)</a>
-<a href="x-stitky.htm#x908961b">zpracování textu&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#x908961b">zpracování textu&nbsp;&nbsp;(5)</a>
+<a href="x-stitky.htm#x04b5cff">zvuk&nbsp;&nbsp;(1)</a>
 </div></div>
 <a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
 </aside>

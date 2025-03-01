@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="cs">
+<head profile="http://www.w3.org/2005/10/profile">
+<meta charset="UTF-8">
+
+<title>Perl: moduly a objekty − Linux: Kniha kouzel</title>
+<meta name="viewport" content="width=1000, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="lkk-20250301.css">
+<link rel="icon" type="image/png" href="obrazky/favicon.png">
+</head>
+<body>
+<div id="nahore"><div id="okno">
+<header>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, 2.15 (1. března 2025)</span>
+<span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
+</header>
+<nav class="menuokna">
+<a href="#menuosnova" class="menu"><span class="prvnipismeno">O</span>snova</a>
+<a href="#menukapitoly" class="menu"><span class="prvnipismeno">K</span>apitoly</a>
+<a href="#menustitky" class="menu"><span class="prvnipismeno">Š</span>títky</a>
+<a href="#menunapoveda" class="menu"><span class="prvnipismeno">N</span>ápověda</a>
+<a href="odkazy.htm" rel="prev" title="14. Pevné a symbolické odkazy" accesskey="p" class="predchozi">Předchozí&nbsp;kapitola</a>
+<a href="index.htm" class="prehled"><span class="prvnipismeno">P</span>řehled kapitol</a>
+<a href="perl-zaklady.htm" rel="next" title="16. Perl: základy" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
+</nav>
+
+<div class="slogan-veskera-moc">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+
+<!--
+<nav class="horni">
+<div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+<span class="prev">
+<a href="odkazy.htm" rel="prev" title="14. Pevné a symbolické odkazy" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+</span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!- -
+- ->&nbsp;| <a href="perl-zaklady.htm" rel="next" title="16. Perl: základy" accesskey="n">Následující&nbsp;kapitola</a>
+</span>
+</nav>
+-->
+
+
+<article>
+
+<h1 class="kapitola">15. <img src="obrazky/ik/perl-moduly.png" alt="" width="64" height="64"> Perl: moduly a objekty</h1>
+<div class="varovani">
+Vývoj vanilkové příchuti Linuxu: Knihy kouzel byl 1.&nbsp;března&nbsp;2025
+ukončen. Tento text je zachován jako historický, ale chyby již nejsou
+opravovány. Odnože projektu pod kompatibilní licencí jsou vítány.
+</div>
+<div class="stitky"><a href="x-stitky.htm#">Perl</a>
+<a href="x-stitky.htm#">program</a>
+<a href="x-stitky.htm#">programování</a>
+</div>
+<h2 id="cast1"><a href="#cast1"><span class="cislo">1.</span> Úvod</a></h2>
+<p class="ponadpisu">
+Tato kapitola z programovacího jazyka Perl pokrývá dělení kódu do modulů, práci s nimi
+a objektově orientované programování.
+</p><p>
+Objektově orientované programování se v Perlu realizuje tak,
+že obyčejnému objektu (poli, asociativnímu poli či skaláru) je přes ukazatel
+přiřazen modul (třída), který obsahuje metody pro práci s ním.
+Když pak metodu zavoláte pomocí objektově orientovaného operátoru
+„-&gt;“, Perl ji automaticky najde v modulu, který je k objektu
+přiřazen (nebo v některém z jeho „rodičů“, jak je modul deklaruje),
+a při volání funkci vsune použitý ukazatel jako dodatečný parametr na začátku pole @ARG.
+</p>
+
+<h2 id="cast2"><a href="#cast2"><span class="cislo">2.</span> Definice</a></h2>
+<ul><li><b>Symbol</b> je identifikátor funkce nebo konstanty nebo identifikátor proměnné včetně rozlišovacího symbolu „$“, „@“ nebo „%“.
+</li><li><b>Modul</b> (module) je pojmenovaný kontext pro umísťování funkcí a proměnných, oddělený od hlavního skriptu do samostatného souboru s příponou „.pm“ („Perl module“).
+</li><li><b>Hlavní skript</b> je zdrojový soubor, který byl přímo spuštěn interpretem Perlu. Na hlavní skript se při jeho spuštění nabalí moduly odkazované přímo či nepřímo příkazy „use“ a „require“.
+</li><li><b>Název modulu</b> je jednoznačné označení modulu, které se skládá z posloupnosti jednoho či více identifikátorů oddělených dvojí dvojtečkou („::“), např. „Digest::MD5“ nebo „English“. V adresářové cestě se pak dvojtečka nahradí za lomítko („/“) a na konec názvu se doplní „.pm“. Na rozdíl od jiných jazyků se název modulu v Perlu nezkracuje (vždy se uvádí celý) a mezi moduly není žádná automatická hierarchie.
+</li><li><b>Importovat symbol</b> znamená zpřístupnit symbol z jiného modulu tak, jako by byl definován i v tomto modulu. To umožňuje daný symbol používat bez kvalifikace názvem modulu, případně ho dál exportovat. Importovat lze jen ty symboly, které jsou daným modulem exportovány.
+</li><li><b>Exportovat symbol</b> znamená umožnit symbol ostatním modulům z tohoto modulu importovat.
+</li><li><b>Objekt</b> je místo paměti, které má svůj datový typ a hodnotu, je to tedy skalár, pole nebo asociativní pole. Objekty se dělí na <b>obyčejné objekty</b> a <b>objekty tříd</b> (jimž byla přiřazena třída).
+</li></ul>
+<h3 id="cast2x1"><span><a href="#cast2x1" title="kapitola 21 (Perl: moduly a objekty), sekce 2 (Definice), podsekce 1 (Objektově orientované programování)"><sup>2/</sup>1 Objektově orientované programování</a></span></h3>
+<ul><li>Jako <b>metoda</b> se označuje funkce použitá objektově orientovaným způsobem (volaná objektově orientovaným operátorem „-&gt;“) nebo k tomu uzpůsobená.
+</li><li><b>Třída</b> (class) je modul obsahující metody (alespoň jednu). Kromě metod může obsahovat i funkce, které nejsou objektově orientované.
+</li><li><b>Rodič</b> třídy je modul (třída) uvedený/á příkazem „use parent“. Není-li požadovaná metoda nalezena v třídě, která je objektu přímo přiřazena, bude ji Perl hledat v jejích rodičích.
+</li></ul>
+<h2 id="cast3" class="zaklinadla"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla</a></h2>
+
+<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 21 (Perl: moduly a objekty), sekce 3 (Zaklínadla), podsekce 1 (Obvyklá struktura zdrojových souborů)"><sup>3/</sup>1 Obvyklá struktura zdrojových souborů</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd9fa1b4"><span><a href="#zxd9fa1b4">@</a></span></span>obvyklá struktura hlavního <b>skriptu</b> (*.pl)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">komentář</i><span class="volznak">]</span><span class="tritecky"></span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">příkazy use</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">definice konstant</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">deklarace prototypů funkcí</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla"><i class="dopln">definice proměnných a hlavní kód programu</i></div>
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">definice funkcí</i><span class="volznak">]</span><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb85d99e"><span><a href="#zxb85d99e">@</a></span></span>obvyklá struktura souboru <b>modulu</b> (*.pm)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">komentář</i><span class="volznak">]</span><span class="tritecky"></span></div>
+<div class="radekzaklinadla">use utf8;</div>
+<div class="radekzaklinadla">package <i class="dopln">Název::Modulu</i>;</div>
+<div class="radekzaklinadla">use strict; use warnings; use v5.26.0;</div>
+<div class="radekzaklinadla">use LinuxKnihaKouzel; use English;</div>
+<div class="radekzaklinadla">use Exporter(&quot;import&quot;);</div>
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">další příkazy use</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">definice konstant</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>use parent(&quot;<i class="dopln">Rodič</i>&quot;<span class="volznak">[</span>, <i class="dopln">DalšíRodič</i><span class="volznak">]</span><span class="tritecky"></span>);<span class="volznak">]</span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>use fields(<i class="dopln">&quot;seznam&quot;, &quot;datových&quot;, &quot;složek&quot;</i>);<span class="volznak">]</span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>our @EXPORT = <i class="dopln">(&quot;seznam&quot;, &quot;symbolů&quot;, &quot;pro&quot;, &quot;výchozí&quot;, &quot;import&quot;)</i>;<span class="volznak">]</span></div>
+<div class="radekzaklinadla">our @EXPORT_OK = <i class="dopln">(&quot;seznam&quot;, &quot;ostatních&quot;, &quot;exportovaných&quot;, &quot;symb.&quot;)</i>;</div>
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">definice proměnných a inicializační kód</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla"><i class="dopln">definice funkcí</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla">1;</div>
+</div></div>
+
+<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 21 (Perl: moduly a objekty), sekce 3 (Zaklínadla), podsekce 2 (Vyhledávání a připojování modulů)"><sup>3/</sup>2 Vyhledávání a připojování modulů</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5f8bb30"><span><a href="#zx5f8bb30">@</a></span></span><b>připojit</b> modul a importovat výchozí symboly/konkrétní symboly/neimportovat žádné symboly<span class="cislo">#1 </span><sup><a href="#kapxad7cb73ppc1" id="kapxad7cb73ppcr1" title="Perl prohledá standardní adresáře a adresáře zadané příkazem „use lib“ (resp. parametrem „-I“). Z každého takového adresáře hledá cestu sestavenou z komponent názvu modulu, kde poslední komponentu doplní o příponu „.pm“. Např. příkaz „use Digest::MD5“ bude hledat soubor „Digest/MD5.pm“. Nalezený modul se načte a z jeho jmenného prostoru se importují požadované symboly. Toto je obvyklý způsob používání modulů v Perlu.">(1)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">use <i class="dopln">Název::Modulu</i>;</div>
+<div class="radekzaklinadla">use <i class="dopln">Název::Modulu</i><i class="dopln">(&quot;seznam&quot;, &quot;symbolů&quot;, &quot;k&quot;, &quot;importu&quot;)</i>;</div>
+<div class="radekzaklinadla">use <i class="dopln">Název::Modulu</i>();</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx05e2e42"><span><a href="#zx05e2e42">@</a></span></span>hledat moduly i v zadaném adresáři<span class="cislo">#2 </span><sup><a href="#kapxad7cb73ppc2" id="kapxad7cb73ppcr2" title="Cesta může být absolutní nebo relativní. Relativní cesta se však vyhodnocuje relativně vůči aktuálnímu adresáři, což nemusí být adresář, ve kterém se nachází běžící skript. Nově přidané cesty se prohledávají před dříve přidanými.">(2)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">use lib(<i class="dopln">&quot;cesta&quot;</i><span class="volznak">[</span>, <i class="dopln">&quot;další/cesta&quot;</i><span class="volznak">]</span><span class="tritecky"></span>);</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfc0840f"><span><a href="#zxfc0840f">@</a></span></span>hledat moduly i v adresáři hlavního skriptu/jeho podadresáři<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">use lib((MAIN_SCRIPT_DIR));</div>
+<div class="radekzaklinadla">use lib((MAIN_SCRIPT_DIR) . &quot;/<i class="dopln">relativní/cesta</i>&quot;);</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb499936"><span><a href="#zxb499936">@</a></span></span>hledat moduly i ve stejném adresáři, kde se nachází daný zdrojový soubor<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">use lib(((__FILE__ =~ s/^[^\/]*$/.\/x/r) =~ s/\/[^\/]*$//r));</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf52ef37"><span><a href="#zxf52ef37">@</a></span></span>podmíněně nahrát modul<span class="cislo">#5 </span><sup><a href="#kapxad7cb73ppc3" id="kapxad7cb73ppcr3" title="Vynechání volání „import“ je ekvivalentní příkazu „use“ s prázdným seznamem (neimportuje nic). Volání „import“ s prázdným seznamem je ekvivalentní příkazu „use“ bez seznamu (importuje výchozí symboly).">(3)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">BEGIN {if (<i class="dopln">podmínka</i>) {</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">require <i class="dopln">Název::Modulu</i>;</div>
+<div class="radekzaklinadla" style="padding-left:2ch;"><span class="volznak">[</span><i class="dopln">Název::Modulu</i>-&gt;import(<span class="volznak">[</span><i class="dopln">&quot;seznam&quot;, &quot;symbolů&quot;</i><span class="volznak">]</span>);<span class="volznak">]</span></div>
+<div class="radekzaklinadla">}}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx387e926"><span><a href="#zx387e926">@</a></span></span>načíst zdrojový soubor jako modul, bez importu symbolů<span class="cislo">#6 </span><sup><a href="#kapxad7cb73ppc4" id="kapxad7cb73ppcr4" title="Uvedená cesta musí začínat „/“ (v případě absolutní cesty), nebo „./“ v případě relativní cesty. Soubor nemusí mít příponu „.pm“.">(4)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">BEGIN {require(&quot;<span class="volznak">[</span>.<span class="volznak">]</span>/<i class="dopln">cesta/k/souboru</i>&quot;)}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9bed4bc"><span><a href="#zx9bed4bc">@</a></span></span>je modul dostupný?<span class="cislo">#7 </span><sup><a href="#kapxad7cb73ppc5" id="kapxad7cb73ppcr5" title="Tento test je možno provést i v době překladu (např. v definici konstanty nebo v bloku BEGIN)">(5)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">eval(&quot;require <i class="dopln">Název::Modulu</i>; 1&quot;)</div>
+</div></div>
+
+<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 21 (Perl: moduly a objekty), sekce 3 (Zaklínadla), podsekce 3 (Přístup do modulů)"><sup>3/</sup>3 Přístup do modulů</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7bb3558"><span><a href="#zx7bb3558">@</a></span></span>přístup k proměnným/funkcím v jiném modulu<span class="cislo">#1 </span><sup><a href="#kapxad7cb73ppc6" id="kapxad7cb73ppcr6" title="Tuto syntaxi doporučuji používat jen u málo používaných symbolů; symboly, které používáte ve zdrojovém kódu často, doporučuji v příkazu „use“ importovat.">(6)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">$@%</i><i class="dopln">Název::Modulu</i>::<i class="dopln">identifikátor</i></div>
+<div class="radekzaklinadla"><i class="dopln">Název::Modulu</i>::<i class="dopln">identifikátor</i>(<span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span>)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7e44e6a"><span><a href="#zx7e44e6a">@</a></span></span>přístup z modulu k proměnným/funkcím v hlavním skriptu<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">$@%</i>main::<i class="dopln">identifikátor</i></div>
+<div class="radekzaklinadla">main::<i class="dopln">identifikátor</i>(<span class="volznak">[</span><i class="dopln">parametry</i><span class="volznak">]</span>)</div>
+</div></div>
+
+<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 21 (Perl: moduly a objekty), sekce 3 (Zaklínadla), podsekce 4 (Třídy a metody)"><sup>3/</sup>4 Třídy a metody</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxbd25ae1"><span><a href="#zxbd25ae1">@</a></span></span>obvyklá definice <b>metody</b><span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">sub <i class="dopln">název_metody</i> <span class="volznak">[</span>: lvalue<span class="volznak">]</span></div>
+<div class="radekzaklinadla">{</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">my <span class="volznak">[</span><i class="dopln">Název::Modulu</i><span class="volznak">]</span> $self = shift(@ARG);</div>
+<div class="radekzaklinadla" style="padding-left:2ch;"><i class="dopln">tělo metody</i></div>
+<div class="radekzaklinadla">}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf7f5b28"><span><a href="#zxf7f5b28">@</a></span></span><b>zavolat metodu</b> přes ukazatel na objekt (obecně/příklad)<span class="cislo">#2 </span><sup><a href="#kapxad7cb73ppc7" id="kapxad7cb73ppcr7" title="Při tomto způsobu volání dostane metoda jako dodatečný první parametr zadaný ukazatel.">(7)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">ukazatel</i>-&gt;<i class="dopln">název_metody</i>(<i class="dopln">seznam, parametrů</i>)</div>
+<div class="radekzaklinadla">my $hodnota = $objekt-&gt;jeho_metoda(1, 2, &quot;&quot;);</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxcdbdfcc"><span><a href="#zxcdbdfcc">@</a></span></span>zavolat metodu přes třídu (typické pro volání konstruktorů)(obecně/příklad)<span class="cislo">#3 </span><sup><a href="#kapxad7cb73ppc8" id="kapxad7cb73ppcr8" title="Při tomto způsobu volání dostane metoda jako dodatečný první parametr řetězec obsahující název modulu.">(8)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">Název::Modulu</i>-&gt;<i class="dopln">název_metody</i>(<i class="dopln">seznam, parametrů</i>)</div>
+<div class="radekzaklinadla">my Můj::Test $můjtest = Můj::Test-&gt;new();</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3ef781a"><span><a href="#zx3ef781a">@</a></span></span>zavolat metodu <b>cizího</b> modulu přes objekt (alternativy)<span class="cislo">#4 </span><sup><a href="#kapxad7cb73ppc9" id="kapxad7cb73ppcr9" title="Tato syntaxe pouze obchází vyhledávání metody; volaná metoda dostane dodatečný první parametr jako normálně.">(9)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">ukazatel</i>-&gt;<i class="dopln">Název::Modulu</i>::<i class="dopln">název_metody</i>(<i class="dopln">seznam, parametrů</i>)</div>
+<div class="radekzaklinadla"><i class="dopln">Název::Modulu</i>::<i class="dopln">název_metody</i>(<i class="dopln">ukazatel</i><span class="volznak">[</span>, <i class="dopln">seznam, parametrů</i><span class="volznak">]</span>)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2b2bbc3"><span><a href="#zx2b2bbc3">@</a></span></span>zavolat funkci modulu neobjektově<span class="cislo">#5 </span><sup><a href="#kapxad7cb73ppc10" id="kapxad7cb73ppcr10" title="Při tomto způsobu volání dostane funkce jen předané parametry, dodatečný první parametr nebude před vsunut.">(10)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">Název::Modulu</i>::<i class="dopln">název_metody</i>(<i class="dopln">seznam, parametrů</i>)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7ba17a0"><span><a href="#zx7ba17a0">@</a></span></span><b>přiřadit</b> objektu třídu<span class="cislo">#6 </span><sup><a href="#kapxad7cb73ppc11" id="kapxad7cb73ppcr11" title="Funkce bless() vrací předaný ukazatel beze změny, ale až poté, co odkazovanému objektu přiřadila modul. Pozor! Jednou vytvořené přiřazení u daného objektu nelze zrušit ani přepsat, nepřenáší se však při kopírování, takže stačí přiřadit objekt (ne ukazatel na něj) do nové proměnné a získáte „čistou“ kopii, bez přiřazeného modulu.">(11)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">bless(<i class="dopln">ukazatel</i>, <i class="dopln">Název::Modulu</i>)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9216832"><span><a href="#zx9216832">@</a></span></span>obvyklý tvar <b>konstruktoru</b> (kromě tříd s pevnou strukturou)<span class="cislo">#7 </span><sup><a href="#kapxad7cb73ppc12" id="kapxad7cb73ppcr12" title="Název metody „new“ není závazný. Nový objekt může být voláním funkce „bless()“ vytvořen kdekoliv v programu.">(12)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">sub new</div>
+<div class="radekzaklinadla">{</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">my <span class="volznak">[</span><i class="dopln">Název::Modulu</i><span class="volznak">]</span> $self = bless({}, $ARG[0]);</div>
+<div class="radekzaklinadla" style="padding-left:2ch;"><i class="dopln">tělo konstruktoru</i></div>
+<div class="radekzaklinadla" style="padding-left:2ch;">return $self;</div>
+<div class="radekzaklinadla">}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx70a3712"><span><a href="#zx70a3712">@</a></span></span>obvyklá struktura <b>destruktoru</b><span class="cislo">#8 </span></div><div class="radky">
+<div class="radekzaklinadla">sub DESTROY</div>
+<div class="radekzaklinadla">{</div>
+<div class="radekzaklinadla" style="padding-left:2ch;"><span class="volznak">[</span>local ($NR, $ERRNO, $EVAL_ERROR, $CHILD_ERROR, $EXTENDED_OS_ERROR);</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">my <span class="volznak">[</span><i class="dopln">Název::Modulu</i><span class="volznak">]</span> $self = shift(@ARG);</div>
+<div class="radekzaklinadla" style="padding-left:2ch;"><i class="dopln">příkazy</i><span class="tritecky"></span><span class="volznak">]</span></div>
+<div class="radekzaklinadla">}</div>
+</div></div>
+
+<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 21 (Perl: moduly a objekty), sekce 3 (Zaklínadla), podsekce 5 (Třída s pevnou strukturou (deklarace))"><sup>3/</sup>5 Třída s pevnou strukturou (deklarace)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxad20243"><span><a href="#zxad20243">@</a></span></span><b>deklarovat</b> seznam dovolených klíčů<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla akce">V záhlaví modulu uvést:</div>
+<div class="radekzaklinadla">use fields(<i class="dopln">&quot;seznam&quot;, &quot;dovolených&quot;, &quot;klíčů&quot;</i>);</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8a1f143"><span><a href="#zx8a1f143">@</a></span></span>obvyklý tvar <b>konstruktoru</b> (liší se od obecné třídy)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">sub new</div>
+<div class="radekzaklinadla">{</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">my <i class="dopln">Název::Modulu</i> $self = fields::new($ARG[0]);</div>
+<div class="radekzaklinadla" style="padding-left:2ch;"><i class="dopln">tělo konstruktoru</i></div>
+<div class="radekzaklinadla" style="padding-left:2ch;">return $self;</div>
+<div class="radekzaklinadla">}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8788280"><span><a href="#zx8788280">@</a></span></span>vytvořit prázdný objekt třídy s pevnou strukturou<span class="cislo">#3 </span><sup><a href="#kapxad7cb73ppc13" id="kapxad7cb73ppcr13" title="Příkaz „use fields();“ je potřeba jen v případě, že v záhlaví modulu není uveden jiný příkaz „use fields“.">(13)</a></sup></div><div class="radky">
+<div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>use fields();</div>
+<div class="radekzaklinadla">fields::new(<i class="dopln">&quot;Název::Třídy&quot;</i>)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa1dcb1b"><span><a href="#zxa1dcb1b">@</a></span></span>vytvořit asociativní pole s dynamicky danou pevnou strukturou<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>use Hash::Util;</div>
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">$ukazatel</i> =<span class="volznak">]</span> Hash::Util::lock_ref_keys({}, <i class="dopln">seznam, dovolených, klíčů</i>);</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd313afd"><span><a href="#zxd313afd">@</a></span></span>vytvořit typované asociativní pole s pevnou strukturou dynamicky<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>use Hash::Util;</div>
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">$ukazatel</i> =<span class="volznak">]</span> Hash::Util::lock_ref_keys(bless({}, <i class="dopln">&quot;Název::Modulu&quot;</i>), <i class="dopln">seznam, dovolených, klíčů</i>);</div>
+</div></div>
+
+<h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 21 (Perl: moduly a objekty), sekce 3 (Zaklínadla), podsekce 6 (Specializované proměnné)"><sup>3/</sup>6 Specializované proměnné</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2ad877f"><span><a href="#zx2ad877f">@</a></span></span>deklarovat <b>specializovanou</b> proměnnou<span class="cislo">#1 </span><sup><a href="#kapxad7cb73ppc14" id="kapxad7cb73ppcr14" title="Specializace nepředstavuje pro proměnnou žádné zásadní omezení, stále může obsahovat jakýkoliv skalár. Pokud je ovšem specializovaná na třídu s pevnou strukturou, použití neplatného konstantního klíče způsobí chybu již před spuštěním programu, což se vyplatí (je to jedna z mála „statický“ kontrol v Perlu).">(14)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">my|state|our</i> <i class="dopln">Název::Modulu</i> $<i class="dopln">identifikátor</i> <span class="volznak">[</span>= <i class="dopln">inicializace</i><span class="volznak">]</span>;</div>
+</div></div>
+
+<h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 21 (Perl: moduly a objekty), sekce 3 (Zaklínadla), podsekce 7 (Zkoumání modulů a objektů)"><sup>3/</sup>7 Zkoumání modulů a objektů</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxefa5c0f"><span><a href="#zxefa5c0f">@</a></span></span>je cíli ukazatele <b>přiřazen</b> modul (třída)?<span class="cislo">#1 </span><sup><a href="#kapxad7cb73ppc15" id="kapxad7cb73ppcr15" title="Poznámka: některým vestavěným typům Perlu je také přiřazena třída; např. regulární výrazy (vzniklé operátorem „qr//“) mají přiřazenu třídu „Regexp“.">(15)</a></sup></div><div class="radky">
+<div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>use Scalar::Util;</div>
+<div class="radekzaklinadla">defined(Scalar::Util::blessed(<i class="dopln">ukazatel</i>))</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6acefdd"><span><a href="#zx6acefdd">@</a></span></span><b>která třída</b> je přiřazena cíli ukazatele?<span class="cislo">#2 </span><sup><a href="#kapxad7cb73ppc16" id="kapxad7cb73ppcr16" title="Pokud předaný skalár není ukazatel na objekt s přiřazenou třídou, tato funkce vrátí undef.">(16)</a></sup></div><div class="radky">
+<div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>use Scalar::Util;</div>
+<div class="radekzaklinadla">Scalar::Util::blessed(<i class="dopln">ukazatel</i>)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd7e5a42"><span><a href="#zxd7e5a42">@</a></span></span>je možno nad daným objektem zavolat metodu určitého názvu?<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">ukazatel</i>-&gt;can(&quot;<i class="dopln">název_metody</i>&quot;)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa07427c"><span><a href="#zxa07427c">@</a></span></span>je odkazovanému objektu přiřazen určitý modul nebo jeho potomek?<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">ukazatel</i>-&gt;isa(&quot;<i class="dopln">Název::Modulu</i>&quot;)</div>
+</div></div>
+
+<h3 id="cast3x8"><span><a href="#cast3x8" title="kapitola 21 (Perl: moduly a objekty), sekce 3 (Zaklínadla), podsekce 8 (Zkoumání tříd s pevnou strukturou a jejich objektů)"><sup>3/</sup>8 Zkoumání tříd s pevnou strukturou a jejich objektů</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxea9f199"><span><a href="#zxea9f199">@</a></span></span><b>ukazuje</b> ukazatel na třídu s pevnou strukturou?<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>use Hash::Util;</div>
+<div class="radekzaklinadla">Hash::Util::hashref_locked(<i class="dopln">ukazatel</i>)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3668e52"><span><a href="#zx3668e52">@</a></span></span>získat pole <b>dovolených klíčů</b> třídy s pevnou strukturou (z ukazatele/z třídy)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>require fields;</div>
+<div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>use Hash::Util;</div>
+<div class="radekzaklinadla">Hash::Util::legal_ref_keys(<i class="dopln">ukazatel</i>)</div>
+<div class="radekzaklinadla">Hash::Util::legal_ref_keys(fields::new(&quot;<i class="dopln">Název::Modulu</i>&quot;))</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8b2103a"><span><a href="#zx8b2103a">@</a></span></span>získat asociativní pole dovolených klíčů<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>use Hash::Util;</div>
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">%asocPole</i> =<span class="volznak">]</span> (map {($ARG, exists <i class="dopln">ukazatel</i>-&gt;{$ARG} ? 1 : 0)} Hash::Util::legal_ref_keys(<i class="dopln">ukazatel</i>))</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx210ed9f"><span><a href="#zx210ed9f">@</a></span></span>je klíč dovolený?<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla dopreambule"><span title="Takto označený řádek patří do preambule zdrojového kódu či do záhlaví skriptu.">^</span>use Hash::Util;</div>
+<div class="radekzaklinadla">alength(array(grep {$ARG eq <i class="dopln">&quot;klíč&quot;</i>} Hash::Util::legal_ref_keys(<i class="dopln">ukazatel</i>)))</div>
+</div></div>
+
+<h2 id="cast4"><a href="#cast4"><span class="cislo">4.</span> Instalace na Ubuntu</a></h2>
+<p class="ponadpisu">
+Všechny použité nástroje jsou základní součástí Ubuntu, přítomnou i v minimální instalaci.
+</p>
+
+<h2 id="cast5"><a href="#cast5"><span class="cislo">5.</span> Ukázka</a></h2>
+
+<h3 id="cast5x1"><span><a href="#cast5x1" title="kapitola 21 (Perl: moduly a objekty), sekce 5 (Ukázka), podsekce 1 (Hlavní skript (ukázka.pl))"><sup>5/</sup>1 Hlavní skript (ukázka.pl)</a></span></h3>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla"># Jednoduchý testovací skript</div>
+<div class="radekzaklinadla">use lib((MAIN_SCRIPT_DIR));</div>
+<div class="radekzaklinadla">use Ukázka;</div>
+<div class="radekzaklinadla">use constant TEXT =&gt; &quot;Hello, world.&quot;;</div>
+<div class="radekzaklinadla">my $výsledek = Ukázka::vypsat_text(TEXT);</div>
+<div class="radekzaklinadla">printf(&quot;Návratová hodnota: %s\n&quot;, $výsledek);</div>
+</div></div>
+
+<h3 id="cast5x2"><span><a href="#cast5x2" title="kapitola 21 (Perl: moduly a objekty), sekce 5 (Ukázka), podsekce 2 (Modul (Ukázka.pm))"><sup>5/</sup>2 Modul (Ukázka.pm)</a></span></h3>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">use utf8;</div>
+<div class="radekzaklinadla">package Ukázka;</div>
+<div class="radekzaklinadla">use strict; use warnings; use v5.26.0;</div>
+<div class="radekzaklinadla">use LinuxKnihaKouzel; use English;</div>
+<div class="radekzaklinadla">use Exporter(&quot;import&quot;);</div>
+<div class="radekzaklinadla">our @EXPORT_OK = (&quot;vypsat_text&quot;);</div>
+<div class="radekzaklinadla">sub vypsat_text</div>
+<div class="radekzaklinadla">{</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">return 0 + printf(&quot;%s\n&quot;, $ARG[0]);</div>
+<div class="radekzaklinadla">}</div>
+<div class="radekzaklinadla">1;</div>
+</div></div>
+
+<h2 id="cast6"><a href="#cast6"><span class="cislo">6.</span> Tipy a zkušenosti</a></h2>
+<ul><li>Abyste se vyhnul/a problémům s názvy modulů, každá část názvu musí začínat velkým písmenem a obsahovat alespoň jedno malé písmeno. Např. názvy „Č7á“ nebo „Ay“ jsou vyhovující, názvy „xAb“ či „Z9“ ne.
+</li><li>Někteří uživatelé příkazem „use lib(&quot;.&quot;);“ nastavují, aby Perl moduly vyhledával i v aktuálním adresáři. To však není vůbec dobrý nápad, protože aktuální adresář při spuštění skriptu může být zcela nečekaný. Proto doporučuji to nedělat a adresář pro vyhledávání modulů předávat jinak, nejlépe parametrem Perlu -I.
+</li><li>V Perlu je zvykem nevyužívat výchozí import (proměnnou „@EXPORT“), pokud to nezbytně nepotřebujete. Nechte na uživateli, aby si vybral, které symboly bude chtít importovat.
+</li><li>Jmenné prostory („package“) lze používat i v rámci jednoho souboru, tato kapitola se ale takovému použití záměrně vyhýbá, protože jsou s ním spojeny problémy — některé příkazy „use“ totiž účinkují na zdrojový soubor (a tedy nebudou účinkovat v tomtéž jmenném prostoru v jiných zdrojových souborech), zatímco jiné účinkují na jmenný prostor (a tedy zase nebudou účinkovat v tomtéž souboru v jiných jmenných prostorech), některé možná kombinují oba účinky.
+</li><li>Některé moduly používají seznam importovaných symbolů k jiným účelům než jako seznam symbolů, např. k předání nastavení.
+</li></ul>
+<h2 id="cast7"><a href="#cast7"><span class="cislo">7.</span> Další zdroje informací</a></h2>
+<ul class="kompaktni"><li><a href="https://www.root.cz/clanky/perlicky-pretezovani-operatoru/">Root.cz: Perličky: přetěžování operátorů</a>
+</li><li><a href="https://www.root.cz/clanky/perlicky-pokrocile-pretezovani-operatoru/">Root.cz: Perličky: pokročilé př. op.</a>
+</li><li><a href="https://www.youtube.com/watch?v=eR4uPY6UH0I">YouTube: Perl Session 13</a> (anglicky)
+</li><li><a href="https://www.youtube.com/watch?v=UVlgFmg0UCs">YouTube: Perl: Packages and Modules</a> (anglicky)
+</li><li><a href="https://perldoc.perl.org/5.30.0/overload">Dokumentace přetěžování operátorů v Perlu</a> (anglicky)
+</li></ul>
+<h2 id="cast8"><a href="#cast8"><span class="cislo">8.</span> Zákulisí kapitoly</a></h2>
+<p class="ponadpisu">
+V této verzi kapitoly chybí:
+</p>
+<ul class="kompaktni"><li>export/import symbolů po skupinách
+</li></ul><p class="ponadpisu">
+Tato kapitola záměrně nepokrývá:
+</p>
+<ul class="kompaktni"><li>přetěžování operátorů (jsou s ním komplikované problémy)
+</li></ul><div class="ppc"><div id="kapxad7cb73ppc1"><a href="#kapxad7cb73ppcr1" class="cislopozn">1</a>&nbsp;Perl prohledá standardní adresáře a adresáře zadané příkazem „use lib“ (resp. parametrem „-I“). Z každého takového adresáře hledá cestu sestavenou z komponent názvu modulu, kde poslední komponentu doplní o příponu „.pm“. Např. příkaz „use Digest::MD5“ bude hledat soubor „Digest/MD5.pm“. Nalezený modul se načte a z jeho jmenného prostoru se importují požadované symboly. Toto je obvyklý způsob používání modulů v Perlu.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxad7cb73ppc2"><a href="#kapxad7cb73ppcr2" class="cislopozn">2</a>&nbsp;Cesta může být absolutní nebo relativní. Relativní cesta se však vyhodnocuje relativně vůči aktuálnímu adresáři, což nemusí být adresář, ve kterém se nachází běžící skript. Nově přidané cesty se prohledávají před dříve přidanými.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxad7cb73ppc3"><a href="#kapxad7cb73ppcr3" class="cislopozn">3</a>&nbsp;Vynechání volání „import“ je ekvivalentní příkazu „use“ s prázdným seznamem (neimportuje nic). Volání „import“ s prázdným seznamem je ekvivalentní příkazu „use“ bez seznamu (importuje výchozí symboly).</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxad7cb73ppc4"><a href="#kapxad7cb73ppcr4" class="cislopozn">4</a>&nbsp;Uvedená cesta musí začínat „/“ (v případě absolutní cesty), nebo „./“ v případě relativní cesty. Soubor nemusí mít příponu „.pm“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxad7cb73ppc5"><a href="#kapxad7cb73ppcr5" class="cislopozn">5</a>&nbsp;Tento test je možno provést i v době překladu (např. v definici konstanty nebo v bloku BEGIN)</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxad7cb73ppc6"><a href="#kapxad7cb73ppcr6" class="cislopozn">6</a>&nbsp;Tuto syntaxi doporučuji používat jen u málo používaných symbolů; symboly, které používáte ve zdrojovém kódu často, doporučuji v příkazu „use“ importovat.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxad7cb73ppc7"><a href="#kapxad7cb73ppcr7" class="cislopozn">7</a>&nbsp;Při tomto způsobu volání dostane metoda jako dodatečný první parametr zadaný ukazatel.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxad7cb73ppc8"><a href="#kapxad7cb73ppcr8" class="cislopozn">8</a>&nbsp;Při tomto způsobu volání dostane metoda jako dodatečný první parametr řetězec obsahující název modulu.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxad7cb73ppc9"><a href="#kapxad7cb73ppcr9" class="cislopozn">9</a>&nbsp;Tato syntaxe pouze obchází vyhledávání metody; volaná metoda dostane dodatečný první parametr jako normálně.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxad7cb73ppc10"><a href="#kapxad7cb73ppcr10" class="cislopozn">10</a>&nbsp;Při tomto způsobu volání dostane funkce jen předané parametry, dodatečný první parametr nebude před vsunut.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxad7cb73ppc11"><a href="#kapxad7cb73ppcr11" class="cislopozn">11</a>&nbsp;Funkce bless() vrací předaný ukazatel beze změny, ale až poté, co odkazovanému objektu přiřadila modul. Pozor! Jednou vytvořené přiřazení u daného objektu nelze zrušit ani přepsat, nepřenáší se však při kopírování, takže stačí přiřadit objekt (ne ukazatel na něj) do nové proměnné a získáte „čistou“ kopii, bez přiřazeného modulu.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxad7cb73ppc12"><a href="#kapxad7cb73ppcr12" class="cislopozn">12</a>&nbsp;Název metody „new“ není závazný. Nový objekt může být voláním funkce „bless()“ vytvořen kdekoliv v programu.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxad7cb73ppc13"><a href="#kapxad7cb73ppcr13" class="cislopozn">13</a>&nbsp;Příkaz „use fields();“ je potřeba jen v případě, že v záhlaví modulu není uveden jiný příkaz „use fields“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxad7cb73ppc14"><a href="#kapxad7cb73ppcr14" class="cislopozn">14</a>&nbsp;Specializace nepředstavuje pro proměnnou žádné zásadní omezení, stále může obsahovat jakýkoliv skalár. Pokud je ovšem specializovaná na třídu s pevnou strukturou, použití neplatného konstantního klíče způsobí chybu již před spuštěním programu, což se vyplatí (je to jedna z mála „statický“ kontrol v Perlu).</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxad7cb73ppc15"><a href="#kapxad7cb73ppcr15" class="cislopozn">15</a>&nbsp;Poznámka: některým vestavěným typům Perlu je také přiřazena třída; např. regulární výrazy (vzniklé operátorem „qr//“) mají přiřazenu třídu „Regexp“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapxad7cb73ppc16"><a href="#kapxad7cb73ppcr16" class="cislopozn">16</a>&nbsp;Pokud předaný skalár není ukazatel na objekt s přiřazenou třídou, tato funkce vrátí undef.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+</div>
+
+
+<nav class="spodni">
+<a href="index.htm" class="naindex">🗐&nbsp;Přehled&nbsp;kapitol</a>
+<div class="naslkap">
+<a href="perl-zaklady.htm" rel="next" title="16. Perl: základy">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">16</span>
+<span class="nazev">Perl: základy</span></a>
+</div>
+<!--<div><a href="index.htm">🗐&nbsp;Přehled&nbsp;kapitol</a></div>-->
+</nav>
+
+
+<div class="odkazydole"><div><a href="git.htm"><img src="obrazky/ik/git.png" alt="" width="32" height="32">Git</a><a href="markdown.htm"><img src="obrazky/ik/markdown.png" alt="" width="32" height="32">Markdown</a><a href="terminal.htm"><img src="obrazky/ik/terminal.png" alt="" width="32" height="32">Terminál</a></div></div>
+
+</article>
+<!-- *** -->
+<footer id="dole">
+<img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
+<p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
+<a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
+Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
+či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
+na stránce „<a href="x-autori.htm">Přehled autorů</a>“.
+Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
+licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
+Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód
+a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
+<a href="https://github.com/singularis-mzf/linux-spellbook">repozitář na GitHubu</a>.
+</footer>
+</div>
+
+<nav class="menu">
+<!-- MENU OSNOVA -->
+<a href="#menuosnova" id="menuosnova"><span class="prvnipismeno">O</span>snova</a>
+<aside class="menuosnova">
+<div><div class="nadpis">Osnova</div><div class="polozky">
+<a href="#cast1" class="sekce">1 Úvod</a>
+<a href="#cast2" class="sekce">2 Definice</a>
+<a href="#cast2x1" class="podsekce">/1 Objektově orientované programování</a>
+<a href="#cast3" class="sekce">3 Zaklínadla</a>
+<a href="#cast3x1" class="podsekce">/1 Obvyklá struktura zdrojových souborů</a>
+<a href="#cast3x2" class="podsekce">/2 Vyhledávání a připojování modulů</a>
+<a href="#cast3x3" class="podsekce">/3 Přístup do modulů</a>
+<a href="#cast3x4" class="podsekce">/4 Třídy a metody</a>
+<a href="#cast3x5" class="podsekce">/5 Třída s pevnou strukturou (deklarace)</a>
+<a href="#cast3x6" class="podsekce">/6 Specializované proměnné</a>
+<a href="#cast3x7" class="podsekce">/7 Zkoumání modulů a objektů</a>
+<a href="#cast3x8" class="podsekce">/8 Zkoumání tříd s pevnou strukturou a jejich objektů</a>
+<a href="#cast4" class="sekce">4 Instalace na Ubuntu</a>
+<a href="#cast5" class="sekce">5 Ukázka</a>
+<a href="#cast5x1" class="podsekce">/1 Hlavní skript (ukázka.pl)</a>
+<a href="#cast5x2" class="podsekce">/2 Modul (Ukázka.pm)</a>
+<a href="#cast6" class="sekce">6 Tipy a zkušenosti</a>
+<a href="#cast7" class="sekce">7 Další zdroje informací</a>
+<a href="#cast8" class="sekce">8 Zákulisí kapitoly</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU KAPITOLY -->
+<a href="#menukapitoly" id="menukapitoly"><span class="prvnipismeno">K</span>apitoly</a>
+<aside class="menukapitoly">
+<div><div class="nadpis">Kapitoly</div><div class="polozky">
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/predmluva.png" alt="[]"></span><span class="fragodkazy"><a href="predmluva.htm" class="odkaz"><span><span class="cislo">1</span>Předmluva</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zakladni-znalosti.png" alt="[]"></span><span class="fragodkazy"><a href="zakladni-znalosti.htm" class="odkaz"><span><span class="cislo">2</span>Základní znalosti</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/awk.png" alt="[]"></span><span class="fragodkazy"><a href="awk.htm" class="odkaz"><span><span class="cislo">3</span>AWK</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/bash.png" alt="[]"></span><span class="fragodkazy"><a href="bash.htm" class="odkaz"><span><span class="cislo">4</span>Bash</span></a><span class="podkpodkazy"><a href="bash-funkce-a-skripty.htm" class="odkaz"><span><span class="cislo">4.1</span>Funkce a skripty</span></a><a href="bash-interaktivni-rezim.htm" class="odkaz"><span><span class="cislo">4.2</span>Interaktivní režim</span></a><a href="bash-vstup-vystup.htm" class="odkaz"><span><span class="cislo">4.3</span>Vstup, výstup a přesměrování</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/datum-cas-kalendar.png" alt="[]"></span><span class="fragodkazy"><a href="datum-cas-kalendar.htm" class="odkaz"><span><span class="cislo">5</span>Datum, čas a kalendář</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/diskove-oddily.png" alt="[]"></span><span class="fragodkazy"><a href="diskove-oddily.htm" class="odkaz"><span><span class="cislo">6</span>Diskové oddíly</span></a><span class="podkpodkazy"><a href="diskove-oddily-btrfs.htm" class="odkaz"><span><span class="cislo">6.1</span>Btrfs</span></a><a href="diskove-oddily-lvm.htm" class="odkaz"><span><span class="cislo">6.2</span>LVM</span></a><a href="diskove-oddily-softwarovy-raid.htm" class="odkaz"><span><span class="cislo">6.3</span>Softwarový RAID</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/git.png" alt="[]"></span><span class="fragodkazy"><a href="git.htm" class="odkaz"><span><span class="cislo">7</span>Git</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/hledani-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="hledani-souboru.htm" class="odkaz"><span><span class="cislo">8</span>Hledání souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/make.png" alt="[]"></span><span class="fragodkazy"><a href="make.htm" class="odkaz"><span><span class="cislo">9</span>Make</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/manualove-stranky.png" alt="[]"></span><span class="fragodkazy"><a href="manualove-stranky.htm" class="odkaz"><span><span class="cislo">10</span>Manuálové stránky</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/markdown.png" alt="[]"></span><span class="fragodkazy"><a href="markdown.htm" class="odkaz"><span><span class="cislo">11</span>Markdown</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/metaprikazy.png" alt="[]"></span><span class="fragodkazy"><a href="metaprikazy.htm" class="odkaz"><span><span class="cislo">12</span>Metapříkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/nabidka-aplikaci.png" alt="[]"></span><span class="fragodkazy"><a href="nabidka-aplikaci.htm" class="odkaz"><span><span class="cislo">13</span>Nabídka aplikací</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/odkazy.png" alt="[]"></span><span class="fragodkazy"><a href="odkazy.htm" class="odkaz"><span><span class="cislo">14</span>Pevné a symbolické odkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-moduly.png" alt="[]"></span><span class="fragodkazy"><a href="perl-moduly.htm" class="odkaz"><span><span class="cislo">15</span>Perl: moduly a objekty</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-zaklady.png" alt="[]"></span><span class="fragodkazy"><a href="perl-zaklady.htm" class="odkaz"><span><span class="cislo">16</span>Perl: základy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="fragodkazy"><a href="prace-s-archivy.htm" class="odkaz"><span><span class="cislo">17</span>Práce s archivy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prohlizeni-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="prohlizeni-textovych-souboru.htm" class="odkaz"><span><span class="cislo">18</span>Prohlížení textových souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/promenne.png" alt="[]"></span><span class="fragodkazy"><a href="promenne.htm" class="odkaz"><span><span class="cislo">19</span>Proměnné prostředí a interpretu</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="fragodkazy"><a href="regularni-vyrazy.htm" class="odkaz"><span><span class="cislo">20</span>Regulární výrazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sed.png" alt="[]"></span><span class="fragodkazy"><a href="sed.htm" class="odkaz"><span><span class="cislo">21</span>Sed</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/soubory-a-adresare.png" alt="[]"></span><span class="fragodkazy"><a href="soubory-a-adresare.htm" class="odkaz"><span><span class="cislo">22</span>Soubory a adresáře</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-balicku.htm" class="odkaz"><span><span class="cislo">23</span>Správa balíčků</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-procesu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-procesu.htm" class="odkaz"><span><span class="cislo">24</span>Správa procesů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-uzivatelskych-uctu.htm" class="odkaz"><span><span class="cislo">25</span>Správa uživatelských účtů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="fragodkazy"><a href="system.htm" class="odkaz"><span><span class="cislo">26</span>Systém</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/terminal.png" alt="[]"></span><span class="fragodkazy"><a href="terminal.htm" class="odkaz"><span><span class="cislo">27</span>Terminál</span></a><span class="podkpodkazy"><a href="terminal-emodzi.htm" class="odkaz"><span><span class="cislo">27.1</span>Emodži</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/vim.png" alt="[]"></span><span class="fragodkazy"><a href="vim.htm" class="odkaz"><span><span class="cislo">28</span>Vim</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-binarnich-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-binarnich-souboru.htm" class="odkaz"><span><span class="cislo">29</span>Zpracování binárních souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-textovych-souboru.htm" class="odkaz"><span><span class="cislo">30</span>Zpracování textových souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-videa-a-zvuku.htm" class="odkaz"><span><span class="cislo">31</span>Zpracování videa a zvuku</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="fragodkazy"><a href="licence.htm" class="odkaz"><span><span class="cislo">32</span>Licence</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/rejstrik.png" alt="[]"></span><span class="fragodkazy"><a href="rejstrik.htm" class="odkaz"><span><span class="cislo">33</span>Rejstřík podle klasických příkazů</span></a></span></div>
+</div></div>
+<a href="#zavritmenu" id="zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU ŠTÍTKY -->
+<a href="#menustitky" id="menustitky"><span class="prvnipismeno">Š</span>títky</a>
+<aside class="menustitky">
+<div><div class="nadpis">Štítky</div><div class="polozky">
+<a href="x-stitky.htm#x5208bbb">adresáře&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#xb0a5782">aplikace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x583f72a">apt&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa619ea3">automatizace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xb2b2bff">bajty&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5c1d5fa">barvy&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xd574d4b">bash&nbsp;&nbsp;(9)</a>
+<a href="x-stitky.htm#xedb0c6c">čas&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x8d777f3">data&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xcd6caf8">démoni&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x38864cc">dokumentace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5aee9db">editor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x905aee4">emodži&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xb05338c">Flatpak&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x1e3042b">GUI&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x891be82">hešovací funkce&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x4e36c04">hledání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c8789a">klávesnice&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x7aeae24">kódování&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa473827">komprese&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x79108ba">LVM&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x2d47ed4">odkládací prostor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xd8dfe69">ovládání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x0114ad0">Perl&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x84913e6">procesy&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa9c449d">program&nbsp;&nbsp;(11)</a>
+<a href="x-stitky.htm#xc65388d">programování&nbsp;&nbsp;(5)</a>
+<a href="x-stitky.htm#x43a526a">přístupová práva&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#xcf91513">RAID&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5c5f44a">ramdisk&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9ad09a9">Snap&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x23be896">soubory&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x12e55d8">správa verzí&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9dcbb0b">syntaxe&nbsp;&nbsp;(7)</a>
+<a href="x-stitky.htm#xba98a3b">systém&nbsp;&nbsp;(9)</a>
+<a href="x-stitky.htm#x3972255">systém souborů&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c01147">tematický okruh&nbsp;&nbsp;(22)</a>
+<a href="x-stitky.htm#xf54f028">textové soubory&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x7f6c02d">Unicode&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x421b47f">video&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xadcdbd7">zip&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x908961b">zpracování textu&nbsp;&nbsp;(5)</a>
+<a href="x-stitky.htm#x04b5cff">zvuk&nbsp;&nbsp;(1)</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU NÁPOVĚDA -->
+<a href="#menunapoveda" id="menunapoveda"><span class="prvnipismeno">N</span>ápověda</a>
+<aside class="menunapoveda">
+<div><div class="nadpis">Nápověda</div><div class="polozky">
+<a href="predmluva.htm">Předmluva</a>
+<a href="https://singularis-mzf.github.io/">Ostatní verze knihy</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook">Repozitář na GitHubu</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook/blob/stabiln%C3%AD/dokumentace/odm%C4%9Bna-za-sestaven%C3%AD.md">Odměna za sestavení (prémiové kapitoly)</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+</nav>
+
+<a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
+<a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
+
+</div>
+</body>
+</html>

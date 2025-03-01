@@ -1,0 +1,885 @@
+<!doctype html>
+<html lang="cs">
+<head profile="http://www.w3.org/2005/10/profile">
+<meta charset="UTF-8">
+
+<title>AWK − Linux: Kniha kouzel</title>
+<meta name="viewport" content="width=1000, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="lkk-20250301.css">
+<link rel="icon" type="image/png" href="obrazky/favicon.png">
+</head>
+<body>
+<div id="nahore"><div id="okno">
+<header>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, 2.15 (1. března 2025)</span>
+<span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
+</header>
+<nav class="menuokna">
+<a href="#menuosnova" class="menu"><span class="prvnipismeno">O</span>snova</a>
+<a href="#menukapitoly" class="menu"><span class="prvnipismeno">K</span>apitoly</a>
+<a href="#menustitky" class="menu"><span class="prvnipismeno">Š</span>títky</a>
+<a href="#menunapoveda" class="menu"><span class="prvnipismeno">N</span>ápověda</a>
+<a href="zakladni-znalosti.htm" rel="prev" title="2. Základní znalosti" accesskey="p" class="predchozi">Předchozí&nbsp;kapitola</a>
+<a href="index.htm" class="prehled"><span class="prvnipismeno">P</span>řehled kapitol</a>
+<a href="bash.htm" rel="next" title="4. Bash" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
+</nav>
+
+<div class="slogan-veskera-moc">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+
+<!--
+<nav class="horni">
+<div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+<span class="prev">
+<a href="zakladni-znalosti.htm" rel="prev" title="2. Základní znalosti" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+</span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!- -
+- ->&nbsp;| <a href="bash.htm" rel="next" title="4. Bash" accesskey="n">Následující&nbsp;kapitola</a>
+</span>
+</nav>
+-->
+
+
+<article>
+
+<h1 class="kapitola">3. <img src="obrazky/ik/awk.png" alt="" width="64" height="64"> AWK</h1>
+<div class="varovani">
+Vývoj vanilkové příchuti Linuxu: Knihy kouzel byl 1.&nbsp;března&nbsp;2025
+ukončen. Tento text je zachován jako historický, ale chyby již nejsou
+opravovány. Odnože projektu pod kompatibilní licencí jsou vítány.
+</div>
+<div class="stitky"><a href="x-stitky.htm#">program</a>
+<a href="x-stitky.htm#">programování</a>
+<a href="x-stitky.htm#">syntaxe</a>
+<a href="x-stitky.htm#">zpracování textu</a>
+</div>
+<h2 id="cast1"><a href="#cast1"><span class="cislo">1.</span> Úvod</a></h2>
+<p class="ponadpisu">
+GNU AWK je skriptovací nástroj pro řádkově orientované zpracování textových souborů.
+Nabízí podstatně více možností než „sed“, ale ve srovnání s Perlem zůstává velmi omezený
+(např. jeho jedinou datovou strukturou je asociativní pole), což ho činí velmi vhodným
+pro začátečníky, ale nedostačujícím pro komplikovanější projekty.
+Syntaxe AWK je (zvlášť ve srovnání s Perlem) elegantní a umírněná.
+</p><p>
+Skript AWK se skládá ze sekvence takzvaných „vzorků“ (podmínek)
+a k nim příslušejících bloků příkazů. AWK rozdělí vstupní soubory po řádcích (záznamech),
+každý záznam rozdělí na sloupce a pro každý záznam postupně prochází celý skript
+a testuje jeden vzorek po druhém. Když vzorek vyhoví, příslušný blok příkazů se vykoná,
+jinak se přeskočí. Kromě toho AWK spouští i několik dalších (zvláštních) iterací,
+kdy se vykonají bloky označené určitým klíčovým slovem (např. BEGIN).
+</p><p>
+Vzorek nebo blok příkazů je dovoleno vynechat; vynecháme-li vzorek, blok příkazů se
+vykoná pro každou řádku (ale ne ve speciálních iteracích); vynecháme-li blok příkazů,
+automaticky se doplní „{print $0}“.
+</p><p>
+Nejčastějším tvarem vzorku je podmínka tvořená pouze literálem regulárního výrazu
+(např. „/^a/“), taková podmínka se (nejen v tomto kontextu) automaticky rozšíří na
+výraz „($0 ~ /^a/)“, tedy porovnání načteného řádku s uvedeným regulárním výrazem.
+</p><p>
+Pozor! V AWK se všechny druhy indexů a číslování číslují vždy od jedničky, nikdy od nuly!
+</p>
+
+<h2 id="cast2"><a href="#cast2"><span class="cislo">2.</span> Definice</a></h2>
+<ul><li><b>Vzorek</b> (pattern) je podmínka, která určuje, zda se daný blok příkazů má v dané iteraci skriptu provést. Podmínkou může být obecný výraz nebo jedno z klíčových slov, která identifikují speciální iterace.
+</li><li><b>Záznam</b> (record) je typicky řádka vstupního souboru. Způsob ukončení záznamu ve vstupních souborech určuje zvláštní proměnná „RS“ (record separator), jejíž výchozí hodnota je &quot;\n&quot;.
+</li><li>Záznam se po načtení rozdělí do <b>sloupců</b> (fields). Způsob oddělení záznamů se nastavuje zvláštní proměnnou „FS“ (field separator), jejíž výchozí hodnotou je mezera, která má zvláštní význam odpovídající regulárnímu výrazu „\s+“.
+</li><li>Regulární výraz může být ve skriptu AWK zadán buď jako <b>literál</b> do lomítek, např. „/^a/“, nebo jako <b>dynamický regulární výraz</b>, což je jakýkoliv řetězec či řetězcový výraz zadaný v místě, kde se očekává regulární výraz. Tyto dva způsoby zadání jsou většinou víceméně rovnocenné, ale liší se požadavky na odzvláštnění (v literálu musíte odzvláštnit všechny výskyty znaku „/“, a to i uvnitř hranatých závorek) a tím, že dynamický regularní výraz se nikdy automaticky nedoplní o prefix „$0<span class="viditelnamezera">&nbsp;</span>~“, zatímco literál to dělá skoro vždy.
+</li><li><b>Jmenný prostor</b> (namespace) je oblast platnosti pro globální identifikátory. Výchozí je jmenný prostor „awk“, také zvaný <b>globální jmenný prostor</b>. Jmenné prostory neplatí pro identifikátory tvořené pouze velkými písmeny anglické abecedy (např. „ABC“ nebo „PROMENNA“) a pro klíčová slova (např. „sin“ nebo „if“). Rovněž se nevztahují na lokální identifikátory (názvy parametrů funkcí).
+</li></ul>
+<h2 id="cast3" class="zaklinadla"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla: Hlavní</a></h2>
+
+<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 3 (AWK), sekce 3 (Zaklínadla: Hlavní), podsekce 1 (Vzorky a bloky příkazů)"><sup>3/</sup>1 Vzorky a bloky příkazů</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6865a03"><span><a href="#zx6865a03">@</a></span></span>podmíněné vykonávání (obecně)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">podmínka</i> <span class="volznak">[</span><i class="dopln">{blok příkazů}</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf97c0bd"><span><a href="#zxf97c0bd">@</a></span></span>podmíněné vykonávání (příklady)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">PROMENNA == 1 &amp;&amp; /^X/ {ZAJIMAVY_RADEK = $0}</div>
+<div class="radekzaklinadla">$1 ~ /ABC/ {print $2}</div>
+<div class="radekzaklinadla">priznak {next}</div>
+<div class="radekzaklinadla">$0 != &quot;xyz&quot; {print &quot;ne-XYZ:&quot;;print $0;}</div>
+<div class="radekzaklinadla">!/^#/</div>
+<div class="radekzaklinadla">length($0) &gt; 5 || /^%/ {print &quot;Řádka &quot; FNR &quot; podmínku splnila.&quot;}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6a0e90f"><span><a href="#zx6a0e90f">@</a></span></span>vykonat blok příkazů pro každou řádku<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">{blok příkazů}</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx351dec4"><span><a href="#zx351dec4">@</a></span></span>před otevřením prvního souboru<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">BEGIN <i class="dopln">{blok příkazů}</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0ba0fed"><span><a href="#zx0ba0fed">@</a></span></span>před definitivním ukončením skriptu<span class="cislo">#5 </span><sup><a href="#kapx5e4c8dfppc1" id="kapx5e4c8dfppcr1" title="Pozor: zvláštní průchod END se vykoná i tehdy, je-li skript ukončován příkazem „exit“!">(1)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">END <i class="dopln">{blok příkazů}</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx43afb99"><span><a href="#zx43afb99">@</a></span></span>po otevření souboru (ale před načtením prvního řádku)<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">BEGINFILE <i class="dopln">{blok příkazů}</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe65ded7"><span><a href="#zxe65ded7">@</a></span></span>po zpracování poslední řádky souboru<span class="cislo">#7 </span><sup><a href="#kapx5e4c8dfppc2" id="kapx5e4c8dfppcr2" title="Pozor: zvláštní průchod ENDFILE se nevykoná, pokud je zpracování souboru předčasně ukončeno, např. příkazem „nextfile“ či „exit“.">(2)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">ENDFILE <i class="dopln">{blok příkazů}</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxbf1e2b6"><span><a href="#zxbf1e2b6">@</a></span></span>řádky „od“ až „do“ včetně hranic<span class="cislo">#8 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">podmínka od</i>,<i class="dopln">podmínka do</i> <span class="volznak">[</span><i class="dopln">{blok příkazů}</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx939624a"><span><a href="#zx939624a">@</a></span></span>řádky „od“ až „do“ kromě hranic<span class="cislo">#9 </span></div><div class="radky">
+<div class="radekzaklinadla">{if (!<i class="dopln">pomocná_proměnná</i>) {<i class="dopln">pomocná_proměnná</i> = <i class="dopln">podmínka od</i>} else if (<i class="dopln">podmínka do</i>) {<i class="dopln">pomocná_proměnná</i> = 0} else <i class="dopln">{blok příkazů}</i>}</div>
+</div></div>
+
+<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 3 (AWK), sekce 3 (Zaklínadla: Hlavní), podsekce 2 (Skalární proměnné)"><sup>3/</sup>2 Skalární proměnné</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2600640"><span><a href="#zx2600640">@</a></span></span><b>přečíst</b> hodnotu proměnné (z aktivního jmenného prostoru/z globálního/z konkrétního)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">název_proměnné</i></div>
+<div class="radekzaklinadla">awk::<i class="dopln">název_proměnné</i></div>
+<div class="radekzaklinadla"><i class="dopln">jmenny_prostor</i>::<i class="dopln">název_proměnné</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx27dfad7"><span><a href="#zx27dfad7">@</a></span></span><b>přiřadit</b> hodnotu proměnné<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">jmenny_prostor</i>::<span class="volznak">]</span><i class="dopln">název_proměnné</i> = <i class="dopln">hodnota</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe093ec6"><span><a href="#zxe093ec6">@</a></span></span>získat hodnotu proměnné prostředí (obecně/příklad)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">ENVIRON[<i class="dopln">řetězec-s-názvem-proměnné</i>]</div>
+<div class="radekzaklinadla">ENVIRON[&quot;PATH&quot;]</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0fa5d0b"><span><a href="#zx0fa5d0b">@</a></span></span>přiřadit hodnotu proměnné prostředí (obecně/příklad)<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">ENVIRON[<i class="dopln">řetězec-s-názvem-proměnné</i>] = <i class="dopln">řetězec</i></div>
+<div class="radekzaklinadla">ENVIRON[&quot;PATH&quot;] = &quot;/bin:/usr/bin&quot;;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx00cd0f9"><span><a href="#zx00cd0f9">@</a></span></span>nepřímý přístup k proměnné (příklad)<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">jmenny_prostor</i>::<span class="volznak">]</span><i class="dopln">nazev_promenne</i> = &quot;<i class="dopln">hodnota</i>&quot;;</div>
+<div class="radekzaklinadla">UKAZATEL = &quot;<span class="volznak">[</span><i class="dopln">jmenny_prostor</i>::<span class="volznak">]</span><i class="dopln">nazev_promenne</i>&quot;;</div>
+<div class="radekzaklinadla">print SYMTAB[UKAZATEL];</div>
+<div class="radekzaklinadla">SYMTAB[UKAZATEL] = &quot;nova hodnota&quot;</div>
+</div></div>
+
+<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 3 (AWK), sekce 3 (Zaklínadla: Hlavní), podsekce 3 (Asociativní pole)"><sup>3/</sup>3 Asociativní pole</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx98f8099"><span><a href="#zx98f8099">@</a></span></span><b>přečíst</b> hodnotu prvku pole<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">jmenny_prostor</i>::<span class="volznak">]</span><i class="dopln">pole</i>[<i class="dopln">index</i>]</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4b9a824"><span><a href="#zx4b9a824">@</a></span></span><b>přiřadit</b> hodnotu prvku pole<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">jmenny_prostor</i>::<span class="volznak">]</span><i class="dopln">pole</i>[<i class="dopln">index</i>] = <i class="dopln">hodnota</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4c8f3dc"><span><a href="#zx4c8f3dc">@</a></span></span><b>existuje</b> prvek pole?<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">index</i> in <span class="volznak">[</span><i class="dopln">jmenny_prostor</i>::<span class="volznak">]</span><i class="dopln">pole</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx231c5fb"><span><a href="#zx231c5fb">@</a></span></span><b>smazat</b> z pole jeden prvek/všechny prvky<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">delete <span class="volznak">[</span><i class="dopln">jmenny_prostor</i>::<span class="volznak">]</span><i class="dopln">pole</i>[<i class="dopln">index</i>];</div>
+<div class="radekzaklinadla">delete <span class="volznak">[</span><i class="dopln">jmenny_prostor</i>::<span class="volznak">]</span><i class="dopln">pole</i>;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9a24367"><span><a href="#zx9a24367">@</a></span></span><b>počet prvků</b><span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">length(<span class="volznak">[</span><i class="dopln">jmenny_prostor</i>::<span class="volznak">]</span><i class="dopln">pole</i>)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5f249ba"><span><a href="#zx5f249ba">@</a></span></span>zkopírovat celé pole<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">delete <i class="dopln">cílové_pole</i>;</div>
+<div class="radekzaklinadla">for (<i class="dopln">pomocná_proměnná</i> in <i class="dopln">pole</i>) {<i class="dopln">cílové_pole</i>[<i class="dopln">pomocná_proměnná</i>] = <i class="dopln">pole</i>[<i class="dopln">pomocná_proměnná</i>]}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2f023b8"><span><a href="#zx2f023b8">@</a></span></span>je proměnná pole?<span class="cislo">#7 </span><sup><a href="#kapx5e4c8dfppc3" id="kapx5e4c8dfppcr3" title="Tato funkce je nejužitečnější u parametrů funkcí; díky ní může funkce ověřit, že jí v určitém parametru bylo předáno pole, nebo naopak skalární hodnota.">(3)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">isarray(<i class="dopln">proměnná</i>)</div>
+</div></div>
+
+<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 3 (AWK), sekce 3 (Zaklínadla: Hlavní), podsekce 4 (Asociativní pole: řazení)"><sup>3/</sup>4 Asociativní pole: řazení</a></span></h3>
+<p class="ponadpisu">
+Poznámka k řazení asociativních polí: výsledkem řazení asociativního pole je vždy pole indexované celými čísly od 1 do návratové hodnoty řadicí funkce.
+</p><p>
+V následujících příkazech: „<b>typ</b>“ může být „num“ (řadit jako čísla) nebo „str“ (řadit jako řetězce, ale podle pozice znaků ve znakové sadě Unicode); „<b>pořadí</b>“ může být „asc“ (vzestupně) nebo „desc“ (sestupně).
+</p>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx749e1ec"><span><a href="#zx749e1ec">@</a></span></span>seřadit <b>hodnoty</b> podle klíčů/podle hodnot/uživatelskou funkcí<span class="cislo">#1 </span><sup><a href="#kapx5e4c8dfppc4" id="kapx5e4c8dfppcr4" title="Při řazení uživatelskou funkcí musíte zadat funkci, která přijme parametry „klíč-L“, „hodnota-L“, „klíč-R“ a „hodnota-R“ v tomto pořadí a vrátí záporné číslo, je-li L-strana menší než R-strana; kladné číslo, je-li větší; a nulu, jsou-li si obě strany rovny.">(4)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">asort(<i class="dopln">pole</i>, <i class="dopln">cílové_pole</i>, &quot;@ind_<i class="dopln">typ</i>_<i class="dopln">pořadí</i>&quot;)</div>
+<div class="radekzaklinadla">asort(<i class="dopln">pole</i>, <i class="dopln">cílové_pole</i>, &quot;@val_<i class="dopln">typ</i>_<i class="dopln">pořadí</i>&quot;)</div>
+<div class="radekzaklinadla">asort(<i class="dopln">pole</i>, <i class="dopln">cílové_pole</i>, &quot;<i class="dopln">jméno_funkce</i>&quot;)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4ac61eb"><span><a href="#zx4ac61eb">@</a></span></span>seřadit <b>klíče</b> podle klíčů/podle hodnot/uživatelskou funkcí<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">asorti(<i class="dopln">pole</i>, <i class="dopln">cílové_pole</i>, &quot;@ind_<i class="dopln">typ</i>_<i class="dopln">pořadí</i>&quot;)</div>
+<div class="radekzaklinadla">asorti(<i class="dopln">pole</i>, <i class="dopln">cílové_pole</i>, &quot;@val_<i class="dopln">typ</i>_<i class="dopln">pořadí</i>&quot;)</div>
+<div class="radekzaklinadla">asorti(<i class="dopln">pole</i>, <i class="dopln">cílové_pole</i>, &quot;<i class="dopln">jméno_funkce</i>&quot;)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3503657"><span><a href="#zx3503657">@</a></span></span><b>příklad</b> řazení<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">pocet_jmen = asort(prostor::jmena, prostor::serazena_jmena, &quot;@val_str_asc&quot;);</div>
+</div></div>
+
+<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 3 (AWK), sekce 3 (Zaklínadla: Hlavní), podsekce 5 (Podmínky, cykly a přepínač)"><sup>3/</sup>5 Podmínky, cykly a přepínač</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx064184e"><span><a href="#zx064184e">@</a></span></span>podmínka <b>if</b><span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">if (<i class="dopln">podmínka</i>) <i class="dopln">příkaz-nebo-blok</i> <span class="volznak">[</span>else <i class="dopln">příkaz-nebo-blok</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4b5357b"><span><a href="#zx4b5357b">@</a></span></span>cyklus <b>while</b><span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">while (<i class="dopln">podmínka</i>) <i class="dopln">příkaz-nebo-blok</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx29d62df"><span><a href="#zx29d62df">@</a></span></span>cyklus <b>for</b><span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">for (<span class="volznak">[</span><i class="dopln">inicializace</i><span class="volznak">]</span>; <span class="volznak">[</span><i class="dopln">podmínka</i><span class="volznak">]</span>; <span class="volznak">[</span><i class="dopln">iterace</i><span class="volznak">]</span>) <i class="dopln">příkaz-nebo-blok</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3843731"><span><a href="#zx3843731">@</a></span></span>cyklus <b>foreach</b><span class="cislo">#4 </span><sup><a href="#kapx5e4c8dfppc5" id="kapx5e4c8dfppcr5" title="Poznámka: cyklus přiřazuje proměnné hodnoty INDEXŮ daného pole v LIBOVOLNÉM pořadí! Pro přístup k hodnotám v poli je musíte indexovat.">(5)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">for (<i class="dopln">proměnná</i> in <i class="dopln">pole</i>) <i class="dopln">příkaz-nebo-blok</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx88cff59"><span><a href="#zx88cff59">@</a></span></span>přepínač <b>switch</b><span class="cislo">#5 </span><sup><a href="#kapx5e4c8dfppc6" id="kapx5e4c8dfppcr6" title="Přepínač switch pracuje v gawk stejně jako v jazyce C, ovšem pracuje s řetězci místo celých čísel.">(6)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">switch (<i class="dopln">skalární-výraz</i>) {</div>
+<div class="radekzaklinadla"><span class="volznak">[</span><span class="volznak">[</span>case <i class="dopln">konstantní-hodnota</i>:<span class="volznak">]</span><span class="tritecky"></span> <span class="volznak">[</span>default:<span class="volznak">]</span> <i class="dopln">příkazy</i><span class="volznak">]</span><span class="tritecky"></span></div>
+<div class="radekzaklinadla">}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8962e19"><span><a href="#zx8962e19">@</a></span></span>cyklus <b>do-while</b> (alternativy)<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">do { <i class="dopln">příkazy</i> } while (<i class="dopln">podmínka</i>);</div>
+<div class="radekzaklinadla">do <i class="dopln">příkaz</i>; while (<i class="dopln">podmínka</i>);</div>
+</div></div>
+
+<h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 3 (AWK), sekce 3 (Zaklínadla: Hlavní), podsekce 6 (Řízení toku)"><sup>3/</sup>6 Řízení toku</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx459fccb"><span><a href="#zx459fccb">@</a></span></span>opustit nejvnitřnější cyklus (for, while, do) nebo přepínač (switch)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">break;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx244208a"><span><a href="#zx244208a">@</a></span></span>skočit na podmínku nejvnitřnějšího cyklu (for, while, do)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">continue;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe8a3b15"><span><a href="#zxe8a3b15">@</a></span></span>přejít na zpracování <b>dalšího řádku</b><span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">next;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf54f611"><span><a href="#zxf54f611">@</a></span></span>přejít na zpracování <b>dalšího souboru</b><span class="cislo">#4 </span><sup><a href="#kapx5e4c8dfppc7" id="kapx5e4c8dfppcr7" title="Poznámka: tento příkaz přeskočí odpovídající průchod ENDFILE!">(7)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">nextfile;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7e6da7c"><span><a href="#zx7e6da7c">@</a></span></span>přejít na průchod END („<b>ukončit skript</b>“)<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">exit <span class="volznak">[</span><i class="dopln">návratová-hodnota-programu</i><span class="volznak">]</span>;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8f9a807"><span><a href="#zx8f9a807">@</a></span></span>vypsat chybovou zprávu a skončit s chybou<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">print <i class="dopln">chybová-zpráva-řetězec</i> &gt; &quot;/dev/stderr&quot;</div>
+<div class="radekzaklinadla">exit 1;</div>
+</div></div>
+
+<h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 3 (AWK), sekce 3 (Zaklínadla: Hlavní), podsekce 7 (Dělení záznamů na sloupce)"><sup>3/</sup>7 Dělení záznamů na sloupce</a></span></h3>
+<p class="ponadpisu">
+Poznámka: Dělení záznamů na sloupce určují proměnné FS, FPAT a FIELDWIDTHS.
+</p>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb28fc13"><span><a href="#zxb28fc13">@</a></span></span>dělit sloupce libovolnou sekvencí <b>bílých znaků</b><span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>FPAT = FIELDWIDTHS = &quot;&quot;;<span class="volznak">]</span> FS = &quot;<span class="viditelnamezera">&nbsp;</span>&quot;;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx96900a4"><span><a href="#zx96900a4">@</a></span></span>dělit sloupce tabulátorem<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>FPAT = FIELDWIDTHS = &quot;&quot;;<span class="volznak">]</span> FS = &quot;\t&quot;;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4479dab"><span><a href="#zx4479dab">@</a></span></span>dělit sloupce regulárním výrazem<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>FPAT = FIELDWIDTHS = &quot;&quot;;<span class="volznak">]</span> FS = <i class="dopln">&quot;regulární výraz&quot;</i>;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1b960d4"><span><a href="#zx1b960d4">@</a></span></span>zapnout/vypnout režim <b>sloupců pevné šířky</b><span class="cislo">#4 </span><sup><a href="#kapx5e4c8dfppc8" id="kapx5e4c8dfppcr8" title="Je-li uvedena hodnota „kolik-přeskočit“, před načtením sloupce se přeskočí daný počet znaků. Výhradně u posledního sloupce můžete místo počtu znaků zadat „*“; v takovém případě se do daného sloupce uloží všechny zbylé znaky.">(8)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">FIELDWIDTHS = &quot;<span class="volznak">[</span><span class="volznak">[</span><i class="dopln">kolik-přeskočit</i>:<span class="volznak">]</span><i class="dopln">šířka-dalšího-sloupce</i><span class="viditelnamezera">&nbsp;</span><span class="volznak">]</span><span class="tritecky"></span><span class="volznak">[</span><i class="dopln">kolik-přeskočit</i>:<span class="volznak">]</span><i class="dopln">šířka-posl-sloupce</i>&quot;</div>
+<div class="radekzaklinadla">FIELDWIDTHS = &quot;&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx88f40e8"><span><a href="#zx88f40e8">@</a></span></span>režim sloupců pevné šířky (příklady)<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">FIELDWIDTHS = &quot;5 2 7&quot;<span class="prikladhodnoty">⊨ $1 = „12345“ $2 = „67“ $3 = „89ABCDE“</span></div>
+<div class="radekzaklinadla">FIELDWIDTHS = &quot;1:3 2:2 1:*&quot;<span class="prikladhodnoty">⊨ $1 = „234“ $2 = „78“ $3 = „ABCDEF“</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx887daa0"><span><a href="#zx887daa0">@</a></span></span><b>vypnout</b> dělení na sloupce<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">FS = RS; FPAT = FIELDWIDTHS = &quot;&quot;;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1998157"><span><a href="#zx1998157">@</a></span></span>každý znak jako samostatný sloupec<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla">FS = &quot;&quot;;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2e3991c"><span><a href="#zx2e3991c">@</a></span></span>dělit sloupce výhradně mezerou<span class="cislo">#8 </span></div><div class="radky">
+<div class="radekzaklinadla">FS = &quot;[<span class="viditelnamezera">&nbsp;</span>]&quot;;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1b951d4"><span><a href="#zx1b951d4">@</a></span></span>sloupce ze shod s regulárním výrazem (zapnout/vypnout)<span class="cislo">#9 </span></div><div class="radky">
+<div class="radekzaklinadla">FPAT = <i class="dopln">&quot;neprázdný regulární výraz&quot;</i>;</div>
+<div class="radekzaklinadla">FPAT = &quot;&quot;;</div>
+</div></div>
+
+<h3 id="cast3x8"><span><a href="#cast3x8" title="kapitola 3 (AWK), sekce 3 (Zaklínadla: Hlavní), podsekce 8 (Speciální proměnné)"><sup>3/</sup>8 Speciální proměnné</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxdacc75d"><span><a href="#zxdacc75d">@</a></span></span><b>načtená řádka</b> (bez oddělovače záznamu/s oddělovačem záznamu)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">$0</div>
+<div class="radekzaklinadla">$0 RT</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx528d31d"><span><a href="#zx528d31d">@</a></span></span><b>číslo řádky</b> v souboru/celkově<span class="cislo">#2 </span><sup><a href="#kapx5e4c8dfppc9" id="kapx5e4c8dfppcr9" title="Do obou uvedených proměnných můžete také přiřadit novou hodnotu, a změnit tak číslování řádku pro zbytek souboru (resp. veškerého vstupu)">(9)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">FNR</div>
+<div class="radekzaklinadla">NR</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe8ff5ab"><span><a href="#zxe8ff5ab">@</a></span></span><b>sloupec</b> načtené řádky (obecně/příklady...)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">$<i class="dopln">číselný-výraz</i></div>
+<div class="radekzaklinadla">$2</div>
+<div class="radekzaklinadla">$12</div>
+<div class="radekzaklinadla">$(NF - 1)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd8a4895"><span><a href="#zxd8a4895">@</a></span></span>název/index právě načítaného <b>souboru</b><span class="cislo">#4 </span><sup><a href="#kapx5e4c8dfppc10" id="kapx5e4c8dfppcr10" title="Nelze použít v blocích BEGIN a END.">(10)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">FILENAME</div>
+<div class="radekzaklinadla">ARGIND</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx14c4239"><span><a href="#zx14c4239">@</a></span></span><b>počet sloupců</b> v načteném řádku<span class="cislo">#5 </span><sup><a href="#kapx5e4c8dfppc11" id="kapx5e4c8dfppcr11" title="Počet sloupců lze i nastavit.">(11)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">NF</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxba81e68"><span><a href="#zxba81e68">@</a></span></span><b>výstupní oddělovač</b> sloupců/záznamů příkazu print<span class="cislo">#6 </span><sup><a href="#kapx5e4c8dfppc12" id="kapx5e4c8dfppcr12" title="Výchozí hodnota je „ “ (mezera); může být přednastaven také parametrem příkazové řádky „-F“.">(12)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">OFS = &quot;<span class="volznak">[</span><i class="dopln">řetězec</i><span class="volznak">]</span>&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxbef17e5"><span><a href="#zxbef17e5">@</a></span></span>vstupní oddělovač záznamu (jeden znak/regulární výraz)<span class="cislo">#7 </span><sup><a href="#kapx5e4c8dfppc13" id="kapx5e4c8dfppcr13" title="Výchozí hodnotou je konec řádku „\n“.">(13)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">RS = &quot;<i class="dopln">znak</i>&quot;</div>
+<div class="radekzaklinadla">RS = &quot;<i class="dopln">regulární výraz</i>&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx85f190b"><span><a href="#zx85f190b">@</a></span></span>hodnota posledního sloupce načteného řádku<span class="cislo">#8 </span></div><div class="radky">
+<div class="radekzaklinadla">$NF</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx79a59af"><span><a href="#zx79a59af">@</a></span></span>počet souborů, které mají být (podle příkazové řádky) načteny jako vstupní<span class="cislo">#9 </span><sup><a href="#kapx5e4c8dfppc14" id="kapx5e4c8dfppcr14" title="Poznámka: vrací-li 0, stejně má být čten standardní vstup.">(14)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">ARGC - 1</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc1eeff7"><span><a href="#zxc1eeff7">@</a></span></span>N-tý (od 1) vstupní soubor, jak je zadán na příkazovém řádku<span class="cislo">#10 </span></div><div class="radky">
+<div class="radekzaklinadla">ARGV[<i class="dopln">N</i>]</div>
+</div></div>
+
+<h3 id="cast3x9"><span><a href="#cast3x9" title="kapitola 3 (AWK), sekce 3 (Zaklínadla: Hlavní), podsekce 9 (Ostatní)"><sup>3/</sup>9 Ostatní</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe93e2a4"><span><a href="#zxe93e2a4">@</a></span></span>komentář<span class="cislo">#1 </span><sup><a href="#kapx5e4c8dfppc15" id="kapx5e4c8dfppcr15" title="Znak # není interpretován jako začátek komentáře uvnitř řetězců ani literálů regulárních výrazů.">(15)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">#<i class="dopln">libovolný obsah až do konce řádky</i></div>
+</div></div>
+
+<h2 id="cast4" class="zaklinadla"><a href="#cast4"><span class="cislo">4.</span> Zaklínadla: Výstup, vstup a interakce s bashem</a></h2>
+
+<h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 3 (AWK), sekce 4 (Zaklínadla: Výstup, vstup a interakce s bashem), podsekce 1 (Příkazy výstupu)"><sup>4/</sup>1 Příkazy výstupu</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb0d1440"><span><a href="#zxb0d1440">@</a></span></span>příkaz <b>print</b><span class="cislo">#1 </span><sup><a href="#kapx5e4c8dfppc16" id="kapx5e4c8dfppcr16" title="Příkaz print zapíše na výstup svoje parametry, oddělené obsahem proměnné „OFS“ (výchozí hodnotou je &quot;&blank;&quot;), a za poslední parametr přidá navíc hodnotu proměnné „ORS“ (výchozí hodnota je &quot;\n&quot;).">(16)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">print <i class="dopln">výraz</i><span class="volznak">[</span>, <i class="dopln">další-výraz</i><span class="volznak">]</span><span class="tritecky"></span> <span class="volznak">[</span><i class="dopln">přesměrování-výstupu</i><span class="volznak">]</span>;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf934c1e"><span><a href="#zxf934c1e">@</a></span></span>funkce <b>printf</b><span class="cislo">#2 </span><sup><a href="#kapx5e4c8dfppc17" id="kapx5e4c8dfppcr17" title="Funkce printf() funguje stejně jako v jazyce C, až na to, že parametr %c dokáže vypisovat UTF-8 znaky v rozsahu 0 až cca 55000 (ale např. místo znaku č. 55339 vypíše „+“). ">(17)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">printf(<i class="dopln">formátovací-řetězec</i><span class="volznak">[</span>,<i class="dopln">výraz</i><span class="volznak">]</span><span class="tritecky"></span>) <span class="volznak">[</span><i class="dopln">přesměrování-výstupu</i><span class="volznak">]</span>;</div>
+</div></div>
+
+<h3 id="cast4x2"><span><a href="#cast4x2" title="kapitola 3 (AWK), sekce 4 (Zaklínadla: Výstup, vstup a interakce s bashem), podsekce 2 (Uzavření vstupu/výstupu)"><sup>4/</sup>2 Uzavření vstupu/výstupu</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxcf0f818"><span><a href="#zxcf0f818">@</a></span></span>uzavřít <b>soubor</b> otevřený ke čtení či zápisu<span class="cislo">#1 </span><sup><a href="#kapx5e4c8dfppc18" id="kapx5e4c8dfppcr18" title="Tato varianta funkce „close()“ vrací 0 v případě úspěchu, jiná hodnota značí chybu.">(18)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">close(<i class="dopln">&quot;řetězec/reprezentující/soubor&quot;</i>)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8466259"><span><a href="#zx8466259">@</a></span></span>uzavřít čtení výstupu příkazu<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">close(<i class="dopln">&quot;řetězec reprezentující příkaz&quot;</i>)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd2d83dc"><span><a href="#zxd2d83dc">@</a></span></span>uzavřít zápis na vstup příkazu<span class="cislo">#3 </span><sup><a href="#kapx5e4c8dfppc19" id="kapx5e4c8dfppcr19" title="Funkce „close()“ počká na skončení příkazu a vrátí jeho návratovou hodnotu.">(19)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">close(<i class="dopln">&quot;řetězec reprezentující příkaz&quot;</i>)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx47b11c4"><span><a href="#zx47b11c4">@</a></span></span>vyprázdnit <b>vyrovnávací paměť</b> zápisu (soubor/standardní výstup)<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">fflush(<i class="dopln">&quot;řetězec/reprezentující/soubor&quot;</i>)</div>
+<div class="radekzaklinadla">fflush(&quot;/dev/stdout&quot;)</div>
+</div></div>
+
+<h3 id="cast4x3"><span><a href="#cast4x3" title="kapitola 3 (AWK), sekce 4 (Zaklínadla: Výstup, vstup a interakce s bashem), podsekce 3 (Bash)"><sup>4/</sup>3 Bash</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd261b04"><span><a href="#zxd261b04">@</a></span></span>vykonat <b>příkaz</b> interpretem „/bin/sh“ a vrátit jeho návratovou hodnotu<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">system(<i class="dopln">řetězec</i>)</div>
+</div></div>
+
+<h3 id="cast4x4"><span><a href="#cast4x4" title="kapitola 3 (AWK), sekce 4 (Zaklínadla: Výstup, vstup a interakce s bashem), podsekce 4 (Přesměrování výstupu)"><sup>4/</sup>4 Přesměrování výstupu</a></span></h3>
+<p class="ponadpisu">
+Poznámky k přesměrování výstupu: Prvním zápisem do souboru, který ještě není otevřen, se tento soubor automaticky otevře pro zápis a zůstane otevřený pro další zápisy, dokud ho neuzavřete funkcí close() nebo do konce programu. Analogicky platí, že prvním zápisem na vstup dosud nespuštěného příkazu se tento příkaz spustí a další zápisy směřují na vstup téže instance příkazu, dokud spojení neuzavřete funkcí „close()“.
+</p><p>
+Pokud soubor existuje, při otevření se jeho obsah smaže; pokud chcete přidávat na konec souboru, použijte místo operátoru „&gt;“ operátor „&gt;&gt;“ (princip je stejný jako v bashi).
+</p>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxba095e0"><span><a href="#zxba095e0">@</a></span></span>výstup do souboru (příklad)(print/printf)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">print &quot;A:&quot;, A &gt; &quot;../seznam.txt&quot;;</div>
+<div class="radekzaklinadla">printf(&quot;%s: %d\n&quot;, I, POLE[I]) &gt; &quot;hodnoty.txt&quot;;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe6bc220"><span><a href="#zxe6bc220">@</a></span></span>poslat na (standardní) vstup jiného příkazu (print/printf)<span class="cislo">#2 </span><sup><a href="#kapx5e4c8dfppc20" id="kapx5e4c8dfppcr20" title="Odkazovaný příkaz se spustí v interpretu /bin/sh a svoje vstupy a výstupy zdědí od instance GNU awk, kterou byl spuštěn, pokud je výslovně nepřesměrujete.">(20)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">print <i class="dopln">parametr</i><span class="volznak">[</span>, <i class="dopln">další parametr</i><span class="volznak">]</span><span class="tritecky"></span> | <i class="dopln">&quot;řetězec s příkazem&quot;</i> ;</div>
+<div class="radekzaklinadla">printf(<i class="dopln">formátovací-řetězec</i><span class="volznak">[</span>,<i class="dopln">parametr</i><span class="volznak">]</span><span class="tritecky"></span>) | <i class="dopln">&quot;řetězec s příkazem&quot;</i> ;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb9a70e9"><span><a href="#zxb9a70e9">@</a></span></span>zapsat na vstup jiného příkazu (příklad)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">print I, S, &quot;.&quot; | &quot;sort -n&quot;;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc14f840"><span><a href="#zxc14f840">@</a></span></span>zapsat na standardní chybový výstup<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">print <i class="dopln">parametry</i> &gt; &quot;/dev/stderr&quot;;</div>
+<div class="radekzaklinadla">printf(<i class="dopln">parametry</i>) &gt; &quot;/dev/stderr&quot;;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx69d0bad"><span><a href="#zx69d0bad">@</a></span></span>zapsat do souboru jeden znak (přepsat/připojit)<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">printf(&quot;%s&quot;, &quot;<i class="dopln">znak</i>&quot;) &gt; <i class="dopln">&quot;řetězec/s/cestou/souboru&quot;</i>)</div>
+</div></div>
+
+<h3 id="cast4x5"><span><a href="#cast4x5" title="kapitola 3 (AWK), sekce 4 (Zaklínadla: Výstup, vstup a interakce s bashem), podsekce 5 (Přesměrování vstupu)"><sup>4/</sup>5 Přesměrování vstupu</a></span></h3>
+<p class="ponadpisu">
+Poznámky k přesměrování vstupu: Prvním čtením ze souboru, který ještě není otevřen, se tento soubor automaticky otevře pro čtení a zůstané otevřený pro čtení dalších řádků, dokud ho neuzavřete funkcí close(). Analogicky platí, že čtení z příkazu, který ještě nebyl spuštěn, ho spustí a další čtení čtou z výstupu téže instance, dokud spojení neuzavřete funkcí „close()“.
+</p>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8ede297"><span><a href="#zx8ede297">@</a></span></span>přečíst řádku ze souboru<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>if (<span class="volznak">]</span>getline <span class="volznak">[</span><i class="dopln">PROMĚNNÁ</i><span class="volznak">]</span> &lt; <i class="dopln">&quot;řetězec/s/cestou/souboru&quot;</i><span class="volznak">[</span>) <i class="dopln">tělo příkazu if</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa81d44b"><span><a href="#zxa81d44b">@</a></span></span>přečíst jeden znak ze souboru<span class="cislo">#2 </span><sup><a href="#kapx5e4c8dfppc21" id="kapx5e4c8dfppcr21" title="Poznámka: po použití této konstrukce pravděpodobně budete muset obnovit hodnoty proměnných RS, $0, RT, NR a FNR.">(21)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">RS = &quot;(.)&quot;;</div>
+<div class="radekzaklinadla">if (getline &lt; <i class="dopln">&quot;řetězec/s/cestou/souboru&quot;</i>) {{<i>proměnná</i>} = RT}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3077f85"><span><a href="#zx3077f85">@</a></span></span>přečíst celý soubor do zadané proměnné<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">normalni_RS = RS; RS = &quot;^$&quot;; <i class="dopln">PROMĚNNÁ</i> = &quot;&quot;;</div>
+<div class="radekzaklinadla">getline <i class="dopln">PROMĚNNÁ</i> &lt; <i class="dopln">&quot;řetězec/s/cestou/souboru&quot;</i>;</div>
+<div class="radekzaklinadla">RS = normalni_RS;</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>close(<i class="dopln">&quot;řetězec/s/cestou/souboru&quot;</i>);<span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx640a72f"><span><a href="#zx640a72f">@</a></span></span>načíst řádku z výstupu příkazu<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>if (<span class="volznak">]</span><i class="dopln">&quot;příkaz&quot;</i> | getline <span class="volznak">[</span><i class="dopln">PROMĚNNÁ</i><span class="volznak">]</span>) <i class="dopln">tělo příkazu if</i></div>
+</div></div>
+
+<h3 id="cast4x6"><span><a href="#cast4x6" title="kapitola 3 (AWK), sekce 4 (Zaklínadla: Výstup, vstup a interakce s bashem), podsekce 6 (Koprocesy)"><sup>4/</sup>6 Koprocesy</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2053c9e"><span><a href="#zx2053c9e">@</a></span></span>zapsat na standardní vstup koprocesu (alternativy)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">příkaz print</i> |&amp; <i class="dopln">koproces</i>;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb2495a3"><span><a href="#zxb2495a3">@</a></span></span>přečíst řádek z výstupu koprocesu<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>if (<span class="volznak">]</span><i class="dopln">koproces</i> |&amp; getline <span class="volznak">[</span><i class="dopln">PROMĚNNÁ</i><span class="volznak">]</span><span class="volznak">[</span>) <i class="dopln">tělo příkazu if</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx12155cf"><span><a href="#zx12155cf">@</a></span></span>uzavřít jen vstup koprocesu<span class="cislo">#3 </span><sup><a href="#kapx5e4c8dfppc22" id="kapx5e4c8dfppcr22" title="Po uzavření vstupu koprocesu můžete pouze číst z jeho výstupu. Pokus o další zápis před úplným ukončením koprocesu je fatální chyba.">(22)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">close(<i class="dopln">koproces</i>, &quot;to&quot;);</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe95df1a"><span><a href="#zxe95df1a">@</a></span></span>vyčkat na ukončení koprocesu<span class="cislo">#4 </span><sup><a href="#kapx5e4c8dfppc23" id="kapx5e4c8dfppcr23" title="Funkce close() v tomto případě vrátí návratovou hodnotu koprocesu vynásobenou 256.">(23)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">close(<i class="dopln">koproces</i>)</div>
+</div></div>
+
+<h3 id="cast4x7"><span><a href="#cast4x7" title="kapitola 3 (AWK), sekce 4 (Zaklínadla: Výstup, vstup a interakce s bashem), podsekce 7 (Informace o procesu AWK)"><sup>4/</sup>7 Informace o procesu AWK</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2a1b402"><span><a href="#zx2a1b402">@</a></span></span>PID procesu gawk/rodičovského procesu<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">PROCINFO[&quot;pid&quot;]<span class="prikladhodnoty">⊨ 7034</span></div>
+<div class="radekzaklinadla">PROCINFO[&quot;ppid&quot;]<span class="prikladhodnoty">⊨ 4052</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4c85ff3"><span><a href="#zx4c85ff3">@</a></span></span>verze GNU awk<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">PROCINFO[&quot;version&quot;]<span class="prikladhodnoty">⊨ 5.0.1</span></div>
+</div></div>
+
+<h2 id="cast5" class="zaklinadla"><a href="#cast5"><span class="cislo">5.</span> Zaklínadla: Funkce</a></h2>
+
+<h3 id="cast5x1"><span><a href="#cast5x1" title="kapitola 3 (AWK), sekce 5 (Zaklínadla: Funkce), podsekce 1 (Uživatelské funkce)"><sup>5/</sup>1 Uživatelské funkce</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3af212b"><span><a href="#zx3af212b">@</a></span></span>definovat funkci (volitelně s lokálními proměnnými)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">function <i class="dopln">název funkce</i>(<span class="volznak">[</span><i class="dopln">první-parametr</i><span class="volznak">[</span>,<i class="dopln">další-parametry</i><span class="volznak">]</span><span class="tritecky"></span><span class="volznak">]</span><span class="volznak">[</span>,<span class="viditelnamezera">&nbsp;</span><span class="viditelnamezera">&nbsp;</span><span class="viditelnamezera">&nbsp;</span><i class="dopln">lokální-proměnná</i><span class="volznak">[</span>, <i class="dopln">další-lokální-proměnná</i><span class="volznak">]</span><span class="tritecky"></span><span class="volznak">]</span>) <i class="dopln">blok příkazů</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx020c82a"><span><a href="#zx020c82a">@</a></span></span>volání funkce<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">název_funkce</i>(<span class="volznak">[</span><i class="dopln">parametr</i><span class="volznak">[</span>, <i class="dopln">další parametr</i><span class="volznak">]</span><span class="volznak">]</span>)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx448fe7e"><span><a href="#zx448fe7e">@</a></span></span>nepřímé volání funkce<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">@<i class="dopln">proměnná</i>(<span class="volznak">[</span><i class="dopln">parametr</i><span class="volznak">[</span>, <i class="dopln">další parametr</i><span class="volznak">]</span><span class="volznak">]</span>)</div>
+</div></div>
+
+<h3 id="cast5x2"><span><a href="#cast5x2" title="kapitola 3 (AWK), sekce 5 (Zaklínadla: Funkce), podsekce 2 (Řetězcové funkce (regulární výrazy))"><sup>5/</sup>2 Řetězcové funkce (regulární výrazy)</a></span></h3>
+<p class="ponadpisu">
+Poznámka k řetězci náhrady: V tomto řetězci je nutno odzvláštnit znaky „\“ a „&amp;“, protože mají speciální význam: Funkce sub(), gensub() a gsub() za neodzvláštněný znak „&amp;“ dosadí text shody s nahrazovaným regulárním výrazem. Funkce „gensub()“ navíc za značky „\1“ až „\9“ (do řetězce nutno zadávat jako &quot;\\1&quot; atd.) dosadí text číslovaného záchytu (podřetězec odpovídající seskupení v regulárním výrazu).
+</p>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx67f77ce"><span><a href="#zx67f77ce">@</a></span></span><b>vyhovuje</b>/nevyhovuje regulárnímu výrazu?<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">řetězec</i> ~ <i class="dopln">regulární-výraz</i></div>
+<div class="radekzaklinadla"><i class="dopln">řetězec</i> !~ <i class="dopln">regulární-výraz</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc120f8d"><span><a href="#zxc120f8d">@</a></span></span><b>nahradit</b> první výskyt/N-tý výskyt/všechny výskyty regulárního výrazu v proměnné<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">sub(<i class="dopln">regulární výraz</i>, <i class="dopln">řetězec-náhrady</i>, <i class="dopln">proměnná</i>)<span class="prikladhodnoty">⊨ počet náhrad (0, nebo 1)</span></div>
+<div class="radekzaklinadla"><i class="dopln">proměnná</i> = gensub(<i class="dopln">regulární výraz</i>, <i class="dopln">řetězec-náhrady</i>, <i class="dopln">N</i>, <i class="dopln">proměnná</i>)<span class="prikladhodnoty">⊨ řetězec po náhradě (nezměněný, pokud k náhradě nedošlo)</span></div>
+<div class="radekzaklinadla">gsub(<i class="dopln">regulární výraz</i>, <i class="dopln">řetězec-náhrady</i>, <i class="dopln">proměnná</i>)<span class="prikladhodnoty">⊨ počet náhrad</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfeabd2c"><span><a href="#zxfeabd2c">@</a></span></span>nahradit první výskyt/N-tý výskyt/všechny shody v $0<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">sub(<i class="dopln">regulární výraz</i>, <i class="dopln">řetězec-náhrady</i>)<span class="prikladhodnoty">⊨ počet náhrad (0, nebo 1)</span></div>
+<div class="radekzaklinadla">$0 = gensub(<i class="dopln">regulární výraz</i>, <i class="dopln">řetězec-náhrady</i>, <i class="dopln">N</i>)<span class="prikladhodnoty">⊨ řetězec po náhradě (nezměněný, pokud k náhradě nedošlo)</span></div>
+<div class="radekzaklinadla">gsub(<i class="dopln">regulární výraz</i>, <i class="dopln">řetězec-náhrady</i>)<span class="prikladhodnoty">⊨ počet náhrad</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8ae6c62"><span><a href="#zx8ae6c62">@</a></span></span>nahradit první výskyt/N-tý výskyt/všechny výskyty regulárního výrazu v řetězci<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">gensub(<i class="dopln">regulární výraz</i>, <i class="dopln">řetězec-náhrady</i>, 1, <i class="dopln">řetězec</i>)</div>
+<div class="radekzaklinadla">gensub(<i class="dopln">regulární výraz</i>, <i class="dopln">řetězec-náhrady</i>, <i class="dopln">N</i><i>,</i> <i class="dopln">řetězec</i>)</div>
+<div class="radekzaklinadla">gensub(<i class="dopln">regulární výraz</i>, <i class="dopln">řetězec-náhrady</i>, &quot;g&quot;, <i class="dopln">řetězec</i>)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxabcbb07"><span><a href="#zxabcbb07">@</a></span></span>najít a vypsat <b>první shodu</b> s regulárním výrazem<span class="cislo">#5 </span><sup><a href="#kapx5e4c8dfppc24" id="kapx5e4c8dfppcr24" title="Nebyla-li shoda s regulárním výrazem nalezena, funkce match() vrací 0; jinak nastaví proměnné RSTART a RLENGTH na pozici a délku nalezeného podřetězce a vrátí hodnotu RSTART. Vždy vybírá nejlevější a nejdelší shodu.">(24)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">if (match(<i class="dopln">řetězec</i>, <i class="dopln">regulární-výraz</i>)) {</div>
+<div class="radekzaklinadla" style="padding-left:2ch;">print substr(<i class="dopln">řetězec</i>, RSTART, RLENGTH);</div>
+<div class="radekzaklinadla">}</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf85494f"><span><a href="#zxf85494f">@</a></span></span>najít <b>všechny shody</b> s regulárním výrazem a sestavit z nich číslované pole<span class="cislo">#6 </span><sup><a href="#kapx5e4c8dfppc25" id="kapx5e4c8dfppcr25" title="Funkce „patsplit()“ vyhledá všechny shody řetězce s regulárním výrazem a vrátí jejich počet (N). Předané pole pak smaže a naplní těmito shodami. Zadáte-li i pole pro oddělovače, pak ho tato funkce vyplní podřetězci, které zbyly mezi jednotlivými shodami, přičemž řetězec před první shodou bude umístěn na indexu 0 a řetězec za poslední shodou na indexu N.">(25)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">patsplit(<i class="dopln">řetězec</i>, <i class="dopln">pole</i>, <i class="dopln">regulární-výraz</i> <span class="volznak">[</span>,<i class="dopln">pole-pro-oddělovače</i><span class="volznak">]</span>)<span class="prikladhodnoty">⊨ počet shod (např. „3“)</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0fc0dd5"><span><a href="#zx0fc0dd5">@</a></span></span><b>rozdělit</b> řetězec do pole, oddělovač je definovaný regulárním výrazem<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla">split(<i class="dopln">řetězec</i>, <i class="dopln">pole</i>, <i class="dopln">regulární-výraz</i><span class="volznak">[</span>,<i class="dopln">pole_pro_oddělovače</i><span class="volznak">]</span>)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4da1d49"><span><a href="#zx4da1d49">@</a></span></span>příklad: v řetězci „a=15:b=79“ v proměnné „x“ vyměnit čísla<span class="cislo">#8 </span></div><div class="radky">
+<div class="radekzaklinadla">x = gensub(/^a=([0-9]+):b=([0-9]+)$/, &quot;a=\\2:b=\\1&quot;, 1, x);<span class="prikladhodnoty">⊨ a=79:b=15</span></div>
+</div></div>
+
+<h3 id="cast5x3"><span><a href="#cast5x3" title="kapitola 3 (AWK), sekce 5 (Zaklínadla: Funkce), podsekce 3 (Řetězcové funkce (základní))"><sup>5/</sup>3 Řetězcové funkce (základní)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6f05bf6"><span><a href="#zx6f05bf6">@</a></span></span>spojit dva řetězce (<b>konkatenace</b>)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">jeden-řetězec</i> <i class="dopln">druhý-řetězec</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx18a8a16"><span><a href="#zx18a8a16">@</a></span></span>získat <b>podřetězec</b> podle pozice<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">substr(<i class="dopln">řetězec</i>, <i class="dopln">počáteční-pozice</i><span class="volznak">[</span>, <i class="dopln">maximální-délka</i><span class="volznak">]</span>)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6e56594"><span><a href="#zx6e56594">@</a></span></span>najít pozici prvního výskytu <b>podřetězce</b><span class="cislo">#3 </span><sup><a href="#kapx5e4c8dfppc26" id="kapx5e4c8dfppcr26" title="Vrátí 0, nebyl-li podřetězec nalezen; jinak vrátí pozici podřetězce (číslovanou od 1).">(26)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">index(<i class="dopln">řetězec</i>, <i class="dopln">hledaný-podřetězec</i>)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe03530c"><span><a href="#zxe03530c">@</a></span></span>zjistit <b>délku řetězce</b><span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">length(<i class="dopln">řetězec</i>)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5c3211a"><span><a href="#zx5c3211a">@</a></span></span><b>rozdělit</b> řetězec do pole (podle FS/určitým znakem)<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">split(<i class="dopln">řetězec</i>, <i class="dopln">pole</i>)</div>
+<div class="radekzaklinadla">split(<i class="dopln">řetězec</i>, <i class="dopln">pole</i>, &quot;<i class="dopln">znak</i>&quot;<span class="volznak">[</span>,<i class="dopln">pole_pro_oddělovače</i><span class="volznak">]</span>)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxac5776c"><span><a href="#zxac5776c">@</a></span></span>naformátovat řetězec (funkce <b>sprintf</b> známá z jazyka C)<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">sprintf(<i class="dopln">formátovací-řetězec</i><span class="volznak">[</span>, <i class="dopln">parametr</i><span class="volznak">]</span><span class="tritecky"></span>)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx518678b"><span><a href="#zx518678b">@</a></span></span>převod na <b>malá písmena/velká písmena</b><span class="cislo">#7 </span><sup><a href="#kapx5e4c8dfppc27" id="kapx5e4c8dfppcr27" title="V gawk tyto funkce rozpoznávají znaky národní abecedy (pravděpodobně podle „locale“), v mawk účinkují pouze na ASCII znaky.">(27)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">tolower(<i class="dopln">řetězec</i>)</div>
+<div class="radekzaklinadla">toupper(<i class="dopln">řetězec</i>)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe238282"><span><a href="#zxe238282">@</a></span></span>sekvence více výskytů téhož znaku v řetězci nahradit jeho jedním výskytem<span class="cislo">#8 </span></div><div class="radky">
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+
+<h3 id="cast5x4"><span><a href="#cast5x4" title="kapitola 3 (AWK), sekce 5 (Zaklínadla: Funkce), podsekce 4 (Konverze číselných soustav)"><sup>5/</sup>4 Konverze číselných soustav</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx52b7317"><span><a href="#zx52b7317">@</a></span></span>desítkové číslo na hexadecimální/hexadecimální na desítkové<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">sprintf(&quot;<span class="volznak">[</span>0x<span class="volznak">]</span>%x&quot;, <i class="dopln">číslo</i>)</div>
+<div class="radekzaklinadla">strtonum(&quot;0x<i class="dopln">hex-číslo</i>&quot;)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8449472"><span><a href="#zx8449472">@</a></span></span>desítkové číslo na osmičkové/osmičkové na desítkové<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">sprintf(&quot;<span class="volznak">[</span>0<span class="volznak">]</span>%o&quot;, <i class="dopln">číslo</i>)</div>
+<div class="radekzaklinadla">strtonum(&quot;0<i class="dopln">osmičkové-číslo</i>&quot;)</div>
+</div></div>
+
+<h3 id="cast5x5"><span><a href="#cast5x5" title="kapitola 3 (AWK), sekce 5 (Zaklínadla: Funkce), podsekce 5 (Číselné funkce)"><sup>5/</sup>5 Číselné funkce</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx30bd7fd"><span><a href="#zx30bd7fd">@</a></span></span><b>absolutní hodnota</b><span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">x</i> &gt;= 0 ? <i class="dopln">x</i> : -<i class="dopln">x</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxbfb9298"><span><a href="#zxbfb9298">@</a></span></span><b>zaokrouhlit</b> desetinné číslo na nejbližší celé číslo/k nule/jen oříznout desetinnou část<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">číslo</i> &gt;= 0 ? int(<i class="dopln">číslo</i> + 0.4999999) : int(<i class="dopln">číslo</i> - 0.4999999)</div>
+<div class="radekzaklinadla"><i class="dopln">číslo</i> &gt;= 0 ? int(<i class="dopln">číslo</i>) : -int(-<i class="dopln">číslo</i>)</div>
+<div class="radekzaklinadla">int(<i class="dopln">hodnota</i>)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx03faa0e"><span><a href="#zx03faa0e">@</a></span></span>vygenerovat <b>pseudonáhodné</b> celé číslo 0 &lt;= y &lt; maximum<span class="cislo">#3 </span><sup><a href="#kapx5e4c8dfppc28" id="kapx5e4c8dfppcr28" title="Vhodné jen pro maxima do 16 777 215. Pro vyšší maximum bude množina vrácených hodnot pravidelně přerušovaná, což pro některé druhy využití nemusí vadit. Správným řešením je bitová kombinace více volání funkce „rand()“.">(28)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">int(rand() * <i class="dopln">maximum</i>)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4dcdc61"><span><a href="#zx4dcdc61">@</a></span></span>vygenerovat pseudonáhodné celé číslo 0 &lt;= y &lt; 4 294 967 296<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">65356 * int(65536 * rand()) + int(65536 * rand())</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0a395f2"><span><a href="#zx0a395f2">@</a></span></span>nastavit počáteční „semínko“ generátoru pseudonáhodných čísel (na hodnotu/podle času)<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">srand(<i class="dopln">hodnota-semínka</i>)</div>
+<div class="radekzaklinadla">srand()</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx820456a"><span><a href="#zx820456a">@</a></span></span>vygenerovat pseudonáhodné desetinné číslo 0 &lt;= y &lt; 1<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">rand()</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxdd5a298"><span><a href="#zxdd5a298">@</a></span></span>druhá <b>odmocnina</b>/druhá mocnina<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla">sqrt(<i class="dopln">x</i>)</div>
+<div class="radekzaklinadla"><i class="dopln">x</i>^2</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb6e44ae"><span><a href="#zxb6e44ae">@</a></span></span>arcus tangens y / x<span class="cislo">#8 </span></div><div class="radky">
+<div class="radekzaklinadla">atan2(<i class="dopln">y</i>, <i class="dopln">x</i>)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa975a71"><span><a href="#zxa975a71">@</a></span></span>sinus/kosinus/tangens/contangens<span class="cislo">#9 </span></div><div class="radky">
+<div class="radekzaklinadla">sin(<i class="dopln">x</i>)</div>
+<div class="radekzaklinadla">cos(<i class="dopln">x</i>)</div>
+<div class="radekzaklinadla">sin(<i class="dopln">x</i>) / cos(<i class="dopln">x</i>)</div>
+<div class="radekzaklinadla">cos(<i class="dopln">x</i>) / sin(<i class="dopln">x</i>)</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx324f566"><span><a href="#zx324f566">@</a></span></span>přirozený logaritmus / e na x-tou<span class="cislo">#10 </span></div><div class="radky">
+<div class="radekzaklinadla">log(<i class="dopln">x</i>)</div>
+<div class="radekzaklinadla">exp(<i class="dopln">x</i>)</div>
+</div></div>
+
+<h3 id="cast5x6"><span><a href="#cast5x6" title="kapitola 3 (AWK), sekce 5 (Zaklínadla: Funkce), podsekce 6 (Práce s časem)"><sup>5/</sup>6 Práce s časem</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf2d19a9"><span><a href="#zxf2d19a9">@</a></span></span>aktuální čas (jako časová známka Unixu)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">systime()</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb5af751"><span><a href="#zxb5af751">@</a></span></span>zformátovat čas<span class="cislo">#2 </span><sup><a href="#kapx5e4c8dfppc29" id="kapx5e4c8dfppcr29" title="Bez parametru „1“ vypíše lokální čas, s ním vypíše UTC. Pro „formát“ – viz kapitolu „Datum, čas a kalendář“.">(29)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">strftime(<i class="dopln">formát</i>,<i class="dopln">časová-známka-Unixu</i><span class="volznak">[</span>, 1<span class="volznak">]</span>)</div>
+</div></div>
+
+<h3 id="cast5x7"><span><a href="#cast5x7" title="kapitola 3 (AWK), sekce 5 (Zaklínadla: Funkce), podsekce 7 (Pokročilé konstrukce)"><sup>5/</sup>7 Pokročilé konstrukce</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx168542a"><span><a href="#zx168542a">@</a></span></span>přepnout se do jmenného prostoru/do globálního jmenného prostoru<span class="cislo">#1 </span><sup><a href="#kapx5e4c8dfppc30" id="kapx5e4c8dfppcr30" title="Direktiva „@namespace“ musí být použita na úrovni souboru (tj. mimo jakýkoliv blok) a platí do nejbližší další direktivy @namespace nebo do konce souboru. Účinkuje pouze v souboru, ve kterém je uvedena. Je-li vložen nebo připojen kód z jiného souboru (např. direktivou „@include“), ten má svoje vlastní řízení jmenného prostoru a začíná vždy globálním jmenným prostorem „awk“.">(30)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">@namespace &quot;<i class="dopln">jmenný_prostor</i>&quot;</div>
+<div class="radekzaklinadla">@namespace &quot;awk&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxbf2192a"><span><a href="#zxbf2192a">@</a></span></span>vložit kód z jiného zdrojového souboru<span class="cislo">#2 </span><sup><a href="#kapx5e4c8dfppc31" id="kapx5e4c8dfppcr31" title="Aktuální jmenný prostor nemá vliv na interpretaci identifkátorů ve vkládaném souboru! Na jeho počátku bude platit jmenný prostor „awk“, dokud nebude změněn direktivou „@namespace“.">(31)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">@include &quot;<i class="dopln">cesta/k/souboru.awk</i>&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd7160da"><span><a href="#zxd7160da">@</a></span></span>implementovat načítání řádek rozdělených znakem \ před znakem konce řádku (tento kód vložit na začátek skriptu)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">proměnná</i> != &quot;&quot; {$0 = <i class="dopln">proměnná</i>; <i class="dopln">proměnná</i> = &quot;&quot;;}</div>
+<div class="radekzaklinadla">/(^|[^\\])(\\\\)*\\$/ {<i class="dopln">proměnná</i> = substr($0, 1, length($0) - 1); next;}</div>
+</div></div>
+
+<h2 id="cast6"><a href="#cast6"><span class="cislo">6.</span> Parametry příkazů</a></h2>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">gawk <i class="dopln">parametry-gawk</i> <span class="volznak">[</span><span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">vstupní-soubory</i><span class="volznak">]</span><span class="tritecky"></span></div>
+<div class="radekzaklinadla">gawk <i class="dopln">parametry-gawk</i> <span class="volznak">[</span><span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">parametry-skriptu</i><span class="volznak">]</span><span class="tritecky"></span></div>
+<div class="radekzaklinadla">gawk <i class="dopln">parametry-kromě-e-f-i</i> <i class="dopln">program</i> <span class="volznak">[</span><span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">vstupní-soubory</i><span class="volznak">]</span><span class="tritecky"></span></div>
+<div class="radekzaklinadla">gawk --version</div>
+</div></div>
+<table class="parametryprikazu"><tbody><tr><td>-F <i class="dopln">hodnota</i></td><td>Přednastaví hodnotu proměnné FS (vstupního oddělovače sloupců).</td></tr>
+
+<tr><td>-v <i class="dopln">proměnná</i>=<i class="dopln">hodnota</i></td><td>Přednastaví hodnotu určité proměnné.</td></tr>
+
+<tr><td>-f <i class="dopln">soubor</i></td><td>Načte kód ke spuštění z daného souboru.</td></tr>
+
+<tr><td>-e <i class="dopln">kód</i></td><td>Vezme uvedený kód ke spuštění.</td></tr>
+
+<tr><td>-b</td><td>Vstup a výstup realizuje po bajtech, ne v UTF-8.</td></tr>
+
+<tr><td>--dump-variables=<i class="dopln">soubor</i></td><td>Po skončení zapsat hodnoty všech proměnných do daného souboru.</td></tr>
+
+<tr><td>--profile=<i class="dopln">soubor</i></td><td>Shromáždí „profilovací“ data a po skončení programu je zapíše do uvedeného souboru. (Nezkoušeno.)</td></tr>
+
+<tr><td>--sandbox</td><td>Vypne všechny funkce, které by mohl skript použít k přístupu k jiným souborům než těm, které mu byly předány na příkazovém řádku; to zahrnuje např. funkci „system()“, přesměrování výstupů apod.</td></tr>
+
+</tbody></table>
+<p>
+Poznámka: Parametry -f a -e můžete kombinovat a zadávat opakovaně. Každý další takový parametr přidá takový kód k již načtenému, takže se nakonec všechny spojí do jednoho programu.
+</p>
+
+<h2 id="cast7"><a href="#cast7"><span class="cislo">7.</span> Instalace na Ubuntu</a></h2>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">sudo apt-get install gawk</div>
+</div></div>
+
+<h2 id="cast8"><a href="#cast8"><span class="cislo">8.</span> Tipy a zkušenosti</a></h2>
+<ul><li>V AWK jsou všechna pole asociativní (včetně těch indexovaných celými čísly), a tedy neuspořádaná. Při indexování pole číslem se číslo nejprve převede na řetězec.
+</li><li>Je velmi často využívána syntaktická zkratka, že literál regulárního výrazu (např. /^a/) se automaticky rozšíří na test načteného řádku (např. „($0 ~ /^a/)“).
+</li><li>V AWK je středník potřeba jen k oddělení příkazů na jednom řádku, přesto z důvodu přehlednosti doporučuji ho psát na konci příkazu s výjimkou případu, kdy jde o jediný příkaz v bloku, k němuž těsně přiléhají složené závorky, např. „{print $0}“.
+</li><li>Skalární proměnné se do funkcí předávají hodnotou, pole odkazem.
+</li><li>Hodnoty ARGC a ARGV je možno za běhu skriptu bez omezení měnit, a tím ovlivňovat, které další soubory gawk či mawk otevře. Na již otevřené soubory to ale nemá vliv.
+</li><li>Používání koprocesů vyžaduje pečlivou synchronizaci mezi procesy. Existují dvě situace, které vedou k zamrznutí programu a musíte se jim vyhnout: 1) Pokus o přečtení řádku z výstupu koprocesu, zatímco koproces nezapisuje, ale sám čeká na další vstup. 2) Zapsání velkého množství dat (cca od desítek kilobajtů) na vstup koprocesu, která koproces nenačte. (V takovém případě se naplní buffer roury.)
+</li><li>V literálech regulárních výrazů je nutno odzvláštňovat obyčejná lomítka, a to dokonce i uvnitř hranatých závorek, např. „a*[x\/y]+“, v dynamických regulárních výrazech je není nutno odzvláštňovat.
+</li><li>Chcete-li příkaz pokračovat na další řádce, vložte před konec řádky „\“.
+</li><li>Obsahuje-li skript pouze vzorky BEGIN a žádné jiné, AWK nebude otevírat vstupní soubory a po vykonání průchodu BEGIN okamžitě skončí. Toho lze využít k napsání programu, který vstup nezpracovává.
+</li><li>Nestojí-li za sekvencí zpětných lomítek v řetězci náhrady funkcí sub() a gsub() „&amp;“, chová se toto odzvláštňování nelogicky – méně než tři zpětná lomítka se použijí tak, jak jsou, a každá čtveřice zpětných lomítek se zredukuje na dvě zpětná lomítka a zbytek sekvence se bere jako od začátku, takže např. 6 zpětných lomítek (v řetězci zapsaných jako 12) zapíše při náhradě čtyři zpětná lomítka, protože první čtyři lomítka se zredukovala na dvě a zbylá dvě se vzala tak, jak jsou. Toto neplatí ve funkci gensub(), ta se chová konzistentně a každou dvojici zpětných lomítek zredukuje na jedno, ať za ní následuje ampresand nebo ne. Pokud tedy potřebujete nahrazovat shody regulárního výrazu zpětnými lomítky, doporučuji vždy řetězec náhrady předem otestovat a pamatovat, že funkce sub() a gsub() zachází se zpětnými lomítky, za kterými nenásleduje ampresand, jinak než funkce gensub().
+</li><li>Soubory s konci řádek CR-LF (typicky z Windows) lze snadno zpracovat při nastavení „RS=&quot;\r\n&quot;“; analogicky soubory s řádky ukončenými LF lze zpracovat s nastavením „RS=&quot;\r&quot;“.
+</li><li>GNU awk plně podporuje znaky UTF-8 cca do hodnoty 50000. Od určité hodnoty dál s nimi pracuje chybně, takže není vhodný např. ke zpracování emoji-znaků.
+</li></ul>
+<h2 id="cast9"><a href="#cast9"><span class="cislo">9.</span> Další zdroje informací</a></h2>
+<ul class="kompaktni"><li><a href="https://cs.wikipedia.org/wiki/AWK">Článek na Wikipedii</a>
+</li><li><a href="https://www.youtube.com/watch?v=y8klNyswPfo">Přednáška Lukáše Bařinky „(g)awk in a nutshell“</a>
+</li><li><a href="http://www.abclinuxu.cz/clanky/unixove-nastroje-21-awk">Článek na ABC Linuxu</a>
+</li><li><a href="https://www.gnu.org/software/gawk/manual/html_node/String-Functions.html">Oficiální manuál: Řetězcové funkce (reference)</a> (anglicky)
+</li><li><a href="https://www.gnu.org/software/gawk/manual/">Oficiální manuál od GNU</a> (anglicky)
+</li><li><i>man 1 gawk</i> (anglicky)
+</li><li><a href="https://packages.ubuntu.com/focal/gawk">Balíček gawk</a>
+</li><li><a href="https://www.youtube.com/watch?v=i67fbJNfihU">Video „Using AWK to filter Data from Fields in Linux“</a> (anglicky)
+</li><li><a href="https://www.youtube.com/watch?v=88oVSJMm8xI">Video „Controlling Array Sorting in AWK“</a> (anglicky)
+</li><li><a href="https://www.grymoire.com/Unix/Awk.html">Awk tutorial</a> (anglicky)
+</li><li><a href="https://www.youtube.com/watch?v=7qaBKueySg0">Video „awk command | Powerful Text Manipulation Tool“</a> (anglicky)
+</li><li><a href="https://www.youtube.com/watch?v=7p-P0mMzc1E">Video: UNIX – awk explained</a> (anglicky)
+</li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/common/awk.md">TL;DR stránka</a> (anglicky)
+</li></ul>
+<h2 id="cast10"><a href="#cast10"><span class="cislo">10.</span> Pomocné funkce a skripty</a></h2>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2cc1d75"><span><a href="#zx2cc1d75">@</a></span></span>lkk retence – načte celý standardní vstup do paměti a po uzavření vstupu jej vypíše na výstup<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">#!/bin/bash</div>
+<div class="radekzaklinadla">exec gawk -b -e 'BEGIN {RS = FS = &quot;^$&quot;; ORS = &quot;&quot;;} {print}'</div>
+</div></div>
+
+<h2 id="cast11"><a href="#cast11"><span class="cislo">11.</span> Zákulisí kapitoly</a></h2>
+<p class="ponadpisu">
+V této verzi kapitoly chybí:
+</p>
+<ul class="kompaktni"><li>nic
+</li></ul><p class="ponadpisu">
+Tato kapitola záměrně nepokrývá:
+</p>
+<ul class="kompaktni"><li>nic
+</li></ul><div class="ppc"><div id="kapx5e4c8dfppc1"><a href="#kapx5e4c8dfppcr1" class="cislopozn">1</a>&nbsp;Pozor: zvláštní průchod END se vykoná i tehdy, je-li skript ukončován příkazem „exit“!</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc2"><a href="#kapx5e4c8dfppcr2" class="cislopozn">2</a>&nbsp;Pozor: zvláštní průchod ENDFILE se nevykoná, pokud je zpracování souboru předčasně ukončeno, např. příkazem „nextfile“ či „exit“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc3"><a href="#kapx5e4c8dfppcr3" class="cislopozn">3</a>&nbsp;Tato funkce je nejužitečnější u parametrů funkcí; díky ní může funkce ověřit, že jí v určitém parametru bylo předáno pole, nebo naopak skalární hodnota.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc4"><a href="#kapx5e4c8dfppcr4" class="cislopozn">4</a>&nbsp;Při řazení uživatelskou funkcí musíte zadat funkci, která přijme parametry „klíč-L“, „hodnota-L“, „klíč-R“ a „hodnota-R“ v tomto pořadí a vrátí záporné číslo, je-li L-strana menší než R-strana; kladné číslo, je-li větší; a nulu, jsou-li si obě strany rovny.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc5"><a href="#kapx5e4c8dfppcr5" class="cislopozn">5</a>&nbsp;Poznámka: cyklus přiřazuje proměnné hodnoty INDEXŮ daného pole v LIBOVOLNÉM pořadí! Pro přístup k hodnotám v poli je musíte indexovat.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc6"><a href="#kapx5e4c8dfppcr6" class="cislopozn">6</a>&nbsp;Přepínač switch pracuje v gawk stejně jako v jazyce C, ovšem pracuje s řetězci místo celých čísel.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc7"><a href="#kapx5e4c8dfppcr7" class="cislopozn">7</a>&nbsp;Poznámka: tento příkaz přeskočí odpovídající průchod ENDFILE!</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc8"><a href="#kapx5e4c8dfppcr8" class="cislopozn">8</a>&nbsp;Je-li uvedena hodnota „kolik-přeskočit“, před načtením sloupce se přeskočí daný počet znaků. Výhradně u posledního sloupce můžete místo počtu znaků zadat „*“; v takovém případě se do daného sloupce uloží všechny zbylé znaky.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc9"><a href="#kapx5e4c8dfppcr9" class="cislopozn">9</a>&nbsp;Do obou uvedených proměnných můžete také přiřadit novou hodnotu, a změnit tak číslování řádku pro zbytek souboru (resp. veškerého vstupu)</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc10"><a href="#kapx5e4c8dfppcr10" class="cislopozn">10</a>&nbsp;Nelze použít v blocích BEGIN a END.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc11"><a href="#kapx5e4c8dfppcr11" class="cislopozn">11</a>&nbsp;Počet sloupců lze i nastavit.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc12"><a href="#kapx5e4c8dfppcr12" class="cislopozn">12</a>&nbsp;Výchozí hodnota je „ “ (mezera); může být přednastaven také parametrem příkazové řádky „-F“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc13"><a href="#kapx5e4c8dfppcr13" class="cislopozn">13</a>&nbsp;Výchozí hodnotou je konec řádku „\n“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc14"><a href="#kapx5e4c8dfppcr14" class="cislopozn">14</a>&nbsp;Poznámka: vrací-li 0, stejně má být čten standardní vstup.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc15"><a href="#kapx5e4c8dfppcr15" class="cislopozn">15</a>&nbsp;Znak # není interpretován jako začátek komentáře uvnitř řetězců ani literálů regulárních výrazů.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc16"><a href="#kapx5e4c8dfppcr16" class="cislopozn">16</a>&nbsp;Příkaz print zapíše na výstup svoje parametry, oddělené obsahem proměnné „OFS“ (výchozí hodnotou je &quot;<span class="viditelnamezera">&nbsp;</span>&quot;), a za poslední parametr přidá navíc hodnotu proměnné „ORS“ (výchozí hodnota je &quot;\n&quot;).</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc17"><a href="#kapx5e4c8dfppcr17" class="cislopozn">17</a>&nbsp;Funkce printf() funguje stejně jako v jazyce C, až na to, že parametr %c dokáže vypisovat UTF-8 znaky v rozsahu 0 až cca 55000 (ale např. místo znaku č. 55339 vypíše „+“). </div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc18"><a href="#kapx5e4c8dfppcr18" class="cislopozn">18</a>&nbsp;Tato varianta funkce „close()“ vrací 0 v případě úspěchu, jiná hodnota značí chybu.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc19"><a href="#kapx5e4c8dfppcr19" class="cislopozn">19</a>&nbsp;Funkce „close()“ počká na skončení příkazu a vrátí jeho návratovou hodnotu.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc20"><a href="#kapx5e4c8dfppcr20" class="cislopozn">20</a>&nbsp;Odkazovaný příkaz se spustí v interpretu /bin/sh a svoje vstupy a výstupy zdědí od instance GNU awk, kterou byl spuštěn, pokud je výslovně nepřesměrujete.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc21"><a href="#kapx5e4c8dfppcr21" class="cislopozn">21</a>&nbsp;Poznámka: po použití této konstrukce pravděpodobně budete muset obnovit hodnoty proměnných RS, $0, RT, NR a FNR.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc22"><a href="#kapx5e4c8dfppcr22" class="cislopozn">22</a>&nbsp;Po uzavření vstupu koprocesu můžete pouze číst z jeho výstupu. Pokus o další zápis před úplným ukončením koprocesu je fatální chyba.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc23"><a href="#kapx5e4c8dfppcr23" class="cislopozn">23</a>&nbsp;Funkce close() v tomto případě vrátí návratovou hodnotu koprocesu vynásobenou 256.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc24"><a href="#kapx5e4c8dfppcr24" class="cislopozn">24</a>&nbsp;Nebyla-li shoda s regulárním výrazem nalezena, funkce match() vrací 0; jinak nastaví proměnné RSTART a RLENGTH na pozici a délku nalezeného podřetězce a vrátí hodnotu RSTART. Vždy vybírá nejlevější a nejdelší shodu.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc25"><a href="#kapx5e4c8dfppcr25" class="cislopozn">25</a>&nbsp;Funkce „patsplit()“ vyhledá všechny shody řetězce s regulárním výrazem a vrátí jejich počet (N). Předané pole pak smaže a naplní těmito shodami. Zadáte-li i pole pro oddělovače, pak ho tato funkce vyplní podřetězci, které zbyly mezi jednotlivými shodami, přičemž řetězec před první shodou bude umístěn na indexu 0 a řetězec za poslední shodou na indexu N.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc26"><a href="#kapx5e4c8dfppcr26" class="cislopozn">26</a>&nbsp;Vrátí 0, nebyl-li podřetězec nalezen; jinak vrátí pozici podřetězce (číslovanou od 1).</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc27"><a href="#kapx5e4c8dfppcr27" class="cislopozn">27</a>&nbsp;V gawk tyto funkce rozpoznávají znaky národní abecedy (pravděpodobně podle „locale“), v mawk účinkují pouze na ASCII znaky.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc28"><a href="#kapx5e4c8dfppcr28" class="cislopozn">28</a>&nbsp;Vhodné jen pro maxima do 16 777 215. Pro vyšší maximum bude množina vrácených hodnot pravidelně přerušovaná, což pro některé druhy využití nemusí vadit. Správným řešením je bitová kombinace více volání funkce „rand()“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc29"><a href="#kapx5e4c8dfppcr29" class="cislopozn">29</a>&nbsp;Bez parametru „1“ vypíše lokální čas, s ním vypíše UTC. Pro „formát“ – viz kapitolu „Datum, čas a kalendář“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc30"><a href="#kapx5e4c8dfppcr30" class="cislopozn">30</a>&nbsp;Direktiva „@namespace“ musí být použita na úrovni souboru (tj. mimo jakýkoliv blok) a platí do nejbližší další direktivy @namespace nebo do konce souboru. Účinkuje pouze v souboru, ve kterém je uvedena. Je-li vložen nebo připojen kód z jiného souboru (např. direktivou „@include“), ten má svoje vlastní řízení jmenného prostoru a začíná vždy globálním jmenným prostorem „awk“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx5e4c8dfppc31"><a href="#kapx5e4c8dfppcr31" class="cislopozn">31</a>&nbsp;Aktuální jmenný prostor nemá vliv na interpretaci identifkátorů ve vkládaném souboru! Na jeho počátku bude platit jmenný prostor „awk“, dokud nebude změněn direktivou „@namespace“.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+</div>
+
+
+<nav class="spodni">
+<a href="index.htm" class="naindex">🗐&nbsp;Přehled&nbsp;kapitol</a>
+<div class="naslkap">
+<a href="bash.htm" rel="next" title="4. Bash">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">4</span>
+<span class="nazev">Bash</span></a>
+</div>
+<!--<div><a href="index.htm">🗐&nbsp;Přehled&nbsp;kapitol</a></div>-->
+</nav>
+
+
+<div class="odkazydole"><div><a href="terminal.htm"><img src="obrazky/ik/terminal.png" alt="" width="32" height="32">Terminál</a><a href="nabidka-aplikaci.htm"><img src="obrazky/ik/nabidka-aplikaci.png" alt="" width="32" height="32">Nabídka aplikací</a><a href="zpracovani-binarnich-souboru.htm"><img src="obrazky/ik/zpracovani-binarnich-souboru.png" alt="" width="32" height="32">Zpracování binárních souborů</a></div></div>
+
+</article>
+<!-- *** -->
+<footer id="dole">
+<img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
+<p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
+<a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
+Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
+či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
+na stránce „<a href="x-autori.htm">Přehled autorů</a>“.
+Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
+licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
+Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód
+a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
+<a href="https://github.com/singularis-mzf/linux-spellbook">repozitář na GitHubu</a>.
+</footer>
+</div>
+
+<nav class="menu">
+<!-- MENU OSNOVA -->
+<a href="#menuosnova" id="menuosnova"><span class="prvnipismeno">O</span>snova</a>
+<aside class="menuosnova">
+<div><div class="nadpis">Osnova</div><div class="polozky">
+<a href="#cast1" class="sekce">1 Úvod</a>
+<a href="#cast2" class="sekce">2 Definice</a>
+<a href="#cast3" class="sekce">3 Zaklínadla: Hlavní</a>
+<a href="#cast3x1" class="podsekce">/1 Vzorky a bloky příkazů</a>
+<a href="#cast3x2" class="podsekce">/2 Skalární proměnné</a>
+<a href="#cast3x3" class="podsekce">/3 Asociativní pole</a>
+<a href="#cast3x4" class="podsekce">/4 Asociativní pole: řazení</a>
+<a href="#cast3x5" class="podsekce">/5 Podmínky, cykly a přepínač</a>
+<a href="#cast3x6" class="podsekce">/6 Řízení toku</a>
+<a href="#cast3x7" class="podsekce">/7 Dělení záznamů na sloupce</a>
+<a href="#cast3x8" class="podsekce">/8 Speciální proměnné</a>
+<a href="#cast3x9" class="podsekce">/9 Ostatní</a>
+<a href="#cast4" class="sekce">4 Zaklínadla: Výstup, vstup a interakce s bashem</a>
+<a href="#cast4x1" class="podsekce">/1 Příkazy výstupu</a>
+<a href="#cast4x2" class="podsekce">/2 Uzavření vstupu/výstupu</a>
+<a href="#cast4x3" class="podsekce">/3 Bash</a>
+<a href="#cast4x4" class="podsekce">/4 Přesměrování výstupu</a>
+<a href="#cast4x5" class="podsekce">/5 Přesměrování vstupu</a>
+<a href="#cast4x6" class="podsekce">/6 Koprocesy</a>
+<a href="#cast4x7" class="podsekce">/7 Informace o procesu AWK</a>
+<a href="#cast5" class="sekce">5 Zaklínadla: Funkce</a>
+<a href="#cast5x1" class="podsekce">/1 Uživatelské funkce</a>
+<a href="#cast5x2" class="podsekce">/2 Řetězcové funkce (regulární výrazy)</a>
+<a href="#cast5x3" class="podsekce">/3 Řetězcové funkce (základní)</a>
+<a href="#cast5x4" class="podsekce">/4 Konverze číselných soustav</a>
+<a href="#cast5x5" class="podsekce">/5 Číselné funkce</a>
+<a href="#cast5x6" class="podsekce">/6 Práce s časem</a>
+<a href="#cast5x7" class="podsekce">/7 Pokročilé konstrukce</a>
+<a href="#cast6" class="sekce">6 Parametry příkazů</a>
+<a href="#cast7" class="sekce">7 Instalace na Ubuntu</a>
+<a href="#cast8" class="sekce">8 Tipy a zkušenosti</a>
+<a href="#cast9" class="sekce">9 Další zdroje informací</a>
+<a href="#cast10" class="sekce">10 Pomocné funkce a skripty</a>
+<a href="#cast11" class="sekce">11 Zákulisí kapitoly</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU KAPITOLY -->
+<a href="#menukapitoly" id="menukapitoly"><span class="prvnipismeno">K</span>apitoly</a>
+<aside class="menukapitoly">
+<div><div class="nadpis">Kapitoly</div><div class="polozky">
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/predmluva.png" alt="[]"></span><span class="fragodkazy"><a href="predmluva.htm" class="odkaz"><span><span class="cislo">1</span>Předmluva</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zakladni-znalosti.png" alt="[]"></span><span class="fragodkazy"><a href="zakladni-znalosti.htm" class="odkaz"><span><span class="cislo">2</span>Základní znalosti</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/awk.png" alt="[]"></span><span class="fragodkazy"><a href="awk.htm" class="odkaz"><span><span class="cislo">3</span>AWK</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/bash.png" alt="[]"></span><span class="fragodkazy"><a href="bash.htm" class="odkaz"><span><span class="cislo">4</span>Bash</span></a><span class="podkpodkazy"><a href="bash-funkce-a-skripty.htm" class="odkaz"><span><span class="cislo">4.1</span>Funkce a skripty</span></a><a href="bash-interaktivni-rezim.htm" class="odkaz"><span><span class="cislo">4.2</span>Interaktivní režim</span></a><a href="bash-vstup-vystup.htm" class="odkaz"><span><span class="cislo">4.3</span>Vstup, výstup a přesměrování</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/datum-cas-kalendar.png" alt="[]"></span><span class="fragodkazy"><a href="datum-cas-kalendar.htm" class="odkaz"><span><span class="cislo">5</span>Datum, čas a kalendář</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/diskove-oddily.png" alt="[]"></span><span class="fragodkazy"><a href="diskove-oddily.htm" class="odkaz"><span><span class="cislo">6</span>Diskové oddíly</span></a><span class="podkpodkazy"><a href="diskove-oddily-btrfs.htm" class="odkaz"><span><span class="cislo">6.1</span>Btrfs</span></a><a href="diskove-oddily-lvm.htm" class="odkaz"><span><span class="cislo">6.2</span>LVM</span></a><a href="diskove-oddily-softwarovy-raid.htm" class="odkaz"><span><span class="cislo">6.3</span>Softwarový RAID</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/git.png" alt="[]"></span><span class="fragodkazy"><a href="git.htm" class="odkaz"><span><span class="cislo">7</span>Git</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/hledani-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="hledani-souboru.htm" class="odkaz"><span><span class="cislo">8</span>Hledání souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/make.png" alt="[]"></span><span class="fragodkazy"><a href="make.htm" class="odkaz"><span><span class="cislo">9</span>Make</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/manualove-stranky.png" alt="[]"></span><span class="fragodkazy"><a href="manualove-stranky.htm" class="odkaz"><span><span class="cislo">10</span>Manuálové stránky</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/markdown.png" alt="[]"></span><span class="fragodkazy"><a href="markdown.htm" class="odkaz"><span><span class="cislo">11</span>Markdown</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/metaprikazy.png" alt="[]"></span><span class="fragodkazy"><a href="metaprikazy.htm" class="odkaz"><span><span class="cislo">12</span>Metapříkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/nabidka-aplikaci.png" alt="[]"></span><span class="fragodkazy"><a href="nabidka-aplikaci.htm" class="odkaz"><span><span class="cislo">13</span>Nabídka aplikací</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/odkazy.png" alt="[]"></span><span class="fragodkazy"><a href="odkazy.htm" class="odkaz"><span><span class="cislo">14</span>Pevné a symbolické odkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-moduly.png" alt="[]"></span><span class="fragodkazy"><a href="perl-moduly.htm" class="odkaz"><span><span class="cislo">15</span>Perl: moduly a objekty</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-zaklady.png" alt="[]"></span><span class="fragodkazy"><a href="perl-zaklady.htm" class="odkaz"><span><span class="cislo">16</span>Perl: základy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="fragodkazy"><a href="prace-s-archivy.htm" class="odkaz"><span><span class="cislo">17</span>Práce s archivy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prohlizeni-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="prohlizeni-textovych-souboru.htm" class="odkaz"><span><span class="cislo">18</span>Prohlížení textových souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/promenne.png" alt="[]"></span><span class="fragodkazy"><a href="promenne.htm" class="odkaz"><span><span class="cislo">19</span>Proměnné prostředí a interpretu</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="fragodkazy"><a href="regularni-vyrazy.htm" class="odkaz"><span><span class="cislo">20</span>Regulární výrazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sed.png" alt="[]"></span><span class="fragodkazy"><a href="sed.htm" class="odkaz"><span><span class="cislo">21</span>Sed</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/soubory-a-adresare.png" alt="[]"></span><span class="fragodkazy"><a href="soubory-a-adresare.htm" class="odkaz"><span><span class="cislo">22</span>Soubory a adresáře</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-balicku.htm" class="odkaz"><span><span class="cislo">23</span>Správa balíčků</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-procesu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-procesu.htm" class="odkaz"><span><span class="cislo">24</span>Správa procesů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-uzivatelskych-uctu.htm" class="odkaz"><span><span class="cislo">25</span>Správa uživatelských účtů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="fragodkazy"><a href="system.htm" class="odkaz"><span><span class="cislo">26</span>Systém</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/terminal.png" alt="[]"></span><span class="fragodkazy"><a href="terminal.htm" class="odkaz"><span><span class="cislo">27</span>Terminál</span></a><span class="podkpodkazy"><a href="terminal-emodzi.htm" class="odkaz"><span><span class="cislo">27.1</span>Emodži</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/vim.png" alt="[]"></span><span class="fragodkazy"><a href="vim.htm" class="odkaz"><span><span class="cislo">28</span>Vim</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-binarnich-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-binarnich-souboru.htm" class="odkaz"><span><span class="cislo">29</span>Zpracování binárních souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-textovych-souboru.htm" class="odkaz"><span><span class="cislo">30</span>Zpracování textových souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-videa-a-zvuku.htm" class="odkaz"><span><span class="cislo">31</span>Zpracování videa a zvuku</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="fragodkazy"><a href="licence.htm" class="odkaz"><span><span class="cislo">32</span>Licence</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/rejstrik.png" alt="[]"></span><span class="fragodkazy"><a href="rejstrik.htm" class="odkaz"><span><span class="cislo">33</span>Rejstřík podle klasických příkazů</span></a></span></div>
+</div></div>
+<a href="#zavritmenu" id="zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU ŠTÍTKY -->
+<a href="#menustitky" id="menustitky"><span class="prvnipismeno">Š</span>títky</a>
+<aside class="menustitky">
+<div><div class="nadpis">Štítky</div><div class="polozky">
+<a href="x-stitky.htm#x5208bbb">adresáře&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#xb0a5782">aplikace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x583f72a">apt&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa619ea3">automatizace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xb2b2bff">bajty&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5c1d5fa">barvy&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xd574d4b">bash&nbsp;&nbsp;(9)</a>
+<a href="x-stitky.htm#xedb0c6c">čas&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x8d777f3">data&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xcd6caf8">démoni&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x38864cc">dokumentace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5aee9db">editor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x905aee4">emodži&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xb05338c">Flatpak&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x1e3042b">GUI&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x891be82">hešovací funkce&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x4e36c04">hledání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c8789a">klávesnice&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x7aeae24">kódování&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa473827">komprese&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x79108ba">LVM&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x2d47ed4">odkládací prostor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xd8dfe69">ovládání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x0114ad0">Perl&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x84913e6">procesy&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa9c449d">program&nbsp;&nbsp;(11)</a>
+<a href="x-stitky.htm#xc65388d">programování&nbsp;&nbsp;(5)</a>
+<a href="x-stitky.htm#x43a526a">přístupová práva&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#xcf91513">RAID&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5c5f44a">ramdisk&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9ad09a9">Snap&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x23be896">soubory&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x12e55d8">správa verzí&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9dcbb0b">syntaxe&nbsp;&nbsp;(7)</a>
+<a href="x-stitky.htm#xba98a3b">systém&nbsp;&nbsp;(9)</a>
+<a href="x-stitky.htm#x3972255">systém souborů&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c01147">tematický okruh&nbsp;&nbsp;(22)</a>
+<a href="x-stitky.htm#xf54f028">textové soubory&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x7f6c02d">Unicode&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x421b47f">video&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xadcdbd7">zip&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x908961b">zpracování textu&nbsp;&nbsp;(5)</a>
+<a href="x-stitky.htm#x04b5cff">zvuk&nbsp;&nbsp;(1)</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU NÁPOVĚDA -->
+<a href="#menunapoveda" id="menunapoveda"><span class="prvnipismeno">N</span>ápověda</a>
+<aside class="menunapoveda">
+<div><div class="nadpis">Nápověda</div><div class="polozky">
+<a href="predmluva.htm">Předmluva</a>
+<a href="https://singularis-mzf.github.io/">Ostatní verze knihy</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook">Repozitář na GitHubu</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook/blob/stabiln%C3%AD/dokumentace/odm%C4%9Bna-za-sestaven%C3%AD.md">Odměna za sestavení (prémiové kapitoly)</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+</nav>
+
+<a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
+<a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
+
+</div>
+</body>
+</html>

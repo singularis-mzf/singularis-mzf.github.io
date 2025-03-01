@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="cs">
+<head profile="http://www.w3.org/2005/10/profile">
+<meta charset="UTF-8">
+
+<title>Terminál / Emodži − Linux: Kniha kouzel</title>
+<meta name="viewport" content="width=1000, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="lkk-20250301.css">
+<link rel="icon" type="image/png" href="obrazky/favicon.png">
+</head>
+<body>
+<div id="nahore"><div id="okno">
+<header>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, 2.15 (1. března 2025)</span>
+<span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
+</header>
+<nav class="menuokna">
+<a href="#menuosnova" class="menu"><span class="prvnipismeno">O</span>snova</a>
+<a href="#menukapitoly" class="menu"><span class="prvnipismeno">K</span>apitoly</a>
+<a href="#menustitky" class="menu"><span class="prvnipismeno">Š</span>títky</a>
+<a href="#menunapoveda" class="menu"><span class="prvnipismeno">N</span>ápověda</a>
+<a href="terminal.htm" rel="prev" title="27. Terminál" accesskey="p" class="predchozi">Předchozí&nbsp;kapitola</a>
+<a href="index.htm" class="prehled"><span class="prvnipismeno">P</span>řehled kapitol</a>
+<a href="vim.htm" rel="next" title="28. Vim" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
+</nav>
+
+<div class="slogan-veskera-moc">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+
+<!--
+<nav class="horni">
+<div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+<span class="prev">
+<a href="terminal.htm" rel="prev" title="27. Terminál" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+</span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!- -
+- ->&nbsp;| <a href="vim.htm" rel="next" title="28. Vim" accesskey="n">Následující&nbsp;kapitola</a>
+</span>
+</nav>
+-->
+
+
+<article>
+
+<h1 class="kapitola">27.1. <img src="obrazky/ik/terminal.png" alt="" width="64" height="64"> <a href="terminal.htm">Terminál</a> / Emodži</h1>
+<div class="varovani">
+Vývoj vanilkové příchuti Linuxu: Knihy kouzel byl 1.&nbsp;března&nbsp;2025
+ukončen. Tento text je zachován jako historický, ale chyby již nejsou
+opravovány. Odnože projektu pod kompatibilní licencí jsou vítány.
+</div>
+<div class="stitky"><a href="x-stitky.htm#">emodži</a>
+<a href="x-stitky.htm#">Unicode</a>
+</div>
+<h2 id="cast1"><a href="#cast1"><span class="cislo">1.</span> Úvod</a></h2>
+<p class="ponadpisu">
+Tato podkapitola pokrývá práci s emodži (obrázkovými znaky vyjadřujícími
+smajlíky či ideogramy).
+</p>
+
+<h2 id="cast2"><a href="#cast2"><span class="cislo">2.</span> Definice</a></h2>
+<ul><li><b>Emodži</b> je znak kódování Unicode, který je obvykle reprezentován vícebarevným obrázkem se symbolickým významem.
+</li></ul>
+<h2 id="cast3" class="zaklinadla"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla</a></h2>
+
+<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 34 (Terminál/Emodži), sekce 3 (Zaklínadla), podsekce 1 (Elektronika)"><sup>3/</sup>1 Elektronika</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb4ae718"><span><a href="#zxb4ae718">@</a></span></span>disketa (symbol „uložit“)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f4be<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx55a2c72"><span><a href="#zx55a2c72">@</a></span></span>optický disk (stříbrný/zlatý)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f4bf<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f4c0<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx830ad36"><span><a href="#zx830ad36">@</a></span></span>fotoaparát<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f4f7<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx960000e"><span><a href="#zx960000e">@</a></span></span>videokamera<span class="cislo">#4 </span><sup><a href="#kapx4f37176ppc1" id="kapx4f37176ppcr1" title="Vyžaduje světlé pozadí.">(1)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f3a5<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8d160bd"><span><a href="#zx8d160bd">@</a></span></span>budík<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U000023f0<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1f14166"><span><a href="#zx1f14166">@</a></span></span>satelitní anténa<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f4e1<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0819a96"><span><a href="#zx0819a96">@</a></span></span>žárovka<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f4a1<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+
+<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 34 (Terminál/Emodži), sekce 3 (Zaklínadla), podsekce 2 (Zvířata)"><sup>3/</sup>2 Zvířata</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx90a47e7"><span><a href="#zx90a47e7">@</a></span></span>králík (tvář)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f430<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1c7cfe9"><span><a href="#zx1c7cfe9">@</a></span></span>prase (tvář)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f437<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd36fd29"><span><a href="#zxd36fd29">@</a></span></span>žába (tvář)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f438<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0429ea0"><span><a href="#zx0429ea0">@</a></span></span>tučňák<span class="cislo">#4 </span><sup><a href="#kapx4f37176ppc2" id="kapx4f37176ppcr2" title="Vhodný spíše na světlé pozadí.">(2)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f427<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0453fa6"><span><a href="#zx0453fa6">@</a></span></span>pták<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f426<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6600a18"><span><a href="#zx6600a18">@</a></span></span>kuře<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f424<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd9fb200"><span><a href="#zxd9fb200">@</a></span></span>kůň/jednorožec<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f434<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f984<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5e0b39a"><span><a href="#zx5e0b39a">@</a></span></span>slon<span class="cislo">#8 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f418<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7f0b16b"><span><a href="#zx7f0b16b">@</a></span></span>myš<span class="cislo">#9 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f401<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa63802c"><span><a href="#zxa63802c">@</a></span></span>nosorožec<span class="cislo">#10 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f98f<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+
+<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 34 (Terminál/Emodži), sekce 3 (Zaklínadla), podsekce 3 (Rostliny (včetně květin) a houby)"><sup>3/</sup>3 Rostliny (včetně květin) a houby</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1b62e7c"><span><a href="#zx1b62e7c">@</a></span></span>kaktus<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f335<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf0f8796"><span><a href="#zxf0f8796">@</a></span></span>vánoční stromeček<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f384<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0322437"><span><a href="#zx0322437">@</a></span></span>strom (jehličnatý/listnatý/palma)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f332<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f334<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd558523"><span><a href="#zxd558523">@</a></span></span>slunečnice<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f33b<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe156b4c"><span><a href="#zxe156b4c">@</a></span></span>tulipán<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f337<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx22b0eed"><span><a href="#zx22b0eed">@</a></span></span>heřmánek (květ)<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f33c<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfa774b4"><span><a href="#zxfa774b4">@</a></span></span>muchomůrka<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f344<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx69f1547"><span><a href="#zx69f1547">@</a></span></span>vykotlaná dýně na Halloween<span class="cislo">#8 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f383<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+
+<h3 id="cast3x4"><span><a href="#cast3x4" title="kapitola 34 (Terminál/Emodži), sekce 3 (Zaklínadla), podsekce 4 (Ovoce a zelenina, plody)"><sup>3/</sup>4 Ovoce a zelenina, plody</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6ed7ed7"><span><a href="#zx6ed7ed7">@</a></span></span>jablko (červené/zelené)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f34e<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f34f<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd294520"><span><a href="#zxd294520">@</a></span></span>třešně<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f352<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa6f6a26"><span><a href="#zxa6f6a26">@</a></span></span>jahoda<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f353<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx778df86"><span><a href="#zx778df86">@</a></span></span>rajče<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f345<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa22ee13"><span><a href="#zxa22ee13">@</a></span></span>banán<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f34c<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx49a318f"><span><a href="#zx49a318f">@</a></span></span>pomeranč<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f34a<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxef79652"><span><a href="#zxef79652">@</a></span></span>citrón<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f34b<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd68866d"><span><a href="#zxd68866d">@</a></span></span>hruška<span class="cislo">#8 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f350<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx51bba50"><span><a href="#zx51bba50">@</a></span></span>broskev<span class="cislo">#9 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f351<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxd49f2f5"><span><a href="#zxd49f2f5">@</a></span></span>ananas<span class="cislo">#10 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f34d<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1079c76"><span><a href="#zx1079c76">@</a></span></span>meloun (rozkrojený/malý)<span class="cislo">#11 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f349<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f348<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1c9b61d"><span><a href="#zx1c9b61d">@</a></span></span>hroznové víno (tmavé)<span class="cislo">#12 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f347<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb3bf2d6"><span><a href="#zxb3bf2d6">@</a></span></span>kukuřice<span class="cislo">#13 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f33d<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9b69e86"><span><a href="#zx9b69e86">@</a></span></span>kaštan<span class="cislo">#14 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f330<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7d0b69b"><span><a href="#zx7d0b69b">@</a></span></span>lilek<span class="cislo">#15 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f346<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxac34fc7"><span><a href="#zxac34fc7">@</a></span></span>feferonka (pálivá paprika)<span class="cislo">#16 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f336<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx501b297"><span><a href="#zx501b297">@</a></span></span>mrkev<span class="cislo">#17 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f955<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxadc3a40"><span><a href="#zxadc3a40">@</a></span></span>brambora<span class="cislo">#18 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f954<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8ab9d18"><span><a href="#zx8ab9d18">@</a></span></span>avokádo<span class="cislo">#19 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f951<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+
+<h3 id="cast3x5"><span><a href="#cast3x5" title="kapitola 34 (Terminál/Emodži), sekce 3 (Zaklínadla), podsekce 5 (Znamení zvěrokruhu)"><sup>3/</sup>5 Znamení zvěrokruhu</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe04ef2a"><span><a href="#zxe04ef2a">@</a></span></span>všechna (<b>vzorník</b>)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">printf $'\u2648\u2649\u264a\u264b\u264c\u264d\u264e\u264f\u2650\u2651\u2652\u2653\n'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxbb85237"><span><a href="#zxbb85237">@</a></span></span>beran<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\u2648<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb5f13e4"><span><a href="#zxb5f13e4">@</a></span></span>býk<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\u2649<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx257785e"><span><a href="#zx257785e">@</a></span></span>blíženci<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\u264a<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxad165f7"><span><a href="#zxad165f7">@</a></span></span>rak<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\u264b<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf3e471f"><span><a href="#zxf3e471f">@</a></span></span>lev<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\u264c<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx061dfc9"><span><a href="#zx061dfc9">@</a></span></span>panna<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\u264d<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx97967f4"><span><a href="#zx97967f4">@</a></span></span>váhy<span class="cislo">#8 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\u264e<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxcc29238"><span><a href="#zxcc29238">@</a></span></span>štír<span class="cislo">#9 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\u264f<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4ed6e20"><span><a href="#zx4ed6e20">@</a></span></span>střelec<span class="cislo">#10 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\u2650<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3e65c65"><span><a href="#zx3e65c65">@</a></span></span>kozoroh<span class="cislo">#11 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\u2651<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx405c9c1"><span><a href="#zx405c9c1">@</a></span></span>vodnář<span class="cislo">#12 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\u2652<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7209cf9"><span><a href="#zx7209cf9">@</a></span></span>ryby<span class="cislo">#13 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\u2653<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+
+<h3 id="cast3x6"><span><a href="#cast3x6" title="kapitola 34 (Terminál/Emodži), sekce 3 (Zaklínadla), podsekce 6 (Smajíci (tvářičky))"><sup>3/</sup>6 Smajíci (tvářičky)</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2e8461f"><span><a href="#zx2e8461f">@</a></span></span>úsměv (otevřená/zavřená ústa/zavřená ústa, tvář vzhůru nohama)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f600<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f642<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f643<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx34968d0"><span><a href="#zx34968d0">@</a></span></span>úsměv, sluneční brýle<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f60e<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx5cabb36"><span><a href="#zx5cabb36">@</a></span></span>červená tvář (hněv)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f621<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxead5873"><span><a href="#zxead5873">@</a></span></span>vyděšená tvář<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f631<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxea80f6d"><span><a href="#zxea80f6d">@</a></span></span>tvář s rouškou<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f637<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx58fcccc"><span><a href="#zx58fcccc">@</a></span></span>lebka<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f480<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe49f94f"><span><a href="#zxe49f94f">@</a></span></span>mimozemšťan<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f47d<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+
+<h3 id="cast3x7"><span><a href="#cast3x7" title="kapitola 34 (Terminál/Emodži), sekce 3 (Zaklínadla), podsekce 7 (Počasí a obloha)"><sup>3/</sup>7 Počasí a obloha</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe3ab961"><span><a href="#zxe3ab961">@</a></span></span>duha<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f308<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb5e4917"><span><a href="#zxb5e4917">@</a></span></span>měsíc (úplněk/nov)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f315<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f311<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1bdc912"><span><a href="#zx1bdc912">@</a></span></span>měsíc couvající (fáze 1/2/3)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f316<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f317<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f318<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4512f21"><span><a href="#zx4512f21">@</a></span></span>měsíc dorůstající (fáze 1/2/3)<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f312<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f313<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f314<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1ea434a"><span><a href="#zx1ea434a">@</a></span></span>blesk (symbol vysokého napětí)<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U000026a1<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+
+<h3 id="cast3x8"><span><a href="#cast3x8" title="kapitola 34 (Terminál/Emodži), sekce 3 (Zaklínadla), podsekce 8 (Symboly)"><sup>3/</sup>8 Symboly</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx54c8f19"><span><a href="#zx54c8f19">@</a></span></span>symbol spánku<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f4a4<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4fb40c3"><span><a href="#zx4fb40c3">@</a></span></span>symbol polibku<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f48b<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx08c480f"><span><a href="#zx08c480f">@</a></span></span>symbol řetězu (symbolický odkaz?)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f517<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx32ca3b7"><span><a href="#zx32ca3b7">@</a></span></span>symbol „poznámky“<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f4dd<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxcefc6ea"><span><a href="#zxcefc6ea">@</a></span></span>symbol srdce (červený/fialový/modrý/zelený/žlutý)<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f49c<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f499<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f49a<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f49b<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7abb22f"><span><a href="#zx7abb22f">@</a></span></span>symbol WC<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f6be<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1fd0479"><span><a href="#zx1fd0479">@</a></span></span>symbol zvonku<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f514<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+
+<h3 id="cast3x9"><span><a href="#cast3x9" title="kapitola 34 (Terminál/Emodži), sekce 3 (Zaklínadla), podsekce 9 (Části těla)"><sup>3/</sup>9 Části těla</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4034f48"><span><a href="#zx4034f48">@</a></span></span>oči<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f440<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx483ab2f"><span><a href="#zx483ab2f">@</a></span></span>palec nahoru/dolů<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f44d<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f44e<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+
+<h3 id="cast3x10"><span><a href="#cast3x10" title="kapitola 34 (Terminál/Emodži), sekce 3 (Zaklínadla), podsekce 10 (Ostatní)"><sup>3/</sup>10 Ostatní</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb17a772"><span><a href="#zxb17a772">@</a></span></span>lupa (vlevo/vpravo)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f50d<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f50e<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7f8c211"><span><a href="#zx7f8c211">@</a></span></span>složka (otevřená/zavřená)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f4c2<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f4c1<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx96b8131"><span><a href="#zx96b8131">@</a></span></span>balíček<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f4e6<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3ca01a7"><span><a href="#zx3ca01a7">@</a></span></span>kniha (zelená/modrá/oranžová/nedefinované barvy)<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f4d7<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f4d8<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f4d9<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f4d3<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx47dfaec"><span><a href="#zx47dfaec">@</a></span></span>zámek (zamykací)<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f512<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx89b445a"><span><a href="#zx89b445a">@</a></span></span>hvězda (žlutá)<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0002b50<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx4b060ea"><span><a href="#zx4b060ea">@</a></span></span>přesýpací hodiny (běžící/stojící)<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U000023f3<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0000231b<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3f2e631"><span><a href="#zx3f2e631">@</a></span></span>odpadkový koš<span class="cislo">#8 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f5d1<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx1f97990"><span><a href="#zx1f97990">@</a></span></span>klíč<span class="cislo">#9 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f511<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8ed18e6"><span><a href="#zx8ed18e6">@</a></span></span>drahokam<span class="cislo">#10 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U0001f48e<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx05c70dd"><span><a href="#zx05c70dd">@</a></span></span><b>zákaz</b> (zákaz vjezdu do jednosměrné ulice)<span class="cislo">#11 </span></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>printf<span class="volznak">]</span> $'\U00026d4<span class="volznak">[</span>\u200b<span class="volznak">]</span>'</div>
+</div></div>
+
+<h2 id="cast4"><a href="#cast4"><span class="cislo">4.</span> Instalace na Ubuntu</a></h2>
+<p class="ponadpisu">
+Aby emodži v terminálu vypadaly dobře, musíte nainstalovat jedno
+z emodži-písem, jinak se zobrazí nevzhledně a černobíle:
+</p>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6aa4252"><span><a href="#zx6aa4252">@</a></span></span>(alternativy)<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">sudo apt-get install fonts-noto-color-emoji</div>
+<div class="radekzaklinadla">sudo apt-get install fonts-emojione</div>
+</div></div>
+
+<h2 id="cast5"><a href="#cast5"><span class="cislo">5.</span> Tipy a zkušenosti</a></h2>
+<ul><li>Nedoporučuji používat emodži ve výzvách PS1 a PS2. Drtivá většina z nich je širších než jeden textový sloupec terminálu, což může způsobit rozbití schopnosti Bashe určit šířku výzvy. Jako důsledek se vám pak bude stávat, že při procházení historie se vám některé řádky zobrazí chybně.
+</li><li>Emodži fungují pouze v emulátorech terminálu v grafickém prostředí; v textové konzoli se místo nich zobrazí jednobarevné kosočtverce, při připojení přes SSH jsem je nezkoušel/a.
+</li></ul>
+<h2 id="cast6"><a href="#cast6"><span class="cislo">6.</span> Další zdroje informací</a></h2>
+<ul class="kompaktni"><li><a href="http://unicode.org/emoji/charts/full-emoji-list.html">Unicode Full Emoji List</a> (anglicky)
+</li><li><a href="https://lbry.tv/@christitustech:5/how-to-install-emojis-on-linux:7">Video: How to Install Emojis on Linux</a> (anglicky)
+</li></ul>
+<h2 id="cast7"><a href="#cast7"><span class="cislo">7.</span> Zákulisí kapitoly</a></h2>
+<p class="ponadpisu">
+V této verzi kapitoly chybí:
+</p>
+<ul class="kompaktni"><li>nic
+</li></ul><p class="ponadpisu">
+Tato kapitola záměrně nepokrývá:
+</p>
+<ul class="kompaktni"><li>nic
+</li></ul><div class="ppc"><div id="kapx4f37176ppc1"><a href="#kapx4f37176ppcr1" class="cislopozn">1</a>&nbsp;Vyžaduje světlé pozadí.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx4f37176ppc2"><a href="#kapx4f37176ppcr2" class="cislopozn">2</a>&nbsp;Vhodný spíše na světlé pozadí.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+</div>
+
+
+<nav class="spodni">
+<a href="index.htm" class="naindex">🗐&nbsp;Přehled&nbsp;kapitol</a>
+<div class="naslkap">
+<a href="vim.htm" rel="next" title="28. Vim">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">28</span>
+<span class="nazev">Vim</span></a>
+</div>
+<!--<div><a href="index.htm">🗐&nbsp;Přehled&nbsp;kapitol</a></div>-->
+</nav>
+
+
+<div class="odkazydole"><div><a href="diskove-oddily-btrfs.htm"><img src="obrazky/ik/diskove-oddily.png" alt="" width="32" height="32">Diskové oddíly / Btrfs</a><a href="soubory-a-adresare.htm"><img src="obrazky/ik/soubory-a-adresare.png" alt="" width="32" height="32">Soubory a adresáře</a><a href="bash.htm"><img src="obrazky/ik/bash.png" alt="" width="32" height="32">Bash</a></div></div>
+
+</article>
+<!-- *** -->
+<footer id="dole">
+<img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
+<p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
+<a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
+Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
+či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
+na stránce „<a href="x-autori.htm">Přehled autorů</a>“.
+Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
+licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
+Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód
+a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
+<a href="https://github.com/singularis-mzf/linux-spellbook">repozitář na GitHubu</a>.
+</footer>
+</div>
+
+<nav class="menu">
+<!-- MENU OSNOVA -->
+<a href="#menuosnova" id="menuosnova"><span class="prvnipismeno">O</span>snova</a>
+<aside class="menuosnova">
+<div><div class="nadpis">Osnova</div><div class="polozky">
+<a href="#cast1" class="sekce">1 Úvod</a>
+<a href="#cast2" class="sekce">2 Definice</a>
+<a href="#cast3" class="sekce">3 Zaklínadla</a>
+<a href="#cast3x1" class="podsekce">/1 Elektronika</a>
+<a href="#cast3x2" class="podsekce">/2 Zvířata</a>
+<a href="#cast3x3" class="podsekce">/3 Rostliny (včetně květin) a houby</a>
+<a href="#cast3x4" class="podsekce">/4 Ovoce a zelenina, plody</a>
+<a href="#cast3x5" class="podsekce">/5 Znamení zvěrokruhu</a>
+<a href="#cast3x6" class="podsekce">/6 Smajíci (tvářičky)</a>
+<a href="#cast3x7" class="podsekce">/7 Počasí a obloha</a>
+<a href="#cast3x8" class="podsekce">/8 Symboly</a>
+<a href="#cast3x9" class="podsekce">/9 Části těla</a>
+<a href="#cast3x10" class="podsekce">/10 Ostatní</a>
+<a href="#cast4" class="sekce">4 Instalace na Ubuntu</a>
+<a href="#cast5" class="sekce">5 Tipy a zkušenosti</a>
+<a href="#cast6" class="sekce">6 Další zdroje informací</a>
+<a href="#cast7" class="sekce">7 Zákulisí kapitoly</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU KAPITOLY -->
+<a href="#menukapitoly" id="menukapitoly"><span class="prvnipismeno">K</span>apitoly</a>
+<aside class="menukapitoly">
+<div><div class="nadpis">Kapitoly</div><div class="polozky">
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/predmluva.png" alt="[]"></span><span class="fragodkazy"><a href="predmluva.htm" class="odkaz"><span><span class="cislo">1</span>Předmluva</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zakladni-znalosti.png" alt="[]"></span><span class="fragodkazy"><a href="zakladni-znalosti.htm" class="odkaz"><span><span class="cislo">2</span>Základní znalosti</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/awk.png" alt="[]"></span><span class="fragodkazy"><a href="awk.htm" class="odkaz"><span><span class="cislo">3</span>AWK</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/bash.png" alt="[]"></span><span class="fragodkazy"><a href="bash.htm" class="odkaz"><span><span class="cislo">4</span>Bash</span></a><span class="podkpodkazy"><a href="bash-funkce-a-skripty.htm" class="odkaz"><span><span class="cislo">4.1</span>Funkce a skripty</span></a><a href="bash-interaktivni-rezim.htm" class="odkaz"><span><span class="cislo">4.2</span>Interaktivní režim</span></a><a href="bash-vstup-vystup.htm" class="odkaz"><span><span class="cislo">4.3</span>Vstup, výstup a přesměrování</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/datum-cas-kalendar.png" alt="[]"></span><span class="fragodkazy"><a href="datum-cas-kalendar.htm" class="odkaz"><span><span class="cislo">5</span>Datum, čas a kalendář</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/diskove-oddily.png" alt="[]"></span><span class="fragodkazy"><a href="diskove-oddily.htm" class="odkaz"><span><span class="cislo">6</span>Diskové oddíly</span></a><span class="podkpodkazy"><a href="diskove-oddily-btrfs.htm" class="odkaz"><span><span class="cislo">6.1</span>Btrfs</span></a><a href="diskove-oddily-lvm.htm" class="odkaz"><span><span class="cislo">6.2</span>LVM</span></a><a href="diskove-oddily-softwarovy-raid.htm" class="odkaz"><span><span class="cislo">6.3</span>Softwarový RAID</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/git.png" alt="[]"></span><span class="fragodkazy"><a href="git.htm" class="odkaz"><span><span class="cislo">7</span>Git</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/hledani-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="hledani-souboru.htm" class="odkaz"><span><span class="cislo">8</span>Hledání souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/make.png" alt="[]"></span><span class="fragodkazy"><a href="make.htm" class="odkaz"><span><span class="cislo">9</span>Make</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/manualove-stranky.png" alt="[]"></span><span class="fragodkazy"><a href="manualove-stranky.htm" class="odkaz"><span><span class="cislo">10</span>Manuálové stránky</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/markdown.png" alt="[]"></span><span class="fragodkazy"><a href="markdown.htm" class="odkaz"><span><span class="cislo">11</span>Markdown</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/metaprikazy.png" alt="[]"></span><span class="fragodkazy"><a href="metaprikazy.htm" class="odkaz"><span><span class="cislo">12</span>Metapříkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/nabidka-aplikaci.png" alt="[]"></span><span class="fragodkazy"><a href="nabidka-aplikaci.htm" class="odkaz"><span><span class="cislo">13</span>Nabídka aplikací</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/odkazy.png" alt="[]"></span><span class="fragodkazy"><a href="odkazy.htm" class="odkaz"><span><span class="cislo">14</span>Pevné a symbolické odkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-moduly.png" alt="[]"></span><span class="fragodkazy"><a href="perl-moduly.htm" class="odkaz"><span><span class="cislo">15</span>Perl: moduly a objekty</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-zaklady.png" alt="[]"></span><span class="fragodkazy"><a href="perl-zaklady.htm" class="odkaz"><span><span class="cislo">16</span>Perl: základy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="fragodkazy"><a href="prace-s-archivy.htm" class="odkaz"><span><span class="cislo">17</span>Práce s archivy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prohlizeni-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="prohlizeni-textovych-souboru.htm" class="odkaz"><span><span class="cislo">18</span>Prohlížení textových souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/promenne.png" alt="[]"></span><span class="fragodkazy"><a href="promenne.htm" class="odkaz"><span><span class="cislo">19</span>Proměnné prostředí a interpretu</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="fragodkazy"><a href="regularni-vyrazy.htm" class="odkaz"><span><span class="cislo">20</span>Regulární výrazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sed.png" alt="[]"></span><span class="fragodkazy"><a href="sed.htm" class="odkaz"><span><span class="cislo">21</span>Sed</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/soubory-a-adresare.png" alt="[]"></span><span class="fragodkazy"><a href="soubory-a-adresare.htm" class="odkaz"><span><span class="cislo">22</span>Soubory a adresáře</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-balicku.htm" class="odkaz"><span><span class="cislo">23</span>Správa balíčků</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-procesu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-procesu.htm" class="odkaz"><span><span class="cislo">24</span>Správa procesů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-uzivatelskych-uctu.htm" class="odkaz"><span><span class="cislo">25</span>Správa uživatelských účtů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="fragodkazy"><a href="system.htm" class="odkaz"><span><span class="cislo">26</span>Systém</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/terminal.png" alt="[]"></span><span class="fragodkazy"><a href="terminal.htm" class="odkaz"><span><span class="cislo">27</span>Terminál</span></a><span class="podkpodkazy"><a href="terminal-emodzi.htm" class="odkaz"><span><span class="cislo">27.1</span>Emodži</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/vim.png" alt="[]"></span><span class="fragodkazy"><a href="vim.htm" class="odkaz"><span><span class="cislo">28</span>Vim</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-binarnich-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-binarnich-souboru.htm" class="odkaz"><span><span class="cislo">29</span>Zpracování binárních souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-textovych-souboru.htm" class="odkaz"><span><span class="cislo">30</span>Zpracování textových souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-videa-a-zvuku.htm" class="odkaz"><span><span class="cislo">31</span>Zpracování videa a zvuku</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="fragodkazy"><a href="licence.htm" class="odkaz"><span><span class="cislo">32</span>Licence</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/rejstrik.png" alt="[]"></span><span class="fragodkazy"><a href="rejstrik.htm" class="odkaz"><span><span class="cislo">33</span>Rejstřík podle klasických příkazů</span></a></span></div>
+</div></div>
+<a href="#zavritmenu" id="zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU ŠTÍTKY -->
+<a href="#menustitky" id="menustitky"><span class="prvnipismeno">Š</span>títky</a>
+<aside class="menustitky">
+<div><div class="nadpis">Štítky</div><div class="polozky">
+<a href="x-stitky.htm#x5208bbb">adresáře&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#xb0a5782">aplikace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x583f72a">apt&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa619ea3">automatizace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xb2b2bff">bajty&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5c1d5fa">barvy&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xd574d4b">bash&nbsp;&nbsp;(9)</a>
+<a href="x-stitky.htm#xedb0c6c">čas&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x8d777f3">data&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xcd6caf8">démoni&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x38864cc">dokumentace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5aee9db">editor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x905aee4">emodži&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xb05338c">Flatpak&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x1e3042b">GUI&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x891be82">hešovací funkce&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x4e36c04">hledání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c8789a">klávesnice&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x7aeae24">kódování&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa473827">komprese&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x79108ba">LVM&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x2d47ed4">odkládací prostor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xd8dfe69">ovládání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x0114ad0">Perl&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x84913e6">procesy&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa9c449d">program&nbsp;&nbsp;(11)</a>
+<a href="x-stitky.htm#xc65388d">programování&nbsp;&nbsp;(5)</a>
+<a href="x-stitky.htm#x43a526a">přístupová práva&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#xcf91513">RAID&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5c5f44a">ramdisk&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9ad09a9">Snap&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x23be896">soubory&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x12e55d8">správa verzí&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9dcbb0b">syntaxe&nbsp;&nbsp;(7)</a>
+<a href="x-stitky.htm#xba98a3b">systém&nbsp;&nbsp;(9)</a>
+<a href="x-stitky.htm#x3972255">systém souborů&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c01147">tematický okruh&nbsp;&nbsp;(22)</a>
+<a href="x-stitky.htm#xf54f028">textové soubory&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x7f6c02d">Unicode&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x421b47f">video&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xadcdbd7">zip&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x908961b">zpracování textu&nbsp;&nbsp;(5)</a>
+<a href="x-stitky.htm#x04b5cff">zvuk&nbsp;&nbsp;(1)</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU NÁPOVĚDA -->
+<a href="#menunapoveda" id="menunapoveda"><span class="prvnipismeno">N</span>ápověda</a>
+<aside class="menunapoveda">
+<div><div class="nadpis">Nápověda</div><div class="polozky">
+<a href="predmluva.htm">Předmluva</a>
+<a href="https://singularis-mzf.github.io/">Ostatní verze knihy</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook">Repozitář na GitHubu</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook/blob/stabiln%C3%AD/dokumentace/odm%C4%9Bna-za-sestaven%C3%AD.md">Odměna za sestavení (prémiové kapitoly)</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+</nav>
+
+<a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
+<a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
+
+</div>
+</body>
+</html>

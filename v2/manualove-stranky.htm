@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="cs">
+<head profile="http://www.w3.org/2005/10/profile">
+<meta charset="UTF-8">
+
+<title>Manuálové stránky − Linux: Kniha kouzel</title>
+<meta name="viewport" content="width=1000, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="lkk-20250301.css">
+<link rel="icon" type="image/png" href="obrazky/favicon.png">
+</head>
+<body>
+<div id="nahore"><div id="okno">
+<header>
+<span class="vlevo"><a href="index.htm"><img src="obrazky/favicon.png" width="16" height="16" alt=""></a> Linux: Kniha kouzel, 2.15 (1. března 2025)</span>
+<span class="vpravo"><span class="ico1"></span><span class="ico2"></span><span class="ico3"></span></span>
+</header>
+<nav class="menuokna">
+<a href="#menuosnova" class="menu"><span class="prvnipismeno">O</span>snova</a>
+<a href="#menukapitoly" class="menu"><span class="prvnipismeno">K</span>apitoly</a>
+<a href="#menustitky" class="menu"><span class="prvnipismeno">Š</span>títky</a>
+<a href="#menunapoveda" class="menu"><span class="prvnipismeno">N</span>ápověda</a>
+<a href="make.htm" rel="prev" title="9. Make" accesskey="p" class="predchozi">Předchozí&nbsp;kapitola</a>
+<a href="index.htm" class="prehled"><span class="prvnipismeno">P</span>řehled kapitol</a>
+<a href="markdown.htm" rel="next" title="11. Markdown" accesskey="n" class="nasledujici">Následující&nbsp;kapitola</a>
+</nav>
+
+<div class="slogan-veskera-moc">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+
+<!--
+<nav class="horni">
+<div class="slogan">Veškerá moc příkazové řádky/příkazového řádku přehledně, pro začátečníky i&nbsp;pokročilé</div>
+<span class="prev">
+<a href="make.htm" rel="prev" title="9. Make" accesskey="p">Předchozí&nbsp;kapitola</a>&nbsp;|
+</span><a href="index.htm" accesskey="i">Přehled</a><span class="next"><!- -
+- ->&nbsp;| <a href="markdown.htm" rel="next" title="11. Markdown" accesskey="n">Následující&nbsp;kapitola</a>
+</span>
+</nav>
+-->
+
+
+<article>
+
+<h1 class="kapitola">10. <img src="obrazky/ik/manualove-stranky.png" alt="" width="64" height="64"> Manuálové stránky</h1>
+<div class="varovani">
+Vývoj vanilkové příchuti Linuxu: Knihy kouzel byl 1.&nbsp;března&nbsp;2025
+ukončen. Tento text je zachován jako historický, ale chyby již nejsou
+opravovány. Odnože projektu pod kompatibilní licencí jsou vítány.
+</div>
+<div class="stitky"><a href="x-stitky.htm#">dokumentace</a>
+<a href="x-stitky.htm#">syntaxe</a>
+<a href="x-stitky.htm#">tematický okruh</a>
+</div>
+<h2 id="cast1"><a href="#cast1"><span class="cislo">1.</span> Úvod</a></h2>
+<p class="ponadpisu">
+Tato kapitola pokrývá zobrazování, správu a vytváření manuálových stránek
+v linuxu.
+</p><p>
+Manuálové stránky jsou hlavním zdrojem základních informací o příkazech
+v terminálu (např. „ps“), vlastnostech a funkcích operačního systému
+(např. „fstab“) a funkcích v programovacích jazycích (např. „strcpy“).
+</p>
+
+<h2 id="cast2"><a href="#cast2"><span class="cislo">2.</span> Definice</a></h2>
+<ul><li><b>Název</b> je základní označení manuálové stránky bez dalšího upřesnění (např. „printf“ či „git-config“). V názvech se <i>nerozlišuje</i> velikost písmen, ale obvykle se píšou malými písmeny a slova se oddělují pomlčkami.
+</li><li>Manuálové stránky se nacházejí v číslovaných <b>manuálových sekcích</b> (něco jako adresáře, neplést si se sekcemi manuálových stránek).
+</li><li><b>Anotace</b> je velmi stručné, jednořádkové shrnutí činnosti příkazu, programu či funkce, které manuálová stránka poskytuje v sekci „JMÉNO“ („NAME“).
+</li><li>Každá manuálová stránka se člení na <b>sekce manuálové stránky</b> a <b>podsekce</b>, více úrovní členění není podporováno.
+</li></ul><p class="ponadpisu">
+Protože je běžné, že pod jedním názvem existují manuálové stránky v několika
+různých manuálových sekcích, pro úplné určení je nutné uvést název
+manuálové stránky i označení manuálové sekce; pro to existuje několik
+nekompatibilních syntaxí:
+</p>
+<ul><li>passwd(5)
+</li><li>passwd.5
+</li><li>passwd<span class="viditelnamezera">&nbsp;</span>(5)
+</li></ul>
+<h2 id="cast3" class="zaklinadla"><a href="#cast3"><span class="cislo">3.</span> Zaklínadla: hlavní</a></h2>
+
+<h3 id="cast3x1"><span><a href="#cast3x1" title="kapitola 16 (Manuálové stránky), sekce 3 (Zaklínadla: hlavní), podsekce 1 (Zobrazit manuálové stránky)"><sup>3/</sup>1 Zobrazit manuálové stránky</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx2c5d90e"><span><a href="#zx2c5d90e">@</a></span></span><b>zobrazit</b> m. stránku (obecně/příklady)<span class="cislo">#1 </span><sup><a href="#kapx4cc9860ppc1" id="kapx4cc9860ppcr1" title="Uvedete-li v tomto zaklínadle na místo názvu více parametrů, příkaz man se je nejprve pokusí složit pomlčkami. Teprve pokud takovou m. stránku nenajde, zkusí zpracovat každý parametr zvlášť.">(1)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">man <i class="dopln">název</i><span class="volznak">[</span>.<i class="dopln">sekce</i><span class="volznak">]</span></div>
+<div class="radekzaklinadla">man man</div>
+<div class="radekzaklinadla">man apt-get.8</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx821d4f2"><span><a href="#zx821d4f2">@</a></span></span>zobrazit postupně <b>více m. stránek</b> (obecně/příklad)<span class="cislo">#2 </span><sup><a href="#kapx4cc9860ppc2" id="kapx4cc9860ppcr2" title="Pokud znáte sekce, z nichž chcete stránky zobrazit, doporučuji při zobrazování více stránek zadávat jejich úplné názvy. Zabráníte tím zobrazení stejnojmenných m. stránek z nechtěných sekcí.">(2)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">man -a --no-subpages <i class="dopln">název</i><span class="volznak">[</span>.<i class="dopln">sekce</i><span class="volznak">]</span> <span class="volznak">[</span><i class="dopln">název</i><span class="volznak">[</span>.<i class="dopln">sekce</i><span class="volznak">]</span><span class="volznak">]</span><span class="tritecky"></span></div>
+<div class="radekzaklinadla">man -a --no-subpages git.1 diff sudo.8 apt-get.8</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx87182ae"><span><a href="#zx87182ae">@</a></span></span>vypsat <b>anotaci</b><span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">whatis <span class="volznak">[</span>-s <i class="dopln">sekce</i><span class="volznak">]</span> <i class="dopln">název</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0757ea0"><span><a href="#zx0757ea0">@</a></span></span>zobrazit m. stránku z konkrétního <b>souboru</b><span class="cislo">#4 </span><sup><a href="#kapx4cc9860ppc3" id="kapx4cc9860ppcr3" title="Zadaný soubor může, ale nemusí být komprimovaný příkazem „gzip“. Na název a umístění zadaného souboru nejsou kladena žádná zvláštní omezení. (Ale pokud název začíná pomlčkou, musíte použít oddělovač „--“.)">(3)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">man -l <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">cesta/k/souboru</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa110364"><span><a href="#zxa110364">@</a></span></span>zobrazit m. stránku a přejít na <b>určitou sekci</b><span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxde3ac35"><span><a href="#zxde3ac35">@</a></span></span>zobrazit všechny m. stránky, jejichž název odpovídá <b>regulárnímu výrazu</b><span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla">man --names-only --regex <span class="volznak">[</span>-s <i class="dopln">výčet,m.,sekcí</i><span class="volznak">]</span><span class="tritecky"></span><span class="volznak">]</span> <span class="volznak">[</span>--<span class="volznak">]</span> <i class="dopln">'regulární výraz'</i></div>
+</div></div>
+
+<h3 id="cast3x2"><span><a href="#cast3x2" title="kapitola 16 (Manuálové stránky), sekce 3 (Zaklínadla: hlavní), podsekce 2 (Seznamy manuálových stránek)"><sup>3/</sup>2 Seznamy manuálových stránek</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx476a63a"><span><a href="#zx476a63a">@</a></span></span>seznam <b>všech</b> dostupných m. str.<span class="cislo">#1 </span></div><div class="radky">
+<div class="radekzaklinadla">man <span class="volznak">[</span>-s <i class="dopln">výčet,m.,sekcí</i><span class="volznak">]</span> -k . <span class="volznak">[</span>| sort<span class="volznak">]</span> <span class="volznak">[</span>| less<span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxfec62e1"><span><a href="#zxfec62e1">@</a></span></span>všech m. str. v man. sekci 1<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">man -s 1 -k . | sort <span class="volznak">[</span>| less<span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx36f2cd8"><span><a href="#zx36f2cd8">@</a></span></span>seznam m. str. dostupných v <b>češtině</b> (jen úplné názvy)<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla">printf %s\\n /usr/share/man/cs/man*/*.*.gz | sed -E 's/^(.*)\/(.*)\.([^.]+)\.gz$/\2(\3)/' <span class="volznak">[</span>| sort<span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3953d2e"><span><a href="#zx3953d2e">@</a></span></span>seznam m. str. podle klíčového slova<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">apropos <i class="dopln">klíčovéslovo</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxcb4304f"><span><a href="#zxcb4304f">@</a></span></span>seznam manuálových stránek, jejichž identifikátor odpovídá regulárnímu výrazu (obecně/příklad)<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">man <span class="volznak">[</span>-s <i class="dopln">výčet,m.,sekcí</i><span class="volznak">]</span> -k <i class="dopln">'regulární výraz'</i> <span class="volznak">[</span>| sort<span class="volznak">]</span></div>
+<div class="radekzaklinadla">man -s 8 -k '^apt($|-)' | sort</div>
+</div></div>
+
+<h3 id="cast3x3"><span><a href="#cast3x3" title="kapitola 16 (Manuálové stránky), sekce 3 (Zaklínadla: hlavní), podsekce 3 (Pokročilá práce s manuálovými stránkami)"><sup>3/</sup>3 Pokročilá práce s manuálovými stránkami</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxf6c545b"><span><a href="#zxf6c545b">@</a></span></span>vypsat cestu k m. stránce/více m. stránkám<span class="cislo">#1 </span><sup><a href="#kapx4cc9860ppc4" id="kapx4cc9860ppcr4" title="Je-li m. stránka dostupná ve více lokalizacích, příkaz s parametrem „-a“ je vypíše všechny.">(4)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">man -w <span class="volznak">[</span>-s <i class="dopln">sekce</i><span class="volznak">]</span> <i class="dopln">název</i></div>
+<div class="radekzaklinadla">man -wa <span class="volznak">[</span>-s <i class="dopln">výčet,m.,sekcí</i><span class="volznak">]</span> <i class="dopln">název</i><span class="tritecky"></span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx6149bf0"><span><a href="#zx6149bf0">@</a></span></span>vypsat sekce a podsekce m. stránky<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx14913b9"><span><a href="#zx14913b9">@</a></span></span>zkontrolovat syntaxi zdrojového kódu m. stránky<span class="cislo">#3 </span></div><div class="radky">
+<div class="radekzaklinadla"><a href="#" class="reseninezname" title="Řešení tohoto příkladu nebylo při vydání této verze kapitoly známo.">?</a></div>
+</div></div>
+
+<h2 id="cast4" class="zaklinadla"><a href="#cast4"><span class="cislo">4.</span> Zaklínadla: syntaxe manuálové stránky</a></h2>
+
+<h3 id="cast4x1"><span><a href="#cast4x1" title="kapitola 16 (Manuálové stránky), sekce 4 (Zaklínadla: syntaxe manuálové stránky), podsekce 1 (Hlavní prvky)"><sup>4/</sup>1 Hlavní prvky</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx59c4d10"><span><a href="#zx59c4d10">@</a></span></span>obecná struktura manuálové stránky<span class="cislo">#1 </span><sup><a href="#kapx4cc9860ppc5" id="kapx4cc9860ppcr5" title="Obvyklé je „Dole uprostřed“ uvést datum poslední úpravy manuálové stránky, „Dole vlevo“ uvést název a verzi balíčku či projektu a „Nahoře uprostřed“ neuvádět.">(5)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span><i class="dopln">komentáře</i><span class="volznak">]</span><span class="tritecky"></span></div>
+<div class="radekzaklinadla">.TH &quot;<i class="dopln">Název dokumentu</i>&quot; <i class="dopln">ČísloSekce</i> <span class="volznak">[</span>&quot;<i class="dopln">Dole uprostřed</i>&quot; <span class="volznak">[</span>&quot;<i class="dopln">Dole vlevo</i>&quot; <span class="volznak">[</span>&quot;<i class="dopln">Nahoře uprostřed</i>&quot;<span class="volznak">]</span><span class="volznak">]</span><span class="volznak">]</span></div>
+<div class="radekzaklinadla">.SH &quot;<i class="dopln">NADPIS PRVNÍ SEKCE</i>&quot;</div>
+<div class="radekzaklinadla"><i class="dopln">NÁZEV</i> - <i class="dopln">anotace</i></div>
+<div class="radekzaklinadla"><i class="dopln">...</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3d9a2f6"><span><a href="#zx3d9a2f6">@</a></span></span>komentář (varianta A/varianta B)<span class="cislo">#2 </span><sup><a href="#kapx4cc9860ppc6" id="kapx4cc9860ppcr6" title="Varianta A se vyhodnotí jako konec řádky; varianta B se zcela vypustí (tzn. řádek s komentářem se po vypuštění komentáře sloučí s následujícím řádkem).">(6)</a></sup></div><div class="radky">
+<div class="radekzaklinadla akce">Kdekoliv na řádku:</div>
+<div class="radekzaklinadla">\&quot;<i class="dopln">Text komentáře do konce řádky</i></div>
+<div class="radekzaklinadla">\#<i class="dopln">Text komentáře do konce řádku</i></div>
+</div></div>
+
+<h3 id="cast4x2"><span><a href="#cast4x2" title="kapitola 16 (Manuálové stránky), sekce 4 (Zaklínadla: syntaxe manuálové stránky), podsekce 2 (Formátování odstavců)"><sup>4/</sup>2 Formátování odstavců</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0fc9060"><span><a href="#zx0fc9060">@</a></span></span><b>nadpis</b> sekce/podsekce<span class="cislo">#1 </span><sup><a href="#kapx4cc9860ppc7" id="kapx4cc9860ppcr7" title="Oba typy nadpisů ruší odsazení. Nadpisy sekcí je zvykem psát VELKÝMI PÍSMENY, ačkoliv to „man“ nevynucuje.">(7)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">.SH &quot;<i class="dopln">TEXT NADPISU</i>&quot;</div>
+<div class="radekzaklinadla">.SS &quot;<i class="dopln">Text nadpisu</i>&quot;</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxc9d096f"><span><a href="#zxc9d096f">@</a></span></span>předěl <b>odstavce</b><span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">.PP</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb1cc571"><span><a href="#zxb1cc571">@</a></span></span>seznam <b>definic</b><span class="cislo">#3 </span><sup><a href="#kapx4cc9860ppc8" id="kapx4cc9860ppcr8" title="Formátovací přepínač v každém štítku platí jen do konce štítku. To platí i u posledního vedlejšího štítku.">(8)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">.TP</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>\fB<span class="volznak">]</span><i class="dopln">Hlavní štítek</i></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>.TQ</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>\fB<span class="volznak">]</span><i class="dopln">Vedlejší štítek</i><span class="volznak">]</span><span class="tritecky"></span></div>
+<div class="radekzaklinadla"><i class="dopln">Text definice</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla"><span class="volznak">[</span>.PP<span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7a76110"><span><a href="#zx7a76110">@</a></span></span><b>zarovnat</b> následující odstavce vlevo<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">.PP</div>
+<div class="radekzaklinadla">.ad l</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxe62c4c5"><span><a href="#zxe62c4c5">@</a></span></span><b>zarovnat</b> následující odstavce do bloku<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">.PP</div>
+<div class="radekzaklinadla">.ad b</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx90263cb"><span><a href="#zx90263cb">@</a></span></span>zvýšit úroveň <b>odsazení</b><span class="cislo">#6 </span><sup><a href="#kapx4cc9860ppc9" id="kapx4cc9860ppcr9" title="Samotný příkaz „.RS“ ukončí řádek, ale nikoliv odstavec, proto i typ písma zůstává zachovaný.">(9)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">.RS</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>.PP<span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx383d21f"><span><a href="#zx383d21f">@</a></span></span>snížit úroveň odsazení<span class="cislo">#7 </span><sup><a href="#kapx4cc9860ppc10" id="kapx4cc9860ppcr10" title="Samotný příkaz „.RE“ ukončí řádku, ale nikoliv odstavec, proto i typ písma zůstává zachovaný.">(10)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">.RE</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>.PP<span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx810bea7"><span><a href="#zx810bea7">@</a></span></span>ukončit odsazení<span class="cislo">#8 </span><sup><a href="#kapx4cc9860ppc11" id="kapx4cc9860ppcr11" title="Samotný příkaz „.RE 1“ ukončí řádek, ale nikoliv odstavec, proto i typ písma zůstává zachovaný.">(11)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">.RE 1</div>
+<div class="radekzaklinadla"><span class="volznak">[</span>.PP<span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx694cd92"><span><a href="#zx694cd92">@</a></span></span><b>zarovnat</b> následující odstavce na střed<span class="cislo">#9 </span></div><div class="radky">
+<div class="radekzaklinadla">.PP</div>
+<div class="radekzaklinadla">.ad c</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx727ddbb"><span><a href="#zx727ddbb">@</a></span></span><b>zarovnat</b> následující odstavce vpravo<span class="cislo">#10 </span><sup><a href="#kapx4cc9860ppc12" id="kapx4cc9860ppcr12" title="Zarovnání odstavců vpravo v podání manuálových stránek nevypadá moc dobře; než se rozhodnete ho použít, raději ho nejprve vyzkoušejte.">(12)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">.PP</div>
+<div class="radekzaklinadla">.ad r</div>
+</div></div>
+
+<h3 id="cast4x3"><span><a href="#cast4x3" title="kapitola 16 (Manuálové stránky), sekce 4 (Zaklínadla: syntaxe manuálové stránky), podsekce 3 (Formátování písma)"><sup>4/</sup>3 Formátování písma</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9de148c"><span><a href="#zx9de148c">@</a></span></span>přepnout na tučné/podtržené/normální písmo (do konce odstavce)<span class="cislo">#1 </span><sup><a href="#kapx4cc9860ppc13" id="kapx4cc9860ppcr13" title="Místo podtrženého písma mohou některé terminály zobrazovat text kurzívou. Mezery uprostřed podtrženého textu nebudou podtrženy.">(13)</a></sup></div><div class="radky">
+<div class="radekzaklinadla"><i class="dopln">...</i>\fB<i class="dopln">...</i></div>
+<div class="radekzaklinadla"><i class="dopln">...</i>\fI<i class="dopln">...</i></div>
+<div class="radekzaklinadla"><i class="dopln">...</i>\fR<i class="dopln">...</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx3432943"><span><a href="#zx3432943">@</a></span></span>povinná volba<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">\fB<i class="dopln">volba</i><span class="volznak">[</span><span class="viditelnamezera">&nbsp;</span>\fI<i class="dopln">argument</i><span class="volznak">]</span>\fR</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7bc1934"><span><a href="#zx7bc1934">@</a></span></span>volitelná volba<span class="cislo">#3 </span><sup><a href="#kapx4cc9860ppc14" id="kapx4cc9860ppcr14" title="Tento příkaz vypíše: obyčejným písmem „[“, tučně volbu, podtrženým písmem argument (je-li uveden) a obyčejným písmem „]“, to vše oddělené mezerami. Používá se především v „synopsi“ příkazu. Pokud volba nebo argument obsahují mezeru, je nutno příslušnou část uzavřít do dvojitých uvozovek.">(14)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">.OP <i class="dopln">volba</i> <span class="volznak">[</span><i class="dopln">argument</i><span class="volznak">]</span></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx9ea1028"><span><a href="#zx9ea1028">@</a></span></span>ukázka kódu (<b>&lt;pre&gt;</b>)<span class="cislo">#4 </span><sup><a href="#kapx4cc9860ppc15" id="kapx4cc9860ppcr15" title="Uvnitř bloku „.EX“ až „.EE“ neprobíhá automatické zalamování řádků a jejich odsazení mezerami či tabulátory bude na výstupu zachováno; použije se neproporcionální písmo (v terminálu je totéž jako to normální). Ostatní příkazy jsou však interpretovány.">(15)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">.EX</div>
+<div class="radekzaklinadla"><i class="dopln">řádky kódu</i><span class="tritecky"></span></div>
+<div class="radekzaklinadla">.EE</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx72793b6"><span><a href="#zx72793b6">@</a></span></span>hypertextový odkaz<span class="cislo">#5 </span><sup><a href="#kapx4cc9860ppc16" id="kapx4cc9860ppcr16" title="V terminálu se hypertextový odkaz realizuje tak, že se vypíše text odkazu a za ním URI v kulatých závorkách. Při exportu do HTML se ovšem vytvoří skutečný hypertextový odkaz.">(16)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">.UR <i class="dopln">URI</i></div>
+<div class="radekzaklinadla"><i class="dopln">Text odkazu</i></div>
+<div class="radekzaklinadla">.UE <span class="volznak">[</span><i class="dopln">Text za odkazem.</i><span class="volznak">]</span></div>
+</div></div>
+
+<h3 id="cast4x4"><span><a href="#cast4x4" title="kapitola 16 (Manuálové stránky), sekce 4 (Zaklínadla: syntaxe manuálové stránky), podsekce 4 (Přepínače)"><sup>4/</sup>4 Přepínače</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb02d943"><span><a href="#zxb02d943">@</a></span></span>odsazení a konce řádek: zachovat/zploštit na mezeru (jako v HTML)<span class="cislo">#1 </span><sup><a href="#kapx4cc9860ppc17" id="kapx4cc9860ppcr17" title="Poznámka: přepínač „.nf“ nevypne zalamování příliš dlouhých řádek.">(17)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">.nf</div>
+<div class="radekzaklinadla">.fi</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxa879238"><span><a href="#zxa879238">@</a></span></span>vypnout/zapnout lámání slov (<b>hyphenation</b>)<span class="cislo">#2 </span></div><div class="radky">
+<div class="radekzaklinadla">.nh</div>
+<div class="radekzaklinadla">.hy</div>
+</div></div>
+
+<h3 id="cast4x5"><span><a href="#cast4x5" title="kapitola 16 (Manuálové stránky), sekce 4 (Zaklínadla: syntaxe manuálové stránky), podsekce 5 (Speciální znaky)"><sup>4/</sup>5 Speciální znaky</a></span></h3>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx60788aa"><span><a href="#zx60788aa">@</a></span></span>tečka na začátku řádky<span class="cislo">#1 </span><sup><a href="#kapx4cc9860ppc18" id="kapx4cc9860ppcr18" title="Také pomůže před tečku umístit přepínač typu písma (např. „\fR“).">(18)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">\&amp;.<i class="dopln">...</i></div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8b6b7b2"><span><a href="#zx8b6b7b2">@</a></span></span>nezlomitelná mezera<span class="cislo">#2 </span><sup><a href="#kapx4cc9860ppc19" id="kapx4cc9860ppcr19" title="Pokud místo této značky použijete přímo nezlomitelnou mezeru, ta se neroztáhne při zarovnání do bloku a bude podtržena v případě přepnutí na podtržené písmo.">(19)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">\~</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx8df51b0"><span><a href="#zx8df51b0">@</a></span></span>ASCII znaky: „-“, „\“, „'“, „&quot;“, „`“, „^“, „~“<span class="cislo">#3 </span><sup><a href="#kapx4cc9860ppc20" id="kapx4cc9860ppcr20" title="Pokud tyto znaky použijete přímo, terminál místo nich může zobrazit jiné, podobné znaky, což může způsobit problémy, pokud se je uživatel pokusí z manuálové stránky vykopírovat. Zpětné lomítko přímo použít nemůžete.">(20)</a></sup></div><div class="radky">
+<div class="radekzaklinadla">\- \\ \(aq \(dq \(ga \(ha \(ti</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx0ca167b"><span><a href="#zx0ca167b">@</a></span></span>konec řádky/prázdný řádek<span class="cislo">#4 </span></div><div class="radky">
+<div class="radekzaklinadla">.br</div>
+<div class="radekzaklinadla">.sp</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx37b8946"><span><a href="#zx37b8946">@</a></span></span>volitelný zlom slova (v případě zlomu vložit pomlčku)<span class="cislo">#5 </span></div><div class="radky">
+<div class="radekzaklinadla">\%</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx7e61520"><span><a href="#zx7e61520">@</a></span></span>zakázat zlom slova<span class="cislo">#6 </span></div><div class="radky">
+<div class="radekzaklinadla akce">Před první znak slova vložte:</div>
+<div class="radekzaklinadla">\%</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zx67a655b"><span><a href="#zx67a655b">@</a></span></span>copyright<span class="cislo">#7 </span></div><div class="radky">
+<div class="radekzaklinadla">\(co</div>
+</div></div>
+<div class="zaklinadlo"><div class="zahlavi"><span class="ikona D" id="zxb5d7684"><span><a href="#zxb5d7684">@</a></span></span>plná kulatá odrážka<span class="cislo">#8 </span></div><div class="radky">
+<div class="radekzaklinadla">\(bu</div>
+</div></div>
+
+<h2 id="cast5"><a href="#cast5"><span class="cislo">5.</span> Parametry příkazů</a></h2>
+
+<h3 id="cast5x1"><span><a href="#cast5x1" title="kapitola 16 (Manuálové stránky), sekce 5 (Parametry příkazů), podsekce 1 (man)"><sup>5/</sup>1 man</a></span></h3>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla"><span class="volznak">[</span>MANWIDTH=<i class="dopln">počet-znaků</i><span class="volznak">]</span> man <i class="dopln">parametry</i> <i class="dopln">název</i><span class="tritecky"></span></div>
+</div></div>
+<table class="parametryprikazu"><tbody><tr><td>☐ -a</td><td>zobrazit postupně stejnojmenné stránky ze všech prohledaných sekcí (jinak se zobrazí jen první nalezená)</td></tr>
+
+<tr><td>☐ -L en_US</td><td>manuálové stránky zobrazovat výhradně v angličtině</td></tr>
+
+<tr><td>☐ --nh ☐ --nj</td><td>Zakázat lámání slov/zarovnání do bloku.</td></tr>
+
+</tbody></table>
+<p>
+Nastavením proměnné prostředí „MANWIDTH“ lze určit, na jakou šířku se výstup
+příkazu „man“ zformátuje. Ve výchozím stavu se zformátuje na šířku
+terminálu (což je obvykle to, co chcete).
+</p>
+
+<h3 id="cast5x2"><span><a href="#cast5x2" title="kapitola 16 (Manuálové stránky), sekce 5 (Parametry příkazů), podsekce 2 (Instalace manuálových stránek)"><sup>5/</sup>2 Instalace manuálových stránek</a></span></h3>
+<p class="ponadpisu">
+Manuálové stránky v angličtině se umísťují do adresářů
+/usr/share/man/man<i class="dopln">sekce</i>, musejí být komprimované ve formátu „.gz“
+a mít název „<i class="dopln">název</i>.<i class="dopln">sekce</i>.gz“ (např. „apt-get.8.gz“). Manuálové stránky
+v češtině se umísťují do adresářů
+/usr/share/man/cs/man<i class="dopln">sekce</i>. Pokud odpovídající adresář neexistuje
+(což se stává především u českých manuálových stránek), budete ho muset vytvořit.
+</p>
+
+<h2 id="cast6"><a href="#cast6"><span class="cislo">6.</span> Instalace na Ubuntu</a></h2>
+<p class="ponadpisu">
+Manuálové stránky a nástroje pro práci s nimi jsou základní součástí Ubuntu přítomnou i v minimální instalaci.
+</p>
+
+<h2 id="cast7"><a href="#cast7"><span class="cislo">7.</span> Ukázka</a></h2>
+<div class="zaklinadlo"><div class="radky">
+<div class="radekzaklinadla">.TH &quot;MOJE&quot; 1 &quot;14.\~ledna\~2020&quot; &quot;Moje vlastní stránky&quot;</div>
+<div class="radekzaklinadla">.SH &quot;JMÉNO&quot;</div>
+<div class="radekzaklinadla">moje - moje první manuálová stránka</div>
+<div class="radekzaklinadla">.SH &quot;POUŽITÍ&quot;</div>
+<div class="radekzaklinadla">.SY moje</div>
+<div class="radekzaklinadla">[\fB\-x\fR]</div>
+<div class="radekzaklinadla">.OP -y test</div>
+<div class="radekzaklinadla">.YS</div>
+<div class="radekzaklinadla">.SH &quot;POPIS&quot;</div>
+<div class="radekzaklinadla">Toto je moje první vlastní manuálová stránka. K\~ jejímu napsání mi pomohl</div>
+<div class="radekzaklinadla">Linux: Kniha kouzel.</div>
+<div class="radekzaklinadla">.PP</div>
+<div class="radekzaklinadla">Delší ukázkou je:</div>
+<div class="radekzaklinadla">\(bu manuálová stránka dodávaná ke spouštěči \fBlkk\fR.</div>
+</div></div>
+
+<h2 id="cast8"><a href="#cast8"><span class="cislo">8.</span> Tipy a zkušenosti</a></h2>
+<ul><li>Častou začátečnickou chybou je očekávání, že když za příkaz „man“ zadáte více neúplných názvů, zobrazí manuálovou stránku pro každý z nich. Jenže to funguje jen někdy, takže se dříve nebo později „spálíte“. Zkuste, co udělá příkaz „man apt get“ (nebo pokud máte nainstalovaný git, můžete zkusit „man git diff“).
+</li><li>Prázdné řádky ve zdrojovém kódu manuálové stránky jsou tiše ignorovány. Pomocí příkazů lze vložit nanajvýš jeden zcela prázdný řádek, více prázdných řádek se při zobrazení sloučí do jedné.
+</li><li>Pro většinu uživatelů jsou nejužitečnější manuálové sekce 1 (patří běžné uživatelské příkazy), 8 (příkazy pro správu systému) a 5 (dokumentace konfiguračních souborů, souborových systémů a dalších prvků operačního systému).
+</li><li>Na místě souboru s m. stránkou může být symbolický odkaz na jiný takový soubor; toho lze využít k vytváření „aliasů“.
+</li></ul>
+<h3 id="cast8x1"><span><a href="#cast8x1" title="kapitola 16 (Manuálové stránky), sekce 8 (Tipy a zkušenosti), podsekce 1 (Obvyklé názvy sekcí m. stránky)"><sup>8/</sup>1 Obvyklé názvy sekcí m. stránky</a></span></h3>
+<p class="ponadpisu">
+Toto jsou sekce obvyklé na jedné manuálové stránce; neplést si s manuálovými sekcemi.
+</p>
+<ul><li>1. JMÉNO (NAME)
+</li><li>2. POUŽITÍ (SYNOPSIS)
+</li><li>3. POPIS (DESCRIPTION) — Obvykle se dělí na podsekce a obsahuje podrobný popis.
+</li><li>4. VOLBY (OPTIONS)
+</li><li>5. PŘÍKLADY (EXAMPLES) (volitelná)
+</li><li>6. POZNÁMKY (NOTES) (volitelná)
+</li><li>7. LICENCE (LICENSE) (má smysl hlavně u svobodného software)
+</li><li>8. VIZ TAKÉ (SEE ALSO) (volitelná)
+</li></ul>
+<h2 id="cast9"><a href="#cast9"><span class="cislo">9.</span> Další zdroje informací</a></h2>
+<ul class="kompaktni"><li><a href="https://cs.wikipedia.org/wiki/Manu%C3%A1lov%C3%A1_str%C3%A1nka">Wikipedie: Manuálová stránka</a>
+</li><li><a href="https://www.youtube.com/watch?v=j8Yqhesn9dY">YouTube: Dokumentace příkazů</a>
+</li><li><a href="https://www.youtube.com/watch?v=v0z14fE6icw">YouTube: Programování v shellu 4</a>
+</li><li><a href="https://www.abclinuxu.cz/clanky/navody/manualove-stranky">ABC Linuxu: Manuálové stránky</a>
+</li><li><a href="https://www.youtube.com/watch?v=RzAkjX_9B7E">YouTube: Mastering Linux Man Pages</a> (anglicky)
+</li><li><a href="https://www.youtube.com/watch?v=KVhFUwdsE2w">YouTube: Write your own man page in Linux</a> (anglicky)
+</li><li><a href="http://manpages.ubuntu.com/manpages/focal/en/man7/groff_man.7.html">man groff_man.7</a>, <a href="http://manpages.ubuntu.com/manpages/focal/en/man7/groff.7.html">man groff.7</a> (anglicky, nutno doinstalovat balíček „groff“)
+</li><li><a href="https://github.com/tldr-pages/tldr/blob/master/pages/common/man.md">TL;DR: man</a> (anglicky)
+</li><li><a href="https://www.kernel.org/doc/man-pages/">Oficiální stránka jaderného projektu manuálových stránek</a> (anglicky)
+</li><li><a href="https://nongnu.org/man-db/">Oficiální stránky man-db</a> (anglicky)
+</li><li><a href="https://packages.ubuntu.com/focal/man-db">Balíček man-db</a> (anglicky)
+</li></ul>
+<h2 id="cast10"><a href="#cast10"><span class="cislo">10.</span> Zákulisí kapitoly</a></h2>
+<p class="ponadpisu">
+V této verzi kapitoly chybí:
+</p>
+<ul class="kompaktni"><li>nic
+</li></ul><p class="ponadpisu">
+Tato kapitola záměrně nepokrývá:
+</p>
+<ul class="kompaktni"><li>nic
+</li></ul><div class="ppc"><div id="kapx4cc9860ppc1"><a href="#kapx4cc9860ppcr1" class="cislopozn">1</a>&nbsp;Uvedete-li v tomto zaklínadle na místo názvu více parametrů, příkaz man se je nejprve pokusí složit pomlčkami. Teprve pokud takovou m. stránku nenajde, zkusí zpracovat každý parametr zvlášť.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx4cc9860ppc2"><a href="#kapx4cc9860ppcr2" class="cislopozn">2</a>&nbsp;Pokud znáte sekce, z nichž chcete stránky zobrazit, doporučuji při zobrazování více stránek zadávat jejich úplné názvy. Zabráníte tím zobrazení stejnojmenných m. stránek z nechtěných sekcí.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx4cc9860ppc3"><a href="#kapx4cc9860ppcr3" class="cislopozn">3</a>&nbsp;Zadaný soubor může, ale nemusí být komprimovaný příkazem „gzip“. Na název a umístění zadaného souboru nejsou kladena žádná zvláštní omezení. (Ale pokud název začíná pomlčkou, musíte použít oddělovač „--“.)</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx4cc9860ppc4"><a href="#kapx4cc9860ppcr4" class="cislopozn">4</a>&nbsp;Je-li m. stránka dostupná ve více lokalizacích, příkaz s parametrem „-a“ je vypíše všechny.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx4cc9860ppc5"><a href="#kapx4cc9860ppcr5" class="cislopozn">5</a>&nbsp;Obvyklé je „Dole uprostřed“ uvést datum poslední úpravy manuálové stránky, „Dole vlevo“ uvést název a verzi balíčku či projektu a „Nahoře uprostřed“ neuvádět.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx4cc9860ppc6"><a href="#kapx4cc9860ppcr6" class="cislopozn">6</a>&nbsp;Varianta A se vyhodnotí jako konec řádky; varianta B se zcela vypustí (tzn. řádek s komentářem se po vypuštění komentáře sloučí s následujícím řádkem).</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx4cc9860ppc7"><a href="#kapx4cc9860ppcr7" class="cislopozn">7</a>&nbsp;Oba typy nadpisů ruší odsazení. Nadpisy sekcí je zvykem psát VELKÝMI PÍSMENY, ačkoliv to „man“ nevynucuje.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx4cc9860ppc8"><a href="#kapx4cc9860ppcr8" class="cislopozn">8</a>&nbsp;Formátovací přepínač v každém štítku platí jen do konce štítku. To platí i u posledního vedlejšího štítku.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx4cc9860ppc9"><a href="#kapx4cc9860ppcr9" class="cislopozn">9</a>&nbsp;Samotný příkaz „.RS“ ukončí řádek, ale nikoliv odstavec, proto i typ písma zůstává zachovaný.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx4cc9860ppc10"><a href="#kapx4cc9860ppcr10" class="cislopozn">10</a>&nbsp;Samotný příkaz „.RE“ ukončí řádku, ale nikoliv odstavec, proto i typ písma zůstává zachovaný.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx4cc9860ppc11"><a href="#kapx4cc9860ppcr11" class="cislopozn">11</a>&nbsp;Samotný příkaz „.RE 1“ ukončí řádek, ale nikoliv odstavec, proto i typ písma zůstává zachovaný.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx4cc9860ppc12"><a href="#kapx4cc9860ppcr12" class="cislopozn">12</a>&nbsp;Zarovnání odstavců vpravo v podání manuálových stránek nevypadá moc dobře; než se rozhodnete ho použít, raději ho nejprve vyzkoušejte.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx4cc9860ppc13"><a href="#kapx4cc9860ppcr13" class="cislopozn">13</a>&nbsp;Místo podtrženého písma mohou některé terminály zobrazovat text kurzívou. Mezery uprostřed podtrženého textu nebudou podtrženy.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx4cc9860ppc14"><a href="#kapx4cc9860ppcr14" class="cislopozn">14</a>&nbsp;Tento příkaz vypíše: obyčejným písmem „[“, tučně volbu, podtrženým písmem argument (je-li uveden) a obyčejným písmem „]“, to vše oddělené mezerami. Používá se především v „synopsi“ příkazu. Pokud volba nebo argument obsahují mezeru, je nutno příslušnou část uzavřít do dvojitých uvozovek.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx4cc9860ppc15"><a href="#kapx4cc9860ppcr15" class="cislopozn">15</a>&nbsp;Uvnitř bloku „.EX“ až „.EE“ neprobíhá automatické zalamování řádků a jejich odsazení mezerami či tabulátory bude na výstupu zachováno; použije se neproporcionální písmo (v terminálu je totéž jako to normální). Ostatní příkazy jsou však interpretovány.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx4cc9860ppc16"><a href="#kapx4cc9860ppcr16" class="cislopozn">16</a>&nbsp;V terminálu se hypertextový odkaz realizuje tak, že se vypíše text odkazu a za ním URI v kulatých závorkách. Při exportu do HTML se ovšem vytvoří skutečný hypertextový odkaz.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx4cc9860ppc17"><a href="#kapx4cc9860ppcr17" class="cislopozn">17</a>&nbsp;Poznámka: přepínač „.nf“ nevypne zalamování příliš dlouhých řádek.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx4cc9860ppc18"><a href="#kapx4cc9860ppcr18" class="cislopozn">18</a>&nbsp;Také pomůže před tečku umístit přepínač typu písma (např. „\fR“).</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx4cc9860ppc19"><a href="#kapx4cc9860ppcr19" class="cislopozn">19</a>&nbsp;Pokud místo této značky použijete přímo nezlomitelnou mezeru, ta se neroztáhne při zarovnání do bloku a bude podtržena v případě přepnutí na podtržené písmo.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+<div id="kapx4cc9860ppc20"><a href="#kapx4cc9860ppcr20" class="cislopozn">20</a>&nbsp;Pokud tyto znaky použijete přímo, terminál místo nich může zobrazit jiné, podobné znaky, což může způsobit problémy, pokud se je uživatel pokusí z manuálové stránky vykopírovat. Zpětné lomítko přímo použít nemůžete.</div>
+<script>document.write("<div class=\"zpetdotextu\" onclick=\"window.history.back()\">zpět do textu</div>");</script>
+</div>
+
+
+<nav class="spodni">
+<a href="index.htm" class="naindex">🗐&nbsp;Přehled&nbsp;kapitol</a>
+<div class="naslkap">
+<a href="markdown.htm" rel="next" title="11. Markdown">Následující&nbsp;kapitola/dodatek:<br><span class="cislo">11</span>
+<span class="nazev">Markdown</span></a>
+</div>
+<!--<div><a href="index.htm">🗐&nbsp;Přehled&nbsp;kapitol</a></div>-->
+</nav>
+
+
+<div class="odkazydole"><div><a href="markdown.htm"><img src="obrazky/ik/markdown.png" alt="" width="32" height="32">Markdown</a><a href="bash-interaktivni-rezim.htm"><img src="obrazky/ik/bash.png" alt="" width="32" height="32">Bash / Interaktivní režim</a><a href="promenne.htm"><img src="obrazky/ik/promenne.png" alt="" width="32" height="32">Proměnné prostředí a interpretu</a></div></div>
+
+</article>
+<!-- *** -->
+<footer id="dole">
+<img src="obrazky/by-sa.png" width="88" height="31" alt="[BY-SA]">
+<p>Veškerý obsah této stránky (text, obrázky, zdrojový kód) je možno upravovat a šířit pod podmínkami licence
+<a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
+Upozorňuji, že uvedená licence vyžaduje uvedení seznamu autorů, licence a zdroje a poskytnutí stejné
+či kompatibilní licence k provedeným změnám, jsou-li nějaké. Příslušné údaje jsou dostupné
+na stránce „<a href="x-autori.htm">Přehled autorů</a>“.
+Šíření obsahu bez těchto údajů nebo šíření upravené verze bez poskytnutí adekvátní
+licence k provedeným úpravám je pravděpodobně porušení licenčních podmínek a může být postihováno.
+Poskytování zdrojového kódu při šíření není touto licencí vyžadováno.</p><p>Pro nové verze, další informace, aktuální zdrojový kód
+a možnost se zapojit do projektu „Linux: Kniha kouzel“ navštivte jeho
+<a href="https://github.com/singularis-mzf/linux-spellbook">repozitář na GitHubu</a>.
+</footer>
+</div>
+
+<nav class="menu">
+<!-- MENU OSNOVA -->
+<a href="#menuosnova" id="menuosnova"><span class="prvnipismeno">O</span>snova</a>
+<aside class="menuosnova">
+<div><div class="nadpis">Osnova</div><div class="polozky">
+<a href="#cast1" class="sekce">1 Úvod</a>
+<a href="#cast2" class="sekce">2 Definice</a>
+<a href="#cast3" class="sekce">3 Zaklínadla: hlavní</a>
+<a href="#cast3x1" class="podsekce">/1 Zobrazit manuálové stránky</a>
+<a href="#cast3x2" class="podsekce">/2 Seznamy manuálových stránek</a>
+<a href="#cast3x3" class="podsekce">/3 Pokročilá práce s manuálovými stránkami</a>
+<a href="#cast4" class="sekce">4 Zaklínadla: syntaxe manuálové stránky</a>
+<a href="#cast4x1" class="podsekce">/1 Hlavní prvky</a>
+<a href="#cast4x2" class="podsekce">/2 Formátování odstavců</a>
+<a href="#cast4x3" class="podsekce">/3 Formátování písma</a>
+<a href="#cast4x4" class="podsekce">/4 Přepínače</a>
+<a href="#cast4x5" class="podsekce">/5 Speciální znaky</a>
+<a href="#cast5" class="sekce">5 Parametry příkazů</a>
+<a href="#cast5x1" class="podsekce">/1 man</a>
+<a href="#cast5x2" class="podsekce">/2 Instalace manuálových stránek</a>
+<a href="#cast6" class="sekce">6 Instalace na Ubuntu</a>
+<a href="#cast7" class="sekce">7 Ukázka</a>
+<a href="#cast8" class="sekce">8 Tipy a zkušenosti</a>
+<a href="#cast8x1" class="podsekce">/1 Obvyklé názvy sekcí m. stránky</a>
+<a href="#cast9" class="sekce">9 Další zdroje informací</a>
+<a href="#cast10" class="sekce">10 Zákulisí kapitoly</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU KAPITOLY -->
+<a href="#menukapitoly" id="menukapitoly"><span class="prvnipismeno">K</span>apitoly</a>
+<aside class="menukapitoly">
+<div><div class="nadpis">Kapitoly</div><div class="polozky">
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/predmluva.png" alt="[]"></span><span class="fragodkazy"><a href="predmluva.htm" class="odkaz"><span><span class="cislo">1</span>Předmluva</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zakladni-znalosti.png" alt="[]"></span><span class="fragodkazy"><a href="zakladni-znalosti.htm" class="odkaz"><span><span class="cislo">2</span>Základní znalosti</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/awk.png" alt="[]"></span><span class="fragodkazy"><a href="awk.htm" class="odkaz"><span><span class="cislo">3</span>AWK</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/bash.png" alt="[]"></span><span class="fragodkazy"><a href="bash.htm" class="odkaz"><span><span class="cislo">4</span>Bash</span></a><span class="podkpodkazy"><a href="bash-funkce-a-skripty.htm" class="odkaz"><span><span class="cislo">4.1</span>Funkce a skripty</span></a><a href="bash-interaktivni-rezim.htm" class="odkaz"><span><span class="cislo">4.2</span>Interaktivní režim</span></a><a href="bash-vstup-vystup.htm" class="odkaz"><span><span class="cislo">4.3</span>Vstup, výstup a přesměrování</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/datum-cas-kalendar.png" alt="[]"></span><span class="fragodkazy"><a href="datum-cas-kalendar.htm" class="odkaz"><span><span class="cislo">5</span>Datum, čas a kalendář</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/diskove-oddily.png" alt="[]"></span><span class="fragodkazy"><a href="diskove-oddily.htm" class="odkaz"><span><span class="cislo">6</span>Diskové oddíly</span></a><span class="podkpodkazy"><a href="diskove-oddily-btrfs.htm" class="odkaz"><span><span class="cislo">6.1</span>Btrfs</span></a><a href="diskove-oddily-lvm.htm" class="odkaz"><span><span class="cislo">6.2</span>LVM</span></a><a href="diskove-oddily-softwarovy-raid.htm" class="odkaz"><span><span class="cislo">6.3</span>Softwarový RAID</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/git.png" alt="[]"></span><span class="fragodkazy"><a href="git.htm" class="odkaz"><span><span class="cislo">7</span>Git</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/hledani-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="hledani-souboru.htm" class="odkaz"><span><span class="cislo">8</span>Hledání souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/make.png" alt="[]"></span><span class="fragodkazy"><a href="make.htm" class="odkaz"><span><span class="cislo">9</span>Make</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/manualove-stranky.png" alt="[]"></span><span class="fragodkazy"><a href="manualove-stranky.htm" class="odkaz"><span><span class="cislo">10</span>Manuálové stránky</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/markdown.png" alt="[]"></span><span class="fragodkazy"><a href="markdown.htm" class="odkaz"><span><span class="cislo">11</span>Markdown</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/metaprikazy.png" alt="[]"></span><span class="fragodkazy"><a href="metaprikazy.htm" class="odkaz"><span><span class="cislo">12</span>Metapříkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/nabidka-aplikaci.png" alt="[]"></span><span class="fragodkazy"><a href="nabidka-aplikaci.htm" class="odkaz"><span><span class="cislo">13</span>Nabídka aplikací</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/odkazy.png" alt="[]"></span><span class="fragodkazy"><a href="odkazy.htm" class="odkaz"><span><span class="cislo">14</span>Pevné a symbolické odkazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-moduly.png" alt="[]"></span><span class="fragodkazy"><a href="perl-moduly.htm" class="odkaz"><span><span class="cislo">15</span>Perl: moduly a objekty</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/perl-zaklady.png" alt="[]"></span><span class="fragodkazy"><a href="perl-zaklady.htm" class="odkaz"><span><span class="cislo">16</span>Perl: základy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prace-s-archivy.png" alt="[]"></span><span class="fragodkazy"><a href="prace-s-archivy.htm" class="odkaz"><span><span class="cislo">17</span>Práce s archivy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/prohlizeni-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="prohlizeni-textovych-souboru.htm" class="odkaz"><span><span class="cislo">18</span>Prohlížení textových souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/promenne.png" alt="[]"></span><span class="fragodkazy"><a href="promenne.htm" class="odkaz"><span><span class="cislo">19</span>Proměnné prostředí a interpretu</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/regularni-vyrazy.png" alt="[]"></span><span class="fragodkazy"><a href="regularni-vyrazy.htm" class="odkaz"><span><span class="cislo">20</span>Regulární výrazy</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sed.png" alt="[]"></span><span class="fragodkazy"><a href="sed.htm" class="odkaz"><span><span class="cislo">21</span>Sed</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/soubory-a-adresare.png" alt="[]"></span><span class="fragodkazy"><a href="soubory-a-adresare.htm" class="odkaz"><span><span class="cislo">22</span>Soubory a adresáře</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-balicku.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-balicku.htm" class="odkaz"><span><span class="cislo">23</span>Správa balíčků</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-procesu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-procesu.htm" class="odkaz"><span><span class="cislo">24</span>Správa procesů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/sprava-uzivatelskych-uctu.png" alt="[]"></span><span class="fragodkazy"><a href="sprava-uzivatelskych-uctu.htm" class="odkaz"><span><span class="cislo">25</span>Správa uživatelských účtů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/system.png" alt="[]"></span><span class="fragodkazy"><a href="system.htm" class="odkaz"><span><span class="cislo">26</span>Systém</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/terminal.png" alt="[]"></span><span class="fragodkazy"><a href="terminal.htm" class="odkaz"><span><span class="cislo">27</span>Terminál</span></a><span class="podkpodkazy"><a href="terminal-emodzi.htm" class="odkaz"><span><span class="cislo">27.1</span>Emodži</span></a></span></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/vim.png" alt="[]"></span><span class="fragodkazy"><a href="vim.htm" class="odkaz"><span><span class="cislo">28</span>Vim</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-binarnich-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-binarnich-souboru.htm" class="odkaz"><span><span class="cislo">29</span>Zpracování binárních souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-textovych-souboru.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-textovych-souboru.htm" class="odkaz"><span><span class="cislo">30</span>Zpracování textových souborů</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/zpracovani-videa-a-zvuku.png" alt="[]"></span><span class="fragodkazy"><a href="zpracovani-videa-a-zvuku.htm" class="odkaz"><span><span class="cislo">31</span>Zpracování videa a zvuku</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/licence.png" alt="[]"></span><span class="fragodkazy"><a href="licence.htm" class="odkaz"><span><span class="cislo">32</span>Licence</span></a></span></div>
+<div class="fragodkaz"><span class="ikona"><img src="obrazky/ik/rejstrik.png" alt="[]"></span><span class="fragodkazy"><a href="rejstrik.htm" class="odkaz"><span><span class="cislo">33</span>Rejstřík podle klasických příkazů</span></a></span></div>
+</div></div>
+<a href="#zavritmenu" id="zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU ŠTÍTKY -->
+<a href="#menustitky" id="menustitky"><span class="prvnipismeno">Š</span>títky</a>
+<aside class="menustitky">
+<div><div class="nadpis">Štítky</div><div class="polozky">
+<a href="x-stitky.htm#x5208bbb">adresáře&nbsp;&nbsp;(3)</a>
+<a href="x-stitky.htm#xb0a5782">aplikace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x583f72a">apt&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa619ea3">automatizace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xb2b2bff">bajty&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5c1d5fa">barvy&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xd574d4b">bash&nbsp;&nbsp;(9)</a>
+<a href="x-stitky.htm#xedb0c6c">čas&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x8d777f3">data&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xcd6caf8">démoni&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x38864cc">dokumentace&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5aee9db">editor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x905aee4">emodži&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xb05338c">Flatpak&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x1e3042b">GUI&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x891be82">hešovací funkce&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x4e36c04">hledání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c8789a">klávesnice&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x7aeae24">kódování&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa473827">komprese&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x79108ba">LVM&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x2d47ed4">odkládací prostor&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xd8dfe69">ovládání&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x0114ad0">Perl&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x84913e6">procesy&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xa9c449d">program&nbsp;&nbsp;(11)</a>
+<a href="x-stitky.htm#xc65388d">programování&nbsp;&nbsp;(5)</a>
+<a href="x-stitky.htm#x43a526a">přístupová práva&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#xcf91513">RAID&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x5c5f44a">ramdisk&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9ad09a9">Snap&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x23be896">soubory&nbsp;&nbsp;(2)</a>
+<a href="x-stitky.htm#x12e55d8">správa verzí&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x9dcbb0b">syntaxe&nbsp;&nbsp;(7)</a>
+<a href="x-stitky.htm#xba98a3b">systém&nbsp;&nbsp;(9)</a>
+<a href="x-stitky.htm#x3972255">systém souborů&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x3c01147">tematický okruh&nbsp;&nbsp;(22)</a>
+<a href="x-stitky.htm#xf54f028">textové soubory&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x7f6c02d">Unicode&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x421b47f">video&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#xadcdbd7">zip&nbsp;&nbsp;(1)</a>
+<a href="x-stitky.htm#x908961b">zpracování textu&nbsp;&nbsp;(5)</a>
+<a href="x-stitky.htm#x04b5cff">zvuk&nbsp;&nbsp;(1)</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+<!-- MENU NÁPOVĚDA -->
+<a href="#menunapoveda" id="menunapoveda"><span class="prvnipismeno">N</span>ápověda</a>
+<aside class="menunapoveda">
+<div><div class="nadpis">Nápověda</div><div class="polozky">
+<a href="predmluva.htm">Předmluva</a>
+<a href="https://singularis-mzf.github.io/">Ostatní verze knihy</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook">Repozitář na GitHubu</a>
+<a href="https://github.com/singularis-mzf/linux-spellbook/blob/stabiln%C3%AD/dokumentace/odm%C4%9Bna-za-sestaven%C3%AD.md">Odměna za sestavení (prémiové kapitoly)</a>
+</div></div>
+<a href="#zavritmenu" class="zavritmenu">Zavřít&nbsp;menu</a>
+</aside>
+</nav>
+
+<a href="#nahore" id="odkaznahoru" title="NAHORU − na začátek stránky">▴<!--⤒--></a>
+<a href="#dole" id="odkazdolu" title="DOLŮ − na konec stránky">▾<!--⤓--></a>
+
+</div>
+</body>
+</html>
